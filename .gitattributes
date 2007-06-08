@@ -4,13 +4,14 @@
 doc/installation-bindings.txt -text
 doc/installation-gecode.txt -text
 doc/installation.txt -text
+example/example_helper.rb -text
 ext/extconf.rb -text
 ext/missing.cpp -text
 ext/missing.h -text
 ext/vararray.cpp -text
 ext/vararray.h -text
-lib/bindings.rb -text
 lib/bindings/bindings.rb -text
+lib/gecoder.rb -text
 tasks/all_tasks.rb -text
 tasks/distribution.rake -text
 vendor/rust/README -text
