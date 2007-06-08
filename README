@@ -5,8 +5,9 @@ for developing constraint-based systems and applications.
 
 == Installation
 
-Gecode/R requires Gecode 1.3.1 . See 
-http://www.gecode.org/gecode-doc-latest/PageComp.html for installation
+Gecode/R requires Gecode 1.3.1, which can be downloaded from 
+http://www.gecode.org/download.html . See 
+http://www.gecode.org/gecode-doc-latest/PageComp.html for the installation
 instructions.
 
 At this point no prebuilt gem is provided and has to be built from source. 
