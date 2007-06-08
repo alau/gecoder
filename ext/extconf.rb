@@ -1,5 +1,3 @@
-#!/usr/bin/ruby
-
 require 'mkmf'
 require 'pathname'
 
@@ -14,18 +12,17 @@ find_library("gecodeset", "")
 ROOT = Pathname.new(File.dirname(__FILE__) + '/..').realpath
 RUST_INCLUDES = "#{ROOT}/vendor/rust/include"
 BINDINGS_DIR = "#{ROOT}/lib/bindings" 
-CPP_DIR = "#{ROOT}/src/cpp" 
+EXT_DIR = "#{ROOT}/ext"
+ORIGINAL_DIR = Pathname.new('.').realpath
 
-cppflags = "-I#{RUST_INCLUDES} -I#{BINDINGS_DIR}"
+cppflags = "-I#{RUST_INCLUDES} -I#{EXT_DIR}"
 with_cppflags(cppflags) {
 	find_header("rust_conversions.hh", RUST_INCLUDES)
 	find_header("rust_checks.hh", RUST_INCLUDES)
 }
 
-# Create the headers in the C++ source directory. Is there a less dirty way of 
-# specifying where they should be placed?
-Dir.chdir(CPP_DIR)
-# The specification of the bindings
+# Load the specification of the bindings. This creates the headers in the 
+# current directory.
 load "#{BINDINGS_DIR}/bindings.rb"
 
 # Create the makefile.

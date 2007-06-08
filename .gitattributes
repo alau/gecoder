@@ -1,14 +1,18 @@
 * text=auto !eol
-bin/configure_bindings.rb -text
+/README -text
+/Rakefile -text
 doc/installation-bindings.txt -text
 doc/installation-gecode.txt -text
 doc/installation.txt -text
+ext/extconf.rb -text
+ext/missing.cpp -text
+ext/missing.h -text
+ext/vararray.cpp -text
+ext/vararray.h -text
 lib/bindings.rb -text
 lib/bindings/bindings.rb -text
-src/cpp/missing.cpp -text
-src/cpp/missing.h -text
-src/cpp/vararray.cpp -text
-src/cpp/vararray.h -text
+tasks/all_tasks.rb -text
+tasks/distribution.rake -text
 vendor/rust/README -text
 vendor/rust/bin/cxxgenerator.rb -text
 vendor/rust/include/rust_checks.hh -text
