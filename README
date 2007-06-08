@@ -5,6 +5,10 @@ for developing constraint-based systems and applications.
 
 == Installation
 
+Gecode/R requires Gecode 1.3.1 . See 
+http://www.gecode.org/gecode-doc-latest/PageComp.html for installation
+instructions.
+
 At this point no prebuilt gem is provided and has to be built from source. 
 Check out the source code from svn://rubyforge.org/var/svn/gecoder/trunk, enter
 the root of the source and then do the following to build the gem and install 
