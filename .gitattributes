@@ -5,6 +5,7 @@ doc/installation-bindings.txt -text
 doc/installation-gecode.txt -text
 doc/installation.txt -text
 example/example_helper.rb -text
+example/raw_bindings.rb -text
 ext/extconf.rb -text
 ext/missing.cpp -text
 ext/missing.h -text
