@@ -49,7 +49,7 @@ Gecode::IntArgs ruby2Gecode_IntArgs(VALUE arr, int argn)
 @
 
 
-Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "Gecode" do |b|
+Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 	b.include_header 'gecode/kernel.hh', Rust::Bindings::HeaderGlobal
 	b.include_header 'gecode/int.hh', Rust::Bindings::HeaderGlobal
 	b.include_header 'gecode/search.hh', Rust::Bindings::HeaderGlobal
@@ -58,8 +58,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "Gecode" do |b|
 	
 	b.add_custom_definition ruby2intargs
 	
-	b.add_namespace "Gecode", "Gecode" do |ns|
-		ns.add_enum "BvarSel" do |enum|
+  # Is it possible to use namespaces with multiple levels in Rust? I.e. use
+  # Gecode::Raw instead of GecodeRaw here (and avoid the hidious renaming)
+  # when requiring them.
+	b.add_namespace "GecodeRaw", "Gecode" do |ns|
+    ns.add_enum "BvarSel" do |enum|
 			enum.add_value "BVAR_NONE"
 			enum.add_value "BVAR_MIN_MIN"
 			enum.add_value "BVAR_MIN_MAX"
@@ -2030,5 +2033,3 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "Gecode" do |b|
 		end
 	end
 end
-
-

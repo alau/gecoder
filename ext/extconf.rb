@@ -26,4 +26,4 @@ with_cppflags(cppflags) {
 load "#{BINDINGS_DIR}/bindings.rb"
 
 # Create the makefile.
-create_makefile("Gecode")
+create_makefile("gecode")
