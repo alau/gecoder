@@ -95,5 +95,12 @@ module Gecode::Raw
       @size = new_size
     end
   end
+  
+  class IntVar
+    # Aliases to make method-names more ruby-like.
+    alias_method :assigned?, :assigned
+    alias_method :in?, :in
+    alias_method :range?, :range
+  end
 end
 

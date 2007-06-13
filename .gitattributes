@@ -14,6 +14,8 @@ ext/vararray.h -text
 lib/bindings/bindings.rb -text
 lib/gecoder.rb -text
 lib/interface/binding_changes.rb -text
+lib/interface/model.rb -text
+specs/model.rb -text
 specs/space.rb -text
 specs/spec_helper.rb -text
 tasks/all_tasks.rb -text
