@@ -1,3 +1,0 @@
-The following steps are currently required to install Gecode/R:
-1. Install Gecode 1.3.1 (see installation-gecode.txt).
-2. Install the bindings (see installation-bindings.txt).

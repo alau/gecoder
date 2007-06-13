@@ -1,3 +1,0 @@
-The bindings currently have to be configured and compiled in two steps:
-1. Run bin/configure_bindings.rb
-2. Enter the src/cpp dir and run "make".

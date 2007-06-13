@@ -1,3 +1,0 @@
-See Gecode's documentation at 
-http://www.gecode.org/gecode-doc-latest/PageComp.html for instructions on how
-to compile and install Gecode.
