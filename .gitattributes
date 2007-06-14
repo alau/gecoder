@@ -17,9 +17,9 @@ lib/gecoder/interface/constraints.rb -text
 lib/gecoder/interface/constraints/relation.rb -text
 lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/search.rb -text
+specs/constraints/relation_constraints.rb -text
 specs/int_var.rb -text
 specs/model.rb -text
-specs/relation_constraints.rb -text
 specs/search.rb -text
 specs/space.rb -text
 specs/spec_helper.rb -text
