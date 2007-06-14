@@ -13,3 +13,4 @@ end
 require 'interface/binding_changes'
 require 'interface/model'
 require 'interface/search'
+require 'interface/relation_constraints'
