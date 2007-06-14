@@ -22,18 +22,21 @@ module Gecode
     def int_var(*domain_args)
       range = domain_range(*domain_args)
       index = active_space.new_int_vars(range.begin, range.end).first
-      var = FreeIntVar.new(self, index)
+      construct_int_var(index, *domain_args)
+    end
+    
+    # Creates an array containing the specified number of integer variables 
+    # with the specified domain. The domain can either be a range or a number 
+    # of elements. 
+    def int_var_array(count, *domain_args)
+      # TODO: Maybe the custom domain should be specified as an array instead? 
       
-      if domain_args.size > 1
-        # Place an additional domain constraint on the variable with the 
-        # arguments as domain.
-        # TODO: use the model's way of defining domain constraints when 
-        # available.
-        domain_set = Gecode::Raw::IntSet.new(domain_args, domain_args.size)
-        Gecode::Raw::dom(active_space, var.bind, domain_set, 
-          Gecode::Raw::ICL_DEF)
+      range = domain_range(*domain_args)
+      variables = []
+      active_space.new_int_vars(range.begin, range.end, count).each do |index|
+        variables << construct_int_var(index, *domain_args)
       end
-      return var
+      return variables
     end
     
     private
@@ -58,6 +61,23 @@ module Gecode
         end
       end
       return min..max
+    end
+    
+    # Creates an integer variable from the specified index and domain. The 
+    # domain can either be given as a range or as a number of elements.
+    def construct_int_var(index, *domain_args)
+      var = FreeIntVar.new(self, index)
+      
+      if domain_args.size > 1
+        # Place an additional domain constraint on the variable with the 
+        # arguments as domain.
+        # TODO: use the model's way of defining domain constraints when 
+        # available.
+        domain_set = Gecode::Raw::IntSet.new(domain_args, domain_args.size)
+        Gecode::Raw::dom(active_space, var.bind, domain_set, 
+          Gecode::Raw::ICL_DEF)
+      end
+      return var
     end
   end
   
