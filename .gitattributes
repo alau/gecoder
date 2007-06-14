@@ -21,6 +21,7 @@ specs/space.rb -text
 specs/spec_helper.rb -text
 tasks/all_tasks.rb -text
 tasks/distribution.rake -text
+tasks/specs.rake -text
 vendor/rust/README -text
 vendor/rust/bin/cxxgenerator.rb -text
 vendor/rust/include/rust_checks.hh -text
