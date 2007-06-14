@@ -1,11 +1,11 @@
 module Gecode
   class FreeIntVar
-    # Specified that a constraint must hold for the integer variable.
+    # Specifies that a constraint must hold for the integer variable.
     def must
       Gecode::IntVarConstraintExpression.new(active_space, self.bind)
     end
     
-    # Specified that the negation of a constraint must hold for the integer 
+    # Specifies that the negation of a constraint must hold for the integer 
     # variable.
     def must_not
       Gecode::IntVarConstraintExpression.new(active_space, self.bind, true)
