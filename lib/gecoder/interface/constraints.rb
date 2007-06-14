@@ -1,1 +1,1 @@
-require 'gecoder/interface/constraints/relation_constraints'
+require 'gecoder/interface/constraints/relation'
