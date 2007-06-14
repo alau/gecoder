@@ -12,3 +12,4 @@ end
 # Interface
 require 'interface/binding_changes'
 require 'interface/model'
+require 'interface/search'

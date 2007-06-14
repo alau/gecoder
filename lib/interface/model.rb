@@ -10,7 +10,8 @@ module Gecode
     # The base from which searches are made. 
     attr :base_space
     # The currently active space (the one which variables refer to).
-    attr :active_space
+    attr_accessor :active_space
+    protected :active_space=
     
     def initialize
       @active_space = @base_space = Gecode::Raw::Space.new
@@ -20,7 +21,7 @@ module Gecode
     # either be a range or a number of elements. 
     def int_var(*domain_args)
       range = domain_range(*domain_args)
-      index = @active_space.new_int_vars(range.begin, range.end).first
+      index = active_space.new_int_vars(range.begin, range.end).first
       var = FreeIntVar.new(self, index)
       
       if domain_args.size > 1
@@ -62,6 +63,8 @@ module Gecode
   
   # An IntVar that is bound to a model, but not to a particular space.  
   class FreeIntVar
+    attr_accessor :model
+  
     # Creates an int variable with the specified index.
     def initialize(model, index)
       @model = model
@@ -80,7 +83,14 @@ module Gecode
     # Binds the int variable to the currently active space of the model, 
     # returning the bound int variable.
     def bind
-      @model.active_space.int_var(@index)
+      active_space.int_var(@index)
+    end
+    
+    private
+    
+    # Returns the space that the int variable should bind to when needed.
+    def active_space
+      @model.active_space
     end
   end
 end

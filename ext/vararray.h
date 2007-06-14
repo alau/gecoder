@@ -55,9 +55,9 @@ class MIntVarArray : public MVarArray
 	public:
 		MIntVarArray();
 		MIntVarArray(const Gecode::IntVarArray &arr);
-		MIntVarArray (Space *home, int n);
-		MIntVarArray (Space *home, int n, int min, int max);
-		MIntVarArray (Space *home, int n, const IntSet &s);
+		MIntVarArray(Space *home, int n);
+		MIntVarArray(Space *home, int n, int min, int max);
+		MIntVarArray(Space *home, int n, const IntSet &s);
 		
 		~MIntVarArray();
 		

@@ -33,34 +33,39 @@ module Gecode::Raw
 
   # A store in which int variables are created and stored.
   class IntVarStore
+    # Design note: The store used to double its size when it needed to grow
+    # leaving unallocated slots (in rev 16). This was changed to only growing
+    # the amount of space needed because the additional information about which
+    # slot is the next unallocated one could not be encoded without changes to
+    # the bindings (and without that information we can not deduce the store
+    # from the new copy of space). So for additional performance the bindings 
+    # should grow the array more than needed (when this is moved to the bindings).
+    
     private
   
-    # The default capacity of the store if nothing else is specified.
-    DEFAULT_CAPACITY = 10
-    # The factor that the store should grow with when needed. The factor two
-    # is taken from http://en.wikipedia.org/wiki/Dynamic_array#Analysis and is
-    # not based on any application-specific reasoning.
-    GROWTH_RATE = 2
     # A string that identifies the array used by the store.
     ARRAY_IDENTIFIER = 'int_array'
   
     public
     
     # Creates a store for the specified space with the specified capacit.
-    def initialize(space, initial_capacity = DEFAULT_CAPACITY)
-      @next_index = 0
-      @size = initial_capacity
+    def initialize(space)
+      @var_array = space.int_var_array(ARRAY_IDENTIFIER)
+      if @var_array.nil?
+        # Create a new one.
+        @var_array = Gecode::Raw::IntVarArray.new(space, 0)
+        space.own(@var_array, ARRAY_IDENTIFIER)
+      end
+
+      @size = @var_array.size
+      @next_index = @size
       @space = space
-      @var_array = Gecode::Raw::IntVarArray.new(@space, @size)
-      space.own(@var_array, ARRAY_IDENTIFIER)
     end
     
     # Creates the specified number of new int variables with the specified
     # range as domain. Returns the indices of the created variables as an array.
     def new_vars(min, max, count = 1)
-      if @next_index + count > @size
-        grow(@size * GROWTH_RATE)
-      end
+      grow(@next_index + count) # See the design note for more information.
       count.times do |i|
         @var_array[@next_index] = Gecode::Raw::IntVar.new(@space, 
           min, max)
