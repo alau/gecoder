@@ -41,9 +41,7 @@ describe Gecode::FreeIntVar, ' (relation constraints)' do
   }.each_pair do |relation, expected_range|
     it "should handle #{relation} with constant integers" do
       @model.add_constraint(int, relation)
-      var = @model.solution.var
-      ((var.min)..(var.max)).should == expected_range
-      var.size.should == expected_range.to_a.size
+      @model.solution.var.should have_domain(expected_range)
     end
   end
   
@@ -55,17 +53,14 @@ describe Gecode::FreeIntVar, ' (relation constraints)' do
   }.each_pair do |relation, expected_range|
     it "should handle negated #{relation} with constant integers" do
       @model.add_negated_constraint(int, relation)
-      var = @model.solution.var
-      ((var.min)..(var.max)).should == expected_range
-      var.size.should == expected_range.to_a.size
+      @model.solution.var.should have_domain(expected_range)
     end
   end
   
   # Inequality won't result in a range, so it's specified separatly.
   it 'should handle negated == with constant integers' do
     @model.add_negated_constraint(int, '==')
-    var = @model.solution.var
-    var.size.should == @domain.to_a.size - 1
-    var.should_not be_in(int)
+    @model.solution.var.should have_domain(
+      (dom_beg..pred).to_a + (succ..dom_end).to_a)
   end
 end
