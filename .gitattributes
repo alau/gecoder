@@ -8,12 +8,12 @@ ext/missing.cpp -text
 ext/missing.h -text
 ext/vararray.cpp -text
 ext/vararray.h -text
-lib/bindings/bindings.rb -text
 lib/gecoder.rb -text
-lib/interface/binding_changes.rb -text
-lib/interface/model.rb -text
-lib/interface/relation_constraints.rb -text
-lib/interface/search.rb -text
+lib/gecoder/bindings/bindings.rb -text
+lib/gecoder/interface/binding_changes.rb -text
+lib/gecoder/interface/model.rb -text
+lib/gecoder/interface/relation_constraints.rb -text
+lib/gecoder/interface/search.rb -text
 specs/model.rb -text
 specs/relation_constraints.rb -text
 specs/search.rb -text
