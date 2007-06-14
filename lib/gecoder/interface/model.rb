@@ -36,7 +36,7 @@ module Gecode
       active_space.new_int_vars(range.begin, range.end, count).each do |index|
         variables << construct_int_var(index, *domain_args)
       end
-      return variables
+      return wrap_enum(variables)
     end
     
     private

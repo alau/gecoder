@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-class SampleProblem < Gecode::Model
+class RelationSampleProblem < Gecode::Model
   attr :var
   
   def initialize(domain)
@@ -24,7 +24,7 @@ end
 describe Gecode::FreeIntVar, ' (relation constraints)' do
   before do
     @domain = 1..17
-    @model = SampleProblem.new(@domain)
+    @model = RelationSampleProblem.new(@domain)
   end
   
   int = 4
