@@ -16,11 +16,11 @@ module CustomVarMatchers
     end
     
     def failure_message
-      "expected #{@target.inspect} to have range #{@expected}"
+      "expected #{@target.inspect} to have domain #{@expected.inspect}"
     end
     
     def negative_failure_message
-      "expected #{@target.inspect} not to have range #{@expected}"
+      "expected #{@target.inspect} not to have domain #{@expected.inspect}"
     end
   end
 
