@@ -13,8 +13,9 @@ lib/gecoder/bindings.rb -text
 lib/gecoder/bindings/bindings.rb -text
 lib/gecoder/interface.rb -text
 lib/gecoder/interface/binding_changes.rb -text
+lib/gecoder/interface/constraints.rb -text
+lib/gecoder/interface/constraints/relation_constraints.rb -text
 lib/gecoder/interface/model.rb -text
-lib/gecoder/interface/relation_constraints.rb -text
 lib/gecoder/interface/search.rb -text
 specs/model.rb -text
 specs/relation_constraints.rb -text
