@@ -9,7 +9,9 @@ ext/missing.h -text
 ext/vararray.cpp -text
 ext/vararray.h -text
 lib/gecoder.rb -text
+lib/gecoder/bindings.rb -text
 lib/gecoder/bindings/bindings.rb -text
+lib/gecoder/interface.rb -text
 lib/gecoder/interface/binding_changes.rb -text
 lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/relation_constraints.rb -text

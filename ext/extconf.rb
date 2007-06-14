@@ -11,7 +11,7 @@ find_library("gecodeset", "")
 # Set up some important locations.
 ROOT = Pathname.new(File.dirname(__FILE__) + '/..').realpath
 RUST_INCLUDES = "#{ROOT}/vendor/rust/include"
-BINDINGS_DIR = "#{ROOT}/lib/bindings" 
+BINDINGS_DIR = "#{ROOT}/lib/gecoder/bindings" 
 EXT_DIR = "#{ROOT}/ext"
 ORIGINAL_DIR = Pathname.new('.').realpath
 

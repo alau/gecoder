@@ -23,7 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 
-RUST_PATH = File.dirname(__FILE__) + '/../../vendor/rust'
+RUST_PATH = File.dirname(__FILE__) + '/../../../vendor/rust'
 $:.unshift(RUST_PATH) unless $:.include?(RUST_PATH)
 require 'rust'
 
