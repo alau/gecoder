@@ -58,7 +58,7 @@ module Gecode
     
     private
     
-    # Places the relation constrain corresponding to the specified (integer)
+    # Places the relation constraint corresponding to the specified (integer)
     # relation type (as specified by Gecode) in relation to the specifed 
     # element.
     # 
@@ -69,7 +69,7 @@ module Gecode
         Gecode::Raw::rel(@space, @var, relation_type, element, 
           Gecode::Raw::ICL_DEF)
       else
-        raise TypeError, 'Relations only allows Fixnum.'
+        raise TypeError, 'Relations only allow Fixnum.'
       end
     end
   end
