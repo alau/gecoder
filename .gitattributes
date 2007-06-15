@@ -13,6 +13,7 @@ lib/gecoder/bindings.rb -text
 lib/gecoder/bindings/bindings.rb -text
 lib/gecoder/interface.rb -text
 lib/gecoder/interface/binding_changes.rb -text
+lib/gecoder/interface/branch.rb -text
 lib/gecoder/interface/constraints.rb -text
 lib/gecoder/interface/constraints/distinct.rb -text
 lib/gecoder/interface/constraints/relation.rb -text
@@ -20,6 +21,7 @@ lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/search.rb -text
 specs/binding_changes.rb -text
+specs/branch.rb -text
 specs/constraints/distinct.rb -text
 specs/constraints/relation.rb -text
 specs/enum_wrapper.rb -text
