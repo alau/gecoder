@@ -60,7 +60,7 @@ describe Gecode::Model, ' (branch)' do
     :split_min  => Gecode::Raw::BVAL_SPLIT_MIN,
     :split_max  => Gecode::Raw::BVAL_SPLIT_MAX
   }.each_pair do |name, gecode_const|
-    it "it should support #{name} as value selection strategy" do
+    it "should support #{name} as value selection strategy" do
       Gecode::Raw.should_receive(:branch).once.with(@model.active_space, 
         anything, an_instance_of(Numeric), gecode_const)
       @model.branch_on @vars, :value => name

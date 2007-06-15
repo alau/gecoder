@@ -93,7 +93,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   relations = ['>', '>=', '<', '<=', '==']
   
   relations.each do |relation|
-    it "should handle #{relation}" do
+    it "should handle #{relation} with constant integers" do
       (@x + @y).must.send(relation, 1)
       sol = @model.solution
       sol.should_not be_nil
@@ -102,7 +102,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   end
   
   relations.each do |relation|
-    it "should handle negated #{relation}" do
+    it "should handle negated #{relation} with constant integers" do
       (@x + @y).must_not.send(relation, 1)
       sol = @model.solution
       sol.should_not be_nil
