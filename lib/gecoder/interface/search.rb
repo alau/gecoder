@@ -10,7 +10,7 @@ module Gecode
     
     def initialize_copy(other)
       instance_variables.each do |var|
-        # Copy all int variables uptade their model.
+        # Copy all int variables and update their model.
         if instance_eval(var).kind_of? FreeIntVar
           instance_eval <<-"end_code"
             #{var} = #{var}.clone
@@ -25,7 +25,7 @@ module Gecode
     def solution
       stop = Gecode::Raw::Search::Stop.new
       dfs = Gecode::Raw::DFS.new(@base_space, COPY_DIST, ADAPTATION_DIST, stop)
-      
+
       space = dfs.next
       if space.nil?
         nil
