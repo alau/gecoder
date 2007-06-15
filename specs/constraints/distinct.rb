@@ -15,6 +15,12 @@ describe 'distinct constraints' do
     @model = DistinctSampleProblem.new
   end
   
+  it 'should post a distinct constraint in Gecode' do
+    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+      anything, Gecode::Raw::ICL_DEF)
+    @model.vars.must_be.distinct
+  end
+  
   it 'should constrain variables to be distinct' do
     # This won't work well without branching or propagation strengths. So this
     # just shows that the distinct constraint will cause trivially unsolvable
