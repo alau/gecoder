@@ -12,29 +12,31 @@ module Gecode
       class <<enum
         # Specifies that a constraint must hold for the integer variable enum.
         def must
-          IntVarEnumConstraintExpression.new(active_space, to_int_array)
+          IntVarEnumConstraintExpression.new(active_space, to_int_var_array)
         end
         alias_method :must_be, :must
         
         # Specifies that the negation of a constraint must hold for the integer 
         # variable.
         def must_not
-          IntVarEnumConstraintExpression.new(active_space, to_int_array, true)
+          IntVarEnumConstraintExpression.new(active_space, to_int_var_array, 
+            true)
         end
         alias_method :must_not_be, :must_not
+        
+        # Returns an int variable array with all the bound variables.
+        def to_int_var_array
+          elements = to_a
+          arr = Gecode::Raw::IntVarArray.new(active_space, elements.size)
+          elements.each_with_index{ |var, index| arr[index] = var.bind }
+          return arr
+        end
         
         private
         
         # Gets the current space of the model the array is connected to.
         def active_space
           @model.active_space
-        end
-        
-        # Returns an int array with all the bound variables.
-        def to_int_array
-          arr = Gecode::Raw::IntVarArray.new(active_space, size)
-          to_a.each_with_index{ |var, index| arr[index] = var.bind }
-          return arr
         end
       end
       model = self
