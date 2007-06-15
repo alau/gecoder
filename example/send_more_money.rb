@@ -10,7 +10,8 @@ class SendMoreMoney < Gecode::Model
     s,e,n,d,m,o,r,y = @letters = int_var_array(8, 0..9)
 
     # Set up the constraints.
-    (equation_row(s, e, n, d) + equation_row(m, o, r, e) - equation_row(m, o, n, e, y)).must == 0 
+    (equation_row(s, e, n, d) + equation_row(m, o, r, e)).must == 
+      equation_row(m, o, n, e, y) 
       
     s.must_not == 0
     m.must_not == 0

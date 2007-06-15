@@ -59,6 +59,24 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
     (x + y).should equal(1)
   end
   
+  it 'should handle variables as right hand side' do
+    (@x + @y).must == @z
+    sol = @model.solution
+    x = sol.x.val
+    y = sol.y.val
+    z = sol.z.val
+    (x + y).should equal(z)
+  end
+  
+  it 'should handle linear expressions as right hand side' do
+    (@x + @y).must == @z + @y
+    sol = @model.solution
+    x = sol.x.val
+    y = sol.y.val
+    z = sol.z.val
+    (x + y).should equal(z + y)
+  end
+  
   it 'should handle coefficients other than 1' do
     (@x * 2 + @y).must == 0
     sol = @model.solution

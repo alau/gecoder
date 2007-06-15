@@ -159,12 +159,16 @@ module Gecode
     # Raises TypeError if the element is of a type that doesn't allow a relation
     # to be specified.
     def post_relation_constraint(relation_type, right_hand_side)
-      if right_hand_side.kind_of? Fixnum
-        (@lhs.to_minimodel_lin_exp - right_hand_side).post(@lhs.space, 
-          relation_type, Gecode::Raw::ICL_DEF)
-      else
-        raise TypeError, 'Relations only allow Fixnum.'
+      if right_hand_side.respond_to? :to_minimodel_lin_exp
+        right_hand_side = right_hand_side.to_minimodel_lin_exp
+      elsif right_hand_side.kind_of? Gecode::FreeIntVar
+        right_hand_side = right_hand_side.bind * 1
+      elsif not right_hand_side.kind_of? Fixnum
+        raise TypeError, 'Invalid right hand side of linear equation.'
       end
+      
+      (@lhs.to_minimodel_lin_exp - right_hand_side).post(@lhs.space, 
+        relation_type, Gecode::Raw::ICL_DEF)
     end
   end
 end
