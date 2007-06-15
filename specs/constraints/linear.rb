@@ -90,6 +90,15 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
     (x - (y + z)).should equal(1)
   end
   
+  it 'should handle multiplication of parenthesis' do
+    (((@x + @y*10)*10 + @z)*10).must == 0
+    sol = @model.solution
+    x = sol.x.val
+    y = sol.y.val
+    z = sol.z.val
+    (((x + y*10)*10 + z)*10).should equal(0)
+  end
+  
   relations = ['>', '>=', '<', '<=', '==']
   
   relations.each do |relation|

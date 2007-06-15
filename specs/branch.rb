@@ -30,6 +30,11 @@ describe Gecode::Model, ' (branch)' do
       anything, Gecode::Raw::BVAR_NONE, Gecode::Raw::BVAL_MIN)
     @model.branch_on @vars
   end
+  
+  it 'should ensure that branched variables are assigned in a solution' do
+    @model.branch_on @vars
+    @model.solution.vars.each{ |var| var.should be_assigned }
+  end
 
   supported_var_selectors = {
     :none                 => Gecode::Raw::BVAR_NONE,
