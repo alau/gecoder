@@ -3,6 +3,7 @@
 /Rakefile -text
 example/example_helper.rb -text
 example/raw_bindings.rb -text
+example/send_more_money.rb -text
 ext/extconf.rb -text
 ext/missing.cpp -text
 ext/missing.h -text
