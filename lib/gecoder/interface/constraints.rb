@@ -1,5 +1,6 @@
 require 'gecoder/interface/constraints/relation'
 require 'gecoder/interface/constraints/distinct'
+require 'gecoder/interface/constraints/linear'
 
 module Gecode
   # An error signaling that the constraint specified is missing (e.g. one tried

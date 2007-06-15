@@ -553,7 +553,27 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 				klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
 					operator.add_parameter("Gecode::IntVar", "exp")
 				end
-				
+        
+        klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
+          operator.add_parameter("int", "c")
+        end
+        
+        klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
+          operator.add_parameter("Gecode::MiniModel::LinExpr", "exp")
+        end
+        
+        klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
+          operator.add_parameter("Gecode::IntVar", "exp")
+        end
+        
+        klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
+          operator.add_parameter("int", "c")
+        end
+        
+        klass.add_operator "*", "Gecode::MiniModel::LinExpr" do |operator|
+          operator.add_parameter("int", "c")
+        end
+        
 				klass.add_operator "==", "Gecode::MiniModel::LinRel", "equal" do |operator|
 					operator.add_parameter "Gecode::MiniModel::LinExpr", "other"
 				end
