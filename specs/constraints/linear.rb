@@ -78,7 +78,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   end
   
   it 'should raise error on invalid right hand sides' do
-    ((@x + @y).must == 'z').should raise_error(TypeError) 
+    lambda{ ((@x + @y).must == 'z') }.should raise_error(TypeError) 
   end
   
   it 'should handle coefficients other than 1' do

@@ -65,6 +65,6 @@ describe Gecode::FreeIntVar, ' (relation constraints)' do
   end
   
   it 'should raise error on arguments of the wrong type' do
-    @model.add_constraint('3', '==').should raise_error(TypeError) 
+    lambda{ @model.add_constraint('3', '==') }.should raise_error(TypeError) 
   end
 end
