@@ -9,9 +9,19 @@ module Gecode
     public
     
     def initialize_copy(other)
+      super
+    
       instance_variables.each do |var|
         # Copy all int variables and update their model.
         if instance_eval(var).kind_of? FreeIntVar
+          instance_eval <<-"end_code"
+            #{var} = #{var}.clone
+            #{var}.model = self
+          end_code
+        end
+        
+        # Copy all int enums and update their model.
+        if instance_eval(var).kind_of? IntEnumConstraintMethods
           instance_eval <<-"end_code"
             #{var} = #{var}.clone
             #{var}.model = self

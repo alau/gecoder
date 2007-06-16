@@ -10,38 +10,60 @@ module Gecode
       end
       
       class <<enum
-        # Specifies that a constraint must hold for the integer variable enum.
-        def must
-          IntVarEnumConstraintExpression.new(active_space, to_int_var_array)
-        end
-        alias_method :must_be, :must
+        include Gecode::IntEnumConstraintMethods
         
-        # Specifies that the negation of a constraint must hold for the integer 
-        # variable.
-        def must_not
-          IntVarEnumConstraintExpression.new(active_space, to_int_var_array, 
-            true)
-        end
-        alias_method :must_not_be, :must_not
+        def initialize_copy(other)
+          super
         
-        # Returns an int variable array with all the bound variables.
-        def to_int_var_array
-          elements = to_a
-          arr = Gecode::Raw::IntVarArray.new(active_space, elements.size)
-          elements.each_with_index{ |var, index| arr[index] = var.bind }
-          return arr
-        end
-        
-        private
-        
-        # Gets the current space of the model the array is connected to.
-        def active_space
-          @model.active_space
+          # Copy all int variables.
+          map! do |var|
+            var.clone
+          end
         end
       end
       model = self
       enum.instance_eval{ @model = model }
       return enum
+    end
+  end
+  
+  # A module containing the methods needed by enumerations containing int 
+  # variables. Requires that it's included in an enumerable and that @model 
+  # exists.
+  module IntEnumConstraintMethods
+    # Specifies that a constraint must hold for the integer variable enum.
+    def must
+      IntVarEnumConstraintExpression.new(active_space, to_int_var_array)
+    end
+    alias_method :must_be, :must
+    
+    # Specifies that the negation of a constraint must hold for the integer 
+    # variable.
+    def must_not
+      IntVarEnumConstraintExpression.new(active_space, to_int_var_array, 
+        true)
+    end
+    alias_method :must_not_be, :must_not
+    
+    # Returns an int variable array with all the bound variables.
+    def to_int_var_array
+      elements = to_a
+      arr = Gecode::Raw::IntVarArray.new(active_space, elements.size)
+      elements.each_with_index{ |var, index| arr[index] = var.bind }
+      return arr
+    end
+    
+    # Sets a new model for the variable array.
+    def model=(new_model)
+      each do |var|
+        var.model = new_model
+      end
+      @model = new_model
+    end
+    
+    # Gets the current space of the model the array is connected to.
+    def active_space
+      @model.active_space
     end
   end
   

@@ -19,14 +19,10 @@ class SendMoreMoney < Gecode::Model
 
     # Set the branching.
     branch_on @letters, :variable => :smallest_size, :value => :min
-    
-    # This is to work around a bug. Do not retrieve the letters from @letters
-    # in other parts of the instance.
-    @s,@e,@n,@d,@m,@o,@r,@y = s,e,n,d,m,o,r,y
   end
 
   def to_s
-    %w{s e n d m o r y}.zip([@s,@e,@n,@d,@m,@o,@r,@y]).map do |text, letter|
+    %w{s e n d m o r y}.zip(@letters).map do |text, letter|
       "#{text}: #{letter.val}" 
     end.join(', ')
   end
@@ -38,7 +34,7 @@ class SendMoreMoney < Gecode::Model
   # were digits in a base 10 number. E.g. x,y,z becomes
   # 100*x + 10*y + z .
   def equation_row(*variables)
-    variables.inject(0){ |result, variable| variable + result*10 }
+    variables.inject{ |result, variable| variable + result*10 }
   end
 end
 
