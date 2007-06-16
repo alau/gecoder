@@ -63,21 +63,9 @@ module Gecode
       @left.to_minimodel_lin_exp.send(@operation, @right.to_minimodel_lin_exp)
     end
     
-    def to_s
-      "(#{@left.to_s} #{@operation} #{@right.to_s})"
-    end
-    
     # Fetches the space that the expression's variables is in.
     def space
       @left.space || @right.space
-    end
-    
-    private
-    
-    # Places the relation constrain corresponding to the specified (integer)
-    # relation type (as specified by Gecode).
-    def post_relation_constraint(relation_type)
-      @xpression.post(@space, relation_type, Gecode::Raw::ICL_DEF)
     end
   end
   
@@ -101,10 +89,6 @@ module Gecode
         expression = expression.bind * 1
       end
       expression
-    end
-    
-    def to_s
-      "{Value: #{@value.to_s}}"
     end
   end
   
