@@ -89,6 +89,7 @@ module Gecode
     def initialize(model, index)
       @model = model
       @index = index
+      @bound_space = @bound_var = nil
     end
     
     # Delegate methods we can't handle to the bound int variable if possible.
@@ -103,7 +104,13 @@ module Gecode
     # Binds the int variable to the currently active space of the model, 
     # returning the bound int variable.
     def bind
-      active_space.int_var(@index)
+      space = active_space
+      unless @bound_space == space
+        # We have not bound the variable to this space, so we do it now.
+        @bound = space.int_var(@index)
+        @bound_space = space
+      end
+      return @bound
     end
     
     private
