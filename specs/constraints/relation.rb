@@ -63,4 +63,8 @@ describe Gecode::FreeIntVar, ' (relation constraints)' do
     @model.solution.var.should have_domain(
       (dom_beg..pred).to_a + (succ..dom_end).to_a)
   end
+  
+  it 'should raise error on arguments of the wrong type' do
+    @model.add_constraint('3', '==').should raise_error(TypeError) 
+  end
 end

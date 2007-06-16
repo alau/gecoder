@@ -77,6 +77,10 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
     (x + y).should equal(z + y)
   end
   
+  it 'should raise error on invalid right hand sides' do
+    ((@x + @y).must == 'z').should raise_error(TypeError) 
+  end
+  
   it 'should handle coefficients other than 1' do
     (@x * 2 + @y).must == 0
     sol = @model.solution
