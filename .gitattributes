@@ -34,6 +34,7 @@ specs/search.rb -text
 specs/spec_helper.rb -text
 tasks/all_tasks.rb -text
 tasks/distribution.rake -text
+tasks/rcov.rake -text
 tasks/specs.rake -text
 vendor/rust/README -text
 vendor/rust/bin/cxxgenerator.rb -text
