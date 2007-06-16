@@ -27,6 +27,10 @@ describe 'non-empty variable', :shared => true do
   it 'should have a width equal to the domain width' do
     @var.width.should equal(@domain.max - @domain.min + 1)
   end
+  
+  it 'should give a NoMethodError when calling a method that doesn\'t exist' do
+    lambda{ @var.this_method_does_not_exists }.should raise_error(NoMethodError)
+  end
 end
 
 describe Gecode::FreeIntVar, ' (with range domain of size > 1)' do
