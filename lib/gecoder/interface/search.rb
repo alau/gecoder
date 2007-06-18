@@ -47,4 +47,15 @@ module Gecode
       end
     end
   end
+  
+  module IntEnumConstraintMethods
+    def initialize_copy(other)
+      super
+    
+      # Copy all int variables.
+      map! do |var|
+        var.clone
+      end
+    end
+  end
 end

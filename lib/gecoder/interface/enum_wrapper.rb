@@ -11,15 +11,6 @@ module Gecode
       
       class <<enum
         include Gecode::IntEnumConstraintMethods
-        
-        def initialize_copy(other)
-          super
-        
-          # Copy all int variables.
-          map! do |var|
-            var.clone
-          end
-        end
       end
       model = self
       enum.instance_eval{ @model = model }
