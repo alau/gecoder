@@ -38,4 +38,4 @@ class SendMoreMoney < Gecode::Model
   end
 end
 
-puts SendMoreMoney.new.solution.to_s
+puts SendMoreMoney.new.solve!.to_s

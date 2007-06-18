@@ -28,7 +28,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
 
   it 'should handle addition with a variable' do
     (@x + @y).must == 0
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     (x + y).should be_zero
@@ -36,7 +36,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle addition with multiple variables' do
     (@x + @y + @z).must == 0
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     z = sol.z.val
@@ -45,7 +45,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle subtraction with a variable' do
     (@x - @y).must == 0
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     (x - y).should be_zero
@@ -53,7 +53,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle non-zero constants as right hand side' do
     (@x + @y).must == 1
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     (x + y).should equal(1)
@@ -61,7 +61,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle variables as right hand side' do
     (@x + @y).must == @z
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     z = sol.z.val
@@ -70,7 +70,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle linear expressions as right hand side' do
     (@x + @y).must == @z + @y
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     z = sol.z.val
@@ -83,7 +83,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle coefficients other than 1' do
     (@x * 2 + @y).must == 0
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     (2*x + y).should equal(0)
@@ -91,21 +91,21 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle addition with constants' do
     (@y + 2).must == 1
-    sol = @model.solution
+    sol = @model.solve!
     y = sol.y.val
     (y + 2).should equal(1)
   end
   
   it 'should handle subtraction with a constant' do
     (@x - 2).must == 0
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     (x - 2).should be_zero
   end
   
   it 'should handle parenthesis' do
     (@x - (@y + @z)).must == 1
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     z = sol.z.val
@@ -114,7 +114,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   
   it 'should handle multiplication of parenthesis' do
     (((@x + @y*10)*10 + @z)*10).must == 0
-    sol = @model.solution
+    sol = @model.solve!
     x = sol.x.val
     y = sol.y.val
     z = sol.z.val
@@ -126,7 +126,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   relations.each do |relation|
     it "should handle #{relation} with constant integers" do
       (@x + @y).must.send(relation, 1)
-      sol = @model.solution
+      sol = @model.solve!
       sol.should_not be_nil
       (sol.x.val + sol.y.val).should.send(relation, 1)
     end
@@ -135,7 +135,7 @@ describe Gecode::FreeIntVar, ' (linear constraints)' do
   relations.each do |relation|
     it "should handle negated #{relation} with constant integers" do
       (@x + @y).must_not.send(relation, 1)
-      sol = @model.solution
+      sol = @model.solve!
       sol.should_not be_nil
       (sol.x.val + sol.y.val).should_not.send(relation, 1)
     end

@@ -26,7 +26,7 @@ describe 'distinct constraints' do
     # just shows that the distinct constraint will cause trivially unsolvable
     # problems to directly fail.
     @model.vars.must_be.distinct
-    @model.solution.should be_nil
+    @model.solve!.should be_nil
   end
   
   it 'should not allow negation' do

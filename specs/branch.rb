@@ -33,7 +33,7 @@ describe Gecode::Model, ' (branch)' do
   
   it 'should ensure that branched variables are assigned in a solution' do
     @model.branch_on @vars
-    @model.solution.vars.each{ |var| var.should be_assigned }
+    @model.solve!.vars.each{ |var| var.should be_assigned }
   end
 
   supported_var_selectors = {

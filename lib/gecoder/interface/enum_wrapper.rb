@@ -12,15 +12,13 @@ module Gecode
       class <<enum
         include Gecode::IntEnumConstraintMethods
       end
-      model = self
-      enum.instance_eval{ @model = model }
+      enum.model = self
       return enum
     end
   end
   
   # A module containing the methods needed by enumerations containing int 
-  # variables. Requires that it's included in an enumerable and that @model 
-  # exists.
+  # variables. Requires that it's included in an enumerable.
   module IntEnumConstraintMethods
     # Specifies that a constraint must hold for the integer variable enum.
     def must
@@ -44,14 +42,7 @@ module Gecode
       return arr
     end
     
-    # Sets a new model for the variable array.
-    def model=(new_model)
-      each do |var|
-        var.model = new_model
-      end
-      @model = new_model
-    end
-    
+    attr_accessor :model
     # Gets the current space of the model the array is connected to.
     def active_space
       @model.active_space

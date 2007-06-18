@@ -10,8 +10,7 @@ module Gecode
     # The base from which searches are made. 
     attr :base_space
     # The currently active space (the one which variables refer to).
-    attr_accessor :active_space
-    protected :active_space=
+    attr :active_space
     
     def initialize
       @active_space = @base_space = Gecode::Raw::Space.new
@@ -111,6 +110,14 @@ module Gecode
         @bound_space = space
       end
       return @bound
+    end
+    
+    def inspect
+      if assigned?
+        "#<FreeIntVar range: val.to_s>"
+      else
+        "#<FreeIntVar range: #{min}..#{max}>"
+      end
     end
     
     private
