@@ -1,7 +1,16 @@
 require 'spec/rake/spectask'
 
+spec_files = FileList['specs/**/*.rb']
+
+desc 'Run all specs'
 Spec::Rake::SpecTask.new('specs') do |t|
   t.spec_opts = ["--format", "specdoc"]
   t.libs = ['lib']
-  t.spec_files = FileList['specs/**/*.rb']
+  t.spec_files = spec_files
+end
+
+desc 'Generate an rspec html report'
+Spec::Rake::SpecTask.new('spec_html') do |t|
+  t.spec_files = spec_files
+  t.spec_opts = ['--format html:doc/output/rspec.html','--backtrace']
 end
