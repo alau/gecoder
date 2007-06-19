@@ -33,5 +33,8 @@ able to solve some problems) should be available in a matter of weeks.
 
 h2. Communication
 
-The primary channel of communication at this point is the "gecoder-devel 
-mailing list":http://rubyforge.org/mailman/listinfo/gecoder-devel.
+Please use the 
+"gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-users 
+for usage questions and general discussion and 
+"gecoder-devel":http://rubyforge.org/mailman/listinfo/gecoder-devel for 
+development discussion.

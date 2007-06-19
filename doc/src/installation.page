@@ -6,9 +6,9 @@ description: How to install Gecode/R to gain access to constraint programming in
 
 h2. Warning
 
-Gecode/R is still under early development, the syntax is by no means final and
-*backwards compatibility will be broken* time and time again until later in the
-development process. Don't use Gecode/R in production-code yet, it's merely 
+Gecode/R is still in an early development stage, the syntax is by no means final
+and *backwards compatibility will be broken* time and time again until later in 
+the development process. Don't use Gecode/R in production-code yet, it's merely 
 available this early to allow people to play with it and give feedback.
 
 h2. Dependencies
