@@ -1,4 +1,6 @@
 * text=auto !eol
+/COPYING -text
+/LGPL-LICENSE -text
 /README -text
 /Rakefile -text
 doc/config.yaml -text
