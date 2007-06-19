@@ -26,10 +26,10 @@ constraints.
 
 h2. Development status
 
-The project is currently in an early development stage. The direction of the 
-syntax/API has been set and the basic functionality is currently being 
-implemented. A version with a very limited amount of functionality (but still 
-able to solve some problems) should be available in a matter of weeks.
+The project is currently in an early development stage. The interface is working
+but has a very limited set of functionality. It currently supports finite domain
+integers along basic relation, linear and distinct constraints. The next step
+is to add access to more constraints for integer variables.
 
 h2. Communication
 
