@@ -28,6 +28,20 @@ div#body {
   border: 1px solid #CCC;
   background: #FFF;
 }
+pre {
+  background-color: #F8F8F8;
+  border: 1px dashed #CCC;
+  margin: 1em;
+  overflow: auto;
+  padding: 0.5em;
+  font-size: 1.2em;
+}
+ul, ol { 
+  margin: 1em 1em 1em 2em;
+}
+code {
+  font-size: 120%;
+}
 
 /*menu*/
 div.menu {
