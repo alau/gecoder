@@ -5,6 +5,8 @@ installation.page:
   orderInfo: 2
 documentation.page:
   orderInfo: 3
+examples.page:
+  orderInfo: 4
 ---
 rubyforge.html:
   title: RubyForge
