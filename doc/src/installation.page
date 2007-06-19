@@ -1,0 +1,37 @@
+---
+title: Installation
+inMenu: true
+description: How to install Gecode/R to gain access to constraint programming in Ruby.
+---
+
+h2. Dependencies
+
+Gecode/R requires Gecode 1.3.1, so you have to install that first.
+* "Download link":http://www.gecode.org/download.html
+* "Installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
+
+h2. Install
+
+There are several different ways to install Gecode/R.
+
+h3. RubyGems
+
+This is probably the most convenient way.
+
+ gem install gecoder
+ 
+h3. Direct download
+
+Downloads are available at "RubyForge":http://rubyforge.org/frs/?group_id=3553
+
+h3. Subversion
+
+Check it out with
+
+ svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder
+
+then build and install the gem with
+
+  rake gem
+  gem install pkg/gecoder-0.x.gem
+  

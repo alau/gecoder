@@ -1,9 +1,23 @@
 index.page:
   directoryName: Home
   orderInfo: 1
+installation.page:
+  orderInfo: 2
 ---
 rubyforge.html:
   title: RubyForge
   url: http://rubyforge.org/projects/gecoder
-  orderInfo: 2
+  orderInfo: 21
   inMenu: true
+documentation/rdoc.html:
+  title: RDoc
+  url: ../rdoc/index.html
+  orderInfo: 22
+documentation/rcov.html:
+  title: rcov Report
+  url: ../coverage/index.html
+  orderInfo: 23
+documentation/rspec.html:
+  title: RSpec Report
+  url: ../rspec.html
+  orderInfo: 24
