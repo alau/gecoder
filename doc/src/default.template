@@ -12,7 +12,11 @@
     <div id="body">
       {block:}
     </div>
-		{menu: {menuStyle: horizontal,  options: {divClass: "menu horizontal", selectedMenuitemClass: "selected"}}}
+		
+    <div class="header">
+      {menu: {menuStyle: horizontal, options: {maxLevels: 1, divClass: "menu horizontal", selectedMenuitemClass: "selected"}}}
+      {menu: {menuStyle: horizontal, options: {startLevel: 2, maxLevels: 1, divClass: "submenu horizontal", selectedMenuitemClass: "selected"}}}
+    </div>
   </div>
 </body>
 </html>

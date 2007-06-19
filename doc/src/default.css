@@ -6,7 +6,7 @@ html {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   text-align: justify;
   font-size: 1em;
-  background: #EEE;
+  background: #F3F6ED;
   padding: 4em;
 }
 h1 {
@@ -19,7 +19,7 @@ h2 {
 }
 h3 {
   font-size: 1em;
-  margin-top: 1em;
+  margin-top: 1.5em;
 }
 p {
   margin: 0.75em 0;
@@ -28,8 +28,8 @@ div#contents {
   position: relative;
 }
 div#body {
-  padding: 2em 1em 1px 1em;
-  border: 1px solid #CCC;
+  padding: 3.5em 1em 1px 1em;
+  border: 1px solid #666;
   background: #FFF;
 }
 pre {
@@ -38,7 +38,7 @@ pre {
   margin: 1em;
   overflow: auto;
   padding: 0.5em;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 ul, ol { 
   margin: 1em 1em 1em 2em;
@@ -47,12 +47,16 @@ code {
   font-size: 120%;
 }
 
-/*menu*/
-div.menu {
-  width: 100%;
+div.header {
+	width: 100%;
   position: absolute;
   top: 0;
+}
+
+/*menu*/
+div.menu {
   line-height: 2em;
+  color: #FFF;
 }
 div.menu ul {
   display: block;
@@ -75,6 +79,31 @@ div.menu ul li {
   color: #FFF;
 }
 
+/*submenu*/
+div.submenu {
+  line-height: 1.4em;
+}
+div.submenu ul {
+  display: block;
+  background: #BDCD9D;
+  border: 1px solid #333;
+}
+div.submenu ul li {
+  padding: 0.2em 1em;
+  display: block;
+  font-size: 1em;
+}
+.submenu a {
+  color: #000;
+  display: block;
+  text-decoration: none;
+}
+.submenu a:hover {
+  color: #EEE;
+}
+.submenu .selected {
+  text-decoration: underline;
+}
 
 /*Utils*/
 .horizontal ul {
