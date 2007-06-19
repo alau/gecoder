@@ -3,6 +3,8 @@ index.page:
   orderInfo: 1
 installation.page:
   orderInfo: 2
+documentation.page:
+  orderInfo: 3
 ---
 rubyforge.html:
   title: RubyForge

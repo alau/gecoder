@@ -1,0 +1,68 @@
+---
+title: Documentation
+inMenu: true
+description: How to use Gecode/R to model problems and solve them using constraint programming.
+---
+h2. Introduction
+
+When using Gecode/R to solve a problem you first have to model the problem by
+expressing what a solution to the problem is. Once the problem is modelled the
+underlying engine will search for a solution.
+
+A model is typically constructed by creating a class that inherits from 
+@Gecode::Model@.
+
+<pre>
+class MyModel < Gecode::Model
+  def initialize
+    super() # Don't forget to initialize the model.
+  end
+end
+</pre>
+
+There are three main parts of a model:
+* Variables
+* Constraints
+* Branching
+
+h3. Variables
+
+Gecode/R currently only support the use of integer variables. A variable has a
+domain which must be specified upon construction. The domain of the variable
+represents the values that the variable can take, for instance a variable might
+have domain 0..9 which means that it can take any value in the range 0 to 9. To
+create an integer variable we use @Model#int_var@.
+
+ number = int_var(0..9) # Creates an integer variable with domain 0..9.
+
+Alternatively one can also create multiple integer variables with the same domain
+at once using @Model#int_var_array@ which returns an array of variables.
+
+ numbers = int_var_array(8, 0..9) # Creates 8 variables with domains 0..9.
+
+h3. Constraints
+
+The constraints specify what must hold for something to be a solution. They are
+created using variables in combination with @must@ and @must_not@. The 
+constraint that one variable x must be larger than another variable y is for 
+instance expressed as
+
+ x.must > y
+
+h3. Branching
+
+The solver tries to prune the search space without actually exploring it, but
+sooner or later it will probably have to make a guess about a variable's value
+in order to get any further (i.e. it will have to explore the search space).
+This is called branching. Which variable and selection strategies to use is 
+specified with @Model#branch_on@
+
+ branch_on numbers, :variable => :smallest_size, :value => :min
+
+One can specify how these guesses should be made, possibly cutting down the
+search space by picking a good heuristic. An example of a common heuristic
+is first fail, which makes a guess about the variable with the smallest domain 
+(i.e. with lowest number of possible values). The reason why this often works
+well is that we can quicker exhaust the remaining possibilities of a variable 
+with a small domain, and hence force a fail (or a solution to be found) so that
+we can backtrack to the next possible choice.
