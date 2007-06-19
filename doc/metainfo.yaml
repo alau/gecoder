@@ -1,0 +1,9 @@
+index.page:
+  directoryName: Home
+  orderInfo: 1
+---
+rubyforge.html:
+  title: RubyForge
+  url: http://rubyforge.org/projects/gecoder
+  orderInfo: 2
+  inMenu: true

@@ -1,0 +1,37 @@
+---
+title: Home
+inMenu: true
+description: A Ruby interface to Gecode, an open source environment for constraint programming.
+---
+h2. Overview
+
+Gecode/R is a Ruby interface to "Gecode":http://www.gecode.org/, allowing 
+constraint programming in Ruby. The interface is intended for people with no 
+previous experience of constraint programming, aiming to be easy to pick up and 
+use in practice.
+
+h2. Constraint programming
+
+Constraint programming is a declarative programming paradigm, you describe what 
+kind of solution you want rather than how you want it computed. When using 
+constraint programming you try to model the problem and then feed that model to 
+the solver. The solver then searches for a solution by exploring the space of 
+all possible solutions while using the constraints in the model to prune parts 
+without having to visit them.
+
+A popular example would be Soduko, to solve a Soduko with constraint 
+programming you feed the rules (all numbers in each row must be distinct etc) 
+to the solver, which then searches for a solution satisfying all the 
+constraints. 
+
+h2. Development status
+
+The project is currently in an early development stage. The direction of the 
+syntax/API has been set and the basic functionality is currently being 
+implemented. A version with a very limited amount of functionality (but still 
+able to solve some problems) should be available in a matter of weeks.
+
+h2. Communication
+
+The primary channel of communication at this point is the "gecoder-devel 
+mailing list":http://rubyforge.org/mailman/listinfo/gecoder-devel.

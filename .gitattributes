@@ -1,6 +1,11 @@
 * text=auto !eol
 /README -text
 /Rakefile -text
+doc/config.yaml -text
+doc/metainfo.yaml -text
+doc/src/default.css -text
+doc/src/default.template -text
+doc/src/index.page -text
 example/example_helper.rb -text
 example/raw_bindings.rb -text
 example/send_more_money.rb -text
