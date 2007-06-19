@@ -3,7 +3,7 @@ index.page:
   orderInfo: 1
 installation.page:
   orderInfo: 2
-documentation.page:
+documentation:
   orderInfo: 3
 examples.page:
   orderInfo: 4
@@ -17,11 +17,14 @@ documentation/rdoc.html:
   title: RDoc
   url: ../rdoc/index.html
   orderInfo: 22
+  inMenu: true
 documentation/rcov.html:
   title: rcov Report
   url: ../coverage/index.html
   orderInfo: 23
+  inMenu: true
 documentation/rspec.html:
   title: RSpec Report
   url: ../rspec.html
   orderInfo: 24
+  inMenu: true

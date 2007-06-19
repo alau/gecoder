@@ -7,7 +7,7 @@ doc/config.yaml -text
 doc/metainfo.yaml -text
 doc/src/default.css -text
 doc/src/default.template -text
-doc/src/documentation.page -text
+doc/src/documentation/index.page -text
 doc/src/examples.page -text
 doc/src/index.page -text
 doc/src/installation.page -text

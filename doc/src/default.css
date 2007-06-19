@@ -28,7 +28,7 @@ div#contents {
   position: relative;
 }
 div#body {
-  padding: 3.5em 1em 1px 1em;
+  padding: 4em 1em 1px 1em;
   border: 1px solid #666;
   background: #FFF;
 }
@@ -99,7 +99,7 @@ div.submenu ul li {
   text-decoration: none;
 }
 .submenu a:hover {
-  color: #EEE;
+  text-decoration: underline;
 }
 .submenu .selected {
   text-decoration: underline;
