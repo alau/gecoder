@@ -28,7 +28,7 @@ spec = Gem::Specification.new do |s|
 
   s.autorequire = 'gecoder'
   s.author = ["Gecode/R Development Team"]
-  #s.email = "gecoder-devel@rubyforge.org"
+  s.email = "gecoder-devel@rubyforge.org"
   s.homepage = "http://gecoder.rubyforge.org"
   s.rubyforge_project = "gecoder"
 end
