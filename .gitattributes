@@ -28,6 +28,8 @@ lib/gecoder/interface/binding_changes.rb -text
 lib/gecoder/interface/branch.rb -text
 lib/gecoder/interface/constraints.rb -text
 lib/gecoder/interface/constraints/distinct.rb -text
+lib/gecoder/interface/constraints/int_enum_constraints.rb -text
+lib/gecoder/interface/constraints/int_var_constraints.rb -text
 lib/gecoder/interface/constraints/linear.rb -text
 lib/gecoder/interface/constraints/relation.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text

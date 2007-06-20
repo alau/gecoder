@@ -10,7 +10,7 @@ module Gecode
       end
       
       class <<enum
-        include Gecode::IntEnumConstraintMethods
+        include Gecode::IntEnumMethods
       end
       enum.model = self
       return enum
@@ -19,21 +19,7 @@ module Gecode
   
   # A module containing the methods needed by enumerations containing int 
   # variables. Requires that it's included in an enumerable.
-  module IntEnumConstraintMethods
-    # Specifies that a constraint must hold for the integer variable enum.
-    def must
-      IntVarEnumConstraintExpression.new(active_space, to_int_var_array)
-    end
-    alias_method :must_be, :must
-    
-    # Specifies that the negation of a constraint must hold for the integer 
-    # variable.
-    def must_not
-      IntVarEnumConstraintExpression.new(active_space, to_int_var_array, 
-        true)
-    end
-    alias_method :must_not_be, :must_not
-    
+  module IntEnumMethods
     # Returns an int variable array with all the bound variables.
     def to_int_var_array
       elements = to_a
@@ -46,19 +32,6 @@ module Gecode
     # Gets the current space of the model the array is connected to.
     def active_space
       @model.active_space
-    end
-  end
-  
-  # Describes a constraint expression that starts with an enumeration of int
-  # variables followed by must or must_not.
-  class IntVarEnumConstraintExpression
-    # Constructs a new expression with the specified space and int var array 
-    # with the (bound) variables as source. The expression can optionally be 
-    # negated.
-    def initialize(space, var_array, negate = false)
-      @space = space
-      @var_array = var_array
-      @negate = negate
     end
   end
 end
