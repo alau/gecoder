@@ -10,11 +10,11 @@ http://www.gecode.org/download.html . See
 http://www.gecode.org/gecode-doc-latest/PageComp.html for the installation
 instructions.
 
-At this point no prebuilt gem is provided and has to be built from source. 
-Check out the source code from svn://rubyforge.org/var/svn/gecoder/trunk, enter
-the root of the source and then do the following to build the gem and install 
-it:
-  
+=== Installing from gem
+
+  gem install gecoder
+
+=== Building the gem
+
   rake gem
   gem install pkg/gecoder-0.x.gem
-  

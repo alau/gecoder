@@ -7,7 +7,7 @@ end
 
 spec = Gem::Specification.new do |s|
   s.name = 'gecoder'
-  s.version = '0.2'
+  s.version = '0.2.0'
   s.summary = 'Ruby interface to Gecode, an environment for constraint programming.'
 
   s.files = FileList[
