@@ -7,6 +7,10 @@ documentation:
   orderInfo: 3
 examples.page:
   orderInfo: 4
+documentation/index.page:
+  orderInfo: 10
+documentation/constraints.page:
+  orderInfo: 11
 ---
 rubyforge.html:
   title: RubyForge

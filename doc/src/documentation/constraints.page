@@ -1,0 +1,58 @@
+---
+title: Constraints
+inMenu: true
+description: The different constraints available in Gecode/R to use when modelling in Ruby.
+---
+h2. Constraints
+
+There exist several different constraints that can be used when modelling. They
+are usually used with some form of call to the methods @must@ or @must_not@ of
+variables.
+
+h3. Simple relations
+
+Simple relation constraints can for instance specify that x must be strictly 
+greater than 3, where x is an integer variable. An example of how to write that 
+would be the following.
+
+ x.must > 3
+
+Only constant integers can be used in the right hand side at the moment. The
+following relations are supported:
+
+* <
+* >
+* >=
+* <=
+* <no_textile>==</not_textile>
+
+Each can be negated by using @must_not@ instead of @must@. For instance to 
+express that x must not be 0 we can use the following.
+
+ x.must_not <no_textile>==</not_textile> 0
+
+h3. Linear
+
+Linear constraints can be used to specify that a linear equation containing
+variables must hold. It's specified in similar way to simple relation 
+constraints. The following expresses that x + y must be equal to z + 3 where
+x,y,z are all integer variables.
+
+ (x + y).must <no_textile>==</not_textile> z + 3
+
+The constraint supports the same relations as simple relation constraints 
+inlcuding negating relations using @must_not@.
+
+h3. Distinct
+
+The distinct constraint is used on enumerations of integer variables an 
+specifies that they must all be distinct. The following will for instance
+create an array of 8 integer variables with domains 0..9 and constrain them
+all to be distinct (i.e. no two integer variables in the array may take the 
+same value in solution).
+
+ numbers = int_var_array(8, 0..9)
+ numbers.must_be.distinct
+
+@must_be@ can also be replaced with @must@. The constraint does not support 
+negation.
