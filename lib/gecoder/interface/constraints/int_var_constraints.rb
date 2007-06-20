@@ -12,3 +12,6 @@ module Gecode
     end
   end
 end
+
+require 'gecoder/interface/constraints/int/linear'
+require 'gecoder/interface/constraints/int/relation'

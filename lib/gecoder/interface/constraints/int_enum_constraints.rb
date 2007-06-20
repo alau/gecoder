@@ -28,3 +28,5 @@ module Gecode
     end
   end
 end
+
+require 'gecoder/interface/constraints/int_enum/distinct'
