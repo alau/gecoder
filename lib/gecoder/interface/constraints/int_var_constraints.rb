@@ -11,6 +11,11 @@ module Gecode
       Gecode::IntVarConstraintExpression.new(active_space, self.bind, true)
     end
   end
+  
+  # A module containing constraints that have int variables as left hand side
+  # (but not enumerations).
+  module Constraints::Int
+  end
 end
 
 require 'gecoder/interface/constraints/int/linear'

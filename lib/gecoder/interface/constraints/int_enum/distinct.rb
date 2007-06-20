@@ -1,5 +1,5 @@
-module Gecode
-  class IntVarEnumConstraintExpression
+module Gecode::Constraints::IntEnum
+  class Expression
     # Posts a distinct constraint on the variables in the enum.
     def distinct
       if @negate

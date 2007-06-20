@@ -2,55 +2,58 @@ module Gecode
   class FreeIntVar
     # Creates a linear expression where the int variables are summed.
     def +(var)
-      Gecode::Linear::ConstraintExpressionNode.new(self, active_space) + var
+      Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
+        active_space) + var
     end
     
     # Creates a linear expression where the int variable is multiplied with 
     # a constant integer.
     def *(int)
-      Gecode::Linear::ConstraintExpressionNode.new(self, active_space) * int
+      Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
+        active_space) * int
     end
     
     # Creates a linear expression where the specified variable is subtracted 
     # from this one.
     def -(var)
-      Gecode::Linear::ConstraintExpressionNode.new(self, active_space) - var
+      Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
+        active_space) - var
     end
   end
   
   # A module that gathers the classes and modules used in linear constraints.
-  module Linear
-    module ConstraintHelper
+  module Constraints::Int::Linear
+    module Helper
       OPERATION_TYPES = [:+, :-, :*]
     
       # Define methods for the available operations.
       OPERATION_TYPES.each do |name|
         module_eval <<-"end_code"
           def #{name}(expression)
-            unless expression.kind_of? ConstraintExpressionTree
-              expression = ConstraintExpressionNode.new(expression)
+            unless expression.kind_of? ExpressionTree
+              expression = ExpressionNode.new(expression)
             end
-            ConstraintExpressionTree.new(self, expression, :#{name})
+            ExpressionTree.new(self, expression, :#{name})
           end
         end_code
       end
       
       # Specifies that a constraint must hold for the linear expression.
       def must
-        ConstraintExpression.new(self)
+        Expression.new(self)
       end
       
       # Specifies that the negation of a constraint must hold for the linear
       # expression.
       def must_not
-        ConstraintExpression.new(self, true)
+        Expression.new(self, true)
       end
     end
     
     # Describes a linear constraint that starts with a linear expression 
     # followed by must or must_not.
-    class ConstraintExpressionTree
-      include ConstraintHelper
+    class ExpressionTree
+      include Helper
     
       # Constructs a new expression with the specified variable
       def initialize(left_node, right_node, operation)
@@ -72,8 +75,8 @@ module Gecode
     end
     
     # Describes a single node in a linear constrain expression.
-    class ConstraintExpressionNode
-      include ConstraintHelper
+    class ExpressionNode
+      include Helper
     
       attr :space
     
@@ -86,7 +89,7 @@ module Gecode
       # Gecode::Raw::MiniModel::LinExpr
       def to_minimodel_lin_exp
         expression = @value
-        if expression.kind_of? FreeIntVar
+        if expression.kind_of? Gecode::FreeIntVar
           # Minimodel requires that we do this first.
           expression = expression.bind * 1
         end
@@ -96,7 +99,7 @@ module Gecode
     
     # Describes a linear constraint expression that starts with a linear 
     # expression followed by must or must_not.
-    class ConstraintExpression
+    class Expression
       # TODO: this is awfully similar to IntVarConstrainExpression. There should
       # be some way to combine them.
     
