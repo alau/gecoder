@@ -56,3 +56,23 @@ describe Gecode::Model, ' (search)' do
     enum[3][1][:b].should have_domain(@solved_domain)
   end
 end
+
+describe Gecode::Model, ' (after reset)' do
+  before do
+    @domain = 0..3
+    @reset_domain = 2..3
+    @model = SampleProblem.new(@domain)
+    @model.solve!
+    @model.reset!
+  end
+  
+  it 'should have reset variables' do
+    @model.var.should have_domain(@reset_domain)
+  end
+  
+  it 'should have reset variables in nested enums' do
+    enum = @model.nested_enum
+    enum[2].first.should have_domain(@reset_domain)
+    enum[3][1][:b].should have_domain(@reset_domain)
+  end
+end

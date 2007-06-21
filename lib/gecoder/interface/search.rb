@@ -13,10 +13,17 @@ module Gecode
     # otherwise.
     def solve!
       stop = Gecode::Raw::Search::Stop.new
-      dfs = Gecode::Raw::DFS.new(@base_space, COPY_DIST, ADAPTATION_DIST, stop)
+      dfs = Gecode::Raw::DFS.new(active_space, COPY_DIST, ADAPTATION_DIST, stop)
       space = dfs.next
       return nil if space.nil?
       @active_space = space
+      return self
+    end
+    
+    # Returns to the original state, before any search was made (but propagation 
+    # might have been performed). Returns the reset model.
+    def reset!
+      @active_space = base_space
       return self
     end
   end
