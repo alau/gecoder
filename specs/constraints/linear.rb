@@ -6,8 +6,6 @@ class LinearSampleProblem < Gecode::Model
   attr :z
   
   def initialize(x_dom, y_dom, z_dom)
-    super()
-
     @x = self.int_var(x_dom)
     @y = self.int_var(y_dom)
     @z = self.int_var(z_dom)

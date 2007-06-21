@@ -4,8 +4,6 @@ class DistinctSampleProblem < Gecode::Model
   attr :vars
   
   def initialize
-    super()
-
     @vars = int_var_array(2, 1)
   end
 end

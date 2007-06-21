@@ -4,8 +4,6 @@ require File.dirname(__FILE__) + '/example_helper'
 # http://en.wikipedia.org/wiki/Send%2Bmore%3Dmoney
 class SendMoreMoney < Gecode::Model
   def initialize
-    super()
-    
     # Set up the variables, 8 letters with domain 0..9.
     s,e,n,d,m,o,r,y = @letters = int_var_array(8, 0..9)
 

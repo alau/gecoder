@@ -1,21 +1,6 @@
 module Gecode
-  # Model is the base class that all models must inherit from. The superclass
-  # constructor must be called.
+  # Model is the base class that all models must inherit from.
   class Model
-    # Design notes: Only one model per problem is used. A model has multiple 
-    # spaces. A model has a base space in which it sets up during the 
-    # initialization. The model binds the int variables to the current space 
-    # upon use.
-  
-    # The base from which searches are made. 
-    attr :base_space
-    # The currently active space (the one which variables refer to).
-    attr :active_space
-    
-    def initialize
-      @active_space = @base_space = Gecode::Raw::Space.new
-    end
-    
     # Creates a new integer variable with the specified domain. The domain can
     # either be a range or a number of elements. 
     def int_var(*domain_args)
@@ -36,6 +21,16 @@ module Gecode
         variables << construct_int_var(index, *domain_args)
       end
       return wrap_enum(variables)
+    end
+    
+    # Retrieves the currently active space (the one which variables refer to).
+    def active_space
+      @active_space ||= base_space
+    end
+    
+    # Retrieves the base from which searches are made. 
+    def base_space
+      @base_space ||= Gecode::Raw::Space.new
     end
     
     private

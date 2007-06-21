@@ -4,8 +4,6 @@ class BranchSampleProblem < Gecode::Model
   attr :vars
   
   def initialize
-    super()
-
     @vars = int_var_array(2, 0..3)
   end
 end

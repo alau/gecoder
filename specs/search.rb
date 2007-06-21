@@ -7,7 +7,6 @@ class SampleProblem < Gecode::Model
   attr :nested_enum
   
   def initialize(domain)
-    super()
     vars = self.int_var_array(1,domain)
     @var = vars.first
     @var.must > 1

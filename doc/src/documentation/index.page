@@ -15,9 +15,12 @@ A model is typically constructed by creating a class that inherits from
 <pre>
 class MyModel < Gecode::Model
   def initialize
-    super() # Don't forget to initialize the model.
+    # Place variables, constraints and branching selection here.
   end
 end
+
+# Print the solution.
+puts MyModel.new.solve!.to_s
 </pre>
 
 There are three main parts of a model:

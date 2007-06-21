@@ -16,8 +16,6 @@ require 'gecoder'
 
 class SendMoreMoney < Gecode::Model
   def initialize
-    super()
-    
     # Set up the variables, 8 letters with domain 0..9.
     s,e,n,d,m,o,r,y = @letters = int_var_array(8, 0..9)
 
