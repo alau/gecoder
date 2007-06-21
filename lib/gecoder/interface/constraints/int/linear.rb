@@ -21,8 +21,109 @@ module Gecode
     end
   end
   
+  module Constraints::Int
+    class Expression
+      private
+    
+      # Maps the names of the methods to the corresponding integer relation 
+      # type in Gecode.
+      RELATION_TYPES = { 
+        :== => Gecode::Raw::IRT_EQ,
+        :<= => Gecode::Raw::IRT_LQ,
+        :<  => Gecode::Raw::IRT_LE,
+        :>= => Gecode::Raw::IRT_GQ,
+        :>  => Gecode::Raw::IRT_GR }
+      # The same as above, but negated.
+      NEGATED_RELATION_TYPES = {
+        :== => Gecode::Raw::IRT_NQ,
+        :<= => Gecode::Raw::IRT_GR,
+        :<  => Gecode::Raw::IRT_GQ,
+        :>= => Gecode::Raw::IRT_LE,
+        :>  => Gecode::Raw::IRT_LQ
+      }
+      
+      public
+    
+      alias_method :pre_linear_initialize, :initialize
+      def initialize(space, left_hand_side, negate = false)
+        pre_linear_initialize(space, left_hand_side, negate)
+        unless negate
+          @method_relations = RELATION_TYPES
+        else
+          @method_relations = NEGATED_RELATION_TYPES
+        end
+      end
+      
+      RELATION_TYPES.each_key do |name|
+        module_eval <<-"end_code"
+          def #{name}(expression)
+            relation = @method_relations[:#{name}]
+            if self.simple_expression? and simple_expression?(expression)
+              # A relation constraint is enough.
+              post_relation_constraint(relation, expression)
+            else
+              post_linear_constraint(relation, expression)
+            end
+          end
+        end_code
+      end
+      
+      protected
+      
+      # Checks whether the given expression is simple enough to be used in a 
+      # simple relation constraint. Returns true if it is, false otherwise. If
+      # no expression is given then the this expression's left hand side is 
+      # checked.
+      def simple_expression?(expression = nil)
+        if expression.nil?
+          simple_expression?(@lhs)
+        else
+          expression.kind_of?(Gecode::FreeIntVar) or expression.kind_of?(Fixnum)
+        end
+      end
+      
+      private
+      
+      # Places the linear constraint corresponding to the specified (integer)
+      # relation type (as specified by Gecode) in relation to the specifed 
+      # expression.
+      # 
+      # Raises TypeError if the element is of a type that doesn't allow a 
+      # relation to be specified.
+      def post_linear_constraint(relation_type, right_hand_side)
+        if right_hand_side.respond_to? :to_minimodel_lin_exp
+          right_hand_side = right_hand_side.to_minimodel_lin_exp
+        elsif right_hand_side.kind_of? Gecode::FreeIntVar
+          right_hand_side = right_hand_side.bind * 1
+        elsif not right_hand_side.kind_of? Fixnum
+          raise TypeError, 'Invalid right hand side of linear equation.'
+        end
+        
+        (@lhs.to_minimodel_lin_exp - right_hand_side).post(@lhs.space, 
+          relation_type, Gecode::Raw::ICL_DEF)
+      end
+      
+      # Places the relation constraint corresponding to the specified (integer)
+      # relation type (as specified by Gecode) in relation to the specifed 
+      # element.
+      # 
+      # Raises TypeError if the element is of a type that doesn't allow a relation
+      # to be specified.
+      def post_relation_constraint(relation_type, element)
+        if element.kind_of? Fixnum
+          Gecode::Raw::rel(@space, @lhs.bind, relation_type, element, 
+            Gecode::Raw::ICL_DEF)
+        else
+          raise TypeError, 'Relations only allow Fixnum.'
+        end
+      end
+    end
+  end
+  
   # A module that gathers the classes and modules used in linear constraints.
   module Constraints::Int::Linear
+    # Helper methods for linear expressions. Classes mixing in this module must
+    # have a method #space which gives the space the expression is operating in. 
     module Helper
       OPERATION_TYPES = [:+, :-, :*]
     
@@ -40,13 +141,13 @@ module Gecode
       
       # Specifies that a constraint must hold for the linear expression.
       def must
-        Expression.new(self)
+        Gecode::Constraints::Int::Expression.new(self.space, self)
       end
       
       # Specifies that the negation of a constraint must hold for the linear
       # expression.
       def must_not
-        Expression.new(self, true)
+        Gecode::Constraints::Int::Expression.new(self.space, self, true)
       end
     end
     
@@ -94,70 +195,6 @@ module Gecode
           expression = expression.bind * 1
         end
         expression
-      end
-    end
-    
-    # Describes a linear constraint expression that starts with a linear 
-    # expression followed by must or must_not.
-    class Expression
-      # TODO: this is awfully similar to IntVarConstrainExpression. There should
-      # be some way to combine them.
-    
-      # Maps the names of the methods to the corresponding integer relation 
-      # type in Gecode.
-      RELATION_TYPES = { 
-        :== => Gecode::Raw::IRT_EQ,
-        :<= => Gecode::Raw::IRT_LQ,
-        :<  => Gecode::Raw::IRT_LE,
-        :>= => Gecode::Raw::IRT_GQ,
-        :>  => Gecode::Raw::IRT_GR }
-      # The same as above, but negated.
-      NEGATED_RELATION_TYPES = {
-        :== => Gecode::Raw::IRT_NQ,
-        :<= => Gecode::Raw::IRT_GR,
-        :<  => Gecode::Raw::IRT_GQ,
-        :>= => Gecode::Raw::IRT_LE,
-        :>  => Gecode::Raw::IRT_LQ
-      }
-      
-      # Constructs the expression with the specified left hand side. The 
-      # expression can optionally be negated.
-      def initialize(left_hand_side, negate = false)
-        @lhs = left_hand_side
-        unless negate
-          @method_relations = RELATION_TYPES
-        else
-          @method_relations = NEGATED_RELATION_TYPES
-        end
-      end
-      
-      RELATION_TYPES.each_key do |name|
-        module_eval <<-"end_code"
-          def #{name}(expression)
-            post_relation_constraint(@method_relations[:#{name}], expression)
-          end
-        end_code
-      end
-      
-      private
-      
-      # Places the relation constraint corresponding to the specified (integer)
-      # relation type (as specified by Gecode) in relation to the specifed 
-      # element.
-      # 
-      # Raises TypeError if the element is of a type that doesn't allow a relation
-      # to be specified.
-      def post_relation_constraint(relation_type, right_hand_side)
-        if right_hand_side.respond_to? :to_minimodel_lin_exp
-          right_hand_side = right_hand_side.to_minimodel_lin_exp
-        elsif right_hand_side.kind_of? Gecode::FreeIntVar
-          right_hand_side = right_hand_side.bind * 1
-        elsif not right_hand_side.kind_of? Fixnum
-          raise TypeError, 'Invalid right hand side of linear equation.'
-        end
-        
-        (@lhs.to_minimodel_lin_exp - right_hand_side).post(@lhs.space, 
-          relation_type, Gecode::Raw::ICL_DEF)
       end
     end
   end
