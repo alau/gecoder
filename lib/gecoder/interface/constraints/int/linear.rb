@@ -44,6 +44,7 @@ module Gecode
       
       public
     
+      # Add some relation selection based on whether the expression is negated.
       alias_method :pre_linear_initialize, :initialize
       def initialize(space, left_hand_side, negate = false)
         pre_linear_initialize(space, left_hand_side, negate)
@@ -54,6 +55,7 @@ module Gecode
         end
       end
       
+      # Define the relation methods.
       RELATION_TYPES.each_key do |name|
         module_eval <<-"end_code"
           def #{name}(expression)
@@ -107,8 +109,8 @@ module Gecode
       # relation type (as specified by Gecode) in relation to the specifed 
       # element.
       # 
-      # Raises TypeError if the element is of a type that doesn't allow a relation
-      # to be specified.
+      # Raises TypeError if the element is of a type that doesn't allow a 
+      # relation to be specified.
       def post_relation_constraint(relation_type, element)
         if element.kind_of? Fixnum
           Gecode::Raw::rel(@space, @lhs.bind, relation_type, element, 
