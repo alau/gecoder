@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe Gecode::FreeIntVar, ' (relation constraints)' do
+describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
   before do
     @model = Gecode::Model.new
     @x = @model.int_var(1..2)

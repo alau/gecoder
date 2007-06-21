@@ -8,7 +8,7 @@ class DistinctSampleProblem < Gecode::Model
   end
 end
 
-describe 'distinct constraints' do
+describe Gecode::Constraints::IntEnum, ' (distinct)' do
   before do
     @model = DistinctSampleProblem.new
   end
@@ -43,7 +43,7 @@ describe 'distinct constraints' do
     :bounds   => Gecode::Raw::ICL_BND,
     :domain   => Gecode::Raw::ICL_DOM
   }.each_pair do |name, gecode_value|
-    it 'should translate propagation strength #{name}' do
+    it "should translate propagation strength #{name}" do
       Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
         anything, gecode_value)
       @model.vars.must_be.distinct(:strength => name)
