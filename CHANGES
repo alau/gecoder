@@ -2,6 +2,8 @@
 
 * The constructor of Gecode::Model no longer has to be called by classes inheriting from it.
 * Added Model#reset! which resets a model after search.
+* Added Model#solution which passes the first solution to a block and returns the result of that block.
+* Added Model#each_soltion which iterates over each solution.
 
 == Version 0.2.0
 
