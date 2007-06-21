@@ -18,18 +18,24 @@ would be the following.
  x.must > 3
 
 Only constant integers can be used in the right hand side at the moment. The
-following relations are supported:
+following relations are supported (the aliases of each relation are also 
+listed).
 
-* <
-* >
-* >=
-* <=
-* <no_textile>==</not_textile>
+* @<@, @lesser@, @lesser_than@
+* @>@, @greater@, @greater_than@
+* @>=@, @greater_or_equal@, @greater_than_or_equal_to@
+* @<=@, @less_or_equal@, @less_than_or_equal_to@
+* @==@, @equal@, @equal_to@
 
 Each can be negated by using @must_not@ instead of @must@. For instance to 
 express that x must not be 0 we can use the following.
 
  x.must_not <no_textile>==</not_textile> 0
+ 
+The following are also other valid ways to specify that constraint.
+
+ x.must_not.equal(0)
+ x.must_not_be.equal_to(0)
 
 h3. Linear
 

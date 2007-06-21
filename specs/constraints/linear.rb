@@ -101,6 +101,15 @@ describe Gecode::Constraints::Int::Linear do
     (x - 2).should be_zero
   end
   
+  it 'should a single variable as left hande side' do
+    @x.must == @y + @z
+    sol = @model.solve!
+    x = sol.x.val
+    y = sol.y.val
+    z = sol.z.val
+    x.should equal(y + z)
+  end
+  
   it 'should handle parenthesis' do
     (@x - (@y + @z)).must == 1
     sol = @model.solve!
@@ -137,5 +146,42 @@ describe Gecode::Constraints::Int::Linear do
       sol.should_not be_nil
       (sol.x.val + sol.y.val).should_not.send(relation, 1)
     end
+  end
+  
+  it 'should translate reification' do
+    # TODO: what do we mock?
+    (@x + @y).must_be.less_than(2, :reify => @model.bool_var)
+  end
+  
+  # This does not spec all relations, but should be fine.
+  { :default  => Gecode::Raw::ICL_DEF,
+    :value    => Gecode::Raw::ICL_VAL,
+    :bounds   => Gecode::Raw::ICL_BND,
+    :domain   => Gecode::Raw::ICL_DOM
+  }.each_pair do |name, gecode_value|
+    it "should translate propagation strength #{name}" do
+      # TODO: what do we mock
+      (@x + @y).must.equal(0, :strength => name)
+    end
+  end
+  
+  it 'should default to using default as propagation strength' do
+    # TODO: what do we mock
+    @x.must_be.greater_than(@y + @z)
+  end
+  
+  it 'should raise errors for unrecognized options' do
+    lambda{ (@x + @y).must_be.equal_to(0, :does_not_exist => :foo) }.should(
+      raise_error(ArgumentError))
+  end
+  
+  it 'should raise errors for unrecognized propagation strengths' do
+    lambda{ (@x + @y).must_be.equal_to(0, :strength => :does_not_exist) }.should(
+      raise_error(ArgumentError))
+  end
+  
+  it 'should raise errors for reification variables of incorrect type' do
+    lambda{ (@x + @y).must_be.equal_to(0, :reify => :foo) }.should(
+      raise_error(TypeError))
   end
 end

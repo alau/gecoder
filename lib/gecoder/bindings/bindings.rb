@@ -571,6 +571,12 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 					method.add_parameter "Gecode::IntRelType", "irt"
 					method.add_parameter "Gecode::IntConLevel", "icl"
 				end
+        
+        klass.add_method "post" do |method|
+          method.add_parameter "Gecode::MSpace *", "home"
+          method.add_parameter "Gecode::IntRelType", "irt"
+          method.add_parameter "Gecode::BoolVar", "b"
+        end
 				
 				klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
 					operator.add_parameter("Gecode::MiniModel::LinExpr", "exp")
