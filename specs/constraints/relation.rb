@@ -1,70 +1,41 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-class RelationSampleProblem < Gecode::Model
-  attr :var
-  
-  def initialize(domain)
-    super()
-
-    @var = self.int_var(domain)
-  end
-  
-  # Adds a relation constraint with the specified relation and constant integer. 
-  def add_constraint(integer, relation)
-    @var.must.send(relation, integer)
-  end
-  
-  # Adds a negated relation constraint with the specified relation and constant 
-  # integer. 
-  def add_negated_constraint(integer, relation)
-    @var.must_not.send(relation, integer)
-  end
-end
-
 describe Gecode::FreeIntVar, ' (relation constraints)' do
   before do
-    @domain = 1..17
-    @model = RelationSampleProblem.new(@domain)
+    @model = Gecode::Model.new
+    @x = @model.int_var(1..2)
+    @int = 4
   end
   
-  int = 4
-  succ = int.succ
-  pred = int - 1
-  dom_beg = 1
-  dom_end = 17
-  relation_expectations = {
-    '>'  => succ..dom_end,
-    '>=' => int..dom_end,
-    '<'  => dom_beg..pred,
-    '<=' => dom_beg..int,
-    '==' => int..int
-  }.each_pair do |relation, expected_range|
-    it "should handle #{relation} with constant integers" do
-      @model.add_constraint(int, relation)
-      @model.solve!.var.should have_domain(expected_range)
+  relation_types = {
+    :== => Gecode::Raw::IRT_EQ,
+    :<= => Gecode::Raw::IRT_LQ,
+    :<  => Gecode::Raw::IRT_LE,
+    :>= => Gecode::Raw::IRT_GQ,
+    :>  => Gecode::Raw::IRT_GR
+  }.each_pair do |relation, type|
+    it "should translate #{relation} with constant to simple relation" do
+      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
+      @x.must.send(relation, @int)
     end
   end
-  
-  negated_relation_expectations = {
-    '>'  => relation_expectations['<='],
-    '>=' => relation_expectations['<'],
-    '<'  => relation_expectations['>='],
-    '<=' => relation_expectations['>']
-  }.each_pair do |relation, expected_range|
-    it "should handle negated #{relation} with constant integers" do
-      @model.add_negated_constraint(int, relation)
-      @model.solve!.var.should have_domain(expected_range)
+
+  negated_relation_types = {
+        :== => Gecode::Raw::IRT_NQ,
+        :<= => Gecode::Raw::IRT_GR,
+        :<  => Gecode::Raw::IRT_GQ,
+        :>= => Gecode::Raw::IRT_LE,
+        :>  => Gecode::Raw::IRT_LQ
+  }.each_pair do |relation, type|
+    it "should translate negated #{relation} with constant to simple relation" do
+      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
+      @x.must_not.send(relation, @int)
     end
   end
-  
-  # Inequality won't result in a range, so it's specified separatly.
-  it 'should handle negated == with constant integers' do
-    @model.add_negated_constraint(int, '==')
-    @model.solve!.var.should have_domain(
-      (dom_beg..pred).to_a + (succ..dom_end).to_a)
-  end
-  
+
   it 'should raise error on arguments of the wrong type' do
-    lambda{ @model.add_constraint('3', '==') }.should raise_error(TypeError) 
+    lambda{ @x.must == 'hello' }.should raise_error(TypeError) 
   end
 end
