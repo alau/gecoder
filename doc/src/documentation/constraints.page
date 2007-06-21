@@ -56,3 +56,48 @@ same value in solution).
 
 @must_be@ can also be replaced with @must@. The constraint does not support 
 negation.
+
+h2. Options
+
+Constraints can in general take a couple of options: *proagation strength* and
+*reficiation*.
+
+h3. Propagation strength
+
+The propagation strength basically _suggests_ how much effort the solver puts 
+into trying to prune the domains of variables using the constraint. A higher 
+strength can reduce the search space quicker, but at a cost of making each 
+propagation more costly (hence it's a balance).
+
+It's usually worth testing a few different strength to see how well they work, 
+a good choice of strengths can cut down the search time depending on the 
+problem.
+
+The different strengths are:
+* @:value@ - value consistency (naive).
+* @:domain@ - domain consistency, every element in the domain satisfies the constraint.
+* @:bounds@ - bounds consistency, the boundaries of the domain satisfy the constraint.
+* @:default@ - uses the default consistency for the constraint.
+
+They are specified with the key @:strength@. The following places a domain 
+consistent distinct constraint on @numbers@.
+
+ numbers.must_be.distinct(:strength => :distinct)
+
+h3. Reification
+ 
+Reification is used to link a constraint to a boolean variable in such a way
+that the variable is true if and only if the constraint is satisfied. The 
+propagation goes both ways, so if the variable is constrained to be false then
+the constraint is not allowed to be satisfied.
+
+Reification can be thought of as a last resort glue which can be used to combine
+constraints so that e.g. exactly 3 out of 17 constraints must be satisfied.
+
+The variable to use for reification is specified with the key @:reify@. The
+following connects the boolean variable @is_large@ with a relation constraint.
+
+ number.must_be.greater_than(17, :reify => is_large)
+
+This constraint does not force @number@ to be greater than 17 (which would be 
+the case if no reification has been used).
