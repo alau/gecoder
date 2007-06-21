@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/constraint_helper'
 
 class DistinctSampleProblem < Gecode::Model
   attr :vars
@@ -11,6 +12,17 @@ end
 describe Gecode::Constraints::IntEnum, ' (distinct)' do
   before do
     @model = DistinctSampleProblem.new
+    @invoke_options = lambda{ |hash| @model.vars.must_be.distinct(hash) }
+    @expect_options = lambda do |strength, reif_var|
+      if reif_var.nil?
+        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVarArray), strength)
+      else
+        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVarArray), strength,
+          an_instance_of(Gecode::Raw::BoolVar))
+      end
+    end
   end
   
   it 'should translate into a distinct constraint' do
@@ -32,42 +44,5 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
       Gecode::MissingConstraintError) 
   end
   
-  it 'should translate reification' do
-    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
-      anything, Gecode::Raw::ICL_DEF, an_instance_of(Gecode::Raw::BoolVar))
-    @model.vars.must_be.distinct(:reify => @model.bool_var)
-  end
-  
-  { :default  => Gecode::Raw::ICL_DEF,
-    :value    => Gecode::Raw::ICL_VAL,
-    :bounds   => Gecode::Raw::ICL_BND,
-    :domain   => Gecode::Raw::ICL_DOM
-  }.each_pair do |name, gecode_value|
-    it "should translate propagation strength #{name}" do
-      Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
-        anything, gecode_value)
-      @model.vars.must_be.distinct(:strength => name)
-    end
-  end
-  
-  it 'should default to using default as propagation strength' do
-    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
-      anything, Gecode::Raw::ICL_DEF)
-    @model.vars.must_be.distinct()
-  end
-  
-  it 'should raise errors for unrecognized options' do
-    lambda{ @model.vars.must_be.distinct(:does_not_exist => :foo) }.should(
-      raise_error(ArgumentError))
-  end
-  
-  it 'should raise errors for unrecognized propagation strengths' do
-    lambda{ @model.vars.must_be.distinct(:strength => :does_not_exist) }.should(
-      raise_error(ArgumentError))
-  end
-  
-  it 'should raise errors for reification variables of incorrect type' do
-    lambda{ @model.vars.must_be.distinct(:reify => 'foo') }.should(
-      raise_error(TypeError))
-  end
+  it_should_behave_like 'constraint with options'
 end

@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/constraint_helper'
 
 class LinearSampleProblem < Gecode::Model
   attr :x
@@ -22,6 +23,12 @@ describe Gecode::Constraints::Int::Linear do
     @x = @model.x
     @y = @model.y
     @z = @model.z
+    
+    # For constraint option spec.
+    @invoke_options = lambda{ |hash| (@x + @y).must_be.greater_than(@z, hash) }
+    @expect_options = lambda do |strength, reif_var|
+      # TODO: this is hard to spec from this level.
+    end
   end
 
   it 'should handle addition with a variable' do
@@ -148,40 +155,5 @@ describe Gecode::Constraints::Int::Linear do
     end
   end
   
-  it 'should translate reification' do
-    # TODO: what do we mock?
-    (@x + @y).must_be.less_than(2, :reify => @model.bool_var)
-  end
-  
-  # This does not spec all relations, but should be fine.
-  { :default  => Gecode::Raw::ICL_DEF,
-    :value    => Gecode::Raw::ICL_VAL,
-    :bounds   => Gecode::Raw::ICL_BND,
-    :domain   => Gecode::Raw::ICL_DOM
-  }.each_pair do |name, gecode_value|
-    it "should translate propagation strength #{name}" do
-      # TODO: what do we mock
-      (@x + @y).must.equal(0, :strength => name)
-    end
-  end
-  
-  it 'should default to using default as propagation strength' do
-    # TODO: what do we mock
-    @x.must_be.greater_than(@y + @z)
-  end
-  
-  it 'should raise errors for unrecognized options' do
-    lambda{ (@x + @y).must_be.equal_to(0, :does_not_exist => :foo) }.should(
-      raise_error(ArgumentError))
-  end
-  
-  it 'should raise errors for unrecognized propagation strengths' do
-    lambda{ (@x + @y).must_be.equal_to(0, :strength => :does_not_exist) }.should(
-      raise_error(ArgumentError))
-  end
-  
-  it 'should raise errors for reification variables of incorrect type' do
-    lambda{ (@x + @y).must_be.equal_to(0, :reify => :foo) }.should(
-      raise_error(TypeError))
-  end
+  it_should_behave_like 'constraint with options'
 end
