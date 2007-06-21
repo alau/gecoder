@@ -164,6 +164,10 @@ MBoolVarArray::MBoolVarArray(const Gecode::BoolVarArray &arr) : d(new Private)
 	setSize(arr.size());
 	setCount(0);
 }
+MBoolVarArray::MBoolVarArray (Space *home, int n) : d(new Private)
+{
+	setArray(Gecode::BoolVarArray(home, n));
+}
 
 MBoolVarArray::~MBoolVarArray()
 {

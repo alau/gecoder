@@ -35,7 +35,9 @@ lib/gecoder/interface/constraints/int_var_constraints.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/search.rb -text
+lib/gecoder/interface/variables.rb -text
 specs/binding_changes.rb -text
+specs/bool_var.rb -text
 specs/branch.rb -text
 specs/constraints/distinct.rb -text
 specs/constraints/linear.rb -text

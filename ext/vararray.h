@@ -83,7 +83,8 @@ class MBoolVarArray : public MVarArray
 	public:
 		MBoolVarArray();
 		MBoolVarArray(const Gecode::BoolVarArray &arr);
-		
+		MBoolVarArray(Space *home, int n);
+
 		~MBoolVarArray();
 		
 		void enlargeArray(Gecode::Space *parent, int n = 1);

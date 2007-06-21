@@ -188,6 +188,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 		ns.add_cxx_class "MBoolVarArray" do |klass|
 			klass.bindname = "BoolVarArray"
 			klass.add_constructor
+      klass.add_constructor do |func|
+        func.add_parameter "Gecode::MSpace *", "home"
+        func.add_parameter "int", "n"
+      end
+      
 			klass.add_method "at", "Gecode::BoolVar&" do |method|
 				method.add_parameter "int", "index"
 			end
@@ -195,6 +200,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 			klass.add_operator "[]", "Gecode::BoolVar&" do |method|
 				method.add_parameter "int", "index"
 			end
+      
+      klass.add_operator "[]=", "Gecode::BoolVar&" do |method|
+        method.add_parameter "int", "index"
+        method.add_parameter "Gecode::BoolVar", "val"
+      end
 			
 			klass.add_method "size", "int"
 			
@@ -428,6 +438,22 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 			klass.add_constructor do |method|
 				method.add_parameter "Gecode::IntVar", "x"
 			end
+      
+      klass.add_method "max", "int"
+      
+      klass.add_method "min", "int"
+      klass.add_method "med", "int"
+      klass.add_method "val", "int"
+      klass.add_method "size", "unsigned int"
+      klass.add_method "width", "unsigned int"
+      klass.add_method "degree", "unsigned int"
+      
+      klass.add_method "range", "bool"
+      klass.add_method "assigned", "bool"
+      klass.add_method "in", "bool" do |method|
+        method.add_parameter "int", "n"
+      end
+      
 			klass.add_method "update", "void" do |method|
 				method.add_parameter "Gecode::MSpace*", "home"
 				method.add_parameter "bool", "share"

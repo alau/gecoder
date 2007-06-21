@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe 'non-empty variable', :shared => true do
+describe 'non-empty int variable', :shared => true do
   it 'should have min equal to the lower domain bound' do
     @var.min.should equal(@domain.min)
   end
@@ -41,7 +41,7 @@ describe Gecode::FreeIntVar, ' (with range domain of size > 1)' do
     @var = model.int_var(@range)
   end
   
-  it_should_behave_like 'non-empty variable'
+  it_should_behave_like 'non-empty int variable'
   
   it 'should have a zero degree' do
     @var.degree.should be_zero
@@ -79,7 +79,7 @@ describe Gecode::FreeIntVar, ' (with non-range domain of size > 1)' do
     @var = model.int_var(*@domain)
   end
 
-  it_should_behave_like 'non-empty variable'
+  it_should_behave_like 'non-empty int variable'
   
   it 'should have a degree equal to the domain degree' do
     @var.degree.should equal(1)
@@ -105,7 +105,7 @@ describe Gecode::FreeIntVar, '(with a domain of size 1)' do
     @var = model.int_var(*@domain)
   end
   
-  it_should_behave_like 'non-empty variable'
+  it_should_behave_like 'non-empty int variable'
   
   it 'should have a zero degree' do
     @var.degree.should be_zero

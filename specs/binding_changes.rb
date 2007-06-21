@@ -5,8 +5,16 @@ describe 'Space', :shared => true do
     @space.new_int_vars(0, 17).should_not equal(@space.new_int_vars(0, 17))
   end
   
+  it 'should give different indices when creating bool variables' do
+    @space.new_bool_vars().should_not equal(@space.new_bool_vars())
+  end
+  
   it 'should give different indices when creating multiple int variables' do
     @space.new_int_vars(0, 17, 17).uniq.size.should equal(17)
+  end
+  
+  it 'should give different indices when creating multiple bool variables' do
+    @space.new_bool_vars(17).uniq.size.should equal(17)
   end
   
   it 'should not return nil for created int variables' do
@@ -15,8 +23,18 @@ describe 'Space', :shared => true do
     end
   end
   
+  it 'should not return nil for created int variables' do
+    @space.new_bool_vars(4).each do |i|
+      @space.bool_var(i).should_not be_nil
+    end
+  end
+  
   it 'should return nil when requesting int variables with negative indices' do
     @space.int_var(-1).should be_nil
+  end
+  
+  it 'should return nil when requesting bool variables with negative indices' do
+    @space.bool_var(-1).should be_nil
   end
 end
 
@@ -27,6 +45,10 @@ describe Gecode::Raw::Space, ' (new)' do
   
   it 'should return nil when requesting int variables' do
     @space.int_var(0).should be_nil
+  end
+  
+  it 'should return nil when requesting bool variables' do
+    @space.bool_var(0).should be_nil
   end
   
   it_should_behave_like 'Space'

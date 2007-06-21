@@ -23,6 +23,21 @@ module Gecode
       return wrap_enum(variables)
     end
     
+    # Creates a new boolean variable.
+    def bool_var(*domain_args)
+      index = active_space.new_bool_vars.first
+      FreeBoolVar.new(self, index)
+    end
+    
+    # Creates an array containing the specified number of boolean variables.
+    def bool_var_array(count)
+      variables = []
+      active_space.new_int_vars(range.begin, range.end, count).each do |index|
+        variables << FreeBoolVar.new(self, index)
+      end
+      return wrap_enum(variables)
+    end
+    
     # Retrieves the currently active space (the one which variables refer to).
     def active_space
       @active_space ||= base_space
@@ -72,54 +87,6 @@ module Gecode
           Gecode::Raw::ICL_DEF)
       end
       return var
-    end
-  end
-  
-  # An IntVar that is bound to a model, but not to a particular space.  
-  class FreeIntVar
-    attr_accessor :model
-  
-    # Creates an int variable with the specified index.
-    def initialize(model, index)
-      @model = model
-      @index = index
-      @bound_space = @bound_var = nil
-    end
-    
-    # Delegate methods we can't handle to the bound int variable if possible.
-    def method_missing(name, *args)
-      if Gecode::Raw::IntVar.instance_methods.include? name.to_s
-        bind.send(name, *args)
-      else
-        super
-      end
-    end
-    
-    # Binds the int variable to the currently active space of the model, 
-    # returning the bound int variable.
-    def bind
-      space = active_space
-      unless @bound_space == space
-        # We have not bound the variable to this space, so we do it now.
-        @bound = space.int_var(@index)
-        @bound_space = space
-      end
-      return @bound
-    end
-    
-    def inspect
-      if assigned?
-        "#<FreeIntVar range: val.to_s>"
-      else
-        "#<FreeIntVar range: #{min}..#{max}>"
-      end
-    end
-    
-    private
-    
-    # Returns the space that the int variable should bind to when needed.
-    def active_space
-      @model.active_space
     end
   end
 end
