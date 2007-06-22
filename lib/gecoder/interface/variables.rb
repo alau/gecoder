@@ -46,7 +46,7 @@ module Gecode
       
       def inspect
         if assigned?
-          "#<#{bound_class} range: val.to_s>"
+          "#<#{bound_class} range: \#{val.to_s}>"
         else
           "#<#{bound_class} range: \#{min}..\#{max}>"
         end
