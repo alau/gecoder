@@ -56,6 +56,17 @@ describe Gecode::FreeIntVar, ' (with range domain of size > 1)' do
   end
 end
 
+describe Gecode::FreeIntVar, ' (defined with three-dot range)' do
+  before do
+    @range = -4...3
+    @domain = @range.to_a
+    model = Gecode::Model.new
+    @var = model.int_var(@range)
+  end
+  
+  it_should_behave_like 'non-empty int variable'
+end
+
 # Many of these fail. It does not appear to be a problem in the Ruby-code, 
 # rather IntSet (in Model#int_var) seems to behave strange when e.g. given an 
 # array of [1,3,5]. Example:

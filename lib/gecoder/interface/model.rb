@@ -62,9 +62,11 @@ module Gecode
         max = domain_args.max
       else
         element = domain_args.first
-        if element.respond_to? :begin and element.respond_to? :end
+        if element.respond_to?(:begin) and element.respond_to?(:end) and
+            element.respond_to?(:exclude_end?)
           min = element.begin
           max = element.end
+          max -= 1 if element.exclude_end?
         else
           min = max = element
         end
