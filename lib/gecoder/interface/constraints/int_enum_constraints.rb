@@ -1,32 +1,28 @@
 module Gecode
   module IntEnumMethods
-    # Specifies that a constraint must hold for the integer variable enum.
-    def must
-      Constraints::IntEnum::Expression.new(active_space, self)
-    end
-    alias_method :must_be, :must
+    include Gecode::Constraints::LeftHandSideMethods
     
-    # Specifies that the negation of a constraint must hold for the integer 
-    # variable.
-    def must_not
-      Constraints::IntEnum::Expression.new(active_space, self, true)
+    private
+    
+    # Produces an expression for the lhs module.
+    def expression(params)
+      params.update(:lhs => self, :space => active_space)
+      Constraints::IntEnum::Expression.new(params)
     end
-    alias_method :must_not_be, :must_not
   end
   
   # A module containing constraints that have enumerations of integer 
   # variables as left hand side.
   module Constraints::IntEnum
-    # Describes a constraint expression that starts with an enumeration of int
-    # variables followed by must or must_not.
-    class Expression
-      # Constructs a new expression with the specified space and int var array 
-      # with the (free) variables as source. The expression can optionally be 
-      # negated.
-      def initialize(space, var_array, negate = false)
-        @space = space
-        @var_array = var_array
-        @negate = negate
+    # Expressions with int enums as left hand sides.
+    class Expression < Gecode::Constraints::Expression
+      # Raises TypeError unless the left hand side is an int enum.
+      def initialize(params)
+        super(params)
+        
+        unless params[:lhs].respond_to? :to_int_var_array
+          raise TypeError, 'Must have int enum as left hand side.'
+        end
       end
     end
   end

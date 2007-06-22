@@ -46,9 +46,9 @@ module Gecode
     
       # Add some relation selection based on whether the expression is negated.
       alias_method :pre_linear_initialize, :initialize
-      def initialize(space, left_hand_side, negate = false)
-        pre_linear_initialize(space, left_hand_side, negate)
-        unless negate
+      def initialize(params)
+        pre_linear_initialize(params)
+        unless params[:negate]
           @method_relations = RELATION_TYPES
         else
           @method_relations = NEGATED_RELATION_TYPES
@@ -92,7 +92,7 @@ module Gecode
       # checked.
       def simple_expression?(expression = nil)
         if expression.nil?
-          simple_expression?(@lhs)
+          simple_expression?(@params[:lhs])
         else
           expression.kind_of?(Gecode::FreeIntVar) or expression.kind_of?(Fixnum)
         end
@@ -108,8 +108,10 @@ module Gecode
       # relation to be specified.
       def post_linear_constraint(relation_type, right_hand_side, strength, 
           reif_var)
-        if @lhs.kind_of? Gecode::FreeIntVar
-          @lhs = @lhs * 1 # Convert to Gecode::Raw::LinExp
+        lhs = @params[:lhs]
+          
+        if lhs.kind_of? Gecode::FreeIntVar
+          lhs = lhs * 1 # Convert to Gecode::Raw::LinExp
         end
         if right_hand_side.respond_to? :to_minimodel_lin_exp
           right_hand_side = right_hand_side.to_minimodel_lin_exp
@@ -119,11 +121,11 @@ module Gecode
           raise TypeError, 'Invalid right hand side of linear equation.'
         end
         
-        final_exp = (@lhs.to_minimodel_lin_exp - right_hand_side)
+        final_exp = (lhs.to_minimodel_lin_exp - right_hand_side)
         if reif_var.nil?
-          final_exp.post(@lhs.space, relation_type, strength)
+          final_exp.post(lhs.space, relation_type, strength)
         else
-          final_exp.post(@lhs.space, relation_type, reif_var)
+          final_exp.post(lhs.space, relation_type, reif_var)
         end
       end
       
@@ -134,13 +136,14 @@ module Gecode
       # Raises TypeError if the element is of a type that doesn't allow a 
       # relation to be specified.
       def post_relation_constraint(relation_type, element, strength, reif_var)
+        lhs, space = @params.values_at(:lhs, :space)
+      
         if element.kind_of? Fixnum
           if reif_var.nil?
-            Gecode::Raw::rel(@space, @lhs.bind, relation_type, element, 
-              strength)
+            Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength)
           else
-            Gecode::Raw::rel(@space, @lhs.bind, relation_type, element, 
-              strength, reif_var)
+            Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength, 
+              reif_var)
           end
         else
           raise TypeError, 'Relations only allow Fixnum.'
@@ -154,7 +157,13 @@ module Gecode
     # Helper methods for linear expressions. Classes mixing in this module must
     # have a method #space which gives the space the expression is operating in. 
     module Helper
+      include Gecode::Constraints::LeftHandSideMethods
+      
+      private
+    
       OPERATION_TYPES = [:+, :-, :*]
+    
+      public
     
       # Define methods for the available operations.
       OPERATION_TYPES.each do |name|
@@ -168,18 +177,13 @@ module Gecode
         end_code
       end
       
-      # Specifies that a constraint must hold for the linear expression.
-      def must
-        Gecode::Constraints::Int::Expression.new(self.space, self)
-      end
-      alias_method :must_be, :must
+      private
       
-      # Specifies that the negation of a constraint must hold for the linear
-      # expression.
-      def must_not
-        Gecode::Constraints::Int::Expression.new(self.space, self, true)
+      # Produces an expression for the lhs module.
+      def expression(params)
+        params.update({:lhs => self, :space => space})
+        Gecode::Constraints::Int::Expression.new(params)
       end
-      alias_method :must_not_be, :must_not
     end
     
     # Describes a linear constraint that starts with a linear expression 

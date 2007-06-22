@@ -6,6 +6,52 @@ module Gecode
   
   # A module containing all the constraints.
   module Constraints
+    # A module that should be mixed in to class of objects that should be usable
+    # as left hand sides (i.e. the part before must*) when specifying 
+    # constraints. Assumes that a method #expression is defined which produces
+    # a new expression given the current constraint parameters.
+    module LeftHandSideMethods
+      # Specifies that a constraint must hold for the integer variable enum.
+      def must
+        expression update_params(:negate => false)
+      end
+      alias_method :must_be, :must
+      
+      # Specifies that the negation of a constraint must hold for the integer 
+      # variable.
+      def must_not
+        expression update_params(:negate => true)
+      end
+      alias_method :must_not_be, :must_not
+      
+      private
+      
+      # Updates the parameters with the specified new parameters.
+      def update_params(params_to_add)
+        @constraint_params ||= {}
+        @constraint_params.update(params_to_add)
+      end
+    end
+    
+    # Describes a constraint expressions. An expression is produced by calling
+    # some form of must on a left hand side. The expression waits for a right 
+    # hand side so that it can post the corresponding constraint.
+    class Expression
+      # Constructs a new expression with the specified parameters. The 
+      # parameters shoud at least contain the keys :lhs, :space and :negate.
+      #
+      # Raises ArgumentError if any of those keys are missing.
+      def initialize(params)
+        unless params.has_key?(:lhs) and params.has_key?(:space) and 
+            params.has_key?(:negate)
+          raise ArgumentError, 'Expression requires at least :lhs, :space ' + 
+            "and :negate as parameter keys, got #{params.keys.join(', ')}."
+        end
+        
+        @params = params
+      end
+    end
+  
     # A module that provides some utility-methods for decoding options given to
     # constraints.
     module OptionUtil

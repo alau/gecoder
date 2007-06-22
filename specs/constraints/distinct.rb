@@ -64,18 +64,25 @@ describe Gecode::Constraints::IntEnum, ' (with offsets)' do
       end
     end
   end
-  
+
   it 'should translate into a distinct constraint with offsets' do
     Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
       anything, anything, Gecode::Raw::ICL_DEF)
     @invoke_options.call({})
   end
-  
+
   it 'should consider offsets when making variables distinct' do
     @model.vars.with_offsets(-1,0).must_be.distinct
     x,y = @model.solve!.vars
     x.val.should equal(1)
     y.val.should equal(1)
+  end
+  
+  # This tests two distinct in conjunction. It's here because of a bug found.
+  it 'should play nice with normal distinct' do
+    @model.vars.with_offsets(-1,0).must_be.distinct
+    @model.vars.must_be.distinct
+    @model.solve!.should be_nil
   end
   
   it 'should accept an array as offsets' do
