@@ -6,6 +6,7 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     @model = Gecode::Model.new
     @x = @model.int_var(1..2)
     @int = 4
+    @y = @model.int_var(1..2)
     
     # For constraint option spec.
     @invoke_options = lambda{ |hash| @x.must_be.greater_than(3, hash) }
@@ -47,6 +48,36 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
       Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
       @x.must_not.send(relation, @int)
+    end
+  end
+  
+  relation_types = {
+    :== => Gecode::Raw::IRT_EQ,
+    :<= => Gecode::Raw::IRT_LQ,
+    :<  => Gecode::Raw::IRT_LE,
+    :>= => Gecode::Raw::IRT_GQ,
+    :>  => Gecode::Raw::IRT_GR
+  }.each_pair do |relation, type|
+    it "should translate #{relation} with variables to simple relation" do
+      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVar), type, 
+        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
+      @x.must.send(relation, @y)
+    end
+  end
+
+  negated_relation_types = {
+        :== => Gecode::Raw::IRT_NQ,
+        :<= => Gecode::Raw::IRT_GR,
+        :<  => Gecode::Raw::IRT_GQ,
+        :>= => Gecode::Raw::IRT_LE,
+        :>  => Gecode::Raw::IRT_LQ
+  }.each_pair do |relation, type|
+    it "should translate negated #{relation} with variable to simple relation" do
+      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVar), type, 
+        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
+      @x.must_not.send(relation, @y)
     end
   end
 

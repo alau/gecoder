@@ -137,16 +137,18 @@ module Gecode
       # relation to be specified.
       def post_relation_constraint(relation_type, element, strength, reif_var)
         lhs, space = @params.values_at(:lhs, :space)
-      
-        if element.kind_of? Fixnum
-          if reif_var.nil?
-            Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength)
-          else
-            Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength, 
-              reif_var)
-          end
+        
+        if element.kind_of? FreeIntVar
+          element = element.bind
+        elsif !element.kind_of? Fixnum
+          raise TypeError, 'Invalid right hand side of simple relation.'
+        end
+        
+        if reif_var.nil?
+          Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength)
         else
-          raise TypeError, 'Relations only allow Fixnum.'
+          Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength, 
+            reif_var)
         end
       end
     end
