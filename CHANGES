@@ -7,6 +7,7 @@
 * Added boolean variables. They are created using Model#bool_var and Model#bool_var_array .
 * Added two options to constraints: propagation strength and reification variable.
 * Linear and simple relation constraints can now also be specified using #equal, #equal_to, #greater, #greater_than,... in addition to comparison operators.
+* Added distinct with offsets.
 
 == Version 0.2.0
 

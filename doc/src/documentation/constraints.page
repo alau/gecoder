@@ -63,6 +63,12 @@ same value in solution).
 @must_be@ can also be replaced with @must@. The constraint does not support 
 negation.
 
+The constraint also allows offsets, so one can specify that the numbers must be
+distinct after certain offsets have been applied. The following specifies that
+no number may be the previous number incremented by one.
+
+ numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
+
 h2. Options
 
 Constraints can in general take a couple of options: *proagation strength* and

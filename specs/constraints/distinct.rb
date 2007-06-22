@@ -46,3 +46,49 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
   
   it_should_behave_like 'constraint with options'
 end
+
+describe Gecode::Constraints::IntEnum, ' (with offsets)' do
+  before do
+    @model = DistinctSampleProblem.new
+    @invoke_options = lambda do |hash| 
+      @model.vars.with_offsets(1,2).must_be.distinct(hash)
+    end
+    @expect_options = lambda do |strength, reif_var|
+      if reif_var.nil?
+        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+          anything, an_instance_of(Gecode::Raw::IntVarArray), strength)
+      else
+        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+          anything, an_instance_of(Gecode::Raw::IntVarArray), strength,
+          an_instance_of(Gecode::Raw::BoolVar))
+      end
+    end
+  end
+  
+  it 'should translate into a distinct constraint with offsets' do
+    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+      anything, anything, Gecode::Raw::ICL_DEF)
+    @invoke_options.call({})
+  end
+  
+  it 'should consider offsets when making variables distinct' do
+    @model.vars.with_offsets(-1,0).must_be.distinct
+    x,y = @model.solve!.vars
+    x.val.should equal(1)
+    y.val.should equal(1)
+  end
+  
+  it 'should accept an array as offsets' do
+    @model.vars.with_offsets([-1,0]).must_be.distinct
+    x,y = @model.solve!.vars
+    x.val.should equal(1)
+    y.val.should equal(1)
+  end
+  
+  it 'should not allow negation' do
+    lambda{ @model.vars.with_offsets(1,2).must_not_be.distinct }.should 
+      raise_error(Gecode::MissingConstraintError)
+  end
+  
+  it_should_behave_like 'constraint with options'
+end
