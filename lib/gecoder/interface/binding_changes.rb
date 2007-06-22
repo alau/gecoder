@@ -82,10 +82,6 @@ module Gecode
       
       # Grows the store to the new size.
       def grow(new_size)
-        if new_size <= @size
-          raise ArgumentError, 'New size must be larger than the old one.'
-        end
-        
         new_array = new_storage_array(new_size)
         @var_array.size.times do |i|
           new_array[i] = @var_array[i]

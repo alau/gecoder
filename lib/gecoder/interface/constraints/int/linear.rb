@@ -42,6 +42,16 @@ module Gecode
         :>  => Gecode::Raw::IRT_LQ
       }
       
+      # Various method aliases for the class. Maps the original name to an 
+      # array of aliases.
+      METHOD_ALIASES = { 
+        :== => [:equal, :equal_to],
+        :>  => [:greater, :greater_than],
+        :>= => [:greater_or_equal, :greater_than_or_equal_to],
+        :<  => [:less, :less_than],
+        :<= => [:less_or_equal, :less_than_or_equal_to]
+      }
+      
       public
     
       # Add some relation selection based on whether the expression is negated.
@@ -73,12 +83,7 @@ module Gecode
       end
       
       # Various aliases.
-      { :== => [:equal, :equal_to],
-        :>  => [:greater, :greater_than],
-        :>= => [:greater_or_equal, :greater_than_or_equal_to],
-        :<  => [:less, :less_than],
-        :<= => [:less_or_equal, :less_than_or_equal_to]
-      }.each_pair do |orig, alias_names|
+      METHOD_ALIASES.each_pair do |orig, alias_names|
         alias_names.each do |name|
           alias_method name, orig
         end
@@ -140,8 +145,6 @@ module Gecode
         
         if element.kind_of? FreeIntVar
           element = element.bind
-        elsif !element.kind_of? Fixnum
-          raise TypeError, 'Invalid right hand side of simple relation.'
         end
         
         if reif_var.nil?

@@ -41,6 +41,7 @@ specs/binding_changes.rb -text
 specs/bool_var.rb -text
 specs/branch.rb -text
 specs/constraints/constraint_helper.rb -text
+specs/constraints/constraints.rb -text
 specs/constraints/distinct.rb -text
 specs/constraints/linear.rb -text
 specs/constraints/relation.rb -text

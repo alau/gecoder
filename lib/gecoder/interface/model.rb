@@ -32,7 +32,7 @@ module Gecode
     # Creates an array containing the specified number of boolean variables.
     def bool_var_array(count)
       variables = []
-      active_space.new_int_vars(range.begin, range.end, count).each do |index|
+      active_space.new_bool_vars(count).each do |index|
         variables << FreeBoolVar.new(self, index)
       end
       return wrap_enum(variables)

@@ -42,3 +42,17 @@ describe Gecode::Model, ' (integer creation)' do
     vars.each{ |var| var.should have_domain(domain) }
   end
 end
+
+describe Gecode::Model, ' (bool creation)' do
+  before do
+    @model = Gecode::Model.new
+  end
+
+  it 'should allow the creation of boolean variables' do
+    @model.bool_var.should_not be_nil
+  end
+  
+  it 'should allow the creation of arrays of boolean variables' do
+    @model.bool_var_array(3).size.should equal(3)
+  end
+end
