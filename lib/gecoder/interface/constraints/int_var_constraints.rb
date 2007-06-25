@@ -6,8 +6,8 @@ module Gecode
     
     # Produces an expression for the lhs module.
     def expression(params)
-      params.update(:lhs => self, :space => active_space)
-      Constraints::Int::Expression.new(params)
+      params.update(:lhs => self)
+      Constraints::Int::Expression.new(@model, params)
     end
   end
   

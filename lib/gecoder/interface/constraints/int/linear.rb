@@ -3,21 +3,21 @@ module Gecode
     # Creates a linear expression where the int variables are summed.
     def +(var)
       Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
-        active_space) + var
+        @model) + var
     end
     
     # Creates a linear expression where the int variable is multiplied with 
     # a constant integer.
     def *(int)
       Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
-        active_space) * int
+        @model) * int
     end
     
     # Creates a linear expression where the specified variable is subtracted 
     # from this one.
     def -(var)
       Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
-        active_space) - var
+        @model) - var
     end
   end
   
@@ -56,8 +56,8 @@ module Gecode
     
       # Add some relation selection based on whether the expression is negated.
       alias_method :pre_linear_initialize, :initialize
-      def initialize(params)
-        pre_linear_initialize(params)
+      def initialize(model, params)
+        pre_linear_initialize(model, params)
         unless params[:negate]
           @method_relations = RELATION_TYPES
         else
@@ -70,13 +70,13 @@ module Gecode
         module_eval <<-"end_code"
           def #{name}(expression, options = {})
             relation = @method_relations[:#{name}]
-            strength, reif_var = 
-              Gecode::Constraints::OptionUtil.decode_options(options)
+            @params.update(
+              Gecode::Constraints::OptionUtil.decode_options(options))
             if self.simple_expression? and simple_expression?(expression)
               # A relation constraint is enough.
-              post_relation_constraint(relation, expression, strength, reif_var)
+              add_relation_constraint(relation, expression)
             else
-              post_linear_constraint(relation, expression, strength, reif_var)
+              add_linear_constraint(relation, expression)
             end
           end
         end_code
@@ -111,10 +111,9 @@ module Gecode
       # 
       # Raises TypeError if the element is of a type that doesn't allow a 
       # relation to be specified.
-      def post_linear_constraint(relation_type, right_hand_side, strength, 
-          reif_var)
+      def add_linear_constraint(relation_type, right_hand_side)
+        # Bind parameters.
         lhs = @params[:lhs]
-          
         if lhs.kind_of? Gecode::FreeIntVar
           lhs = lhs * 1 # Convert to Gecode::Raw::LinExp
         end
@@ -126,41 +125,57 @@ module Gecode
           raise TypeError, 'Invalid right hand side of linear equation.'
         end
         
-        final_exp = (lhs.to_minimodel_lin_exp - right_hand_side)
-        if reif_var.nil?
-          final_exp.post(lhs.space, relation_type, strength)
-        else
-          final_exp.post(lhs.space, relation_type, reif_var)
-        end
+        @params.update(:relation_type => relation_type, :lhs => lhs, 
+          :rhs => right_hand_side)
+        @model.add_constraint Linear::LinearConstraint.new(@model, @params)
       end
       
       # Places the relation constraint corresponding to the specified (integer)
       # relation type (as specified by Gecode) in relation to the specifed 
       # element.
-      # 
-      # Raises TypeError if the element is of a type that doesn't allow a 
-      # relation to be specified.
-      def post_relation_constraint(relation_type, element, strength, reif_var)
-        lhs, space = @params.values_at(:lhs, :space)
-        
+      def add_relation_constraint(relation_type, element)
+        # Bind parameters.
+        @params[:lhs] = @params[:lhs].bind
         if element.kind_of? FreeIntVar
           element = element.bind
         end
-        
-        if reif_var.nil?
-          Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength)
-        else
-          Gecode::Raw::rel(space, lhs.bind, relation_type, element, strength, 
-            reif_var)
-        end
+      
+        @model.add_constraint Linear::SimpleRelationConstraint.new(@model, 
+          @params.update(:relation_type => relation_type, :element => element))
       end
     end
   end
   
   # A module that gathers the classes and modules used in linear constraints.
   module Constraints::Int::Linear
+    # Describes a linear constraint.
+    class LinearConstraint < Gecode::Constraints::ReifiableConstraint
+      def post
+        lhs, rhs, relation_type, strength, reif_var = @params.values_at(:lhs, 
+          :rhs, :relation_type, :strength, :reif)
+      
+        final_exp = (lhs.to_minimodel_lin_exp - rhs)
+        if reif_var.nil?
+          final_exp.post(@model.active_space, relation_type, strength)
+        else
+          final_exp.post(@model.active_space, relation_type, reif_var)
+        end
+      end
+    end
+    
+    # Describes a simple relation constraint.
+    class SimpleRelationConstraint < Gecode::Constraints::ReifiableConstraint
+      def post        
+        # Fetch the parameters to Gecode.
+        params = @params.values_at(:lhs, :relation_type, :element, :strength, 
+          :reif)
+        params.delete_if{ |x| x.nil? }
+        Gecode::Raw::rel(@model.active_space, *params)
+      end
+    end
+  
     # Helper methods for linear expressions. Classes mixing in this module must
-    # have a method #space which gives the space the expression is operating in. 
+    # have a method #model which gives the model the expression is operating in. 
     module Helper
       include Gecode::Constraints::LeftHandSideMethods
       
@@ -186,8 +201,8 @@ module Gecode
       
       # Produces an expression for the lhs module.
       def expression(params)
-        params.update({:lhs => self, :space => space})
-        Gecode::Constraints::Int::Expression.new(params)
+        params.update(:lhs => self)
+        Gecode::Constraints::Int::Expression.new(model, params)
       end
     end
     
@@ -210,8 +225,8 @@ module Gecode
       end
       
       # Fetches the space that the expression's variables is in.
-      def space
-        @left.space || @right.space
+      def model
+        @left.model || @right.model
       end
     end
     
@@ -219,11 +234,11 @@ module Gecode
     class ExpressionNode
       include Helper
     
-      attr :space
+      attr :model
     
-      def initialize(value, space = nil)
+      def initialize(value, model = nil)
         @value = value
-        @space = space
+        @model = model
       end
       
       # Converts the linear expression to an instance of 

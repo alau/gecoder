@@ -6,8 +6,8 @@ module Gecode
     
     # Produces an expression for the lhs module.
     def expression(params)
-      params.update(:lhs => self, :space => active_space)
-      Constraints::IntEnum::Expression.new(params)
+      params.update(:lhs => self)
+      Constraints::IntEnum::Expression.new(@model, params)
     end
   end
   
@@ -17,8 +17,8 @@ module Gecode
     # Expressions with int enums as left hand sides.
     class Expression < Gecode::Constraints::Expression
       # Raises TypeError unless the left hand side is an int enum.
-      def initialize(params)
-        super(params)
+      def initialize(model, params)
+        super
         
         unless params[:lhs].respond_to? :to_int_var_array
           raise TypeError, 'Must have int enum as left hand side.'

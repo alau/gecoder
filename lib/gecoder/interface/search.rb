@@ -12,9 +12,7 @@ module Gecode
     # to that solution. Returns the model if a solution was found, nil 
     # otherwise.
     def solve!
-      stop = Gecode::Raw::Search::Stop.new
-      dfs = Gecode::Raw::DFS.new(active_space, COPY_DIST, ADAPTATION_DIST, stop)
-      space = dfs.next
+      space = dfs_engine.next
       return nil if space.nil?
       @active_space = space
       return self
@@ -39,12 +37,24 @@ module Gecode
     
     # Yields each solution that the model has.
     def each_solution(&block)
-      stop = Gecode::Raw::Search::Stop.new
-      dfs = Gecode::Raw::DFS.new(active_space, COPY_DIST, ADAPTATION_DIST, stop)
+      dfs = dfs_engine
       while not (@active_space = dfs.next).nil?
         yield self
       end
       self.reset!
+    end
+    
+    private
+    
+    # Creates an DFS engine for the search, executing any unexecuted 
+    # constraints first.
+    def dfs_engine
+      # Execute constraints.
+      constraints.each{ |con| con.post }
+      constraints.clear # Empty the queue.
+    
+      stop = Gecode::Raw::Search::Stop.new
+      Gecode::Raw::DFS.new(active_space, COPY_DIST, ADAPTATION_DIST, stop)
     end
   end
 end

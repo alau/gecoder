@@ -1,6 +1,9 @@
 module Gecode
   # Model is the base class that all models must inherit from.
   class Model
+    attr :constraints
+    protected :constraints
+  
     # Creates a new integer variable with the specified domain. The domain can
     # either be a range or a number of elements. 
     def int_var(*domain_args)
@@ -46,6 +49,19 @@ module Gecode
     # Retrieves the base from which searches are made. 
     def base_space
       @base_space ||= Gecode::Raw::Space.new
+    end
+    
+    # Adds the specified constraint to the model. Returns the newly added 
+    # constraint.
+    def add_constraint(constraint)
+      constraints << constraint
+      return constraint
+    end
+    
+    protected
+    
+    def constraints
+      @constraints ||= []
     end
     
     private

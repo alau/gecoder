@@ -12,7 +12,10 @@ end
 describe Gecode::Constraints::IntEnum, ' (distinct)' do
   before do
     @model = DistinctSampleProblem.new
-    @invoke_options = lambda{ |hash| @model.vars.must_be.distinct(hash) }
+    @invoke_options = lambda do |hash| 
+      @model.vars.must_be.distinct(hash)
+      @model.solve!
+    end
     @expect_options = lambda do |strength, reif_var|
       if reif_var.nil?
         Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
@@ -24,11 +27,11 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
       end
     end
   end
-  
+
   it 'should translate into a distinct constraint' do
     Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
       anything, Gecode::Raw::ICL_DEF)
-    @model.vars.must_be.distinct
+    @invoke_options.call({})
   end
 
   it 'should constrain variables to be distinct' do
@@ -38,7 +41,7 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
     @model.vars.must_be.distinct
     @model.solve!.should be_nil
   end
-  
+
   it 'should not allow negation' do
     lambda{ @model.vars.must_not_be.distinct }.should raise_error(
       Gecode::MissingConstraintError) 
@@ -52,6 +55,7 @@ describe Gecode::Constraints::IntEnum, ' (with offsets)' do
     @model = DistinctSampleProblem.new
     @invoke_options = lambda do |hash| 
       @model.vars.with_offsets(1,2).must_be.distinct(hash)
+      @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
       if reif_var.nil?

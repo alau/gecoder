@@ -38,17 +38,33 @@ module Gecode
     # hand side so that it can post the corresponding constraint.
     class Expression
       # Constructs a new expression with the specified parameters. The 
-      # parameters shoud at least contain the keys :lhs, :space and :negate.
+      # parameters shoud at least contain the keys :lhs, and :negate.
       #
       # Raises ArgumentError if any of those keys are missing.
-      def initialize(params)
-        unless params.has_key?(:lhs) and params.has_key?(:space) and 
-            params.has_key?(:negate)
-          raise ArgumentError, 'Expression requires at least :lhs, :space ' + 
+      def initialize(model, params)
+        unless params.has_key?(:lhs) and params.has_key?(:negate)
+          raise ArgumentError, 'Expression requires at least :lhs, ' + 
             "and :negate as parameter keys, got #{params.keys.join(', ')}."
         end
         
+        @model = model
         @params = params
+      end
+    end
+    
+    # Base class for all constraints.
+    class Constraint
+      # Creates a constraint with the specified parameters, bound to the 
+      # specified model. 
+      def initialize(model, params)
+        @model = model
+        @params = params
+      end
+      
+      # Posts the constraint, adding it to the model. This is an abstract 
+      # method and should be overridden by all sub-classes.
+      def post
+        raise NoMethodError, 'Abstract method has not been implemented.'
       end
     end
   
@@ -71,11 +87,11 @@ module Gecode
       module_function
       
       # Decodes the common options to constraints: strength and reification. 
-      # Returns two values, the first is the strength that should be used for
-      # the constraint and the second is the (bound) boolean variable that 
-      # should be used for reification, or nil if no such variable exist. The
-      # decoded options are removed from the hash (so in general the hash will
-      # be consumed in the process).
+      # Returns a hash with up to two values. :strength is the strength that 
+      # should be used for the constraint and :reif is the (bound) boolean 
+      # variable that should be used for reification. The decoded options are 
+      # removed from the hash (so in general the hash will be consumed in the 
+      # process).
       # 
       # Raises ArgumentError if an unrecognized option is found in the specified
       # hash. Or if an unrecognized strength is given. Raises TypeError if the
@@ -100,11 +116,12 @@ module Gecode
             options.keys.first.to_s
         end
         
-        return PROPAGATION_STRENGTHS[strength], reif_var
+        return {:strength => PROPAGATION_STRENGTHS[strength], :reif => reif_var}
       end
     end
   end
 end
 
+require 'gecoder/interface/constraints/reifiable_constraints'
 require 'gecoder/interface/constraints/int_var_constraints'
 require 'gecoder/interface/constraints/int_enum_constraints'
