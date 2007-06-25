@@ -125,3 +125,4 @@ end
 require 'gecoder/interface/constraints/reifiable_constraints'
 require 'gecoder/interface/constraints/int_var_constraints'
 require 'gecoder/interface/constraints/int_enum_constraints'
+require 'gecoder/interface/constraints/bool_var_constraints'

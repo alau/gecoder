@@ -629,15 +629,15 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 				klass.add_constructor do |method|
 					method.add_parameter "Gecode::MiniModel::BoolExpr", "e"
 				end
-				
+        
+				klass.add_constructor do |method|
+          method.add_parameter "Gecode::BoolVar", "e"
+        end
+        
 				klass.add_constructor do |method|
 					method.add_parameter "Gecode::MiniModel::BoolExpr", "l"
 					method.add_parameter "Gecode::MiniModel::BoolExpr::NodeType", "t"
 					method.add_parameter "Gecode::MiniModel::BoolExpr", "r"
-				end
-				
-				klass.add_constructor do |method|
-					method.add_parameter "Gecode::BoolVar", "e"
 				end
 				
 				klass.add_constructor do |method|
@@ -648,6 +648,15 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 				klass.add_constructor do |method|
 					method.add_parameter "Gecode::MiniModel::LinRel", "e"
 				end
+        
+        klass.add_method "post" do |method|
+          method.add_parameter "Gecode::MSpace *", "home"
+        end
+        
+        klass.add_method "post" do |method|
+          method.add_parameter "Gecode::MSpace *", "home"
+          method.add_parameter "bool", "t"
+        end
 			end
 			
 			minimodelns.add_cxx_class "BoolRel" do |klass|

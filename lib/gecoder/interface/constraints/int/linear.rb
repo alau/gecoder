@@ -206,8 +206,8 @@ module Gecode
       end
     end
     
-    # Describes a linear constraint that starts with a linear expression 
-    # followed by must or must_not.
+    # Describes a binary tree of expression nodes which together form a linear 
+    # expression.
     class ExpressionTree
       include Helper
     
@@ -230,7 +230,7 @@ module Gecode
       end
     end
     
-    # Describes a single node in a linear constrain expression.
+    # Describes a single node in a linear expression.
     class ExpressionNode
       include Helper
     
