@@ -2,9 +2,11 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 class BranchSampleProblem < Gecode::Model
   attr :vars
+  attr :bools
   
   def initialize
     @vars = int_var_array(2, 0..3)
+    @bools = bool_var_array(2)
   end
 end
 
@@ -12,6 +14,7 @@ describe Gecode::Model, ' (branch)' do
   before do
     @model = BranchSampleProblem.new
     @vars = @model.vars
+    @bools = @model.bools
   end
 
   it 'should pass the variables given as int arrays' do
@@ -25,7 +28,7 @@ describe Gecode::Model, ' (branch)' do
   
   it 'should pass the variables given as bool arrays' do
     Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
-    bool_var_array = @model.branch_on @model.bool_var_array(2)
+    bool_var_array = @model.branch_on @bools
     bool_var_array.size.should equal(2)
   end
 
@@ -35,8 +38,13 @@ describe Gecode::Model, ' (branch)' do
     @model.branch_on @vars
   end
   
-  it 'should ensure that branched variables are assigned in a solution' do
+  it 'should ensure that branched int variables are assigned in a solution' do
     @model.branch_on @vars
+    @model.solve!.vars.each{ |var| var.should be_assigned }
+  end
+  
+  it 'should ensure that branched bool variables are assigned in a solution' do
+    @model.branch_on @bools
     @model.solve!.vars.each{ |var| var.should be_assigned }
   end
 

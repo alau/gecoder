@@ -6,7 +6,21 @@ describe Gecode::Model, ' (enum wrapping)' do
   end
 
   it 'should only allow enumerables to be wrapped' do
-    lambda{ @model.instance_eval{ wrap_enum(17)} }.should raise_error(TypeError)
+    lambda do
+      @model.instance_eval{ wrap_enum(17) } 
+    end.should raise_error(TypeError)
+  end
+  
+  it 'should not allow empty enumerables to be wrapped' do
+    lambda do 
+      @model.instance_eval{ wrap_enum([]) } 
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should not allow enumerables without variables to be wrapped' do
+    lambda do 
+      @model.instance_eval{ wrap_enum([17]) } 
+    end.should raise_error(TypeError)
   end
 end
 

@@ -25,7 +25,10 @@ describe Gecode::Constraints::Int::Linear do
     @z = @model.z
     
     # For constraint option spec.
-    @invoke_options = lambda{ |hash| (@x + @y).must_be.greater_than(@z, hash) }
+    @invoke_options = lambda do |hash| 
+      (@x + @y).must_be.greater_than(@z, hash)
+      @model.solve!
+    end
     @expect_options = lambda do |strength, reif_var|
       # TODO: this is hard to spec from this level.
     end

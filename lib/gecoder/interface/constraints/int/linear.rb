@@ -151,10 +151,10 @@ module Gecode
     # Describes a linear constraint.
     class LinearConstraint < Gecode::Constraints::ReifiableConstraint
       def post
-        lhs, rhs, relation_type, strength, reif_var = @params.values_at(:lhs, 
+        lhs, rhs, relation_type, reif_var, strength = @params.values_at(:lhs, 
           :rhs, :relation_type, :reif, :strength)
         reif_var = reif_var.bind if reif_var.respond_to? :bind
-        
+
         final_exp = (lhs.to_minimodel_lin_exp - rhs)
         if reif_var.nil?
           final_exp.post(@model.active_space, relation_type, strength)
