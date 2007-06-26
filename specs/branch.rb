@@ -14,13 +14,19 @@ describe Gecode::Model, ' (branch)' do
     @vars = @model.vars
   end
 
-  it 'should pass the variables given' do
+  it 'should pass the variables given as int arrays' do
     Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
     int_var_array = @model.branch_on @vars
     int_var_array.size.should equal(2)
     2.times do |i|
       int_var_array.at(i).should have_domain(0..3)
     end
+  end
+  
+  it 'should pass the variables given as bool arrays' do
+    Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
+    bool_var_array = @model.branch_on @model.bool_var_array(2)
+    bool_var_array.size.should equal(2)
   end
 
   it 'should default to :none and :min' do

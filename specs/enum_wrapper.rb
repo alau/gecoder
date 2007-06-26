@@ -9,3 +9,25 @@ describe Gecode::Model, ' (enum wrapping)' do
     lambda{ @model.instance_eval{ wrap_enum(17)} }.should raise_error(TypeError)
   end
 end
+
+describe Gecode::IntEnumMethods do
+  before do
+    @model = Gecode::Model.new
+    @int_enum = @model.int_var_array(3, 0..1)
+  end
+  
+  it 'should convert to an int var array' do
+    @int_enum.to_int_var_array.should be_kind_of(Gecode::Raw::IntVarArray)
+  end
+end
+
+describe Gecode::BoolEnumMethods do
+  before do
+    @model = Gecode::Model.new
+    @int_enum = @model.bool_var_array(3)
+  end
+  
+  it 'should convert to an int var array' do
+    @int_enum.to_int_var_array.should be_kind_of(Gecode::Raw::IntVarArray)
+  end
+end
