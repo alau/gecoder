@@ -17,7 +17,7 @@ describe Gecode::Model, ' (branch)' do
     @bools = @model.bools
   end
 
-  it 'should pass the variables given as int arrays' do
+  it 'should pass the variables given in int arrays' do
     Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
     int_var_array = @model.branch_on @vars
     int_var_array.size.should equal(2)
@@ -26,7 +26,7 @@ describe Gecode::Model, ' (branch)' do
     end
   end
   
-  it 'should pass the variables given as bool arrays' do
+  it 'should pass the variables given in bool arrays' do
     Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
     bool_var_array = @model.branch_on @bools
     bool_var_array.size.should equal(2)
@@ -45,7 +45,7 @@ describe Gecode::Model, ' (branch)' do
   
   it 'should ensure that branched bool variables are assigned in a solution' do
     @model.branch_on @bools
-    @model.solve!.vars.each{ |var| var.should be_assigned }
+    @model.solve!.bools.each{ |var| var.should be_assigned }
   end
 
   supported_var_selectors = {

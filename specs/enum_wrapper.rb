@@ -41,7 +41,7 @@ describe Gecode::BoolEnumMethods do
     @int_enum = @model.bool_var_array(3)
   end
   
-  it 'should convert to an int var array' do
-    @int_enum.to_int_var_array.should be_kind_of(Gecode::Raw::IntVarArray)
+  it 'should convert to a bool var array' do
+    @int_enum.to_bool_var_array.should be_kind_of(Gecode::Raw::BoolVarArray)
   end
 end

@@ -95,7 +95,7 @@ module Gecode
       end
 
       # Add the branching.
-      Gecode::Raw.branch(active_space, variables.to_int_var_array, 
+      Gecode::Raw.branch(active_space, variables.to_var_array, 
         BRANCH_VAR_CONSTANTS[var_strat], BRANCH_VALUE_CONSTANTS[val_strat])
     end
   end

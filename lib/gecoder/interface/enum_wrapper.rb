@@ -50,6 +50,7 @@ module Gecode
       elements.each_with_index{ |var, index| arr[index] = var.bind }
       return arr
     end
+    alias_method :to_var_array, :to_int_var_array
   end
   
   # A module containing the methods needed by enumerations containing boolean
@@ -57,12 +58,13 @@ module Gecode
   module BoolEnumMethods
     include EnumMethods
   
-    # Returns an int variable array with all the bound variables.
-    def to_int_var_array
+    # Returns a bool variable array with all the bound variables.
+    def to_bool_var_array
       elements = to_a
-      arr = Gecode::Raw::IntVarArray.new(active_space, elements.size)
+      arr = Gecode::Raw::BoolVarArray.new(active_space, elements.size)
       elements.each_with_index{ |var, index| arr[index] = var.bind }
       return arr
     end
+    alias_method :to_var_array, :to_bool_var_array
   end
 end

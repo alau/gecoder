@@ -898,6 +898,15 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 			func.add_parameter "Gecode::BvarSel", "vars"
 			func.add_parameter "Gecode::BvalSel", "vals"
 		end
+    
+    ns.add_function "branch" do |func|
+      func.add_parameter "Gecode::MSpace *", "home"
+      func.add_parameter "Gecode::MBoolVarArray *", "iva" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr()"
+      end
+      func.add_parameter "Gecode::BvarSel", "vars"
+      func.add_parameter "Gecode::BvalSel", "vals"
+    end
 		
 		ns.add_function "branch" do |func|
 			func.add_parameter "Gecode::MSpace *", "home"
