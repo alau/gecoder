@@ -146,12 +146,7 @@ module Gecode
       # Converts the linear expression to an instance of 
       # Gecode::Raw::MiniModel::BoolExpr
       def to_minimodel_lin_exp
-        expression = @value
-        if expression.kind_of? Gecode::FreeBoolVar
-          Gecode::Raw::MiniModel::BoolExpr.new(expression.bind)
-        else
-          expression
-        end
+        Gecode::Raw::MiniModel::BoolExpr.new(@value.bind)
       end
     end
   end

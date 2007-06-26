@@ -16,3 +16,13 @@ describe Gecode::Constraints::IntEnum::Expression do
     end.should raise_error(TypeError)
   end
 end
+
+describe Gecode::Constraints::Constraint, ' (not subclassed)' do
+  before do
+    @con = Gecode::Constraints::Constraint.new(Gecode::Model.new, {})
+  end
+
+  it 'should raise error when calling #post because it\'s not overridden' do
+    lambda{ @con.post }.should raise_error(NoMethodError)
+  end
+end
