@@ -1,4 +1,4 @@
-== Version 0.2.1 (in SVN)
+== Version 0.3.0
 
 * The constructor of Gecode::Model no longer has to be called by classes inheriting from it.
 * Added Model#reset! which resets a model after search.

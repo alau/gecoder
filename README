@@ -25,4 +25,4 @@ instructions.
 === Building the gem
 
   rake gem
-  gem install pkg/gecoder-0.x.gem
+  gem install pkg/gecoder-0.x.x.gem

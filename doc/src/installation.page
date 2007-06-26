@@ -40,5 +40,5 @@ Check it out with
 then build and install the gem with
 
   rake gem
-  gem install pkg/gecoder-0.x.gem
+  gem install pkg/gecoder-0.x.x.gem
   
