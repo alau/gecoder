@@ -11,6 +11,8 @@ documentation/index.page:
   orderInfo: 10
 documentation/constraints.page:
   orderInfo: 11
+documentation/modelling.page:
+  orderInfo: 12
 ---
 rubyforge.html:
   title: RubyForge

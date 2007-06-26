@@ -1,0 +1,15 @@
+---
+title: Modelling
+inMenu: true
+description: How to model problems in constraint programming when using Gecode/R.
+---
+h2. Modelling
+
+Modelling is the process of creating a model for the problem, describing the 
+constraints and variables involved. At some point a decent tutorial on the 
+subject will be located here. For now this page just contains a link to "a 
+paper on the 
+subject":http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf 
+from the "Constraint Programming summer 
+school":http://www.math.unipd.it/~frossi/cp-school/. It's a bit more in depth
+than required.
