@@ -2,13 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 # This requires that the constraint spec has instance variables @invoke_options
 # and @expect_options .
-describe 'constraint with options', :shared => true do
-  it 'should translate reification' do
-    var = @model.bool_var
-    @expect_options.call(Gecode::Raw::ICL_DEF, var)
-    @invoke_options.call(:reify => var)
-  end
-  
+describe 'constraint with strength option', :shared => true do
   { :default  => Gecode::Raw::ICL_DEF,
     :value    => Gecode::Raw::ICL_VAL,
     :bounds   => Gecode::Raw::ICL_BND,
@@ -39,4 +33,16 @@ describe 'constraint with options', :shared => true do
     lambda{ @invoke_options.call(:reify => 'foo') }.should(
       raise_error(TypeError))
   end
+end
+
+# This requires that the constraint spec has instance variables @invoke_options
+# and @expect_options .
+describe 'constraint with options', :shared => true do
+  it 'should translate reification' do
+    var = @model.bool_var
+    @expect_options.call(Gecode::Raw::ICL_DEF, var)
+    @invoke_options.call(:reify => var)
+  end
+  
+  it_should_behave_like 'constraint with strength option'
 end

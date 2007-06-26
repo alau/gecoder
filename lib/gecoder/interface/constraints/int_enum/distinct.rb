@@ -51,13 +51,13 @@ module Gecode::Constraints::IntEnum
     end
     
     # Describes a distinct constraint (optionally with offsets).
-    class DistinctConstraint < Gecode::Constraints::ReifiableConstraint
+    class DistinctConstraint < Gecode::Constraints::Constraint
       def post
         # Bind lhs.
         @params[:lhs] = @params[:lhs].to_int_var_array
         
         # Fetch the parameters to Gecode.
-        params = @params.values_at(:offsets, :lhs, :strength, :reif)
+        params = @params.values_at(:offsets, :lhs, :strength)
         params.delete_if{ |x| x.nil? }
         Gecode::Raw::distinct(@model.active_space, *params)
       end

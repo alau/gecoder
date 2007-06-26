@@ -17,14 +17,8 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), strength)
-      else
-        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), strength,
-          an_instance_of(Gecode::Raw::BoolVar))
-      end
+      Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVarArray), strength)
     end
   end
 
@@ -47,7 +41,7 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
       Gecode::MissingConstraintError) 
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'constraint with strength option'
 end
 
 describe Gecode::Constraints::IntEnum, ' (with offsets)' do
@@ -101,5 +95,5 @@ describe Gecode::Constraints::IntEnum, ' (with offsets)' do
       raise_error(Gecode::MissingConstraintError)
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'constraint with strength option'
 end
