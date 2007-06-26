@@ -43,6 +43,13 @@ at once using @Model#int_var_array@ which returns an array of variables.
 
  numbers = int_var_array(8, 0..9) # Creates 8 variables with domains 0..9.
 
+Boolean variables also exist, they are created using @Model#bool_var@ and 
+@Model#bool_var_array@, just like integer variables but without the need for
+domains.
+
+ bool = bool_var # Creates a boolean variable
+ bools = bool_var_array(3) # Creates 3 boolean variables.
+
 h3. Constraints
 
 The constraints specify what must hold for something to be a solution. They are

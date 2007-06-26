@@ -69,6 +69,25 @@ no number may be the previous number incremented by one.
 
  numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
 
+h3. Boolean constraints
+
+Boolean constraints are used to place constraints on boolean variables. The 
+following are some example, b1, b2 and b3 are all boolean variables.
+
+ b1.must_be.true # Constrains b1 to be true.
+ b2.must_be.false # Constraint b2 to be false.
+
+Disjunction (or) can is expressed with @|@ and conjuntion (and) is expressed 
+with @&@.
+
+ (b1 | b2).must <no_textile>==</no_textile> b1 # Constraint the disjunction of b1 and b2 to equal b1.
+ (b1 & b3).must_be.true # Constrains the conjunction of b1 and b3 to be true.
+
+Variations of @must@ can be replaced with variations of @must_not@ to negate the
+constraints. Nested expressions can be used on both sides.
+
+ ((b1 & b1) | b3).must_not <no_textile>==</no_textile> ((b1 | b3) & b2)
+
 h2. Options
 
 Constraints can in general take a couple of options: *proagation strength* and
