@@ -103,6 +103,14 @@ describe Gecode::Constraints::Bool do
     sol.b2.true?.should be_true
   end
   
+  it 'should handle nested expressions as left hand side' do
+    ((@b1 & @b2) | @b3 | (@b1 & @b3)).must_be.true
+    @b1.must_be.false
+    sol = @model.solve!
+    sol.b1.true?.should_not be_true
+    sol.b3.true?.should be_true
+  end
+  
   it 'should handle nested expressions on both side' do
     ((@b1 & @b1) | @b3).must == ((@b1 & @b3) & @b2)
     @b1.must_be.true

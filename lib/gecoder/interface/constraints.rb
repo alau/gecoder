@@ -58,7 +58,7 @@ module Gecode
       # specified model. 
       def initialize(model, params)
         @model = model
-        @params = params
+        @params = params.clone
       end
       
       # Posts the constraint, adding it to the model. This is an abstract 
@@ -108,14 +108,12 @@ module Gecode
         unless reif_var.nil? or reif_var.kind_of? FreeBoolVar
           raise TypeError, 'Only boolean variables may be used for reification.'
         end
-        reif_var = reif_var.bind unless reif_var.nil?
         
         # Check for unrecognized options.
         unless options.empty?
           raise ArgumentError, 'Unrecognized constraint option: ' + 
             options.keys.first.to_s
         end
-        
         return {:strength => PROPAGATION_STRENGTHS[strength], :reif => reif_var}
       end
     end

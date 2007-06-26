@@ -10,6 +10,7 @@
 * Added distinct with offsets.
 * Simple relation constraints can now be used to specify relations between two variables.
 * Added basic boolean domain constraints along with conjunction and disjunction.
+* Added syntactic sugar for combining reifiable constraints with | and &.
 
 == Version 0.2.0
 

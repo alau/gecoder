@@ -16,6 +16,8 @@ module Gecode
       def ==(expression)
         add_boolean_constraint(expression)
       end
+      alias_method :equal, :==
+      alias_method :equal_to, :==
       
       def true
         # Bind parameters.
@@ -65,8 +67,13 @@ module Gecode
     end
     
     # Describes a boolean constraint.
-    class BooleanConstraint < Gecode::Constraints::Constraint
+    class BooleanConstraint < Gecode::Constraints::ReifiableConstraint
       def post
+        unless @params[:reif].nil?
+          @params[:expression] = Gecode::Raw::MiniModel::BoolExpr.new(
+            @params[:expression], Gecode::Raw::MiniModel::BoolExpr::BT_EQV, 
+            Gecode::Raw::MiniModel::BoolExpr.new(@params[:reif].bind))
+        end
         @params[:expression].post(@model.active_space, !@params[:negate])
       end
     end

@@ -153,7 +153,8 @@ module Gecode
       def post
         lhs, rhs, relation_type, strength, reif_var = @params.values_at(:lhs, 
           :rhs, :relation_type, :reif, :strength)
-      
+        reif_var = reif_var.bind if reif_var.respond_to? :bind
+        
         final_exp = (lhs.to_minimodel_lin_exp - rhs)
         if reif_var.nil?
           final_exp.post(@model.active_space, relation_type, strength)
@@ -169,6 +170,7 @@ module Gecode
         # Fetch the parameters to Gecode.
         params = @params.values_at(:lhs, :relation_type, :element, :reif, 
           :strength)
+        params[3] = params[3].bind unless params[3].nil? # Bind reification var.
         params.delete_if{ |x| x.nil? }
         Gecode::Raw::rel(@model.active_space, *params)
       end

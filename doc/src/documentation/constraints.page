@@ -132,3 +132,12 @@ following connects the boolean variable @is_large@ with a relation constraint.
 
 This constraint does not force @number@ to be greater than 17 (which would be 
 the case if no reification has been used).
+
+There exist some syntactic sugar for combining reifiable constraints, which can
+be used with all reifiable constraints. To express a conjunction of two 
+constraints one simply places @|@ between them, analogically for conjunctions 
+and @&@. The new expression is also a reifiable constraint, so one can nest the
+expressions if wanted. The following constrains that either x must be less than 
+0 or y must be greater than 5 and x must be 0).
+
+ x.must < 0 | (y.must > 5 & x.must <no_textile>==</no_textile> 0)
