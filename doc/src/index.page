@@ -16,8 +16,8 @@ Constraint programming is a declarative programming paradigm, you describe what
 kind of solution you want rather than how you want it computed. When using 
 constraint programming you try to model the problem and then feed that model to 
 the solver. The solver then searches for a solution by exploring the space of 
-all possible solutions while using the constraints in the model to prune parts 
-without having to visit them.
+all possible assignments while using the constraints in the model to prune 
+parts without having to visit them.
 
 A popular example would be Soduko, to solve a Soduko with constraint 
 programming you feed the rules (all numbers in each row must be distinct etc) 
