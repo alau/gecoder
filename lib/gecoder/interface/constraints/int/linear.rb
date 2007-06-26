@@ -152,7 +152,7 @@ module Gecode
     class LinearConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         lhs, rhs, relation_type, strength, reif_var = @params.values_at(:lhs, 
-          :rhs, :relation_type, :strength, :reif)
+          :rhs, :relation_type, :reif, :strength)
       
         final_exp = (lhs.to_minimodel_lin_exp - rhs)
         if reif_var.nil?
@@ -167,8 +167,8 @@ module Gecode
     class SimpleRelationConstraint < Gecode::Constraints::ReifiableConstraint
       def post        
         # Fetch the parameters to Gecode.
-        params = @params.values_at(:lhs, :relation_type, :element, :strength, 
-          :reif)
+        params = @params.values_at(:lhs, :relation_type, :element, :reif, 
+          :strength)
         params.delete_if{ |x| x.nil? }
         Gecode::Raw::rel(@model.active_space, *params)
       end

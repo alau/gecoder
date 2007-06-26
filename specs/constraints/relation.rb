@@ -21,7 +21,7 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
       else
         Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, anything, 
-          strength, an_instance_of(Gecode::Raw::BoolVar))
+          an_instance_of(Gecode::Raw::BoolVar), strength)
       end
     end
   end
@@ -34,8 +34,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     :>  => Gecode::Raw::IRT_GR
   }.each_pair do |relation, type|
     it "should translate #{relation} with constant to simple relation" do
-      #Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-      #  an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
+      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
       @x.must.send(relation, @int)
       @model.solve!
     end
@@ -64,9 +64,9 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     :>  => Gecode::Raw::IRT_GR
   }.each_pair do |relation, type|
     it "should translate #{relation} with variables to simple relation" do
-      #Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-      #  an_instance_of(Gecode::Raw::IntVar), type, 
-      #  an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
+      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::IntVar), type, 
+        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
       @x.must.send(relation, @y)
       @model.solve!
     end
