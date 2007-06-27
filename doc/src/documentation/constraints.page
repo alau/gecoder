@@ -9,7 +9,9 @@ There exist several different constraints that can be used when modelling. They
 are usually used with some form of call to the methods @must@ or @must_not@ of
 variables.
 
-h3. Simple relations
+h3. Integer constraints
+
+h4. Simple relations
 
 Simple relation constraints can for instance specify that x must be strictly 
 greater than 3, where x is an integer variable. An example of how to write that 
@@ -37,7 +39,7 @@ The following are also other valid ways to specify that constraint.
  x.must_not.equal(0)
  x.must_not_be.equal_to(0)
 
-h3. Linear
+h4. Linear
 
 Linear constraints can be used to specify that a linear equation containing
 variables must hold. It's specified in similar way to simple relation 
@@ -49,7 +51,15 @@ x,y,z are all integer variables.
 The constraint supports the same relations as simple relation constraints 
 inlcuding negating relations using @must_not@.
 
-h3. Distinct
+h4. Domain
+
+Domain constraints are used to change the domain of integer variables (very much
+like when one specifies the domain upon construction).
+
+ number.must_be.in 1..4
+ number.must_be.in [1,3,5]
+
+h4. Distinct
 
 The distinct constraint is used on enumerations of integer variables an 
 specifies that they must all be distinct. The following will for instance

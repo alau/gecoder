@@ -97,12 +97,11 @@ module Gecode
       
       if domain_args.size > 1
         # Place an additional domain constraint on the variable with the 
-        # arguments as domain.
-        # TODO: use the model's way of defining domain constraints when 
-        # available.
-        domain_set = Gecode::Raw::IntSet.new(domain_args, domain_args.size)
-        Gecode::Raw::dom(active_space, var.bind, domain_set, 
-          Gecode::Raw::ICL_DEF)
+        # arguments as domain. We post it directly since there's no reason not
+        # to and the user might otherwise get unexpected domains when inspecting
+        # the variable before solving.
+        constraint = var.must_be.in domain_args
+        @constraints.delete(constraint).post
       end
       return var
     end

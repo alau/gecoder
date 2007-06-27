@@ -34,6 +34,7 @@ lib/gecoder/interface/branch.rb -text
 lib/gecoder/interface/constraints.rb -text
 lib/gecoder/interface/constraints/bool/boolean.rb -text
 lib/gecoder/interface/constraints/bool_var_constraints.rb -text
+lib/gecoder/interface/constraints/int/domain.rb -text
 lib/gecoder/interface/constraints/int/linear.rb -text
 lib/gecoder/interface/constraints/int_enum/distinct.rb -text
 lib/gecoder/interface/constraints/int_enum_constraints.rb -text
@@ -50,6 +51,7 @@ specs/constraints/boolean.rb -text
 specs/constraints/constraint_helper.rb -text
 specs/constraints/constraints.rb -text
 specs/constraints/distinct.rb -text
+specs/constraints/domain.rb -text
 specs/constraints/linear.rb -text
 specs/constraints/reification_sugar.rb -text
 specs/constraints/relation.rb -text

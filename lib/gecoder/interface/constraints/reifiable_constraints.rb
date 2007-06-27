@@ -53,5 +53,26 @@ module Gecode::Constraints
       end
       yield(con1_holds, con2_holds)
     end
+    
+    # If called the negation of the constraint will be handled using the 
+    # reification variable. This means that the post method (which has to be 
+    # defined prior to calling this method) doesn't have to bother about 
+    # negation.
+    def self.negate_using_reification
+      class_eval do
+        alias_method :post_without_negation, :post
+        
+        def post
+          if @params[:negate]
+            if @params[:reif].nil?
+              # Create a reification variable if none exists.
+              @params[:reif] = @model.bool_var
+            end
+            @params[:reif].must_be.false
+          end
+          post_without_negation
+        end
+      end
+    end
   end
 end

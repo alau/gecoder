@@ -20,3 +20,4 @@ module Gecode
 end
 
 require 'gecoder/interface/constraints/int/linear'
+require 'gecoder/interface/constraints/int/domain'
