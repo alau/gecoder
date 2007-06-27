@@ -1,0 +1,14 @@
+---
+baseUrl:
+  http://gecoder.rubyforge.org
+defaultFrequency:
+  weekly
+gzip:
+  false
+staticTrees:
+  .:
+  - output//rspec.html
+  rdoc:
+  - output/rdoc//**/*
+  coverage:
+  - output/coverage//**/*

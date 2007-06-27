@@ -6,6 +6,7 @@
 /Rakefile -text
 doc/config.yaml -text
 doc/metainfo.yaml -text
+doc/plugin/googlesitemap.rb -text
 doc/src/default.css -text
 doc/src/default.template -text
 doc/src/documentation/constraints.page -text
@@ -14,6 +15,7 @@ doc/src/documentation/modelling.page -text
 doc/src/examples.page -text
 doc/src/index.page -text
 doc/src/installation.page -text
+doc/src/map.sitemap -text
 example/example_helper.rb -text
 example/queens.rb -text
 example/raw_bindings.rb -text
