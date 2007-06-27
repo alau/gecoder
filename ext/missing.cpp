@@ -152,7 +152,7 @@ MSpace::MSpace(MSpace& s, bool share) : Gecode::Space(share, s), d(new Private)
 		
 		for(it = s.d->boolArrays.begin(); it != eend; it++)
 		{
-			Gecode::MBoolVarArray *bva = new Gecode::MBoolVarArray;
+			Gecode::MBoolVarArray *bva = new Gecode::MBoolVarArray(this, (*it).second->ptr()->size());
 			
 			bva->ptr()->update(this, share, *(*it).second->ptr() );
 			
