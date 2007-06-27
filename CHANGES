@@ -3,6 +3,7 @@
 * [#11861] Fixed a bug stopping the creating of int variables with non-range domains.
 * Added domain constraints for int variables.
 * Added equality constraint for int enums.
+* Matrices of integer and boolean variables can now be created using Model#int_var_matrix Model#bool_var_matrix.
 
 == Version 0.3.0
 

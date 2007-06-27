@@ -41,6 +41,26 @@ describe Gecode::Model, ' (integer creation)' do
     vars.size.should equal(count)
     vars.each{ |var| var.should have_domain(domain) }
   end
+  
+  it 'should allow the creation of int-var matrices with range domains' do
+    range = 0..3
+    rows = 5
+    columns = 4
+    vars = @model.int_var_matrix(rows, columns, range)
+    vars.row_size.should equal(rows)
+    vars.column_size.should equal(columns)
+    vars.each{ |var| var.should have_domain(range) }
+  end
+  
+  it 'should allow the creation of int-var matrices with non-range domains' do
+    domain = [1,3,5]
+    rows = 5
+    columns = 4
+    vars = @model.int_var_matrix(rows, columns, *domain)
+    vars.row_size.should equal(rows)
+    vars.column_size.should equal(columns)
+    vars.each{ |var| var.should have_domain(domain) }
+  end
 end
 
 describe Gecode::Model, ' (bool creation)' do
@@ -54,5 +74,11 @@ describe Gecode::Model, ' (bool creation)' do
   
   it 'should allow the creation of arrays of boolean variables' do
     @model.bool_var_array(3).size.should equal(3)
+  end
+  
+  it 'should allow the creation of matrices of boolean variables' do
+    matrix = @model.bool_var_matrix(3, 4)
+    matrix.row_size.should equal(3)
+    matrix.column_size.should equal(4)
   end
 end

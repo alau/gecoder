@@ -26,6 +26,24 @@ module Gecode
       return wrap_enum(variables)
     end
     
+    # Creates a matrix containing the specified number rows and columns of 
+    # integer variables with the specified domain. The domain can either be a 
+    # range or a number of elements. 
+    def int_var_matrix(row_count, col_count, *domain_args)
+      # TODO: Maybe the custom domain should be specified as an array instead? 
+      
+      range = domain_range(*domain_args)
+      indices = active_space.new_int_vars(range.begin, range.end, 
+        row_count*col_count)
+      rows = []
+      row_count.times do |i|
+        rows << indices[(i*col_count)...(i.succ*col_count)].map! do |index|
+          construct_int_var(index, *domain_args)
+        end
+      end
+      return wrap_enum(Util::EnumMatrix.rows(rows, false))
+    end
+    
     # Creates a new boolean variable.
     def bool_var(*domain_args)
       index = active_space.new_bool_vars.first
@@ -39,6 +57,19 @@ module Gecode
         variables << FreeBoolVar.new(self, index)
       end
       return wrap_enum(variables)
+    end
+    
+    # Creates a matrix containing the specified number rows and columns of 
+    # boolean variables.
+    def bool_var_matrix(row_count, col_count)
+      indices = active_space.new_bool_vars(row_count*col_count)
+      rows = []
+      row_count.times do |i|
+        rows << indices[(i*col_count)...(i.succ*col_count)].map! do |index|
+          FreeBoolVar.new(self, index)
+        end
+      end
+      return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
     # Retrieves the currently active space (the one which variables refer to).

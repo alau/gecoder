@@ -41,6 +41,7 @@ lib/gecoder/interface/constraints/int_enum/equality.rb -text
 lib/gecoder/interface/constraints/int_enum_constraints.rb -text
 lib/gecoder/interface/constraints/int_var_constraints.rb -text
 lib/gecoder/interface/constraints/reifiable_constraints.rb -text
+lib/gecoder/interface/enum_matrix.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/search.rb -text

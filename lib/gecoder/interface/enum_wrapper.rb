@@ -8,15 +8,16 @@ module Gecode
       unless enum.kind_of? Enumerable
         raise TypeError, 'Only enumerables can be wrapped.'
       end
-      if enum.empty?
+      elements = enum.to_a
+      if elements.empty?
         raise ArgumentError, 'Enumerable must not be empty.'
       end
       
-      if enum.first.kind_of? FreeIntVar
+      if elements.first.kind_of? FreeIntVar
         class <<enum
           include Gecode::IntEnumMethods
         end
-      elsif enum.first.kind_of? FreeBoolVar
+      elsif elements.first.kind_of? FreeBoolVar
         class <<enum
           include Gecode::BoolEnumMethods
         end
