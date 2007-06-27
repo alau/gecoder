@@ -61,7 +61,7 @@ like when one specifies the domain upon construction).
 
 h4. Distinct
 
-The distinct constraint is used on enumerations of integer variables an 
+The distinct constraint is used on enumerations of integer variables and 
 specifies that they must all be distinct. The following will for instance
 create an array of 8 integer variables with domains 0..9 and constrain them
 all to be distinct (i.e. no two integer variables in the array may take the 
@@ -78,6 +78,13 @@ distinct after certain offsets have been applied. The following specifies that
 no number may be the previous number incremented by one.
 
  numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
+
+h4. Equality
+
+The equality constraint used on enumerations of integer variables specifies that
+all variables in the numeration must be equal.
+
+ numbers.must_be.equal
 
 h3. Boolean constraints
 
