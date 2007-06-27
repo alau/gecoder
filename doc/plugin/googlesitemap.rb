@@ -96,7 +96,7 @@ class GoogleSiteMapHandler < FileHandlers::DefaultHandler
         dest = file.gsub(/^(.*?\/\/)?/, target)
         write_xml_node(f, "#{map_info['baseUrl']}/#{dest}", 
                        date, map_info['defaultFrequency'],
-                       map_info['defaultPriority'])
+                       map_info['staticPriority'])
       end
     end
   end
@@ -113,7 +113,7 @@ class GoogleSiteMapHandler < FileHandlers::DefaultHandler
     for n in nodes
       if n.class.to_s =~ /Page/
         target = n.absolute_path
-        if File.exist?(n.full_path)
+        if target =~ /.html$/
           frequency = n["gFrequency"] || map_info['defaultFrequency']
           priority = n["gPriority"] || map_info['defaultPriority']
           date = File.mtime(n.node_info[:src]).strftime("%Y-%m-%d")
