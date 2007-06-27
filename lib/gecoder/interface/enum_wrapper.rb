@@ -13,11 +13,11 @@ module Gecode
         raise ArgumentError, 'Enumerable must not be empty.'
       end
       
-      if elements.first.kind_of? FreeIntVar
+      if elements.map{ |var| var.kind_of? FreeIntVar }.all?
         class <<enum
           include Gecode::IntEnumMethods
         end
-      elsif elements.first.kind_of? FreeBoolVar
+      elsif elements.map{ |var| var.kind_of? FreeBoolVar }.all?
         class <<enum
           include Gecode::BoolEnumMethods
         end
