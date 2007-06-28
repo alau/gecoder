@@ -7,14 +7,16 @@ description: Examples of how to use Gecode/R to solve problems with constraint p
 h2. Examples
 
 The following are the examples located in the example directory. Note that
-<ruby>
-require File.dirname(__FILE__) + '/example_helper'
-</ruby>
+
+<ruby>require File.dirname(__FILE__) + '/example_helper'</ruby>
+
 should be replaced with 
+
 <ruby>
 require 'rubygems'
 require 'gecoder'
 </ruby>
+
 when running them from another location.
 
 h3. Sudoku

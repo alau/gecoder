@@ -17,7 +17,9 @@ Simple relation constraints can for instance specify that x must be strictly
 greater than 3, where x is an integer variable. An example of how to write that 
 would be the following.
 
- x.must > 3
+<ruby>
+x.must > 3
+</ruby>
 
 Only constant integers can be used in the right hand side at the moment. The
 following relations are supported (the aliases of each relation are also 
@@ -32,12 +34,16 @@ listed).
 Each can be negated by using @must_not@ instead of @must@. For instance to 
 express that x must not be 0 we can use the following.
 
- x.must_not <no_textile>==</not_textile> 0
+<ruby>
+x.must_not == 0
+</ruby>
  
 The following are also other valid ways to specify that constraint.
 
- x.must_not.equal(0)
- x.must_not_be.equal_to(0)
+<ruby>
+x.must_not.equal(0)
+x.must_not_be.equal_to(0)
+</ruby>
 
 h4. Linear
 
@@ -46,7 +52,9 @@ variables must hold. It's specified in similar way to simple relation
 constraints. The following expresses that x + y must be equal to z + 3 where
 x,y,z are all integer variables.
 
- (x + y).must <no_textile>==</not_textile> z + 3
+<ruby>
+(x + y).must == z + 3
+</ruby>
 
 The constraint supports the same relations as simple relation constraints 
 inlcuding negating relations using @must_not@.
@@ -56,8 +64,10 @@ h4. Domain
 Domain constraints are used to change the domain of integer variables (very much
 like when one specifies the domain upon construction).
 
- number.must_be.in 1..4
- number.must_be.in [1,3,5]
+<ruby>
+number.must_be.in 1..4
+number.must_be.in [1,3,5]
+</ruby>
 
 h4. Distinct
 
@@ -67,8 +77,10 @@ create an array of 8 integer variables with domains 0..9 and constrain them
 all to be distinct (i.e. no two integer variables in the array may take the 
 same value in solution).
 
- numbers = int_var_array(8, 0..9)
- numbers.must_be.distinct
+<ruby>
+numbers = int_var_array(8, 0..9)
+numbers.must_be.distinct
+</ruby>
 
 @must_be@ can also be replaced with @must@. The constraint does not support 
 negation.
@@ -77,33 +89,43 @@ The constraint also allows offsets, so one can specify that the numbers must be
 distinct after certain offsets have been applied. The following specifies that
 no number may be the previous number incremented by one.
 
- numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
+<ruby>
+numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
+</ruby>
 
 h4. Equality
 
 The equality constraint used on enumerations of integer variables specifies that
 all variables in the numeration must be equal.
 
- numbers.must_be.equal
+<ruby>
+numbers.must_be.equal
+</ruby>
 
 h3. Boolean constraints
 
 Boolean constraints are used to place constraints on boolean variables. The 
 following are some example, b1, b2 and b3 are all boolean variables.
 
- b1.must_be.true # Constrains b1 to be true.
- b2.must_be.false # Constraint b2 to be false.
+<ruby>
+b1.must_be.true # Constrains b1 to be true.
+b2.must_be.false # Constraint b2 to be false.
+</ruby>
 
 Disjunction (or) can is expressed with @|@ and conjuntion (and) is expressed 
 with @&@.
 
- (b1 | b2).must <no_textile>==</no_textile> b1 # Constraint the disjunction of b1 and b2 to equal b1.
- (b1 & b3).must_be.true # Constrains the conjunction of b1 and b3 to be true.
+<ruby>
+(b1 | b2).must == b1 # Constraint the disjunction of b1 and b2 to equal b1.
+(b1 & b3).must_be.true # Constrains the conjunction of b1 and b3 to be true.
+</ruby>
 
 Variations of @must@ can be replaced with variations of @must_not@ to negate the
 constraints. Nested expressions can be used on both sides.
 
- ((b1 & b1) | b3).must_not <no_textile>==</no_textile> ((b1 | b3) & b2)
+<ruby>
+((b1 & b1) | b3).must_not == ((b1 | b3) & b2)
+</ruby>
 
 h2. Options
 
@@ -130,7 +152,9 @@ The different strengths are:
 They are specified with the key @:strength@. The following places a domain 
 consistent distinct constraint on @numbers@.
 
- numbers.must_be.distinct(:strength => :domain)
+<ruby>
+numbers.must_be.distinct(:strength => :domain)
+</ruby>
 
 h3. Reification
  
@@ -145,7 +169,9 @@ constraints so that e.g. exactly 3 out of 17 constraints must be satisfied.
 The variable to use for reification is specified with the key @:reify@. The
 following connects the boolean variable @is_large@ with a relation constraint.
 
- number.must_be.greater_than(17, :reify => is_large)
+<ruby>
+number.must_be.greater_than(17, :reify => is_large)
+</ruby>
 
 This constraint does not force @number@ to be greater than 17 (which would be 
 the case if no reification has been used).
@@ -157,4 +183,6 @@ and @&@. The new expression is also a reifiable constraint, so one can nest the
 expressions if wanted. The following constrains that either x must be less than 
 0 or y must be greater than 5 and x must be 0.
 
- x.must < 0 | (y.must > 5 & x.must <no_textile>==</no_textile> 0)
+<ruby>
+x.must < 0 | (y.must > 5 & x.must == 0)
+</ruby>
