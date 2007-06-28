@@ -20,6 +20,7 @@ example/example_helper.rb -text
 example/queens.rb -text
 example/raw_bindings.rb -text
 example/send_more_money.rb -text
+example/sudoku.rb -text
 ext/extconf.rb -text
 ext/missing.cpp -text
 ext/missing.h -text
