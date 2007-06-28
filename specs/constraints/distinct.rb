@@ -9,7 +9,7 @@ class DistinctSampleProblem < Gecode::Model
   end
 end
 
-describe Gecode::Constraints::IntEnum, ' (distinct)' do
+describe Gecode::Constraints::IntEnum::Distinct do
   before do
     @model = DistinctSampleProblem.new
     @invoke_options = lambda do |hash| 
@@ -44,7 +44,7 @@ describe Gecode::Constraints::IntEnum, ' (distinct)' do
   it_should_behave_like 'constraint with strength option'
 end
 
-describe Gecode::Constraints::IntEnum, ' (with offsets)' do
+describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   before do
     @model = DistinctSampleProblem.new
     @invoke_options = lambda do |hash| 
