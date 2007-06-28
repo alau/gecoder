@@ -93,6 +93,30 @@ no number may be the previous number incremented by one.
 numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
 </ruby>
 
+h4. Element
+
+The element constraint basically provides array access with variables as 
+positions. Lets say that we want to purchase a fruit that costs more than 500 
+units, we could model that with the following.
+
+<ruby>
+fruit_selection = int_var(0..3) # We can pick one of four fruits.
+prices = wrap_enum([45, 60, 764, 45]) # The prices of each fruit.
+prices[fruit_selection].must > 500
+</ruby>
+
+@fruit_selection@ will become @2@ since that's the index of the only fruit that
+costs more than 500. The advantage of using arrays in this situation is that
+we can represent multiple fruits with the same price, which we could not if we
+for instance would constrain @price_to_pay@ directly. It doesn't matter in the 
+above example, but it would matter if we for example have a situation where we 
+for want to purchase as many different fruits as possible with a given budget.
+
+In the example @prices@ is an array of constant integers, but variable integer
+arrays can also be used. Everything that's normally supported for single 
+integer variables followed by @must*@ is supported by the result of the array 
+access too.
+
 h4. Channel
 
 The channel constraint is used to give access to multiple viewpoints when 

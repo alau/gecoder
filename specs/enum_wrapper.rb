@@ -13,9 +13,23 @@ describe Gecode::Model, ' (enum wrapping)' do
     end.should raise_error(TypeError)
   end
 
-  it 'should allow enumerables of variables to be wrapped' do
+  it 'should allow enumerables of bool variables to be wrapped' do
     lambda do
       enum = [@bool]
+      @model.instance_eval{ wrap_enum(enum) } 
+    end.should_not raise_error
+  end
+  
+  it 'should allow enumerables of int variables to be wrapped' do
+    lambda do
+      enum = [@int]
+      @model.instance_eval{ wrap_enum(enum) } 
+    end.should_not raise_error
+  end
+  
+  it 'should allow enumerables of fixnums to be wrapped' do
+    lambda do
+      enum = [17]
       @model.instance_eval{ wrap_enum(enum) } 
     end.should_not raise_error
   end
@@ -26,15 +40,15 @@ describe Gecode::Model, ' (enum wrapping)' do
     end.should raise_error(ArgumentError)
   end
   
-  it 'should not allow enumerables without variables to be wrapped' do
+  it 'should not allow enumerables without variables or fixnums to be wrapped' do
     lambda do 
-      @model.instance_eval{ wrap_enum([17]) } 
+      @model.instance_eval{ wrap_enum(['foo']) } 
     end.should raise_error(TypeError)
   end
   
   it 'should not allow enumerables with only some variables to be wrapped' do
     lambda do 
-      enum = [@bool, 17]
+      enum = [@bool, 'foo']
       @model.instance_eval{ wrap_enum(enum) } 
     end.should raise_error(TypeError)
   end
@@ -56,6 +70,11 @@ describe Gecode::IntEnumMethods do
   it 'should convert to an int var array' do
     @int_enum.to_int_var_array.should be_kind_of(Gecode::Raw::IntVarArray)
   end
+  
+  it 'should compute the smallest domain range' do
+    @int_enum.domain_range.should == (0..1)
+    (@int_enum << @model.int_var(-4..4)).domain_range.should == (-4..4)
+  end
 end
 
 describe Gecode::BoolEnumMethods do
@@ -66,5 +85,16 @@ describe Gecode::BoolEnumMethods do
   
   it 'should convert to a bool var array' do
     @int_enum.to_bool_var_array.should be_kind_of(Gecode::Raw::BoolVarArray)
+  end
+end
+
+describe Gecode::FixnumEnumMethods do
+  before do
+    @model = Gecode::Model.new
+    @enum = @model.instance_eval{ wrap_enum([7, 14, 17, 4711]) }
+  end
+  
+  it 'should compute the smallest domain range' do
+    @enum.domain_range.should == (7..4711)
   end
 end

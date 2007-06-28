@@ -21,6 +21,10 @@ module Gecode
         class <<enum
           include Gecode::BoolEnumMethods
         end
+      elsif elements.map{ |var| var.kind_of? Fixnum }.all?
+        class <<enum
+          include Gecode::FixnumEnumMethods
+        end
       else
         raise TypeError, "Enumerable doesn't contain variables #{enum.inspect}."
       end
@@ -52,6 +56,19 @@ module Gecode
       return arr
     end
     alias_method :to_var_array, :to_int_var_array
+    
+    # Returns the smallest range that contains the domains of all integer 
+    # variables involved.
+    def domain_range
+      inject(nil) do |range, var|
+        next var.min..var.max if range.nil?
+        min = var.min
+        max = var.max
+        range = min..range.last if min < range.first
+        range = range.first..max if max > range.last
+        range
+      end
+    end
   end
   
   # A module containing the methods needed by enumerations containing boolean
@@ -67,5 +84,17 @@ module Gecode
       return arr
     end
     alias_method :to_var_array, :to_bool_var_array
+  end
+  
+  # A module containing the methods needed by enumerations containing fixnums. 
+  # Requires that it's included in an enumerable.
+  module FixnumEnumMethods
+    include EnumMethods
+    
+    # Returns the smallest range that contains the domains of all integer 
+    # variables involved.
+    def domain_range
+      min..max
+    end
   end
 end

@@ -5,6 +5,7 @@
 * Added equality constraint for int enums.
 * Matrices of integer and boolean variables can now be created using Model#int_var_matrix Model#bool_var_matrix.
 * Added channel constraint for int enums.
+* Added element constraints (variable array access).
 
 == Version 0.3.0
 
