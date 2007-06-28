@@ -4,77 +4,25 @@ inMenu: true
 description: Examples of how to use Gecode/R to solve problems with constraint programming in Ruby.
 ---
 
-h2. Sudoku
+h2. Examples
+
+The following are the examples located in the example directory. Note that
+<ruby>
+require File.dirname(__FILE__) + '/example_helper'
+</ruby>
+should be replaced with 
+<ruby>
+require 'rubygems'
+require 'gecoder'
+</ruby>
+when running them from another location.
+
+h3. Sudoku
 
 The following code solves the 
 "sudoku problem":http://en.wikipedia.org/wiki/Soduko.
 
-<pre>
-require 'rubygems'
-require 'gecoder'
-
-class Sudoku < Gecode::Model
-  # Takes a matrix of values in the initial sudoku, 0 if the square is empty. 
-  # The matrix must be square with a square size. 
-  def initialize(values)
-    @size = n = values.row_size
-    sub_matrix_size = Math.sqrt(n).round
-    unless values.square? and sub_matrix_size**2 == n
-      raise ArgumentError, 'Incorrect value matrix size.'
-    end
-    sub_count = sub_matrix_size
-    
-    # Create the squares and initialize them.
-    @squares = int_var_matrix(n, n, 1..n)
-    values.row_size.times do |i|
-      values.column_size.times do |j|
-        @squares[i,j].must == values[i,j] unless values[i,j] == 0
-      end
-    end
-    
-    # Constraints.
-    n.times do |i|
-      # All rows must contain distinct numbers.
-      wrap_enum(@squares.row(i)).must_be.distinct(:strength => :domain)
-      # All columns must contain distinct numbers.
-      wrap_enum(@squares.column(i)).must_be.distinct(:strength => :domain)
-      # All sub-matrices must contain distinct numbers.
-      wrap_enum(@squares.minor(
-        (i % sub_count) * sub_matrix_size, 
-        sub_matrix_size, 
-        (i / sub_count) * sub_matrix_size, 
-        sub_matrix_size)).must_be.distinct(:strength => :domain)
-    end
-    
-    # Branching, we use first-fail heuristic.
-    branch_on @squares, :variable => :smallest_size, :value => :min
-  end
-  
-  # Display the solved sudoku in a grid.  
-  def to_s
-    separator = '+' << '-' * (3 * @size + (@size - 1)) << "+\n"
-    res = (0...@size).inject(separator) do |s, i|
-      (0...@size).inject(s + '|') do |s, j|
-        s << " #{@squares[i,j].val} |"
-      end << "\n" << separator
-    end
-  end
-end
-
-given_squares = Matrix[
-  [0,0,0, 2,0,5, 0,0,0],
-  [0,9,0, 0,0,0, 7,3,0],
-  [0,0,2, 0,0,9, 0,6,0],
-    
-  [2,0,0, 0,0,0, 4,0,9],
-  [0,0,0, 0,7,0, 0,0,0],
-  [6,0,9, 0,0,0, 0,0,1],
-      
-  [0,8,0, 4,0,0, 1,0,0],
-  [0,6,3, 0,0,0, 0,8,0],
-  [0,0,0, 6,0,8, 0,0,0]]
-puts Sudoku.new(given_squares).solve!.to_s
-</pre>
+{includeFile: {filename: ../../example/sudoku.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
 
 Output:
 
@@ -101,105 +49,26 @@ Output:
 </pre>
 
 
-h2. send+more=money
+h3. send+more=money
 
 The classic 
 "send+more=money problem":http://en.wikipedia.org/wiki/Send%2Bmore%3Dmoney is
 solved as follows.
 
-<pre>
-require 'rubygems'
-require 'gecoder'
-
-class SendMoreMoney < Gecode::Model
-  def initialize
-    # Set up the variables, 8 letters with domain 0..9.
-    s,e,n,d,m,o,r,y = @letters = int_var_array(8, 0..9)
-
-    # Set up the constraints.
-    (equation_row(s, e, n, d) + equation_row(m, o, r, e)).must == 
-      equation_row(m, o, n, e, y) 
-      
-    s.must_not == 0
-    m.must_not == 0
-    @letters.must_be.distinct
-
-    # Set the branching.
-    branch_on @letters, :variable => :smallest_size, :value => :min
-  end
-
-  def to_s
-    %w{s e n d m o r y}.zip(@letters).map do |text, letter|
-      "#{text}: #{letter.val}" 
-    end.join(', ')
-  end
-
-  private
-
-  # A helper to make the linear equation a bit tidier. Takes a number of
-  # variables and computes the linear combination as if the variable
-  # were digits in a base 10 number. E.g. x,y,z becomes
-  # 100*x + 10*y + z .
-  def equation_row(*variables)
-    variables.inject{ |result, variable| variable + result*10 }
-  end
-end
-
-puts SendMoreMoney.new.solve!.to_s
-</pre>
+{includeFile: {filename: ../../example/send_more_money.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
 
 Output:
 
  s: 9, e: 5, n: 6, d: 7, m: 1, o: 0, r: 8, y: 2
 
  
-h2. N-queens
+h3. N-queens
 
 This piece of code solves the 
 "n-queens problem":http://en.wikipedia.org/wiki/Nqueens . Note that no attempt
 to break the involved symmetries is made here.
 
-<pre>
-require 'rubygems'
-require 'gecoder'
-
-# Solves the n-queens problem: http://en.wikipedia.org/wiki/Nqueens
-class NQueens < Gecode::Model
-  def initialize(n)
-    @size = n
-  
-    # The row number that the queen in the i:th column has. By using this as
-    # our variables we already make sure that no two queens are in the same
-    # column.
-    @queen_rows = int_var_array(n, 0...n)
-    
-    # Set up the constraints
-    # Queens must not be in the same diagonal (negative slope).
-    @queen_rows.with_offsets((0...n).to_a).must_be.distinct
-    # Queens must not be in the same diagonal (positive slope).
-    @queen_rows.with_offsets((0...n).to_a.reverse).must_be.distinct
-    # Queens must not be in the same row.
-    @queen_rows.must_be.distinct
-    
-    # Branching, we use first-fail heuristic.
-    branch_on @queen_rows, :variable => :smallest_size, :value => :min
-  end
-  
-  # Displays the assignment as a chessboard with queens denoted by 'x'.
-  def to_s
-    rows = @queen_rows.map{ |var| var.val }
-  
-    separator = '+' << '-' * (3 * @size + (@size - 1)) << "+\n"
-    res = (0...@size).inject(separator) do |s, i|
-      (0...@size).inject(s + '|') do |s, j|
-        s << " #{rows[j] == i ? 'x' : ' '} |"
-      end << "\n" << separator
-    end
-  end
-end
-
-NQueens.new(8).solution{ |sol| puts sol.to_s }
-</pre>
+{includeFile: {filename: ../../example/queens.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
 
 Output:
 

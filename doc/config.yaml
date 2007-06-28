@@ -1,1 +1,4 @@
 # Configuration file for webgen
+File/PageHandler:
+  defaultMetaInfo:
+    blocks: [[content, rspec]]

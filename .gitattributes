@@ -7,6 +7,8 @@
 doc/config.yaml -text
 doc/metainfo.yaml -text
 doc/plugin/googlesitemap.rb -text
+doc/plugin/rspec_content.rb -text
+doc/plugin/syntax.rb -text
 doc/src/default.css -text
 doc/src/default.template -text
 doc/src/documentation/constraints.page -text
