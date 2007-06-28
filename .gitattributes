@@ -39,6 +39,7 @@ lib/gecoder/interface/constraints/bool/boolean.rb -text
 lib/gecoder/interface/constraints/bool_var_constraints.rb -text
 lib/gecoder/interface/constraints/int/domain.rb -text
 lib/gecoder/interface/constraints/int/linear.rb -text
+lib/gecoder/interface/constraints/int_enum/channel.rb -text
 lib/gecoder/interface/constraints/int_enum/distinct.rb -text
 lib/gecoder/interface/constraints/int_enum/equality.rb -text
 lib/gecoder/interface/constraints/int_enum_constraints.rb -text
@@ -53,6 +54,7 @@ specs/binding_changes.rb -text
 specs/bool_var.rb -text
 specs/branch.rb -text
 specs/constraints/boolean.rb -text
+specs/constraints/channel.rb -text
 specs/constraints/constraint_helper.rb -text
 specs/constraints/constraints.rb -text
 specs/constraints/distinct.rb -text

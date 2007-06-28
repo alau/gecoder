@@ -93,6 +93,52 @@ no number may be the previous number incremented by one.
 numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
 </ruby>
 
+h4. Channel
+
+The channel constraint is used to give access to multiple viewpoints when 
+modelling. Lets say that we're modelling a sequence of numbers that must be 
+distinct, we could model that as an array of integer variables where the first
+variable holds the value of the first position in the sequence, the second the
+value of the second position and so on.
+
+<ruby>
+ elements = int_var_array(n, 0...n) # n variables with values from 0 to n-1.
+ elements.must_be.distinct
+</ruby>
+
+That way @elements@ will contain the actual sequence when the problem has been
+solved. But we could also model it as the positions of each value in 0..(n-1) in
+the sequence. That way the first variable would hold the positions of @0@ in the
+sequence, the second variable would hold the positions of @1@ in the sequence 
+and so on.
+
+<ruby>
+ positions = int_var_array(n, 0...n)
+ positions.must_be.distinct
+</ruby>
+
+In essence the relationship between the arrays @elements@ and @positions@ would
+be that 
+
+<ruby>
+ elements.map{ |e| e.val }[i] == positions.map{ |p| p.val }.index(i)
+</ruby>
+
+for all i in 0..(n-1). They both represent different viewpoints of the sequence
+and either one of them is good enough. Some constraints might however be easier
+to express with one viewpoint than with the other. Hence one might want access
+to both viewpoints simultaneously to use their respective advantages. This is
+what the channel constraint does.
+
+<ruby>
+ elements.must.channel positions
+</ruby>
+
+The above links @elements@ and @positions@ so that they always maintain the 
+above property. Hence we can pick the most comfortable viewpoint for each 
+constraint and use it, posting a part of the constraint from one viewpoint and 
+the rest from another.
+
 h4. Equality
 
 The equality constraint used on enumerations of integer variables specifies that
@@ -112,7 +158,7 @@ b1.must_be.true # Constrains b1 to be true.
 b2.must_be.false # Constraint b2 to be false.
 </ruby>
 
-Disjunction (or) can is expressed with @|@ and conjuntion (and) is expressed 
+Disjunction (or) can is expressed with @|@ and conjunction (and) is expressed 
 with @&@.
 
 <ruby>

@@ -30,3 +30,4 @@ end
 
 require 'gecoder/interface/constraints/int_enum/distinct'
 require 'gecoder/interface/constraints/int_enum/equality'
+require 'gecoder/interface/constraints/int_enum/channel'
