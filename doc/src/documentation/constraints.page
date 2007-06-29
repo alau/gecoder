@@ -126,8 +126,8 @@ variable holds the value of the first position in the sequence, the second the
 value of the second position and so on.
 
 <ruby>
- elements = int_var_array(n, 0...n) # n variables with values from 0 to n-1.
- elements.must_be.distinct
+elements = int_var_array(n, 0...n) # n variables with values from 0 to n-1.
+elements.must_be.distinct
 </ruby>
 
 That way @elements@ will contain the actual sequence when the problem has been
@@ -137,15 +137,15 @@ sequence, the second variable would hold the positions of @1@ in the sequence
 and so on.
 
 <ruby>
- positions = int_var_array(n, 0...n)
- positions.must_be.distinct
+positions = int_var_array(n, 0...n)
+positions.must_be.distinct
 </ruby>
 
 In essence the relationship between the arrays @elements@ and @positions@ would
 be that 
 
 <ruby>
- elements.map{ |e| e.val }[i] == positions.map{ |p| p.val }.index(i)
+elements.map{ |e| e.val }[i] == positions.map{ |p| p.val }.index(i)
 </ruby>
 
 for all i in 0..(n-1). They both represent different viewpoints of the sequence
@@ -155,7 +155,7 @@ to both viewpoints simultaneously to use their respective advantages. This is
 what the channel constraint does.
 
 <ruby>
- elements.must.channel positions
+elements.must.channel positions
 </ruby>
 
 The above links @elements@ and @positions@ so that they always maintain the 
@@ -215,8 +215,8 @@ problem.
 
 The different strengths are:
 * @:value@ - value consistency (naive).
-* @:domain@ - domain consistency, every element in the domain satisfies the constraint.
 * @:bounds@ - bounds consistency, the boundaries of the domain satisfy the constraint.
+* @:domain@ - domain consistency, every element in the domain satisfies the constraint.
 * @:default@ - uses the default consistency for the constraint.
 
 They are specified with the key @:strength@. The following places a domain 
@@ -225,6 +225,10 @@ consistent distinct constraint on @numbers@.
 <ruby>
 numbers.must_be.distinct(:strength => :domain)
 </ruby>
+
+The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
+(@:value@ being the weakest, @:domain@ being the strongest). 
+
 
 h3. Reification
  
