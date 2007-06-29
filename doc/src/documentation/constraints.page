@@ -163,6 +163,30 @@ above property. Hence we can pick the most comfortable viewpoint for each
 constraint and use it, posting a part of the constraint from one viewpoint and 
 the rest from another.
 
+h4. Count
+
+The count constraint is used to place constraints on the number of occurrences 
+of an element in an array of integer variables. For instance we could specify 
+that the number 0 may not occurr more than once in a list with the following 
+(@list@ being an int var array).
+
+<ruby>
+list.count(0).must <= 1
+</ruby>
+
+Neither the element being counted nor the number of occurrences need to be 
+constant, integer variables can be used instead. The following constrains the
+list to contain a magic sequence, a sequence with values in 0...n that displays
+on the number of i's in the sequence at position i.
+
+<ruby>
+sequence = int_var_array(n, 0...n)
+n.times{ |i| sequence.count(i).must == sequence[i] }
+</ruby>
+
+The comparison itself supports everything that the simple relation constraint 
+does.
+
 h4. Equality
 
 The equality constraint used on enumerations of integer variables specifies that
@@ -228,7 +252,6 @@ numbers.must_be.distinct(:strength => :domain)
 
 The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
 (@:value@ being the weakest, @:domain@ being the strongest). 
-
 
 h3. Reification
  
