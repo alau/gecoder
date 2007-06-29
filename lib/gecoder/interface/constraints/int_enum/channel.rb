@@ -8,7 +8,7 @@ module Gecode::Constraints::IntEnum
           'is not implemented.'
       end
     
-      @params.update(Gecode::Constraints::OptionUtil.decode_options(options))
+      @params.update(Gecode::Constraints::Util.decode_options(options))
       @params.update(:rhs => enum)
       @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
     end

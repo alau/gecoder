@@ -84,9 +84,8 @@ module Gecode
       end
     end
   
-    # A module that provides some utility-methods for decoding options given to
-    # constraints.
-    module OptionUtil
+    # A module that provides some utility-methods for constraints.
+    module Util
       private
       
       # Maps the name used in options to the value used in Gecode for 
@@ -99,6 +98,23 @@ module Gecode
       }
       
       public
+      
+      # Maps the names of the methods to the corresponding integer relation 
+      # type in Gecode.
+      RELATION_TYPES = { 
+        :== => Gecode::Raw::IRT_EQ,
+        :<= => Gecode::Raw::IRT_LQ,
+        :<  => Gecode::Raw::IRT_LE,
+        :>= => Gecode::Raw::IRT_GQ,
+        :>  => Gecode::Raw::IRT_GR }
+      # The same as above, but negated.
+      NEGATED_RELATION_TYPES = {
+        :== => Gecode::Raw::IRT_NQ,
+        :<= => Gecode::Raw::IRT_GR,
+        :<  => Gecode::Raw::IRT_GQ,
+        :>= => Gecode::Raw::IRT_LE,
+        :>  => Gecode::Raw::IRT_LQ
+      }
       
       module_function
       

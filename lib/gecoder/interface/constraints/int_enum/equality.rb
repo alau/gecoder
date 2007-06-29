@@ -10,7 +10,7 @@ module Gecode::Constraints::IntEnum
       end
     
       @model.add_constraint Equality::EqualityConstraint.new(@model, 
-        @params.update(Gecode::Constraints::OptionUtil.decode_options(options)))
+        @params.update(Gecode::Constraints::Util.decode_options(options)))
     end
   end
   

@@ -25,23 +25,6 @@ module Gecode
     class Expression
       private
     
-      # Maps the names of the methods to the corresponding integer relation 
-      # type in Gecode.
-      RELATION_TYPES = { 
-        :== => Gecode::Raw::IRT_EQ,
-        :<= => Gecode::Raw::IRT_LQ,
-        :<  => Gecode::Raw::IRT_LE,
-        :>= => Gecode::Raw::IRT_GQ,
-        :>  => Gecode::Raw::IRT_GR }
-      # The same as above, but negated.
-      NEGATED_RELATION_TYPES = {
-        :== => Gecode::Raw::IRT_NQ,
-        :<= => Gecode::Raw::IRT_GR,
-        :<  => Gecode::Raw::IRT_GQ,
-        :>= => Gecode::Raw::IRT_LE,
-        :>  => Gecode::Raw::IRT_LQ
-      }
-      
       # Various method aliases for the class. Maps the original name to an 
       # array of aliases.
       METHOD_ALIASES = { 
@@ -59,19 +42,19 @@ module Gecode
       def initialize(model, params)
         pre_linear_initialize(model, params)
         unless params[:negate]
-          @method_relations = RELATION_TYPES
+          @method_relations = Constraints::Util::RELATION_TYPES
         else
-          @method_relations = NEGATED_RELATION_TYPES
+          @method_relations = Constraints::Util::NEGATED_RELATION_TYPES
         end
       end
       
       # Define the relation methods.
-      RELATION_TYPES.each_key do |name|
+      Constraints::Util::RELATION_TYPES.each_key do |name|
         module_eval <<-"end_code"
           def #{name}(expression, options = {})
             relation = @method_relations[:#{name}]
             @params.update(
-              Gecode::Constraints::OptionUtil.decode_options(options))
+              Gecode::Constraints::Util.decode_options(options))
             if self.simple_expression? and simple_expression?(expression)
               # A relation constraint is enough.
               add_relation_constraint(relation, expression)

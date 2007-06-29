@@ -2,7 +2,7 @@ module Gecode::Constraints::Int
   class Expression
     # Creates a domain constraint using the specified domain.
     def in(domain, options = {})
-      @params.update(Gecode::Constraints::OptionUtil.decode_options(options))
+      @params.update(Gecode::Constraints::Util.decode_options(options))
       @params[:domain] = domain
       if domain.kind_of? Range
         @model.add_constraint Domain::RangeDomainConstraint.new(@model, @params)

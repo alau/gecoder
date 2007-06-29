@@ -52,13 +52,7 @@ describe Gecode::Constraints::IntEnum::Element do
     end
   end
   
-  relation_types = {
-    :== => Gecode::Raw::IRT_EQ,
-    :<= => Gecode::Raw::IRT_LQ,
-    :<  => Gecode::Raw::IRT_LE,
-    :>= => Gecode::Raw::IRT_GQ,
-    :>  => Gecode::Raw::IRT_GR
-  }.each_pair do |relation, type|
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with variable right hand side" do
       Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVarArray), 
@@ -74,13 +68,7 @@ describe Gecode::Constraints::IntEnum::Element do
     end
   end
 
-  negated_relation_types = {
-    :== => Gecode::Raw::IRT_NQ,
-    :<= => Gecode::Raw::IRT_GR,
-    :<  => Gecode::Raw::IRT_GQ,
-    :>= => Gecode::Raw::IRT_LE,
-    :>  => Gecode::Raw::IRT_LQ
-  }.each_pair do |relation, type|
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with variable right hand side" do
       Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVarArray), 
@@ -94,7 +82,7 @@ describe Gecode::Constraints::IntEnum::Element do
     end
   end
   
-  relation_types.each_pair do |relation, type|
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with constant right hand side" do
       Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVarArray), 
@@ -109,7 +97,7 @@ describe Gecode::Constraints::IntEnum::Element do
     end
   end
 
-  negated_relation_types.each_pair do |relation, type|
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with constant right hand side" do
       Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVarArray), 

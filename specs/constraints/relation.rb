@@ -26,13 +26,7 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     end
   end
   
-  relation_types = {
-    :== => Gecode::Raw::IRT_EQ,
-    :<= => Gecode::Raw::IRT_LQ,
-    :<  => Gecode::Raw::IRT_LE,
-    :>= => Gecode::Raw::IRT_GQ,
-    :>  => Gecode::Raw::IRT_GR
-  }.each_pair do |relation, type|
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with constant to simple relation" do
       Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
@@ -41,13 +35,7 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     end
   end
 
-  negated_relation_types = {
-    :== => Gecode::Raw::IRT_NQ,
-    :<= => Gecode::Raw::IRT_GR,
-    :<  => Gecode::Raw::IRT_GQ,
-    :>= => Gecode::Raw::IRT_LE,
-    :>  => Gecode::Raw::IRT_LQ
-  }.each_pair do |relation, type|
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with constant to simple relation" do
       Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
@@ -56,13 +44,7 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     end
   end
 
-  relation_types = {
-    :== => Gecode::Raw::IRT_EQ,
-    :<= => Gecode::Raw::IRT_LQ,
-    :<  => Gecode::Raw::IRT_LE,
-    :>= => Gecode::Raw::IRT_GQ,
-    :>  => Gecode::Raw::IRT_GR
-  }.each_pair do |relation, type|
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with variables to simple relation" do
       Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVar), type, 
@@ -72,13 +54,7 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     end
   end
 
-  negated_relation_types = {
-    :== => Gecode::Raw::IRT_NQ,
-    :<= => Gecode::Raw::IRT_GR,
-    :<  => Gecode::Raw::IRT_GQ,
-    :>= => Gecode::Raw::IRT_LE,
-    :>  => Gecode::Raw::IRT_LQ
-  }.each_pair do |relation, type|
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with variable to simple relation" do
       Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
         an_instance_of(Gecode::Raw::IntVar), type, 
