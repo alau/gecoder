@@ -50,6 +50,19 @@ module Gecode
         @model = model
         @params = params
       end
+      
+      private
+      
+      # Creates aliases for any defined comparison methods.
+      def self.alias_comparison_methods
+        Gecode::Constraints::Util::COMPARISON_ALIASES.each_pair do |orig, aliases|
+          if instance_methods.include?(orig.to_s)
+            aliases.each do |name|
+              alias_method(name, orig)
+            end
+          end
+        end
+      end
     end
     
     # Describes a constraint expression that has yet to be completed. I.e. a
@@ -114,6 +127,16 @@ module Gecode
         :<  => Gecode::Raw::IRT_GQ,
         :>= => Gecode::Raw::IRT_LE,
         :>  => Gecode::Raw::IRT_LQ
+      }
+      
+      # Various method aliases for comparison methods. Maps the original 
+      # (symbol) name to an array of aliases.
+      COMPARISON_ALIASES = { 
+        :== => [:equal, :equal_to],
+        :>  => [:greater, :greater_than],
+        :>= => [:greater_or_equal, :greater_than_or_equal_to],
+        :<  => [:less, :less_than],
+        :<= => [:less_or_equal, :less_than_or_equal_to]
       }
       
       module_function

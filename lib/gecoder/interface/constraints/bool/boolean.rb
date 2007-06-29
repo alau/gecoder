@@ -10,14 +10,11 @@ module Gecode
   end
   
   module Constraints::Bool
-    # Add some relation selection based on whether the expression is negated.
-    alias_method :pre_bool_rel_initialize, :initialize
     class Expression
       def ==(expression)
         add_boolean_constraint(expression)
       end
-      alias_method :equal, :==
-      alias_method :equal_to, :==
+      alias_comparison_methods
       
       def true
         # Bind parameters.

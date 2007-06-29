@@ -23,20 +23,6 @@ module Gecode
   
   module Constraints::Int
     class Expression
-      private
-    
-      # Various method aliases for the class. Maps the original name to an 
-      # array of aliases.
-      METHOD_ALIASES = { 
-        :== => [:equal, :equal_to],
-        :>  => [:greater, :greater_than],
-        :>= => [:greater_or_equal, :greater_than_or_equal_to],
-        :<  => [:less, :less_than],
-        :<= => [:less_or_equal, :less_than_or_equal_to]
-      }
-      
-      public
-    
       # Add some relation selection based on whether the expression is negated.
       alias_method :pre_linear_initialize, :initialize
       def initialize(model, params)
@@ -64,13 +50,7 @@ module Gecode
           end
         end_code
       end
-      
-      # Various aliases.
-      METHOD_ALIASES.each_pair do |orig, alias_names|
-        alias_names.each do |name|
-          alias_method name, orig
-        end
-      end
+      alias_comparison_methods
       
       protected
       
