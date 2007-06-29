@@ -1,14 +1,9 @@
 # A module that gathers the classes and modules used by element constraints.
 module Gecode::Constraints::IntEnum::Element 
-  # Describes an expression started with an int var enum following with an 
+  # Describes an expression stub started with an int var enum following with an 
   # array access using an integer variables .
-  class Expression < Gecode::Constraints::IntEnum::Expression
+  class ExpressionStub < Gecode::Constraints::ExpressionStub
     include Gecode::Constraints::LeftHandSideMethods
-      
-    def initialize(model, params)
-      @model = model
-      @params = params
-    end
     
     private
     
@@ -56,7 +51,7 @@ module Gecode::Constraints::IntEnum::Element
                 # access.
                 if vars.first.kind_of? Gecode::FreeIntVar
                   params = {:lhs => self, :position => vars.first}
-                  return Gecode::Constraints::IntEnum::Element::Expression.new(
+                  return Gecode::Constraints::IntEnum::Element::ExpressionStub.new(
                     @model, params)
                 else
                   pre_element_access(*vars) if respond_to? :pre_element_access

@@ -7,7 +7,7 @@ module Gecode
         offsets = *offsets
       end
       params = {:lhs => self, :offsets => offsets}
-      return Gecode::Constraints::IntEnum::Distinct::OffsetExpression.new(
+      return Gecode::Constraints::IntEnum::Distinct::OffsetExpressionStub.new(
         @model, params)
     end
   end
@@ -33,13 +33,8 @@ module Gecode::Constraints::IntEnum
   module Distinct
     # Describes an expression started with an int var enum following with
     # #with_offsets .
-    class OffsetExpression < Gecode::Constraints::IntEnum::Expression
+    class OffsetExpressionStub < Gecode::Constraints::ExpressionStub
       include Gecode::Constraints::LeftHandSideMethods
-      
-      def initialize(model, params)
-        @model = model
-        @params = params
-      end
       
       private
       

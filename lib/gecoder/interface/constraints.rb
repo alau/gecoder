@@ -52,6 +52,22 @@ module Gecode
       end
     end
     
+    # Describes a constraint expression that has yet to be completed. I.e. a
+    # form of must has not yet been called, but some method has been called to
+    # initiate the expression. An example is distinct with offsets:
+    #
+    #   enum.with_offsets(0..n).must_be.distinct
+    # 
+    # The call of with_offsets initiates the constraint as a stub, even though
+    # must has not yet been called.
+    class ExpressionStub
+      # Constructs a new expression with the specified parameters.
+      def initialize(model, params)
+        @model = model
+        @params = params
+      end
+    end
+    
     # Base class for all constraints.
     class Constraint
       # Creates a constraint with the specified parameters, bound to the 
