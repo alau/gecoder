@@ -12,11 +12,42 @@ class ArithmeticSampleProblem < Gecode::Model
   end
 end
 
+describe 'arithmetic constraint', :shared => true do
+  situations = {
+    'variable bound' => nil,
+    'constant bound' => 5
+  }.each_pair do |description, bound|
+    Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
+      it "should translate #{relation} with #{description}" do
+        bound = @var if bound.nil?
+        @expect.call(type, bound, Gecode::Raw::ICL_DEF, nil)
+        @stub.must.send(relation, bound)
+        @model.solve!
+      end
+    end
+    Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
+      it "should translate negated #{relation} with #{description}" do
+        bound = @var if bound.nil?
+        @expect.call(type, bound, Gecode::Raw::ICL_DEF, nil)
+        @stub.must_not.send(relation, bound)
+        @model.solve!
+      end
+    end
+  end
+  
+  it 'should raise error if the right hand side is of the wrong type' do
+    lambda{ @stub.must == 'hello' }.should raise_error(TypeError) 
+  end
+  
+  it_should_behave_like 'constraint with options'
+end
+
 describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
   before do
     @model = ArithmeticSampleProblem.new
     @numbers = @model.numbers
     @var = @model.var
+    @stub = @numbers.max
     
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |relation, rhs, strength, reif_var|
@@ -47,38 +78,12 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
     end
   end
   
-  situations = {
-    'variable bound' => nil,
-    'constant bound' => 5
-  }.each_pair do |description, bound|
-    Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-      it "should translate #{relation} with #{description}" do
-        bound = @var if bound.nil?
-        @expect.call(type, bound, Gecode::Raw::ICL_DEF, nil)
-        @numbers.max.must.send(relation, bound)
-        @model.solve!
-      end
-    end
-    Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-      it "should translate negated #{relation} with #{description}" do
-        bound = @var if bound.nil?
-        @expect.call(type, bound, Gecode::Raw::ICL_DEF, nil)
-        @numbers.max.must_not.send(relation, bound)
-        @model.solve!
-      end
-    end
-  end
-  
-  it 'should raise error if the right hand side is of the wrong type' do
-    lambda{ @numbers.max.must == 'hello' }.should raise_error(TypeError) 
-  end
-  
   it 'should constrain the maximum value' do
     @numbers.max.must > 5
     @model.solve!.numbers.map{ |n| n.val }.max.should > 5
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'arithmetic constraint'
 end
 
 describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
@@ -86,6 +91,7 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
     @model = ArithmeticSampleProblem.new
     @numbers = @model.numbers
     @var = @model.var
+    @stub = @numbers.min
     
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |relation, rhs, strength, reif_var|
@@ -116,36 +122,10 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
     end
   end
   
-  situations = {
-    'variable bound' => nil,
-    'constant bound' => 5
-  }.each_pair do |description, bound|
-    Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-      it "should translate #{relation} with #{description}" do
-        bound = @var if bound.nil?
-        @expect.call(type, bound, Gecode::Raw::ICL_DEF, nil)
-        @numbers.min.must.send(relation, bound)
-        @model.solve!
-      end
-    end
-    Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-      it "should translate negated #{relation} with #{description}" do
-        bound = @var if bound.nil?
-        @expect.call(type, bound, Gecode::Raw::ICL_DEF, nil)
-        @numbers.min.must_not.send(relation, bound)
-        @model.solve!
-      end
-    end
-  end
-  
-  it 'should raise error if the right hand side is of the wrong type' do
-    lambda{ @numbers.min.must == 'hello' }.should raise_error(TypeError) 
-  end
-  
   it 'should constrain the minimum value' do
     @numbers.min.must > 5
     @model.solve!.numbers.map{ |n| n.val }.min.should > 5
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'arithmetic constraint'
 end
