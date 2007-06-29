@@ -187,6 +187,20 @@ n.times{ |i| sequence.count(i).must == sequence[i] }
 The comparison itself supports everything that the simple relation constraint 
 does.
 
+h4. Min and max
+
+The min and max constraints constraint the minimum and maximum of integer 
+variable arrays. The following for instance constrains number to have a minimum
+of at least 5.
+
+<ruby>
+numbers.min.must > 5
+</ruby>
+
+Integer variables can also be used (instead of @5@ in the example).  Everything
+that's normally supported for single integer variables followed by @must*@ is 
+supported after @min.must*@ too.
+
 h4. Equality
 
 The equality constraint used on enumerations of integer variables specifies that
