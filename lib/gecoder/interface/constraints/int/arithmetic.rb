@@ -1,28 +1,33 @@
-module Gecode::IntEnumMethods
-  # Starts an arithmetic max constraint. This overrides the normal enum max, but
-  # that's not a problem since variables are not implemented to be comparable.
-  def max
-    return Gecode::Constraints::IntEnum::Arithmetic::MaxExpressionStub.new(
-      @model, :lhs => self)
+class Gecode::FreeIntVar
+  # Initiates an arithmetic absolute value constraint.
+  def abs
+    Gecode::Constraints::Int::Arithmetic::AbsExpressionStub.new(@model, 
+      :lhs => self)
   end
   
-  # Starts an arithmetic min constraint. This overrides the normal enum min, but
-  # that's not a problem since variables are not implemented to be comparable.
-  def min
-    return Gecode::Constraints::IntEnum::Arithmetic::MinExpressionStub.new(
-      @model, :lhs => self)
+  # Creates a linear expression where the int variable is multiplied with 
+  # a constant integer.
+  alias_method :pre_arith_mult, :* if instance_methods.include? '*'
+  def *(var)
+    if var.kind_of? Gecode::FreeIntVar
+      Gecode::Constraints::Int::Arithmetic::MultExpressionStub.new(
+        @model, :lhs => self, :var => var)
+    else
+      pre_arith_mult(var) if respond_to? :pre_arith_mult
+    end
   end
 end
 
 # A module that gathers the classes and modules used by arithmetic constraints.
-module Gecode::Constraints::IntEnum::Arithmetic 
-  # Describes an expression stub started with an int var enum following by #max.
-  class MaxExpressionStub < Gecode::Constraints::ExpressionStub
+module Gecode::Constraints::Int::Arithmetic 
+  # Describes an expression stub started with an integer variable followed by 
+  # #abs .
+  class AbsExpressionStub < Gecode::Constraints::ExpressionStub
     include Gecode::Constraints::LeftHandSideMethods
     
     private
     
-    # Produces an expression for the lhs module.
+    # Produces a proxy expression for the lhs module.
     def expression(params)
       # We extract the integer and continue as if it had been specified as
       # left hand side. This might be elegant, but it could get away with 
@@ -33,23 +38,24 @@ module Gecode::Constraints::IntEnum::Arithmetic
       
       params.update(@params)
       lhs = params[:lhs]
-      proxy = @model.int_var(lhs.domain_range)
-      lhs = lhs.to_int_var_array
+      proxy = @model.int_var(lhs.min..lhs.max)
+      lhs = lhs.bind
       
-      Gecode::Raw::max(@model.active_space, lhs, proxy.bind, 
+      Gecode::Raw::abs(@model.active_space, lhs, proxy.bind, 
         Gecode::Raw::ICL_DEF)
       Gecode::Constraints::Int::Expression.new(@model, 
         params.update(:lhs => proxy))
     end
   end
   
-  # Describes an expression stub started with an int var enum following by #min.
-  class MinExpressionStub < Gecode::Constraints::ExpressionStub
+  # Describes an expression stub started with an integer variable followed by 
+  # #* .
+  class MultExpressionStub < Gecode::Constraints::ExpressionStub
     include Gecode::Constraints::LeftHandSideMethods
     
     private
     
-    # Produces an expression for the lhs module.
+    # Produces a proxy expression for the lhs module.
     def expression(params)
       # We extract the integer and continue as if it had been specified as
       # left hand side. This might be elegant, but it could get away with 
@@ -59,11 +65,10 @@ module Gecode::Constraints::IntEnum::Arithmetic
       # there's some neat way of getting the above remarks. 
       
       params.update(@params)
-      lhs = params[:lhs]
-      proxy = @model.int_var(lhs.domain_range)
-      lhs = lhs.to_int_var_array
+      lhs, var = params.values_at(:lhs, :var)
+      proxy = @model.int_var(-(lhs.min*var.min).abs..(lhs.max*var.max).abs) # Sloppy
       
-      Gecode::Raw::min(@model.active_space, lhs, proxy.bind, 
+      Gecode::Raw::mult(@model.active_space, lhs.bind, var.bind, proxy.bind, 
         Gecode::Raw::ICL_DEF)
       Gecode::Constraints::Int::Expression.new(@model, 
         params.update(:lhs => proxy))

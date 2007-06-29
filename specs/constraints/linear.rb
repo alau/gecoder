@@ -158,5 +158,9 @@ describe Gecode::Constraints::Int::Linear do
     end
   end
   
+  it 'should not interfere with other defined multiplication methods' do
+    (@x * :foo).should be_nil
+  end
+  
   it_should_behave_like 'constraint with options'
 end

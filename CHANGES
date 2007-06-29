@@ -8,7 +8,7 @@
 * Added element constraints (variable array access).
 * Added count constraints.
 * Added sortedness constraints.
-* Added arithmetic constraints (min, max).
+* Added arithmetic constraints (min, max, abs and variable multiplication).
 
 == Version 0.3.0
 

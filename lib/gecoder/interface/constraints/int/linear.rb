@@ -8,9 +8,14 @@ module Gecode
     
     # Creates a linear expression where the int variable is multiplied with 
     # a constant integer.
+    alias_method :pre_linear_mult, :* if instance_methods.include? '*'
     def *(int)
-      Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
-        @model) * int
+      if int.kind_of? Fixnum
+        Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
+          @model) * int
+      else
+        pre_linear_mult(int) if respond_to? :pre_linear_mult
+      end
     end
     
     # Creates a linear expression where the specified variable is subtracted 

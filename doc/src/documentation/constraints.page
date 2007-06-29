@@ -59,6 +59,16 @@ x,y,z are all integer variables.
 The constraint supports the same relations as simple relation constraints 
 inlcuding negating relations using @must_not@.
 
+h4. Variable multiplication
+
+Variable multiplication is also available, and works like one might expect. The
+following expresses that x * y must lesser or equal to z - 9 (where x,y,z are 
+all integer variables).
+
+<ruby>
+(x * y).must <= z - 9
+</ruby>
+
 h4. Domain
 
 Domain constraints are used to change the domain of integer variables (very much
@@ -197,9 +207,22 @@ of at least 5.
 numbers.min.must > 5
 </ruby>
 
-Integer variables can also be used (instead of @5@ in the example).  Everything
+Integer variables can also be used (instead of @5@ in the example). Everything
 that's normally supported for single integer variables followed by @must*@ is 
 supported after @min.must*@ too.
+
+h4. Absolute value
+
+The absolute value of a variable can be constrained using something like the
+following.
+
+<ruby>
+number.abs.must >= min_abs
+</ruby>
+
+Where @number@ and @min_abs@ are integer variables. Constant integers can also
+be used and everything that's normally supported for @var.must*@ is supported 
+by @var.abs.must*@ too.
 
 h4. Equality
 
