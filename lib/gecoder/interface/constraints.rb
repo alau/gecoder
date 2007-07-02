@@ -99,8 +99,6 @@ module Gecode
   
     # A module that provides some utility-methods for constraints.
     module Util
-      private
-      
       # Maps the name used in options to the value used in Gecode for 
       # propagation strengths.
       PROPAGATION_STRENGTHS = {
@@ -109,8 +107,6 @@ module Gecode
         :bounds   => Gecode::Raw::ICL_BND,
         :domain   => Gecode::Raw::ICL_DOM
       }
-      
-      public
       
       # Maps the names of the methods to the corresponding integer relation 
       # type in Gecode.

@@ -235,21 +235,33 @@ numbers.must_be.equal
 
 h4. Sortedness
 
-The sortedness constraints can be used to deal with sorted arrays.
+The sortedness constraints can be used to constraint arrays to be sorted.
 
 <ruby>
-numbers.sorted.must == sorted_numbers
+numbers.must_be.sorted
 </ruby>
 
-Where both @numbers@ and @sorted_numbers@ are integer variable enums. The 
-indices to be sorted with (i.e. the order) can also be specified (yet again
+The above constraint @numbers@ to be sorted. It's also possible to not affect
+@numbers@ directly but rather have other arrays which represent the sorted state
+if @numbers@
+
+<ruby>
+numbers.must_be.sorted(:as => sorted_numbers)
+</ruby>
+
+Where both @numbers@ and @sorted_numbers@ are integer variable enumerations. 
+This can for instance be useful to force numbers to be a permutation of 
+sorted_numbers.
+
+The order of the elements in the sorted array can also be specified (yet again 
 an integer variable enum).
 
 <ruby>
-numbers.sorted_with(order).must == sorted_numbers
+numbers.must_be.sorted(:as => sorted_numbers, :order => order)
 </ruby>
 
-The constraint does not support negation.
+The variant without @:as@ and @:order@ supports reification and negation, the 
+others variation do not support either.
 
 h3. Boolean constraints
 

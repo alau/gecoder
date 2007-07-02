@@ -1,71 +1,104 @@
-module Gecode
-  module IntEnumMethods
-    # Initiates a sort constraint.
-    def sorted
-      Gecode::Constraints::IntEnum::Sort::ExpressionStub.new(@model, 
-        :lhs => self)
-    end
-    
-    # Initiates a sort constraint.
-    def sorted_with(indices)
-      unless indices.respond_to? :to_int_var_array
-        raise TypeError, 'Expected indices to be int var enum, got: ' + 
-          "#{indices.class}."
+module Gecode::Constraints::IntEnum
+  class Expression
+    # Initiates a sort constraint. Beyond the common options the sort constraint
+    # can also take the following options:
+    # 
+    # [:as]     Defines a target (must be an int variable enumerable) that will
+    #           hold the sorted version of the original enumerable. The original
+    #           enumerable will not be affected (i.e. will not necessarily be 
+    #           sorted)
+    # [:order]  Sets an int variable enumerable that should be used to store the
+    #           order of the original enum's variables when sorted. The original
+    #           enumerable will not be affected (i.e. will not necessarily be 
+    #           sorted)
+    # 
+    # If neither of those options are specified then the original enumerable
+    # will be constrained to be sorted (otherwise not). Sort constraints with
+    # options do not allow negation.
+    def sorted(options = {})
+      # Extract and check options.
+      target = options.delete(:as)
+      order = options.delete(:order)
+      unless target.nil? or target.respond_to? :to_int_var_array
+        raise TypeError, 'Expected int var enum as :as, got ' + 
+          "#{target.class}."
       end
-    
-      Gecode::Constraints::IntEnum::Sort::ExpressionStub.new(@model, 
-        :lhs => self, :indices => indices)
+      unless order.nil? or order.respond_to? :to_int_var_array
+        raise TypeError, 'Expected int var enum as :order, got ' + 
+          "#{order.class}."
+      end
+      
+      # Extract standard options and convert to constraint.
+      @params.update(Gecode::Constraints::Util.decode_options(options))
+      if target.nil? and order.nil?
+        @model.add_constraint Sort::SortConstraint.new(@model, @params)
+      else
+        # Do not allow negation.
+        if @params[:negate]
+          raise Gecode::MissingConstraintError, 'A negated sort with options ' +
+            'is not implemented.'
+        end
+      
+        @params.update(:target => target, :order => order)
+        @model.add_constraint Sort::SortConstraintWithOptions.new(@model, 
+          @params)
+      end
     end
   end
-end
 
-module Gecode::Constraints::IntEnum
   # A module that gathers the classes and modules used in sort constraints.
   module Sort
-    # Describes an expression started with an int var enum followed by #sorted.
-    class ExpressionStub < Gecode::Constraints::ExpressionStub
-      include Gecode::Constraints::LeftHandSideMethods
-      
-      private
-      
-      # Produces an expression for the lhs module.
-      def expression(params)
-        params.update(@params)
-        Gecode::Constraints::IntEnum::Sort::Expression.new(@model, params)
-      end
-    end
-    
-    # Describes an expression started with an int var enum followed by #sorted
-    # ans then some form of must*.
-    class Expression < Gecode::Constraints::IntEnum::Expression
-      def ==(enum, options = {})
-        if @params[:negate]
-          raise Gecode::MissingConstraintError, 'A negated sort is not ' + 
-            'implemented.'
-        end
-        unless enum.respond_to? :to_int_var_array
-          raise TypeError, "Expected int var array but got #{enum.class}."
+    # Describes a sort constraint with target and order.
+    class SortConstraintWithOptions < Gecode::Constraints::Constraint
+      def post
+        if @params[:target].nil?
+          # We must have a target.
+          lhs = @params[:lhs]
+          @params[:target] = @model.int_var_array(lhs.size, lhs.domain_range)
         end
         
-        @params.update(:rhs => enum)
-        @model.add_constraint SortConstraint.new(@model, 
-          @params.update(Gecode::Constraints::Util.decode_options(options)))
-      end
-      alias_comparison_methods
-    end
-    
-    # Describes a sort constraint.
-    class SortConstraint < Gecode::Constraints::Constraint
-      def post
-        params = @params.values_at(:lhs, :rhs, :indices, :strength).map do |param| 
+        # Prepare the parameters.
+        params = @params.values_at(:lhs, :target, :order, :strength).map do |param| 
           if param.respond_to? :to_int_var_array
             param.to_int_var_array
           else
             param
           end
         end.delete_if{ |param| param.nil? }
+        # Post the constraint.
         Gecode::Raw::sortedness(@model.active_space, *params)
       end
+    end
+    
+    # Describes a sort constraint.
+    class SortConstraint < Gecode::Constraints::ReifiableConstraint
+      def post
+        lhs, strength, reif_var = @params.values_at(:lhs, :strength, :reif)
+        using_reification = !reif_var.nil?
+        
+        # We translate the constraint into n-1 relation constraints.
+        options = {:strength => 
+          Gecode::Constraints::Util::PROPAGATION_STRENGTHS.invert[strength]}
+        if using_reification
+          reification_variables = @model.bool_var_array(lhs.size - 1)
+        end
+        (lhs.size - 1).times do |i|
+          first, second = lhs[i, 2]
+          rel_options = options.clone
+          if using_reification
+            # Reify each relation constraint and then bind them all together.
+            rel_options[:reify] = reification_variables[i]
+          end
+          first.must_be.less_than_or_equal_to(second, rel_options)
+        end
+        if using_reification
+          # TODO use the interface's all constraint when available.
+          # reification_variables.all.must == reif_var
+          Gecode::Raw::bool_and(@model.active_space, 
+            reification_variables.to_bool_var_array, reif_var.bind, strength) 
+        end
+      end
+      negate_using_reification
     end
   end
 end
