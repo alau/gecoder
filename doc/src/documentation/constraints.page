@@ -205,11 +205,11 @@ variable arrays. The following for instance constrains number to have a minimum
 of at least 5.
 
 <ruby>
-numbers.min.must > 5
+numbers.min.must >= 5
 </ruby>
 
 Integer variables can also be used (instead of @5@ in the example). Everything
-that's normally supported for single integer variables followed by @must*@ is 
+that's normally supported by single integer variables followed by @must*@ is 
 supported after @min.must*@ too.
 
 h4. Absolute value
@@ -228,7 +228,7 @@ by @var.abs.must*@ too.
 h4. Equality
 
 The equality constraint used on enumerations of integer variables specifies that
-all variables in the numeration must be equal.
+all variables in the enumeration must be equal.
 
 <ruby>
 numbers.must_be.equal
@@ -242,17 +242,17 @@ The sortedness constraints can be used to constraint arrays to be sorted.
 numbers.must_be.sorted
 </ruby>
 
-The above constraint @numbers@ to be sorted. It's also possible to not affect
+The above constrains @numbers@ to be sorted. It's also possible to not affect
 @numbers@ directly but rather have other arrays which represent the sorted state
-if @numbers@
+of @numbers@
 
 <ruby>
 numbers.must_be.sorted(:as => sorted_numbers)
 </ruby>
 
 Where both @numbers@ and @sorted_numbers@ are integer variable enumerations. 
-This can for instance be useful to force numbers to be a permutation of 
-sorted_numbers.
+This can for instance be useful to force @numbers@ to be a permutation of 
+@sorted_numbers@.
 
 The order of the elements in the sorted array can also be specified (yet again 
 an integer variable enum).
@@ -262,7 +262,7 @@ numbers.must_be.sorted(:as => sorted_numbers, :order => order)
 </ruby>
 
 The variant without @:as@ and @:order@ supports reification and negation, the 
-others variation do not support either.
+other variations support neither.
 
 h3. Boolean constraints
 
@@ -298,8 +298,8 @@ h3. Propagation strength
 
 The propagation strength basically _suggests_ how much effort the solver puts 
 into trying to prune the domains of variables using the constraint. A higher 
-strength can reduce the search space quicker, but at a cost of making each 
-propagation more costly (hence it's a balance).
+strength can reduce the search space quicker, but at the cost of making each 
+propagation more costly.
 
 It's usually worth testing a few different strength to see how well they work, 
 a good choice of strengths can cut down the search time depending on the 
@@ -307,9 +307,9 @@ problem.
 
 The different strengths are:
 * @:value@ - value consistency (naive).
-* @:bounds@ - bounds consistency, the boundaries of the domain satisfy the constraint.
-* @:domain@ - domain consistency, every element in the domain satisfies the constraint.
-* @:default@ - uses the default consistency for the constraint.
+* @:bounds@ - bounds consistency.
+* @:domain@ - domain consistency.
+* @:default@ - uses the default consistency of the constraint.
 
 They are specified with the key @:strength@. The following places a domain 
 consistent distinct constraint on @numbers@.
@@ -343,8 +343,8 @@ the case if no reification has been used).
 
 There exist some syntactic sugar for combining reifiable constraints, which can
 be used with all reifiable constraints. To express a conjunction of two 
-constraints one simply places @|@ between them, analogically for conjunctions 
-and @&@. The new expression is also a reifiable constraint, so one can nest the
+constraints simply place @|@ between them, analogically for conjunctions and 
+@&@. The new expression is also a reifiable constraint, so one can nest the
 expressions if wanted. The following constrains that either x must be less than 
 0 or y must be greater than 5 and x must be 0.
 
