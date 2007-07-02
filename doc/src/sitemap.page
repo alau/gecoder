@@ -1,0 +1,7 @@
+---
+title: Sitemap
+long_title: Sitemap of Gecode/R project pages
+inMenu: false
+description: A sitemap showing all the pages of the site.
+---
+{menu: {menuStyle: vertical, options: {startLevel: 1, minLevels: 10, maxLevels: 10, showCurrentSubtreeOnly: false}}}

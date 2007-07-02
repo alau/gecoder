@@ -7,7 +7,7 @@
   <meta name="description" content="{description:}" />
 </head>
 <body>
-  <h1>Gecode/R</h1>
+  <h1>Gecode/R</h1><a name="top"></a>
   <div id="contents">
     <div id="body">
       {block:}
@@ -17,8 +17,13 @@
       {menu: {menuStyle: horizontal, options: {maxLevels: 1, divClass: "menu horizontal", selectedMenuitemClass: "selected"}}}
       {menu: {menuStyle: horizontal, options: {startLevel: 2, maxLevels: 1, divClass: "submenu horizontal", selectedMenuitemClass: "selected"}}}
     </div>
+    <div id="footer">
+    	<ul class="horizontal2">
+    	  <li><a class="top" href="#top">Top</a></li>
+    	  <li class="right"><a class="sitemap" href="{relocatable: sitemap.page}">Sitemap</a></li>
+    	</ul>
+    </div>
   </div>
-  
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">

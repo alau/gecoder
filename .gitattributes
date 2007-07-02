@@ -21,6 +21,7 @@ doc/src/examples/sudoku.page -text
 doc/src/index.page -text
 doc/src/installation.page -text
 doc/src/map.sitemap -text
+doc/src/sitemap.page -text
 example/example_helper.rb -text
 example/queens.rb -text
 example/raw_bindings.rb -text
