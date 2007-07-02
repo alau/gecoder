@@ -1,5 +1,6 @@
 ---
 title: Modelling
+long_title: Modelling constraint programming problems with Gecode/R
 inMenu: true
 description: How to model problems in constraint programming when using Gecode/R.
 ---

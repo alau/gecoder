@@ -1,5 +1,6 @@
 ---
 title: Installation
+long_title: How to install Gecode/R, Ruby library for constraint programming
 inMenu: true
 description: How to install Gecode/R to gain access to constraint programming in Ruby.
 ---

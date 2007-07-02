@@ -1,5 +1,6 @@
 ---
 title: send+more=money
+long_title: Solving send+more=money using constraint programming in Ruby
 inMenu: true
 description: An example showing how to solve the send+more=money problem using constraint programming in Ruby with Gecode/R.
 ---

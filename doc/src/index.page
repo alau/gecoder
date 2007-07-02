@@ -1,14 +1,15 @@
 ---
 title: Home
+long_title: Overview of Gecode/R, a Ruby interface to Gecode
 inMenu: true
 description: A Ruby interface to Gecode, an open source environment for constraint programming.
 ---
 h2. Overview
 
-Gecode/R is a Ruby interface to "Gecode":http://www.gecode.org/, allowing 
-constraint programming in Ruby. The interface is intended for people with no 
-previous experience of constraint programming, aiming to be easy to pick up and 
-use in practice.
+Gecode/R is a Ruby interface to "Gecode":http://www.gecode.org/, a library for
+constraint programming. The interface is intended for people with no previous 
+experience of constraint programming, aiming to be easy to pick up and use in 
+practice.
 
 h2. Constraint programming
 

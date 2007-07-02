@@ -1,5 +1,6 @@
 ---
 title: Introduction
+long_title: Documentation for Gecode/R, a Ruby interface to Gecode
 inMenu: true
 description: How to use Gecode/R to model problems and solve them using constraint programming.
 ---

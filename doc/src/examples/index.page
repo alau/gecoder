@@ -1,5 +1,6 @@
 ---
 title: Overview
+long_title: Constraint programming problems solved using Gecode/R
 inMenu: true
 description: Examples of how to use Gecode/R to solve problems using constraint programming in Ruby.
 ---
