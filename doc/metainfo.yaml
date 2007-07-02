@@ -5,7 +5,7 @@ installation.page:
   orderInfo: 2
 documentation:
   orderInfo: 3
-examples.page:
+examples:
   orderInfo: 4
 documentation/index.page:
   orderInfo: 10
@@ -13,6 +13,14 @@ documentation/constraints.page:
   orderInfo: 11
 documentation/modelling.page:
   orderInfo: 12
+examples/index.page:
+  orderInfo: 10
+examples/send-more-money.page:
+  orderInfo: 11
+examples/sudoku.page:
+  orderInfo: 12
+examples/n-queens.page:
+  orderInfo: 13
 ---
 rubyforge.html:
   title: RubyForge
