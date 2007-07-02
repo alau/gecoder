@@ -1,0 +1,27 @@
+---
+title: Overview
+inMenu: true
+description: Examples of how to use Gecode/R to solve problems using constraint programming in Ruby.
+---
+
+h2. Overview
+
+The following are the examples located in the example directory. 
+
+* "send+more=money":send-more-money.html - The "Hello world" of constraint programming. Shows the basic usage with some linear and distinct constraints.
+* "Sudoku":sudoku.html - The popular puzzle solved using constraint programming. Shows how to use matrices and set propagation strengths.
+* "N-queens":n-queens.html - Shows how to use distinct with offsets.
+
+Note that
+
+<ruby>require File.dirname(__FILE__) + '/example_helper'</ruby>
+
+should be replaced with 
+
+<ruby>
+require 'rubygems'
+require 'gecoder'
+</ruby>
+
+when running them from another location.
+

@@ -1,0 +1,41 @@
+---
+title: Sudoku
+inMenu: true
+description: An example showing how to solve a sudoku puzzle using constraint programming in Ruby with Gecode/R.
+---
+
+h2. Sudoku
+
+h3. Definition
+
+bq. The objective is to fill a 9x9 grid so that each column, each row, and each 
+of the nine 3x3 boxes contains the digits from 1 to 9. The puzzle setter 
+provides a partially completed grid. - "Wikipedia":http://en.wikipedia.org/wiki/Soduko
+
+h3. Code
+
+{includeFile: {filename: ../../../example/sudoku.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+
+h3. Output
+
+<pre>
++-----------------------------------+
+| 3 | 7 | 8 | 2 | 6 | 5 | 9 | 1 | 4 |
++-----------------------------------+
+| 5 | 9 | 6 | 8 | 1 | 4 | 7 | 3 | 2 |
++-----------------------------------+
+| 1 | 4 | 2 | 7 | 3 | 9 | 5 | 6 | 8 |
++-----------------------------------+
+| 2 | 1 | 7 | 3 | 8 | 6 | 4 | 5 | 9 |
++-----------------------------------+
+| 8 | 5 | 4 | 9 | 7 | 1 | 6 | 2 | 3 |
++-----------------------------------+
+| 6 | 3 | 9 | 5 | 4 | 2 | 8 | 7 | 1 |
++-----------------------------------+
+| 7 | 8 | 5 | 4 | 2 | 3 | 1 | 9 | 6 |
++-----------------------------------+
+| 4 | 6 | 3 | 1 | 9 | 7 | 2 | 8 | 5 |
++-----------------------------------+
+| 9 | 2 | 1 | 6 | 5 | 8 | 3 | 4 | 7 |
++-----------------------------------+
+</pre>

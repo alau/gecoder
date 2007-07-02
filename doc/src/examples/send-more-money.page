@@ -1,0 +1,37 @@
+---
+title: send+more=money
+inMenu: true
+description: An example showing how to solve the send+more=money problem using constraint programming in Ruby with Gecode/R.
+---
+
+h2. send+more=money
+
+h3. Definition
+
+<pre>
+   send
+ + more
+ ------
+  money
+</pre>
+
+The problem is to, given the above equation, assign digits to each letter so 
+that the equation holds when the letter are substituted with the assigned 
+digits. No two letter may be assigned the same digit and the first letter of a 
+word is not allowed to be assigned 0 (i.e. a number may not start with 0 in the 
+equation).
+
+h3. Code
+
+{includeFile: {filename: ../../../example/send_more_money.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+
+h3. Output
+
+ s: 9, e: 5, n: 6, d: 7, m: 1, o: 0, r: 8, y: 2
+ 
+h3. Notes
+
+"A more general 
+solution":http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/256221 
+is available as a submission to 
+"Ruby Quiz #128 - Verbal Arithmetic":http://www.rubyquiz.com/quiz128.html.
