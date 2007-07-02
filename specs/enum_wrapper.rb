@@ -9,54 +9,54 @@ describe Gecode::Model, ' (enum wrapping)' do
 
   it 'should only allow enumerables to be wrapped' do
     lambda do
-      @model.instance_eval{ wrap_enum(17) } 
+      @model.wrap_enum(17) 
     end.should raise_error(TypeError)
   end
 
   it 'should allow enumerables of bool variables to be wrapped' do
     lambda do
       enum = [@bool]
-      @model.instance_eval{ wrap_enum(enum) } 
+      @model.wrap_enum(enum) 
     end.should_not raise_error
   end
   
   it 'should allow enumerables of int variables to be wrapped' do
     lambda do
       enum = [@int]
-      @model.instance_eval{ wrap_enum(enum) } 
+      @model.wrap_enum(enum) 
     end.should_not raise_error
   end
   
   it 'should allow enumerables of fixnums to be wrapped' do
     lambda do
       enum = [17]
-      @model.instance_eval{ wrap_enum(enum) } 
+      @model.wrap_enum(enum) 
     end.should_not raise_error
   end
   
   it 'should not allow empty enumerables to be wrapped' do
     lambda do 
-      @model.instance_eval{ wrap_enum([]) } 
+      @model.wrap_enum([]) 
     end.should raise_error(ArgumentError)
   end
   
   it 'should not allow enumerables without variables or fixnums to be wrapped' do
     lambda do 
-      @model.instance_eval{ wrap_enum(['foo']) } 
+      @model.wrap_enum(['foo']) 
     end.should raise_error(TypeError)
   end
   
   it 'should not allow enumerables with only some variables to be wrapped' do
     lambda do 
       enum = [@bool, 'foo']
-      @model.instance_eval{ wrap_enum(enum) } 
+      @model.wrap_enum(enum) 
     end.should raise_error(TypeError)
   end
   
   it 'should not allow enumerables with mixed types of variables to be wrapped' do
     lambda do 
       enum = [@bool, @int]
-      @model.instance_eval{ wrap_enum(enum) } 
+      @model.wrap_enum(enum) 
     end.should raise_error(TypeError)
   end
 end
