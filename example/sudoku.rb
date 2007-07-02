@@ -24,15 +24,15 @@ class Sudoku < Gecode::Model
     # Constraints.
     n.times do |i|
       # All rows must contain distinct numbers.
-      wrap_enum(@squares.row(i)).must_be.distinct(:strength => :domain)
+      @squares.row(i).must_be.distinct(:strength => :domain)
       # All columns must contain distinct numbers.
-      wrap_enum(@squares.column(i)).must_be.distinct(:strength => :domain)
+      @squares.column(i).must_be.distinct(:strength => :domain)
       # All sub-matrices must contain distinct numbers.
-      wrap_enum(@squares.minor(
+      @squares.minor(
         (i % sub_count) * sub_matrix_size, 
         sub_matrix_size, 
         (i / sub_count) * sub_matrix_size, 
-        sub_matrix_size)).must_be.distinct(:strength => :domain)
+        sub_matrix_size).must_be.distinct(:strength => :domain)
     end
     
     # Branching, we use first-fail heuristic.

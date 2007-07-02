@@ -20,11 +20,11 @@ module Gecode::Util
     include MatrixEnumMethods
     
     def row(i)
-      make_vector_enumerable super
+      wrap_if_wrapped make_vector_enumerable(super)
     end
     
     def column(i)
-      make_vector_enumerable super
+      wrap_if_wrapped make_vector_enumerable(super)
     end
     
     def minor(*args)
@@ -32,11 +32,12 @@ module Gecode::Util
       class <<matrix
         include MatrixEnumMethods
       end
-      return matrix
+      return wrap_if_wrapped(matrix)
     end
     
     private
     
+    # Makes the specified vector enumerable.
     def make_vector_enumerable(vector)
       class <<vector
         include Enumerable
@@ -49,6 +50,15 @@ module Gecode::Util
         end
       end
       return vector
+    end
+    
+    # Wraps the specified enumerable if the matrix itself is already wrapped.
+    def wrap_if_wrapped(enum)
+      if respond_to? :model
+        model.wrap_enum(enum)
+      else
+        enum
+      end
     end
   end
 end
