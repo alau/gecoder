@@ -26,10 +26,11 @@ constraints.
 
 h2. Development status
 
-The project is currently in an early development stage. The interface is working
-but has a very limited set of functionality. It currently supports finite domain
-integers and boolean along with linear, distinct and boolean constraints. The 
-next step is to add access to more constraints for integer variables.
+The project is currently in development. The interface is working but has a 
+limited set of functionality. It currently supports finite domain integers and 
+boolean variables along with most of their constraints. The next step is to add 
+the last constraints for boolean enumerations and then add support for set 
+variables.
 
 h2. Communication
 
