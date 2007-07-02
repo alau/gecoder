@@ -5,6 +5,7 @@ class Sudoku < Gecode::Model
   # Takes a matrix of values in the initial sudoku, 0 if the square is empty. 
   # The matrix must be square with a square size. 
   def initialize(values)
+    # Verify that the input is of a valid size.
     @size = n = values.row_size
     sub_matrix_size = Math.sqrt(n).round
     unless values.square? and sub_matrix_size**2 == n

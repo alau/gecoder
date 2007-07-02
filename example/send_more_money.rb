@@ -8,11 +8,15 @@ class SendMoreMoney < Gecode::Model
     s,e,n,d,m,o,r,y = @letters = int_var_array(8, 0..9)
 
     # Set up the constraints.
+    # The equation must hold.
     (equation_row(s, e, n, d) + equation_row(m, o, r, e)).must == 
       equation_row(m, o, n, e, y) 
-      
+    
+    # The initial letters may not be 0.
     s.must_not == 0
     m.must_not == 0
+    
+    # All letters must be assigned different digits.
     @letters.must_be.distinct
 
     # Set the branching.
