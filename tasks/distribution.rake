@@ -1,3 +1,5 @@
+require 'lib/gecoder/version'
+
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = "#{File.dirname(__FILE__)}/../doc/output/rdoc"
@@ -7,7 +9,7 @@ end
 
 spec = Gem::Specification.new do |s|
   s.name = 'gecoder'
-  s.version = '0.3.0'
+  s.version = GecodeR::VERSION
   s.summary = 'Ruby interface to Gecode, an environment for constraint programming.'
 
   s.files = FileList[

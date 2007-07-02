@@ -59,6 +59,7 @@ lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/search.rb -text
 lib/gecoder/interface/variables.rb -text
+lib/gecoder/version.rb -text
 specs/binding_changes.rb -text
 specs/bool_var.rb -text
 specs/branch.rb -text
