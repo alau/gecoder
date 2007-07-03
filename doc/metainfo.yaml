@@ -11,8 +11,12 @@ documentation/index.page:
   orderInfo: 10
 documentation/constraints.page:
   orderInfo: 11
-documentation/modelling.page:
+documentation/integer-constraints.page:
   orderInfo: 12
+documentation/boolean-constraints.page:
+  orderInfo: 13
+documentation/modelling.page:
+  orderInfo: 14
 examples/index.page:
   orderInfo: 10
 examples/send-more-money.page:

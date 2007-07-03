@@ -1,0 +1,31 @@
+---
+title: Boolean Constraints
+long_title: Boolean constraints supported by Gecode/R
+inMenu: true
+description: The different boolean constraints available in Gecode/R for use when modelling in Ruby.
+---
+
+h2. Boolean constraints
+
+Boolean constraints are used to place constraints on boolean variables. The 
+following are some example, b1, b2 and b3 are all boolean variables.
+
+<ruby>
+b1.must_be.true # Constrains b1 to be true.
+b2.must_be.false # Constraint b2 to be false.
+</ruby>
+
+Disjunction (or) can is expressed with @|@ and conjunction (and) is expressed 
+with @&@.
+
+<ruby>
+(b1 | b2).must == b1 # Constraint the disjunction of b1 and b2 to equal b1.
+(b1 & b3).must_be.true # Constrains the conjunction of b1 and b3 to be true.
+</ruby>
+
+Variations of @must@ can be replaced with variations of @must_not@ to negate the
+constraints. Nested expressions can be used on both sides.
+
+<ruby>
+((b1 & b1) | b3).must_not == ((b1 | b3) & b2)
+</ruby>
