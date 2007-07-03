@@ -25,7 +25,7 @@ class MagicSequence < Gecode::Model
     # sum(seq[i] * (i-1)) = sum(seq[i]) - sum(i*seq[i]) = n - n = 0
     @sequence.zip((-1...n).to_a).map{ |element, c| element*c }.sum.must == 0
     
-    branch_on @sequence, :value => :split_max
+    branch_on @sequence, :variable => :smallest_degree, :value => :split_max
   end
   
   def to_s

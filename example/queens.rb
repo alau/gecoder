@@ -39,4 +39,5 @@ end
 # Print the first solution. Note that there are 92 solutions, but only 12 
 # are rotationally distinct. For any serious use one should place additional
 # constraints to eliminate those symmetries.
-NQueens.new(8).solution{ |sol| puts sol.to_s }
+NQueens.new( (ARGV[0] || 8).to_i ).solution{ |sol| puts sol.to_s }
+
