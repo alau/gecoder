@@ -87,6 +87,7 @@ tasks/all_tasks.rb -text
 tasks/distribution.rake -text
 tasks/rcov.rake -text
 tasks/specs.rake -text
+tasks/svn.rake -text
 tasks/website.rake -text
 vendor/rust/README -text
 vendor/rust/bin/cxxgenerator.rb -text

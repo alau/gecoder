@@ -1,5 +1,9 @@
 require 'lib/gecoder/version'
 
+PKG_NAME = 'gecoder'
+PKG_VERSION = GecodeR::VERSION
+PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
+
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = "#{File.dirname(__FILE__)}/../doc/output/rdoc"
@@ -8,7 +12,7 @@ rd = Rake::RDocTask.new do |rdoc|
 end
 
 spec = Gem::Specification.new do |s|
-  s.name = 'gecoder'
+  s.name = PKG_NAME
   s.version = GecodeR::VERSION
   s.summary = 'Ruby interface to Gecode, an environment for constraint programming.'
 
@@ -41,12 +45,19 @@ Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_tar = true
 end
 
-desc "Tag the release in svn"
-task :tag do
-  from = `svn info`.match(/Repository Root: (.*)/n)[1] + '/trunk'
-  to = from.gsub(/trunk/, "tags/#{GecodeR::VERSION}")
+desc "Publish packages on RubyForge"
+task :publish_packages => [:verify_user, :package] do
+  release_files = FileList[
+    "pkg/#{PKG_FILE_NAME}.gem",
+    "pkg/#{PKG_FILE_NAME}.tgz",
+    "pkg/#{PKG_FILE_NAME}.zip"
+  ]
+  require 'meta_project'
+  require 'rake/contrib/xforge'
 
-  puts "Creating tag in SVN"
-  tag_cmd = "svn cp #{from} #{to} -m \"Tag release Gecode/R #{GecodeR::VERSION}\""
-  `#{tag_cmd}` ; raise "ERROR: #{tag_cmd}" unless $? == 0
+  Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new(PKG_NAME)) do |xf|
+    xf.user_name = ENV['RUBYFORGE_USER']
+    xf.files = release_files.to_a
+    xf.release_name = "Gecode/R #{PKG_VERSION}"
+  end
 end

@@ -7,4 +7,4 @@ require 'tasks/all_tasks'
 task :default => [:verify_rcov]
 
 desc 'Performs the tasks necessary when releasing'
-task :release => [:publish_website, :package, :tag]
+task :release => [:publish_website, :publish_packages, :tag]
