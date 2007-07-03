@@ -20,17 +20,23 @@
 # CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'rust'
+require 'lib/extension-test'
 
-Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "constants_rb" do |b|
-  b.include_header 'dummyclass.hh', Rust::Bindings::HeaderLocal
+module Rust::Test
 
-  b.add_namespace "RustTestConstants", "" do |ns|
-    ns.add_cxx_class "DummyClass" do |klass|
-      klass.add_constant 'ClassConstant', '123'
+  class CppClassTest < Test::Unit::TestCase
+    include ExtensionTest
+
+    def setup
+      extension_setup("operators", "cc")
+
+      @instance = RustTestOperators::Operators.new
     end
 
-    ns.add_constant 'ModuleConstant', '"foobar"'
+    def test_at
+      v = @instance.at(3)
+      assert(v == 3, "must be 3")
+    end
   end
-end
 
+end

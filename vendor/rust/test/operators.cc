@@ -21,25 +21,21 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "cppclass.hh"
+#include "operators.hh"
 
-TestClass::TestClass() {
-  str = "undefined";
+Operators::Operators() {
+  m_array = new uint32_t(4*sizeof(uint32_t));
+  
+  for(int i = 0; i < 4; i++)
+    m_array[i] = i;
 }
 
-TestClass::~TestClass() {
+Operators::~Operators() {
+  delete m_array;
 }
 
-void TestClass::action1(uint32_t unused_parameter) {
-  val = unused_parameter;
-}
-
-void TestClass::action2(char *string) {
-  str = string;
-}
-
-void TestClass::action3(const TestClass &tc) {
-  str = "action3 called";
+uint32_t &Operators::operator [](uint32_t index) {
+  return m_array[index];
 }
 
 

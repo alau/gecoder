@@ -229,7 +229,7 @@ module Rust
         params[:parent] = params[:klass]
         super
         
-        type = Type.new(@parent.namespace.cname+"::"+@parent.cname)
+        type = Type.new(@parent.namespace.cname.to_s+"::"+@parent.cname.to_s)
         
         @varname = "f#{type.valid_name}_#{valid_name}"
         
@@ -245,8 +245,10 @@ module Rust
             return "#{raw_call(nparam)}; return Qnil;\n"
           else
             type = Type.new(@return)
-            if not @return.include?("*") and not type.native?
-              "return cxx2ruby( new #{@return.gsub("&", "")}(#{raw_call(nparam)}), true );\n" # XXX: needs a copy constructor
+            if not type.native? and @return.include?("&")
+              "return cxx2ruby( &(#{raw_call(nparam)}), false );\n"
+            elsif not @return.include?("*") and not type.native?
+              "return cxx2ruby( new #{@return}(#{raw_call(nparam)}), true );\n"
             else
               "return cxx2ruby( static_cast<#{@return}>(#{raw_call(nparam)}) );\n"
             end

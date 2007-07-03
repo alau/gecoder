@@ -27,6 +27,7 @@
 class TestClass {
 public:
   TestClass();
+  ~TestClass();
 
   void action1(uint32_t unused_parameter);
   void action2(char *string);
@@ -61,3 +62,6 @@ protected:
 
   uint32_t m_variable;
 };
+
+
+

@@ -30,7 +30,7 @@ module Rust
     def initialize(name, value, parent)
       super()
 
-      @name = name.upcase
+      @name = name
       @value = value
       @parent = parent
 

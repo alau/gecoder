@@ -25,7 +25,7 @@ require 'rbconfig'
 require 'pathname'
 require 'tmpdir'
 
-$: << (Pathname.new(__FILE__).dirname + "../..").realpath
+$: << (Pathname.new(File.dirname(__FILE__) ) + "../..").realpath
 
 module Rust
 

@@ -53,7 +53,7 @@ module Rust
     end
     
     def native?
-      [ /int\s*\*{0,1}/, /float\s*\*{0,1}/, /double\s*\*{0,1}/, /char\s*\*{0,1}/, /bool/ ].each { |type|
+      [ /(u){0,1}int(\d\d_t){0,1}\s*\*{0,1}/, /float\s*\*{0,1}/, /double\s*\*{0,1}/, /char\s*\*{0,1}/, /bool/, /(std::){0,1}string/ ].each { |type|
         if @name =~ type
           return true
         end

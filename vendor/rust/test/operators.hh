@@ -21,25 +21,19 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "cppclass.hh"
+#include <string>
+#include <stdint.h>
 
-TestClass::TestClass() {
-  str = "undefined";
-}
+class Operators {
+public:
+  Operators();
+  ~Operators();
 
-TestClass::~TestClass() {
-}
+  uint32_t &operator [](uint32_t index);
 
-void TestClass::action1(uint32_t unused_parameter) {
-  val = unused_parameter;
-}
+protected:
+  uint32_t *m_array;
+};
 
-void TestClass::action2(char *string) {
-  str = string;
-}
-
-void TestClass::action3(const TestClass &tc) {
-  str = "action3 called";
-}
 
 

@@ -142,6 +142,10 @@ vendor/rust/test/cwrapper.h -text
 vendor/rust/test/cwrapper.rb -text
 vendor/rust/test/dummyclass.hh -text
 vendor/rust/test/lib/extension-test.rb -text
+vendor/rust/test/operators.cc -text
+vendor/rust/test/operators.hh -text
+vendor/rust/test/operators.rb -text
 vendor/rust/test/test-constants.rb -text
 vendor/rust/test/test-cppclass.rb -text
 vendor/rust/test/test-cwrapper.rb -text
+vendor/rust/test/test-operators.rb -text

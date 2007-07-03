@@ -22,15 +22,18 @@
 
 require 'rust'
 
-Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "constants_rb" do |b|
-  b.include_header 'dummyclass.hh', Rust::Bindings::HeaderLocal
+Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "operators_rb" do |b|
+  b.include_header 'operators.hh', Rust::Bindings::HeaderLocal
 
-  b.add_namespace "RustTestConstants", "" do |ns|
-    ns.add_cxx_class "DummyClass" do |klass|
-      klass.add_constant 'ClassConstant', '123'
+  b.add_namespace "RustTestOperators", "" do |ns|
+    ns.add_cxx_class "Operators" do |klass|
+      klass.add_constructor do |method|
+      end
+
+      klass.add_operator "[]", "uint32_t", "at" do |method|
+        method.add_parameter "uint32_t", "index"
+      end
     end
-
-    ns.add_constant 'ModuleConstant', '"foobar"'
   end
 end
 
