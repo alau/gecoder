@@ -17,6 +17,7 @@ doc/src/documentation/index.page -text
 doc/src/documentation/integer-constraints.page -text
 doc/src/documentation/modelling.page -text
 doc/src/examples/index.page -text
+doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text
 doc/src/examples/send-more-money.page -text
 doc/src/examples/sudoku.page -text
@@ -25,6 +26,7 @@ doc/src/installation.page -text
 doc/src/map.sitemap -text
 doc/src/sitemap.page -text
 example/example_helper.rb -text
+example/magic_sequence.rb -text
 example/queens.rb -text
 example/raw_bindings.rb -text
 example/send_more_money.rb -text

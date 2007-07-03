@@ -12,6 +12,7 @@ The following are the examples located in the example directory.
 * "send+more=money":send-more-money.html - The "Hello world" of constraint programming. Shows the basic usage with some linear and distinct constraints.
 * "Sudoku":sudoku.html - The popular puzzle solved using constraint programming. Shows how to use matrices and set propagation strengths.
 * "N-queens":n-queens.html - Shows how to use distinct with offsets.
+* "Magic sequence":magic-sequence.html - Uses the count constraint and some implied constraints.
 
 Note that
 

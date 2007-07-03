@@ -1,0 +1,32 @@
+---
+title: Magic Sequence
+long_title: Solving magic sequence using constraint programming in Ruby
+inMenu: true
+description: An example showing how to solve the magic sequence problem using constraint programming in Ruby with Gecode/R.
+---
+
+h2. Magic sequence
+
+h3. Definition
+
+bq. A magic sequence of length n is a sequence of integers x0 . . xn-1 between 
+0 and n-1, such that for all i in 0 to n-1, the number i occurs exactly xi 
+times in the sequence. For instance, 6,2,1,0,0,0,1,0,0,0 is a magic sequence 
+since 0 occurs 6 times in it, 1 occurs twice, ... - 
+"CSPLib":http://www.dcs.st-and.ac.uk/~ianm/CSPLib/prob/prob019/spec.html
+
+h3. Code
+
+{includeFile: {filename: ../../../example/magic_sequence.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+
+h3. Output
+
+<pre>
+96, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+</pre>
+
+h3. Notes
+
+This might be a bit boring problem to use constraint programming on as the 
+pattern for sequences is obvious for n >= 7, making it trivial to construct an
+efficient algorithm.

@@ -25,6 +25,8 @@ examples/sudoku.page:
   orderInfo: 12
 examples/n-queens.page:
   orderInfo: 13
+examples/magic-sequence.page:
+  orderInfo: 14
 ---
 rubyforge.html:
   title: RubyForge
