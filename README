@@ -26,3 +26,9 @@ instructions.
 
   rake gem
   gem install pkg/gecoder-0.x.x.gem
+
+== Running the tests
+
+  rake specs
+
+Requires RSpec (1.0.5, but other version should hopefully work).

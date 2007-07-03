@@ -20,9 +20,10 @@ spec = Gem::Specification.new do |s|
     '[A-Z]*',
     'lib/**/*.rb', 
     'examples/**/*',
-    'bin/**/*',
     'src/**/*',
     'vendor/**/*',
+    'tasks/**/*',
+    'specs/**/*',
     'ext/*'
   ].to_a
   s.require_path = 'lib'
