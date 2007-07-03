@@ -1,3 +1,5 @@
+require 'rake/contrib/rubyforgepublisher'
+
 desc 'Regenerates the contents of the website'
 task :website do
   Rake::Task[:clobber].invoke
@@ -19,6 +21,20 @@ end
 desc 'Removes generated documentation'
 task :clobber do
   WebsiteRakeHelpers.clobber
+end
+
+task :verify_user do
+  raise "RUBYFORGE_USER environment variable not set!" unless ENV['RUBYFORGE_USER']
+end
+
+desc "Uploads the website to RubyForge"
+task :publish_website => [:verify_user, :website] do
+  publisher = Rake::SshDirPublisher.new(
+    "#{ENV['RUBYFORGE_USER']}@rubyforge.org",
+    "/var/www/gforge-projects/gecoder",
+    "doc/output"
+  )
+  publisher.upload
 end
 
 module WebsiteRakeHelpers
