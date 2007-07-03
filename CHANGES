@@ -1,4 +1,4 @@
-== Version 0.3.1 (in SVN)
+== Version 0.4.0
 
 * [#11861] Fixed a bug stopping the creating of int variables with non-range domains.
 * Added domain constraints for int variables.
