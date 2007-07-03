@@ -3,7 +3,7 @@ require 'lib/gecoder/version'
 desc "Tag the release in svn"
 task :tag do
   from = `svn info`.match(/Repository Root: (.*)/n)[1] + '/trunk'
-  to = from.gsub(/trunk/, "tags/#{GecodeR::VERSION}")
+  to = from.gsub(/trunk/, "tags/gecoder-#{GecodeR::VERSION}")
 
   puts "Creating tag in SVN"
   tag_cmd = "svn cp #{from} #{to} -m \"Tag release Gecode/R #{GecodeR::VERSION}\""

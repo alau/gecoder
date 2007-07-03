@@ -1,4 +1,6 @@
 == Version 0.4.0
+This release adds most of the constraints supported by Gecode for integer
+variables.
 
 * [#11861] Fixed a bug stopping the creating of int variables with non-range domains.
 * Added domain constraints for int variables.
@@ -11,6 +13,8 @@
 * Added arithmetic constraints (min, max, abs and variable multiplication).
 
 == Version 0.3.0
+This release fleshes out the existing constraints with things such as 
+reification and adds boolean variables and their basic constraints.
 
 * The constructor of Gecode::Model no longer has to be called by classes inheriting from it.
 * Added Model#reset! which resets a model after search.
@@ -25,7 +29,6 @@
 * Added syntactic sugar for combining reifiable constraints with | and &.
 
 == Version 0.2.0
-
 This is the first release of Gecode/R, a Ruby interface to Gecode.
 
 * Added support for finite domain integers.
