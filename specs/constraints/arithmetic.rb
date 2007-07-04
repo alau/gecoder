@@ -15,7 +15,135 @@ class ArithmeticSampleProblem < Gecode::Model
   end
 end
 
-describe 'arithmetic constraint', :shared => true do
+describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
+  before do
+    @model = ArithmeticSampleProblem.new
+    @numbers = @model.numbers
+    @target = @var = @model.var
+    @stub = @numbers.max
+    
+    # Creates an expectation corresponding to the specified input.
+    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+      rhs = rhs.bind if rhs.respond_to? :bind
+      if reif_var.nil?
+        if !negated and relation == Gecode::Raw::IRT_EQ and 
+            rhs.kind_of? Gecode::Raw::IntVar 
+          Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVarArray), rhs, strength)
+        else
+          Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVarArray), 
+            an_instance_of(Gecode::Raw::IntVar), strength)
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
+        end
+      else
+        Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVarArray), 
+          an_instance_of(Gecode::Raw::IntVar), strength)
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+          strength)
+      end
+    end
+    
+    # For constraint option spec.
+    @invoke_options = lambda do |hash| 
+      @numbers.max.must_be.greater_than(@var, hash) 
+      @model.solve!
+    end
+    @expect_options = lambda do |strength, reif_var|
+      @expect.call(Gecode::Raw::IRT_GR, @var, strength, reif_var, false)
+    end
+    
+    # For composite spec.
+    @invoke_relation = lambda do |relation, target, negated|
+      if negated
+        @numbers.max.must_not.send(relation, target)
+      else
+        @numbers.max.must.send(relation, target)
+      end
+      @model.solve!
+    end
+    @expect_relation = lambda do |relation, target, negated|
+      @expect.call(relation, target, Gecode::Raw::ICL_DEF, nil, negated)
+    end
+  end
+  
+  it 'should constrain the maximum value' do
+    @numbers.max.must > 5
+    @model.solve!.numbers.map{ |n| n.val }.max.should > 5
+  end
+  
+  it_should_behave_like 'composite constraint'
+  it_should_behave_like 'constraint with options'
+end
+
+describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
+  before do
+    @model = ArithmeticSampleProblem.new
+    @numbers = @model.numbers
+    @target = @var = @model.var
+    @stub = @numbers.min
+    
+    # Creates an expectation corresponding to the specified input.
+    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+      rhs = rhs.bind if rhs.respond_to? :bind
+      if reif_var.nil?
+        if !negated and relation == Gecode::Raw::IRT_EQ and 
+            rhs.kind_of? Gecode::Raw::IntVar 
+          Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVarArray), rhs, strength)
+        else
+          Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVarArray), 
+            an_instance_of(Gecode::Raw::IntVar), strength)
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
+        end
+      else
+        Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVarArray), 
+          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+          strength)
+      end
+    end
+    
+    # For constraint option spec.
+    @invoke_options = lambda do |hash| 
+      @numbers.min.must_be.greater_than(@var, hash) 
+      @model.solve!
+    end
+    @expect_options = lambda do |strength, reif_var|
+      @expect.call(Gecode::Raw::IRT_GR, @var, strength, reif_var, false)
+    end
+    
+    # For composite spec.
+    @invoke_relation = lambda do |relation, target, negated|
+      if negated
+        @numbers.min.must_not.send(relation, target)
+      else
+        @numbers.min.must.send(relation, target)
+      end
+      @model.solve!
+    end
+    @expect_relation = lambda do |relation, target, negated|
+      @expect.call(relation, target, Gecode::Raw::ICL_DEF, nil, negated)
+    end
+  end
+  
+  it 'should constrain the minimum value' do
+    @numbers.min.must > 5
+    @model.solve!.numbers.map{ |n| n.val }.min.should > 5
+  end
+  
+  it_should_behave_like 'composite constraint'
+  it_should_behave_like 'constraint with options'
+end
+
+describe 'single variable arithmetic constraint', :shared => true do
   situations = {
     'variable bound' => nil,
     'constant bound' => 5
@@ -41,100 +169,6 @@ describe 'arithmetic constraint', :shared => true do
   it 'should raise error if the right hand side is of the wrong type' do
     lambda{ @stub.must == 'hello' }.should raise_error(TypeError) 
   end
-  
-  it_should_behave_like 'constraint with options'
-end
-
-describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
-  before do
-    @model = ArithmeticSampleProblem.new
-    @numbers = @model.numbers
-    @var = @model.var
-    @stub = @numbers.max
-    
-    # Creates an expectation corresponding to the specified input.
-    @expect = lambda do |relation, rhs, strength, reif_var|
-      rhs = rhs.bind if rhs.respond_to? :bind
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), strength)
-        unless relation == Gecode::Raw::IRT_EQ
-          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-            an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
-        end
-      else
-        Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), strength)
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
-          strength)
-      end
-    end
-    
-    # For constraint option spec.
-    @invoke_options = lambda do |hash| 
-      @numbers.max.must_be.greater_than(@var, hash) 
-      @model.solve!
-    end
-    @expect_options = lambda do |strength, reif_var|
-      @expect.call(Gecode::Raw::IRT_GR, @var, strength, reif_var)
-    end
-  end
-  
-  it 'should constrain the maximum value' do
-    @numbers.max.must > 5
-    @model.solve!.numbers.map{ |n| n.val }.max.should > 5
-  end
-  
-  it_should_behave_like 'arithmetic constraint'
-end
-
-describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
-  before do
-    @model = ArithmeticSampleProblem.new
-    @numbers = @model.numbers
-    @var = @model.var
-    @stub = @numbers.min
-    
-    # Creates an expectation corresponding to the specified input.
-    @expect = lambda do |relation, rhs, strength, reif_var|
-      rhs = rhs.bind if rhs.respond_to? :bind
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), strength)
-        unless relation == Gecode::Raw::IRT_EQ
-          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-            an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
-        end
-      else
-        Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
-          strength)
-      end
-    end
-    
-    # For constraint option spec.
-    @invoke_options = lambda do |hash| 
-      @numbers.min.must_be.greater_than(@var, hash) 
-      @model.solve!
-    end
-    @expect_options = lambda do |strength, reif_var|
-      @expect.call(Gecode::Raw::IRT_GR, @var, strength, reif_var)
-    end
-  end
-  
-  it 'should constrain the minimum value' do
-    @numbers.min.must > 5
-    @model.solve!.numbers.map{ |n| n.val }.min.should > 5
-  end
-  
-  it_should_behave_like 'arithmetic constraint'
 end
 
 describe Gecode::Constraints::Int::Arithmetic, ' (abs)' do
@@ -178,7 +212,8 @@ describe Gecode::Constraints::Int::Arithmetic, ' (abs)' do
     @model.solve!.var.val.should == -5
   end
   
-  it_should_behave_like 'arithmetic constraint'
+  it_should_behave_like 'single variable arithmetic constraint'
+  it_should_behave_like 'constraint with options'
 end
 
 describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
@@ -227,5 +262,6 @@ describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
     (@var * :foo).should be_nil
   end
   
-  it_should_behave_like 'arithmetic constraint'
+  it_should_behave_like 'single variable arithmetic constraint'
+  it_should_behave_like 'constraint with options'
 end

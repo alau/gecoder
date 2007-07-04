@@ -21,92 +21,58 @@ describe Gecode::Constraints::IntEnum::Element do
   before do
     @model = ElementSampleProblem.new
     @prices = @model.prices
-    @price = @model.price
+    @target = @price = @model.price
     @store = @model.store
     @fixnum_prices = @model.fixnum_prices
     
+    # Creates an expectation corresponding to the specified input.
+    @expect = lambda do |element, relation, target, strength, reif_var, negated|
+      target = target.bind if target.respond_to? :bind
+      element = element.bind if element.respond_to? :bind
+      if reif_var.nil?
+        if !negated and relation == Gecode::Raw::IRT_EQ and 
+            target.kind_of? Gecode::Raw::IntVar 
+          Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVarArray), 
+            element, target, strength)
+        else
+          Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVarArray), 
+            element, an_instance_of(Gecode::Raw::IntVar), strength)
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, target, strength)
+        end
+      else
+        Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVarArray), 
+          element, an_instance_of(Gecode::Raw::IntVar), strength)
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVar), relation, target, 
+          an_instance_of(Gecode::Raw::BoolVar), strength)
+      end
+    end
+
     # For constraint option spec.
     @invoke_options = lambda do |hash| 
       @prices[@store].must_be.greater_than(@price, hash) 
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar),
-          an_instance_of(Gecode::Raw::IntVar), strength)
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR,
-          an_instance_of(Gecode::Raw::IntVar), strength)
+      @expect.call(@store, Gecode::Raw::IRT_GR, @price, strength, reif_var, 
+        false)
+    end
+    
+    # For composite spec.
+    @invoke_relation = lambda do |relation, target, negated|
+      if negated
+        @prices[@store].must_not.send(relation, target)
       else
-        Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar),
-          an_instance_of(Gecode::Raw::IntVar), strength)
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR,
-          an_instance_of(Gecode::Raw::IntVar), 
-          an_instance_of(Gecode::Raw::BoolVar), strength)
+        @prices[@store].must.send(relation, target)
       end
-    end
-  end
-  
-  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-    it "should translate #{relation} with variable right hand side" do
-      Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-        an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::IntVar),
-        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
-      unless type == Gecode::Raw::IRT_EQ
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space,
-          an_instance_of(Gecode::Raw::IntVar), type,
-          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
-      end
-      @prices[@store].must.send(relation, @price)
       @model.solve!
     end
-  end
-
-  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate negated #{relation} with variable right hand side" do
-      Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-        an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::IntVar),
-        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-        an_instance_of(Gecode::Raw::IntVar), type,
-        an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
-      @prices[@store].must_not.send(relation, @price)
-      @model.solve!
-    end
-  end
-  
-  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-    it "should translate #{relation} with constant right hand side" do
-      Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-        an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::IntVar),
-        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
-      unless type == Gecode::Raw::IRT_EQ
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space,
-          an_instance_of(Gecode::Raw::IntVar), type, 5, an_instance_of(Fixnum))
-      end
-      @prices[@store].must.send(relation, 5)
-      @model.solve!
-    end
-  end
-
-  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate negated #{relation} with constant right hand side" do
-      Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-        an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::IntVar),
-        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space,
-        an_instance_of(Gecode::Raw::IntVar), type, 5, an_instance_of(Fixnum))
-      @prices[@store].must_not.send(relation, 5)
-      @model.solve!
+    @expect_relation = lambda do |relation, target, negated|
+      @expect.call(@store, relation, target, Gecode::Raw::ICL_DEF, nil, negated)
     end
   end
 
@@ -119,10 +85,7 @@ describe Gecode::Constraints::IntEnum::Element do
     @fixnum_prices[@store].must == @fixnum_prices[2]
     @model.solve!.store.val.should equal(2)
   end
-
-  it 'should raise error on right hand sides of the wrong type' do
-    lambda{ @prices[@store].must == 'hello' }.should raise_error(TypeError) 
-  end
   
+  it_should_behave_like 'composite constraint'
   it_should_behave_like 'constraint with options'
 end
