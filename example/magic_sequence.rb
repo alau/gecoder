@@ -40,4 +40,4 @@ class Array
   end
 end
 
-puts((MagicSequence.new(100).solve! || 'Failed').to_s)
+puts((MagicSequence.new(500).solve! || 'Failed').to_s)
