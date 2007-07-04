@@ -48,10 +48,14 @@ module Gecode
   
     # Returns an int variable array with all the bound variables.
     def to_int_var_array
-      elements = to_a
-      arr = Gecode::Raw::IntVarArray.new(active_space, elements.size)
-      elements.each_with_index{ |var, index| arr[index] = var.bind }
-      return arr
+      space = @model.active_space
+      unless @bound_space == space
+        elements = to_a
+        @bound_arr = Gecode::Raw::IntVarArray.new(active_space, elements.size)
+        elements.each_with_index{ |var, index| @bound_arr[index] = var.bind }
+        @bound_space = space
+      end
+      return @bound_arr
     end
     alias_method :to_var_array, :to_int_var_array
     
@@ -76,10 +80,14 @@ module Gecode
   
     # Returns a bool variable array with all the bound variables.
     def to_bool_var_array
-      elements = to_a
-      arr = Gecode::Raw::BoolVarArray.new(active_space, elements.size)
-      elements.each_with_index{ |var, index| arr[index] = var.bind }
-      return arr
+       space = @model.active_space
+      unless @bound_space == space
+        elements = to_a
+        @bound_arr = Gecode::Raw::BoolVarArray.new(active_space, elements.size)
+        elements.each_with_index{ |var, index| @bound_arr[index] = var.bind }
+        @bound_space = space
+      end
+      return @bound_arr
     end
     alias_method :to_var_array, :to_bool_var_array
   end
