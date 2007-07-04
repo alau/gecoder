@@ -2,29 +2,18 @@
 module Gecode::Constraints::IntEnum::Element 
   # Describes an expression stub started with an int var enum following with an 
   # array access using an integer variables .
-  class ExpressionStub < Gecode::Constraints::ExpressionStub
-    include Gecode::Constraints::LeftHandSideMethods
-    
-    private
-    
-    # Produces an expression with position for the lhs module.
-    def expression(params)
-      # We extract the integer and continue as if it had been specified as
-      # left hand side. This might be elegant, but it could get away with 
-      # fewer constraints at times (when only equality is used) and 
-      # propagation strength can't be specified. 
-      # TODO: cut down on the number of constraints when possible. See if 
-      # there's some neat way of getting the above remarks. 
+  class ExpressionStub < Gecode::Constraints::IntEnum::CompositeStub
+    def constrain_equal(variable, params)
+      enum, position, strength = @params.values_at(:lhs, :position, :strength)
+      if variable.nil?
+        variable = @model.int_var(enum.domain_range)
+      end
       
-      params.update(@params)
-      enum, position = params.values_at(:lhs, :position)
-      tmp = @model.int_var(enum.domain_range)
+      # The enum can be a constant array.
       enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
-      
       Gecode::Raw::element(@model.active_space, enum, 
-        position.bind, tmp.bind, Gecode::Raw::ICL_DEF)
-      Gecode::Constraints::Int::Expression.new(@model, 
-        params.update(:lhs => tmp))
+        position.bind, variable.bind, strength)
+      return variable
     end
   end
   

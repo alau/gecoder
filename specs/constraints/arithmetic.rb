@@ -58,13 +58,15 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
       if reif_var.nil?
         Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
+          an_instance_of(Gecode::Raw::IntVar), strength)
+        unless relation == Gecode::Raw::IRT_EQ
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
+        end
       else
         Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
+          an_instance_of(Gecode::Raw::IntVar), strength)
         Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
           strength)
@@ -102,9 +104,11 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
       if reif_var.nil?
         Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
+          an_instance_of(Gecode::Raw::IntVar), strength)
+        unless relation == Gecode::Raw::IRT_EQ
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
+        end
       else
         Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVarArray), 

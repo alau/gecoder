@@ -17,6 +17,18 @@ describe Gecode::Constraints::IntEnum::Expression do
   end
 end
 
+describe Gecode::Constraints::IntEnum::CompositeStub, ' (not subclassed)' do
+  before do
+    @con = Gecode::Constraints::IntEnum::CompositeStub.new(Gecode::Model.new, {})
+  end
+
+  it 'should raise error when calling #constraint_equal' do
+    lambda do 
+      @con.instance_eval{ constrain_equal(nil, {}) }
+    end.should raise_error(NoMethodError)
+  end
+end
+
 describe Gecode::Constraints::Constraint, ' (not subclassed)' do
   before do
     @con = Gecode::Constraints::Constraint.new(Gecode::Model.new, {})
