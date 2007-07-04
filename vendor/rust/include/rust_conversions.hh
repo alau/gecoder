@@ -67,7 +67,7 @@ static inline VALUE cxx2ruby(double val) {
 static inline int *ruby2intArray(VALUE rval, int argn = -1) {
   int i;
   RArray *array = RARRAY(rval);
-  int* ret = new int(array->len*sizeof(int)); // FIXME: Leak!!!
+  int* ret = (int*)malloc(array->len*sizeof(int)); // FIXME: Leak!!!
   for(i = 0; i < array->len; i++)
   {
     ret[i] = NUM2INT(array->ptr[i]);

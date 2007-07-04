@@ -117,13 +117,13 @@ module Rust
     end
     
     def add_attribute(name, type, bindname = name)
-    	attribute = Attribute.new(name, type, { :parent => self })
-    	
-    	yield attribute if block_given?
-    	
-    	@children << attribute
-    	
-    	attribute
+      attribute = Attribute.new(name, type, { :parent => self })
+      
+      yield attribute if block_given?
+      
+      @children << attribute
+      
+      attribute
     end
     
     def add_operator(name, return_value, bindname = name)
@@ -229,7 +229,7 @@ module Rust
         params[:parent] = params[:klass]
         super
         
-        type = Type.new(@parent.namespace.cname.to_s+"::"+@parent.cname.to_s)
+        type = Type.new(@parent.namespace.cname+"::"+@parent.cname)
         
         @varname = "f#{type.valid_name}_#{valid_name}"
         
@@ -245,10 +245,8 @@ module Rust
             return "#{raw_call(nparam)}; return Qnil;\n"
           else
             type = Type.new(@return)
-            if not type.native? and @return.include?("&")
-              "return cxx2ruby( &(#{raw_call(nparam)}), false );\n"
-            elsif not @return.include?("*") and not type.native?
-              "return cxx2ruby( new #{@return}(#{raw_call(nparam)}), true );\n"
+            if not @return.include?("*") and not type.native?
+              "return cxx2ruby( new #{@return.gsub("&", "")}(#{raw_call(nparam)}), true );\n" # XXX: needs a copy constructor
             else
               "return cxx2ruby( static_cast<#{@return}>(#{raw_call(nparam)}) );\n"
             end
@@ -296,11 +294,11 @@ module Rust
             @position = 3
             "notequalop"
           when "<<"
-          	@position = 3
-          	"outstream"
+            @position = 3
+            "outstream"
           when ">>"
             @position = 3
-          	"intstream"
+            "intstream"
           when "!"
             @position = 1
             "notop"

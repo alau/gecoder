@@ -307,10 +307,8 @@ module Rust
         return "#{raw_call(nparam)}; return Qnil;\n"
       else
         type = Type.new(@return)
-        if not type.native? and @return.include?("&")
-          "return cxx2ruby( &(#{raw_call(nparam)}), false );\n"
-        elsif not @return.include?("*") and not type.native?
-           "return cxx2ruby( new #{@return}(#{raw_call(nparam)}), true );\n"
+        if not @return.include?("*") and not type.native?
+          "return cxx2ruby( new #{@return.gsub("&", "")}(#{raw_call(nparam)}), true );\n"
         else
           "return cxx2ruby( static_cast<#{@return}>(#{raw_call(nparam)}) );\n"
         end
@@ -390,13 +388,13 @@ module Rust
               call += "      if( is_#{valid_name}(argv[#{argindex}]) ) {\n" 
             end
           }
-	      
+        
           call += "           #{func.bind_call(argc)}"
           call += "           ok = true;\n"
-	  call += "}"*argc # closes if's
-	  call += "\n"
-	  
-	  current_function_index += 1
+    call += "}"*argc # closes if's
+    call += "\n"
+    
+    current_function_index += 1
         }
         call += "     } break;\n"
         
