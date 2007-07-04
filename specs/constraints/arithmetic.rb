@@ -75,6 +75,14 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
     @model.solve!.numbers.map{ |n| n.val }.max.should > 5
   end
   
+  it 'should translate reification when using equality' do
+    bool_var = @model.bool_var
+    @expect.call(Gecode::Raw::IRT_EQ, @target, Gecode::Raw::ICL_DEF, bool_var, 
+      false)
+    @numbers.max.must_be.equal_to(@target, :reify => bool_var)
+    @model.solve!
+  end
+  
   it_should_behave_like 'composite constraint'
   it_should_behave_like 'constraint with options'
 end
@@ -137,6 +145,14 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
   it 'should constrain the minimum value' do
     @numbers.min.must > 5
     @model.solve!.numbers.map{ |n| n.val }.min.should > 5
+  end
+  
+  it 'should translate reification when using equality' do
+    bool_var = @model.bool_var
+    @expect.call(Gecode::Raw::IRT_EQ, @target, Gecode::Raw::ICL_DEF, bool_var, 
+      false)
+    @numbers.min.must_be.equal_to(@target, :reify => bool_var)
+    @model.solve!
   end
   
   it_should_behave_like 'composite constraint'

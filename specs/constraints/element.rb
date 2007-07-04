@@ -86,6 +86,14 @@ describe Gecode::Constraints::IntEnum::Element do
     @model.solve!.store.val.should equal(2)
   end
   
+  it 'should translate reification when using equality' do
+    bool_var = @model.bool_var
+    @expect.call(@store, Gecode::Raw::IRT_EQ, @target, Gecode::Raw::ICL_DEF, 
+      bool_var, false)
+    @prices[@store].must_be.equal_to(@target, :reify => bool_var)
+    @model.solve!
+  end
+  
   it_should_behave_like 'composite constraint'
   it_should_behave_like 'constraint with options'
 end

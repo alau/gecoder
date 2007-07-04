@@ -87,7 +87,8 @@ module Gecode
       end
       
       def ==(expression, options = {})
-        if !@params[:negate] and expression.kind_of? Gecode::FreeIntVar
+        if !@params[:negate] and options[:reify].nil? and 
+            expression.kind_of? Gecode::FreeIntVar
           # We don't need any additional constraints.
           @params.update Gecode::Constraints::Util.decode_options(options)
           @proc.call(expression, @params)
@@ -95,6 +96,7 @@ module Gecode
           method_missing(:==, expression, options)
         end
       end
+      alias_comparison_methods
     end
   end
 end
