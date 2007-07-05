@@ -13,10 +13,12 @@ module Gecode
     end
   end
   
+  # A module that gathers the classes and modules used in boolean constraints.
   module Constraints::Bool
+    # Describes a boolean expression (following after must*).
     class Expression
       def ==(expression, options = {})
-        @params.update Gecode::Constraints::Util.decode_options({})
+        @params.update Gecode::Constraints::Util.decode_options(options)
         @model.add_constraint BooleanConstraint.new(@model, 
           @params.update(:rhs => expression))
       end
@@ -40,6 +42,10 @@ module Gecode
         lhs, rhs, negate, strength, reif_var = @params.values_at(:lhs, :rhs, 
           :negate, :strength, :reif)
         space = (lhs.model || rhs.model).active_space
+        
+        # TODO: It should be possible to reduce the number of necessary 
+        # variables and constraints a bit by altering the way that the top node
+        # is posted, using its constraint for reification etc when possible. 
         
         if rhs.respond_to? :bind
           if reif_var.nil?

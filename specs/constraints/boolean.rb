@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/constraint_helper'
 
 class BoolSampleProblem < Gecode::Model
   attr :b1
@@ -18,6 +19,21 @@ describe Gecode::Constraints::Bool do
     @b1 = @model.b1
     @b2 = @model.b2
     @b3 = @model.b3
+    
+    # For constraint option spec.
+    @invoke_options = lambda do |hash| 
+      (@b1 | @b2).must_be.equal_to(true, hash) 
+      @model.solve!
+    end
+    @expect_options = lambda do |strength, reif_var|
+      Gecode::Raw.should_receive(:bool_or).once.with(@model.active_space, 
+        @b1.bind, @b2.bind, an_instance_of(Gecode::Raw::BoolVar), 
+        Gecode::Raw::ICL_DEF)
+      unless reif_var.nil?
+        Gecode::Raw.should_receive(:bool_eqv).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::BoolVar), reif_var.bind, true, strength)
+      end
+    end
   end
   
   it 'should handle single variables constrainted to be true' do
@@ -155,4 +171,23 @@ describe Gecode::Constraints::Bool do
     sol.b2.true?.should_not be_true
     sol.b3.true?.should be_true
   end
+  
+  it 'should translate reification with a variable right hand side' do
+    @b1.must_be.equal_to(@b2, :reify => @b3)
+    @b1.must_be.true
+    @b2.must_be.false
+    sol = @model.solve!
+    sol.b3.true?.should_not be_true
+  end
+  
+  it 'should translate reification with a variable right hand side and negation' do
+    @b1.must_not_be.equal_to(@b2, :reify => @b3)
+    @b1.must_be.true
+    @b2.must_be.false
+    sol = @model.solve!
+    sol.b3.true?.should be_true
+  end
+  
+  
+  it_should_behave_like 'constraint with options'
 end
