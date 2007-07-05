@@ -8,30 +8,15 @@ module Gecode
           "#{element.class}."
       end
       params = {:lhs => self, :element => element}
-      return Gecode::Constraints::IntEnum::Count::ExpressionStub.new(
-        @model, params)
+      Gecode::Constraints::SimpleExpressionStub.new(@model, params) do |m, ps|
+        Gecode::Constraints::IntEnum::Count::Expression.new(m, ps)
+      end
     end
   end
 end
 
 # A module that gathers the classes and modules used in count constraints.
 module Gecode::Constraints::IntEnum::Count
-
-
-  # Describes an expression stub started with an int var enum followed by
-  # #count .
-  class ExpressionStub < Gecode::Constraints::ExpressionStub
-    include Gecode::Constraints::LeftHandSideMethods
-    
-    private
-    
-    # Produces an expression with the element for the lhs module.
-    def expression(params)
-      params.update(@params)
-      Gecode::Constraints::IntEnum::Count::Expression.new(@model, params)
-    end
-  end
-  
   # Describes an expression 
   class Expression < Gecode::Constraints::IntEnum::Expression
     def initialize(model, params)

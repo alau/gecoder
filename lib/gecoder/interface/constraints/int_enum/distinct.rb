@@ -7,8 +7,10 @@ module Gecode
         offsets = *offsets
       end
       params = {:lhs => self, :offsets => offsets}
-      return Gecode::Constraints::IntEnum::Distinct::OffsetExpressionStub.new(
-        @model, params)
+      
+      Gecode::Constraints::SimpleExpressionStub.new(@model, params) do |m, ps|
+        Gecode::Constraints::IntEnum::Expression.new(m, ps)
+      end
     end
   end
 end
@@ -31,20 +33,6 @@ module Gecode::Constraints::IntEnum
   
   # A module that gathers the classes and modules used in distinct constraints.
   module Distinct
-    # Describes an expression started with an int var enum following with
-    # #with_offsets .
-    class OffsetExpressionStub < Gecode::Constraints::ExpressionStub
-      include Gecode::Constraints::LeftHandSideMethods
-      
-      private
-      
-      # Produces an expression with offsets for the lhs module.
-      def expression(params)
-        params.update(@params)
-        Gecode::Constraints::IntEnum::Expression.new(@model, params)
-      end
-    end
-    
     # Describes a distinct constraint (optionally with offsets).
     class DistinctConstraint < Gecode::Constraints::Constraint
       def post

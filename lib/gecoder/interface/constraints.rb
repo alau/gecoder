@@ -81,6 +81,30 @@ module Gecode
       end
     end
     
+    # Describes an expression stub which includes left hand side methods and
+    # just sends models and parameters through a supplied block to construct the
+    # resulting expression.
+    class SimpleExpressionStub < ExpressionStub
+      include Gecode::Constraints::LeftHandSideMethods
+    
+      # The block provided is executed when the expression demanded by the left
+      # hand side methods is to be constructed. The block should take two 
+      # parameters: model and params (which have been updated with negate and
+      # so on). The block should return an expression.
+      def initialize(model, params, &block)
+        super(model, params)
+        @proc = block
+      end
+      
+      private
+      
+      # Produces an expression with offsets for the lhs module.
+      def expression(params)
+        @params.update(params)
+        @proc.call(@model, @params)
+      end
+    end
+    
     # Base class for all constraints.
     class Constraint
       # Creates a constraint with the specified parameters, bound to the 
