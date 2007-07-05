@@ -34,14 +34,14 @@ describe Gecode::Constraints::Bool do
     b1.true?.should_not be_true
   end
   
-  it 'should handle single variables constrainted not to be true' do
+  it 'should handle single variables constrainted not to be false' do
     @b1.must_not_be.false
     b1 = @model.solve!.b1
     b1.should be_assigned
     b1.true?.should be_true
   end
   
-  it 'should handle single variables constrainted not to be false' do
+  it 'should handle single variables constrainted not to be true' do
     @b1.must_not_be.true
     b1 = @model.solve!.b1
     b1.should be_assigned
@@ -77,6 +77,22 @@ describe Gecode::Constraints::Bool do
     sol = @model.solve!
     sol.b1.true?.should be_true
     sol.b2.true?.should_not be_true
+  end
+
+  it 'should handle exclusive or' do
+    @b1.must_be.false
+    (@b1 ^ @b2).must_be.true
+    sol = @model.solve!
+    sol.b1.true?.should_not be_true
+    sol.b2.true?.should be_true
+  end
+
+  it 'should handle negated exclusive or' do
+    @b1.must_be.true
+    (@b1 ^ @b2).must_not_be.true
+    sol = @model.solve!
+    sol.b1.true?.should be_true
+    sol.b2.true?.should be_true
   end
 
   it 'should handle single variables as right hand side' do
@@ -118,6 +134,16 @@ describe Gecode::Constraints::Bool do
     sol.b1.true?.should be_true
     sol.b2.true?.should be_true
     sol.b3.true?.should be_true
+  end
+  
+  it 'should handle nested expressions containing exclusive or' do
+    ((@b1 ^ @b1) & @b3).must == ((@b2 | @b3) ^ @b2)
+    @b1.must_be.true
+    @b2.must_be.false
+    sol = @model.solve!
+    sol.b1.true?.should be_true
+    sol.b2.true?.should_not be_true
+    sol.b3.true?.should_not be_true
   end
   
   it 'should handle nested expressions on both sides with negation' do

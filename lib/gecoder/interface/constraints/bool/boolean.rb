@@ -7,71 +7,62 @@ module Gecode
     def &(var)
       Constraints::Bool::ExpressionNode.new(self, @model) & var
     end
+    
+    def ^(var)
+      Constraints::Bool::ExpressionNode.new(self, @model) ^ var
+    end
   end
   
   module Constraints::Bool
     class Expression
-      def ==(expression)
-        add_boolean_constraint(expression)
+      def ==(expression, options = {})
+        @params.update Gecode::Constraints::Util.decode_options({})
+        @model.add_constraint BooleanConstraint.new(@model, 
+          @params.update(:rhs => expression))
       end
       alias_comparison_methods
       
       def true
-        # Bind parameters.
-        lhs = @params[:lhs]
-        unless lhs.respond_to? :to_minimodel_lin_exp
-          lhs = ExpressionNode.new(lhs, @model)
-        end
-
+        @params.update Gecode::Constraints::Util.decode_options({})
         @model.add_constraint BooleanConstraint.new(@model, 
-          @params.update(:expression => lhs.to_minimodel_lin_exp))
+          @params.update(:rhs => true))
       end
       
       def false
-        # Bind parameters.
-        lhs = @params[:lhs]
-        unless lhs.respond_to? :to_minimodel_lin_exp
-          lhs = ExpressionNode.new(lhs, @model)
-        end
-        
-        @params.update(:expression => Gecode::Raw::MiniModel::BoolExpr.new(
-            lhs.to_minimodel_lin_exp, Gecode::Raw::MiniModel::BoolExpr::BT_NOT))
-        @model.add_constraint BooleanConstraint.new(@model, @params)
-      end
-      
-      private
-      
-      # Adds the boolean constraint corresponding to equivalence between the 
-      # left and right hand sides.
-      #
-      # Raises TypeError if the element is of a type that doesn't allow a 
-      # relation to be specified.
-      def add_boolean_constraint(right_hand_side = nil)
-        # Bind parameters.
-        lhs = @params[:lhs]
-        unless lhs.respond_to? :to_minimodel_lin_exp
-          lhs = ExpressionNode.new(lhs, @model)
-        end
-        unless right_hand_side.respond_to? :to_minimodel_lin_exp
-          right_hand_side = ExpressionNode.new(right_hand_side, @model)
-        end
-        
-        expression = ExpressionTree.new(lhs, right_hand_side, 
-          Gecode::Raw::MiniModel::BoolExpr::BT_EQV)
-        @model.add_constraint BooleanConstraint.new(@model, 
-          @params.update(:expression => expression.to_minimodel_lin_exp))
+        @params[:negate] = !@params[:negate]
+        self.true
       end
     end
     
     # Describes a boolean constraint.
     class BooleanConstraint < Gecode::Constraints::ReifiableConstraint
       def post
-        unless @params[:reif].nil?
-          @params[:expression] = Gecode::Raw::MiniModel::BoolExpr.new(
-            @params[:expression], Gecode::Raw::MiniModel::BoolExpr::BT_EQV, 
-            Gecode::Raw::MiniModel::BoolExpr.new(@params[:reif].bind))
+        lhs, rhs, negate, strength, reif_var = @params.values_at(:lhs, :rhs, 
+          :negate, :strength, :reif)
+        space = (lhs.model || rhs.model).active_space
+        
+        if rhs.respond_to? :bind
+          if reif_var.nil?
+            Gecode::Raw::bool_eqv(space, lhs.bind, rhs.bind, !negate, strength)
+          else
+            if negate
+              Gecode::Raw::bool_xor(space, lhs.bind, rhs.bind, reif_var.bind, 
+                strength)
+            else
+              Gecode::Raw::bool_eqv(space, lhs.bind, rhs.bind, reif_var.bind, 
+                strength)
+            end
+          end
+        else
+          should_hold = !negate & rhs
+          if reif_var.nil?
+            Gecode::Raw::MiniModel::BoolExpr.new(lhs.bind).post(space, 
+              should_hold)
+          else
+            Gecode::Raw::bool_eqv(space, lhs.bind, reif_var.bind, should_hold, 
+              strength)
+          end
         end
-        @params[:expression].post(@model.active_space, !@params[:negate])
       end
     end
   
@@ -82,11 +73,12 @@ module Gecode
       
       private
     
-      # Maps the names of the methods to the corresponding bool operation type
-      # in Gecode.
+      # Maps the names of the methods to the corresponding bool constraint in 
+      # Gecode.
       OPERATION_TYPES = {
-        :|  => Gecode::Raw::MiniModel::BoolExpr::BT_OR,
-        :&  => Gecode::Raw::MiniModel::BoolExpr::BT_AND
+        :|  => :bool_or,
+        :&  => :bool_and,
+        :^  => :bool_xor
       }
       
       public
@@ -97,7 +89,12 @@ module Gecode
             unless expression.kind_of? ExpressionTree
               expression = ExpressionNode.new(expression)
             end
-            ExpressionTree.new(self, expression, #{operation})
+            ExpressionTree.new(self, expression) do |model, var1, var2|
+              new_var = model.bool_var
+              Gecode::Raw::#{operation}(model.active_space, var1.bind, var2.bind,
+                new_var.bind, Gecode::Raw::ICL_DEF)
+              new_var
+            end
           end
         end_code
       end
@@ -116,18 +113,17 @@ module Gecode
     class ExpressionTree
       include OperationMethods
     
-      # Constructs a new expression with the specified variable
-      def initialize(left_node, right_node, operation)
-        @left = left_node
-        @right = right_node
-        @operation = operation
+      # Constructs a new expression with the specified nodes. The proc should 
+      # take a model followed by two variables and return a new variable.
+      def initialize(left_tree, right_tree, &block)
+        @left = left_tree
+        @right = right_tree
+        @bind_proc = block
       end
       
-      # Converts the boolean expression to an instance of 
-      # Gecode::Raw::MiniModel::BoolExpr
-      def to_minimodel_lin_exp
-        Gecode::Raw::MiniModel::BoolExpr.new(@left.to_minimodel_lin_exp,
-          @operation, @right.to_minimodel_lin_exp)
+      # Returns a bound boolean variable representing the expression. 
+      def bind
+        @bind_proc.call(model, @left, @right).bind
       end
       
       # Fetches the space that the expression's variables is in.
@@ -147,10 +143,9 @@ module Gecode
         @model = model
       end
       
-      # Converts the linear expression to an instance of 
-      # Gecode::Raw::MiniModel::BoolExpr
-      def to_minimodel_lin_exp
-        Gecode::Raw::MiniModel::BoolExpr.new(@value.bind)
+      # Returns a bound boolean variable representing the expression. 
+      def bind
+        @value.bind
       end
     end
   end
