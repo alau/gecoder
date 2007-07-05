@@ -40,7 +40,10 @@ module Gecode::Constraints::Int::Arithmetic
     def constrain_equal(variable, params)
       lhs, lhs2, strength = @params.values_at(:lhs, :var, :strength)
       if variable.nil?
-        variable = @model.int_var(-(lhs.min*lhs2.min).abs..(lhs.max*lhs2.max).abs) # TODO: make less sloppy
+        a_min = lhs.min; a_max = lhs.max
+        b_min = lhs2.min; b_max = lhs2.max
+        products = [a_min*b_min, a_min*b_max, a_max*b_min, a_max*b_max]
+        variable = @model.int_var(products.min, products.max) 
       end
       
       Gecode::Raw::mult(@model.active_space, lhs.bind, lhs2.bind, 
