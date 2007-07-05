@@ -33,94 +33,6 @@ module Gecode
       end
     end
     
-    # Describes a constraint expressions. An expression is produced by calling
-    # some form of must on a left hand side. The expression waits for a right 
-    # hand side so that it can post the corresponding constraint.
-    class Expression
-      # Constructs a new expression with the specified parameters. The 
-      # parameters shoud at least contain the keys :lhs, and :negate.
-      #
-      # Raises ArgumentError if any of those keys are missing.
-      def initialize(model, params)
-        unless params.has_key?(:lhs) and params.has_key?(:negate)
-          raise ArgumentError, 'Expression requires at least :lhs, ' + 
-            "and :negate as parameter keys, got #{params.keys.join(', ')}."
-        end
-        
-        @model = model
-        @params = params
-      end
-      
-      private
-      
-      # Creates aliases for any defined comparison methods.
-      def self.alias_comparison_methods
-        Gecode::Constraints::Util::COMPARISON_ALIASES.each_pair do |orig, aliases|
-          if instance_methods.include?(orig.to_s)
-            aliases.each do |name|
-              alias_method(name, orig)
-            end
-          end
-        end
-      end
-    end
-    
-    # Describes a constraint expression that has yet to be completed. I.e. a
-    # form of must has not yet been called, but some method has been called to
-    # initiate the expression. An example is distinct with offsets:
-    #
-    #   enum.with_offsets(0..n).must_be.distinct
-    # 
-    # The call of with_offsets initiates the constraint as a stub, even though
-    # must has not yet been called.
-    class ExpressionStub
-      # Constructs a new expression with the specified parameters.
-      def initialize(model, params)
-        @model = model
-        @params = params
-      end
-    end
-    
-    # Describes an expression stub which includes left hand side methods and
-    # just sends models and parameters through a supplied block to construct the
-    # resulting expression.
-    class SimpleExpressionStub < ExpressionStub
-      include Gecode::Constraints::LeftHandSideMethods
-    
-      # The block provided is executed when the expression demanded by the left
-      # hand side methods is to be constructed. The block should take two 
-      # parameters: model and params (which have been updated with negate and
-      # so on). The block should return an expression.
-      def initialize(model, params, &block)
-        super(model, params)
-        @proc = block
-      end
-      
-      private
-      
-      # Produces an expression with offsets for the lhs module.
-      def expression(params)
-        @params.update(params)
-        @proc.call(@model, @params)
-      end
-    end
-    
-    # Base class for all constraints.
-    class Constraint
-      # Creates a constraint with the specified parameters, bound to the 
-      # specified model. 
-      def initialize(model, params)
-        @model = model
-        @params = params.clone
-      end
-      
-      # Posts the constraint, adding it to the model. This is an abstract 
-      # method and should be overridden by all sub-classes.
-      def post
-        raise NoMethodError, 'Abstract method has not been implemented.'
-      end
-    end
-  
     # A module that provides some utility-methods for constraints.
     module Util
       # Maps the name used in options to the value used in Gecode for 
@@ -190,6 +102,167 @@ module Gecode
             options.keys.first.to_s
         end
         return {:strength => PROPAGATION_STRENGTHS[strength], :reif => reif_var}
+      end
+    end
+    
+    # Describes a constraint expressions. An expression is produced by calling
+    # some form of must on a left hand side. The expression waits for a right 
+    # hand side so that it can post the corresponding constraint.
+    class Expression
+      # Constructs a new expression with the specified parameters. The 
+      # parameters shoud at least contain the keys :lhs, and :negate.
+      #
+      # Raises ArgumentError if any of those keys are missing.
+      def initialize(model, params)
+        unless params.has_key?(:lhs) and params.has_key?(:negate)
+          raise ArgumentError, 'Expression requires at least :lhs, ' + 
+            "and :negate as parameter keys, got #{params.keys.join(', ')}."
+        end
+        
+        @model = model
+        @params = params
+      end
+      
+      private
+      
+      # Creates aliases for any defined comparison methods.
+      def self.alias_comparison_methods
+        Gecode::Constraints::Util::COMPARISON_ALIASES.each_pair do |orig, aliases|
+          if instance_methods.include?(orig.to_s)
+            aliases.each do |name|
+              alias_method(name, orig)
+            end
+          end
+        end
+      end
+    end
+    
+    # A composite expression which is an int expression with a left hand side 
+    # resulting from a previous constraint.
+    class CompositeExpression < Gecode::Constraints::Expression
+      # The block given should take three parameters. The first is the variable 
+      # that should be the left hand side, if it's nil then a new one should be
+      # created. The second is the propagation strength. The third is the (free)
+      # boolean variable to use for reification (possibly nil, i.e. none). The 
+      # block should return the variable used as left hand side.
+      def initialize(model, params, &block)
+        super(model, params)
+        @proc = block
+      end
+      
+      # Delegate to Gecode::Constraints::Int::Expression when we get something 
+      # that we can't handle.
+      def method_missing(name, *args)
+        if Gecode::Constraints::Int::Expression.instance_methods.include? name.to_s
+          options = {}
+          if args.size >= 2 and args[1].kind_of? Hash
+            options = args[1]
+          end
+          @params.update Gecode::Constraints::Util.decode_options(options.clone)
+          @params[:lhs] = @proc.call(nil, @params)
+          Gecode::Constraints::Int::Expression.new(@model, @params).send(
+            name, *args)
+        end
+      end
+      
+      def ==(expression, options = {})
+        if !@params[:negate] and options[:reify].nil? and 
+            expression.kind_of? Gecode::FreeIntVar
+          # We don't need any additional constraints.
+          @params.update Gecode::Constraints::Util.decode_options(options)
+          @proc.call(expression, @params)
+        else
+          method_missing(:==, expression, options)
+        end
+      end
+      alias_comparison_methods
+    end
+    
+    # Describes a constraint expression that has yet to be completed. I.e. a
+    # form of must has not yet been called, but some method has been called to
+    # initiate the expression. An example is distinct with offsets:
+    #
+    #   enum.with_offsets(0..n).must_be.distinct
+    # 
+    # The call of with_offsets initiates the constraint as a stub, even though
+    # must has not yet been called.
+    class ExpressionStub
+      # Constructs a new expression with the specified parameters.
+      def initialize(model, params)
+        @model = model
+        @params = params
+      end
+    end
+    
+    # Describes an expression stub which includes left hand side methods and
+    # just sends models and parameters through a supplied block to construct the
+    # resulting expression.
+    class SimpleExpressionStub < ExpressionStub
+      include Gecode::Constraints::LeftHandSideMethods
+    
+      # The block provided is executed when the expression demanded by the left
+      # hand side methods is to be constructed. The block should take two 
+      # parameters: model and params (which have been updated with negate and
+      # so on). The block should return an expression.
+      def initialize(model, params, &block)
+        super(model, params)
+        @proc = block
+      end
+      
+      private
+      
+      # Produces an expression with offsets for the lhs module.
+      def expression(params)
+        @params.update(params)
+        @proc.call(@model, @params)
+      end
+    end
+    
+    # Describes a stub that produces an int variable, which can then be used
+    # with the normal int variable constraints. An example would be the element
+    # constraint.
+    #
+    #   int_enum[int_var].must > rhs
+    #
+    # The int_enum[int_var] part produces an int variable which the constraint
+    # ".must > rhs" is then applied to. In the above case two constraints (and
+    # one temporary variable) are required, but in the case of equality only 
+    # one constraint is required.
+    class CompositeStub < Gecode::Constraints::ExpressionStub
+      include Gecode::Constraints::LeftHandSideMethods
+      
+      private
+      
+      # Constrains the result of the stub to be equal to the specified variable
+      # with the specified parameters. If the variable given is nil then a new
+      # variable should be created for the purpose and returned. This is an 
+      # abstract method and should be overridden by all sub-classes.
+      def constrain_equal(variable, params)
+        raise NoMethodError, 'Abstract method has not been implemented.'
+      end
+      
+      # Produces an expression with position for the lhs module.
+      def expression(params)
+        @params.update params
+        CompositeExpression.new(@model, @params) do |var, params|
+          constrain_equal(var, params)
+        end
+      end
+    end
+    
+    # Base class for all constraints.
+    class Constraint
+      # Creates a constraint with the specified parameters, bound to the 
+      # specified model. 
+      def initialize(model, params)
+        @model = model
+        @params = params.clone
+      end
+      
+      # Posts the constraint, adding it to the model. This is an abstract 
+      # method and should be overridden by all sub-classes.
+      def post
+        raise NoMethodError, 'Abstract method has not been implemented.'
       end
     end
   end

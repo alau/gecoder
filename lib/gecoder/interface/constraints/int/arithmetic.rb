@@ -22,56 +22,30 @@ end
 module Gecode::Constraints::Int::Arithmetic 
   # Describes an expression stub started with an integer variable followed by 
   # #abs .
-  class AbsExpressionStub < Gecode::Constraints::ExpressionStub
-    include Gecode::Constraints::LeftHandSideMethods
-    
-    private
-    
-    # Produces a proxy expression for the lhs module.
-    def expression(params)
-      # We extract the integer and continue as if it had been specified as
-      # left hand side. This might be elegant, but it could get away with 
-      # fewer constraints at times (when only equality is used) and 
-      # propagation strength can't be specified. 
-      # TODO: cut down on the number of constraints when possible. See if 
-      # there's some neat way of getting the above remarks. 
+  class AbsExpressionStub < Gecode::Constraints::CompositeStub
+    def constrain_equal(variable, params)
+      lhs, strength = @params.values_at(:lhs, :strength)
+      if variable.nil?
+        variable = @model.int_var(lhs.min..lhs.max)
+      end
       
-      params.update(@params)
-      lhs = params[:lhs]
-      proxy = @model.int_var(lhs.min..lhs.max)
-      lhs = lhs.bind
-      
-      Gecode::Raw::abs(@model.active_space, lhs, proxy.bind, 
-        Gecode::Raw::ICL_DEF)
-      Gecode::Constraints::Int::Expression.new(@model, 
-        params.update(:lhs => proxy))
+      Gecode::Raw::abs(@model.active_space, lhs.bind, variable.bind, strength)
+      return variable
     end
   end
   
   # Describes an expression stub started with an integer variable followed by 
   # #* .
-  class MultExpressionStub < Gecode::Constraints::ExpressionStub
-    include Gecode::Constraints::LeftHandSideMethods
-    
-    private
-    
-    # Produces a proxy expression for the lhs module.
-    def expression(params)
-      # We extract the integer and continue as if it had been specified as
-      # left hand side. This might be elegant, but it could get away with 
-      # fewer constraints at times (when only equality is used) and 
-      # propagation strength can't be specified. 
-      # TODO: cut down on the number of constraints when possible. See if 
-      # there's some neat way of getting the above remarks. 
+  class MultExpressionStub < Gecode::Constraints::CompositeStub
+    def constrain_equal(variable, params)
+      lhs, lhs2, strength = @params.values_at(:lhs, :var, :strength)
+      if variable.nil?
+        variable = @model.int_var(-(lhs.min*lhs2.min).abs..(lhs.max*lhs2.max).abs) # TODO: make less sloppy
+      end
       
-      params.update(@params)
-      lhs, var = params.values_at(:lhs, :var)
-      proxy = @model.int_var(-(lhs.min*var.min).abs..(lhs.max*var.max).abs) # Sloppy
-      
-      Gecode::Raw::mult(@model.active_space, lhs.bind, var.bind, proxy.bind, 
-        Gecode::Raw::ICL_DEF)
-      Gecode::Constraints::Int::Expression.new(@model, 
-        params.update(:lhs => proxy))
+      Gecode::Raw::mult(@model.active_space, lhs.bind, lhs2.bind, 
+        variable.bind, strength)
+      return variable
     end
   end
 end
