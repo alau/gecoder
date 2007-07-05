@@ -67,6 +67,10 @@ module Gecode
       def true?
         val == 1
       end
+      
+      def false?
+        val == 0
+      end
     end
   end
   

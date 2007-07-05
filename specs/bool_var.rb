@@ -18,3 +18,49 @@ describe Gecode::FreeBoolVar, '(not assigned)' do
     @var.should_not be_assigned
   end
 end
+
+describe Gecode::FreeBoolVar, '(assigned true)' do
+  before do
+    model = Gecode::Model.new
+    @var = model.bool_var
+    @var.must_be.true
+    model.solve!
+  end
+  
+  it_should_behave_like 'non-empty bool variable'
+  
+  it 'should be assigned' do
+    @var.should be_assigned
+  end
+  
+  it 'should respond true to true?' do
+    @var.true?.should be_true
+  end
+  
+  it 'should not respond true to false?' do
+    @var.false?.should_not be_true
+  end
+end
+
+describe Gecode::FreeBoolVar, '(assigned false)' do
+  before do
+    model = Gecode::Model.new
+    @var = model.bool_var
+    @var.must_be.false
+    model.solve!
+  end
+  
+  it_should_behave_like 'non-empty bool variable'
+  
+  it 'should be assigned' do
+    @var.should be_assigned
+  end
+  
+  it 'should respond not true to true?' do
+    @var.true?.should_not be_true
+  end
+  
+  it 'should respond true to false?' do
+    @var.false?.should be_true
+  end
+end
