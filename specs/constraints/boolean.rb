@@ -110,6 +110,38 @@ describe Gecode::Constraints::Bool do
     sol.b1.true?.should be_true
     sol.b2.true?.should be_true
   end
+  
+  it 'should handle implication' do
+    @b2.must_be.false
+    (@b1.implies @b2).must_be.true
+    sol = @model.solve!
+    sol.b1.true?.should_not be_true
+    sol.b2.true?.should_not be_true
+  end
+  
+  it 'should handle negated implication' do
+    @b1.must_be.true
+    ((@b1 | @b2).implies @b2).must_not_be.true
+    sol = @model.solve!
+    sol.b1.true?.should be_true
+    sol.b2.true?.should_not be_true
+  end
+  
+  it 'should handle imply after must' do
+    @b2.must_be.false
+    @b1.must.imply @b2
+    sol = @model.solve!
+    sol.b1.true?.should_not be_true
+    sol.b2.true?.should_not be_true
+  end
+  
+  it 'should handle imply after must_not' do
+    @b1.must_be.true
+    @b1.must_not.imply @b2
+    sol = @model.solve!
+    sol.b1.true?.should be_true
+    sol.b2.true?.should_not be_true
+  end
 
   it 'should handle single variables as right hand side' do
     @b1.must == @b2

@@ -10,22 +10,36 @@ h2. Boolean constraints
 Boolean constraints are used to place constraints on boolean variables. The 
 following are some example, b1, b2 and b3 are all boolean variables.
 
+h3. Domain
+
 <ruby>
 b1.must_be.true # Constrains b1 to be true.
 b2.must_be.false # Constraint b2 to be false.
 </ruby>
 
-Disjunction (or) can is expressed with @|@ and conjunction (and) is expressed 
-with @&@.
+h3. Conjunction, disjunction and exclusive disjunction
+
+Disjunction (or) can is expressed with @|@, conjunction (and) is expressed 
+with @&@ and exclusive disjunction (xor) is expression with @^@.
 
 <ruby>
 (b1 | b2).must == b1 # Constraint the disjunction of b1 and b2 to equal b1.
 (b1 & b3).must_be.true # Constrains the conjunction of b1 and b3 to be true.
+b1.must == b2 ^ b3 # Constrains b1 to equal b2 exclusive or b3.
 </ruby>
 
 Variations of @must@ can be replaced with variations of @must_not@ to negate the
 constraints. Nested expressions can be used on both sides.
 
 <ruby>
-((b1 & b1) | b3).must_not == ((b1 | b3) & b2)
+((@b1 ^ @b1) & @b3).must == ((@b2 | @b3) ^ @b2)
+</ruby>
+
+h3. Implication
+
+Implication is expressed with @implies@ when used after boolean expressions and 
+@imply@ when used after a form of @must@.
+
+<ruby>
+(b1.implies b2).must.imply b3
 </ruby>

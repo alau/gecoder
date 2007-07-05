@@ -11,6 +11,10 @@ module Gecode
     def ^(var)
       Constraints::Bool::ExpressionNode.new(self, @model) ^ var
     end
+    
+    def implies(var)
+      Constraints::Bool::ExpressionNode.new(self, @model).implies var
+    end
   end
   
   # A module that gathers the classes and modules used in boolean constraints.
@@ -24,12 +28,21 @@ module Gecode
       end
       alias_comparison_methods
       
+      # Constrains the boolean expression to imply the specified expression.
+      def imply(expression, options = {})
+        @params.update Gecode::Constraints::Util.decode_options(options)
+        @params.update(:lhs => @params[:lhs].implies(expression), :rhs => true)
+        @model.add_constraint BooleanConstraint.new(@model, @params)
+      end
+      
+      # Constrains the boolean expression to be true.
       def true
         @params.update Gecode::Constraints::Util.decode_options({})
         @model.add_constraint BooleanConstraint.new(@model, 
           @params.update(:rhs => true))
       end
       
+      # Constrains the boolean expression to be false.
       def false
         @params[:negate] = !@params[:negate]
         self.true
@@ -82,9 +95,10 @@ module Gecode
       # Maps the names of the methods to the corresponding bool constraint in 
       # Gecode.
       OPERATION_TYPES = {
-        :|  => :bool_or,
-        :&  => :bool_and,
-        :^  => :bool_xor
+        :|        => :bool_or,
+        :&        => :bool_and,
+        :^        => :bool_xor,
+        :implies  => :bool_imp
       }
       
       public
