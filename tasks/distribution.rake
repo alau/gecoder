@@ -19,7 +19,7 @@ spec = Gem::Specification.new do |s|
   s.files = FileList[
     '[A-Z]*',
     'lib/**/*.rb', 
-    'examples/**/*',
+    'example/**/*',
     'src/**/*',
     'vendor/**/*',
     'tasks/**/*',
