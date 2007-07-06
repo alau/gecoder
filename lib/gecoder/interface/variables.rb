@@ -46,9 +46,9 @@ module Gecode
       
       def inspect
         if assigned?
-          "#<#{bound_class} range: \#{val.to_s}>"
+          "#<#{bound_class} \#{domain}>"
         else
-          "#<#{bound_class} range: \#{min}..\#{max}>"
+          "#<#{bound_class} \#{domain}>"
         end
       end
     end_method_definitions
@@ -57,6 +57,27 @@ module Gecode
   
   # Int variables.
   FreeIntVar = FreeVar(Gecode::Raw::IntVar, :int_var)
+  class FreeIntVar
+    # Returns a string representation of the the range of the variable's domain.
+    def domain
+      if assigned?
+        "range: #{val.to_s}"
+      else
+        "range: #{min}..#{max}"
+      end
+    end
+  end
+  
   # Bool variables.
   FreeBoolVar = FreeVar(Gecode::Raw::BoolVar, :bool_var)
+  class FreeBoolVar
+    # Returns a string representation of the the range of the variable's domain.
+    def domain
+      if assigned?
+        true?.to_s
+      else
+        'unassigned'
+      end
+    end
+  end
 end

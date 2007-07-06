@@ -89,7 +89,7 @@ describe Gecode::FreeIntVar, ' (with non-range domain of size > 1)' do
   end
 end
 
-describe Gecode::FreeIntVar, '(with a domain of size 1)' do
+describe Gecode::FreeIntVar, ' (with a domain of size 1)' do
   before do
     @domain = [1]
     model = Gecode::Model.new
@@ -104,5 +104,37 @@ describe Gecode::FreeIntVar, '(with a domain of size 1)' do
   
   it 'should be a range domain' do
     @var.should be_range
+  end
+end
+
+describe Gecode::FreeIntVar, ' (assigned)' do
+  before do
+    @domain = [1]
+    model = Gecode::Model.new
+    @var = model.int_var(*@domain)
+  end
+
+  it 'should be assigned' do
+    @var.should be_assigned
+  end
+  
+  it 'should give the assigned number when inspecting' do
+    @var.inspect.should include(" #{@domain[0]}>")
+  end
+end
+
+describe Gecode::FreeIntVar, ' (not assigned)' do
+  before do
+    @domain = 1..2
+    model = Gecode::Model.new
+    @var = model.int_var(*@domain)
+  end
+
+  it 'should not be assigned' do
+    @var.should_not be_assigned
+  end
+  
+  it 'should give the domain range when inspecting' do
+    @var.inspect.should include(" #{@domain.first}..#{@domain.last}>")
   end
 end

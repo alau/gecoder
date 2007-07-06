@@ -17,6 +17,10 @@ describe Gecode::FreeBoolVar, '(not assigned)' do
   it 'should not be assigned' do
     @var.should_not be_assigned
   end
+  
+  it "should say that it's not assigned when inspecting" do
+    @var.inspect.should include('unassigned')
+  end
 end
 
 describe Gecode::FreeBoolVar, '(assigned true)' do
@@ -40,6 +44,10 @@ describe Gecode::FreeBoolVar, '(assigned true)' do
   it 'should not respond true to false?' do
     @var.false?.should_not be_true
   end
+  
+  it "should say that it's true when inspecting" do
+    @var.inspect.should include('true')
+  end
 end
 
 describe Gecode::FreeBoolVar, '(assigned false)' do
@@ -62,5 +70,9 @@ describe Gecode::FreeBoolVar, '(assigned false)' do
   
   it 'should respond true to false?' do
     @var.false?.should be_true
+  end
+  
+  it "should say that it's false when inspecting" do
+    @var.inspect.should include('false')
   end
 end
