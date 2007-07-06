@@ -44,11 +44,14 @@ Implication is expressed with @implies@ when used after boolean expressions and
 (b1.implies b2).must.imply b3
 </ruby>
 
-h3. Conjunction of enumeration
+h3. Conjunction and disjunction of enumeration
 
-One can take the conjunction of all variables in an enumeration @bools@ of 
-boolean variables as follows.
+One can take the conjunction and disjunction of all variables in an enumeration 
+@bools@ of boolean variables as follows.
 
 <ruby>
 bools.conjunction.must == b1 | b2
+bools.disjunction.must == b1 | b2
 </ruby>
+
+The part after @must@ supports everything that single boolean variables support.
