@@ -137,6 +137,50 @@ module Gecode
       end
     end
     
+    # A composite expression which is a expression with a left hand side 
+    # resulting from a previous constraint.
+    class CompositeExpression < Gecode::Constraints::Expression
+      # The expression class should be the class of the expression delegated to,
+      # the variable class the kind of single variable used in the expression.
+      # The block given should take three parameters. The first is the variable 
+      # that should be the left hand side, if it's nil then a new one should be
+      # created. The second is the propagation strength. The third is the (free)
+      # boolean variable to use for reification (possibly nil, i.e. none). The 
+      # block should return the variable used as left hand side.
+      def initialize(expression_class, variable_class, model, params, &block)
+        super(model, params)
+        @expression_class = expression_class
+        @variable_class = variable_class
+        @proc = block
+      end
+      
+      # Delegate to an instance of the expression class when we get something 
+      # that we can't handle.
+      def method_missing(name, *args)
+        if @expression_class.instance_methods.include? name.to_s
+          options = {}
+          if args.size >= 2 and args[1].kind_of? Hash
+            options = args[1]
+          end
+          @params.update Gecode::Constraints::Util.decode_options(options.clone)
+          @params[:lhs] = @proc.call(nil, @params)
+          @expression_class.new(@model, @params).send(name, *args)
+        end
+      end
+      
+      def ==(expression, options = {})
+        if !@params[:negate] and options[:reify].nil? and 
+            expression.kind_of? @variable_class
+          # We don't need any additional constraints.
+          @params.update Gecode::Constraints::Util.decode_options(options)
+          @proc.call(expression, @params)
+        else
+          method_missing(:==, expression, options)
+        end
+      end
+      alias_comparison_methods
+    end
+    
     # Describes a constraint expression that has yet to be completed. I.e. a
     # form of must has not yet been called, but some method has been called to
     # initiate the expression. An example is distinct with offsets:
@@ -174,6 +218,45 @@ module Gecode
       def expression(params)
         @params.update(params)
         @proc.call(@model, @params)
+      end
+    end
+    
+    # Describes a stub that produces a variable, which can then be used with 
+    # that variable's normalconstraints. An example with int variables would be 
+    # the element constraint.
+    #
+    #   int_enum[int_var].must > rhs
+    #
+    # The int_enum[int_var] part produces an int variable which the constraint
+    # ".must > rhs" is then applied to. In the above case two constraints (and
+    # one temporary variable) are required, but in the case of equality only 
+    # one constraint is required.
+    class CompositeStub < Gecode::Constraints::ExpressionStub
+      include Gecode::Constraints::LeftHandSideMethods
+      
+      # The composite expression class should be the class that the stub uses
+      # when creating its expressions.
+      def initialize(composite_expression_class, model, params)
+        super(model, params)
+        @composite_class = composite_expression_class
+      end
+      
+      private
+      
+      # Constrains the result of the stub to be equal to the specified variable
+      # with the specified parameters. If the variable given is nil then a new
+      # variable should be created for the purpose and returned. This is an 
+      # abstract method and should be overridden by all sub-classes.
+      def constrain_equal(variable, params)
+        raise NoMethodError, 'Abstract method has not been implemented.'
+      end
+      
+      # Produces an expression with position for the lhs module.
+      def expression(params)
+        @params.update params
+        @composite_class.new(@model, @params) do |var, params|
+          constrain_equal(var, params)
+        end
       end
     end
     
