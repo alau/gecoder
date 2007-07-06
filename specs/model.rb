@@ -82,3 +82,15 @@ describe Gecode::Model, ' (bool creation)' do
     matrix.column_size.should equal(4)
   end
 end
+
+describe Gecode::Model, ' (set creation)' do
+  before do
+    @model = Gecode::Model.new
+  end
+
+  it 'should allow the creation of set variables with range' do
+    lub_range = 0..3
+    glb_range = 3..5
+    @model.set_var(lub_range, glb_range)
+  end
+end

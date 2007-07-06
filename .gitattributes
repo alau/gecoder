@@ -89,6 +89,7 @@ specs/enum_wrapper.rb -text
 specs/int_var.rb -text
 specs/model.rb -text
 specs/search.rb -text
+specs/set_var.rb -text
 specs/spec_helper.rb -text
 tasks/all_tasks.rb -text
 tasks/distribution.rake -text

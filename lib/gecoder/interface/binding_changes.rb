@@ -21,14 +21,25 @@ module Gecode
       end
       
       # Creates the specified number of boolean variables in the space. Returns
-      # the indices with which they can then be accessed using int_var.
+      # the indices with which they can then be accessed using bool_var.
       def new_bool_vars(count = 1)
         bool_var_store.new_vars(count)
       end
       
-      # Gets the int variable with the specified index, nil if none exists.
+      # Gets the bool variable with the specified index, nil if none exists.
       def bool_var(index)
         bool_var_store[index]
+      end
+      
+      # Creates the specified number of set variables in the space. Returns
+      # the indices with which they can then be accessed using set_var.
+      def new_set_vars(glb_min, glb_max, lub_min, lub_max, count = 1)
+        set_var_store.new_vars(glb_min, glb_max, lub_min, lub_max, count)
+      end
+      
+      # Gets the set variable with the specified index, nil if none exists.
+      def set_var(index)
+        set_var_store[index]
       end
       
       private
@@ -49,6 +60,14 @@ module Gecode
           @bool_var_store = Gecode::Util::BoolVarStore.new(self) 
         end
         return @bool_var_store
+      end
+      
+      # Retrieves the store used for set variables. Creates one if none exists.
+      def set_var_store
+        if @set_var_store.nil?
+          @set_var_store = Gecode::Util::SetVarStore.new(self) 
+        end
+        return @set_var_store
       end
     end
     
@@ -71,6 +90,16 @@ module Gecode
       def false?
         val == 0
       end
+    end
+    
+    class SetVar
+      # Aliases to make method-names more ruby-like.
+      alias_method :assigned?, :assigned
+      alias_method :constains?, :contains
+      alias_method :lub_min, :lubMin
+      alias_method :glb_max, :lubMax
+      alias_method :glb_min, :glbMin
+      alias_method :glb_max, :glbMax
     end
   end
   
@@ -209,6 +238,54 @@ module Gecode
       # Creates a new storage array for bool variables.
       def new_storage_array(new_size)
         arr = Gecode::Raw::BoolVarArray.new(@space, new_size)
+        @space.own(arr, ARRAY_IDENTIFIER)
+        return arr
+      end
+    end
+    
+    # A store in which int variables are created and stored.
+    class SetVarStore
+      include VarStoreMethods
+      
+      private
+    
+      # A string that identifies the array used by the store.
+      ARRAY_IDENTIFIER = 'set_array'
+    
+      public
+      
+      # Creates a store for the specified space with the specified capacit.
+      def initialize(space)
+        @space = space
+      
+        @var_array = space.set_var_array(ARRAY_IDENTIFIER)
+        if @var_array.nil?
+          # Create a new one.
+          @var_array = new_storage_array(0)
+        end
+  
+        @size = @var_array.size
+        @next_index = @size
+      end
+      
+      # Creates the specified number of new bool variables. Returns the indices 
+      # of the created variables as an array.
+      def new_vars(glb_min, glb_max, lub_min, lub_max, count = 1)
+        grow(@next_index + count) # See the design note for more information.
+        count.times do |i|
+          @var_array[@next_index] = Gecode::Raw::SetVar.new(@space, glb_min, 
+            glb_max, lub_min, lub_max, 0, Gecode::Raw::Limits::Set::CARD_MAX)
+          @next_index += 1
+        end
+        
+        ((@next_index - count)...@next_index).to_a
+      end
+  
+      private
+      
+      # Creates a new storage array for bool variables.
+      def new_storage_array(new_size)
+        arr = Gecode::Raw::SetVarArray.new(@space, new_size)
         @space.own(arr, ARRAY_IDENTIFIER)
         return arr
       end

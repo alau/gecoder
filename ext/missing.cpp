@@ -158,7 +158,7 @@ MSpace::MSpace(MSpace& s, bool share) : Gecode::Space(share, s), d(new Private)
 		
 		for(it = s.d->setArrays.begin(); it != eend; it++)
 		{
-			Gecode::MSetVarArray *sva = new Gecode::MSetVarArray;
+			Gecode::MSetVarArray *sva = new Gecode::MSetVarArray(this, (*it).second->ptr()->size());
 			sva->ptr()->update(this, share, *(*it).second->ptr() );
 			
 			own(sva, (*it).first);

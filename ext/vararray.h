@@ -89,7 +89,7 @@ class MBoolVarArray : public MVarArray
 		Gecode::BoolVar &at(int index);
 		Gecode::BoolVar &operator[](int index);
 		
-		void push(const Gecode::BoolVar& intvar);
+		void push(const Gecode::BoolVar& boolvar);
 		
 		void debug() const;
 		
@@ -126,6 +126,8 @@ class MSetVarArray : public MVarArray
 		
 		Gecode::SetVar &at(int index);
 		Gecode::SetVar &operator[](int index);
+		
+		void push(const Gecode::SetVar& setvar);
 		
 		void debug() const;
 		

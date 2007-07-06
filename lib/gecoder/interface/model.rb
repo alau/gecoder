@@ -72,6 +72,13 @@ module Gecode
       return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
+    # Creates a set boolean variable.
+    def set_var(glb_range, lub_range)
+      index = active_space.new_set_vars(glb_range.first, glb_range.last, 
+        lub_range.first, lub_range.last).first
+      FreeSetVar.new(self, index)
+    end
+    
     # Retrieves the currently active space (the one which variables refer to).
     def active_space
       @active_space ||= base_space

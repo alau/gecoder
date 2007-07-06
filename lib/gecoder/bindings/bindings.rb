@@ -269,6 +269,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "int", "index"
       end
       
+      klass.add_operator "[]=", "Gecode::SetVar&" do |method|
+        method.add_parameter "int", "index"
+        method.add_parameter "Gecode::SetVar", "val"
+      end
+      
       klass.add_method "size", "int"
       
       klass.add_method "debug"
@@ -338,15 +343,15 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_namespace "Limits" do |limitsns|
       limitsns.add_namespace "Int" do |intns|
-        intns.add_constant "Int_max", "Gecode::Limits::Int::int_max"
-        intns.add_constant "Int_min", "Gecode::Limits::Int::int_min"
-        intns.add_constant "Double_max", "Gecode::Limits::Int::double_max"
-        intns.add_constant "Double_min", "Gecode::Limits::Int::double_min"
+        intns.add_constant "INT_MAX", "Gecode::Limits::Int::int_max"
+        intns.add_constant "INT_MIN", "Gecode::Limits::Int::int_min"
+        intns.add_constant "DOUBLE_MAX", "Gecode::Limits::Int::double_max"
+        intns.add_constant "DOUBLE_MIN", "Gecode::Limits::Int::double_min"
       end
       limitsns.add_namespace "Set" do |setns|
-        setns.add_constant "Int_max", "Gecode::Limits::Set::int_max"
-        setns.add_constant "Int_min", "Gecode::Limits::Set::int_min"
-        setns.add_constant "Card_max", "Gecode::Limits::Set::card_max"
+        setns.add_constant "INT_MAX", "Gecode::Limits::Set::int_max"
+        setns.add_constant "INT_MIN", "Gecode::Limits::Set::int_min"
+        setns.add_constant "CARD_MAX", "Gecode::Limits::Set::card_max"
       end
     end
     

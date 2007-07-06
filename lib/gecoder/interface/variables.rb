@@ -71,12 +71,25 @@ module Gecode
   # Bool variables.
   FreeBoolVar = FreeVar(Gecode::Raw::BoolVar, :bool_var)
   class FreeBoolVar
-    # Returns a string representation of the the range of the variable's domain.
+    # Returns a string representation of the the variable's domain.
     def domain
       if assigned?
         true?.to_s
       else
         'unassigned'
+      end
+    end
+  end
+  
+  # Set variables.
+  FreeSetVar = FreeVar(Gecode::Raw::SetVar, :set_var)
+  class FreeSetVar
+    # Returns a string representation of the the variable's domain.
+    def domain
+      if assigned?
+        "#{glb_min}..#{lub_min}"
+      else
+        "glb-range: #{glb_min}..#{glb_max}, lub-range: #{lub_min}..#{lub_max}"
       end
     end
   end
