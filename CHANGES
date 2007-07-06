@@ -1,6 +1,7 @@
 == Version 0.4.1 (in SVN)
 
 * Added exclusive or and implication.
+* Added conjunction for boolean enumerations.
 
 == Version 0.4.0
 This release adds most of the constraints supported by Gecode for integer
