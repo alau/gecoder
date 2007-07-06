@@ -144,9 +144,8 @@ module Gecode
       # the variable class the kind of single variable used in the expression.
       # The block given should take three parameters. The first is the variable 
       # that should be the left hand side, if it's nil then a new one should be
-      # created. The second is the propagation strength. The third is the (free)
-      # boolean variable to use for reification (possibly nil, i.e. none). The 
-      # block should return the variable used as left hand side.
+      # created. The second is the has of parameters. The block should return 
+      # the variable used as left hand side.
       def initialize(expression_class, variable_class, model, params, &block)
         super(model, params)
         @expression_class = expression_class
