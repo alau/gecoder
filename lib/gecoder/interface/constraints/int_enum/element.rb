@@ -2,7 +2,7 @@
 module Gecode::Constraints::IntEnum::Element 
   # Describes an expression stub started with an int var enum following with an 
   # array access using an integer variables .
-  class ExpressionStub < Gecode::Constraints::CompositeStub
+  class ExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params)
       enum, position, strength = @params.values_at(:lhs, :position, :strength)
       if variable.nil?

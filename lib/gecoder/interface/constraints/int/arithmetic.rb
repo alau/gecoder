@@ -22,7 +22,7 @@ end
 module Gecode::Constraints::Int::Arithmetic 
   # Describes an expression stub started with an integer variable followed by 
   # #abs .
-  class AbsExpressionStub < Gecode::Constraints::CompositeStub
+  class AbsExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params)
       lhs, strength = @params.values_at(:lhs, :strength)
       if variable.nil?
@@ -36,7 +36,7 @@ module Gecode::Constraints::Int::Arithmetic
   
   # Describes an expression stub started with an integer variable followed by 
   # #* .
-  class MultExpressionStub < Gecode::Constraints::CompositeStub
+  class MultExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params)
       lhs, lhs2, strength = @params.values_at(:lhs, :var, :strength)
       if variable.nil?
