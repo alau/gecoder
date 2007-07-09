@@ -84,6 +84,30 @@ bools = bool_var_array(3) # Creates 3 boolean variables.
 bool_matrix = bool_var_matrix(3, 4) # Creates a 3x4 matrix of boolean variables.
 </ruby>
 
+h4. Set variables
+
+Set variables are created using @Model#set_var@, @Model#set_var_array@ and 
+@Model#set_var_matrix@. Set variables represent sets, the domain that can be 
+specified for them are the greatest lower bound (GLB), least upper bound (LUB)
+and cardinality (which is optional). The bounds can be specified using either 
+ranges or other enumerations. The cardinality can only be specified with ranges 
+or as a single number, which is then used as the minimum cardinality.
+
+The greatest lower bound is the largest set of elements that are certain to be 
+in the set, the least upper bound is the smallest set of elements that might be
+in the set (which should include the greatest lower bound). I.e. the greatest
+lower bound is a subset of the assigned set which is a subset of the least upper
+bound.
+
+<ruby>
+# Creates a set variable with glb 1..2 and lub 1..6 .
+set = set_var(1..2, 1..6) 
+# Creates an array of 3 set variables with the above bounds and a minimum cardinality of 3.
+sets = set_var_array(3, 1..2, 1..6, 3)
+# Creates a 7x9 matrix of set variables with the above bounds and a cardinality between 2 and 5
+set_matrix = set_var_matrix(7, 9, 1..2, 1..6 2..5)
+</ruby>
+
 h3. Constraints
 
 The constraints specify what must hold for something to be a solution. They are

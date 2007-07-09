@@ -87,9 +87,9 @@ describe Gecode::Model, ' (set creation)' do
   before do
     @model = Gecode::Model.new
     @glb_range = 0..3
-    @lub_range = 3..5
+    @lub_range = 0..5
     @glb_enum = [0, 3]
-    @lub_enum = [3, 5]
+    @lub_enum = [0, 3, 5]
     @lower_card = 1
     @upper_card = 3
   end
