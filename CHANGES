@@ -2,6 +2,7 @@
 
 * Added exclusive or and implication.
 * Added conjunction and disjunction for boolean enumerations.
+* Added set variables. They are created using Model{#set_var, #set_var_array, #set_var_matrix}.
 
 == Version 0.4.0
 This release adds most of the constraints supported by Gecode for integer

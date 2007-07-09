@@ -79,12 +79,36 @@ module Gecode
     # used. If only a single Fixnum is specified as cardinality_range then it's
     # used as lower bound.
     def set_var(glb_domain, lub_domain, cardinality_range = nil)
-      if cardinality_range.kind_of? Fixnum
-        cardinality_range = cardinality_range..Gecode::Raw::Limits::Set::CARD_MAX
-      end
       index = active_space.new_set_vars(glb_domain, lub_domain, 
-        cardinality_range).first
+        to_set_cardinality_range(cardinality_range)).first
       FreeSetVar.new(self, index)
+    end
+    
+    # Creates an array containing the specified number of set variables. The
+    # parameters beyond count are the same as for #set_var .
+    def set_var_array(count, glb_domain, lub_domain, cardinality_range = nil)
+      variables = []
+      active_space.new_set_vars(glb_domain, lub_domain, 
+          to_set_cardinality_range(cardinality_range), count).each do |index|
+        variables << FreeSetVar.new(self, index)
+      end
+      return wrap_enum(variables)
+    end
+    
+    # Creates a matrix containing the specified number of rows and columns 
+    # filled with set variables. The parameters beyond row and column counts are
+    # the same as for #set_var .
+    def set_var_matrix(row_count, col_count, glb_domain, lub_domain, 
+        cardinality_range = nil)
+      indices = active_space.new_set_vars(glb_domain, lub_domain, 
+        to_set_cardinality_range(cardinality_range), row_count*col_count)
+      rows = []
+      row_count.times do |i|
+        rows << indices[(i*col_count)...(i.succ*col_count)].map! do |index|
+          FreeSetVar.new(self, index)
+        end
+      end
+      return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
     # Retrieves the currently active space (the one which variables refer to).
@@ -134,6 +158,17 @@ module Gecode
         end
       end
       return min..max
+    end
+    
+    # Transforms the argument to a set cardinality range, returns nil if the
+    # default range should be used. If arg is a range then that's used, 
+    # otherwise if the argument is a fixnum it's used as lower bound.
+    def to_set_cardinality_range(arg)
+      if arg.kind_of? Fixnum
+        arg..Gecode::Raw::Limits::Set::CARD_MAX
+      else
+        arg
+      end
     end
     
     # Creates an integer variable from the specified index and domain. The 

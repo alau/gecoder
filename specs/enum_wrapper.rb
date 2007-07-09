@@ -80,11 +80,22 @@ end
 describe Gecode::BoolEnumMethods do
   before do
     @model = Gecode::Model.new
-    @int_enum = @model.bool_var_array(3)
+    @bool_enum = @model.bool_var_array(3)
   end
   
   it 'should convert to a bool var array' do
-    @int_enum.to_bool_var_array.should be_kind_of(Gecode::Raw::BoolVarArray)
+    @bool_enum.to_bool_var_array.should be_kind_of(Gecode::Raw::BoolVarArray)
+  end
+end
+
+describe Gecode::SetEnumMethods do
+  before do
+    @model = Gecode::Model.new
+    @set_enum = @model.set_var_array(3, [0], [1])
+  end
+  
+  it 'should convert to a set var array' do
+    @set_enum.to_set_var_array.should be_kind_of(Gecode::Raw::SetVarArray)
   end
 end
 

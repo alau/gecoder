@@ -124,4 +124,26 @@ describe Gecode::Model, ' (set creation)' do
     var.card_max.should <= @upper_card
     var.card_min.should >= @lower_card
   end
+  
+  it 'should allow the creation of arrays of set variables' do
+    arr = @model.set_var_array(3, @glb_enum, @lub_enum, @lower_card..@upper_card)
+    arr.size.should == 3
+    arr.each do |var|
+      var.should have_bounds(@glb_enum, @lub_enum)
+      var.card_max.should <= @upper_card
+      var.card_min.should >= @lower_card
+    end
+  end
+  
+  it 'should allow the creation of matrices of set variables' do
+    matrix = @model.set_var_matrix(4, 5, @glb_enum, @lub_enum, 
+      @lower_card..@upper_card)
+    matrix.row_size.should == 4
+    matrix.column_size.should == 5
+    matrix.each do |var|
+      var.should have_bounds(@glb_enum, @lub_enum)
+      var.card_max.should <= @upper_card
+      var.card_min.should >= @lower_card
+    end
+  end
 end

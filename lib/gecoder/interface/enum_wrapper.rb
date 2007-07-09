@@ -11,15 +11,19 @@ module Gecode
         raise ArgumentError, 'Enumerable must not be empty.'
       end
       
-      if elements.map{ |var| var.kind_of? FreeIntVar }.all?
+      if elements.all?{ |var| var.kind_of? FreeIntVar }
         class <<enum
           include Gecode::IntEnumMethods
         end
-      elsif elements.map{ |var| var.kind_of? FreeBoolVar }.all?
+      elsif elements.all?{ |var| var.kind_of? FreeBoolVar }
         class <<enum
           include Gecode::BoolEnumMethods
         end
-      elsif elements.map{ |var| var.kind_of? Fixnum }.all?
+      elsif elements.all?{ |var| var.kind_of? FreeSetVar }
+        class <<enum
+          include Gecode::SetEnumMethods
+        end
+      elsif elements.all?{ |var| var.kind_of? Fixnum }
         class <<enum
           include Gecode::FixnumEnumMethods
         end
@@ -80,7 +84,7 @@ module Gecode
   
     # Returns a bool variable array with all the bound variables.
     def to_bool_var_array
-       space = @model.active_space
+      space = @model.active_space
       unless @bound_space == space
         elements = to_a
         @bound_arr = Gecode::Raw::BoolVarArray.new(active_space, elements.size)
@@ -90,6 +94,25 @@ module Gecode
       return @bound_arr
     end
     alias_method :to_var_array, :to_bool_var_array
+  end
+  
+  # A module containing the methods needed by enumerations containing set
+  # variables. Requires that it's included in an enumerable.
+  module SetEnumMethods
+    include EnumMethods
+  
+    # Returns a set variable array with all the bound variables.
+    def to_set_var_array
+      space = @model.active_space
+      unless @bound_space == space
+        elements = to_a
+        @bound_arr = Gecode::Raw::SetVarArray.new(active_space, elements.size)
+        elements.each_with_index{ |var, index| @bound_arr[index] = var.bind }
+        @bound_space = space
+      end
+      return @bound_arr
+    end
+    alias_method :to_var_array, :to_set_var_array
   end
   
   # A module containing the methods needed by enumerations containing fixnums. 
