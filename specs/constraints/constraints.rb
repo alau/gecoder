@@ -38,3 +38,11 @@ describe Gecode::Constraints::Constraint, ' (not subclassed)' do
     lambda{ @con.post }.should raise_error(NoMethodError)
   end
 end
+
+describe Gecode::Constraints::Util do
+  it 'should raise error when giving incorrect set to #constant_set_to_params' do
+    lambda do 
+      Gecode::Constraints::Util.constant_set_to_params('hello')
+    end.should raise_error(TypeError)
+  end
+end

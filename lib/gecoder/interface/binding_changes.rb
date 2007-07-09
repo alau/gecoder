@@ -112,6 +112,7 @@ module Gecode
       alias_method :lub_max, :lubMax
       
       alias_method :glb_size, :glbSize
+      alias_method :size,     :glbSize
       alias_method :lub_size, :lubSize
       
       alias_method :card_min, :cardMin

@@ -87,3 +87,22 @@ describe 'composite constraint', :shared => true do
     end.should raise_error(TypeError) 
   end
 end
+
+# Help methods for the GecodeR specs. 
+module GecodeR::Specs
+  module SetHelper
+    module_function
+  
+    # Returns the arguments that should be used in a partial mock to expect the
+    # specified constant set (possibly an array of arguments).
+    def expect_constant_set(constant_set)
+      if constant_set.kind_of? Range
+        return constant_set.first, constant_set.last
+      elsif constant_set.kind_of? Fixnum
+        constant_set
+      else
+        an_instance_of(Gecode::Raw::IntSet)
+      end
+    end
+  end
+end

@@ -51,7 +51,8 @@ module Gecode
         :<= => Gecode::Raw::IRT_LQ,
         :<  => Gecode::Raw::IRT_LE,
         :>= => Gecode::Raw::IRT_GQ,
-        :>  => Gecode::Raw::IRT_GR }
+        :>  => Gecode::Raw::IRT_GR
+      }
       # The same as above, but negated.
       NEGATED_RELATION_TYPES = {
         :== => Gecode::Raw::IRT_NQ,
@@ -59,6 +60,20 @@ module Gecode
         :<  => Gecode::Raw::IRT_GQ,
         :>= => Gecode::Raw::IRT_LE,
         :>  => Gecode::Raw::IRT_LQ
+      }
+      
+      # Maps the names of the methods to the corresponding set relation type in 
+      # Gecode.
+      SET_RELATION_TYPES = { 
+        :==         => Gecode::Raw::SRT_EQ,
+        :superset   => Gecode::Raw::SRT_SUP,
+        :subset     => Gecode::Raw::SRT_SUB,
+        :disjoint   => Gecode::Raw::SRT_DISJ,
+        :complement => Gecode::Raw::SRT_CMPL
+      }
+      # The same as above, but negated.
+      NEGATED_SET_RELATION_TYPES = {
+        :== => Gecode::Raw::SRT_NQ,
       }
       
       # Various method aliases for comparison methods. Maps the original 
@@ -69,6 +84,13 @@ module Gecode
         :>= => [:greater_or_equal, :greater_than_or_equal_to],
         :<  => [:less, :less_than],
         :<= => [:less_or_equal, :less_than_or_equal_to]
+      }
+      SET_ALIASES = { 
+        :==         => [:equal, :equal_to],
+        :superset   => [:superset_of],
+        :subset     => [:subset_of],
+        :disjoint   => [:disjoint_with],
+        :complement => [:complement_of]
       }
       
       module_function
@@ -103,6 +125,27 @@ module Gecode
         end
         return {:strength => PROPAGATION_STRENGTHS[strength], :reif => reif_var}
       end
+      
+      # Converts the different ways to specify constant sets in the interface
+      # to the form that the set should be represented in Gecode (possibly 
+      # multiple paramters. The different forms accepted are:
+      # * Single instance of Fixnum (singleton set).
+      # * Range (set containing all numbers in range), treated differently from
+      #   other enumerations.
+      # * Enumeration of integers (set contaning all numbers in set).
+      def constant_set_to_params(constant_set)
+        if constant_set.kind_of? Range
+          return constant_set.first, constant_set.last
+        elsif constant_set.kind_of? Fixnum
+          return constant_set
+        else
+          constant_set = constant_set.to_a
+          unless constant_set.all?{ |e| e.kind_of? Fixnum }
+            raise TypeError, "Not a constant set: #{constant_set}."
+          end
+          return Gecode::Raw::IntSet.new(constant_set, constant_set.size)
+        end
+      end
     end
     
     # Describes a constraint expressions. An expression is produced by calling
@@ -128,6 +171,17 @@ module Gecode
       # Creates aliases for any defined comparison methods.
       def self.alias_comparison_methods
         Gecode::Constraints::Util::COMPARISON_ALIASES.each_pair do |orig, aliases|
+          if instance_methods.include?(orig.to_s)
+            aliases.each do |name|
+              alias_method(name, orig)
+            end
+          end
+        end
+      end
+      
+      # Creates aliases for any defined set methods.
+      def self.alias_set_methods
+        Gecode::Constraints::Util::SET_ALIASES.each_pair do |orig, aliases|
           if instance_methods.include?(orig.to_s)
             aliases.each do |name|
               alias_method(name, orig)
@@ -282,3 +336,4 @@ require 'gecoder/interface/constraints/int_var_constraints'
 require 'gecoder/interface/constraints/int_enum_constraints'
 require 'gecoder/interface/constraints/bool_var_constraints'
 require 'gecoder/interface/constraints/bool_enum_constraints'
+require 'gecoder/interface/constraints/set_var_constraints'
