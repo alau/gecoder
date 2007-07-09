@@ -90,6 +90,8 @@ describe Gecode::Model, ' (set creation)' do
     @lub_range = 3..5
     @glb_enum = [0, 3]
     @lub_enum = [3, 5]
+    @lower_card = 1
+    @upper_card = 3
   end
 
   it 'should allow the creation of set variables with glb range and lub range' do
@@ -110,5 +112,16 @@ describe Gecode::Model, ' (set creation)' do
   it 'should allow the creation of set variables with glb enum and lub enum' do
     @model.set_var(@glb_enum, @lub_enum).should have_bounds(@glb_enum, 
       @lub_enum) 
+  end
+  
+  it 'should allow the creation of set variables with specified lower cardinality bound' do
+    @model.set_var(@glb_range, @lub_range, 
+      @lower_card).card_min.should >= @lower_card
+  end
+  
+  it 'should allow the creation of set variables with specified cardinality range' do
+    var = @model.set_var(@glb_range, @lub_range, @lower_card..@upper_card)
+    var.card_max.should <= @upper_card
+    var.card_min.should >= @lower_card
   end
 end

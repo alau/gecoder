@@ -31,10 +31,14 @@ module Gecode
         bool_var_store[index]
       end
       
-      # Creates the specified number of set variables in the space. Returns
+      # Creates the specified number of set variables in the space with the 
+      # specified domain for greatest lower bound and least upper bound 
+      # (specified as either a range or enum). A range for the allowed 
+      # cardinality of the set can also be specified, if none is specified, or 
+      # nil is given, then the default range (anything) will be used. Returns 
       # the indices with which they can then be accessed using set_var.
-      def new_set_vars(glb_domain, lub_domain, count = 1)
-        set_var_store.new_vars(glb_domain, lub_domain, count)
+      def new_set_vars(*vars)
+        set_var_store.new_vars(*vars)
       end
       
       # Gets the set variable with the specified index, nil if none exists.
@@ -108,6 +112,9 @@ module Gecode
       
       alias_method :glb_size, :glbSize
       alias_method :lub_size, :lubSize
+      
+      alias_method :card_min, :cardMin
+      alias_method :card_max, :cardMax
     end
   end
   
@@ -276,16 +283,23 @@ module Gecode
         @next_index = @size
       end
       
-      # Creates the specified number of new set variables. The domains can be 
-      # specified as either ranges or enumerations. Returns the indices of the 
-      # created variables as an array.
-      def new_vars(glb_domain, lub_domain, count = 1)
+      # Creates the specified number of set variables in the space with the 
+      # specified domain for greatest lower bound and least upper bound 
+      # (specified as either a range or enum). A range for the allowed 
+      # cardinality of the set can also be specified, if none is specified, or 
+      # nil is given, then the default range (anything) will be used. Returns 
+      # the indices with which they can then be accessed using set_var.
+      def new_vars(glb_domain, lub_domain, cardinality_range = nil, count = 1)
         grow(@next_index + count) # See the design note for more information.
+
+        if cardinality_range.nil?
+          cardinality_range = 0..Gecode::Raw::Limits::Set::CARD_MAX
+        end
         
         params = [@space]
         params << domain_to_args(glb_domain)
         params << domain_to_args(lub_domain)
-        params << 0 << Gecode::Raw::Limits::Set::CARD_MAX
+        params << cardinality_range.first << cardinality_range.last
         count.times do |i|
           @var_array[@next_index] = Gecode::Raw::SetVar.new(*params.flatten)
           @next_index += 1

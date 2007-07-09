@@ -72,9 +72,18 @@ module Gecode
       return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
-    # Creates a set boolean variable.
-    def set_var(glb_domain, lub_domain)
-      index = active_space.new_set_vars(glb_domain, lub_domain).first
+    # Creates a set variable with the specified domain for greatest lower bound
+    # and least upper bound (specified as either a range or enum). A range for
+    # the allowed cardinality of the set can also be specified, if none is 
+    # specified, or nil is given, then the default range (anything) will be 
+    # used. If only a single Fixnum is specified as cardinality_range then it's
+    # used as lower bound.
+    def set_var(glb_domain, lub_domain, cardinality_range = nil)
+      if cardinality_range.kind_of? Fixnum
+        cardinality_range = cardinality_range..Gecode::Raw::Limits::Set::CARD_MAX
+      end
+      index = active_space.new_set_vars(glb_domain, lub_domain, 
+        cardinality_range).first
       FreeSetVar.new(self, index)
     end
     
