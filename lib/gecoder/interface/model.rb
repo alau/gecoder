@@ -73,9 +73,8 @@ module Gecode
     end
     
     # Creates a set boolean variable.
-    def set_var(glb_range, lub_range)
-      index = active_space.new_set_vars(glb_range.first, glb_range.last, 
-        lub_range.first, lub_range.last).first
+    def set_var(glb_domain, lub_domain)
+      index = active_space.new_set_vars(glb_domain, lub_domain).first
       FreeSetVar.new(self, index)
     end
     

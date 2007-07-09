@@ -33,8 +33,8 @@ module Gecode
       
       # Creates the specified number of set variables in the space. Returns
       # the indices with which they can then be accessed using set_var.
-      def new_set_vars(glb_min, glb_max, lub_min, lub_max, count = 1)
-        set_var_store.new_vars(glb_min, glb_max, lub_min, lub_max, count)
+      def new_set_vars(glb_domain, lub_domain, count = 1)
+        set_var_store.new_vars(glb_domain, lub_domain, count)
       end
       
       # Gets the set variable with the specified index, nil if none exists.
@@ -276,13 +276,18 @@ module Gecode
         @next_index = @size
       end
       
-      # Creates the specified number of new bool variables. Returns the indices 
-      # of the created variables as an array.
-      def new_vars(glb_min, glb_max, lub_min, lub_max, count = 1)
+      # Creates the specified number of new set variables. The domains can be 
+      # specified as either ranges or enumerations. Returns the indices of the 
+      # created variables as an array.
+      def new_vars(glb_domain, lub_domain, count = 1)
         grow(@next_index + count) # See the design note for more information.
+        
+        params = [@space]
+        params << domain_to_args(glb_domain)
+        params << domain_to_args(lub_domain)
+        params << 0 << Gecode::Raw::Limits::Set::CARD_MAX
         count.times do |i|
-          @var_array[@next_index] = Gecode::Raw::SetVar.new(@space, glb_min, 
-            glb_max, lub_min, lub_max, 0, Gecode::Raw::Limits::Set::CARD_MAX)
+          @var_array[@next_index] = Gecode::Raw::SetVar.new(*params.flatten)
           @next_index += 1
         end
         
@@ -290,6 +295,17 @@ module Gecode
       end
   
       private
+      
+      # Transforms a lub or glb domain given as a range or enumeration into one
+      # or more parameters that describe the domain to Gecode::Raw::SetVar .
+      def domain_to_args(domain)
+        if domain.kind_of? Range
+          return domain.first, domain.last
+        else
+          elements = domain.to_a
+          return Gecode::Raw::IntSet.new(domain, domain.size)
+        end
+      end
       
       # Creates a new storage array for bool variables.
       def new_storage_array(new_size)

@@ -89,11 +89,26 @@ describe Gecode::Model, ' (set creation)' do
     @glb_range = 0..3
     @lub_range = 3..5
     @glb_enum = [0, 3]
-    @lubb_enum = [3, 5]
+    @lub_enum = [3, 5]
   end
 
-  it 'should allow the creation of set variables with range' do
+  it 'should allow the creation of set variables with glb range and lub range' do
     @model.set_var(@glb_range, @lub_range).should have_bounds(@glb_range, 
       @lub_range) 
+  end
+  
+  it 'should allow the creation of set variables with glb enum and lub range' do
+    @model.set_var(@glb_enum, @lub_range).should have_bounds(@glb_enum, 
+      @lub_range) 
+  end
+  
+  it 'should allow the creation of set variables with glb range and lub enum' do
+    @model.set_var(@glb_range, @lub_enum).should have_bounds(@glb_range, 
+      @lub_enum) 
+  end
+  
+  it 'should allow the creation of set variables with glb enum and lub enum' do
+    @model.set_var(@glb_enum, @lub_enum).should have_bounds(@glb_enum, 
+      @lub_enum) 
   end
 end
