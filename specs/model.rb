@@ -89,7 +89,7 @@ describe Gecode::Model, ' (set creation)' do
     @glb_range = 0..3
     @lub_range = 0..5
     @glb_enum = [0, 3]
-    @lub_enum = [0, 3, 5]
+    @lub_enum = [0, 1, 2, 3, 5]
     @lower_card = 1
     @upper_card = 3
   end
@@ -145,5 +145,20 @@ describe Gecode::Model, ' (set creation)' do
       var.card_max.should <= @upper_card
       var.card_min.should >= @lower_card
     end
+  end
+  
+  it 'should raise error if glb and lub are not valid when they are given as range' do
+    lambda{ @model.set_var(@lub_range, @glb_range).should }.should raise_error(
+      ArgumentError)  
+  end
+  
+  it 'should raise error if glb and lub are not valid when one is given as enum' do
+    lambda{ @model.set_var(@lub_range, @glb_enum).should }.should raise_error(
+      ArgumentError)
+  end
+  
+  it 'should raise error if glb and lub are not valid when both are given as enums' do
+    lambda{ @model.set_var(@lub_enum, @glb_enum).should }.should raise_error(
+      ArgumentError)  
   end
 end

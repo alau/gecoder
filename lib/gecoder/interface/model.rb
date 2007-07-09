@@ -79,6 +79,8 @@ module Gecode
     # used. If only a single Fixnum is specified as cardinality_range then it's
     # used as lower bound.
     def set_var(glb_domain, lub_domain, cardinality_range = nil)
+      check_set_bounds(glb_domain, lub_domain)
+      
       index = active_space.new_set_vars(glb_domain, lub_domain, 
         to_set_cardinality_range(cardinality_range)).first
       FreeSetVar.new(self, index)
@@ -87,6 +89,8 @@ module Gecode
     # Creates an array containing the specified number of set variables. The
     # parameters beyond count are the same as for #set_var .
     def set_var_array(count, glb_domain, lub_domain, cardinality_range = nil)
+      check_set_bounds(glb_domain, lub_domain)
+      
       variables = []
       active_space.new_set_vars(glb_domain, lub_domain, 
           to_set_cardinality_range(cardinality_range), count).each do |index|
@@ -100,6 +104,8 @@ module Gecode
     # the same as for #set_var .
     def set_var_matrix(row_count, col_count, glb_domain, lub_domain, 
         cardinality_range = nil)
+      check_set_bounds(glb_domain, lub_domain)
+      
       indices = active_space.new_set_vars(glb_domain, lub_domain, 
         to_set_cardinality_range(cardinality_range), row_count*col_count)
       rows = []
@@ -168,6 +174,25 @@ module Gecode
         arg..Gecode::Raw::Limits::Set::CARD_MAX
       else
         arg
+      end
+    end
+    
+    # Checks whether the specified greatest lower bound is a subset of least 
+    # upper bound. Raises ArgumentError if that is not the case.
+    def check_set_bounds(glb, lub)
+      unless valid_set_bounds?(glb, lub)
+        raise ArgumentError, 
+          "Invalid set bounds: #{glb} is not a subset of #{lub}."
+      end
+    end
+    
+    # Returns whether the greatest lower bound is a subset of least upper 
+    # bound.
+    def valid_set_bounds?(glb, lub)
+      if glb.kind_of?(Range) and lub.kind_of?(Range)
+        glb.first >= lub.first and glb.last <= lub.last
+      else
+        (glb.to_a - lub.to_a).empty?
       end
     end
     

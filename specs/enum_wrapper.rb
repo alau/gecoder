@@ -91,7 +91,7 @@ end
 describe Gecode::SetEnumMethods do
   before do
     @model = Gecode::Model.new
-    @set_enum = @model.set_var_array(3, [0], [1])
+    @set_enum = @model.set_var_array(3, [0], 0..1)
   end
   
   it 'should convert to a set var array' do

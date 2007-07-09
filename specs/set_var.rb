@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe Gecode::FreeSetVar, '(not assigned)' do
   before do
     model = Gecode::Model.new
-    @var = model.set_var(0..3, 3..4)
+    @var = model.set_var(0..3, 0..4)
   end
   
   it 'should not be assigned' do
@@ -19,12 +19,17 @@ end
 describe Gecode::FreeSetVar, '(assigned)' do
   before do
     model = Gecode::Model.new
-    @var = model.set_var(1..1, 1..1)
+    @var = model.set_var([1], [1])
     model.solve!
   end
   
   it 'should be assigned' do
     @var.should be_assigned
+  end
+  
+  it 'should include the assigned elements' do
+    @var.should include(1)
+    @var.should_not include(0)
   end
   
   it "should give it's value when inspecting" do

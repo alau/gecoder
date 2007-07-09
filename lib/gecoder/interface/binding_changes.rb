@@ -101,6 +101,7 @@ module Gecode
       alias_method :assigned?, :assigned
       
       alias_method :include_glb?, :contains
+      alias_method :include?, :contains
       def include_lub?(element)
         !notContains(element)
       end
