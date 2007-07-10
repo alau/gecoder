@@ -17,8 +17,7 @@ would be the following.
 x.must > 3
 </ruby>
 
-Only constant integers can be used in the right hand side at the moment. The
-following relations are supported (the aliases of each relation are also 
+The following relations are supported (the aliases of each relation are also 
 listed).
 
 * @<@, @lesser@, @lesser_than@
