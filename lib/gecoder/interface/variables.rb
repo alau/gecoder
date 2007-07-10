@@ -46,9 +46,9 @@ module Gecode
       
       def inspect
         if assigned?
-          "#<#{bound_class} \#{domain}>"
+          "#<\#{self.class} \#{domain}>"
         else
-          "#<#{bound_class} \#{domain}>"
+          "#<\#{self.class} \#{domain}>"
         end
       end
     end_method_definitions
