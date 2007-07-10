@@ -21,3 +21,4 @@ module Gecode
 end
 
 require 'gecoder/interface/constraints/set/domain'
+require 'gecoder/interface/constraints/set/relation'

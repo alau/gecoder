@@ -31,3 +31,13 @@ listed).
 * @superset@, @superset_of@
 * @disjoint@, @disjoint_with@
 * @complement@, @complement_of@
+
+h3. Relation
+
+Relation constraints are used to specify relations with other sets.
+
+<ruby>
+set.must_be.superset_of another_set
+</ruby>
+
+The constraint supports the same relations as the domain constraint.

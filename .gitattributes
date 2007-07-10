@@ -62,6 +62,7 @@ lib/gecoder/interface/constraints/int_enum_constraints.rb -text
 lib/gecoder/interface/constraints/int_var_constraints.rb -text
 lib/gecoder/interface/constraints/reifiable_constraints.rb -text
 lib/gecoder/interface/constraints/set/domain.rb -text
+lib/gecoder/interface/constraints/set/relation.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text
 lib/gecoder/interface/enum_matrix.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
@@ -83,10 +84,11 @@ specs/constraints/distinct.rb -text
 specs/constraints/element.rb -text
 specs/constraints/equality.rb -text
 specs/constraints/int_domain.rb -text
+specs/constraints/int_relation.rb -text
 specs/constraints/linear.rb -text
 specs/constraints/reification_sugar.rb -text
-specs/constraints/relation.rb -text
 specs/constraints/set_domain.rb -text
+specs/constraints/set_relation.rb -text
 specs/constraints/sort.rb -text
 specs/enum_matrix.rb -text
 specs/enum_wrapper.rb -text
