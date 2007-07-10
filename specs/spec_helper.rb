@@ -49,12 +49,12 @@ module CustomVarMatchers
     end
     
     def failure_message
-      "expected #{@target.inspect} to have greatest lower bounds " + 
+      "expected #{@target.inspect} to have greatest lower bound " + 
         "#{@expected_glb.inspect} and least upper bound #{@expected_lub.inspect}"
     end
     
     def negative_failure_message
-      "expected #{@target.inspect} to not have greatest lower bounds " + 
+      "expected #{@target.inspect} to not have greatest lower bound " + 
         "#{@expected_glb.inspect} and least upper bound #{@expected_lub.inspect}"
     end
   end
