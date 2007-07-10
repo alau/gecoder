@@ -563,6 +563,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         klass.add_attribute "clone", "int"
         klass.add_attribute "commit", "int"
       end
+      
+      searchns.add_namespace "Config" do |intns|
+        intns.add_constant "ADAPTIVE_DISTANCE", "Gecode::Search::Config::a_d"
+        intns.add_constant "MINIMAL_DISTANCE", "Gecode::Search::Config::c_d"
+      end
     end
     
     # MINIMODEL NAMESPACE

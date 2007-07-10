@@ -1,13 +1,5 @@
 module Gecode
   class Model
-    private
-    
-    # Used during the search.
-    COPY_DIST = 16
-    ADAPTATION_DIST = 4 
-    
-    public
-
     # Finds the first solution to the modelled problem and updates the variables
     # to that solution. Returns the model if a solution was found, nil 
     # otherwise.
@@ -54,7 +46,10 @@ module Gecode
       constraints.clear # Empty the queue.
     
       stop = Gecode::Raw::Search::Stop.new
-      Gecode::Raw::DFS.new(active_space, COPY_DIST, ADAPTATION_DIST, stop)
+      Gecode::Raw::DFS.new(active_space, 
+        Gecode::Raw::Search::Config::MINIMAL_DISTANCE,
+        Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
+        stop)
     end
   end
 end
