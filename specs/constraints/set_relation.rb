@@ -11,12 +11,12 @@ describe Gecode::Constraints::Set::Relation do
     
     @expect = lambda do |relation_type, rhs, reif_var, negated|
       if reif_var.nil? and !negated
-        #Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-        #  @set.bind, relation_type, @set2.bind)
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          @set.bind, relation_type, @set2.bind)
       else
-        #Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-        #  @set.bind, relation_type, @set2.bind, 
-        #  an_instance_of(Gecode::Raw::BoolVar))
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          @set.bind, relation_type, @set2.bind, 
+          an_instance_of(Gecode::Raw::BoolVar))
       end
     end
     
@@ -59,12 +59,12 @@ describe Gecode::Constraints::Set::Relation, ' (equality)' do
     
     @expect = lambda do |relation_type, rhs, reif_var|
       if reif_var.nil?
-        #Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-        #  @set.bind, relation_type, @set2.bind)
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          @set.bind, relation_type, @set2.bind)
       else
-        #Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-        #  @set.bind, relation_type, @set2.bind, 
-        #  an_instance_of(Gecode::Raw::BoolVar))
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          @set.bind, relation_type, @set2.bind, 
+          an_instance_of(Gecode::Raw::BoolVar))
       end
     end
     
