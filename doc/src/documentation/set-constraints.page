@@ -40,4 +40,14 @@ Relation constraints are used to specify relations with other sets.
 set.must_be.superset_of another_set
 </ruby>
 
-The constraint supports the same relations as the domain constraint.
+The constraint supports the same relations as the domain constraint. The 
+relation constraints also includes a constraint used to specify integer 
+relations for each element of a set. If we for instance want the elements of a 
+set to be bounded by an int var @upper_bound@ we could write the following.
+
+<ruby>
+set.elements.must <= upper_bound
+</ruby>
+
+Constant integers instead of the integer variable are also supported. Note that
+this constraint is not reifiable.
