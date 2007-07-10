@@ -16,6 +16,7 @@ doc/src/documentation/constraints.page -text
 doc/src/documentation/index.page -text
 doc/src/documentation/integer-constraints.page -text
 doc/src/documentation/modelling.page -text
+doc/src/documentation/set-constraints.page -text
 doc/src/examples/index.page -text
 doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text

@@ -1,0 +1,33 @@
+---
+title: Set Constraints
+long_title: Set constraints supported by Gecode/R
+inMenu: true
+description: The different set constraints available in Gecode/R for use when modelling in Ruby.
+---
+
+h2. Set constraints
+
+In the examples @constant_set@ represents a constant set, @set@ represents a 
+single set variable and @sets@ represents an enumeration of set variables.
+
+A constant set can be represented with instances of the following classes:
+* Fixnum - represents a singleton set.
+* Range - represents a set containing all elements in the range. This represents the set more efficiently than when another enumeration with the same elements are used.
+* Enumeration of integers - represents a set containing the enumeration's elements.
+
+h3. Domain
+
+Domain constraints are used to specify relations with constant sets.
+
+<ruby>
+set.must_not == constant_set
+</ruby>
+
+The following relations are supported (the aliases of each relation are also 
+listed).
+
+* @==@, @equal@, @equal_to@
+* @subset@, @subset_of@
+* @superset@, @superset_of@
+* @disjoint@, @disjoint_with@
+* @complement@, @complement_of@

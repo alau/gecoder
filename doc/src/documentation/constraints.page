@@ -19,8 +19,9 @@ Using @must@ instead of @must_not@ negates the constraints. Not all constraints
 support that however. The constraints that are currently supported are divided
 into the following categories.
 
-* "Integer constraints":integer-constraints.html - Constraints dealing with finite domain integer variables and enumerations containing them.
+* "Integer constraints":integer-constraints.html - Constraints dealing with finite domain integer variables.
 * "Boolean constraints":boolean-constraints.html - Constraints dealing with boolean variables.
+* "Set constraints":set-constraints.html - Constraints dealing with finite integer set variables.
 
 h2. Options
 
