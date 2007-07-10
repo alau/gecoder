@@ -73,7 +73,7 @@ module Gecode
       }
       # The same as above, but negated.
       NEGATED_SET_RELATION_TYPES = {
-        :== => Gecode::Raw::SRT_NQ,
+        :== => Gecode::Raw::SRT_NQ
       }
       
       # Various method aliases for comparison methods. Maps the original 
