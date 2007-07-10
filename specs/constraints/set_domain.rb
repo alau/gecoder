@@ -38,37 +38,37 @@ describe Gecode::Constraints::Set::Domain do
   Gecode::Constraints::Util::SET_RELATION_TYPES.each_pair do |relation, type|
     next if relation == :==
   
-    it 'should translate equality with constant range to domain constraint' do
+    it "should translate #{relation} with constant range to domain constraint" do
       @expect.call(type, @range, nil, false)
       @set.must.send(relation, @range)
       @model.solve!
     end
     
-    it 'should translate equality with constant non-range to domain constraint' do
+    it "should translate #{relation} with constant non-range to domain constraint" do
       @expect.call(type, @non_range, nil, false)
       @set.must.send(relation, @non_range)
       @model.solve!
     end
     
-    it 'should translate equality with constant singleton to domain constraint' do
+    it "should translate #{relation} with constant singleton to domain constraint" do
       @expect.call(type, @singleton, nil, false)
       @set.must.send(relation, @singleton)
       @model.solve!
     end
   
-    it 'should translate negated equality with constant range to domain constraint' do
+    it "should translate negated #{relation} with constant range to domain constraint" do
       @expect.call(type, @range, nil, true)
       @set.must_not.send(relation, @range)
       @model.solve!
     end
     
-    it 'should translate negated equality with constant non-range to domain constraint' do
+    it "should translate negated #{relation} with constant non-range to domain constraint" do
       @expect.call(type, @non_range, nil, true)
       @set.must_not.send(relation, @non_range)
       @model.solve!
     end
     
-    it 'should translate negated equality with constant singleton to domain constraint' do
+    it "should translate negated #{relation} with constant singleton to domain constraint" do
       @expect.call(type, @singleton, nil, true)
       @set.must_not.send(relation, @singleton)
       @model.solve!
