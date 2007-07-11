@@ -10,10 +10,9 @@ last of the boolean constraints.
 * Added set cardinality constraints.
 
 == Version 0.4.0
-This release adds most of the constraints supported by Gecode for integer
-variables.
+This release adds most of the integer variable constraints supported by Gecode.
 
-* [#11861] Fixed a bug stopping the creating of int variables with non-range domains.
+* [#11861] Fixed a bug stopping the creation of int variables with non-range domains.
 * Added domain constraints for int variables.
 * Added equality constraint for int enums.
 * Matrices of integer and boolean variables can now be created using Model#int_var_matrix Model#bool_var_matrix.
