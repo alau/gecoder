@@ -39,13 +39,15 @@ describe Gecode::Constraints::Set::Cardinality, ' (range)' do
     @range.should include(@set.val_size)
   end
   
-  it 'should raise error if negated' do
-    lambda{ @set.size.must_not_be.in @range }.should raise_error(
-      Gecode::MissingConstraintError)
-  end
-  
   it 'should raise error if the right hand side is not a range' do
     lambda{ @set.size.must_be.in 'hello' }.should raise_error(TypeError)
+  end
+  
+  it 'should not shadow the integer variable domain constrain' do
+    Gecode::Raw.should_receive(:dom).once.with(@model.active_space, 
+      an_instance_of(Gecode::Raw::IntVar), an_instance_of(Gecode::Raw::IntSet), 
+      Gecode::Raw::ICL_DEF)
+    @set.size.must_not_be.in [1,3]
   end
   
   it_should_behave_like 'non-reifiable set constraint'

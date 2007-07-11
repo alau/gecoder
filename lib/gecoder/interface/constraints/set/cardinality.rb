@@ -31,16 +31,12 @@ module Gecode::Constraints::Set
     # Describes a cardinality expression started with set.size.must .
     class Expression < Gecode::Constraints::Int::CompositeExpression
       def in(range)
-        unless range.kind_of? Range
-          raise TypeError, "Expected Range, got #{range.class}."
+        if range.kind_of?(Range) and !@params[:negate]
+          @params.update(:range => range)
+          @model.add_constraint CardinalityConstraint.new(@model, @params)
+        else
+          super(range)
         end
-        if @params[:negate]
-          raise Gecode::MissingConstraintError, 'A negated cardinality ' + 
-            'constraint is not implemented.'
-        end
-        
-        @params.update(:range => range)
-        @model.add_constraint CardinalityConstraint.new(@model, @params)
       end
     end
     
