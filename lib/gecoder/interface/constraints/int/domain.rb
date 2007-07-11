@@ -6,9 +6,11 @@ module Gecode::Constraints::Int
       @params[:domain] = domain
       if domain.kind_of? Range
         @model.add_constraint Domain::RangeDomainConstraint.new(@model, @params)
-      else
-        @model.add_constraint Domain::NonRangeDomainConstraint.new(@model, 
+      elsif domain.kind_of?(Enumerable) and domain.all?{ |e| e.kind_of? Fixnum }
+        @model.add_constraint Domain::EnumDomainConstraint.new(@model, 
           @params)
+      else
+        raise TypeError, "Expected integer enumerable, got #{domain.class}."
       end
     end
   end
@@ -29,8 +31,8 @@ module Gecode::Constraints::Int
       negate_using_reification
     end
     
-    # Describes a non-range domain constraint.
-    class NonRangeDomainConstraint < Gecode::Constraints::ReifiableConstraint
+    # Describes a enum domain constraint.
+    class EnumDomainConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         space = @model.active_space
       

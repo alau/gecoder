@@ -52,5 +52,9 @@ describe Gecode::Constraints::Int::Domain do
     @x.should have_domain(@domain.to_a - @range_domain.to_a)
   end
   
+  it 'should raise error if the right hand side is not an enumeration' do
+    lambda{ @x.must_be.in 'hello' }.should raise_error(TypeError)
+  end
+  
   it_should_behave_like 'constraint with options'
 end
