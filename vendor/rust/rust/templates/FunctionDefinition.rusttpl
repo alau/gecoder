@@ -4,6 +4,6 @@
 !function_prototype! {
   !function_call!
   
-  rb_raise(rb_eArgError, "Mantatory parameters missing"); // FIXME
+  rb_raise(rb_eArgError, "Mandatory parameters missing"); // FIXME
   return Qnil; 
 }
