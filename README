@@ -22,10 +22,21 @@ instructions.
 
   gem install gecoder
 
-=== Building the gem
+=== Installing from source using gem
 
   rake gem
   gem install pkg/gecoder-0.x.x.gem
+
+=== Installing from source without using gem
+
+"gecode.so" might have another extension depending on which platform it's 
+generated on (replace the extension in the following commands with whatever 
+extension it's given).
+
+	cd ext
+  ruby extconf.rb
+  make
+  mv gecode.so ../lib/
 
 == Running the tests
 
