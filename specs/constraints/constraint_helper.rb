@@ -88,6 +88,22 @@ describe 'composite constraint', :shared => true do
   end
 end
 
+# Requires @invoke_options and @model.
+describe 'non-reifiable set constraint', :shared => true do
+  it 'should not accept strength options' do
+    lambda do 
+      @invoke_options.call(:strength => :default)
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should not accept reification options' do
+    bool = @model.bool_var
+    lambda do 
+      @invoke_options.call(:reify => bool)
+    end.should raise_error(ArgumentError)
+  end
+end
+
 # Help methods for the GecodeR specs. 
 module GecodeR::Specs
   module SetHelper

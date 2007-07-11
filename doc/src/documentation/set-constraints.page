@@ -51,3 +51,12 @@ set.elements.must <= upper_bound
 
 Constant integers instead of the integer variable are also supported. Note that
 this constraint is not reifiable.
+
+h3. Cardinality
+
+Cardinality constraints constrain the size of the set. Constraining the size of 
+@set@ to be withing the range @1..2@ can be expressed as follows.
+
+<ruby>
+@set.size.must_be.in 1..2
+</ruby>

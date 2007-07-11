@@ -62,6 +62,7 @@ lib/gecoder/interface/constraints/int_enum/sort.rb -text
 lib/gecoder/interface/constraints/int_enum_constraints.rb -text
 lib/gecoder/interface/constraints/int_var_constraints.rb -text
 lib/gecoder/interface/constraints/reifiable_constraints.rb -text
+lib/gecoder/interface/constraints/set/cardinality.rb -text
 lib/gecoder/interface/constraints/set/domain.rb -text
 lib/gecoder/interface/constraints/set/relation.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text
@@ -77,6 +78,7 @@ specs/branch.rb -text
 specs/constraints/arithmetic.rb -text
 specs/constraints/bool_enum.rb -text
 specs/constraints/boolean.rb -text
+specs/constraints/cardinality.rb -text
 specs/constraints/channel.rb -text
 specs/constraints/constraint_helper.rb -text
 specs/constraints/constraints.rb -text
