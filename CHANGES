@@ -1,4 +1,6 @@
-== Version 0.4.1 (in SVN)
+== Version 0.5.0
+This release adds set variables and some of their constraints, along with the 
+last of the boolean constraints.
 
 * Added exclusive or and implication.
 * Added conjunction and disjunction for boolean enumerations.
