@@ -1,12 +1,14 @@
 index.page:
   directoryName: Home
   orderInfo: 1
-installation.page:
+features.page:
   orderInfo: 2
-documentation:
+installation.page:
   orderInfo: 3
-examples:
+documentation:
   orderInfo: 4
+examples:
+  orderInfo: 5
 documentation/index.page:
   orderInfo: 10
 documentation/constraints.page:

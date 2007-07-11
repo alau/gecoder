@@ -1,0 +1,55 @@
+---
+title: Features
+long_title: Constraints and features of Gecode/R
+inMenu: true
+description: Constraints and various features of Gecode supported by the Ruby interface Gecode/R.
+---
+
+h2. Features
+
+Gecode/R provides access to the following freatures of 
+"Gecode":http://www.gecode.org/ in Ruby. The Gecode/R syntax is intended to be 
+easy to read and adds a good deal of sugar on top. 
+
+h3. Supported Gecode features 
+
+%{color:gray}Gray% features are not currently implemented, but on the way.
+
+* "Boolean variables and constraints":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntBool.html
+* Finite domain integer variables with the following constraints
+** "Arithmetic":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntArith.html
+** "Cardinality":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntCard.html without global cardinality
+** "Channel":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntChannel.html
+** "Distinct":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntDistinct.html
+** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntDomain.html
+** "Element":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntElement.html
+** "Linear":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntLinear.html
+** "Simple relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntRel.html
+** "Sorting":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntSort.html
+* Finite integer sets with the following constraints
+** %{color:gray}Cardinality%
+** %{color:gray}Distinct%
+** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetDom.html
+** %{color:gray}Connection constraints to finite domain variables%
+** "Relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRel.html
+** %{color:gray}Set selection%
+* Branching selection
+* Depth first search search
+* %{color:gray}Branch and bound search%
+* %{color:gray}Custom propagators and branching strategies%
+
+h3. Gecode features not supported
+
+The following are some notable features that are included in Gecode but _not_
+in Gecode/R (but might be in the future).
+
+* Unsupported integer constraints
+** "Regular":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntRegular.html
+** "Global cardinality":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntCard.html
+** "Scheduling":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntScheduling.html
+* Unsupported set constraints
+** "Convexity":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetConvex.html
+** "Set operation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRelOp.html
+** "Sequence":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetSequence.html
+** "Projector":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetProjector.html
+* Limited discrepancy search

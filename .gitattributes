@@ -22,6 +22,7 @@ doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text
 doc/src/examples/send-more-money.page -text
 doc/src/examples/sudoku.page -text
+doc/src/features.page -text
 doc/src/index.page -text
 doc/src/installation.page -text
 doc/src/map.sitemap -text
