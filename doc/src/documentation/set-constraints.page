@@ -55,8 +55,18 @@ this constraint is not reifiable.
 h3. Cardinality
 
 Cardinality constraints constrain the size of the set. Constraining the size of 
-@set@ to be withing the range @1..2@ can be expressed as follows.
+@set@ to be within the range @1..2@ can be expressed as follows.
 
 <ruby>
-@set.size.must_be.in 1..2
+set.size.must_be.in 1..2
 </ruby>
+
+Similarly one can constrain the cardinality to be less than an integer variable
+as follows.
+
+<ruby>
+set.size.must <= number
+</ruby>
+
+Everything that's normally supported by single integer variables followed by 
+@must*@ is supported after @set.size.must*@ too.

@@ -5,7 +5,7 @@
 * Added set variables. They are created using Model{#set_var, #set_var_array, #set_var_matrix}.
 * Added domain constraints for set variables.
 * Added relation constraints for set variables.
-* Added cardinality constraints with range for set variables.
+* Added set cardinality constraints.
 
 == Version 0.4.0
 This release adds most of the constraints supported by Gecode for integer
