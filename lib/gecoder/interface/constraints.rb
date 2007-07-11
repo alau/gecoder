@@ -218,6 +218,8 @@ module Gecode
           @params.update Gecode::Constraints::Util.decode_options(options.clone)
           @params[:lhs] = @proc.call(nil, @params)
           @expression_class.new(@model, @params).send(name, *args)
+        else
+          super
         end
       end
       

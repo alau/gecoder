@@ -46,3 +46,14 @@ describe Gecode::Constraints::Util do
     end.should raise_error(TypeError)
   end
 end
+
+describe Gecode::Constraints::CompositeExpression do
+  it 'should raise error if a method doesn\'t exist' do
+    expression = Gecode::Constraints::CompositeExpression.new(
+      Gecode::Constraints::Int::Expression, Gecode::FreeIntVar, 
+      Gecode::Model.new, {:lhs => nil, :negate => false}){}
+    lambda do
+      expression.this_method_does_not_exist
+    end.should raise_error(NoMethodError)
+  end
+end
