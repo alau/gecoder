@@ -123,7 +123,7 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
       else
         Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVarArray), 
-          an_instance_of(Gecode::Raw::IntVar), an_instance_of(Fixnum))
+          an_instance_of(Gecode::Raw::IntVar), strength)
         Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
           an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
           strength)
@@ -200,7 +200,7 @@ describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
         else
           Gecode::Raw.should_receive(:mult).once.with(@model.active_space,
             @var.bind, @var2.bind, an_instance_of(Gecode::Raw::IntVar), 
-            an_instance_of(Fixnum))
+            strength)
           Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
         end
