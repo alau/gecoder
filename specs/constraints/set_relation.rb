@@ -29,7 +29,7 @@ describe Gecode::Constraints::Set::Relation do
       @expect.call(Gecode::Raw::SRT_SUP, @set2, reif_var, false)
     end
   end
-  
+
   Gecode::Constraints::Util::SET_RELATION_TYPES.each_pair do |relation, type|
     next if relation == :==
   
@@ -45,8 +45,7 @@ describe Gecode::Constraints::Set::Relation do
       @model.solve!
     end
   end
-  
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable set constraint'
 end
 
 describe Gecode::Constraints::Set::Relation, ' (equality)' do
@@ -107,7 +106,7 @@ describe Gecode::Constraints::Set::Relation, ' (equality)' do
     @set2.should have_bounds([1], [1])
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable set constraint'
 end
 
 describe Gecode::Constraints::Set::Relation, ' (elements)' do
@@ -126,6 +125,10 @@ describe Gecode::Constraints::Set::Relation, ' (elements)' do
       rhs = rhs.bind if rhs.respond_to? :bind
       Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
         @set.bind, relation_type, rhs)
+    end
+    
+    @invoke_options = lambda do |hash|
+      @set.elements.must_be.equal_to(@int_var, hash)
     end
   end
   
@@ -173,4 +176,6 @@ describe Gecode::Constraints::Set::Relation, ' (elements)' do
     @set.should include(0)
     @set.should_not include(1,2)
   end
+  
+  it_should_behave_like 'non-reifiable set constraint'
 end

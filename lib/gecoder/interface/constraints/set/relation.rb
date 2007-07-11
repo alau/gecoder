@@ -38,7 +38,7 @@ module Gecode::Constraints::Set
     def add_relation_constraint(relation_name, set, options)
       @params[:rhs] = set
       @params[:relation] = relation_name
-      @params.update Gecode::Constraints::Util.decode_options(options)
+      @params.update Gecode::Constraints::Set::Util.decode_options(options)
       if relation_name == :==
         @model.add_constraint Relation::EqualityRelationConstraint.new(@model, 
           @params)
@@ -50,9 +50,6 @@ module Gecode::Constraints::Set
   
   # A module that gathers the classes and modules used in relation constraints.
   module Relation
-    # Note: Relation constraints in Gecode does not accept propagation strength, 
-    # we will just not care whether the user provides it.
-  
     # Describes a relation constraint for equality.
     class EqualityRelationConstraint < Gecode::Constraints::ReifiableConstraint
       def post
@@ -112,7 +109,7 @@ module Gecode::Constraints::Set
         module_eval <<-"end_code"
           # Creates an elements constraint using the specified expression, which
           # may be either a constant integer of variable.
-          def #{name}(expression, options = {})
+          def #{name}(expression)
             unless expression.kind_of?(Fixnum) or 
                 expression.kind_of?(Gecode::FreeIntVar)
               raise TypeError, "Invalid expression type \#{expression.class}."
@@ -122,6 +119,7 @@ module Gecode::Constraints::Set
           end
         end_code
       end
+      alias_comparison_methods
     end
   end
 end

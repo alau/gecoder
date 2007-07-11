@@ -17,7 +17,7 @@ module Gecode::Constraints::Set
     def add_domain_constraint(relation_name, constant_set, options)
       @params[:rhs] = constant_set
       @params[:relation] = relation_name
-      @params.update Gecode::Constraints::Util.decode_options(options)
+      @params.update Gecode::Constraints::Set::Util.decode_options(options)
       if relation_name == :==
         @model.add_constraint Domain::EqualityDomainConstraint.new(@model, 
           @params)
@@ -29,9 +29,6 @@ module Gecode::Constraints::Set
   
   # A module that gathers the classes and modules used in domain constraints.
   module Domain
-    # Note: Domain in Gecode does not accept propagation strength, but we will
-    # just not care.
-  
     # Describes a domain constraint for equality.
     class EqualityDomainConstraint < Gecode::Constraints::ReifiableConstraint
       def post

@@ -17,6 +17,18 @@ module Gecode
     # An expression with a set as left hand side.
     class Expression < Gecode::Constraints::Expression
     end
+    
+    # Utility methods for sets.
+    module Util
+      module_function
+      def decode_options(options)
+        if options.has_key? :strength
+          raise ArgumentError, 'Set constraints do not support the strength ' +
+            'option.'
+        end
+        Gecode::Constraints::Util.decode_options(options)
+      end
+    end
   end
 end
 
