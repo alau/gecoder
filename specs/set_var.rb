@@ -14,6 +14,11 @@ describe Gecode::FreeSetVar, '(not assigned)' do
     @var.inspect.should include('lub-range')
     @var.inspect.should include('glb-range')
   end
+  
+  it 'should report the correct bounds' do
+    @var.glb.sort.should == (0..3).to_a
+    @var.lub.sort.should == (0..4).to_a
+  end
 end
 
 describe Gecode::FreeSetVar, '(assigned)' do
@@ -35,5 +40,10 @@ describe Gecode::FreeSetVar, '(assigned)' do
   it "should give it's value when inspecting" do
     @var.inspect.should include('1..1')
     @var.inspect.should_not include('lub-range')
+  end
+  
+  it 'should report the correct bounds' do
+    @var.lub.should == [1]
+    @var.glb.should == [1]
   end
 end

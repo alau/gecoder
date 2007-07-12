@@ -92,5 +92,15 @@ module Gecode
         "glb-range: #{glb_min}..#{glb_max}, lub-range: #{lub_min}..#{lub_max}"
       end
     end
+    
+    # Gets all the elements located in the greater lower bound of the set.
+    def glb
+      (glb_min..glb_max).to_a.delete_if{ |e| not include_glb? e }
+    end
+    
+    # Gets all the elements located in the least upper bound of the set.
+    def lub
+      (lub_min..lub_max).to_a.delete_if{ |e| not include_lub? e }
+    end
   end
 end
