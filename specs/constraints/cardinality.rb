@@ -61,10 +61,6 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
     @model.branch_on @model.wrap_enum([@set])
     @model.branch_on @model.wrap_enum([@var])
     
-    @invoke_options = lambda do |hash| 
-      @set.size.must_be.equal_to(@var, hash) 
-    end
-    
     @invoke = lambda do |rhs| 
       @set.size.must == rhs 
       @model.solve!
