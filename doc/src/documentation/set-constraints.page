@@ -105,3 +105,24 @@ set.max.must == max
 Constants can also be used (instead of e.g. @min@ in the example). Everything
 that's normally supported by single integer variables followed by @must*@ is 
 supported after @set.min.must*@ too (e.g. comparison methods).
+
+h3. Sum
+
+The following constrains the sum of @set@ to be in the range @-10..-1@.
+
+<ruby>
+set.sum.must_be.in?(-10..-1)
+</ruby>
+
+The weighted sum can also be constrained. The weights are given as a hash that
+maps elements in the set to their respective weight. If the hash maps a value 
+to nil then it's removed from the set's upper bound. The following constrains
+@odd_sum@ to be the sum of all odd numbers in @set@.
+
+<ruby>
+weights = Hash.new{ |hash, key| hash[key] = key % 2 }
+set.sum(weights).must == odd_sum
+</ruby>
+
+Everything that's normally supported by single integer variables followed by 
+@must*@ is supported after a set sum.
