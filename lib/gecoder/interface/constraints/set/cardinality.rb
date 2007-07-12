@@ -1,6 +1,6 @@
 module Gecode
   class FreeSetVar
-    # Starts a constraint on all the size of the set.
+    # Starts a constraint on the size of the set.
     def size
       params = {:lhs => self}
       Gecode::Constraints::Set::Cardinality::SizeExpressionStub.new(@model, params)
