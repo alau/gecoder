@@ -1,6 +1,7 @@
 == Version 0.5.1 (in SVN)
 
 * Added channel constraints involving set variables.
+* Added the set min constraint.
 
 == Version 0.5.0
 This release adds set variables and some of their constraints, along with the 
