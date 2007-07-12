@@ -197,7 +197,7 @@ does.
 
 h3. Min and max
 
-The min and max constraints constraint the minimum and maximum of integer 
+The min and max constraints constrain the minimum and maximum of integer 
 variable arrays. The following for instance constrains number to have a minimum
 of at least 5.
 
