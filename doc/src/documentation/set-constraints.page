@@ -94,12 +94,14 @@ supported by the constraint.
 h3. Min and max
 
 The min and max constraints constrain the minimum and maximum of a set. The 
-following constrains the minimum of @set@ to be at least 5.
+following constraints connects the integer variables @min@ and @max@ to the 
+min and max of @set@.
 
 <ruby>
-set.min.must >= 5
+set.min.must == min
+set.max.must == max
 </ruby>
 
-Integer variables can also be used (instead of @5@ in the example). Everything
+Constants can also be used (instead of e.g. @min@ in the example). Everything
 that's normally supported by single integer variables followed by @must*@ is 
-supported after @set.min.must*@ too.
+supported after @set.min.must*@ too (e.g. comparison methods).

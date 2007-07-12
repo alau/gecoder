@@ -1,41 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require File.dirname(__FILE__) + '/constraint_helper'
 
-describe Gecode::Constraints::Set::Connection, ' (min)' do
+# Requires @expect, @model, @stub, @target.
+describe 'connection constraint', :shared => true do
   before do
-    @model = Gecode::Model.new
-    @set = @model.set_var([], 0..9)
-    @target = @var = @model.int_var(0..10)
-    @model.branch_on @model.wrap_enum([@set])
-    @model.branch_on @model.wrap_enum([@var])
-    @stub = @set.min
-    
     @invoke = lambda do |rhs| 
       @stub.must == rhs 
       @model.solve!
-    end
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
-      rhs = rhs.bind if rhs.respond_to? :bind
-      if reif_var.nil?
-        if !negated and relation == Gecode::Raw::IRT_EQ and 
-            rhs.kind_of? Gecode::Raw::IntVar 
-          Gecode::Raw.should_receive(:min).once.with(
-            @model.active_space, @set.bind, rhs)
-          Gecode::Raw.should_receive(:rel).exactly(0).times
-        else
-          Gecode::Raw.should_receive(:min).once.with(
-            @model.active_space, @set.bind, an_instance_of(Gecode::Raw::IntVar))
-          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-            strength)
-        end
-      else
-        Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
-          @set.bind, an_instance_of(Gecode::Raw::IntVar))
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
-          strength)
-      end
     end
     
     # For composite spec.
@@ -61,12 +32,90 @@ describe Gecode::Constraints::Set::Connection, ' (min)' do
     end
   end
   
+  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'composite constraint'
+end
+
+describe Gecode::Constraints::Set::Connection, ' (min)' do
+  before do
+    @model = Gecode::Model.new
+    @set = @model.set_var([], 0..9)
+    @target = @var = @model.int_var(0..10)
+    @model.branch_on @model.wrap_enum([@set])
+    @stub = @set.min
+    
+    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+      rhs = rhs.bind if rhs.respond_to? :bind
+      if reif_var.nil?
+        if !negated and relation == Gecode::Raw::IRT_EQ and 
+            rhs.kind_of? Gecode::Raw::IntVar 
+          Gecode::Raw.should_receive(:min).once.with(
+            @model.active_space, @set.bind, rhs)
+          Gecode::Raw.should_receive(:rel).exactly(0).times
+        else
+          Gecode::Raw.should_receive(:min).once.with(
+            @model.active_space, @set.bind, an_instance_of(Gecode::Raw::IntVar))
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+            strength)
+        end
+      else
+        Gecode::Raw.should_receive(:min).once.with(@model.active_space, 
+          @set.bind, an_instance_of(Gecode::Raw::IntVar))
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+          strength)
+      end
+    end
+  end
+  
   it 'should constrain the min of a set' do
     @set.min.must == @var
     @model.solve!
     @set.glb_min.should == @var.val
   end
   
-  it_should_behave_like 'constraint with options'
-  it_should_behave_like 'composite constraint'
+  it_should_behave_like 'connection constraint'
+end
+
+describe Gecode::Constraints::Set::Connection, ' (max)' do
+  before do
+    @model = Gecode::Model.new
+    @set = @model.set_var([], 0..9)
+    @target = @var = @model.int_var(0..10)
+    @model.branch_on @model.wrap_enum([@set])
+    @stub = @set.max
+    
+    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+      rhs = rhs.bind if rhs.respond_to? :bind
+      if reif_var.nil?
+        if !negated and relation == Gecode::Raw::IRT_EQ and 
+            rhs.kind_of? Gecode::Raw::IntVar 
+          Gecode::Raw.should_receive(:max).once.with(
+            @model.active_space, @set.bind, rhs)
+          Gecode::Raw.should_receive(:rel).exactly(0).times
+        else
+          Gecode::Raw.should_receive(:max).once.with(
+            @model.active_space, @set.bind, an_instance_of(Gecode::Raw::IntVar))
+          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+            strength)
+        end
+      else
+        Gecode::Raw.should_receive(:max).once.with(@model.active_space, 
+          @set.bind, an_instance_of(Gecode::Raw::IntVar))
+        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+          an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+          strength)
+      end
+    end
+  end
+  
+  it 'should constrain the min of a set' do
+    @set.max.must == @var
+    @model.solve!
+    @set.glb_max.should == @var.val
+  end
+  
+  it_should_behave_like 'connection constraint'
 end
