@@ -111,7 +111,7 @@ describe Gecode::Constraints::Set::Connection, ' (max)' do
     end
   end
   
-  it 'should constrain the min of a set' do
+  it 'should constrain the max of a set' do
     @set.max.must == @var
     @model.solve!
     @set.glb_max.should == @var.val
