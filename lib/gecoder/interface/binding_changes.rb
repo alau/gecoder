@@ -6,120 +6,120 @@
 #
 # This layer should be moved to the C++ side instead when possible for better
 # performance.
-module Gecode
-  module Raw
-    class Space
-      # Creates the specified number of integer variables in the space. Returns
-      # the indices with which they can then be accessed using int_var.
-      def new_int_vars(min, max, count = 1)
-        int_var_store.new_vars(min, max, count)
-      end
-      
-      # Gets the int variable with the specified index, nil if none exists.
-      def int_var(index)
-        int_var_store[index]
-      end
-      
-      # Creates the specified number of boolean variables in the space. Returns
-      # the indices with which they can then be accessed using bool_var.
-      def new_bool_vars(count = 1)
-        bool_var_store.new_vars(count)
-      end
-      
-      # Gets the bool variable with the specified index, nil if none exists.
-      def bool_var(index)
-        bool_var_store[index]
-      end
-      
-      # Creates the specified number of set variables in the space with the 
-      # specified domain for greatest lower bound and least upper bound 
-      # (specified as either a range or enum). A range for the allowed 
-      # cardinality of the set can also be specified, if none is specified, or 
-      # nil is given, then the default range (anything) will be used. Returns 
-      # the indices with which they can then be accessed using set_var.
-      def new_set_vars(*vars)
-        set_var_store.new_vars(*vars)
-      end
-      
-      # Gets the set variable with the specified index, nil if none exists.
-      def set_var(index)
-        set_var_store[index]
-      end
-      
-      private
-      
-      # Retrieves the store used for integer variables. Creates one if none
-      # exists.
-      def int_var_store
-        if @int_var_store.nil?
-          @int_var_store = Gecode::Util::IntVarStore.new(self) 
-        end
-        return @int_var_store
-      end
-      
-      # Retrieves the store used for boolean variables. Creates one if none
-      # exists.
-      def bool_var_store
-        if @bool_var_store.nil?
-          @bool_var_store = Gecode::Util::BoolVarStore.new(self) 
-        end
-        return @bool_var_store
-      end
-      
-      # Retrieves the store used for set variables. Creates one if none exists.
-      def set_var_store
-        if @set_var_store.nil?
-          @set_var_store = Gecode::Util::SetVarStore.new(self) 
-        end
-        return @set_var_store
-      end
+module GecodeRaw
+  class Space
+    # Creates the specified number of integer variables in the space. Returns
+    # the indices with which they can then be accessed using int_var.
+    def new_int_vars(min, max, count = 1)
+      int_var_store.new_vars(min, max, count)
     end
     
-    class IntVar
-      # Aliases to make method-names more ruby-like.
-      alias_method :assigned?, :assigned
-      alias_method :in?, :in
-      alias_method :include?, :in
-      alias_method :range?, :range
+    # Gets the int variable with the specified index, nil if none exists.
+    def int_var(index)
+      int_var_store[index]
     end
     
-    class BoolVar
-      # Aliases to make method-names more ruby-like.
-      alias_method :assigned?, :assigned
-      
-      def true?
-        val == 1
-      end
-      
-      def false?
-        val == 0
-      end
+    # Creates the specified number of boolean variables in the space. Returns
+    # the indices with which they can then be accessed using bool_var.
+    def new_bool_vars(count = 1)
+      bool_var_store.new_vars(count)
     end
     
-    class SetVar
-      # Aliases to make method-names more ruby-like.
-      alias_method :assigned?, :assigned
-      
-      alias_method :include_glb?, :contains
-      alias_method :include?, :contains
-      def include_lub?(element)
-        !notContains(element)
+    # Gets the bool variable with the specified index, nil if none exists.
+    def bool_var(index)
+      bool_var_store[index]
+    end
+    
+    # Creates the specified number of set variables in the space with the 
+    # specified domain for greatest lower bound and least upper bound 
+    # (specified as either a range or enum). A range for the allowed 
+    # cardinality of the set can also be specified, if none is specified, or 
+    # nil is given, then the default range (anything) will be used. Returns 
+    # the indices with which they can then be accessed using set_var.
+    def new_set_vars(*vars)
+      set_var_store.new_vars(*vars)
+    end
+    
+    # Gets the set variable with the specified index, nil if none exists.
+    def set_var(index)
+      set_var_store[index]
+    end
+    
+    private
+    
+    # Retrieves the store used for integer variables. Creates one if none
+    # exists.
+    def int_var_store
+      if @int_var_store.nil?
+        @int_var_store = Gecode::Util::IntVarStore.new(self) 
       end
-      
-      alias_method :glb_min, :glbMin
-      alias_method :glb_max, :glbMax
-      alias_method :lub_min, :lubMin
-      alias_method :lub_max, :lubMax
-      
-      alias_method :glb_size, :glbSize
-      alias_method :val_size, :glbSize
-      alias_method :lub_size, :lubSize
-      
-      alias_method :card_min, :cardMin
-      alias_method :card_max, :cardMax
+      return @int_var_store
+    end
+    
+    # Retrieves the store used for boolean variables. Creates one if none
+    # exists.
+    def bool_var_store
+      if @bool_var_store.nil?
+        @bool_var_store = Gecode::Util::BoolVarStore.new(self) 
+      end
+      return @bool_var_store
+    end
+    
+    # Retrieves the store used for set variables. Creates one if none exists.
+    def set_var_store
+      if @set_var_store.nil?
+        @set_var_store = Gecode::Util::SetVarStore.new(self) 
+      end
+      return @set_var_store
     end
   end
   
+  class IntVar
+    # Aliases to make method-names more ruby-like.
+    alias_method :assigned?, :assigned
+    alias_method :in?, :in
+    alias_method :include?, :in
+    alias_method :range?, :range
+  end
+  
+  class BoolVar
+    # Aliases to make method-names more ruby-like.
+    alias_method :assigned?, :assigned
+    
+    def true?
+      val == 1
+    end
+    
+    def false?
+      val == 0
+    end
+  end
+  
+  class SetVar
+    # Aliases to make method-names more ruby-like.
+    alias_method :assigned?, :assigned
+    
+    alias_method :include_glb?, :contains
+    alias_method :include?, :contains
+    def include_lub?(element)
+      !notContains(element)
+    end
+    
+    alias_method :glb_min, :glbMin
+    alias_method :glb_max, :glbMax
+    alias_method :lub_min, :lubMin
+    alias_method :lub_max, :lubMax
+    
+    alias_method :glb_size, :glbSize
+    alias_method :val_size, :glbSize
+    alias_method :lub_size, :lubSize
+    
+    alias_method :card_min, :cardMin
+    alias_method :card_max, :cardMax
+  end
+end
+
+module Gecode
   # Various utility (mainly used to change the behavior of the raw bindings).
   module Util
     # Provides common methods to the variable stores. The stores must provide
