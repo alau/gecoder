@@ -70,3 +70,23 @@ set.size.must <= number
 
 Everything that's normally supported by single integer variables followed by 
 @must*@ is supported after @set.size.must*@ too.
+
+h3. Channel
+
+This is similar to the channel constraint for integer variable enumeration, but
+instead of having two integer enums we have one integer and one set enumeration.
+If we revisit the integer constraint's channel example we can replace the 
+position variables with several sets that are constructed so that set i contains
+a position iff element i is located at that position.
+
+<ruby>
+position_sets.must.channel elements
+</ruby>
+or
+<ruby>
+elements.must.channel position_sets
+</ruby>
+
+This allows us to post constraints on @position_sets@ and have them affect
+@elements@ (gaining another viewpoint). Neither negation nor reification is 
+supported by the constraint.

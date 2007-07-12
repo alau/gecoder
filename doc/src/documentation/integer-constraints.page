@@ -168,6 +168,9 @@ above property. Hence we can pick the most comfortable viewpoint for each
 constraint and use it, posting a part of the constraint from one viewpoint and 
 the rest from another.
 
+Sets can also be used instead of posistions in the above example, see the "set 
+constraints":set-constraints.html for more information.
+
 h3. Count
 
 The count constraint is used to place constraints on the number of occurrences 

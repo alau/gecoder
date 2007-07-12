@@ -65,6 +65,8 @@ lib/gecoder/interface/constraints/reifiable_constraints.rb -text
 lib/gecoder/interface/constraints/set/cardinality.rb -text
 lib/gecoder/interface/constraints/set/domain.rb -text
 lib/gecoder/interface/constraints/set/relation.rb -text
+lib/gecoder/interface/constraints/set_enum/channel.rb -text
+lib/gecoder/interface/constraints/set_enum_constraints.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text
 lib/gecoder/interface/enum_matrix.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
