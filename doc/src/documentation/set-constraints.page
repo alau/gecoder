@@ -149,4 +149,11 @@ sets.must_be.distinct(:size => 17)
 </ruby>
 
 The "option" @:size@ above is not optional, it has to be specified when using
-the distinct constraint with sets.
+the distinct constraint with sets. There's a similar constraint that constrains
+the sets to at most share one element.
+
+<ruby>
+sets.must.at_most_share_one_element(:size => 17)
+</ruby>
+
+Neither of the constraints support reification nor negation.

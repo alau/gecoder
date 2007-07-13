@@ -27,7 +27,7 @@ h3. Supported Gecode features
 ** "Simple relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntRel.html
 ** "Sorting":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntSort.html
 * Finite integer sets with the following constraints
-** %{color:gray}Distinct%
+** "Distinct":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetDistinct.html
 ** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetDom.html
 ** "Connection constraints to finite domain variables":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetConnect.html
 ** "Relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRel.html

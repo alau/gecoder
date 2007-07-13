@@ -4,7 +4,7 @@
 * Added set min and max constraints.
 * Added set sum constraints (optionally weighted).
 * Added include (match) constraint for sets.
-* Added distinct sets constraint.
+* Added distinct constraints (distinct and at most one) for sets.
 
 == Version 0.5.0
 This release adds set variables and some of their constraints, along with the 
