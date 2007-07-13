@@ -126,3 +126,15 @@ set.sum(weights).must == odd_sum
 
 Everything that's normally supported by single integer variables followed by 
 @must*@ is supported after a set sum.
+
+h3. Include
+
+The following can be used to constrain @set@ to include a number of integer 
+variables located in the integer variable enum @numbers@.
+
+<ruby>
+set.must.include numbers
+</ruby>
+
+It has the side effect of sorting the integer variables in a non-descending 
+order. The constraint does not support reification nor negation.

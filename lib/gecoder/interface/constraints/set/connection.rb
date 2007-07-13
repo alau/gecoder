@@ -24,6 +24,24 @@ module Gecode
 end
 
 module Gecode::Constraints::Set
+  class Expression
+    # Adds a constraint that forces specified values to be included in the 
+    # set. This constraint has the side effect of sorting the variables in 
+    # non-descending order.
+    def include(variables)
+      unless variables.respond_to? :to_int_var_array
+        raise TypeError, "Expected int var enum, got #{variables.class}."
+      end
+      if @params[:negate]
+        raise Gecode::MissingConstraintError, 'A negated include is not ' + 
+          'implemented.'
+      end
+      
+      @params.update(:variables => variables)
+      @model.add_constraint Connection::IncludeConstraint.new(@model, @params)
+    end
+  end
+
   # A module that gathers the classes and modules used in connection 
   # constraints.
   module Connection
@@ -73,6 +91,16 @@ module Gecode::Constraints::Set
         Gecode::Raw::weights(@model.active_space, lub, weighted_lub, set.bind, 
           variable.bind)
         return variable
+      end
+    end
+    
+    # Describes a constraint that constrains a set to include a number of 
+    # integer variables.
+    class IncludeConstraint < Gecode::Constraints::Constraint
+      def post
+        set, variables = @params.values_at(:lhs, :variables)
+        Gecode::Raw::match(@model.active_space, set.bind, 
+          variables.to_int_var_array)
       end
     end
   end
