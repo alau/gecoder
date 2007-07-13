@@ -138,3 +138,15 @@ set.must.include numbers
 
 It has the side effect of sorting the integer variables in a non-descending 
 order. The constraint does not support reification nor negation.
+
+h3. Distinct
+
+There exists a distinct constraint for set variables, it's similar to the one 
+for integer variables.
+
+<ruby>
+sets.must_be.distinct(:size => 17)
+</ruby>
+
+The "option" @:size@ above is not optional, it has to be specified when using
+the distinct constraint with sets.

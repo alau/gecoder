@@ -29,3 +29,4 @@ module Gecode
 end
 
 require 'gecoder/interface/constraints/set_enum/channel'
+require 'gecoder/interface/constraints/set_enum/distinct'

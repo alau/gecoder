@@ -3,9 +3,11 @@ require File.dirname(__FILE__) + '/constraint_helper'
 
 class DistinctSampleProblem < Gecode::Model
   attr :vars
+  attr :sets
   
   def initialize
     @vars = int_var_array(2, 1)
+    @sets = set_var_array(2, [], 0..1)
   end
 end
 
@@ -96,4 +98,56 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   end
   
   it_should_behave_like 'constraint with strength option'
+end
+
+describe Gecode::Constraints::SetEnum::Distinct do
+  before do
+    @model = DistinctSampleProblem.new
+    @sets = @model.sets
+    @size = 1
+    
+    @invoke_options = lambda do |hash| 
+      @sets.must_be.distinct(hash.update(:size => @size))
+      @model.solve!
+    end
+    @expect_options = lambda do |strength, reif_var|
+      Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+        an_instance_of(Gecode::Raw::SetVarArray), @size)
+    end
+  end
+
+  it 'should translate into a distinct constraint' do
+    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+      an_instance_of(Gecode::Raw::SetVarArray), @size)
+    @sets.must_be.distinct(:size => @size)
+    @model.solve!
+  end
+
+  it 'should constrain sets to be distinct' do
+    @sets.must_be.distinct(:size => @size)
+    @sets[0].must_be.superset_of 0
+    solution = @model.solve!
+    solution.should_not be_nil
+    set1, set2 = solution.sets
+    set1.glb.size.should == @size
+    set2.glb.size.should == @size
+    set1.glb.should_not == set2.glb
+  end
+  
+  it 'should not allow negation' do
+    lambda{ @sets.must_not_be.distinct(:size => @size) }.should raise_error(
+      Gecode::MissingConstraintError)
+  end
+  
+  it 'should not allow options other than :size' do
+    lambda do
+      @sets.must_not_be.distinct(:size => @size, :foo => 17)
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should not calls that do not specify :size' do
+    lambda{ @sets.must_be.distinct }.should raise_error(ArgumentError)
+  end
+  
+  it_should_behave_like 'non-reifiable set constraint'
 end
