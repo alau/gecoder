@@ -92,10 +92,7 @@ module Gecode::Constraints::IntEnum
           first.must_be.less_than_or_equal_to(second, rel_options)
         end
         if using_reification
-          # TODO use the interface's all constraint when available.
-          # reification_variables.all.must == reif_var
-          Gecode::Raw::bool_and(@model.active_space, 
-            reification_variables.to_bool_var_array, reif_var.bind, strength) 
+          reification_variables.conjunction.must == reif_var
         end
       end
       negate_using_reification
