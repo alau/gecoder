@@ -15,11 +15,13 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     end
     @expect_options = lambda do |strength, reif_var|
       if reif_var.nil?
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        Gecode::Raw.should_receive(:rel).once.with(
+          an_instance_of(Gecode::Raw::Space), 
           anything, Gecode::Raw::IRT_GR, anything, 
           strength)
       else
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+        Gecode::Raw.should_receive(:rel).once.with(
+          an_instance_of(Gecode::Raw::Space), 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, anything, 
           an_instance_of(Gecode::Raw::BoolVar), strength)
       end
@@ -28,7 +30,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
   
   Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with constant to simple relation" do
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:rel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
       @x.must.send(relation, @int)
       @model.solve!
@@ -37,7 +40,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
 
   Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with constant to simple relation" do
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:rel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
       @x.must_not.send(relation, @int)
       @model.solve!
@@ -46,7 +50,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
 
   Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with variables to simple relation" do
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:rel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVar), type, 
         an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
       @x.must.send(relation, @y)
@@ -56,7 +61,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
 
   Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with variable to simple relation" do
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:rel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVar), type, 
         an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
       @x.must_not.send(relation, @y)

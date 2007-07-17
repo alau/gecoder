@@ -61,6 +61,8 @@ class MSpace : public Space
 		void own(Gecode::MBoolVarArray *bva, const char *name);
 		void own(Gecode::MSetVarArray *sva, const char *name);
 		
+		void constrain(MSpace* s);
+		
 		Gecode::MIntVarArray *intVarArray(const char *name ) const;
 		Gecode::MBoolVarArray *boolVarArray(const char *name ) const;
 		Gecode::MSetVarArray *setVarArray(const char *name) const;
@@ -79,6 +81,12 @@ class MDFS : public Gecode::Search::DFS
 	public:
 		MDFS(MSpace *space, unsigned int c_d, unsigned int a_d, Search::Stop* st = 0);
 		~MDFS();
+};
+class MBAB : public Gecode::BAB<MSpace>
+{
+	public:
+		MBAB(MSpace* space, unsigned int c_d, unsigned int a_d, Search::Stop* st = 0);
+		~MBAB();
 };
 
 namespace Search {

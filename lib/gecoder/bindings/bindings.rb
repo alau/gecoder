@@ -293,6 +293,10 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       
       klass.add_method "debug"
       
+      klass.add_method "constrain" do |method|
+        method.add_parameter "Gecode::MSpace*", "s"
+      end
+      
       klass.add_method "own" do |method|
         method.add_parameter "Gecode::MIntVarArray *", "x"
         method.add_parameter "char*", "name"
@@ -388,6 +392,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "Gecode::MSpace*", "home"
         method.add_parameter "int", "min"
         method.add_parameter "int", "max"
+      end
+      
+      klass.add_constructor do |method|
+        method.add_parameter "Gecode::MSpace*", "home"
+        method.add_parameter "Gecode::IntSet", "s"
       end
       
       klass.add_method "max", "int"
@@ -536,6 +545,19 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_cxx_class "MDFS" do |klass|
       klass.bindname = "DFS"
+      klass.add_constructor do |method|
+        method.add_parameter "Gecode::MSpace *", "s"
+        method.add_parameter "int", "c_d"
+        method.add_parameter "int", "a_d"
+        method.add_parameter "Gecode::Search::MStop *", "st"
+      end
+      
+      klass.add_method "next", "Gecode::MSpace *"
+      klass.add_method "statistics", "Gecode::Search::Statistics"
+    end
+    
+    ns.add_cxx_class "MBAB" do |klass|
+      klass.bindname = "BAB"
       klass.add_constructor do |method|
         method.add_parameter "Gecode::MSpace *", "s"
         method.add_parameter "int", "c_d"

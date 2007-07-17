@@ -20,13 +20,15 @@ describe Gecode::Constraints::IntEnum::Distinct do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:distinct).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), strength)
     end
   end
 
   it 'should translate into a distinct constraint' do
-    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:distinct).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       anything, Gecode::Raw::ICL_DEF)
     @invoke_options.call({})
   end
@@ -56,10 +58,12 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
     end
     @expect_options = lambda do |strength, reif_var|
       if reif_var.nil?
-        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+        Gecode::Raw.should_receive(:distinct).once.with(
+          an_instance_of(Gecode::Raw::Space), 
           anything, an_instance_of(Gecode::Raw::IntVarArray), strength)
       else
-        Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+        Gecode::Raw.should_receive(:distinct).once.with(
+          an_instance_of(Gecode::Raw::Space), 
           anything, an_instance_of(Gecode::Raw::IntVarArray), strength,
           an_instance_of(Gecode::Raw::BoolVar))
       end
@@ -67,7 +71,8 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   end
 
   it 'should translate into a distinct constraint with offsets' do
-    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:distinct).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       anything, anything, Gecode::Raw::ICL_DEF)
     @invoke_options.call({})
   end
@@ -112,13 +117,15 @@ describe Gecode::Constraints::SetEnum::Distinct do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:distinct).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::SetVarArray), @size)
     end
   end
 
   it 'should translate into a distinct constraint' do
-    Gecode::Raw.should_receive(:distinct).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:distinct).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::SetVarArray), @size)
     @sets.must_be.distinct(:size => @size)
     @model.solve!
@@ -164,13 +171,15 @@ describe Gecode::Constraints::SetEnum::Distinct, ' (at most one)' do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:atmostOne).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:atmostOne).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::SetVarArray), @size)
     end
   end
 
   it 'should translate into a atmostOne constraint' do
-    Gecode::Raw.should_receive(:atmostOne).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:atmostOne).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::SetVarArray), @size)
     @sets.must.at_most_share_one_element(:size => @size)
     @model.solve!

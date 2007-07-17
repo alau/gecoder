@@ -27,28 +27,35 @@ describe Gecode::Constraints::IntEnum::Element do
     
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |element, relation, target, strength, reif_var, negated|
-      target = target.bind if target.respond_to? :bind
-      element = element.bind if element.respond_to? :bind
-      if reif_var.nil?
-        if !negated and relation == Gecode::Raw::IRT_EQ and 
-            target.kind_of? Gecode::Raw::IntVar 
-          Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-            an_instance_of(Gecode::Raw::IntVarArray), 
-            element, target, strength)
+      @model.allow_space_access do
+        target = target.bind if target.respond_to? :bind
+        element = element.bind if element.respond_to? :bind
+        if reif_var.nil?
+          if !negated and relation == Gecode::Raw::IRT_EQ and 
+              target.kind_of? Gecode::Raw::IntVar 
+            Gecode::Raw.should_receive(:element).once.with( 
+              an_instance_of(Gecode::Raw::Space), 
+              an_instance_of(Gecode::Raw::IntVarArray), 
+              element, target, strength)
+          else
+            Gecode::Raw.should_receive(:element).once.with(
+              an_instance_of(Gecode::Raw::Space), 
+              an_instance_of(Gecode::Raw::IntVarArray), 
+              element, an_instance_of(Gecode::Raw::IntVar), strength)
+            Gecode::Raw.should_receive(:rel).once.with(
+              an_instance_of(Gecode::Raw::Space), 
+              an_instance_of(Gecode::Raw::IntVar), relation, target, strength)
+          end
         else
-          Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
+          Gecode::Raw.should_receive(:element).once.with(
+            an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVarArray), 
             element, an_instance_of(Gecode::Raw::IntVar), strength)
-          Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-            an_instance_of(Gecode::Raw::IntVar), relation, target, strength)
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::IntVar), relation, target, 
+            an_instance_of(Gecode::Raw::BoolVar), strength)
         end
-      else
-        Gecode::Raw.should_receive(:element).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          element, an_instance_of(Gecode::Raw::IntVar), strength)
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation, target, 
-          an_instance_of(Gecode::Raw::BoolVar), strength)
       end
     end
 

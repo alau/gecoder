@@ -10,7 +10,8 @@ describe Gecode::Constraints::IntEnum::Equality do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:eq).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:eq).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         anything, strength)
     end
   end

@@ -26,12 +26,16 @@ describe Gecode::Constraints::Bool do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:bool_or).once.with(@model.active_space, 
-        @b1.bind, @b2.bind, an_instance_of(Gecode::Raw::BoolVar), 
-        Gecode::Raw::ICL_DEF)
-      unless reif_var.nil?
-        Gecode::Raw.should_receive(:bool_eqv).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::BoolVar), reif_var.bind, true, strength)
+      @model.allow_space_access do
+        Gecode::Raw.should_receive(:bool_or).once.with(
+          an_instance_of(Gecode::Raw::Space), 
+          @b1.bind, @b2.bind, an_instance_of(Gecode::Raw::BoolVar), 
+          Gecode::Raw::ICL_DEF)
+        unless reif_var.nil?
+          Gecode::Raw.should_receive(:bool_eqv).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::BoolVar), reif_var.bind, true, strength)
+        end
       end
     end
   end

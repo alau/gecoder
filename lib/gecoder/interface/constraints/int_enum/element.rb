@@ -8,11 +8,13 @@ module Gecode::Constraints::IntEnum::Element
       if variable.nil?
         variable = @model.int_var(enum.domain_range)
       end
-      
-      # The enum can be a constant array.
-      enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
-      Gecode::Raw::element(@model.active_space, enum, 
-        position.bind, variable.bind, strength)
+
+      @model.add_interaction do
+        # The enum can be a constant array.
+        enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
+        Gecode::Raw::element(@model.active_space, enum, 
+          position.bind, variable.bind, strength)
+      end
       return variable
     end
   end

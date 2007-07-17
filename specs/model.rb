@@ -162,3 +162,21 @@ describe Gecode::Model, ' (set creation)' do
       ArgumentError)  
   end
 end
+
+describe Gecode::Model, ' (space access restriction)' do
+  before do
+    @model = Gecode::Model.new
+  end
+
+  it 'should raise error if not allowed to access space' do
+    lambda{ @model.active_space }.should raise_error(RuntimeError)
+  end
+  
+  it 'should not raise error because of space restriction if allowed to access space' do
+    lambda do
+      @model.allow_space_access do
+        @model.active_space
+      end
+    end.should_not raise_error(RuntimeError)
+  end
+end

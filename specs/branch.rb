@@ -17,25 +17,12 @@ describe Gecode::Model, ' (branch)' do
     @bools = @model.bools
   end
 
-  it 'should pass the variables given in int arrays' do
-    Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
-    int_var_array = @model.branch_on @vars
-    int_var_array.size.should equal(2)
-    2.times do |i|
-      int_var_array.at(i).should have_domain(0..3)
-    end
-  end
-  
-  it 'should pass the variables given in bool arrays' do
-    Gecode::Raw.should_receive(:branch).once.and_return{ |s, vars, x, y| vars }
-    bool_var_array = @model.branch_on @bools
-    bool_var_array.size.should equal(2)
-  end
-
   it 'should default to :none and :min' do
-    Gecode::Raw.should_receive(:branch).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:branch).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       anything, Gecode::Raw::BVAR_NONE, Gecode::Raw::BVAL_MIN)
     @model.branch_on @vars
+    @model.solve!
   end
   
   it 'should ensure that branched int variables are assigned in a solution' do
@@ -64,9 +51,11 @@ describe Gecode::Model, ' (branch)' do
     :largest_max_regret   => Gecode::Raw::BVAR_REGRET_MAX_MAX
   }.each_pair do |name, gecode_const|
     it "should support #{name} as variable selection strategy" do
-      Gecode::Raw.should_receive(:branch).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:branch).once.with(
+        an_instance_of(Gecode::Raw::Space),
         anything, gecode_const, an_instance_of(Numeric))
       @model.branch_on @vars, :variable => name
+      @model.solve!
     end
   end
 
@@ -78,9 +67,11 @@ describe Gecode::Model, ' (branch)' do
     :split_max  => Gecode::Raw::BVAL_SPLIT_MAX
   }.each_pair do |name, gecode_const|
     it "should support #{name} as value selection strategy" do
-      Gecode::Raw.should_receive(:branch).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:branch).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         anything, an_instance_of(Numeric), gecode_const)
       @model.branch_on @vars, :value => name
+      @model.solve!
     end
   end
 

@@ -24,8 +24,10 @@ module Gecode::Constraints::IntEnum::Arithmetic
         variable = @model.int_var(enum.domain_range)
       end
       
-      Gecode::Raw::max(@model.active_space, enum.to_int_var_array, 
-        variable.bind, strength)
+      @model.add_interaction do
+        Gecode::Raw::max(@model.active_space, enum.to_int_var_array, 
+          variable.bind, strength)
+      end
       return variable
     end
   end
@@ -38,8 +40,10 @@ module Gecode::Constraints::IntEnum::Arithmetic
         variable = @model.int_var(enum.domain_range)
       end
       
-      Gecode::Raw::min(@model.active_space, enum.to_int_var_array, 
-        variable.bind, strength)
+      @model.add_interaction do
+        Gecode::Raw::min(@model.active_space, enum.to_int_var_array, 
+          variable.bind, strength)
+      end
       return variable
     end
   end

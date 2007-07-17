@@ -31,12 +31,12 @@ describe Gecode::Constraints::IntEnum::Sort, ' (without :as and :order)' do
     @expect_options = lambda do |strength, reif_var|
       if reif_var.nil?
         Gecode::Raw.should_receive(:rel).exactly(@vars.size - 1).times.with(
-          @model.active_space, 
+          an_instance_of(Gecode::Raw::Space), 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_LQ,
           an_instance_of(Gecode::Raw::IntVar), strength)
       else
         Gecode::Raw.should_receive(:rel).exactly(@vars.size - 1).times.with(
-          @model.active_space, 
+          an_instance_of(Gecode::Raw::Space), 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_LQ,
           an_instance_of(Gecode::Raw::IntVar), 
           an_instance_of(Gecode::Raw::BoolVar), strength)
@@ -79,7 +79,8 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :as)' do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:sortedness).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:sortedness).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
         an_instance_of(Gecode::Raw::IntVarArray), strength)
     end
@@ -124,7 +125,8 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :order)' do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:sortedness).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:sortedness).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
         an_instance_of(Gecode::Raw::IntVarArray),
         an_instance_of(Gecode::Raw::IntVarArray), strength)

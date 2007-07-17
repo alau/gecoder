@@ -25,13 +25,15 @@ module Gecode
           variable = @model.bool_var
         end
         
-        if variable.respond_to? :bind
-          bound = variable.bind
-        else
-          bound = variable
+        @model.add_interaction do
+          if variable.respond_to? :bind
+            bound = variable.bind
+          else
+            bound = variable
+          end
+          Gecode::Raw::bool_and(@model.active_space, enum.to_bool_var_array, 
+            bound, strength)
         end
-        Gecode::Raw::bool_and(@model.active_space, enum.to_bool_var_array, 
-          bound, strength)
         return variable
       end
     end
@@ -45,13 +47,15 @@ module Gecode
           variable = @model.bool_var
         end
         
-        if variable.respond_to? :bind
-          bound = variable.bind
-        else
-          bound = variable
+        @model.add_interaction do
+          if variable.respond_to? :bind
+            bound = variable.bind
+          else
+            bound = variable
+          end
+          Gecode::Raw::bool_or(@model.active_space, enum.to_bool_var_array, 
+            bound, strength)
         end
-        Gecode::Raw::bool_or(@model.active_space, enum.to_bool_var_array, 
-          bound, strength)
         return variable
       end
     end

@@ -14,14 +14,17 @@ describe Gecode::Constraints::Set::Domain do
     @singleton = 0
     
     @expect = lambda do |relation_type, rhs, reif_var, negated|
-      if reif_var.nil? and !negated
-        Gecode::Raw.should_receive(:dom).once.with(@model.active_space, 
-          @set.bind, relation_type, *expect_constant_set(rhs))
-      else
-        params = [@model.active_space, @set.bind, relation_type]
-        params << expect_constant_set(rhs)
-        params << an_instance_of(Gecode::Raw::BoolVar)
-        Gecode::Raw.should_receive(:dom).once.with(*params.flatten)
+      @model.allow_space_access do
+        if reif_var.nil? and !negated
+          Gecode::Raw.should_receive(:dom).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            @set.bind, relation_type, *expect_constant_set(rhs))
+        else
+          params = [@model.active_space, @set.bind, relation_type]
+          params << expect_constant_set(rhs)
+          params << an_instance_of(Gecode::Raw::BoolVar)
+          Gecode::Raw.should_receive(:dom).once.with(*params.flatten)
+        end
       end
     end
     
@@ -91,14 +94,17 @@ describe Gecode::Constraints::Set::Domain, ' (equality)' do
     @singleton = 0
     
     @expect = lambda do |relation_type, rhs, reif_var|
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:dom).once.with(@model.active_space, 
-          @set.bind, relation_type, *expect_constant_set(rhs))
-      else
-        params = [@model.active_space, @set.bind, relation_type]
-        params << expect_constant_set(rhs)
-        params << an_instance_of(Gecode::Raw::BoolVar)
-        Gecode::Raw.should_receive(:dom).once.with(*params.flatten)
+      @model.allow_space_access do
+        if reif_var.nil?
+          Gecode::Raw.should_receive(:dom).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            @set.bind, relation_type, *expect_constant_set(rhs))
+        else
+          params = [@model.active_space, @set.bind, relation_type]
+          params << expect_constant_set(rhs)
+          params << an_instance_of(Gecode::Raw::BoolVar)
+          Gecode::Raw.should_receive(:dom).once.with(*params.flatten)
+        end
       end
     end
     

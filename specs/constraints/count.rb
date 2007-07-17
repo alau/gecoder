@@ -23,20 +23,25 @@ describe Gecode::Constraints::IntEnum::Count do
     
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |element, relation, target, strength, reif_var|
-      target = target.bind if target.respond_to? :bind
-      element = element.bind if element.respond_to? :bind
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:count).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          element, relation, target, strength)
-      else
-        Gecode::Raw.should_receive(:count).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVarArray), 
-          element, Gecode::Raw::IRT_EQ,
-          an_instance_of(Gecode::Raw::IntVar), strength)
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          an_instance_of(Gecode::Raw::IntVar), relation,
-          target, reif_var.bind, strength)
+      @model.allow_space_access do
+        target = target.bind if target.respond_to? :bind
+        element = element.bind if element.respond_to? :bind
+        if reif_var.nil?
+          Gecode::Raw.should_receive(:count).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::IntVarArray), 
+            element, relation, target, strength)
+        else
+          Gecode::Raw.should_receive(:count).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::IntVarArray), 
+            element, Gecode::Raw::IRT_EQ,
+            an_instance_of(Gecode::Raw::IntVar), strength)
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::IntVar), relation,
+            target, reif_var.bind, strength)
+        end
       end
     end
     
@@ -50,32 +55,67 @@ describe Gecode::Constraints::IntEnum::Count do
     end
   end
 
-  # Various situations that must be handled, nil denotes that a variable should
-  # be used.
-  situations = {
-    'variable element and target' => [nil, nil],
-    'variable element and constant target' => [nil, 2],
-    'constant element and variable target' => [1, nil],
-    'constant element and constant target' => [1, 2]
-  }.each_pair do |description, element_and_target|
-    element, target = element_and_target
-    Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-      it "should translate #{relation} with #{description}" do
-        element = @element if element.nil?
-        target = @target if target.nil?
-        @expect.call(element, type, target, Gecode::Raw::ICL_DEF, nil)
-        @list.count(element).must.send(relation, target)
-        @model.solve!
-      end
+  # Various situations that must be handled (4*2 in total). This was originally
+  # written without the repetition (r269), but that interfered with the spec 
+  # somehow.
+
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
+    it "should translate #{relation} with variable element and target" do
+      @expect.call(@element, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @list.count(@element).must.send(relation, @target)
+      @model.solve!
     end
-    Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-      it "should translate negated #{relation} with #{description}" do
-        element = @element if element.nil?
-        target = @target if target.nil?
-        @expect.call(element, type, target, Gecode::Raw::ICL_DEF, nil)
-        @list.count(element).must_not.send(relation, target)
-        @model.solve!
-      end
+  end
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
+    it "should translate negated #{relation} with variable element and target" do
+      @expect.call(@element, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @list.count(@element).must_not.send(relation, @target)
+      @model.solve!
+    end
+  end
+  
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
+    it "should translate #{relation} with variable element and constant target" do
+      @expect.call(@element, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @list.count(@element).must.send(relation, 2)
+      @model.solve!
+    end
+  end
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
+    it "should translate negated #{relation} with variable element and constant target" do
+      @expect.call(@element, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @list.count(@element).must_not.send(relation, 2)
+      @model.solve!
+    end
+  end
+  
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
+    it "should translate #{relation} with constant element and constant target" do
+      @expect.call(1, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @list.count(1).must.send(relation, 2)
+      @model.solve!
+    end
+  end
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
+    it "should translate negated #{relation} with constant element and constant target" do
+      @expect.call(1, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @list.count(1).must_not.send(relation, 2)
+      @model.solve!
+    end
+  end
+
+  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
+    it "should translate #{relation} with constant element and variable target" do
+      @expect.call(1, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @list.count(1).must.send(relation, @target)
+      @model.solve!
+    end
+  end
+  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
+    it "should translate negated #{relation} with constant element and variable target" do
+      @expect.call(1, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @list.count(1).must_not.send(relation, @target)
+      @model.solve!
     end
   end
 

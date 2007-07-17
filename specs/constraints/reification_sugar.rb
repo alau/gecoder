@@ -27,10 +27,12 @@ describe Gecode::Constraints::ReifiableConstraint do
   end
   
   it 'should translate disjunctions' do
-    Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:rel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, 0, 
       an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
-    Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:rel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_EQ, 3, 
       an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
     (@x.must > 0) | (@y.must == 3)
@@ -50,10 +52,12 @@ describe Gecode::Constraints::ReifiableConstraint do
   end
   
   it 'should translate conjunctions' do
-    Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:rel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, 0, 
       an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
-    Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:rel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_EQ, 2, 
       an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
     (@x.must > 0) & (@y.must == 2)

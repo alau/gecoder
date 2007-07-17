@@ -26,14 +26,16 @@ describe Gecode::Constraints::IntEnum::Channel, ' (two int enums)' do
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:channel).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:channel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
         an_instance_of(Gecode::Raw::IntVarArray), strength)
     end
   end
 
   it 'should translate into a channel constraint' do
-    Gecode::Raw.should_receive(:channel).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:channel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       anything, anything, Gecode::Raw::ICL_DEF)
     @invoke_options.call({})
   end
@@ -68,7 +70,8 @@ describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum
   end
 
   it 'should translate into a channel constraint' do
-    Gecode::Raw.should_receive(:channel).once.with(@model.active_space, 
+    Gecode::Raw.should_receive(:channel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
         an_instance_of(Gecode::Raw::SetVarArray))
     @positions.must.channel @sets
@@ -97,7 +100,8 @@ describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' d
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:channel).once.with(@model.active_space, 
+      Gecode::Raw.should_receive(:channel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
         an_instance_of(Gecode::Raw::SetVarArray))
     end

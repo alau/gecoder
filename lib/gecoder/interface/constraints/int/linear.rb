@@ -85,11 +85,9 @@ module Gecode
         if lhs.kind_of? Gecode::FreeIntVar
           lhs = lhs * 1 # Convert to Gecode::Raw::LinExp
         end
-        if right_hand_side.respond_to? :to_minimodel_lin_exp
-          right_hand_side = right_hand_side.to_minimodel_lin_exp
-        elsif right_hand_side.kind_of? Gecode::FreeIntVar
-          right_hand_side = right_hand_side.bind * 1
-        elsif not right_hand_side.kind_of? Fixnum
+        if not (right_hand_side.respond_to? :to_minimodel_lin_exp or
+            right_hand_side.kind_of? Gecode::FreeIntVar or 
+            right_hand_side.kind_of? Fixnum)
           raise TypeError, 'Invalid right hand side of linear equation.'
         end
         
@@ -102,12 +100,6 @@ module Gecode
       # relation type (as specified by Gecode) in relation to the specifed 
       # element.
       def add_relation_constraint(relation_type, element)
-        # Bind parameters.
-        @params[:lhs] = @params[:lhs].bind
-        if element.kind_of? FreeIntVar
-          element = element.bind
-        end
-      
         @model.add_constraint Linear::SimpleRelationConstraint.new(@model, 
           @params.update(:relation_type => relation_type, :element => element))
       end
@@ -122,6 +114,11 @@ module Gecode
         lhs, rhs, relation_type, reif_var, strength = @params.values_at(:lhs, 
           :rhs, :relation_type, :reif, :strength)
         reif_var = reif_var.bind if reif_var.respond_to? :bind
+        if rhs.respond_to? :to_minimodel_lin_exp
+          rhs = rhs.to_minimodel_lin_exp
+        elsif rhs.kind_of? Gecode::FreeIntVar
+          rhs = rhs.bind * 1
+        end
 
         final_exp = (lhs.to_minimodel_lin_exp - rhs)
         if reif_var.nil?
@@ -136,11 +133,17 @@ module Gecode
     class SimpleRelationConstraint < Gecode::Constraints::ReifiableConstraint
       def post        
         # Fetch the parameters to Gecode.
-        params = @params.values_at(:lhs, :relation_type, :element, :reif, 
-          :strength)
-        params[3] = params[3].bind unless params[3].nil? # Bind reification var.
-        params.delete_if{ |x| x.nil? }
-        Gecode::Raw::rel(@model.active_space, *params)
+        lhs, relation, rhs, reif_var, strength = @params.values_at(:lhs, 
+          :relation_type, :element, :reif, :strength)
+          
+        rhs = rhs.bind if rhs.respond_to? :bind
+        if reif_var.nil?
+          Gecode::Raw::rel(@model.active_space, lhs.bind, relation, rhs, 
+            strength)
+        else
+          Gecode::Raw::rel(@model.active_space, lhs.bind, relation, rhs, 
+            reif_var.bind, strength)
+        end
       end
     end
   

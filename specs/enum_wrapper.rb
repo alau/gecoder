@@ -68,7 +68,9 @@ describe Gecode::IntEnumMethods do
   end
   
   it 'should convert to an int var array' do
-    @int_enum.to_int_var_array.should be_kind_of(Gecode::Raw::IntVarArray)
+    @model.allow_space_access do
+      @int_enum.to_int_var_array.should be_kind_of(Gecode::Raw::IntVarArray)
+    end
   end
   
   it 'should compute the smallest domain range' do
@@ -84,7 +86,9 @@ describe Gecode::BoolEnumMethods do
   end
   
   it 'should convert to a bool var array' do
-    @bool_enum.to_bool_var_array.should be_kind_of(Gecode::Raw::BoolVarArray)
+    @model.allow_space_access do
+      @bool_enum.to_bool_var_array.should be_kind_of(Gecode::Raw::BoolVarArray)
+    end
   end
 end
 
@@ -95,7 +99,9 @@ describe Gecode::SetEnumMethods do
   end
   
   it 'should convert to a set var array' do
-    @set_enum.to_set_var_array.should be_kind_of(Gecode::Raw::SetVarArray)
+    @model.allow_space_access do
+      @set_enum.to_set_var_array.should be_kind_of(Gecode::Raw::SetVarArray)
+    end
   end
 end
 

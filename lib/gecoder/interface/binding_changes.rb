@@ -8,10 +8,12 @@
 # performance.
 module GecodeRaw
   class Space
-    # Creates the specified number of integer variables in the space. Returns
-    # the indices with which they can then be accessed using int_var.
-    def new_int_vars(min, max, count = 1)
-      int_var_store.new_vars(min, max, count)
+    # Creates the specified number of integer variables in the space with the
+    # specified domain. Returns the indices with which they can then be 
+    # accessed using int_var. The domain can be given as a Range (trated 
+    # specially) or as another enum.
+    def new_int_vars(domain, count = 1)
+      int_var_store.new_vars(domain, count)
     end
     
     # Gets the int variable with the specified index, nil if none exists.
@@ -43,6 +45,11 @@ module GecodeRaw
     # Gets the set variable with the specified index, nil if none exists.
     def set_var(index)
       set_var_store[index]
+    end
+    
+    # Used by Gecode during BAB-search.
+    def constrain(best_so_far_space)
+      Gecode::Model.constrain(self, best_so_far_space)
     end
     
     private
@@ -179,13 +186,24 @@ module Gecode
         @next_index = @size
       end
       
-      # Creates the specified number of new int variables with the specified
-      # range as domain. Returns the indices of the created variables as an array.
-      def new_vars(min, max, count = 1)
+      # Creates the specified number of integer variables in the space with the
+      # specified domain. Returns the indices with which they can then be 
+      # accessed using int_var. The domain can be given as a Range (trated 
+      # specially) or as another enum.
+      def new_vars(domain, count = 1)
         grow(@next_index + count) # See the design note for more information.
         count.times do |i|
+          if domain.kind_of? Range
+            domain_params = [domain.first, domain.last] 
+          elsif domain.kind_of? Enumerable
+            arr = domain.to_a
+            domain_params = [Gecode::Raw::IntSet.new(arr, arr.size)]
+          else
+            raise TypeError, "Expected Enumerable, got #{domain.class}."
+          end
+
           @var_array[@next_index] = Gecode::Raw::IntVar.new(@space, 
-            min, max)
+            *domain_params)
           @next_index += 1
         end
         

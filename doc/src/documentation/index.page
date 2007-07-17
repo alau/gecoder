@@ -138,3 +138,69 @@ is first fail, which makes a guess about the variable with the smallest domain
 well is that we can quicker exhaust the remaining possibilities of a variable 
 with a small domain, and hence force a fail (or a solution to be found) so that
 we can backtrack to the next possible choice.
+
+h3. Accessing solutions
+
+h4. Depth first search
+
+The solutions to a model can be accessed by several methods. The simplest case
+is when one just want a	single solution to the problem, in which case 
+@Model#solve!@ (which destructivly alters the instance of @Model@) is 
+convenient.
+
+<ruby>
+instance = MyModel.new
+solution = instance.solve!
+</ruby>
+
+If there are no solutions then @solution@ will be @nil@ (and the instance of the
+model will be untouched). If there is a solution then the model instance will
+reflect that solution (i.e. all variables accessed through the model instance 
+will be the solution's variables) as well as return it to be assigned to 
+@solution@.
+
+It's possible to reset the instance back to the original form using 
+@Model#reset!@.
+
+<ruby>
+instance.reset!
+</ruby>
+
+Note that this also resets any solutions returned earlier by @Model#solve!@.
+
+A similar form with blocks if also available through @Model#solution@.
+
+<ruby>
+string = instance.solution{ |solution| solution.to_s }
+</ruby>
+
+It gives a solution to the block and then returns the result of the block. 
+Iterating through all solutions to a problem is done using 
+@Model.each_solution@.
+
+<ruby>
+instance.each_solution{ |solution| puts solution.to_s }
+</ruby>
+
+In both cases the model instance is unaffected after the method-call.
+
+h4. Branch and bound search
+
+Branch and bounds search is used when one is not just looking for _any_ 
+solution, but rather the _optimal_ solution (as defined by some criteria). For 
+instance we might want to find the solution which assigns the smallest value
+to a price variable. This is done by using the @Model#optimize!@ method, which
+takes a block with two arguments: the model itself and the best solution found
+so far. The block should then add a constraint that constrains the model to be
+strictly better than the best solution so far.
+
+<ruby>
+optimal_solution = price_model_instance.optimize! do |model, best_so_far|
+  model.price.must < best_so_far.price.val
+end
+</ruby>
+
+This destructivly updates @price_model_instance@ to contain the returned 
+solution, just like @Model#solve!@. If there is not solution then 
+@optimal_solution@ will be assigned @nil@ and @price_model_instance@ will be
+unchanged.

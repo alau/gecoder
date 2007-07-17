@@ -29,7 +29,9 @@ module Gecode::Constraints::Int::Arithmetic
         variable = @model.int_var(lhs.min..lhs.max)
       end
       
-      Gecode::Raw::abs(@model.active_space, lhs.bind, variable.bind, strength)
+      @model.add_interaction do
+        Gecode::Raw::abs(@model.active_space, lhs.bind, variable.bind, strength)
+      end
       return variable
     end
   end
@@ -46,8 +48,10 @@ module Gecode::Constraints::Int::Arithmetic
         variable = @model.int_var(products.min..products.max)
       end
 
-      Gecode::Raw::mult(@model.active_space, lhs.bind, lhs2.bind, 
-        variable.bind, strength)
+      @model.add_interaction do
+        Gecode::Raw::mult(@model.active_space, lhs.bind, lhs2.bind, 
+          variable.bind, strength)
+      end
       return variable
     end
   end

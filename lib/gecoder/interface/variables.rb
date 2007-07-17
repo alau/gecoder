@@ -26,7 +26,9 @@ module Gecode
       # Delegate methods we can't handle to the bound int variable if possible.
       def method_missing(name, *args)
         if #{bound_class}.instance_methods.include? name.to_s
-          bind.send(name, *args)
+          @model.allow_space_access do
+            bind.send(name, *args)
+          end
         else
           super
         end

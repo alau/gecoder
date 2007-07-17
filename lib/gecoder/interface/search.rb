@@ -36,20 +36,89 @@ module Gecode
       self.reset!
     end
     
+    # Finds the optimal solution. Optimality is defined by the provided block
+    # which is given one parameter, a solution to the problem. The block should
+    # constrain the solution so that that only "better" solutions can be new 
+    # solutions. For instance if one wants to optimize a variable named price
+    # (accessible from the model) to be as low as possible then one should write
+    # the following.
+    #
+    # model.optimize! do |model, best_so_far|
+    #   model.price.must < best_so_far.price.val
+    # end
+    #
+    # Returns nil if there is no solution.
+    def optimize!(&block)
+      next_space = nil
+      best_space = nil
+      bab = bab_engine
+      
+      Model.constrain_proc = lambda do |home_space, best_space|
+        @active_space = best_space
+        yield(self, self)
+        @active_space = home_space
+        perform_queued_gecode_interactions
+      end
+      
+      while not (next_space = bab.next).nil?
+        best_space = next_space
+      end
+      Model.constrain_proc = nil
+      return nil if best_space.nil?
+      return self
+    end
+    
+    class <<self
+      def constrain_proc=(proc)
+        @constrain_proc = proc
+      end
+    
+      def constrain(home, best)
+        if @constrain_proc.nil?
+          raise NotImplementedError, 'Constrain method not implemented.' 
+        else
+          @constrain_proc.call(home, best)
+        end
+      end
+    end
+    
     private
     
-    # Creates an DFS engine for the search, executing any unexecuted 
-    # constraints first.
+    # Creates a depth first search engine for search, executing any 
+    # unexecuted constraints first.
     def dfs_engine
       # Execute constraints.
-      constraints.each{ |con| con.post }
-      constraints.clear # Empty the queue.
-    
+      perform_queued_gecode_interactions
+      
+      # Construct the engine.
       stop = Gecode::Raw::Search::Stop.new
-      Gecode::Raw::DFS.new(active_space, 
+      Gecode::Raw::DFS.new(selected_space, 
         Gecode::Raw::Search::Config::MINIMAL_DISTANCE,
         Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
         stop)
+    end
+    
+    # Creates a branch and bound engine for optimization search, executing any 
+    # unexecuted constraints first.
+    def bab_engine
+      # Execute constraints.
+      perform_queued_gecode_interactions
+      
+      # Construct the engine.
+      stop = Gecode::Raw::Search::Stop.new
+      Gecode::Raw::BAB.new(selected_space, 
+        Gecode::Raw::Search::Config::MINIMAL_DISTANCE,
+        Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
+        stop)
+    end
+    
+    # Executes any interactions with Gecode still waiting in the queue 
+    # (emptying the queue) in the process.
+    def perform_queued_gecode_interactions
+      allow_space_access do
+        gecode_interaction_queue.each{ |con| con.call }
+        gecode_interaction_queue.clear # Empty the queue.
+      end
     end
   end
 end

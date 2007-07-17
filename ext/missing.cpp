@@ -18,6 +18,7 @@
 **/
 
 #include "missing.h"
+#include "gecode.hh"
 
 #include <iostream>
 #include <map>
@@ -193,6 +194,14 @@ void MSpace::own(Gecode::MSetVarArray *sva, const char *name)
 	d->setArrays[name] = sva;
 }
 
+// For BAB.
+void MSpace::constrain(MSpace* s)
+{
+  // Call Ruby's constrain.
+  rb_funcall(Rust_gecode::cxx2ruby(this), rb_intern("constrain"), 1,
+    Rust_gecode::cxx2ruby(s)); 
+}
+
 Gecode::MIntVarArray *MSpace::intVarArray(const char *name) const
 {
 	if ( d->intArrays.find(name) == d->intArrays.end() ) return 0;
@@ -210,7 +219,6 @@ Gecode::MSetVarArray *MSpace::setVarArray(const char *name ) const
 	if ( d->setArrays.find(name) == d->setArrays.end() ) return 0;
 	return d->setArrays[name];
 }
-
 
 Gecode::MBranchingDesc *MSpace::mdescription()
 {
@@ -236,6 +244,15 @@ MDFS::~MDFS()
 {
 }
 
+
+// BAB
+MBAB::MBAB(MSpace *space, unsigned int c_d, unsigned int a_d, Search::Stop* st) : Gecode::BAB<MSpace>(space, c_d, a_d, st)
+{
+}
+
+MBAB::~MBAB()
+{
+}
 
 namespace Search {
 
@@ -284,6 +301,3 @@ Gecode::Search::Stop* MStop::create(int fails, int time)
 }
 
 }
-
-
-

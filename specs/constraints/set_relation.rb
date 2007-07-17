@@ -10,13 +10,17 @@ describe Gecode::Constraints::Set::Relation do
     @set2 = @model.set_var([1], 0..3)
     
     @expect = lambda do |relation_type, rhs, reif_var, negated|
-      if reif_var.nil? and !negated
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          @set.bind, relation_type, @set2.bind)
-      else
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          @set.bind, relation_type, @set2.bind, 
-          an_instance_of(Gecode::Raw::BoolVar))
+      @model.allow_space_access do
+        if reif_var.nil? and !negated
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            @set.bind, relation_type, @set2.bind)
+        else
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            @set.bind, relation_type, @set2.bind, 
+            an_instance_of(Gecode::Raw::BoolVar))
+        end
       end
     end
     
@@ -57,13 +61,17 @@ describe Gecode::Constraints::Set::Relation, ' (equality)' do
     @set2 = @model.set_var([1], 0..1)
     
     @expect = lambda do |relation_type, rhs, reif_var|
-      if reif_var.nil?
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          @set.bind, relation_type, @set2.bind)
-      else
-        Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-          @set.bind, relation_type, @set2.bind, 
-          an_instance_of(Gecode::Raw::BoolVar))
+      @model.allow_space_access do
+        if reif_var.nil?
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            @set.bind, relation_type, @set2.bind)
+        else
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            @set.bind, relation_type, @set2.bind, 
+            an_instance_of(Gecode::Raw::BoolVar))
+        end
       end
     end
     
@@ -119,12 +127,19 @@ describe Gecode::Constraints::Set::Relation, ' (elements)' do
     @int_constant = 2
     @model.branch_on @model.wrap_enum([@set])
     @expect = lambda do |relation_type, rhs|
-      if rhs.kind_of? Fixnum
-        rhs = an_instance_of(Gecode::Raw::IntVar)
+      @model.allow_space_access do
+        if rhs.kind_of? Fixnum
+          rhs = an_instance_of(Gecode::Raw::IntVar)
+        end
+        rhs = rhs.bind if rhs.respond_to? :bind
+        Gecode::Raw.should_receive(:rel).once.with(
+          an_instance_of(Gecode::Raw::Space), 
+          @set.bind, relation_type, rhs)
       end
-      rhs = rhs.bind if rhs.respond_to? :bind
-      Gecode::Raw.should_receive(:rel).once.with(@model.active_space, 
-        @set.bind, relation_type, rhs)
+    end
+    
+    @invoke_options = lambda do |hash|
+      @set.elements.must_be.equal_to(@int_var, hash)
     end
     
     @invoke_options = lambda do |hash|

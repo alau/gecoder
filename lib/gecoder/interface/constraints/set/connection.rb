@@ -53,7 +53,9 @@ module Gecode::Constraints::Set
           variable = @model.int_var(set.lub_min, set.glb_min)
         end
         
-        Gecode::Raw::min(@model.active_space, set.bind, variable.bind)
+        @model.add_interaction do
+          Gecode::Raw::min(@model.active_space, set.bind, variable.bind)
+        end
         return variable
       end
     end
@@ -66,7 +68,9 @@ module Gecode::Constraints::Set
           variable = @model.int_var(set.lub_max, set.glb_max)
         end
         
-        Gecode::Raw::max(@model.active_space, set.bind, variable.bind)
+        @model.add_interaction do
+          Gecode::Raw::max(@model.active_space, set.bind, variable.bind)
+        end
         return variable
       end
     end
@@ -88,8 +92,10 @@ module Gecode::Constraints::Set
           variable = @model.int_var(min..max)
         end
 
-        Gecode::Raw::weights(@model.active_space, lub, weighted_lub, set.bind, 
-          variable.bind)
+        @model.add_interaction do
+          Gecode::Raw::weights(@model.active_space, lub, weighted_lub, set.bind, 
+            variable.bind)
+        end
         return variable
       end
     end

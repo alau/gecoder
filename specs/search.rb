@@ -19,6 +19,20 @@ class SampleProblem < Gecode::Model
   end
 end
 
+class SampleOptimizationProblem < Gecode::Model
+  attr :x
+  attr :y
+  attr :z
+  
+  def initialize
+    @x,@y = int_var_array(2, 0..5)
+    @z = int_var(0..25)
+    (@x * @y).must == @z 
+    
+    branch_on wrap_enum([@x, @y]), :variable => :smallest_size, :value => :min
+  end
+end
+
 describe Gecode::Model, ' (with multiple solutions)' do
   before do
     @domain = 0..3
@@ -143,6 +157,10 @@ describe Gecode::Model, ' (without solution)' do
   it 'should return nil when calling #solve!' do
     @model.solve!.should be_nil
   end
+  
+  it 'should return nil when calling #optimize!' do
+    @model.optimize!{}.should be_nil
+  end
 end
 
 describe Gecode::Model, ' (without constraints)' do
@@ -153,5 +171,27 @@ describe Gecode::Model, ' (without constraints)' do
   
   it 'should produce a solution' do
     @model.solve!.should_not be_nil
+  end
+end
+
+describe Gecode::Model, '(optimization search)' do
+  before do
+    @model = SampleOptimizationProblem.new
+  end
+  
+  it 'should optimize the solution' do
+    solution = @model.optimize! do |model, best_so_far|
+      model.z.must > best_so_far.z.val
+    end
+    solution.should_not be_nil
+    solution.x.val.should == 5
+    solution.y.val.should == 5
+    solution.z.val.should == 25
+  end
+  
+  it 'should raise error if no constrain proc has been defined' do
+    lambda do 
+      Gecode::Model.constrain(nil, nil) 
+    end.should raise_error(NotImplementedError)
   end
 end

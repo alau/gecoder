@@ -48,7 +48,10 @@ module Gecode::Constraints::Set
         if variable.nil?
           variable = @model.int_var(lhs.glb_size, lhs.lub_size)
         end
-        Gecode::Raw::cardinality(@model.active_space, lhs.bind, variable.bind)
+        
+        @model.add_interaction do 
+          Gecode::Raw::cardinality(@model.active_space, lhs.bind, variable.bind)
+        end
         return variable
       end
     end

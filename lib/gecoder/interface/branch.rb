@@ -94,9 +94,11 @@ module Gecode
         raise ArgumentError, "Unknown value selection strategy: #{val_strat}"
       end
 
-      # Add the branching.
-      Gecode::Raw.branch(active_space, variables.to_var_array, 
-        BRANCH_VAR_CONSTANTS[var_strat], BRANCH_VALUE_CONSTANTS[val_strat])
+      # Add the branching as a gecode interaction.
+      add_interaction do
+        Gecode::Raw.branch(active_space, variables.to_var_array, 
+          BRANCH_VAR_CONSTANTS[var_strat], BRANCH_VALUE_CONSTANTS[val_strat])
+      end
     end
   end
 end
