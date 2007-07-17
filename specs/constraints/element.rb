@@ -90,7 +90,7 @@ describe Gecode::Constraints::IntEnum::Element do
 
   it 'should handle fixnum enums as enumeration' do
     @fixnum_prices[@store].must == @fixnum_prices[2]
-    @model.solve!.store.val.should equal(2)
+    @model.solve!.store.value.should equal(2)
   end
   
   it 'should translate reification when using equality' do

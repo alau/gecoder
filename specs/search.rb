@@ -59,7 +59,7 @@ describe Gecode::Model, ' (with multiple solutions)' do
   it 'should pass every solution to #each_solution' do
     solutions = []
     @model.each_solution do |s|
-      solutions << s.var.val
+      solutions << s.var.value
     end
     Set.new(solutions).should == Set.new([2,3])
   end
@@ -181,12 +181,12 @@ describe Gecode::Model, '(optimization search)' do
   
   it 'should optimize the solution' do
     solution = @model.optimize! do |model, best_so_far|
-      model.z.must > best_so_far.z.val
+      model.z.must > best_so_far.z.value
     end
     solution.should_not be_nil
-    solution.x.val.should == 5
-    solution.y.val.should == 5
-    solution.z.val.should == 25
+    solution.x.value.should == 5
+    solution.y.value.should == 5
+    solution.z.value.should == 25
   end
   
   it 'should raise error if no constrain proc has been defined' do

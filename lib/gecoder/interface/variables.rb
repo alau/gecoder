@@ -53,6 +53,20 @@ module Gecode
           "#<\#{self.class} \#{domain}>"
         end
       end
+      
+      # Delegates the method with the specified name to a method with the 
+      # specified name when the variable is bound. If the bound method's name
+      # is nil then the same name as the new method's name is assumed.
+      def self.delegate(method_name, bound_method_name = nil)
+        bound_method_name = method_name if bound_method_name.nil?
+        module_eval <<-"end_code"
+          def \#{method_name}(*args)
+            @model.allow_space_access do
+              bind.method(:\#{bound_method_name}).call(*args)
+            end
+          end
+        end_code
+      end
     end_method_definitions
     return clazz
   end
@@ -60,10 +74,25 @@ module Gecode
   # Int variables.
   FreeIntVar = FreeVar(Gecode::Raw::IntVar, :int_var)
   class FreeIntVar
+    delegate :value, :val
+    delegate :min
+    delegate :max
+    delegate :size
+    delegate :width
+    delegate :degree
+    delegate :range?, :range
+    delegate :assigned?, :assigned
+    delegate :include?, :in
+    
+    def method_missing(name, *args)
+      # Do not delegate methods.
+      super
+    end
+    
     # Returns a string representation of the the range of the variable's domain.
     def domain
       if assigned?
-        "range: #{val.to_s}"
+        "range: #{value.to_s}"
       else
         "range: #{min}..#{max}"
       end

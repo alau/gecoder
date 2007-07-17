@@ -15,13 +15,13 @@ describe 'non-empty int variable', :shared => true do
   
   it 'should contain every element in its domain' do 
     @domain.each do |i|
-      @var.should be_in(i)
+      @var.should include(i)
     end
   end
   
   it 'should not contain elements outside its domain' do
-    @var.should_not be_in(@domain.min - 1)
-    @var.should_not be_in(@domain.max + 1)
+    @var.should_not include(@domain.min - 1)
+    @var.should_not include(@domain.max + 1)
   end
   
   it 'should have a width equal to the domain width' do
@@ -85,7 +85,7 @@ describe Gecode::FreeIntVar, ' (with non-range domain of size > 1)' do
   end
   
   it 'should not contain the domain\'s holes' do
-    @var.should_not be_in(0)
+    @var.should_not include(0)
   end
 end
 

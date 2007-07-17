@@ -10,7 +10,7 @@ module CustomVarMatchers
       @target = target
       return false unless @target.size == @expected.size
       @expected.each do |element|
-        return false unless @target.in(element)
+        return false unless @target.include? element
       end
       return true
     end

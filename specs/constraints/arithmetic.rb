@@ -98,7 +98,7 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
   
   it 'should constrain the maximum value' do
     @numbers.max.must > 5
-    @model.solve!.numbers.map{ |n| n.val }.max.should > 5
+    @model.solve!.numbers.map{ |n| n.value }.max.should > 5
   end
   
   it_should_behave_like 'arithmetic constraint'
@@ -147,7 +147,7 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
   
   it 'should constrain the minimum value' do
     @numbers.min.must > 5
-    @model.solve!.numbers.map{ |n| n.val }.min.should > 5
+    @model.solve!.numbers.map{ |n| n.value }.min.should > 5
   end
   
   it_should_behave_like 'arithmetic constraint'
@@ -195,7 +195,7 @@ describe Gecode::Constraints::Int::Arithmetic, ' (abs)' do
   it 'should constrain the absolute value' do
     @var.must < 0
     @var.abs.must == 5
-    @model.solve!.var.val.should == -5
+    @model.solve!.var.value.should == -5
   end
   
   it_should_behave_like 'arithmetic constraint'
@@ -245,7 +245,7 @@ describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
   it 'should constrain the value of the multiplication' do
     (@var * @var2).must == 56
     sol = @model.solve!
-    [sol.var.val, sol.var2.val].sort.should == [7, 8]
+    [sol.var.value, sol.var2.value].sort.should == [7, 8]
   end
   
   it 'should not interfere with other defined multiplication methods' do

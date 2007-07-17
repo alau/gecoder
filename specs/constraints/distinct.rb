@@ -80,8 +80,8 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   it 'should consider offsets when making variables distinct' do
     @model.vars.with_offsets(-1,0).must_be.distinct
     x,y = @model.solve!.vars
-    x.val.should equal(1)
-    y.val.should equal(1)
+    x.value.should equal(1)
+    y.value.should equal(1)
   end
   
   # This tests two distinct in conjunction. It's here because of a bug found.
@@ -94,8 +94,8 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   it 'should accept an array as offsets' do
     @model.vars.with_offsets([-1,0]).must_be.distinct
     x,y = @model.solve!.vars
-    x.val.should equal(1)
-    y.val.should equal(1)
+    x.value.should equal(1)
+    y.value.should equal(1)
   end
   
   it 'should not allow negation' do
