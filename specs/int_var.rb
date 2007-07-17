@@ -54,6 +54,10 @@ describe Gecode::FreeIntVar, ' (with range domain of size > 1)' do
   it 'should have a range domain' do
     @var.should be_range
   end
+  
+  it 'should raise error when trying to access assigned value' do
+    lambda{ @var.value }.should raise_error(RuntimeError)
+  end
 end
 
 describe Gecode::FreeIntVar, ' (defined with three-dot range)' do

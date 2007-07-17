@@ -72,7 +72,6 @@ module Gecode
   # Int variables.
   FreeIntVar = FreeVar(Gecode::Raw::IntVar, :int_var)
   class FreeIntVar
-    delegate :value, :val
     delegate :min
     delegate :max
     delegate :size
@@ -81,6 +80,12 @@ module Gecode
     delegate :range?, :range
     delegate :assigned?, :assigned
     delegate :include?, :in
+    
+    # Gets the value of the assigned integer variable (a fixnum).
+    def value
+      raise 'No value is assigned.' unless assigned?
+      send_bound(:val)
+    end
     
     # Returns a string representation of the the range of the variable's domain.
     def domain
@@ -97,7 +102,9 @@ module Gecode
   class FreeBoolVar
     delegate :assigned?, :assigned
     
+    # Gets the values in the assigned boolean variable (true or false).
     def value
+      raise 'No value is assigned.' unless assigned?
       send_bound(:val) == 1
     end
   
@@ -134,7 +141,7 @@ module Gecode
       end
     end
     
-    # Gets the values in the assigned set.
+    # Gets the values in the assigned set variable (an enumerable).
     def value
       raise 'No value is assigned.' unless assigned?
       lower_bound

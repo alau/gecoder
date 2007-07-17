@@ -21,6 +21,10 @@ describe Gecode::FreeBoolVar, '(not assigned)' do
   it "should say that it's not assigned when inspecting" do
     @var.inspect.should include('unassigned')
   end
+  
+  it 'should raise error when trying to access assigned value' do
+    lambda{ @var.value }.should raise_error(RuntimeError)
+  end
 end
 
 describe Gecode::FreeBoolVar, '(assigned true)' do
