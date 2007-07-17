@@ -44,7 +44,7 @@ class Sudoku < Gecode::Model
     separator = '+' << '-' * (3 * @size + (@size - 1)) << "+\n"
     res = (0...@size).inject(separator) do |s, i|
       (0...@size).inject(s + '|') do |s, j|
-        s << " #{@squares[i,j].val} |"
+        s << " #{@squares[i,j].value} |"
       end << "\n" << separator
     end
   end

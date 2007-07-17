@@ -29,7 +29,7 @@ class MagicSequence < Gecode::Model
   end
   
   def to_s
-    @sequence.map{ |element| element.val }.join(', ')
+    @sequence.values.join(', ')
   end
 end
 

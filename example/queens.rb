@@ -25,7 +25,7 @@ class NQueens < Gecode::Model
   
   # Displays the assignment as a chessboard with queens denoted by 'x'.
   def to_s
-    rows = @queen_rows.map{ |var| var.val }
+    rows = @queen_rows.values
   
     separator = '+' << '-' * (3 * @size + (@size - 1)) << "+\n"
     res = (0...@size).inject(separator) do |s, i|

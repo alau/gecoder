@@ -25,7 +25,7 @@ class SendMoreMoney < Gecode::Model
 
   def to_s
     %w{s e n d m o r y}.zip(@letters).map do |text, letter|
-      "#{text}: #{letter.val}" 
+      "#{text}: #{letter.value}" 
     end.join(', ')
   end
 
