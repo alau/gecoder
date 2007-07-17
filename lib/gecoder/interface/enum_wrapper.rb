@@ -45,10 +45,19 @@ module Gecode
     end
   end
   
+  module VariableEnumMethods
+    include EnumMethods
+    
+    # Gets the values of all the variables in the enum.
+    def values
+      map{ |var| var.value }
+    end
+  end
+  
   # A module containing the methods needed by enumerations containing int 
   # variables. Requires that it's included in an enumerable.
   module IntEnumMethods
-    include EnumMethods
+    include VariableEnumMethods
   
     # Returns an int variable array with all the bound variables.
     def to_int_var_array
@@ -80,7 +89,7 @@ module Gecode
   # A module containing the methods needed by enumerations containing boolean
   # variables. Requires that it's included in an enumerable.
   module BoolEnumMethods
-    include EnumMethods
+    include VariableEnumMethods
   
     # Returns a bool variable array with all the bound variables.
     def to_bool_var_array
@@ -99,7 +108,7 @@ module Gecode
   # A module containing the methods needed by enumerations containing set
   # variables. Requires that it's included in an enumerable.
   module SetEnumMethods
-    include EnumMethods
+    include VariableEnumMethods
   
     # Returns a set variable array with all the bound variables.
     def to_set_var_array

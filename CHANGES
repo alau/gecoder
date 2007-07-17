@@ -7,6 +7,7 @@
 * Added distinct constraints (distinct and at most one) for sets.
 * Added branch and bound (optimization search).
 * Assigned values of variables are now always accessed using #value instread of the various previous methods. The methods for extracting information from set variables have been changed and renamed.
+* Enumerations containing variables now provide a convenience method #values which returns an array of the enum's values.
 
 == Version 0.5.0
 This release adds set variables and some of their constraints, along with the 

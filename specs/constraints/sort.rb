@@ -51,14 +51,14 @@ describe Gecode::Constraints::IntEnum::Sort, ' (without :as and :order)' do
 
   it 'should constraint variables to be sorted' do
     @vars.must_be.sorted
-    values = @model.solve!.vars.map{ |x| x.value }
+    values = @model.solve!.vars.values
     values.should == values.sort
   end
   
   it 'should allow negation' do
     @vars.must_not_be.sorted
     @model.solve!
-    values = @vars.map{ |x| x.value }
+    values = @vars.values
     values.should_not == values.sort
   end
   
@@ -94,7 +94,7 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :as)' do
   it 'should constraint variables to be sorted' do
     @vars.must_be.sorted(:as => @sorted)
     @model.solve!
-    values = @sorted.map{ |x| x.value }
+    values = @sorted.values
     values.should == values.sort
   end
   
@@ -147,10 +147,10 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :order)' do
   it 'should constraint variables to be sorted with the specified indices' do
     @vars.must_be.sorted(:as => @sorted, :order => @indices)
     @model.solve!
-    sorted_values = @sorted.map{ |x| x.value }
+    sorted_values = @sorted.values
     sorted_values.should == sorted_values.sort
     expected_indices = @vars.map{ |v| sorted_values.index(v.value) }
-    @indices.map{ |i| i.value }.should == expected_indices
+    @indices.values.should == expected_indices
   end
   
   it 'should not allow targets that are not int var enums' do

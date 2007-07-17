@@ -98,7 +98,7 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
   
   it 'should constrain the maximum value' do
     @numbers.max.must > 5
-    @model.solve!.numbers.map{ |n| n.value }.max.should > 5
+    @model.solve!.numbers.values.max.should > 5
   end
   
   it_should_behave_like 'arithmetic constraint'
@@ -147,7 +147,7 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
   
   it 'should constrain the minimum value' do
     @numbers.min.must > 5
-    @model.solve!.numbers.map{ |n| n.value }.min.should > 5
+    @model.solve!.numbers.values.min.should > 5
   end
   
   it_should_behave_like 'arithmetic constraint'
