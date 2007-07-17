@@ -81,19 +81,6 @@ module GecodeRaw
     end
   end
   
-  class BoolVar
-    # Aliases to make method-names more ruby-like.
-    alias_method :assigned?, :assigned
-    
-    def true?
-      val == 1
-    end
-    
-    def false?
-      val == 0
-    end
-  end
-  
   class SetVar
     # Aliases to make method-names more ruby-like.
     alias_method :assigned?, :assigned

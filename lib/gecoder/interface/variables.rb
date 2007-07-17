@@ -102,10 +102,23 @@ module Gecode
   # Bool variables.
   FreeBoolVar = FreeVar(Gecode::Raw::BoolVar, :bool_var)
   class FreeBoolVar
+    delegate :assigned?, :assigned
+    
+    def value
+      @model.allow_space_access do
+        bind.val == 1
+      end
+    end
+  
+    def method_missing(name, *args)
+      # Do not delegate methods.
+      super
+    end
+  
     # Returns a string representation of the the variable's domain.
     def domain
       if assigned?
-        true?.to_s
+        value.to_s
       else
         'unassigned'
       end

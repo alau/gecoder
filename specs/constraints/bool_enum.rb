@@ -45,25 +45,25 @@ describe 'bool enum constraint', :shared => true do
   it 'should handle being constrained to be equal to a variable' do
     @stub.must_be == @b1
     @model.solve!
-    @compute_result.call.should == @b1.true?
+    @compute_result.call.should == @b1.value
   end
   
   it 'should handle being constrained to not be equal to a variable' do
     @stub.must_not_be == @b1
     @model.solve!
-    @compute_result.call.should_not == @b1.true?
+    @compute_result.call.should_not == @b1.value
   end
   
   it 'should handle being constrained to be equal to be a nested expression' do
     @stub.must_be == (@b1 | @b2) & @b1
     @model.solve!
-    @compute_result.call.should == (@b1.true? | @b2.true?) & @b1.true?
+    @compute_result.call.should == (@b1.value | @b2.value) & @b1.value
   end
   
   it 'should handle being constrained to not be equal to be a nested expression' do
     @stub.must_not_be == (@b1 | @b2) & @b1
     @model.solve!
-    @compute_result.call.should_not == (@b1.true? | @b2.true?) & @b1.true?
+    @compute_result.call.should_not == (@b1.value | @b2.value) & @b1.value
   end
 end
 
@@ -95,7 +95,7 @@ describe Gecode::Constraints::BoolEnum, ' (conjunction)' do
     
     # For bool enum spec.
     @stub = @bools.conjunction
-    @compute_result = lambda{ @bools.all?{ |b| b.true? } }
+    @compute_result = lambda{ @bools.all?{ |b| b.value } }
   end
   
   it_should_behave_like 'bool enum constraint'
@@ -130,7 +130,7 @@ describe Gecode::Constraints::BoolEnum, ' (disjunction)' do
     
     # For bool enum spec.
     @stub = @bools.disjunction
-    @compute_result = lambda{ @bools.any?{ |b| b.true? } }
+    @compute_result = lambda{ @bools.any?{ |b| b.value } }
   end
   
   it_should_behave_like 'bool enum constraint'

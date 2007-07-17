@@ -37,12 +37,8 @@ describe Gecode::FreeBoolVar, '(assigned true)' do
     @var.should be_assigned
   end
   
-  it 'should respond true to true?' do
-    @var.true?.should be_true
-  end
-  
-  it 'should not respond true to false?' do
-    @var.false?.should_not be_true
+  it 'should have valye true' do
+    @var.value.should be_true
   end
   
   it "should say that it's true when inspecting" do
@@ -64,12 +60,8 @@ describe Gecode::FreeBoolVar, '(assigned false)' do
     @var.should be_assigned
   end
   
-  it 'should respond not true to true?' do
-    @var.true?.should_not be_true
-  end
-  
-  it 'should respond true to false?' do
-    @var.false?.should be_true
+  it 'should have value false ' do
+    @var.value.should_not be_true
   end
   
   it "should say that it's false when inspecting" do
