@@ -81,14 +81,6 @@ module GecodeRaw
     end
   end
   
-  class IntVar
-    # Aliases to make method-names more ruby-like.
-    alias_method :assigned?, :assigned
-    alias_method :in?, :in
-    alias_method :include?, :in
-    alias_method :range?, :range
-  end
-  
   class BoolVar
     # Aliases to make method-names more ruby-like.
     alias_method :assigned?, :assigned
