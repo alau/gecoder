@@ -121,7 +121,16 @@ to nil then it's removed from the set's upper bound. The following constrains
 
 <ruby>
 weights = Hash.new{ |hash, key| hash[key] = key % 2 }
-set.sum(weights).must == odd_sum
+set.sum(:weights => weights).must == odd_sum
+</ruby>
+
+Values can also be substituted instead of weighed by using @:substitutions@ 
+instead of @:weigths@. The following sums the contents of an fixnum array 
+@array@ which has it's indices in a set variable called @indices@.
+
+<ruby>
+substitutions = Hash[*(0...array.size).zip(array).flatten]
+indices.sum(:substitutions => substitutions).must == array_sum
 </ruby>
 
 Everything that's normally supported by single integer variables followed by 

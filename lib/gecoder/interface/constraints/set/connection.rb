@@ -12,12 +12,36 @@ module Gecode
       Gecode::Constraints::Set::Connection::MaxExpressionStub.new(@model, params)
     end
     
-    # Starts a constraint on the sum of the set. A hash of weights may 
-    # optionally be given. If it is then the weighted sum, using the hash as
-    # weight function, will be constrained. Elements mapped to nil by the weight
-    # hash are removed from the upper bound of the set.
-    def sum(weights = Hash.new(1))
-      params = {:lhs => self, :weights => weights}
+    # Starts a constraint on the sum of the set. The option :weights may 
+    # optionally be given with a hash of weights as value. If it is then the 
+    # weighted sum, using the hash as weight function, will be constrained. The
+    # option :substitutions may also be given (with a hash as value), if it is 
+    # then the sum of the set with all elements replaced according to the hash 
+    # is constrained. Elements mapped to nil by the weights or substitutions 
+    # hash are removed from the upper bound of the set. Only one of the two
+    # options may be given at the same time.
+    def sum(options = {:weights => weights = Hash.new(1)})
+      if options.empty? or options.keys.size > 1
+        raise ArgumentError, 'One of the options :weights and :substitutions, ' +
+          'or neither, must be specified.'
+      end
+      params = {:lhs => self}
+      unless options.empty?
+        case options.keys.first
+          when :substitutions: params.update(options)
+          when :weights:
+            weights = options[:weights]
+            substitutions = Hash.new do |hash, key|
+              if weights[key].nil?
+                hash[key] = nil
+              else
+                hash[key] = key * weights[key]
+              end
+            end
+            params.update(:substitutions => substitutions)
+          else raise ArgumentError, "Unrecognized option #{options.keys.first}."
+        end
+      end
       Gecode::Constraints::Set::Connection::SumExpressionStub.new(@model, params)
     end
   end
@@ -78,23 +102,22 @@ module Gecode::Constraints::Set
     # Describes an expression stub started with an int var following by #max.
     class SumExpressionStub < Gecode::Constraints::Int::CompositeStub
       def constrain_equal(variable, params)
-        set, weights = params.values_at(:lhs, :weights)
+        set, subs = params.values_at(:lhs, :substitutions)
         lub = set.upper_bound.to_a
-        lub.delete_if{ |e| weights[e].nil? }
-        weighted_lub = lub.map{ |e| e * weights[e] }
-
+        lub.delete_if{ |e| subs[e].nil? }
+        substituted_lub = lub.map{ |e| subs[e] }
         if variable.nil?
           # Compute the theoretical bounds of the weighted sum. This is slightly
           # sloppy since we could also use the contents of the greatest lower 
           # bound.
-          min = weighted_lub.find_all{ |e| e < 0}.inject(0){ |x, y| x + y }
-          max = weighted_lub.find_all{ |e| e > 0}.inject(0){ |x, y| x + y }
+          min = substituted_lub.find_all{ |e| e < 0}.inject(0){ |x, y| x + y }
+          max = substituted_lub.find_all{ |e| e > 0}.inject(0){ |x, y| x + y }
           variable = @model.int_var(min..max)
         end
 
         @model.add_interaction do
-          Gecode::Raw::weights(@model.active_space, lub, weighted_lub, set.bind, 
-            variable.bind)
+          Gecode::Raw::weights(@model.active_space, lub, substituted_lub, 
+            set.bind, variable.bind)
         end
         return variable
       end

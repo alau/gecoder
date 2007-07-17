@@ -175,7 +175,19 @@ describe Gecode::Constraints::Set::Connection, ' (sum)' do
   it 'should constrain the sum of a set' do
     @set.sum.must == @var
     @model.solve!.should_not be_nil
-    @set.lower_bound.inject(0){ |x, y| x + y }.should == @var.value
+    @set.value.inject(0){ |x, y| x + y }.should == @var.value
+  end
+  
+  it 'should raise error if unsupported options is given' do
+    lambda do
+      @set.sum(:does_not_exist => :foo).must == @var 
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should raise error if multiple options are given' do
+    lambda do
+      @set.sum(:weights => {}, :substitutions => {}).must == @var 
+    end.should raise_error(ArgumentError)
   end
   
   it_should_behave_like 'connection constraint'
@@ -188,7 +200,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with weights)' do
     @target = @var = @model.int_var(-20..20)
     @model.branch_on @model.wrap_enum([@set])
     @weights = Hash[*(0..9).zip((-9..-0).to_a.reverse).flatten]
-    @stub = @set.sum(@weights)
+    @stub = @set.sum(:weights => @weights)
     
     @expect = lambda do |relation, rhs, strength, reif_var, negated|
       @model.allow_space_access do
@@ -224,9 +236,66 @@ describe Gecode::Constraints::Set::Connection, ' (sum with weights)' do
   it 'should constrain the sum of a set' do
     @stub.must_be.in(-10..-1)
     @model.solve!.should_not be_nil
-    weighted_sum = @set.lower_bound.inject(0){ |sum, x| sum - x**2 }
-    weighted_sum.should > -10
-    weighted_sum.should < -1
+    weighted_sum = @set.value.inject(0){ |sum, x| sum - x**2 }
+    weighted_sum.should >= -10
+    weighted_sum.should <= -1
+  end
+  
+  it 'should remove any elements not in the weight hash' do
+    @set.sum(:weights => {}).must_be == 0
+    @model.solve!.should_not be_nil
+    @set.value.size.should be_zero
+  end
+  
+  it_should_behave_like 'connection constraint'
+end
+
+describe Gecode::Constraints::Set::Connection, ' (sum with substitutions)' do
+  before do
+    @model = Gecode::Model.new
+    @set = @model.set_var([], 0..9)
+    @target = @var = @model.int_var(-20..20)
+    @model.branch_on @model.wrap_enum([@set])
+    @subs = Hash[*(0..9).zip((-9..-0).to_a.reverse).flatten]
+    @stub = @set.sum(:substitutions => @subs)
+    
+    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+      @model.allow_space_access do
+        rhs = rhs.bind if rhs.respond_to? :bind
+        if reif_var.nil?
+          if !negated and relation == Gecode::Raw::IRT_EQ and 
+              rhs.kind_of? Gecode::Raw::IntVar 
+            Gecode::Raw.should_receive(:weights).once.with( 
+              an_instance_of(Gecode::Raw::Space), anything, anything, @set.bind, rhs)
+            Gecode::Raw.should_receive(:rel).exactly(0).times
+          else
+            Gecode::Raw.should_receive(:weights).once.with(
+              an_instance_of(Gecode::Raw::Space), anything, anything, @set.bind, 
+              an_instance_of(Gecode::Raw::IntVar))
+            Gecode::Raw.should_receive(:rel).once.with(
+              an_instance_of(Gecode::Raw::Space), 
+              an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+              strength)
+          end
+        else
+          Gecode::Raw.should_receive(:weights).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            anything, anything, @set.bind, an_instance_of(Gecode::Raw::IntVar))
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+            strength)
+        end
+      end
+    end
+  end
+  
+  it 'should constrain the sum of a set' do
+    @stub.must_be.in(-10..-1)
+    @model.solve!.should_not be_nil
+    substituted_sum = @set.value.inject{ |sum, x| sum + @subs[x] }
+    substituted_sum.should >= -10
+    substituted_sum.should <= -1
   end
   
   it_should_behave_like 'connection constraint'

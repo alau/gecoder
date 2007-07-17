@@ -2,7 +2,7 @@
 
 * Added channel constraints involving set variables.
 * Added set min and max constraints.
-* Added set sum constraints (optionally weighted).
+* Added set sum constraints (optionally weighted or substituted).
 * Added include (match) constraint for sets.
 * Added distinct constraints (distinct and at most one) for sets.
 * Added branch and bound (optimization search).
