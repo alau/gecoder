@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe Gecode::FreeSetVar, '(not assigned)' do
   before do
     model = Gecode::Model.new
-    @var = model.set_var(0..3, 0..4)
+    @var = model.set_var(1..3, 0..4)
   end
   
   it 'should not be assigned' do
@@ -16,8 +16,31 @@ describe Gecode::FreeSetVar, '(not assigned)' do
   end
   
   it 'should report the correct bounds' do
-    @var.glb.sort.should == (0..3).to_a
-    @var.lub.sort.should == (0..4).to_a
+    @var.lower_bound.sort.to_a.should == (1..3).to_a
+    @var.upper_bound.sort.to_a.should == (0..4).to_a
+  end
+  
+  it 'should report correct bounds on upper bound' do
+    @var.upper_bound.min.should == 0
+    @var.upper_bound.max.should == 4
+  end
+  
+  it 'should report correct bounds on lower bound' do
+    @var.lower_bound.min.should == 1
+    @var.lower_bound.max.should == 3
+  end
+  
+  it 'should raise error when trying to access assigned value' do
+    lambda{ @var.value }.should raise_error(RuntimeError)
+  end
+  
+  it 'should not raise error when enumerating over bound multiple times' do
+    # For C0 coverage.
+    lower_bound = @var.lower_bound
+    lambda do
+      lower_bound.each{}
+      lower_bound.each{}
+    end.should_not raise_error
   end
 end
 
@@ -32,18 +55,14 @@ describe Gecode::FreeSetVar, '(assigned)' do
     @var.should be_assigned
   end
   
-  it 'should include the assigned elements' do
-    @var.should include(1)
-    @var.should_not include(0)
-  end
-  
   it "should give it's value when inspecting" do
-    @var.inspect.should include('1..1')
+    @var.inspect.should include('[1]')
     @var.inspect.should_not include('lub-range')
   end
   
   it 'should report the correct bounds' do
-    @var.lub.should == [1]
-    @var.glb.should == [1]
+    @var.upper_bound.to_a.should == [1]
+    @var.lower_bound.to_a.should == [1]
+    @var.value.to_a.should == [1]
   end
 end

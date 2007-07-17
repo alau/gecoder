@@ -37,15 +37,8 @@ module CustomVarMatchers
     
     def matches?(target)
       @target = target
-      return false unless @target.glb_size == @expected_glb.size and
-        @target.lub_size == @expected_lub.size
-      @expected_glb.each do |element|
-        return false unless @target.include_glb?(element)
-      end
-      @expected_lub.each do |element|
-        return false unless @target.include_lub?(element)
-      end
-      return true
+      return @target.lower_bound.to_a == @expected_glb &&
+        @target.upper_bound.to_a == @expected_lub
     end
     
     def failure_message

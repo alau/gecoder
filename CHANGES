@@ -6,7 +6,7 @@
 * Added include (match) constraint for sets.
 * Added distinct constraints (distinct and at most one) for sets.
 * Added branch and bound (optimization search).
-* Assigned values of variables are now accessed using #value instread of various previous method.
+* Assigned values of variables are now always accessed using #value instread of the various previous methods. The methods for extracting information from set variables have been changed and renamed.
 
 == Version 0.5.0
 This release adds set variables and some of their constraints, along with the 

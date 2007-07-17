@@ -158,8 +158,8 @@ describe Gecode::Constraints::Set::Domain, ' (equality)' do
     @set.must == @singleton
     @model.solve!
     @set.should be_assigned
-    @set.should include(@singleton)
-    @set.val_size.should == 1
+    @set.value.should include(@singleton)
+    @set.value.size.should == 1
   end
   
   it 'should constrain the domain with inequality' do

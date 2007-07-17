@@ -39,7 +39,7 @@ describe Gecode::Constraints::Set::Cardinality, ' (range)' do
   it 'should constrain the cardinality of a set' do
     @set.size.must_be.in @range
     @model.solve!
-    @range.should include(@set.val_size)
+    @range.should include(@set.value.size)
   end
   
   it 'should raise error if the right hand side is not a range' do
@@ -126,7 +126,7 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
   it 'should constrain the cardinality of a set' do
     @set.size.must == @var
     @model.solve!
-    @set.val_size.should == @var.value
+    @set.value.size.should == @var.value
   end
   
   it_should_behave_like 'constraint with options'

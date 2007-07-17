@@ -84,7 +84,7 @@ describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum
     sets = @model.sets
     positions = @model.positions.map{ |p| p.value }
     positions.each_with_index do |position, i|
-      sets[position].should include(i)
+      sets[position].value.should include(i)
     end
   end
 end

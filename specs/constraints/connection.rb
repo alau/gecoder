@@ -78,7 +78,7 @@ describe Gecode::Constraints::Set::Connection, ' (min)' do
   it 'should constrain the min of a set' do
     @set.min.must == @var
     @model.solve!
-    @set.glb_min.should == @var.value
+    @set.lower_bound.min.should == @var.value
   end
   
   it_should_behave_like 'connection constraint'
@@ -126,7 +126,7 @@ describe Gecode::Constraints::Set::Connection, ' (max)' do
   it 'should constrain the max of a set' do
     @set.max.must == @var
     @model.solve!
-    @set.glb_max.should == @var.value
+    @set.lower_bound.max.should == @var.value
   end
   
   it_should_behave_like 'connection constraint'
@@ -175,7 +175,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum)' do
   it 'should constrain the sum of a set' do
     @set.sum.must == @var
     @model.solve!.should_not be_nil
-    @set.lub.inject(0){ |x, y| x + y }.should == @var.value
+    @set.lower_bound.inject(0){ |x, y| x + y }.should == @var.value
   end
   
   it_should_behave_like 'connection constraint'
@@ -224,7 +224,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with weights)' do
   it 'should constrain the sum of a set' do
     @stub.must_be.in(-10..-1)
     @model.solve!.should_not be_nil
-    weighted_sum = @set.glb.inject(0){ |sum, x| sum - x**2 }
+    weighted_sum = @set.lower_bound.inject(0){ |sum, x| sum - x**2 }
     weighted_sum.should > -10
     weighted_sum.should < -1
   end
@@ -267,7 +267,7 @@ describe Gecode::Constraints::Set::Connection, ' (include)' do
   it 'should constrain the variables to be included in the set' do
     @set.must.include @array
     @model.solve!.should_not be_nil
-    @array.all?{ |x| @set.glb.include? x.value }.should be_true
+    @array.all?{ |x| @set.lower_bound.include? x.value }.should be_true
   end
   
   it 'should raise error if the right hand side is not an array of variables' do

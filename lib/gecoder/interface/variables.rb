@@ -22,18 +22,7 @@ module Gecode
   # class using the specified method in a space.
   def Gecode::FreeVar(bound_class, space_bind_method)
     clazz = Class.new(FreeVarBase)
-    clazz.class_eval <<-"end_method_definitions"
-      # Delegate methods we can't handle to the bound int variable if possible.
-      def method_missing(name, *args)
-        if #{bound_class}.instance_methods.include? name.to_s
-          @model.allow_space_access do
-            bind.send(name, *args)
-          end
-        else
-          super
-        end
-      end
-      
+    clazz.class_eval <<-"end_method_definitions"      
       # Binds the int variable to the currently active space of the model, 
       # returning the bound int variable.
       def bind
@@ -54,6 +43,8 @@ module Gecode
         end
       end
       
+      private
+      
       # Delegates the method with the specified name to a method with the 
       # specified name when the variable is bound. If the bound method's name
       # is nil then the same name as the new method's name is assumed.
@@ -66,6 +57,13 @@ module Gecode
             end
           end
         end_code
+      end
+      
+      # Sends the specified method name and arguments to the bound variable.
+      def send_bound(method_name, *args)
+        @model.allow_space_access do
+          bind.send(method_name, *args)
+        end
       end
     end_method_definitions
     return clazz
@@ -84,11 +82,6 @@ module Gecode
     delegate :assigned?, :assigned
     delegate :include?, :in
     
-    def method_missing(name, *args)
-      # Do not delegate methods.
-      super
-    end
-    
     # Returns a string representation of the the range of the variable's domain.
     def domain
       if assigned?
@@ -105,14 +98,7 @@ module Gecode
     delegate :assigned?, :assigned
     
     def value
-      @model.allow_space_access do
-        bind.val == 1
-      end
-    end
-  
-    def method_missing(name, *args)
-      # Do not delegate methods.
-      super
+      send_bound(:val) == 1
     end
   
     # Returns a string representation of the the variable's domain.
@@ -124,27 +110,82 @@ module Gecode
       end
     end
   end
-  
+
   # Set variables.
   FreeSetVar = FreeVar(Gecode::Raw::SetVar, :set_var)
   class FreeSetVar
-    # Returns a string representation of the the variable's domain.
-    def domain
-      if assigned?
-        "#{glb_min}..#{lub_min}"
-      else
-        "glb-range: #{glb_min}..#{glb_max}, lub-range: #{lub_min}..#{lub_max}"
+    delegate :assigned?, :assigned
+    
+    # Gets all the elements located in the greatest lower bound of the set.
+    def lower_bound
+      min = send_bound(:glbMin)
+      max = send_bound(:glbMax)
+      EnumerableView.new(min, max, send_bound(:glbSize)) do
+        (min..max).to_a.delete_if{ |e| not send_bound(:contains, e) }
       end
     end
     
-    # Gets all the elements located in the greater lower bound of the set.
-    def glb
-      (glb_min..glb_max).to_a.delete_if{ |e| not include_glb? e }
+    # Gets all the elements located in the least upper bound of the set.
+    def upper_bound
+      min = send_bound(:lubMin)
+      max = send_bound(:lubMax)
+      EnumerableView.new(min, max, send_bound(:lubSize)) do
+        (min..max).to_a.delete_if{ |e| send_bound(:notContains, e) }
+      end
     end
     
-    # Gets all the elements located in the least upper bound of the set.
-    def lub
-      (lub_min..lub_max).to_a.delete_if{ |e| not include_lub? e }
+    # Gets the values in the assigned set.
+    def value
+      raise 'No value is assigned.' unless assigned?
+      lower_bound
+    end
+    
+    # Returns a range containing the allowed values for the set's cardinality.
+    def cardinality
+      send_bound(:cardMin)..send_bound(:cardMax)
+    end
+    
+    # Returns a string representation of the the variable's domain.
+    def domain
+      if assigned?
+        lower_bound.to_a.inspect
+      else
+        "glb-range: #{lower_bound.to_a.inspect}, lub-range: #{upper_bound.to_a.inspect}"
+      end
+    end
+  end
+  
+  # Describes an immutable view of an enumerable.
+  class EnumerableView
+    attr :size
+    attr :min
+    attr :max
+    include Enumerable
+    
+    # Constructs a view with the specified minimum, maximum and size. The block 
+    # should construct an enumerable containing the elements of the set.
+    def initialize(min, max, size, &enum_constructor)
+      @min = min
+      @max = max
+      @size = size
+      @constructor = enum_constructor
+      @enum = nil
+    end
+
+    # Used by Enumerable.
+    def each(&block)
+      enum.each(&block)
+    end
+    
+    private
+    
+    # Gets the enumeration being viewed.
+    def enum
+      if @enum.nil?
+        @enum = @constructor.call
+      else
+        return @enum
+      end
     end
   end
 end

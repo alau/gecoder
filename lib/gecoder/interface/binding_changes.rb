@@ -80,29 +80,6 @@ module GecodeRaw
       return @set_var_store
     end
   end
-  
-  class SetVar
-    # Aliases to make method-names more ruby-like.
-    alias_method :assigned?, :assigned
-    
-    alias_method :include_glb?, :contains
-    alias_method :include?, :contains
-    def include_lub?(element)
-      !notContains(element)
-    end
-    
-    alias_method :glb_min, :glbMin
-    alias_method :glb_max, :glbMax
-    alias_method :lub_min, :lubMin
-    alias_method :lub_max, :lubMax
-    
-    alias_method :glb_size, :glbSize
-    alias_method :val_size, :glbSize
-    alias_method :lub_size, :lubSize
-    
-    alias_method :card_min, :cardMin
-    alias_method :card_max, :cardMax
-  end
 end
 
 module Gecode

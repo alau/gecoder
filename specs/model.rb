@@ -116,13 +116,13 @@ describe Gecode::Model, ' (set creation)' do
   
   it 'should allow the creation of set variables with specified lower cardinality bound' do
     @model.set_var(@glb_range, @lub_range, 
-      @lower_card).card_min.should >= @lower_card
+      @lower_card).cardinality.begin.should >= @lower_card
   end
   
   it 'should allow the creation of set variables with specified cardinality range' do
     var = @model.set_var(@glb_range, @lub_range, @lower_card..@upper_card)
-    var.card_max.should <= @upper_card
-    var.card_min.should >= @lower_card
+    var.cardinality.end.should <= @upper_card
+    var.cardinality.begin.should >= @lower_card
   end
   
   it 'should allow the creation of arrays of set variables' do
@@ -130,8 +130,8 @@ describe Gecode::Model, ' (set creation)' do
     arr.size.should == 3
     arr.each do |var|
       var.should have_bounds(@glb_enum, @lub_enum)
-      var.card_max.should <= @upper_card
-      var.card_min.should >= @lower_card
+      var.cardinality.end.should <= @upper_card
+      var.cardinality.begin.should >= @lower_card
     end
   end
   
@@ -142,8 +142,8 @@ describe Gecode::Model, ' (set creation)' do
     matrix.column_size.should == 5
     matrix.each do |var|
       var.should have_bounds(@glb_enum, @lub_enum)
-      var.card_max.should <= @upper_card
-      var.card_min.should >= @lower_card
+      var.cardinality.end.should <= @upper_card
+      var.cardinality.begin.should >= @lower_card
     end
   end
   

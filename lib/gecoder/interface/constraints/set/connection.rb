@@ -50,7 +50,7 @@ module Gecode::Constraints::Set
       def constrain_equal(variable, params)
         set = params[:lhs]
         if variable.nil?
-          variable = @model.int_var(set.lub_min, set.glb_min)
+          variable = @model.int_var(set.upper_bound.min, set.lower_bound.min)
         end
         
         @model.add_interaction do
@@ -65,7 +65,7 @@ module Gecode::Constraints::Set
       def constrain_equal(variable, params)
         set = params[:lhs]
         if variable.nil?
-          variable = @model.int_var(set.lub_max, set.glb_max)
+          variable = @model.int_var(set.upper_bound.max, set.lower_bound.max)
         end
         
         @model.add_interaction do
@@ -79,7 +79,7 @@ module Gecode::Constraints::Set
     class SumExpressionStub < Gecode::Constraints::Int::CompositeStub
       def constrain_equal(variable, params)
         set, weights = params.values_at(:lhs, :weights)
-        lub = set.lub
+        lub = set.upper_bound.to_a
         lub.delete_if{ |e| weights[e].nil? }
         weighted_lub = lub.map{ |e| e * weights[e] }
 
