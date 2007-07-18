@@ -9,7 +9,7 @@ are accessed.
 * Added include (match) constraint for sets.
 * Added distinct constraints (distinct and at most one) for sets.
 * Added branch and bound search (optimization search). It's quite shaky at the moment though.
-* Assigned values of variables are now always accessed using #value instread of the various previous methods. The methods for extracting information from set variables have been changed and renamed.
+* Assigned values of variables are now always accessed using #value instead of the various previous methods. The methods for extracting information from set variables have been changed and renamed.
 * Enumerations containing variables now provide a convenience method #values which returns an array of the enum's values.
 
 == Version 0.5.0
