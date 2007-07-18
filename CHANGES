@@ -1,11 +1,14 @@
-== Version 0.5.1 (in SVN)
+== Version 0.6.0
+This release adds most of the remaining set constraints. It also makes 
+backward-compatibility breaking changes to the way that properties of variables
+are accessed.
 
 * Added channel constraints involving set variables.
 * Added set min and max constraints.
 * Added set sum constraints (optionally weighted or substituted).
 * Added include (match) constraint for sets.
 * Added distinct constraints (distinct and at most one) for sets.
-* Added branch and bound (optimization search).
+* Added branch and bound search (optimization search). It's quite shaky at the moment though.
 * Assigned values of variables are now always accessed using #value instread of the various previous methods. The methods for extracting information from set variables have been changed and renamed.
 * Enumerations containing variables now provide a convenience method #values which returns an array of the enum's values.
 
