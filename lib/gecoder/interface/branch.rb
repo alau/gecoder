@@ -2,9 +2,9 @@ module Gecode
   class Model
     private
     
-    # Maps the names of the supported variable branch strategies to the 
-    # corresponding constant in Gecode. 
-    BRANCH_VAR_CONSTANTS = {
+    # Maps the names of the supported variable branch strategies for integer and
+    # booleans to the corresponding constant in Gecode. 
+    BRANCH_INT_VAR_CONSTANTS = {
       :none                 => Gecode::Raw::BVAR_NONE,
       :smallest_min         => Gecode::Raw::BVAR_MIN_MIN,
       :largest_min          => Gecode::Raw::BVAR_MIN_MAX, 
@@ -19,15 +19,30 @@ module Gecode
       :smallest_max_regret  => Gecode::Raw::BVAR_REGRET_MAX_MIN, 
       :largest_max_regret   => Gecode::Raw::BVAR_REGRET_MAX_MAX
     }
+    # Maps the names of the supported variable branch strategies for sets to 
+    # the corresponding constant in Gecode. 
+    BRANCH_SET_VAR_CONSTANTS = {
+      :none                 => Gecode::Raw::SETBVAR_NONE,
+      :smallest_cardinality => Gecode::Raw::SETBVAR_MIN_CARD,
+      :largest_cardinality  => Gecode::Raw::SETBVAR_MAX_CARD, 
+      :smallest_unknown     => Gecode::Raw::SETBVAR_MIN_UNKNOWN_ELEM, 
+      :largest_unknown      => Gecode::Raw::SETBVAR_MAX_UNKNOWN_ELEM
+    }
     
-    # Maps the names of the supported value branch strategies to the 
-    # corresponding constant in Gecode. 
-    BRANCH_VALUE_CONSTANTS = {
+    # Maps the names of the supported value branch strategies for integers and
+    # booleans to the corresponding constant in Gecode. 
+    BRANCH_INT_VALUE_CONSTANTS = {
       :min        => Gecode::Raw::BVAL_MIN,
       :med        => Gecode::Raw::BVAL_MED,
       :max        => Gecode::Raw::BVAL_MAX,
       :split_min  => Gecode::Raw::BVAL_SPLIT_MIN,
       :split_max  => Gecode::Raw::BVAL_SPLIT_MAX
+    }
+    # Maps the names of the supported value branch strategies for sets to the 
+    # corresponding constant in Gecode. 
+    BRANCH_SET_VALUE_CONSTANTS = {
+      :min  => Gecode::Raw::SETBVAL_MIN,
+      :max  => Gecode::Raw::SETBVAL_MAX
     }
     
     public
@@ -38,7 +53,8 @@ module Gecode
     # used with the :value option. If nothing is specified then :variable uses
     # :none and value uses :min.
     #
-    # The following values can be used with :variable
+    # The following values can be used with :variable for integer and boolean 
+    # enums:
     # [:none]                 The first unassigned variable.
     # [:smallest_min]         The one with the smallest minimum.
     # [:largest_min]          The one with the largest minimum.
@@ -71,33 +87,66 @@ module Gecode
     #                         the largest and second-largest value still in 
     #                         the domain.
     #
-    # The following values can be used with :value
+    # The following values can be used with :value for integer and boolean 
+    # enums:
     # [:min]        Selects the smallest value.
     # [:med]        Select the median value.
     # [:max]        Selects the largest vale
     # [:split_min]  Selects the lower half of the domain.
     # [:split_max]  Selects the upper half of the domain.
+    #
+    # The following values can be used with :variable for set enums:
+    # [:none]                 The first unassigned set.
+    # [:smallest_cardinality] The one with the smallest cardinality.
+    # [:largest_cardinality]  The one with the largest cardinality.
+    # [:smallest_unknown]     The one with the smallest number of unknown 
+    #                         elements 
+    # [:largest_unknown]      The one with the largest number of unknown 
+    #                         elements
+    #
+    # The following values can be used with :value set enums: 
+    # enums:
+    # [:min]        Selects the smallest value in the unknown part of the set.
+    # [:max]        Selects the largest value in the unknown part of the set.
     def branch_on(variables, options = {})
+      if variables.respond_to? :to_int_var_array or 
+          variables.respond_to? :to_bool_var_array
+        add_branch(variables, options, BRANCH_INT_VAR_CONSTANTS, 
+          BRANCH_INT_VALUE_CONSTANTS)
+      elsif variables.respond_to? :to_set_var_array
+        add_branch(variables, options, BRANCH_SET_VAR_CONSTANTS, 
+          BRANCH_SET_VALUE_CONSTANTS)
+      else
+        raise TypeError, "Unknown type of variable enum #{variables.class}."
+      end
+    end
+    
+    private
+    
+    # Adds a branching selection for the specified variable with the specified
+    # options. The hashes are used to decode the options into Gecode's 
+    # constants.
+    def add_branch(variables, options, branch_var_hash, branch_value_hash)
       # Extract optional arguments.
       var_strat = options.delete(:variable) || :none
       val_strat = options.delete(:value) || :min
-
+    
       # Check that the options are correct.
       unless options.empty?
         raise ArgumentError, 'Unknown branching option given: ' + 
           options.keys.join(', ')
       end
-      unless BRANCH_VAR_CONSTANTS.include? var_strat
+      unless branch_var_hash.include? var_strat
         raise ArgumentError, "Unknown variable selection strategy: #{var_strat}"
       end
-      unless BRANCH_VALUE_CONSTANTS.include? val_strat
+      unless branch_value_hash.include? val_strat
         raise ArgumentError, "Unknown value selection strategy: #{val_strat}"
       end
 
       # Add the branching as a gecode interaction.
       add_interaction do
         Gecode::Raw.branch(active_space, variables.to_var_array, 
-          BRANCH_VAR_CONSTANTS[var_strat], BRANCH_VALUE_CONSTANTS[val_strat])
+          branch_var_hash[var_strat], branch_value_hash[val_strat])
       end
     end
   end

@@ -3,14 +3,16 @@ require File.dirname(__FILE__) + '/spec_helper'
 class BranchSampleProblem < Gecode::Model
   attr :vars
   attr :bools
+  attr :sets
   
   def initialize
     @vars = int_var_array(2, 0..3)
+    @sets = set_var_array(2, [], 0..4)
     @bools = bool_var_array(2)
   end
 end
 
-describe Gecode::Model, ' (branch)' do
+describe Gecode::Model, ' (integer branch)' do
   before do
     @model = BranchSampleProblem.new
     @vars = @model.vars
@@ -90,6 +92,79 @@ describe Gecode::Model, ' (branch)' do
   it 'should raise errors for unrecognized options' do
     lambda do
       @model.branch_on @vars, :foo => 5 
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should raise errors for unrecognized enumerations' do
+    lambda do
+      @model.branch_on [1,2,3]
+    end.should raise_error(TypeError)
+  end
+end
+
+describe Gecode::Model, ' (set branch)' do
+  before do
+    @model = BranchSampleProblem.new
+    @sets = @model.sets
+  end
+
+  it 'should default to :none and :min' do
+    Gecode::Raw.should_receive(:branch).once.with(
+      an_instance_of(Gecode::Raw::Space), 
+      anything, Gecode::Raw::SETBVAR_NONE, Gecode::Raw::SETBVAL_MIN)
+    @model.branch_on @sets
+    @model.solve!
+  end
+  
+  it 'should ensure that branched set variables are assigned in a solution' do
+    @model.branch_on @sets
+    @model.solve!.sets.each{ |var| var.should be_assigned }
+  end
+
+  supported_var_selectors = {
+    :none                 => Gecode::Raw::SETBVAR_NONE,
+    :smallest_cardinality => Gecode::Raw::SETBVAR_MIN_CARD,
+    :largest_cardinality  => Gecode::Raw::SETBVAR_MAX_CARD, 
+    :smallest_unknown     => Gecode::Raw::SETBVAR_MIN_UNKNOWN_ELEM, 
+    :largest_unknown      => Gecode::Raw::SETBVAR_MAX_UNKNOWN_ELEM
+  }.each_pair do |name, gecode_const|
+    it "should support #{name} as variable selection strategy" do
+      Gecode::Raw.should_receive(:branch).once.with(
+        an_instance_of(Gecode::Raw::Space),
+        anything, gecode_const, an_instance_of(Numeric))
+      @model.branch_on @sets, :variable => name
+      @model.solve!
+    end
+  end
+
+  supported_val_selectors = {
+    :min  => Gecode::Raw::SETBVAL_MIN,
+    :max  => Gecode::Raw::SETBVAL_MAX
+  }.each_pair do |name, gecode_const|
+    it "should support #{name} as value selection strategy" do
+      Gecode::Raw.should_receive(:branch).once.with(
+        an_instance_of(Gecode::Raw::Space), 
+        anything, an_instance_of(Numeric), gecode_const)
+      @model.branch_on @sets, :value => name
+      @model.solve!
+    end
+  end
+
+  it 'should raise errors for unrecognized var selection strategies' do
+    lambda do 
+      @model.branch_on @sets, :variable => :foo 
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should raise errors for unrecognized val selection strategies' do
+    lambda do 
+      @model.branch_on @sets, :value => :foo 
+    end.should raise_error(ArgumentError)
+  end
+
+  it 'should raise errors for unrecognized options' do
+    lambda do
+      @model.branch_on @sets, :foo => 5 
     end.should raise_error(ArgumentError)
   end
 end
