@@ -75,7 +75,7 @@ describe Gecode::FreeIntVar, ' (with non-range domain of size > 1)' do
   before do
     @domain = [-3, -2, -1, 1]
     model = Gecode::Model.new
-    @var = model.int_var(*@domain)
+    @var = model.int_var(@domain)
   end
 
   it_should_behave_like 'non-empty int variable'
@@ -113,7 +113,7 @@ end
 
 describe Gecode::FreeIntVar, ' (assigned)' do
   before do
-    @domain = [1]
+    @domain = 1
     model = Gecode::Model.new
     @var = model.int_var(*@domain)
   end
@@ -131,7 +131,7 @@ describe Gecode::FreeIntVar, ' (not assigned)' do
   before do
     @domain = 1..2
     model = Gecode::Model.new
-    @var = model.int_var(*@domain)
+    @var = model.int_var(@domain)
   end
 
   it 'should not be assigned' do

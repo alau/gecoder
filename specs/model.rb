@@ -13,7 +13,7 @@ describe Gecode::Model, ' (integer creation)' do
   # This currently fails, see specs/int_var for an explanation.
   it 'should allow the creation of int variables with non-range domains' do
     domain = [1, 3, 5]
-    @model.int_var(*domain).should have_domain(domain)
+    @model.int_var(domain).should have_domain(domain)
   end
   
   it 'should allow the creation of int variables with single element domains' do
@@ -37,7 +37,7 @@ describe Gecode::Model, ' (integer creation)' do
   it 'should allow the creation of int-var arrays with non-range domains' do
     domain = [1,3,5]
     count = 5
-    vars = @model.int_var_array(count, *domain)
+    vars = @model.int_var_array(count, domain)
     vars.size.should equal(count)
     vars.each{ |var| var.should have_domain(domain) }
   end
@@ -56,7 +56,7 @@ describe Gecode::Model, ' (integer creation)' do
     domain = [1,3,5]
     rows = 5
     columns = 4
-    vars = @model.int_var_matrix(rows, columns, *domain)
+    vars = @model.int_var_matrix(rows, columns, domain)
     vars.row_size.should equal(rows)
     vars.column_size.should equal(columns)
     vars.each{ |var| var.should have_domain(domain) }

@@ -10,9 +10,9 @@ class ElementSampleProblem < Gecode::Model
   def initialize
     prices = [17, 63, 45, 63]
     @fixnum_prices = wrap_enum(prices)
-    @prices = int_var_array(4, *prices)
+    @prices = int_var_array(4, prices)
     @store = int_var(0...prices.size)
-    @price = int_var(*prices)
+    @price = int_var(prices)
     branch_on wrap_enum([@store])
   end
 end

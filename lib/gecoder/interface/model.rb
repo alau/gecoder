@@ -2,20 +2,18 @@ module Gecode
   # Model is the base class that all models must inherit from.
   class Model
     # Creates a new integer variable with the specified domain. The domain can
-    # either be a range or a number of elements. 
-    def int_var(*domain_args)
-      enum = domain_enum(*domain_args)
+    # either be a range, a single element, or an enumeration of elements. 
+    def int_var(domain)
+      enum = domain_enum(domain)
       index = selected_space.new_int_vars(enum).first
       FreeIntVar.new(self, index)
     end
     
     # Creates an array containing the specified number of integer variables 
-    # with the specified domain. The domain can either be a range or a number 
-    # of elements. 
-    def int_var_array(count, *domain_args)
-      # TODO: Maybe the custom domain should be specified as an array instead? 
-      
-      enum = domain_enum(*domain_args)
+    # with the specified domain. The domain can either be a range, a single 
+    # element, or an enumeration of elements. 
+    def int_var_array(count, domain)
+      enum = domain_enum(domain)
       variables = []
       selected_space.new_int_vars(enum, count).each do |index|
         variables << FreeIntVar.new(self, index)
@@ -25,11 +23,9 @@ module Gecode
     
     # Creates a matrix containing the specified number rows and columns of 
     # integer variables with the specified domain. The domain can either be a 
-    # range or a number of elements. 
-    def int_var_matrix(row_count, col_count, *domain_args)
-      # TODO: Maybe the custom domain should be specified as an array instead? 
-      
-      enum = domain_enum(*domain_args)
+    # range, a single element, or an enumeration of elements. 
+    def int_var_matrix(row_count, col_count, domain)
+      enum = domain_enum(domain)
       indices = selected_space.new_int_vars(enum, row_count*col_count)
       rows = []
       row_count.times do |i|
@@ -41,7 +37,7 @@ module Gecode
     end
     
     # Creates a new boolean variable.
-    def bool_var(*domain_args)
+    def bool_var
       index = selected_space.new_bool_vars.first
       FreeBoolVar.new(self, index)
     end
@@ -170,25 +166,19 @@ module Gecode
     private
     
     # Returns an enumeration of the specified domain arguments, which can 
-    # either be given as a range or a number of elements. Raises ArgumentError 
-    # if no arguments have been specified. 
-    def domain_enum(*domain_args)
-      if domain_args.empty?
-        raise ArgumentError, 'A domain has to be specified.'
-      elsif domain_args.size > 1
-        return domain_args
-      else
-        element = domain_args.first
-        if element.respond_to?(:first) and element.respond_to?(:last) and
-            element.respond_to?(:exclude_end?)
-          if element.exclude_end?
-            return element.first..(element.last - 1)
-          else
-            return element
-          end
+    # either be given as a range, a single number, or an enumerable of elements. 
+    def domain_enum(domain)
+      if domain.respond_to?(:first) and domain.respond_to?(:last) and
+            domain.respond_to?(:exclude_end?)
+        if domain.exclude_end?
+          return domain.first..(domain.last - 1)
         else
-          return element..element
+          return domain
         end
+      elsif domain.kind_of? Enumerable
+        return domain
+      else
+        return domain..domain
       end
     end
     
