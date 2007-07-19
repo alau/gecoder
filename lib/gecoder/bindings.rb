@@ -3,11 +3,6 @@ module Gecode
   # The Gecode::Raw module is what the interface should use to access methods
   # in Gecode. The actual bindings are located in ::GecodeRaw.
   
-  # We just make Gecode::Raw an alias of the real module.
-  Raw = ::GecodeRaw
-  # Log all calls via Gecode::Raw.
-  #Raw = ::LoggingLayer
-  
   # Describes a layer that delegates to GecodeRaw only after having logged the 
   # call.
   module LoggingLayer
@@ -31,4 +26,9 @@ module Gecode
       @logger
     end
   end
+  
+  # We just make Gecode::Raw an alias of the real module.
+  Raw = ::GecodeRaw
+  # Log all calls via Gecode::Raw.
+  #Raw = LoggingLayer
 end
