@@ -1,6 +1,6 @@
 == Version 0.6.1 (in SVN)
 
-* Fixed bug with cardinality constraints using composite sugar.
+* Fixed a bug with set cardinality, min and max constraints using composite sugar.
 
 == Version 0.6.0
 This release adds most of the remaining set constraints. It also makes 

@@ -74,7 +74,7 @@ module Gecode::Constraints::Set
       def constrain_equal(variable, params)
         set = params[:lhs]
         if variable.nil?
-          variable = @model.int_var(set.upper_bound.min, set.lower_bound.min)
+          variable = @model.int_var(set.upper_bound.min..set.lower_bound.min)
         end
         
         @model.add_interaction do
@@ -89,7 +89,7 @@ module Gecode::Constraints::Set
       def constrain_equal(variable, params)
         set = params[:lhs]
         if variable.nil?
-          variable = @model.int_var(set.upper_bound.max, set.lower_bound.max)
+          variable = @model.int_var(set.lower_bound.max..set.upper_bound.max)
         end
         
         @model.add_interaction do

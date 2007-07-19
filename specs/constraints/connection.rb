@@ -76,9 +76,9 @@ describe Gecode::Constraints::Set::Connection, ' (min)' do
   end
   
   it 'should constrain the min of a set' do
-    @set.min.must == @var
+    @set.min.must == 3
     @model.solve!
-    @set.lower_bound.min.should == @var.value
+    @set.lower_bound.min.should == 3
   end
   
   it_should_behave_like 'connection constraint'
@@ -124,9 +124,9 @@ describe Gecode::Constraints::Set::Connection, ' (max)' do
   end
   
   it 'should constrain the max of a set' do
-    @set.max.must == @var
+    @set.max.must == 3
     @model.solve!
-    @set.lower_bound.max.should == @var.value
+    @set.lower_bound.max.should == 3
   end
   
   it_should_behave_like 'connection constraint'
@@ -173,9 +173,9 @@ describe Gecode::Constraints::Set::Connection, ' (sum)' do
   end
   
   it 'should constrain the sum of a set' do
-    @set.sum.must == @var
+    @set.sum.must == 7
     @model.solve!.should_not be_nil
-    @set.value.inject(0){ |x, y| x + y }.should == @var.value
+    @set.value.inject(0){ |x, y| x + y }.should == 7
   end
   
   it 'should raise error if unsupported options is given' do
