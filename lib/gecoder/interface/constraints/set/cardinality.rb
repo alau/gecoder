@@ -46,7 +46,7 @@ module Gecode::Constraints::Set
       def constrain_equal(variable, params)
         lhs = @params[:lhs]
         if variable.nil?
-          variable = @model.int_var(lhs.lower_bound.size, lhs.upper_bound.size)
+          variable = @model.int_var(lhs.lower_bound.size..lhs.upper_bound.size)
         end
         
         @model.add_interaction do 

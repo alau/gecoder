@@ -129,6 +129,19 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
     @set.value.size.should == @var.value
   end
   
+  it 'should constrain the cardinality of a set (2)' do
+    @set.size.must == 2
+    @model.solve!.should_not be_nil
+    @set.value.size.should == 2
+  end
+
+  it 'should constrain the cardinality of a set (3)' do
+    @set.size.must == @var
+    @var.must == 2
+    @model.solve!
+    @set.value.size.should == 2
+  end
+  
   it_should_behave_like 'constraint with options'
   it_should_behave_like 'composite constraint'
 end
