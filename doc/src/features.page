@@ -35,7 +35,7 @@ h3. Supported Gecode features
 * Branching selection
 * Depth first search search
 * Reification and propagation strength
-* %{color:gray}Branch and bound search%
+* Branch and bound search
 * %{color:gray}Custom propagators and branching strategies%
 
 h3. Gecode features not supported
