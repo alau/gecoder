@@ -33,6 +33,26 @@ class SampleOptimizationProblem < Gecode::Model
   end
 end
 
+class SampleOptimizationProblem2 < Gecode::Model
+  attr :money
+  
+  def initialize
+    @money = int_var_array(3, 0..9)
+    @money.must_be.distinct
+    @money.to_number.must < 500 # Otherwise it takes some time.
+    
+    branch_on @money, :variable => :smallest_size, :value => :min
+  end
+end
+
+class Array
+  # Computes a number of the specified base using the array's elements as 
+  # digits.
+  def to_number(base = 10)
+    inject{ |result, variable| variable + result * base }
+  end
+end
+
 describe Gecode::Model, ' (with multiple solutions)' do
   before do
     @domain = 0..3
@@ -175,12 +195,8 @@ describe Gecode::Model, ' (without constraints)' do
 end
 
 describe Gecode::Model, '(optimization search)' do
-  before do
-    @model = SampleOptimizationProblem.new
-  end
-  
   it 'should optimize the solution' do
-    solution = @model.optimize! do |model, best_so_far|
+    solution = SampleOptimizationProblem.new.optimize! do |model, best_so_far|
       model.z.must > best_so_far.z.value
     end
     solution.should_not be_nil
@@ -189,9 +205,42 @@ describe Gecode::Model, '(optimization search)' do
     solution.z.value.should == 25
   end
   
+  it 'should not be bothered by garbage collecting' do
+    # This goes through 400+ spaces.
+    solution = SampleOptimizationProblem2.new.optimize! do |model, best_so_far|
+      model.money.to_number.must > best_so_far.money.values.to_number
+    end
+    solution.should_not be_nil
+    solution.money.values.to_number.should == 498
+  end
+  
   it 'should raise error if no constrain proc has been defined' do
     lambda do 
       Gecode::Model.constrain(nil, nil) 
     end.should raise_error(NotImplementedError)
+  end
+  
+  it 'should not have problems with variables being created in the optimization block' do
+    solution = SampleOptimizationProblem.new.optimize! do |model, best_so_far|
+      tmp = model.int_var(0..25)
+      tmp.must == model.z
+      tmp.must > best_so_far.z.value
+    end
+    solution.should_not be_nil
+    solution.x.value.should == 5
+    solution.y.value.should == 5
+    solution.z.value.should == 25
+  end
+
+  it 'should not have problems with variables being created in the optimization block (2)' do
+    solution = SampleOptimizationProblem.new.optimize! do |model, best_so_far|
+      tmp = model.int_var(0..25)
+      tmp.must == model.z
+      (tmp + tmp).must > best_so_far.z.value*2
+    end
+    solution.should_not be_nil
+    solution.x.value.should == 5
+    solution.y.value.should == 5
+    solution.z.value.should == 25
   end
 end

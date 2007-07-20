@@ -65,10 +65,10 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |relation, rhs, strength, reif_var, negated|
       @model.allow_space_access do
-        rhs = rhs.bind if rhs.respond_to? :bind
+        rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
           if !negated and relation == Gecode::Raw::IRT_EQ and 
-              rhs.kind_of? Gecode::Raw::IntVar 
+              !rhs.kind_of? Fixnum
             Gecode::Raw.should_receive(:max).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVarArray), rhs, strength)
@@ -89,7 +89,8 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (max)' do
             an_instance_of(Gecode::Raw::IntVar), strength)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+            an_instance_of(Gecode::Raw::BoolVar),
             strength)
         end
       end
@@ -114,10 +115,10 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |relation, rhs, strength, reif_var, negated|
       @model.allow_space_access do
-        rhs = rhs.bind if rhs.respond_to? :bind
+        rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
        if reif_var.nil?
           if !negated and relation == Gecode::Raw::IRT_EQ and 
-              rhs.kind_of? Gecode::Raw::IntVar 
+              !rhs.kind_of? Fixnum
             Gecode::Raw.should_receive(:min).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVarArray), rhs, strength)
@@ -138,7 +139,8 @@ describe Gecode::Constraints::IntEnum::Arithmetic, ' (min)' do
             an_instance_of(Gecode::Raw::IntVar), strength)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+            an_instance_of(Gecode::Raw::BoolVar),
             strength)
         end
       end
@@ -163,18 +165,19 @@ describe Gecode::Constraints::Int::Arithmetic, ' (abs)' do
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |relation, rhs, strength, reif_var, negated|
       @model.allow_space_access do
-        rhs = rhs.bind if rhs.respond_to? :bind
+        rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
           if !negated and relation == Gecode::Raw::IRT_EQ and 
-              rhs.kind_of? Gecode::Raw::IntVar 
+              !rhs.kind_of? Fixnum
             Gecode::Raw.should_receive(:abs).once.with(
               an_instance_of(Gecode::Raw::Space),
-              @var.bind, rhs, strength)
+              an_instance_of(Gecode::Raw::IntVar), rhs, strength)
             Gecode::Raw.should_receive(:rel).exactly(0).times
           else
             Gecode::Raw.should_receive(:abs).once.with(
               an_instance_of(Gecode::Raw::Space),
-              @var.bind, an_instance_of(Gecode::Raw::IntVar), strength)
+              an_instance_of(Gecode::Raw::IntVar), 
+              an_instance_of(Gecode::Raw::IntVar), strength)
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, strength)
@@ -182,7 +185,8 @@ describe Gecode::Constraints::Int::Arithmetic, ' (abs)' do
         else
           Gecode::Raw.should_receive(:abs).once.with(
             an_instance_of(Gecode::Raw::Space),
-            @var.bind, an_instance_of(Gecode::Raw::IntVar), strength)
+            an_instance_of(Gecode::Raw::IntVar), 
+            an_instance_of(Gecode::Raw::IntVar), strength)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
@@ -212,18 +216,21 @@ describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |relation, rhs, strength, reif_var, negated|
       @model.allow_space_access do
-        rhs = rhs.bind if rhs.respond_to? :bind
+        rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
           if !negated and relation == Gecode::Raw::IRT_EQ and 
-              rhs.kind_of? Gecode::Raw::IntVar 
+              !rhs.kind_of? Fixnum
             Gecode::Raw.should_receive(:mult).once.with(
               an_instance_of(Gecode::Raw::Space),
-              @var.bind, @var2.bind, rhs, strength)
+              an_instance_of(Gecode::Raw::IntVar), 
+              an_instance_of(Gecode::Raw::IntVar), rhs, strength)
             Gecode::Raw.should_receive(:rel).exactly(0).times
           else
             Gecode::Raw.should_receive(:mult).once.with(
               an_instance_of(Gecode::Raw::Space),
-              @var.bind, @var2.bind, an_instance_of(Gecode::Raw::IntVar), 
+              an_instance_of(Gecode::Raw::IntVar), 
+              an_instance_of(Gecode::Raw::IntVar), 
+              an_instance_of(Gecode::Raw::IntVar), 
               strength)
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
@@ -232,10 +239,13 @@ describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
         else
           Gecode::Raw.should_receive(:mult).once.with(
             an_instance_of(Gecode::Raw::Space),
-            @var.bind, @var2.bind, an_instance_of(Gecode::Raw::IntVar), strength)
+            an_instance_of(Gecode::Raw::IntVar), 
+            an_instance_of(Gecode::Raw::IntVar), 
+            an_instance_of(Gecode::Raw::IntVar), strength)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            an_instance_of(Gecode::Raw::IntVar), relation, rhs, reif_var.bind,
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+            an_instance_of(Gecode::Raw::BoolVar),
             strength)
         end
       end

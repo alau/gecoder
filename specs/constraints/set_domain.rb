@@ -18,9 +18,11 @@ describe Gecode::Constraints::Set::Domain do
         if reif_var.nil? and !negated
           Gecode::Raw.should_receive(:dom).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @set.bind, relation_type, *expect_constant_set(rhs))
+            an_instance_of(Gecode::Raw::SetVar), relation_type, 
+            *expect_constant_set(rhs))
         else
-          params = [@model.active_space, @set.bind, relation_type]
+          params = [an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::SetVar), relation_type]
           params << expect_constant_set(rhs)
           params << an_instance_of(Gecode::Raw::BoolVar)
           Gecode::Raw.should_receive(:dom).once.with(*params.flatten)
@@ -98,9 +100,11 @@ describe Gecode::Constraints::Set::Domain, ' (equality)' do
         if reif_var.nil?
           Gecode::Raw.should_receive(:dom).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @set.bind, relation_type, *expect_constant_set(rhs))
+            an_instance_of(Gecode::Raw::SetVar), relation_type, 
+            *expect_constant_set(rhs))
         else
-          params = [@model.active_space, @set.bind, relation_type]
+          params = [an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::SetVar), relation_type]
           params << expect_constant_set(rhs)
           params << an_instance_of(Gecode::Raw::BoolVar)
           Gecode::Raw.should_receive(:dom).once.with(*params.flatten)

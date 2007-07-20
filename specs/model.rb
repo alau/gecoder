@@ -10,7 +10,13 @@ describe Gecode::Model, ' (integer creation)' do
     @model.int_var(range).should have_domain(range)
   end
   
-  # This currently fails, see specs/int_var for an explanation.
+  it 'should allow the creation of int variables without specified domain' do
+    var = @model.int_var
+    var.should be_range
+    var.min.should == Gecode::Raw::Limits::Int::INT_MIN
+    var.max.should == Gecode::Raw::Limits::Int::INT_MAX
+  end
+
   it 'should allow the creation of int variables with non-range domains' do
     domain = [1, 3, 5]
     @model.int_var(domain).should have_domain(domain)
@@ -19,11 +25,6 @@ describe Gecode::Model, ' (integer creation)' do
   it 'should allow the creation of int variables with single element domains' do
     domain = 3
     @model.int_var(domain).should have_domain([domain])
-  end
-  
-  it 'should not accept empty domains' do
-    lambda{ @model.int_var }.should raise_error(ArgumentError)
-    lambda{ @model.int_var_array(1) }.should raise_error(ArgumentError)
   end
   
   it 'should allow the creation of int-var arrays with range domains' do

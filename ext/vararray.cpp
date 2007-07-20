@@ -74,7 +74,6 @@ MIntVarArray::MIntVarArray() : d(new Private)
 MIntVarArray::MIntVarArray(const Gecode::IntVarArray &arr) : d(new Private)
 {
 	setArray(arr);
-	setCount(0);
 }
 
 MIntVarArray::MIntVarArray (Space *home, int n) : d(new Private)
@@ -107,7 +106,7 @@ void MIntVarArray::setArray(const Gecode::IntVarArray &arr)
 void MIntVarArray::enlargeArray(Gecode::Space *parent, int n)
 {
 	Gecode::IntVarArray na(parent, size()+n, 0, 0);
-	for(int i = count(); i--; )
+	for(int i = size(); i--; )
 		na[i] = d->array[i];
 	
 	d->array = na;
@@ -150,14 +149,14 @@ struct MBoolVarArray::Private
 
 MBoolVarArray::MBoolVarArray() : d(new Private)
 {
+	setArray(Gecode::BoolVarArray());
 }
 
 MBoolVarArray::MBoolVarArray(const Gecode::BoolVarArray &arr) : d(new Private)
 {
-	d->array = arr;
-	setSize(arr.size());
-	setCount(0);
+	setArray(arr);
 }
+
 MBoolVarArray::MBoolVarArray (Space *home, int n) : d(new Private)
 {
 	setArray(Gecode::BoolVarArray(home, n));
@@ -177,7 +176,7 @@ void MBoolVarArray::setArray(const Gecode::BoolVarArray &arr)
 void MBoolVarArray::enlargeArray(Gecode::Space *parent, int n)
 {
 	Gecode::BoolVarArray na(parent, size()+n, 0, 0);
-	for(int i = count(); i--; )
+	for(int i = size(); i--; )
 		na[i] = d->array[i];
 	
 	d->array = na;
@@ -219,13 +218,12 @@ struct MSetVarArray::Private
 
 MSetVarArray::MSetVarArray() : d(new Private)
 {
+	setArray(Gecode::SetVarArray());
 }
 
 MSetVarArray::MSetVarArray(const Gecode::SetVarArray &arr) : d(new Private)
 {
-	d->array = arr;
-	setSize(arr.size());
-	setCount(0);
+	setArray(arr);
 }
 
 MSetVarArray::MSetVarArray(Space *home, int n) : d(new Private)
@@ -266,8 +264,8 @@ void MSetVarArray::setArray(const Gecode::SetVarArray &arr)
 
 void MSetVarArray::enlargeArray(Gecode::Space *parent, int n)
 {
-	Gecode::SetVarArray na(parent, size()*n);
-	for (int i = count(); i--; )
+	Gecode::SetVarArray na(parent, size()+n);
+	for (int i = size(); i--; )
 		na[i] = d->array[i];
 	
 	d->array = na;

@@ -28,11 +28,11 @@ describe Gecode::Constraints::IntEnum::Element do
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |element, relation, target, strength, reif_var, negated|
       @model.allow_space_access do
-        target = target.bind if target.respond_to? :bind
-        element = element.bind if element.respond_to? :bind
+        target = an_instance_of(Gecode::Raw::IntVar) if target.respond_to? :bind
+        element = an_instance_of(Gecode::Raw::IntVar) if element.respond_to? :bind
         if reif_var.nil?
           if !negated and relation == Gecode::Raw::IRT_EQ and 
-              target.kind_of? Gecode::Raw::IntVar 
+              !target.kind_of? Fixnum
             Gecode::Raw.should_receive(:element).once.with( 
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVarArray), 

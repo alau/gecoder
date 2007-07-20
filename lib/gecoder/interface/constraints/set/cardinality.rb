@@ -43,16 +43,13 @@ module Gecode::Constraints::Set
     # Describes an expression stub started with a set variable followed by 
     # #size .
     class SizeExpressionStub < CompositeStub
-      def constrain_equal(variable, params)
+      def constrain_equal(variable, params, constrain)
         lhs = @params[:lhs]
-        if variable.nil?
-          variable = @model.int_var(lhs.lower_bound.size..lhs.upper_bound.size)
+        if constrain
+          variable.must_be.in lhs.lower_bound.size..lhs.upper_bound.size
         end
         
-        @model.add_interaction do 
-          Gecode::Raw::cardinality(@model.active_space, lhs.bind, variable.bind)
-        end
-        return variable
+        Gecode::Raw::cardinality(@model.active_space, lhs.bind, variable.bind)
       end
     end
   end

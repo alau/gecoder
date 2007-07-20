@@ -199,7 +199,7 @@ void MSpace::constrain(MSpace* s)
 {
   // Call Ruby's constrain.
   rb_funcall(Rust_gecode::cxx2ruby(this), rb_intern("constrain"), 1,
-    Rust_gecode::cxx2ruby(s)); 
+    Rust_gecode::cxx2ruby(s, false)); 
 }
 
 Gecode::MIntVarArray *MSpace::intVarArray(const char *name) const

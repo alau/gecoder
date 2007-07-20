@@ -25,7 +25,8 @@ module Gecode
       # created. The second is the has of parameters. The block should return 
       # the variable used as left hand side.
       def initialize(model, params, &block)
-        super(Expression, Gecode::FreeIntVar, model, params, &block)
+        super(Expression, Gecode::FreeIntVar, lambda{ model.int_var }, model, 
+          params, &block)
       end
     end
     

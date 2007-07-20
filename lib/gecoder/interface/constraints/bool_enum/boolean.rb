@@ -19,11 +19,8 @@ module Gecode
     # Describes an expression stub started with a bool var enum following by 
     # #conjunction.
     class ConjunctionStub < Gecode::Constraints::Bool::CompositeStub
-      def constrain_equal(variable, params)
+      def constrain_equal(variable, params, constrain)
         enum, strength = @params.values_at(:lhs, :strength)
-        if variable.nil?
-          variable = @model.bool_var
-        end
         
         @model.add_interaction do
           if variable.respond_to? :bind
@@ -41,22 +38,16 @@ module Gecode
     # Describes an expression stub started with a bool var enum following by 
     # #disjunction.
     class DisjunctionStub < Gecode::Constraints::Bool::CompositeStub
-      def constrain_equal(variable, params)
+      def constrain_equal(variable, params, constrain)
         enum, strength = @params.values_at(:lhs, :strength)
-        if variable.nil?
-          variable = @model.bool_var
-        end
         
-        @model.add_interaction do
-          if variable.respond_to? :bind
-            bound = variable.bind
-          else
-            bound = variable
-          end
-          Gecode::Raw::bool_or(@model.active_space, enum.to_bool_var_array, 
-            bound, strength)
+        if variable.respond_to? :bind
+          bound = variable.bind
+        else
+          bound = variable
         end
-        return variable
+        Gecode::Raw::bool_or(@model.active_space, enum.to_bool_var_array, 
+          bound, strength)
       end
     end
   end

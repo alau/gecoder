@@ -19,11 +19,13 @@ describe Gecode::Constraints::Int::Domain do
         if reif_var.nil?
           Gecode::Raw.should_receive(:dom).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @x.bind, an_instance_of(Gecode::Raw::IntSet), strength)
+            an_instance_of(Gecode::Raw::IntVar), 
+            an_instance_of(Gecode::Raw::IntSet), strength)
         else
           Gecode::Raw.should_receive(:dom).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @x.bind, an_instance_of(Gecode::Raw::IntSet), 
+            an_instance_of(Gecode::Raw::IntVar), 
+            an_instance_of(Gecode::Raw::IntSet), 
             an_instance_of(Gecode::Raw::BoolVar), strength)
         end
       end

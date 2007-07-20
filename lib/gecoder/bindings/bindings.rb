@@ -178,6 +178,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "Gecode::IntVar", "val"
       end
       
+      klass.add_method "enlargeArray" do |method|
+        method.add_parameter "Gecode::MSpace *", "home"
+        method.add_parameter "int", "n"
+      end
+      
       klass.add_method "size", "int"
       
       klass.add_method "debug"
@@ -204,6 +209,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_operator "[]=", "Gecode::BoolVar&" do |method|
         method.add_parameter "int", "index"
         method.add_parameter "Gecode::BoolVar", "val"
+      end
+      
+      klass.add_method "enlargeArray" do |method|
+        method.add_parameter "Gecode::MSpace *", "home"
+        method.add_parameter "int", "n"
       end
       
       klass.add_method "size", "int"
@@ -272,6 +282,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_operator "[]=", "Gecode::SetVar&" do |method|
         method.add_parameter "int", "index"
         method.add_parameter "Gecode::SetVar", "val"
+      end
+      
+      klass.add_method "enlargeArray" do |method|
+        method.add_parameter "Gecode::MSpace *", "home"
+        method.add_parameter "int", "n"
       end
       
       klass.add_method "size", "int"
@@ -1428,6 +1443,13 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
 # 			func.add_parameter "Gecode::DFA", "dfa" # TODO: add class DFA
 # 			func.add_parameter "Gecode::IntConLevel", "icl", true
 # 		end
+    
+    ns.add_function "bab", "Gecode::MSpace*" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "int", "c_d"
+      func.add_parameter "int", "a_d"
+      func.add_parameter "Gecode::Search::MStop *", "st"
+    end
     
     ns.add_function "rel" do |func|
       func.add_parameter "Gecode::MSpace*", "home"

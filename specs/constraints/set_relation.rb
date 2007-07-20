@@ -14,11 +14,13 @@ describe Gecode::Constraints::Set::Relation do
         if reif_var.nil? and !negated
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @set.bind, relation_type, @set2.bind)
+            an_instance_of(Gecode::Raw::SetVar), relation_type, 
+            an_instance_of(Gecode::Raw::SetVar))
         else
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @set.bind, relation_type, @set2.bind, 
+            an_instance_of(Gecode::Raw::SetVar), relation_type, 
+            an_instance_of(Gecode::Raw::SetVar), 
             an_instance_of(Gecode::Raw::BoolVar))
         end
       end
@@ -65,11 +67,13 @@ describe Gecode::Constraints::Set::Relation, ' (equality)' do
         if reif_var.nil?
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @set.bind, relation_type, @set2.bind)
+            an_instance_of(Gecode::Raw::SetVar), relation_type, 
+            an_instance_of(Gecode::Raw::SetVar))
         else
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            @set.bind, relation_type, @set2.bind, 
+            an_instance_of(Gecode::Raw::SetVar), relation_type, 
+            an_instance_of(Gecode::Raw::SetVar), 
             an_instance_of(Gecode::Raw::BoolVar))
         end
       end
@@ -134,7 +138,8 @@ describe Gecode::Constraints::Set::Relation, ' (elements)' do
         rhs = rhs.bind if rhs.respond_to? :bind
         Gecode::Raw.should_receive(:rel).once.with(
           an_instance_of(Gecode::Raw::Space), 
-          @set.bind, relation_type, rhs)
+          an_instance_of(Gecode::Raw::SetVar), relation_type, 
+          an_instance_of(Gecode::Raw::IntVar))
       end
     end
     

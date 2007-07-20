@@ -18,33 +18,27 @@ end
 module Gecode::Constraints::IntEnum::Arithmetic 
   # Describes an expression stub started with an int var enum following by #max.
   class MaxExpressionStub < Gecode::Constraints::Int::CompositeStub
-    def constrain_equal(variable, params)
+    def constrain_equal(variable, params, constrain)
       enum, strength = @params.values_at(:lhs, :strength)
-      if variable.nil?
-        variable = @model.int_var(enum.domain_range)
+      if constrain
+        variable.must_be.in enum.domain_range
       end
       
-      @model.add_interaction do
-        Gecode::Raw::max(@model.active_space, enum.to_int_var_array, 
-          variable.bind, strength)
-      end
-      return variable
+      Gecode::Raw::max(@model.active_space, enum.to_int_var_array, 
+        variable.bind, strength)
     end
   end
   
   # Describes an expression stub started with an int var enum following by #min.
   class MinExpressionStub < Gecode::Constraints::Int::CompositeStub
-    def constrain_equal(variable, params)
+    def constrain_equal(variable, params, constrain)
       enum, strength = @params.values_at(:lhs, :strength)
-      if variable.nil?
-        variable = @model.int_var(enum.domain_range)
+      if constrain
+        variable.must_be.in enum.domain_range
       end
       
-      @model.add_interaction do
-        Gecode::Raw::min(@model.active_space, enum.to_int_var_array, 
-          variable.bind, strength)
-      end
-      return variable
+      Gecode::Raw::min(@model.active_space, enum.to_int_var_array, 
+        variable.bind, strength)
     end
   end
 end

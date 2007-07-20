@@ -52,31 +52,40 @@ module GecodeRaw
       Gecode::Model.constrain(self, best_so_far_space)
     end
     
+    # Refreshes the underlying stores used by the space.
+    def refresh
+      @int_var_store = nil
+      @bool_var_store = nil
+      @set_var_store = nil
+    end
+    
     private
     
     # Retrieves the store used for integer variables. Creates one if none
     # exists.
     def int_var_store
-      if @int_var_store.nil?
+      # TODO: caching interferes with the variable creation during BAB-search,
+      # find out why.
+      #if @int_var_store.nil?
         @int_var_store = Gecode::Util::IntVarStore.new(self) 
-      end
+      #end
       return @int_var_store
     end
     
     # Retrieves the store used for boolean variables. Creates one if none
     # exists.
     def bool_var_store
-      if @bool_var_store.nil?
+      #if @bool_var_store.nil?
         @bool_var_store = Gecode::Util::BoolVarStore.new(self) 
-      end
+      #end
       return @bool_var_store
     end
     
     # Retrieves the store used for set variables. Creates one if none exists.
     def set_var_store
-      if @set_var_store.nil?
+      #if @set_var_store.nil?
         @set_var_store = Gecode::Util::SetVarStore.new(self) 
-      end
+      #end
       return @set_var_store
     end
   end
@@ -100,11 +109,7 @@ module Gecode
       
       # Grows the store to the new size.
       def grow(new_size)
-        new_array = new_storage_array(new_size)
-        @var_array.size.times do |i|
-          new_array[i] = @var_array[i]
-        end
-        @var_array = new_array
+        @var_array.enlargeArray(@space, new_size - @size)
         @size = new_size
       end
     end

@@ -29,12 +29,15 @@ describe Gecode::Constraints::Bool do
       @model.allow_space_access do
         Gecode::Raw.should_receive(:bool_or).once.with(
           an_instance_of(Gecode::Raw::Space), 
-          @b1.bind, @b2.bind, an_instance_of(Gecode::Raw::BoolVar), 
+          an_instance_of(Gecode::Raw::BoolVar), 
+          an_instance_of(Gecode::Raw::BoolVar), 
+          an_instance_of(Gecode::Raw::BoolVar), 
           Gecode::Raw::ICL_DEF)
         unless reif_var.nil?
           Gecode::Raw.should_receive(:bool_eqv).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            an_instance_of(Gecode::Raw::BoolVar), reif_var.bind, true, strength)
+            an_instance_of(Gecode::Raw::BoolVar), 
+            an_instance_of(Gecode::Raw::BoolVar), true, strength)
         end
       end
     end

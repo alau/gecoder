@@ -3,19 +3,14 @@ module Gecode::Constraints::IntEnum::Element
   # Describes an expression stub started with an int var enum following with an 
   # array access using an integer variables .
   class ExpressionStub < Gecode::Constraints::Int::CompositeStub
-    def constrain_equal(variable, params)
+    def constrain_equal(variable, params, constrain)
       enum, position, strength = @params.values_at(:lhs, :position, :strength)
-      if variable.nil?
-        variable = @model.int_var(enum.domain_range)
-      end
+      variable.must_be.in enum.domain_range
 
-      @model.add_interaction do
-        # The enum can be a constant array.
-        enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
-        Gecode::Raw::element(@model.active_space, enum, 
-          position.bind, variable.bind, strength)
-      end
-      return variable
+      # The enum can be a constant array.
+      enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
+      Gecode::Raw::element(@model.active_space, enum, 
+        position.bind, variable.bind, strength)
     end
   end
   

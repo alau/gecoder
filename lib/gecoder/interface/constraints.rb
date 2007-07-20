@@ -196,15 +196,19 @@ module Gecode
     class CompositeExpression < Gecode::Constraints::Expression
       # The expression class should be the class of the expression delegated to,
       # the variable class the kind of single variable used in the expression.
-      # The block given should take three parameters. The first is the variable 
-      # that should be the left hand side, if it's nil then a new one should be
-      # created. The second is the has of parameters. The block should return 
-      # the variable used as left hand side.
-      def initialize(expression_class, variable_class, model, params, &block)
+      # The new var proc should produce a new variable (of the appropriate type)
+      # which has an unconstricted domain. The block given should take three 
+      # parameters. The first is the variable that should be the left hand side.
+      # The second is the hash of parameters. The third is a boolean, it it's 
+      # true then the block should try to constrain the first variable's domain 
+      # as much as possible. 
+      def initialize(expression_class, variable_class, new_var_proc, model, 
+          params, &block)
         super(model, params)
         @expression_class = expression_class
         @variable_class = variable_class
-        @proc = block
+        @new_var_proc = new_var_proc
+        @constrain_equal_proc = block
       end
       
       # Delegate to an instance of the expression class when we get something 
@@ -215,9 +219,17 @@ module Gecode
           if args.size >= 2 and args[1].kind_of? Hash
             options = args[1]
           end
+          
+          # Link a variable to the composite constraint.
           @params.update Gecode::Constraints::Util.decode_options(options.clone)
-          @params[:lhs] = @proc.call(nil, @params)
-          @expression_class.new(@model, @params).send(name, *args)
+          variable = @new_var_proc.call
+          @model.add_interaction do
+            @constrain_equal_proc.call(variable, @params, true)
+          end
+          
+          # Perform the operation on the linked variable.
+          int_var_params = @params.clone.update(:lhs => variable)
+          @expression_class.new(@model, int_var_params).send(name, *args)
         else
           super
         end
@@ -228,7 +240,9 @@ module Gecode
             expression.kind_of? @variable_class
           # We don't need any additional constraints.
           @params.update Gecode::Constraints::Util.decode_options(options)
-          @proc.call(expression, @params)
+          @model.add_interaction do
+            @constrain_equal_proc.call(expression, @params, false)
+          end
         else
           method_missing(:==, expression, options)
         end
@@ -299,18 +313,17 @@ module Gecode
       private
       
       # Constrains the result of the stub to be equal to the specified variable
-      # with the specified parameters. If the variable given is nil then a new
-      # variable should be created for the purpose and returned. This is an 
-      # abstract method and should be overridden by all sub-classes.
-      def constrain_equal(variable, params)
+      # with the specified parameters. If constrain is true then the variable's
+      # domain should additionally be constrained as much as possible.
+      def constrain_equal(variable, params, constrain)
         raise NoMethodError, 'Abstract method has not been implemented.'
       end
       
       # Produces an expression with position for the lhs module.
       def expression(params)
         @params.update params
-        @composite_class.new(@model, @params) do |var, params|
-          constrain_equal(var, params)
+        @composite_class.new(@model, @params) do |var, params, constrain|
+          constrain_equal(var, params, constrain)
         end
       end
     end

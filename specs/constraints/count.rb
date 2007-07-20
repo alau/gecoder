@@ -24,8 +24,8 @@ describe Gecode::Constraints::IntEnum::Count do
     # Creates an expectation corresponding to the specified input.
     @expect = lambda do |element, relation, target, strength, reif_var|
       @model.allow_space_access do
-        target = target.bind if target.respond_to? :bind
-        element = element.bind if element.respond_to? :bind
+        target = an_instance_of(Gecode::Raw::IntVar) if target.respond_to? :bind
+        element = an_instance_of(Gecode::Raw::IntVar) if element.respond_to? :bind
         if reif_var.nil?
           Gecode::Raw.should_receive(:count).once.with(
             an_instance_of(Gecode::Raw::Space), 
@@ -40,7 +40,7 @@ describe Gecode::Constraints::IntEnum::Count do
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation,
-            target, reif_var.bind, strength)
+            target, an_instance_of(Gecode::Raw::BoolVar), strength)
         end
       end
     end

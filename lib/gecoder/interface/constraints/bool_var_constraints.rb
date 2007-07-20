@@ -26,21 +26,26 @@ module Gecode
       # created. The second is the has of parameters. The block should return 
       # the variable used as left hand side.
       def initialize(model, params, &block)
-        super(Expression, Gecode::FreeIntVar, model, params, &block)
+        super(Expression, Gecode::FreeBoolVar, lambda{ model.bool_var }, model,
+          params, &block)
       end
       
       # Override to also deal with constant booleans.
       def true(options = {})
         # We don't need any additional constraints.
         @params.update Gecode::Constraints::Util.decode_options(options)
-        @proc.call(!@params[:negate], @params)
+        @model.add_interaction do
+          @constrain_equal_proc.call(!@params[:negate], @params)
+        end
       end
       
       # Override to also deal with constant booleans.
       def false(options = {})
         # We don't need any additional constraints.
         @params.update Gecode::Constraints::Util.decode_options(options)
-        @proc.call(@params[:negate], @params)
+        @model.add_interaction do
+          @constrain_equal_proc.call(@params[:negate], @params)
+        end
       end
     end
     

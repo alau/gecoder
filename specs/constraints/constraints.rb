@@ -33,7 +33,7 @@ describe Gecode::Constraints::Int::CompositeStub, ' (not subclassed)' do
 
   it 'should raise error when calling #constrain_equal' do
     lambda do 
-      @con.instance_eval{ constrain_equal(nil, {}) }
+      @con.instance_eval{ constrain_equal(nil, {}, false) }
     end.should raise_error(NoMethodError)
   end
 end
@@ -60,7 +60,7 @@ describe Gecode::Constraints::CompositeExpression do
   it 'should raise error if a method doesn\'t exist' do
     expression = Gecode::Constraints::CompositeExpression.new(
       Gecode::Constraints::Int::Expression, Gecode::FreeIntVar, 
-      Gecode::Model.new, {:lhs => nil, :negate => false}){}
+      lambda{ }, Gecode::Model.new, {:lhs => nil, :negate => false}){}
     lambda do
       expression.this_method_does_not_exist
     end.should raise_error(NoMethodError)

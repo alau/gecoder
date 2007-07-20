@@ -71,55 +71,46 @@ module Gecode::Constraints::Set
   module Connection
     # Describes an expression stub started with an int var following by #min.
     class MinExpressionStub < Gecode::Constraints::Int::CompositeStub
-      def constrain_equal(variable, params)
+      def constrain_equal(variable, params, constrain)
         set = params[:lhs]
-        if variable.nil?
-          variable = @model.int_var(set.upper_bound.min..set.lower_bound.min)
+        if constrain
+          variable.must_be.in set.upper_bound.min..set.lower_bound.min
         end
         
-        @model.add_interaction do
-          Gecode::Raw::min(@model.active_space, set.bind, variable.bind)
-        end
-        return variable
+        Gecode::Raw::min(@model.active_space, set.bind, variable.bind)
       end
     end
     
     # Describes an expression stub started with an int var following by #max.
     class MaxExpressionStub < Gecode::Constraints::Int::CompositeStub
-      def constrain_equal(variable, params)
+      def constrain_equal(variable, params, constrain)
         set = params[:lhs]
-        if variable.nil?
-          variable = @model.int_var(set.lower_bound.max..set.upper_bound.max)
+        if constrain
+          variable.must_be.in set.lower_bound.max..set.upper_bound.max
         end
         
-        @model.add_interaction do
-          Gecode::Raw::max(@model.active_space, set.bind, variable.bind)
-        end
-        return variable
+        Gecode::Raw::max(@model.active_space, set.bind, variable.bind)
       end
     end
     
     # Describes an expression stub started with an int var following by #max.
     class SumExpressionStub < Gecode::Constraints::Int::CompositeStub
-      def constrain_equal(variable, params)
+      def constrain_equal(variable, params, constrain)
         set, subs = params.values_at(:lhs, :substitutions)
         lub = set.upper_bound.to_a
         lub.delete_if{ |e| subs[e].nil? }
         substituted_lub = lub.map{ |e| subs[e] }
-        if variable.nil?
+        if constrain
           # Compute the theoretical bounds of the weighted sum. This is slightly
           # sloppy since we could also use the contents of the greatest lower 
           # bound.
           min = substituted_lub.find_all{ |e| e < 0}.inject(0){ |x, y| x + y }
           max = substituted_lub.find_all{ |e| e > 0}.inject(0){ |x, y| x + y }
-          variable = @model.int_var(min..max)
+          variable.must_be.in min..max
         end
 
-        @model.add_interaction do
-          Gecode::Raw::weights(@model.active_space, lub, substituted_lub, 
-            set.bind, variable.bind)
-        end
-        return variable
+        Gecode::Raw::weights(@model.active_space, lub, substituted_lub, 
+          set.bind, variable.bind)
       end
     end
     
