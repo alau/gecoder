@@ -2,6 +2,7 @@
 
 * Fixed a bug with set cardinality, min and max constraints using composite sugar.
 * Domains for int variables can no longer be specified as several individual elements, it has to be specified as either a single element, a range or another enumeration.
+* Variables can now be created inside the optimization block.
 
 == Version 0.6.0
 This release adds most of the remaining set constraints. It also makes 
