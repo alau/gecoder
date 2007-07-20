@@ -1,0 +1,33 @@
+---
+title: send+most=money
+long_title: Solving send+most=money using constraint programming in Ruby
+inMenu: true
+description: An example showing how to solve the send+most=money problem using constraint programming in Ruby with Gecode/R.
+---
+
+h2. send+most=money
+
+h3. Definition
+
+<pre>
+   send
+ + most
+ ------
+  money
+</pre>
+
+Given the above equation, assign digits to each letter so that the equation 
+holds when the letter are substituted with the assigned digits. No two letter 
+may be assigned the same digit and the first letter of a word is not allowed to 
+be assigned 0 (i.e. a number may not start with 0 in the equation). There are 
+multiple valid assignments, the one which maximizes the value of "money" is 
+sought.
+
+h3. Code
+
+{includeFile: {filename: ../../../example/send_most_money.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+
+h3. Output
+
+ s: 3, e: 7, n: 8, d: 2, m: 1, o: 0, s: 9, t: 4, y: 6
+ money: 10876
