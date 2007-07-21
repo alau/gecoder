@@ -26,8 +26,8 @@ doc/src/examples/sudoku.page -text
 doc/src/features.page -text
 doc/src/index.page -text
 doc/src/installation.page -text
-doc/src/map.sitemap -text
 doc/src/sitemap.page -text
+doc/src/sitemap.sitemap -text
 example/example_helper.rb -text
 example/magic_sequence.rb -text
 example/queens.rb -text
