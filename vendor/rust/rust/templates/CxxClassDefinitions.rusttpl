@@ -73,7 +73,7 @@ VALUE cxx2ruby(!c_class_name!* instance, bool free) {
       }
       else
       {
-        rval = Data_Wrap_Struct(klass, 0, !class_free_function!, (void*)instance);
+        rval = Data_Wrap_Struct(klass, !class_mark_function!, !class_free_function!, (void*)instance);
       }
       
       !class_ptrmap![rval] = instance;
@@ -87,5 +87,5 @@ VALUE cxx2ruby(!c_class_name!* instance, bool free) {
 }
 
 static VALUE !class_varname!_alloc(VALUE self) {
-   return Data_Wrap_Struct(self, 0, !class_free_function!, 0);
+   return Data_Wrap_Struct(self, !class_mark_function!, !class_free_function!, 0);
 }
