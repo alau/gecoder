@@ -30,7 +30,7 @@ module Rust
     attr_accessor :bindname
     attr_accessor :function_mark
     attr_reader :name, :cname
-    attr_reader :varname, :varcname, :ptrmap, :function_free, :parent_varname
+    attr_reader :varname, :varcname, :ptrmap, :function_free, :function_map_free, :parent_varname
 
     # Rust::Namespace object for the class, used to get the proper C++
     # name.
@@ -53,6 +53,7 @@ module Rust
       
       @ptrmap = "#{type.valid_name}Map"
       @function_free = "#{varname}_free"
+      @function_map_free = "#{varname}_free_map_entry"
       @function_mark = "#{varname}_mark"
 
       @cname = @namespace.cname ? "#{@namespace.cname}::#{@name}" : @name
@@ -71,6 +72,7 @@ module Rust
       add_expansion 'bind_name', '@bindname'
       add_expansion 'class_ptrmap', 'ptrmap'
       add_expansion 'class_free_function', '@function_free'
+      add_expansion 'class_map_free_function', '@function_map_free'
       add_expansion 'class_mark_function', '@function_mark'
       add_expansion 'parent_varname', '@parent_varname'
     end

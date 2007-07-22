@@ -69,7 +69,7 @@ VALUE cxx2ruby(!c_class_name!* instance, bool free) {
       VALUE rval;
       if( !free )
       {
-        rval = Data_Wrap_Struct(klass, 0, 0, (void*)instance);
+        rval = Data_Wrap_Struct(klass, 0, !class_map_free_function!, (void*)instance);
       }
       else
       {

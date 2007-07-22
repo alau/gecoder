@@ -3,6 +3,11 @@
 T!class_ptrmap! !class_ptrmap!;
 
 static void !class_varname!_free(void *p) {
+	!class_map_free_function!(p);
+  delete (!c_class_name!*)p;
+}
+
+static void !class_varname!_free_map_entry(void *p) {
 #ifdef DEBUG      
   fprintf(stderr, "rust: Freeing %p (!class_varname!) \\n", p);
 #endif
@@ -12,7 +17,6 @@ static void !class_varname!_free(void *p) {
      if ( (*it).second == (!c_class_name!*)p ) {
         !class_ptrmap!.erase(it); break;
      }
-  delete (!c_class_name!*)p;
 }
 
 static void !class_varname!_mark(void *p) {
