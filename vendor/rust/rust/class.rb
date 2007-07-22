@@ -28,8 +28,9 @@ require 'rust/type'
 module Rust
   class Class < Container
     attr_accessor :bindname
+    attr_accessor :function_mark
     attr_reader :name, :cname
-    attr_reader :varname, :varcname, :ptrmap, :function_free, :function_mark, :parent_varname
+    attr_reader :varname, :varcname, :ptrmap, :function_free, :parent_varname
 
     # Rust::Namespace object for the class, used to get the proper C++
     # name.

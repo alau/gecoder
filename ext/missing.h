@@ -61,6 +61,8 @@ class MSpace : public Space
 		void own(Gecode::MBoolVarArray *bva, const char *name);
 		void own(Gecode::MSetVarArray *sva, const char *name);
 		
+		void gc_mark();
+		
 		void constrain(MSpace* s);
 		
 		Gecode::MIntVarArray *intVarArray(const char *name ) const;

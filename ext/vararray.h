@@ -65,6 +65,8 @@ class MIntVarArray : public MVarArray
 		
 		void debug() const;
 		
+		void gc_mark();
+		
 		IntVar &operator [](int index);
 		
 	private:
@@ -92,6 +94,8 @@ class MBoolVarArray : public MVarArray
 		void push(const Gecode::BoolVar& boolvar);
 		
 		void debug() const;
+		
+		void gc_mark();
 		
 	private:
 		struct Private;
@@ -130,6 +134,8 @@ class MSetVarArray : public MVarArray
 		void push(const Gecode::SetVar& setvar);
 		
 		void debug() const;
+		
+		void gc_mark();
 		
 	private:
 		struct Private;

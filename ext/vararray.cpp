@@ -18,6 +18,7 @@
 **/
 
 #include "vararray.h"
+#include "gecode.hh"
 
 namespace Gecode {
 
@@ -129,6 +130,13 @@ IntVar &MIntVarArray::operator [](int index)
 	return d->array[index];
 }
 
+void MIntVarArray::gc_mark()
+{
+  for(int i = size(); i--; ) {
+		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i])));
+	}
+}
+
 void MIntVarArray::debug() const
 {
 	for(int i = 0; i < d->array.size(); i++)
@@ -197,6 +205,13 @@ Gecode::BoolVar &MBoolVarArray::at(int index)
 Gecode::BoolVar &MBoolVarArray::operator[](int index)
 {
 	return d->array[index];
+}
+
+void MBoolVarArray::gc_mark()
+{
+  for(int i = size(); i--; ) {
+		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i])));
+	}
 }
 
 void MBoolVarArray::debug() const
@@ -286,6 +301,13 @@ Gecode::SetVar &MSetVarArray::at(int index)
 Gecode::SetVar &MSetVarArray::operator[](int index)
 {
 	return d->array[index];
+}
+
+void MSetVarArray::gc_mark()
+{
+  for(int i = size(); i--; ) {
+		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i])));
+	}
 }
 
 void MSetVarArray::debug() const

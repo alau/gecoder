@@ -194,6 +194,31 @@ void MSpace::own(Gecode::MSetVarArray *sva, const char *name)
 	d->setArrays[name] = sva;
 }
 
+void MSpace::gc_mark()
+{
+  {
+		IntVarArrays::iterator it, eend = d->intArrays.end();
+		for(it = d->intArrays.begin(); it != eend; it++)
+		{
+			rb_gc_mark(Rust_gecode::cxx2ruby((*it).second));
+		}
+	}
+	{
+		BoolVarArrays::iterator it, eend = d->boolArrays.end();
+		for(it = d->boolArrays.begin(); it != eend; it++)
+		{
+			rb_gc_mark(Rust_gecode::cxx2ruby((*it).second));
+		}
+	}
+	{
+		SetVarArrays::iterator it, eend = d->setArrays.end();
+		for(it = d->setArrays.begin(); it != eend; it++)
+		{
+			rb_gc_mark(Rust_gecode::cxx2ruby((*it).second));
+		}
+	}
+}
+
 // For BAB.
 void MSpace::constrain(MSpace* s)
 {

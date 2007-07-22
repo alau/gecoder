@@ -48,6 +48,28 @@ Gecode::IntArgs ruby2Gecode_IntArgs(VALUE arr, int argn)
 }
 @
 
+custom_mark_definitions =<<-"end_custom_definition"
+  static void Gecode_MSpace_custom_mark(void *p) {
+    Gecode_MSpace_mark(p);
+    ((Gecode::MSpace*)p)->gc_mark();
+  }
+  
+  static void Gecode_MIntVarArray_custom_mark(void *p) {
+    Gecode_MIntVarArray_mark(p);
+    ((Gecode::MIntVarArray*)p)->gc_mark();
+  }
+  
+  static void Gecode_MBoolVarArray_custom_mark(void *p) {
+    Gecode_MBoolVarArray_mark(p);
+    ((Gecode::MBoolVarArray*)p)->gc_mark();
+  }
+  
+  static void Gecode_MSetVarArray_custom_mark(void *p) {
+    Gecode_MSetVarArray_mark(p);
+    ((Gecode::MSetVarArray*)p)->gc_mark();
+  }
+end_custom_definition
+
 
 Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
   b.include_header 'gecode/kernel.hh', Rust::Bindings::HeaderGlobal
@@ -57,6 +79,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
   b.include_header 'missing.h', Rust::Bindings::HeaderLocal
   
   b.add_custom_definition ruby2intargs
+  b.add_custom_definition custom_mark_definitions
   
   # Is it possible to use namespaces with multiple levels in Rust? I.e. use
   # Gecode::Raw instead of GecodeRaw here (and avoid the hidious renaming)
@@ -146,6 +169,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_cxx_class "MIntVarArray" do |klass|
       klass.bindname = "IntVarArray"
+      klass.function_mark = 'Gecode_MIntVarArray_custom_mark'
+      
       klass.add_constructor
       klass.add_constructor do |func|
         func.add_parameter "Gecode::MSpace *", "home"
@@ -192,6 +217,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_cxx_class "MBoolVarArray" do |klass|
       klass.bindname = "BoolVarArray"
+      klass.function_mark = 'Gecode_MBoolVarArray_custom_mark'
+      
       klass.add_constructor
       klass.add_constructor do |func|
         func.add_parameter "Gecode::MSpace *", "home"
@@ -224,6 +251,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_cxx_class "MSetVarArray" do |klass|
       klass.bindname = "SetVarArray"
+      klass.function_mark = 'Gecode_MSetVarArray_custom_mark'
+      
       klass.add_constructor
       
       klass.add_constructor do |method|
@@ -303,6 +332,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_cxx_class "MSpace" do |klass|
       klass.bindname = "Space"
+      klass.function_mark = 'Gecode_MSpace_custom_mark'
       
       klass.add_constructor
       
