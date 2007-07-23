@@ -20,10 +20,10 @@ the solver. The solver then searches for a solution by exploring the space of
 all possible assignments while using the constraints in the model to prune 
 parts without having to visit them.
 
-A popular example would be Soduko, to solve a Soduko with constraint 
-programming you feed the rules (all numbers in each row must be distinct etc) 
-to the solver, which then searches for a solution satisfying all the 
-constraints. 
+A popular example would be sudoku, to "solve a sudoku with constraint 
+programming":examples/sudoku.html  you feed the rules (all numbers in each row 
+must be distinct etc) to the solver, which then searches for a solution 
+satisfying all the constraints.
 
 h2. Development status
 
