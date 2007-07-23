@@ -76,9 +76,10 @@ module Gecode
     # variables involved.
     def domain_range
       inject(nil) do |range, var|
-        next var.min..var.max if range.nil?
         min = var.min
         max = var.max
+        next min..max if range.nil?
+        
         range = min..range.last if min < range.first
         range = range.first..max if max > range.last
         range
@@ -122,6 +123,20 @@ module Gecode
       return @bound_arr
     end
     alias_method :to_var_array, :to_set_var_array
+    
+    # Returns the range of the union of the contained sets' upper bounds.
+    def upper_bound_range
+      inject(nil) do |range, var|
+        upper_bound = var.upper_bound
+        min = upper_bound.min
+        max = upper_bound.max
+        next min..max if range.nil?
+        
+        range = min..range.last if min < range.first
+        range = range.first..max if max > range.last
+        range
+      end
+    end
   end
   
   # A module containing the methods needed by enumerations containing fixnums. 

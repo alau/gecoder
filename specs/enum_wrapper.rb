@@ -103,6 +103,11 @@ describe Gecode::SetEnumMethods do
       @set_enum.to_set_var_array.should be_kind_of(Gecode::Raw::SetVarArray)
     end
   end
+  
+  it 'should compute the smallest upper bound union range' do
+    @set_enum.upper_bound_range.should == (0..1)
+    (@set_enum << @model.set_var([], -4..4)).upper_bound_range.should == (-4..4)
+  end
 end
 
 describe Gecode::FixnumEnumMethods do
