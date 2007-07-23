@@ -166,3 +166,19 @@ sets.must.at_most_share_one_element(:size => 17)
 </ruby>
 
 Neither of the constraints support reification nor negation.
+
+h3. Selection
+
+The set selection constraint provides array access with variables as indices. 
+Lets say that we have many stores that provide different services, encoded as
+integers, and we want to select a store which provides services encoded as 4,7 
+and 17. We could do that by letting @store_services@ be an array of sets where
+the i:th set contains the integers corresponding to services provided by the
+i:th store. We can then write the constraint as follows.
+
+<ruby>
+store_services[selected_store].must_be.superset_of [4,7,17]
+</ruby>
+
+Where @selected_store@ is an integer variable assigned the index of the selected
+store.

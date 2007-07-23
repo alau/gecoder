@@ -1,3 +1,7 @@
+== Version 0.7.0 (in SVN)
+
+* Added select set constraint.
+
 == Version 0.6.1
 This release fixes various bugs introduced in 0.6.0 and changes the way that
 int variable domains are specified (breaking backward-compatibility).
