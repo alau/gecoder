@@ -94,6 +94,13 @@ describe Gecode::Model, ' (set creation)' do
     @lower_card = 1
     @upper_card = 3
   end
+  
+  it 'should allow the creation of set variables without specified bounds' do
+    var = @model.set_var
+    var.lower_bound.size.should == 0
+    var.upper_bound.min.should == Gecode::Raw::Limits::Set::INT_MIN
+    var.upper_bound.max.should == Gecode::Raw::Limits::Set::INT_MAX
+  end
 
   it 'should allow the creation of set variables with glb range and lub range' do
     @model.set_var(@glb_range, @lub_range).should have_bounds(@glb_range, 
