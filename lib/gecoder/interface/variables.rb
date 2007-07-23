@@ -54,11 +54,11 @@ module Gecode
       # returning the bound int variable.
       def bind
         space = active_space
-        #unless @bound_space == space
+        unless @bound_space == space
           # We have not bound the variable to this space, so we do it now.
           @bound = space.method(:#{space_bind_method}).call(@index)
           @bound_space = space
-        #end
+        end
         return @bound
       end
       
