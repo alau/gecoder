@@ -15,6 +15,11 @@ spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
   s.version = GecodeR::VERSION
   s.summary = 'Ruby interface to Gecode, an environment for constraint programming.'
+  s.description = <<-end_description
+    Gecode/R is a Ruby interface to the Gecode constraint programming library. 
+    Gecode/R is intended for people with no previous experience of constraint 
+    programming, aiming to be easy to pick up and use.
+  end_description
 
   s.files = FileList[
     '[A-Z]*',
@@ -28,14 +33,16 @@ spec = Gem::Specification.new do |s|
   ].to_a
   s.require_path = 'lib'
   s.extensions << 'ext/extconf.rb'
+  s.requirements << 'Gecode 1.3.1'
 
   s.has_rdoc = true
   s.rdoc_options = rd.options
   s.extra_rdoc_files = rd.rdoc_files
+  s.test_files = FileList['specs/**/*.rb']
 
   s.autorequire = 'gecoder'
   s.author = ["Gecode/R Development Team"]
-  s.email = "gecoder-devel@rubyforge.org"
+  s.email = "gecoder-users@rubyforge.org"
   s.homepage = "http://gecoder.rubyforge.org"
   s.rubyforge_project = "gecoder"
 end

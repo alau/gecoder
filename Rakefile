@@ -8,3 +8,6 @@ task :default => [:verify_rcov]
 
 desc 'Performs the tasks necessary when releasing'
 task :release => [:publish_website, :publish_packages, :tag]
+
+desc 'Runs all the tests'
+task :test => :specs
