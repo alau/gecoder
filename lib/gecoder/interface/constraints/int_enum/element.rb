@@ -5,8 +5,10 @@ module Gecode::Constraints::IntEnum::Element
   class ExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
       enum, position, strength = @params.values_at(:lhs, :position, :strength)
-      variable.must_be.in enum.domain_range
-
+      if constrain
+        variable.must_be.in enum.domain_range
+      end
+      
       # The enum can be a constant array.
       enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
       Gecode::Raw::element(@model.active_space, enum, 
