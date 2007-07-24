@@ -4,28 +4,23 @@ require File.dirname(__FILE__) + '/constraint_helper'
 class SelectionSampleProblem < Gecode::Model
   attr :sets
   attr :set
+  attr :target
   attr :index
   
   def initialize
     @sets = set_var_array(17, [], 0..20)
-    @set = set_var([], 0..20)
+    @set = set_var([], 0...17)
+    @target = set_var([], 0..20)
     @index = int_var(0..16)
     branch_on wrap_enum([@index])
     branch_on @sets
   end
 end
 
-describe Gecode::Constraints::SetEnum::Selection, ' (select)' do
-  include GecodeR::Specs::SetHelper
-
+# Requires everything that composite behaviour spec requires in addition to
+# @stub and @expect_constrain_equal .
+describe 'selection constraint', :shared => true do
   before do
-    @model = SelectionSampleProblem.new
-    @sets = @model.sets
-    @target = @set = @model.set
-    @index = @model.index
-    @model.branch_on @model.wrap_enum([@set])
-    @stub = @sets[@index]
-    
     @expect = lambda do |index, relation, target, reif_var, negated|
       @model.allow_space_access do
         if target.respond_to? :bind
@@ -38,18 +33,11 @@ describe Gecode::Constraints::SetEnum::Selection, ' (select)' do
         if reif_var.nil?
           if !negated and relation == Gecode::Raw::IRT_EQ and 
               !target.kind_of? Enumerable
-            Gecode::Raw.should_receive(:selectSet).once.with( 
-              an_instance_of(Gecode::Raw::Space),
-              an_instance_of(Gecode::Raw::SetVarArray), 
-              an_instance_of(Gecode::Raw::IntVar), *expected_target)
+            @expect_constrain_equal.call
             Gecode::Raw.should_receive(:rel).exactly(0).times
             Gecode::Raw.should_receive(:dom).exactly(0).times
           else
-            Gecode::Raw.should_receive(:selectSet).once.with(
-              an_instance_of(Gecode::Raw::Space), 
-              an_instance_of(Gecode::Raw::SetVarArray), 
-              an_instance_of(Gecode::Raw::IntVar),
-              an_instance_of(Gecode::Raw::SetVar))
+            @expect_constrain_equal.call
             if relation_constraint == :dom
               # We can't seem to get any more specific than this with mocks. 
               Gecode::Raw.should_receive(relation_constraint).twice
@@ -60,11 +48,7 @@ describe Gecode::Constraints::SetEnum::Selection, ' (select)' do
             end
           end
         else
-          Gecode::Raw.should_receive(:selectSet).once.with( 
-            an_instance_of(Gecode::Raw::Space),
-            an_instance_of(Gecode::Raw::SetVarArray), 
-            an_instance_of(Gecode::Raw::IntVar), 
-            an_instance_of(Gecode::Raw::SetVar))
+          @expect_constrain_equal.call
           if relation_constraint == :dom
             Gecode::Raw.should_receive(relation_constraint).twice
           else
@@ -92,18 +76,12 @@ describe Gecode::Constraints::SetEnum::Selection, ' (select)' do
     
     # For options spec.
     @invoke_options = lambda do |hash|
-      @stub.must_be.subset_of(@set, hash)
+      @stub.must_be.subset_of(@target, hash)
       @model.solve!
     end
     @expect_options = lambda do |strength, reif_var|
-      @expect.call(17, Gecode::Raw::SRT_SUB, @set, reif_var, false)
+      @expect.call(17, Gecode::Raw::SRT_SUB, @target, reif_var, false)
     end
-  end
-  
-  it 'should constrain the specified element of an enum of sets' do
-    @sets[@index].must_be.superset_of([5,7,9])
-    @model.solve!
-    @sets[@index.value].value.should include(5,7,9)
   end
   
   it 'should not disturb normal array access' do
@@ -114,3 +92,65 @@ describe Gecode::Constraints::SetEnum::Selection, ' (select)' do
   it_should_behave_like 'composite set constraint'
 end
 
+describe Gecode::Constraints::SetEnum::Selection, ' (select)' do
+  include GecodeR::Specs::SetHelper
+
+  before do
+    @model = SelectionSampleProblem.new
+    @sets = @model.sets
+    @target = @set = @model.target
+    @index = @model.index
+    @model.branch_on @model.wrap_enum([@set])
+    @stub = @sets[@index]
+    
+    @expect_constrain_equal = lambda do
+      Gecode::Raw.should_receive(:selectSet).once.with( 
+        an_instance_of(Gecode::Raw::Space),
+        an_instance_of(Gecode::Raw::SetVarArray), 
+        an_instance_of(Gecode::Raw::IntVar),
+        an_instance_of(Gecode::Raw::SetVar))
+    end
+  end
+  
+  it 'should constrain the specified element of an enum of sets' do
+    @sets[@index].must_be.superset_of([5,7,9])
+    @model.solve!
+    @sets[@index.value].value.should include(5,7,9)
+  end
+  
+  it_should_behave_like 'selection constraint'
+end
+
+describe Gecode::Constraints::SetEnum::Selection, ' (union)' do
+  include GecodeR::Specs::SetHelper
+
+  before do
+    @model = SelectionSampleProblem.new
+    @sets = @model.sets
+    @set = @model.set
+    @target = @model.target
+    @model.branch_on @model.wrap_enum([@target, @set])
+    @stub = @sets[@set].union
+    
+    @expect_constrain_equal = lambda do
+      Gecode::Raw.should_receive(:selectUnion).once.with( 
+        an_instance_of(Gecode::Raw::Space),
+        an_instance_of(Gecode::Raw::SetVarArray), 
+        an_instance_of(Gecode::Raw::SetVar), 
+        an_instance_of(Gecode::Raw::SetVar))
+    end
+  end
+  
+  it 'should constrain the selected union of an enum of sets' do
+    @sets[@set].union.must_be.subset_of([5,7,9])
+    @sets[@set].union.must_be.superset_of([5])
+    @model.solve!
+    union = @set.value.inject([]) do |union, i|
+      union += @sets[i].value.to_a
+    end.uniq
+    union.should include(5)
+    (union - [5,7,9]).should be_empty
+  end
+  
+  it_should_behave_like 'selection constraint'
+end

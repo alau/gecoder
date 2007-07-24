@@ -1,6 +1,6 @@
 == Version 0.7.0 (in SVN)
 
-* Added select set constraint.
+* Added select set and select union constraints.
 
 == Version 0.6.1
 This release fixes various bugs introduced in 0.6.0 and changes the way that
