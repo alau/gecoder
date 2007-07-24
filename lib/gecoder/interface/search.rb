@@ -4,9 +4,7 @@ module Gecode
     # to that solution. Returns the model if a solution was found, nil 
     # otherwise.
     def solve!
-      GC.disable
       space = dfs_engine.next
-      GC.enable
       return nil if space.nil?
       @active_space = space
       return self
@@ -32,11 +30,9 @@ module Gecode
     # Yields each solution that the model has.
     def each_solution(&block)
       dfs = dfs_engine
-      GC.disable
       while not (@active_space = dfs.next).nil?
         yield self
       end
-      GC.enable
       self.reset!
     end
     
@@ -68,12 +64,10 @@ module Gecode
       end
 
       # Perform the search.
-      GC.disable
       result = Gecode::Raw::bab(selected_space, 
         Gecode::Raw::Search::Config::MINIMAL_DISTANCE, 
         Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
         nil)
-      GC.enable
       
       # Reset the method used constrain calls and return the result.
       Model.constrain_proc = nil
