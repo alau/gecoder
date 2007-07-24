@@ -40,7 +40,7 @@ describe 'selection constraint', :shared => true do
             @expect_constrain_equal.call
             if relation_constraint == :dom
               # We can't seem to get any more specific than this with mocks. 
-              Gecode::Raw.should_receive(relation_constraint).twice
+              Gecode::Raw.should_receive(relation_constraint).at_most(:twice)
             else
               Gecode::Raw.should_receive(relation_constraint).once.with(
                 an_instance_of(Gecode::Raw::Space), 
@@ -50,7 +50,7 @@ describe 'selection constraint', :shared => true do
         else
           @expect_constrain_equal.call
           if relation_constraint == :dom
-            Gecode::Raw.should_receive(relation_constraint).twice
+            Gecode::Raw.should_receive(relation_constraint).at_least(:twice)
           else
             expected_target << an_instance_of(Gecode::Raw::BoolVar)
             Gecode::Raw.should_receive(relation_constraint).once.with(
@@ -150,6 +150,42 @@ describe Gecode::Constraints::SetEnum::Selection, ' (union)' do
     end.uniq
     union.should include(5)
     (union - [5,7,9]).should be_empty
+  end
+  
+  it_should_behave_like 'selection constraint'
+end
+
+describe Gecode::Constraints::SetEnum::Selection, ' (intersection)' do
+  include GecodeR::Specs::SetHelper
+
+  before do
+    @model = SelectionSampleProblem.new
+    @sets = @model.sets
+    @set = @model.set
+    @target = @model.target
+    @model.branch_on @model.wrap_enum([@target, @set])
+    @stub = @sets[@set].intersection
+    
+    @expect_constrain_equal = lambda do
+      Gecode::Raw.should_receive(:selectInter).once.with( 
+        an_instance_of(Gecode::Raw::Space),
+        an_instance_of(Gecode::Raw::SetVarArray), 
+        an_instance_of(Gecode::Raw::SetVar), 
+        an_instance_of(Gecode::Raw::SetVar))
+    end
+  end
+  
+  it 'should constrain the selected intersection of an enum of sets' do
+    @sets[@set].intersection.must_be.subset_of([5,7,9])
+    @sets[@set].intersection.must_be.superset_of([5])
+    @model.solve!
+    intersection = @set.value.inject(nil) do |intersection, i|
+      elements = @sets[i].value.to_a
+      next elements if intersection.nil?
+      intersection &= elements
+    end.uniq
+    intersection.should include(5)
+    (intersection - [5,7,9]).should be_empty
   end
   
   it_should_behave_like 'selection constraint'

@@ -193,8 +193,18 @@ want to make sure that the union of the services provided by each store must
 contain the desired services 4,7 and 17.
 
 <ruby>
-store_services[visited_stores].must_be.superset_of [4,7,17]
+store_services[visited_stores].union.must_be.superset_of [4,7,17]
 </ruby>
 
 Where @store_services@ is an array of set variables and @visited_stores@ is a 
 set variable containing the stores we will visit.
+
+h3. Select intersection
+
+This constraint is much like select union, but it takes the intersection of the
+selected sets instead. So we could express that _each_ visited stores must 
+provide the services 4,7 and 17 as follows.
+
+<ruby>
+store_services[visited_stores].intersection.must_be.superset_of [4,7,17]
+</ruby>

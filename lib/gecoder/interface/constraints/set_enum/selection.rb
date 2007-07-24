@@ -53,9 +53,15 @@ module Gecode::Constraints::SetEnum::Selection
     def union
       UnionExpressionStub.new(@model, @params)
     end
+    
+    # Starts a intersection selection constraint on the selected sets.
+    def intersection
+      IntersectionExpressionStub.new(@model, @params)
+    end
   end
   
-  # Describes a union selection constraint.
+  # Describes an expression stub started with a set var enum following with an 
+  # array access using a set variable followed by #union.
   class UnionExpressionStub < Gecode::Constraints::Set::CompositeStub
     def constrain_equal(variable, params, constrain)
       enum, indices = @params.values_at(:lhs, :indices)
@@ -64,6 +70,19 @@ module Gecode::Constraints::SetEnum::Selection
       end
       
       Gecode::Raw::selectUnion(@model.active_space, enum.to_set_var_array,
+        indices.bind, variable.bind)
+    end
+  end
+  
+  # Describes an expression stub started with a set var enum following with an 
+  # array access using a set variable followed by #intersection.
+  class IntersectionExpressionStub < Gecode::Constraints::Set::CompositeStub
+    def constrain_equal(variable, params, constrain)
+      enum, indices = @params.values_at(:lhs, :indices)
+      # We can't constrain the variable as the empty intersection is the 
+      # universe.
+      
+      Gecode::Raw::selectInter(@model.active_space, enum.to_set_var_array,
         indices.bind, variable.bind)
     end
   end
