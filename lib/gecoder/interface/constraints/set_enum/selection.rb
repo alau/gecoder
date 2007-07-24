@@ -49,6 +49,8 @@ module Gecode::Constraints::SetEnum::Selection
   # Describes an expression stub started with a set var enum followed with an
   # array access using a set variable.
   class SetAccessStub < Gecode::Constraints::ExpressionStub
+    include Gecode::Constraints::LeftHandSideMethods
+    
     # Starts a union selection constraint on the selected sets.
     def union
       UnionExpressionStub.new(@model, @params)
@@ -73,6 +75,13 @@ module Gecode::Constraints::SetEnum::Selection
       end
       
       IntersectionExpressionStub.new(@model, @params)
+    end
+    
+    private
+    
+    # Produces an expression with position for the lhs module.
+    def expression(params)
+      SetAccessExpression.new(@model, @params.update(params))
     end
   end
   
@@ -107,6 +116,29 @@ module Gecode::Constraints::SetEnum::Selection
           indices.bind, variable.bind, 
           Gecode::Raw::IntSet.new(elements, elements.size))
       end
+    end
+  end
+  
+  # Describes an expression that starts with an set variable enum followed with
+  # an array access using a set variable followed by some form of must.
+  class SetAccessExpression < Gecode::Constraints::Set::Expression
+    # Constrains the selected sets to be disjoint.
+    def disjoint
+      if @params[:negate]
+        raise Gecode::MissingConstraintError, 'A negated set selection ' + 
+          'disjoint is not implemented.'
+      end
+      
+      @model.add_constraint DisjointConstraint.new(@model, @params)
+    end
+  end
+  
+  # Describes a disjoint constraint produced by sets[set].must_be.disjoint .
+  class DisjointConstraint < Gecode::Constraints::Constraint
+    def post
+      enum, indices = @params.values_at(:lhs, :indices)
+      Gecode::Raw.selectDisjoint(@model.active_space, enum.to_set_var_array,
+        indices.bind)
     end
   end
 end

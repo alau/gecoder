@@ -212,5 +212,17 @@ store_services[visited_stores].intersection.must_be.superset_of [4,7,17]
 Optionally a universe can also be specified as follows.
 
 <ruby>
-stote.services[visited_stores].intersection(:with => 5..17).must_be.superset_of [4,7,17]
+store_services[visited_stores].intersection(:with => 5..17).must_be.superset_of [4,7,17]
 </ruby>
+
+h3. Disjoint
+
+Selected sets can also be specified to be disjoint. Taking the above example we
+could express that no two visited stores may provide the same service as 
+follows.
+
+<ruby>
+store_services[visited_stores].must_be.disjoint
+</ruby>
+
+This constraint does not support negation nor reification.
