@@ -208,3 +208,9 @@ provide the services 4,7 and 17 as follows.
 <ruby>
 store_services[visited_stores].intersection.must_be.superset_of [4,7,17]
 </ruby>
+
+Optionally a universe can also be specified as follows.
+
+<ruby>
+stote.services[visited_stores].intersection(:with => 5..17).must_be.superset_of [4,7,17]
+</ruby>

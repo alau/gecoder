@@ -190,3 +190,60 @@ describe Gecode::Constraints::SetEnum::Selection, ' (intersection)' do
   
   it_should_behave_like 'selection constraint'
 end
+
+describe Gecode::Constraints::SetEnum::Selection, ' (intersection with universe)' do
+  include GecodeR::Specs::SetHelper
+
+  before do
+    @model = SelectionSampleProblem.new
+    @sets = @model.sets
+    @set = @model.set
+    @target = @model.target
+    @model.branch_on @model.wrap_enum([@target, @set])
+    @universe = [1,2]
+    @stub = @sets[@set].intersection(:with => @universe)
+    
+    @expect_constrain_equal = lambda do
+      Gecode::Raw.should_receive(:selectInterIn).once.with( 
+        an_instance_of(Gecode::Raw::Space),
+        an_instance_of(Gecode::Raw::SetVarArray), 
+        an_instance_of(Gecode::Raw::SetVar), 
+        an_instance_of(Gecode::Raw::SetVar),
+        an_instance_of(Gecode::Raw::IntSet))
+    end
+  end
+  
+  it 'should constrain the selected intersection of an enum of sets in a universe' do
+    @sets[@set].intersection(:with => @universe).must_be.subset_of([2])
+    @model.solve!
+    intersection = @set.value.inject(@universe) do |intersection, i|
+      intersection &= @sets[i].value.to_a
+    end.uniq
+    intersection.should include(2)
+    (intersection - [1,2]).should be_empty
+  end
+  
+  it 'should allow the universe to be specified as a range' do
+    @sets[@set].intersection(:with => 1..2).must_be.subset_of([2])
+    @model.solve!
+    intersection = @set.value.inject(@universe) do |intersection, i|
+      intersection &= @sets[i].value.to_a
+    end.uniq
+    intersection.should include(2)
+    (intersection - [1,2]).should be_empty
+  end
+  
+  it 'should raise error if unknown options are specified' do
+    lambda do
+      @sets[@set].intersection(:does_not_exist => nil).must_be.subset_of([2])
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should raise error if the universe is of the wrong type' do
+    lambda do
+      @sets[@set].intersection(:with => 'foo').must_be.subset_of([2])
+    end.should raise_error(TypeError)
+  end
+  
+  it_should_behave_like 'selection constraint'
+end

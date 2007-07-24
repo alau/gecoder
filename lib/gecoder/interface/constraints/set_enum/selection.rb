@@ -54,8 +54,24 @@ module Gecode::Constraints::SetEnum::Selection
       UnionExpressionStub.new(@model, @params)
     end
     
-    # Starts a intersection selection constraint on the selected sets.
-    def intersection
+    # Starts a intersection selection constraint on the selected sets. The 
+    # option :with may optionally be specified, in which case the value should
+    # be an enumeration of the elements in the universe.
+    def intersection(options = {})
+      unless options.empty? 
+        unless options.size == 1 and options.has_key?(:with)
+          raise ArgumentError, "Expected option key :with, got #{options.keys}."
+        else
+          universe = options[:with]
+          unless universe.kind_of?(Enumerable) and 
+              universe.all?{ |element| element.kind_of? Fixnum }
+            raise TypeError, "Expected the universe to be specified as " + 
+              "an enumeration of fixnum, got #{universe.class}."
+          end
+          @params.update(:universe => universe)
+        end
+      end
+      
       IntersectionExpressionStub.new(@model, @params)
     end
   end
@@ -78,12 +94,19 @@ module Gecode::Constraints::SetEnum::Selection
   # array access using a set variable followed by #intersection.
   class IntersectionExpressionStub < Gecode::Constraints::Set::CompositeStub
     def constrain_equal(variable, params, constrain)
-      enum, indices = @params.values_at(:lhs, :indices)
-      # We can't constrain the variable as the empty intersection is the 
-      # universe.
+      enum, indices, universe = @params.values_at(:lhs, :indices, :universe)
+      # We can't do any useful constraining here since the empty intersection
+      # is the universe.
       
-      Gecode::Raw::selectInter(@model.active_space, enum.to_set_var_array,
-        indices.bind, variable.bind)
+      if universe.nil?
+        Gecode::Raw::selectInter(@model.active_space, enum.to_set_var_array,
+          indices.bind, variable.bind)
+      else
+        elements = universe.to_a
+        Gecode::Raw::selectInterIn(@model.active_space, enum.to_set_var_array,
+          indices.bind, variable.bind, 
+          Gecode::Raw::IntSet.new(elements, elements.size))
+      end
     end
   end
 end

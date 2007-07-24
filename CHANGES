@@ -1,6 +1,6 @@
 == Version 0.7.0 (in SVN)
 
-* Added select set, select union and select intersectiob constraints.
+* Added select set, select union and select intersection (optionally with specified universe) constraints.
 
 == Version 0.6.1
 This release fixes various bugs introduced in 0.6.0 and changes the way that
