@@ -167,6 +167,14 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       enum.add_value "AVAL_MAX"
     end
     
+    ns.add_enum "ExecStatus" do |enum|
+      enum.add_value "ES_FAILED"
+      enum.add_value "ES_NOFIX"
+      enum.add_value "ES_OK"
+      enum.add_value "ES_FIX"
+      enum.add_value "ES_SUBSUMED"
+    end
+    
     ns.add_cxx_class "MIntVarArray" do |klass|
       klass.bindname = "IntVarArray"
       klass.function_mark = 'Gecode_MIntVarArray_custom_mark'
@@ -328,6 +336,24 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_constructor
       klass.add_method "alternatives", "int"
       klass.add_method "size", "int"
+    end
+
+    ns.add_cxx_class "Branching" do |klass|
+      klass.add_method "status", "bool" do |method|
+        method.add_parameter "Gecode::MSpace*", "home"
+      end
+      
+      klass.add_method "description", "Gecode::MBranchingDesc" do |method|
+        method.add_parameter "Gecode::MSpace*", "home"
+      end
+      
+      klass.add_method "commit", "int" do |method|
+        method.add_parameter "Gecode::MSpace*", "home"
+        method.add_parameter "Gecode::MBranchingDesc*", "desc" do |param|
+          param.custom_conversion = "ruby2Gecode_MBranchingDescPtr(desc, 1)->ptr()"
+        end
+        method.add_parameter "int", "a"
+      end
     end
     
     ns.add_cxx_class "MSpace" do |klass|
