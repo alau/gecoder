@@ -73,6 +73,7 @@ lib/gecoder/interface/constraints/set_enum/distinct.rb -text
 lib/gecoder/interface/constraints/set_enum/selection.rb -text
 lib/gecoder/interface/constraints/set_enum_constraints.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text
+lib/gecoder/interface/custom_branching.rb -text
 lib/gecoder/interface/enum_matrix.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/model.rb -text
@@ -102,6 +103,7 @@ specs/constraints/selection.rb -text
 specs/constraints/set_domain.rb -text
 specs/constraints/set_relation.rb -text
 specs/constraints/sort.rb -text
+specs/custom_branching.rb -text
 specs/enum_matrix.rb -text
 specs/enum_wrapper.rb -text
 specs/int_var.rb -text

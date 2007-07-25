@@ -331,8 +331,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_method "debug"
     end
     
-    ns.add_cxx_class "MBranchingDesc" do |klass|
-      klass.bindname = "BranchingDesc"
+    ns.add_cxx_class "BranchingDesc" do |klass|
       klass.add_constructor
       klass.add_method "alternatives", "int"
       klass.add_method "size", "int"
@@ -343,15 +342,13 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "Gecode::MSpace*", "home"
       end
       
-      klass.add_method "description", "Gecode::MBranchingDesc" do |method|
+      klass.add_method "description", "Gecode::BranchingDesc" do |method|
         method.add_parameter "Gecode::MSpace*", "home"
       end
       
       klass.add_method "commit", "int" do |method|
         method.add_parameter "Gecode::MSpace*", "home"
-        method.add_parameter "Gecode::MBranchingDesc*", "desc" do |param|
-          param.custom_conversion = "ruby2Gecode_MBranchingDescPtr(desc, 1)->ptr()"
-        end
+        method.add_parameter "Gecode::BranchingDesc*", "desc"
         method.add_parameter "int", "a"
       end
     end
@@ -406,12 +403,10 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_method "failed", "bool"
       klass.add_method "cached", "int"
       
-      klass.add_method "mdescription", "Gecode::MBranchingDesc *", "description"
+      klass.add_method "description", "Gecode::BranchingDesc *"
       
       klass.add_method "commit" do |method|
-        method.add_parameter "Gecode::MBranchingDesc", "desc" do |param|
-          param.custom_conversion = "ruby2Gecode_MBranchingDescPtr(desc, 1)->ptr()"
-        end
+        method.add_parameter "Gecode::BranchingDesc", "desc"
         method.add_parameter "int", "a"
       end
     end
