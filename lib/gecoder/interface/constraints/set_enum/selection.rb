@@ -111,10 +111,9 @@ module Gecode::Constraints::SetEnum::Selection
         Gecode::Raw::selectInter(@model.active_space, enum.to_set_var_array,
           indices.bind, variable.bind)
       else
-        elements = universe.to_a
         Gecode::Raw::selectInterIn(@model.active_space, enum.to_set_var_array,
           indices.bind, variable.bind, 
-          Gecode::Raw::IntSet.new(elements, elements.size))
+          Gecode::Constraints::Util.constant_set_to_int_set(universe))
       end
     end
   end

@@ -54,6 +54,12 @@ describe Gecode::Constraints::Util do
       Gecode::Constraints::Util.constant_set_to_params('hello')
     end.should raise_error(TypeError)
   end
+  
+  it 'should raise error when giving incorrect set to #constant_set_to_int_set' do
+    lambda do 
+      Gecode::Constraints::Util.constant_set_to_int_set('hello')
+    end.should raise_error(TypeError)
+  end
 end
 
 describe Gecode::Constraints::CompositeExpression do

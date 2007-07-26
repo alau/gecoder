@@ -146,6 +146,26 @@ module Gecode
           return Gecode::Raw::IntSet.new(constant_set, constant_set.size)
         end
       end
+      
+      # Converts the different ways to specify constant sets in the interface
+      # to an instance of Gecode::Raw::IntSet. The different forms accepted are:
+      # * Single instance of Fixnum (singleton set).
+      # * Range (set containing all numbers in range), treated differently from
+      #   other enumerations.
+      # * Enumeration of integers (set contaning all numbers in set).
+      def constant_set_to_int_set(constant_set)
+        if constant_set.kind_of? Range
+          return Gecode::Raw::IntSet.new(constant_set.first, constant_set.last)
+        elsif constant_set.kind_of? Fixnum
+          return Gecode::Raw::IntSet.new([constant_set], 1)
+        else
+          constant_set = constant_set.to_a
+          unless constant_set.all?{ |e| e.kind_of? Fixnum }
+            raise TypeError, "Not a constant set: #{constant_set}."
+          end
+          return Gecode::Raw::IntSet.new(constant_set, constant_set.size)
+        end
+      end
     end
     
     # Describes a constraint expressions. An expression is produced by calling

@@ -38,10 +38,9 @@ module Gecode::Constraints::Int
       
         var, domain, reif_var, strength = @params.values_at(:lhs, :domain, 
           :reif, :strength)
-        domain = domain.to_a
         
         (params = []) << var.bind
-        params << Gecode::Raw::IntSet.new(domain, domain.size)
+        params << Gecode::Constraints::Util.constant_set_to_int_set(domain)
         params << reif_var.bind if reif_var.respond_to? :bind
         params << strength
         Gecode::Raw::dom(space, *params)
