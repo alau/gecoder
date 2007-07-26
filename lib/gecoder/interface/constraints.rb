@@ -75,6 +75,14 @@ module Gecode
       NEGATED_SET_RELATION_TYPES = {
         :== => Gecode::Raw::SRT_NQ
       }
+      # Maps the names of the methods to the corresponding set operation type in 
+      # Gecode.
+      SET_OPERATION_TYPES = { 
+        :union          => Gecode::Raw::SOT_UNION,
+        :disjoint_union => Gecode::Raw::SOT_DUNION,
+        :intersection   => Gecode::Raw::SOT_INTER,
+        :minus          => Gecode::Raw::SOT_MINUS
+      }
       
       # Various method aliases for comparison methods. Maps the original 
       # (symbol) name to an array of aliases.

@@ -52,6 +52,20 @@ set.elements.must <= upper_bound
 Constant integers instead of the integer variable are also supported. Note that
 this constraint is not reifiable.
 
+h3. Operation
+
+Using operations between sets is also possible.
+
+<ruby>
+set.union(another_set).must_be.superset_of a_third_set
+</ruby>
+
+The following operations are available.
+* union
+* disjoint_union
+* intersection
+* minus
+
 h3. Cardinality
 
 Cardinality constraints constrain the size of the set. Constraining the size of 
