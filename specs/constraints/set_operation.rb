@@ -16,12 +16,17 @@ describe Gecode::Constraints::Set::Operation do
       else
         expected_target = an_instance_of(Gecode::Raw::IntSet)
       end
+      if op2.respond_to? :bind
+        expected_op2 = an_instance_of(Gecode::Raw::SetVar)
+      else
+        expected_op2 = an_instance_of(Gecode::Raw::IntSet)
+      end
 
       Gecode::Raw.should_receive(:rel).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::SetVar), 
         operation_type,
-        an_instance_of(Gecode::Raw::SetVar),
+        expected_op2,
         relation_type,
         expected_target)
     end
@@ -45,8 +50,23 @@ describe Gecode::Constraints::Set::Operation do
     end
     
     it "should translate #{relation} with variable operands and constant rhs" do
-      @expect.call(@set1, type, @set2, Gecode::Raw::SRT_SUP, @constant_set, nil, false)
+      @expect.call(@set1, type, @set2, Gecode::Raw::SRT_SUP, @constant_set, 
+        nil, false)
       @set1.send(relation, @set2).must_be.superset_of(@constant_set)
+      @model.solve!
+    end
+    
+    it "should translate #{relation} with variable lhs, constant operand and variable rhs" do
+      @expect.call(@set1, type, @constant_set, Gecode::Raw::SRT_SUP, @rhs, nil, 
+        false)
+      @set1.send(relation, @constant_set).must_be.superset_of(@rhs)
+      @model.solve!
+    end
+    
+    it "should translate #{relation} with variable lhs, constant operand and constant rhs" do
+      @expect.call(@set1, type, @constant_set, Gecode::Raw::SRT_SUP, 
+        @constant_set, nil, false)
+      @set1.send(relation, @constant_set).must_be.superset_of(@constant_set)
       @model.solve!
     end
   end
@@ -68,6 +88,18 @@ describe Gecode::Constraints::Set::Operation do
     @set1.intersection(@set2).must == @constant_set
     @model.solve!.should_not be_nil
     (@set1.value.to_a & @set2.value.to_a).sort.should == @constant_set 
+  end
+  
+  it 'should constrain the sets according to the operation (variable lhs, constant operand and rhs)' do
+    @set1.union(@constant_set).must == @constant_set
+    @model.solve!.should_not be_nil
+    (@set1.value.to_a + @constant_set).uniq.sort.should == @constant_set.sort
+  end
+  
+  it 'should constrain the sets according to the operation (variable lhs and rhs, constant operand)' do
+    @set1.union(@constant_set).must == @rhs
+    @model.solve!.should_not be_nil
+    (@set1.value.to_a + @constant_set).uniq.sort.should == @rhs.value.to_a.sort 
   end
   
   it_should_behave_like 'non-reifiable set constraint'

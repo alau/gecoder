@@ -4,9 +4,10 @@ module Gecode
       module_eval <<-"end_code"
         # Starts a constraint on this set union the specified set.
         def #{name}(operand)
-          unless operand.kind_of? Gecode::FreeSetVar
-            raise TypeError, "Expected set variable as operand, got " + 
-              "\#{operand.class}."
+          unless operand.kind_of?(Gecode::FreeSetVar) or 
+              Gecode::Constraints::Util::constant_set?(operand)
+            raise TypeError, 'Expected set variable or constant set as ' + 
+              "operand, got \#{operand.class}."
           end
 
           params = {:lhs => self, :op2 => operand, :operation => #{type}}
@@ -58,8 +59,14 @@ module Gecode::Constraints::Set
         else
           rhs = Gecode::Constraints::Util::constant_set_to_int_set(rhs)
         end
+        
+        if op2.respond_to? :bind
+          op2 = op2.bind
+        else
+          op2 = Gecode::Constraints::Util::constant_set_to_int_set(op2)
+        end
 
-        Gecode::Raw::rel(@model.active_space, op1.bind, operation, op2.bind, 
+        Gecode::Raw::rel(@model.active_space, op1.bind, operation, op2, 
           relation, rhs)
       end
     end
