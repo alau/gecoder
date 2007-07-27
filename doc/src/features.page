@@ -13,8 +13,6 @@ easy to read and adds a good deal of sugar on top.
 
 h3. Supported Gecode features 
 
-%{color:gray}Gray% features are not currently implemented, but on the way.
-
 * "Boolean variables and constraints":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntBool.html
 * Finite domain integer variables with the following constraints
 ** "Arithmetic":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntArith.html
@@ -32,11 +30,11 @@ h3. Supported Gecode features
 ** "Connection constraints to finite domain variables":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetConnect.html
 ** "Relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRel.html
 ** "Set selection":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetSelection.html
+** "Set operation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRelOp.html
 * Branching selection
 * Depth first search search
 * Reification and propagation strength
 * Branch and bound search
-* %{color:gray}Custom propagators and branching strategies%
 
 h3. Gecode features not supported
 
@@ -49,7 +47,7 @@ in Gecode/R (but might be in the future).
 ** "Scheduling":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntScheduling.html
 * Unsupported set constraints
 ** "Convexity":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetConvex.html
-** "Set operation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRelOp.html
 ** "Sequence":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetSequence.html
 ** "Projector":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetProjector.html
 * Limited discrepancy search
+* Custom propagators and branching strategies
