@@ -1,6 +1,7 @@
-== Version 0.7.0 (in SVN)
+== Version 0.7.0
+This release adds the set selection and operation constraints.
 
-* Added the set selection constraints (set array access, select union, select intersection (optionally with specified universe) and select disjoint).
+* Added set selection constraints (set array access, select union, select intersection (optionally with specified universe) and select disjoint).
 * Added set operation constraints (union, minus, disjoint_union and intersection) on pairs of set variables or set constants with variable or constant right hand side.
 * Added set operation constraints on enumerations of sets.
 
