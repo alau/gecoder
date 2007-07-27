@@ -71,6 +71,7 @@ lib/gecoder/interface/constraints/set/operation.rb -text
 lib/gecoder/interface/constraints/set/relation.rb -text
 lib/gecoder/interface/constraints/set_enum/channel.rb -text
 lib/gecoder/interface/constraints/set_enum/distinct.rb -text
+lib/gecoder/interface/constraints/set_enum/operation.rb -text
 lib/gecoder/interface/constraints/set_enum/selection.rb -text
 lib/gecoder/interface/constraints/set_enum_constraints.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text

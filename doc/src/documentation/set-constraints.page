@@ -70,6 +70,13 @@ In the above example @set@, @another_set@ and @a_third_set@ can each be either
 a set variable or a constant set. The only exception is that all three can not
 be constant sets. Neither reification nor negation is supported.
 
+Using the operations other than minus on enumeration of set variables is also 
+supported.
+
+<ruby>
+sets.union.must_be.subset_of set
+</ruby>
+
 h3. Cardinality
 
 Cardinality constraints constrain the size of the set. Constraining the size of 

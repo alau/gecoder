@@ -132,3 +132,154 @@ describe Gecode::Constraints::Set::Operation do
   
   it_should_behave_like 'non-reifiable set constraint'
 end
+
+describe 'set enum operation constraint', :shared => true do
+  include GecodeR::Specs::SetHelper
+  
+  before do
+    @expect = lambda do |enum, operation_type, relation, rhs, reif_var, negated|
+      if rhs.respond_to? :bind
+        expected_target = [an_instance_of(Gecode::Raw::SetVar)]
+        relation_constraint = :rel
+      else
+        expected_target = expect_constant_set(rhs)
+        relation_constraint = :dom
+      end
+
+      if reif_var.nil?
+        if !negated and relation == Gecode::Raw::IRT_EQ and 
+            !rhs.kind_of? Enumerable
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), operation_type, 
+            an_instance_of(Gecode::Raw::SetVarArray), 
+            *expected_target)
+          Gecode::Raw.should_receive(:dom).exactly(0).times
+        else
+          if relation_constraint == :rel
+            Gecode::Raw.should_receive(:rel).twice
+          else
+            Gecode::Raw.should_receive(:rel).once.with(
+              an_instance_of(Gecode::Raw::Space), operation_type, 
+              an_instance_of(Gecode::Raw::SetVarArray), 
+              an_instance_of(Gecode::Raw::SetVar))
+            Gecode::Raw.should_receive(relation_constraint).at_most(:twice)
+          end
+        end
+      else
+        if relation_constraint == :rel
+          Gecode::Raw.should_receive(:rel).twice
+        else
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), operation_type, 
+            an_instance_of(Gecode::Raw::SetVarArray), 
+            an_instance_of(Gecode::Raw::SetVar))
+          expected_target << an_instance_of(Gecode::Raw::BoolVar)
+          Gecode::Raw.should_receive(relation_constraint).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::SetVar), relation, *expected_target)
+        end
+      end
+    end
+    
+    # For composite spec.
+    @invoke_relation = lambda do |relation, target, negated|
+      if negated
+        @stub.must_not.send(relation, target)
+      else
+        @stub.must.send(relation, target)
+      end
+      @model.solve!
+    end
+    @expect_relation = lambda do |relation, target, negated|
+      @expect.call(@sets, @operation_type, relation, target, nil, negated)
+    end
+    
+    # For options spec.
+    @invoke_options = lambda do |hash| 
+      @stub.must_be.superset_of(@rhs, hash)
+      @model.solve!
+    end
+    @expect_options = lambda do |strength, reif_var|
+      @expect.call(@sets, @operation_type, Gecode::Raw::SRT_SUP, @rhs, 
+        reif_var, false)
+    end
+  end
+  
+  it_should_behave_like 'reifiable set constraint'
+  it_should_behave_like 'composite set constraint'
+end
+
+describe Gecode::Constraints::SetEnum::Operation, ' (union)' do
+  before do
+    @model = Gecode::Model.new
+    @sets = @model.set_var_array(10, [], 0..20)
+    @target = @rhs = @model.set_var([], 0..20)
+    @model.branch_on @sets
+    
+    @stub = @sets.union
+    @operation_type = Gecode::Raw::SOT_UNION
+  end
+
+  it 'should constrain the union of the sets' do
+    @sets.union.must_be.subset_of [1,4,17]
+    @sets.union.must_be.superset_of 1
+    @model.solve!.should_not be_nil
+    union = @sets.values.inject([]){ |union, set| union += set.to_a }.uniq
+    union.should include(1)
+    (union - [1,4,17]).should be_empty
+  end
+  
+  it_should_behave_like 'set enum operation constraint'
+end
+
+describe Gecode::Constraints::SetEnum::Operation, ' (intersection)' do
+  before do
+    @model = Gecode::Model.new
+    @sets = @model.set_var_array(10, [], 0..20)
+    @target = @rhs = @model.set_var([], 0..20)
+    @model.branch_on @sets
+    
+    @stub = @sets.intersection
+    @operation_type = Gecode::Raw::SOT_INTER
+  end
+
+  it 'should constrain the intersection of the sets' do
+    @sets.intersection.must_be.subset_of [1,4,17]
+    @sets.intersection.must_be.superset_of [1]
+    @model.solve!.should_not be_nil
+    intersection = @sets.values.inject(nil) do |intersection, set|
+      next set.to_a if intersection.nil?
+      intersection &= set.to_a
+    end.uniq
+    intersection.should include(1)
+    (intersection - [1,4,17]).should be_empty
+  end
+  
+  it_should_behave_like 'set enum operation constraint'
+end
+
+describe Gecode::Constraints::SetEnum::Operation, ' (disjoint union)' do
+  before do
+    @model = Gecode::Model.new
+    @sets = @model.set_var_array(10, [], 0..20)
+    @target = @rhs = @model.set_var([], 0..20)
+    @model.branch_on @sets
+    
+    @stub = @sets.disjoint_union
+    @operation_type = Gecode::Raw::SOT_DUNION
+  end
+
+  it 'should constrain the disjoint union of the sets' do
+    @sets.disjoint_union.must_be.subset_of [1,4,17]
+    @sets.disjoint_union.must_be.superset_of [1]
+    @model.solve!.should_not be_nil
+    disjoint_union = @sets.values.inject([]) do |union, set|
+      intersection = union & set.to_a
+      union += set.to_a - intersection
+    end.uniq
+    disjoint_union.should include(1)
+    (disjoint_union - [1,4,17]).should be_empty
+  end
+  
+  it_should_behave_like 'set enum operation constraint'
+end
