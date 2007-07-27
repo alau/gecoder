@@ -68,7 +68,7 @@ The following operations are available.
 
 In the above example @set@, @another_set@ and @a_third_set@ can each be either
 a set variable or a constant set. The only exception is that all three can not
-be constant sets.
+be constant sets. Neither reification nor negation is supported.
 
 h3. Cardinality
 

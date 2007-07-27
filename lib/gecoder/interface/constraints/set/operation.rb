@@ -2,7 +2,7 @@ module Gecode
   class FreeSetVar
     Gecode::Constraints::Util::SET_OPERATION_TYPES.each_pair do |name, type|
       module_eval <<-"end_code"
-        # Starts a constraint on this set union the specified set.
+        # Starts a constraint on this set #{name} the specified set.
         def #{name}(operand)
           unless operand.kind_of?(Gecode::FreeSetVar) or 
               Gecode::Constraints::Util::constant_set?(operand)
@@ -41,7 +41,7 @@ module Gecode
 end
 
 module Gecode::Constraints::Set
-  # A module that gathers the classes and modules used in relation constraints.
+  # A module that gathers the classes and modules used in operation constraints.
   module Operation
     # An expression with a set operand and two operands followed by must.
     class Expression < Gecode::Constraints::Expression
