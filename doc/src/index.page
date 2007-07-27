@@ -4,14 +4,14 @@ long_title: Overview of Gecode/R, a Ruby interface to Gecode
 inMenu: true
 description: A Ruby interface to Gecode, an open source environment for constraint programming.
 ---
-h2. Overview
+h2. Purpose
 
 Gecode/R is a Ruby interface to "Gecode":http://www.gecode.org/, a library for
 constraint programming. The interface is intended for people with no previous 
 experience of constraint programming, aiming to be easy to pick up and use in 
 practice.
 
-h2. Constraint programming
+h3. Constraint programming
 
 Constraint programming is a declarative programming paradigm, you describe what 
 kind of solution you want rather than how you want it computed. When using 
@@ -27,14 +27,17 @@ satisfying all the constraints.
 
 h2. Development status
 
-The project is currently in development and should support the "initial round 
-of planned features":http://gecoder.rubyforge.org/features.html within a few 
-weeks.
+The project has come far in development and "features":features.html many of 
+the constraints available in Gecode. The current focus is on improving 
+documentation before planning which features to add next ("feature 
+requests":http://rubyforge.org/tracker/?atid=13723&group_id=3553&func=browse
+are welcome).
 
-h2. Communication
+h2. Interaction
 
 Please use the 
 "gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-users 
 for usage questions and general discussion and 
 "gecoder-devel":http://rubyforge.org/mailman/listinfo/gecoder-devel for 
-development discussion.
+development discussion. Bugs, feature requests and patches are welcome in "the 
+issue tracker":http://rubyforge.org/tracker/?group_id=3553.

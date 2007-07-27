@@ -1,15 +1,15 @@
 == Gecode/R
 
-Gecode/R is a Ruby interface to Gecode, an open, free and efficient environment 
-for developing constraint-based systems and applications.
+Gecode/R is a Ruby interface to the Gecode constraint programming library. 
+Gecode/R is intended for people with no previous experience of constraint 
+programming, aiming to be easy to pick up and use.
 
 == Warning
 
-Gecode/R is still in an early development stage, the syntax is by no means 
-final and backwards compatibility will be broken time and time again until 
-later in the development process. Don’t use Gecode/R in production-code yet, 
-it’s merely available this early to allow people to play with it and give 
-feedback.
+Gecode/R is still in a development stage, the syntax is by no means final
+and backwards compatibility will be broken time and time again. Don't use 
+Gecode/R in production-code yet, it's merely available at this point to allow 
+people to play with it and give feedback.
 
 == Installation
 
