@@ -142,15 +142,16 @@ module Gecode
       #   other enumerations.
       # * Enumeration of integers (set contaning all numbers in set).
       def constant_set_to_params(constant_set)
+        unless constant_set?(constant_set)
+          raise TypeError, "Expected a constant set, got: #{constant_set}."
+        end
+      
         if constant_set.kind_of? Range
           return constant_set.first, constant_set.last
         elsif constant_set.kind_of? Fixnum
           return constant_set
         else
           constant_set = constant_set.to_a
-          unless constant_set.all?{ |e| e.kind_of? Fixnum }
-            raise TypeError, "Not a constant set: #{constant_set}."
-          end
           return Gecode::Raw::IntSet.new(constant_set, constant_set.size)
         end
       end
@@ -162,17 +163,30 @@ module Gecode
       #   other enumerations.
       # * Enumeration of integers (set contaning all numbers in set).
       def constant_set_to_int_set(constant_set)
+        unless constant_set?(constant_set)
+          raise TypeError, "Expected a constant set, got: #{constant_set}."
+        end
+        
         if constant_set.kind_of? Range
           return Gecode::Raw::IntSet.new(constant_set.first, constant_set.last)
         elsif constant_set.kind_of? Fixnum
           return Gecode::Raw::IntSet.new([constant_set], 1)
         else
           constant_set = constant_set.to_a
-          unless constant_set.all?{ |e| e.kind_of? Fixnum }
-            raise TypeError, "Not a constant set: #{constant_set}."
-          end
           return Gecode::Raw::IntSet.new(constant_set, constant_set.size)
         end
+      end
+      
+      # Checks whether the specified expression is regarded as a constant set.
+      # Returns true if it is, false otherwise.
+      def constant_set?(expression)
+        return (
+           expression.kind_of?(Range) &&        # It's a range.
+           expression.first.kind_of?(Fixnum) &&
+           expression.last.kind_of?(Fixnum)) ||
+          expression.kind_of?(Fixnum) ||        # It's a single fixnum.
+          (expression.kind_of?(Enumerable) &&   # It's an enum of fixnums.
+           expression.all?{ |e| e.kind_of? Fixnum })
       end
     end
     

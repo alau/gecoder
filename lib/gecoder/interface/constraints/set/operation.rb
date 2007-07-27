@@ -32,7 +32,11 @@ module Gecode::Constraints::Set
               raise Gecode::MissingConstraintError, 'A negated set operation ' + 
                 'constraint is not implemented.'
             end
-          
+            unless expression.kind_of?(Gecode::FreeSetVar) or 
+                Gecode::Constraints::Util::constant_set?(expression)
+              raise TypeError, 'Expected set variable or constant set, got ' + 
+                "\#{expression.class}."
+            end
             @params[:rhs] = expression
             @params[:relation] = #{type}
             @model.add_constraint OperationConstraint.new(@model, @params)
@@ -49,8 +53,14 @@ module Gecode::Constraints::Set
         op1, op2, operation, relation, rhs, negate = @params.values_at(:lhs, 
           :op2, :operation, :relation, :rhs, :negate)
 
+        if rhs.respond_to? :bind
+          rhs = rhs.bind
+        else
+          rhs = Gecode::Constraints::Util::constant_set_to_int_set(rhs)
+        end
+
         Gecode::Raw::rel(@model.active_space, op1.bind, operation, op2.bind, 
-          relation, rhs.bind)
+          relation, rhs)
       end
     end
   end

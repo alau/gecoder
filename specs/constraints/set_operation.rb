@@ -7,36 +7,23 @@ describe Gecode::Constraints::Set::Operation do
     @set1 = @model.set_var([], 0..20)
     @set2 = @model.set_var([], 0..20)
     @rhs = @model.set_var([], 0..20)
+    @model.branch_on @model.wrap_enum([@set1, @set2, @rhs])
+    @constant_set = [4,9,17]
   
     @expect = lambda do |op1, operation_type, op2, relation_type, rhs, reif_var, negated|
       if rhs.respond_to? :bind
-        expected_target = [an_instance_of(Gecode::Raw::SetVar)]
+        expected_target = an_instance_of(Gecode::Raw::SetVar)
       else
-        expected_target = expect_constant_set(rhs)
+        expected_target = an_instance_of(Gecode::Raw::IntSet)
       end
 
-      if reif_var.nil? and !negated
-        Gecode::Raw.should_receive(:rel).once.with(
-          an_instance_of(Gecode::Raw::Space), 
-          an_instance_of(Gecode::Raw::SetVar), 
-          operation_type,
-          an_instance_of(Gecode::Raw::SetVar),
-          relation_type,
-          an_instance_of(Gecode::Raw::SetVar))
-        Gecode::Raw.should_receive(:dom).exactly(0).times
-      else
-        Gecode::Raw.should_receive(:rel).once.with(
-          an_instance_of(Gecode::Raw::Space), 
-          an_instance_of(Gecode::Raw::SetVar), 
-          operation_type,
-          an_instance_of(Gecode::Raw::SetVar),
-          relation_type,
-          an_instance_of(Gecode::Raw::SetVar))
-        Gecode::Raw.should_receive(:dom).once.with(
-          an_instance_of(Gecode::Raw::Space), 
-          an_instance_of(Gecode::Raw::SetVar), relation, 
-          *expected_target)
-      end
+      Gecode::Raw.should_receive(:rel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
+        an_instance_of(Gecode::Raw::SetVar), 
+        operation_type,
+        an_instance_of(Gecode::Raw::SetVar),
+        relation_type,
+        expected_target)
     end
     
     # For options spec.
@@ -56,12 +43,31 @@ describe Gecode::Constraints::Set::Operation do
       @set1.send(relation, @set2).must_be.superset_of(@rhs)
       @model.solve!
     end
+    
+    it "should translate #{relation} with variable operands and constant rhs" do
+      @expect.call(@set1, type, @set2, Gecode::Raw::SRT_SUP, @constant_set, nil, false)
+      @set1.send(relation, @set2).must_be.superset_of(@constant_set)
+      @model.solve!
+    end
   end
   
   it 'should raise error if negated' do
     lambda do 
       @set1.union(@set2).must_not_be.subset_of(@rhs) 
     end.should raise_error(Gecode::MissingConstraintError)
+  end
+  
+  it 'should constrain the sets according to the operation (variable operands, variable rhs)' do
+    @set1.intersection(@set2).must == @rhs
+    @rhs.must == @constant_set
+    @model.solve!.should_not be_nil
+    (@set1.value.to_a & @set2.value.to_a).sort.should == @constant_set 
+  end
+  
+  it 'should constrain the sets according to the operation (variable operands, constant rhs)' do
+    @set1.intersection(@set2).must == @constant_set
+    @model.solve!.should_not be_nil
+    (@set1.value.to_a & @set2.value.to_a).sort.should == @constant_set 
   end
   
   it_should_behave_like 'non-reifiable set constraint'
