@@ -9,26 +9,21 @@ describe Gecode::Constraints::Set::Operation do
     @rhs = @model.set_var([], 0..20)
     @model.branch_on @model.wrap_enum([@set1, @set2, @rhs])
     @constant_set = [4,9,17]
+    @wrapped_constant_set = @model.wrap_enum(@constant_set)
   
     @expect = lambda do |op1, operation_type, op2, relation_type, rhs, reif_var, negated|
-      if rhs.respond_to? :bind
-        expected_target = an_instance_of(Gecode::Raw::SetVar)
-      else
-        expected_target = an_instance_of(Gecode::Raw::IntSet)
-      end
-      if op2.respond_to? :bind
-        expected_op2 = an_instance_of(Gecode::Raw::SetVar)
-      else
-        expected_op2 = an_instance_of(Gecode::Raw::IntSet)
+      op1, op2, rhs = [op1, op2, rhs].map do |expression|
+        # Convert the expression to the corresponding expected class.
+        if expression.respond_to? :bind
+          an_instance_of(Gecode::Raw::SetVar)
+        else
+          an_instance_of(Gecode::Raw::IntSet)
+        end
       end
 
       Gecode::Raw.should_receive(:rel).once.with(
-        an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::SetVar), 
-        operation_type,
-        expected_op2,
-        relation_type,
-        expected_target)
+        an_instance_of(Gecode::Raw::Space), op1, operation_type, op2, 
+        relation_type, rhs) 
     end
     
     # For options spec.
@@ -69,6 +64,27 @@ describe Gecode::Constraints::Set::Operation do
       @set1.send(relation, @constant_set).must_be.superset_of(@constant_set)
       @model.solve!
     end
+    
+    it "should translate #{relation} with constant lhs, variable operand and variable rhs" do
+      @expect.call(@constant_set, type, @set2, Gecode::Raw::SRT_SUP, 
+        @rhs, nil, false)
+      @wrapped_constant_set.send(relation, @set2).must_be.superset_of(@rhs)
+      @model.solve!
+    end
+    
+    it "should translate #{relation} with constant lhs, variable operand and constant rhs" do
+      @expect.call(@constant_set, type, @set2, Gecode::Raw::SRT_SUP, 
+        @constant_set, nil, false)
+      @wrapped_constant_set.send(relation, @set2).must_be.superset_of(@constant_set)
+      @model.solve!
+    end
+    
+    it "should raise error for #{relation} with constant lhs, operand and rhs" do
+      lambda do
+        @wrapped_constant_set.send(relation, @constant_set).must_be.superset_of(
+          @constant_set)
+      end.should raise_error(ArgumentError)
+    end
   end
   
   it 'should raise error if negated' do
@@ -100,6 +116,18 @@ describe Gecode::Constraints::Set::Operation do
     @set1.union(@constant_set).must == @rhs
     @model.solve!.should_not be_nil
     (@set1.value.to_a + @constant_set).uniq.sort.should == @rhs.value.to_a.sort 
+  end
+  
+  it 'should constrain the sets according to the operation (constant lhs, variable operand and rhs)' do
+    @wrapped_constant_set.minus(@set2).must == @rhs
+    @model.solve!.should_not be_nil
+    (@constant_set - @set2.value.to_a).sort.should == @rhs.value.sort
+  end
+  
+  it 'should constrain the sets according to the operation (constant lhs and rhs, variable operand)' do
+    @wrapped_constant_set.minus(@set2).must == @constant_set
+    @model.solve!.should_not be_nil
+    (@constant_set - @set2.value.to_a).sort.should == @constant_set
   end
   
   it_should_behave_like 'non-reifiable set constraint'
