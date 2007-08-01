@@ -8,7 +8,7 @@ desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = "#{File.dirname(__FILE__)}/../doc/output/rdoc"
   rdoc.options << '--title' << 'Gecode/R' << '--line-numbers' << '--inline-source' << '--main' << 'README'
-  rdoc.rdoc_files.include('README', 'lib/**/*.rb')
+  rdoc.rdoc_files.include('README', 'CHANGES', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 
 spec = Gem::Specification.new do |s|
