@@ -22,6 +22,7 @@ doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text
 doc/src/examples/send-more-money.page -text
 doc/src/examples/send-most-money.page -text
+doc/src/examples/sudoku-set.page -text
 doc/src/examples/sudoku.page -text
 doc/src/features.page -text
 doc/src/index.page -text
@@ -34,6 +35,7 @@ example/queens.rb -text
 example/raw_bindings.rb -text
 example/send_more_money.rb -text
 example/send_most_money.rb -text
+example/sudoku-set.rb -text
 example/sudoku.rb -text
 ext/extconf.rb -text
 ext/missing.cpp -text
