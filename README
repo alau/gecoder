@@ -33,7 +33,7 @@ instructions.
 generated on (replace the extension in the following commands with whatever 
 extension it's given).
 
-	cd ext
+  cd ext
   ruby extconf.rb
   make
   mv gecode.so ../lib/
