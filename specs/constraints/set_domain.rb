@@ -80,6 +80,12 @@ describe Gecode::Constraints::Set::Domain do
     end
   end
   
+  it 'should raise error if the right hand side is not a constant set' do
+    lambda do
+      @set.must_be.superset_of('not a constant set')
+    end.should raise_error(TypeError)
+  end
+  
   it_should_behave_like 'reifiable set constraint'
 end
 

@@ -15,6 +15,9 @@ module Gecode::Constraints::Set
     # Adds a domain constraint for the specified relation name, constant set
     # and options.
     def add_domain_constraint(relation_name, constant_set, options)
+      unless Gecode::Constraints::Util.constant_set? constant_set
+        raise TypeError, "Expected constant set, got #{constant_set.class}."
+      end
       @params[:rhs] = constant_set
       @params[:relation] = relation_name
       @params.update Gecode::Constraints::Set::Util.decode_options(options)
