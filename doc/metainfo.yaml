@@ -19,8 +19,6 @@ documentation/boolean-constraints.page:
   orderInfo: 13
 documentation/set-constraints.page:
   orderInfo: 14
-documentation/modelling.page:
-  orderInfo: 15
 examples/index.page:
   orderInfo: 10
 examples/send-more-money.page:
