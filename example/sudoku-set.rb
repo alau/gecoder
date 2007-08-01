@@ -87,9 +87,7 @@ class SudokuSet < Gecode::Model
     @sets.values.each_with_index do |positions, i|
       positions.each{ |square_position| squares[square_position - 1] = i + 1 }
     end
-    rows = []
-    squares.each_slice(@size){ |slice| rows << slice.join(' ') }
-    rows.join("\n")
+    squares.enum_slice(@size).map{ |slice| slice.join(' ') }.join("\n")
   end
 end
 

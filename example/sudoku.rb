@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/example_helper'
+require 'enumerator'
 
 # Solves the sudoku problem: http://en.wikipedia.org/wiki/Soduko
 class Sudoku < Gecode::Model
@@ -41,12 +42,7 @@ class Sudoku < Gecode::Model
   
   # Display the solved sudoku in a grid.  
   def to_s
-    separator = '+' << '-' * (3 * @size + (@size - 1)) << "+\n"
-    res = (0...@size).inject(separator) do |s, i|
-      (0...@size).inject(s + '|') do |s, j|
-        s << " #{@squares[i,j].value} |"
-      end << "\n" << separator
-    end
+    @squares.values.enum_slice(@size).map{ |slice| slice.join(' ') }.join("\n")
   end
 end
 
