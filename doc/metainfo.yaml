@@ -29,10 +29,12 @@ examples/send-most-money.page:
   orderInfo: 12
 examples/sudoku.page:
   orderInfo: 13
-examples/n-queens.page:
+examples/sudoku-set.page:
   orderInfo: 14
-examples/magic-sequence.page:
+examples/n-queens.page:
   orderInfo: 15
+examples/magic-sequence.page:
+  orderInfo: 16
 ---
 rubyforge.html:
   title: RubyForge
