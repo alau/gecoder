@@ -16,9 +16,9 @@ module Gecode
 end
 
 # A module that gathers the classes and modules used in count constraints.
-module Gecode::Constraints::IntEnum::Count
+module Gecode::Constraints::IntEnum::Count #:nodoc:
   # Describes an expression 
-  class Expression < Gecode::Constraints::IntEnum::Expression
+  class Expression < Gecode::Constraints::IntEnum::Expression #:nodoc:
     def initialize(model, params)
       super
       unless params[:negate]
@@ -47,7 +47,29 @@ module Gecode::Constraints::IntEnum::Count
     alias_comparison_methods
   end
   
-  # Describes a count constraint.
+  # Describes a count constraint, which constrains the number of times a value
+  # (constant or a variable) may occurr in an enumeration of integer variables
+  # or constant integers.
+  # 
+  # All relations available for +SimpleRelationConstraint+ can be used with
+  # count constraints. Negation and reification is supported.
+  # 
+  # == Examples
+  # 
+  #   # Constrain an enumeration of constant integers to contain the value of
+  #   # the integer variable +x+ more than once.
+  #   wrap_enum([1,3,17]).count(x) > 1
+  # 
+  #   # Constrain +int_enum+ to not contain 0 exactly once.
+  #   int_enum.count(0).must_not == 1
+  #   
+  #   # Constrain +int_enum+ to contain +x+ exactly +x_count+ times.
+  #   int_enum.count(x).must == x_count
+  #   
+  #   # Reifies the constraint that +int_enum+ has +x+ zeros with the boolean
+  #   # variable +has_x_zeros+ and selects the strength +domain+.
+  #   int_enum.count(0).must.equal(x, :reify => has_x_zeros, 
+  #     :strength => :domain)
   class CountConstraint < Gecode::Constraints::ReifiableConstraint
     def post
       lhs, element, relation_type, rhs, strength, reif_var = 
