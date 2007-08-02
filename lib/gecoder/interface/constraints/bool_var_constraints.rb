@@ -15,12 +15,12 @@ module Gecode
   # (but not enumerations).
   module Constraints::Bool
     # Describes a boolean expression.
-    class Expression < Gecode::Constraints::Expression
+    class Expression < Gecode::Constraints::Expression #:nodoc:
     end
     
     # A composite expression which is an bool expression with a left hand side 
     # resulting from a previous constraint.
-    class CompositeExpression < Gecode::Constraints::CompositeExpression
+    class CompositeExpression < Gecode::Constraints::CompositeExpression #:nodoc:
       # The block given should take three parameters. The first is the variable 
       # that should be the left hand side, if it's nil then a new one should be
       # created. The second is the has of parameters. The block should return 
@@ -49,16 +49,20 @@ module Gecode
       end
     end
     
-    # Describes a stub that produces an int variable, which can then be used with 
-    # the normal bool variable constraints. An example for boolean composite 
-    # constraints would be conjunction.
+    # Describes a stub that produces an int variable, which can then be used 
+    # with the normal int variable constraints. An example would be the 
+    # conjunction constraint.
     #
     #   bools.conjunction.must == b1 | b2
+    #
+    # <tt>bools.conjunction</tt> produces a boolean variable which the 
+    # constraint <tt>.must == b1 | b2</tt> is then applied to. In the above 
+    # case two constraints (and one temporary variable) are required, but in 
+    # the case of equality only one constraint is required.
     # 
-    # "bools.conjunction" produces a bool variable which the constraint 
-    # ".must == b1 | b2" is then applied to.In the above case two constraints 
-    # (and one temporary variable) are required, but in the case of equality 
-    # only one constraint is required.
+    # Whether a constraint involving a reification stub supports negation, 
+    # reification, strength options and so on depends on the constraint on the
+    # right hand side.
     class CompositeStub < Gecode::Constraints::CompositeStub
       def initialize(model, params)
         super(CompositeExpression, model, params)
