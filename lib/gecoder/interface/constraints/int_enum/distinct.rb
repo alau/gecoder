@@ -32,8 +32,28 @@ module Gecode::Constraints::IntEnum
   end
   
   # A module that gathers the classes and modules used in distinct constraints.
-  module Distinct
-    # Describes a distinct constraint (optionally with offsets).
+  module Distinct #:nodoc:
+    # Describes a distinct constraint, which constrains all integer variables 
+    # in an enumeration to be distinct (different). The constraint can also be
+    # used with constant offsets, so that the variables, with specified offsets
+    # added, must be distinct.
+    # 
+    # The constraint does not support negation nor reification.
+    # 
+    # == Examples
+    # 
+    #   # Constrains all variables in +int_enum+ to be assigned different 
+    #   # values.
+    #   int_enum.must_be.distinct
+    #   
+    #   # The same as above, but also selects that the strength +domain+ should
+    #   # be used.
+    #   int_enum.must_be.distinct(:strength => :domain)
+    #   
+    #   # Uses the offset to constrain that no number may be the previous number
+    #   # incremented by one.
+    #   numbers = int_var_array(8, 0..9)
+    #   numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
     class DistinctConstraint < Gecode::Constraints::Constraint
       def post
         # Bind lhs.
