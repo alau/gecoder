@@ -1,26 +1,30 @@
 module Gecode
   class FreeBoolVar
+    # Initiates a boolean constraint with this variable or +var+.
     def |(var)
       Constraints::Bool::ExpressionNode.new(self, @model) | var
     end
     
+    # Initiates a boolean constraint with this variable and +var+.
     def &(var)
       Constraints::Bool::ExpressionNode.new(self, @model) & var
     end
     
+    # Initiates a boolean constraint with this variable exclusive or +var+.
     def ^(var)
       Constraints::Bool::ExpressionNode.new(self, @model) ^ var
     end
     
+    # Initiates a boolean constraint with this variable implies +var+.
     def implies(var)
       Constraints::Bool::ExpressionNode.new(self, @model).implies var
     end
   end
   
   # A module that gathers the classes and modules used in boolean constraints.
-  module Constraints::Bool
+  module Constraints::Bool #:nodoc:
     # Describes a boolean expression (following after must*).
-    class Expression
+    class Expression #:nodoc:
       def ==(expression, options = {})
         @params.update Gecode::Constraints::Util.decode_options(options)
         @model.add_constraint BooleanConstraint.new(@model, 
@@ -49,7 +53,77 @@ module Gecode
       end
     end
     
-    # Describes a boolean constraint.
+    # Describes a constraint on a boolean expression.
+    # 
+    # == Boolean expressions
+    # 
+    # A boolean expression consists of several boolean variable with various 
+    # boolean operators. The available operators are:
+    # 
+    # [<tt>|</tt>] Or
+    # [<tt>&</tt>] And
+    # [<tt>^</tt>] Exclusive or
+    # [+implies+]  Implication
+    # 
+    # === Examples
+    # 
+    #   # +b1+ and +b2+
+    #   b1 & b2
+    #   
+    #   # (+b1+ and +b2+) or +b3+ 
+    #   (b1 & b1) | b3
+    # 
+    #   # (+b1+ and +b2+) or (+b3+ exclusive or +b1+)
+    #   (b1 & b2) | (b3 ^ b1)
+    #   
+    #   # (+b1+ implies +b2+) and (+b3+ implies +b2+)
+    #   (b1.implies b2) & (b3.implies b2)
+    #   
+    # == Domain
+    # 
+    # A domain constraint just specifies that a boolean expression must be true
+    # or false. Negation and reification are supported.
+    # 
+    # === Examples
+    # 
+    #   # +b1+ and +b2+ must be true.
+    #   (b1 & b2).must_be.true
+    #   
+    #   # (+b1+ implies +b2+) and (+b3+ implies +b2+) must be false.
+    #   ((b1.implies b2) & (b3.implies b2)).must_be.false
+    # 
+    #   # +b1+ and +b2+ must be true. We reify it with +bool+ and select the
+    #   # strength +domain+.
+    #   (b1 & b2).must_be.true(:reify => bool, :strength => :domain)
+    # 
+    # == Equality
+    # 
+    # A constraint with equality specifies that two boolean expressions must be
+    # equal. Negation and reification are supported. Any of <tt>==</tt>, 
+    # +equal+ and +equal_to+ may be used for equality.
+    # 
+    # === Examples
+    # 
+    #   # +b1+ and +b2+ must equal +b1+ or +b2+.
+    #   (b1 & b2).must == (b1 | b2)
+    #   
+    #   # +b1+ and +b2+ must not equal +b3+. We reify it with +bool+ and select 
+    #   # the strength +domain+.
+    #   (b1 & b2).must_not.equal(b3, :reify => bool, :select => :domain)
+    #   
+    # == Implication
+    # 
+    # A constraint using +imply+ specified that one boolean expression must
+    # imply the other. Negation and reification are supported.
+    # 
+    # === Examples
+    #   
+    #   # +b1+ must imply +b2+
+    #   b1.must.imply b2
+    #   
+    #   # +b1+ and +b2+ must not imply +b3+. We reify it with +bool+ and select
+    #   # +domain+ as strength.
+    #   (b1 & b2).must_not.imply b3
     class BooleanConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         lhs, rhs, negate, strength, reif_var = @params.values_at(:lhs, :rhs, 
@@ -87,7 +161,7 @@ module Gecode
   
     # A module containing the methods for the basic boolean operations. Depends
     # on that the class mixing it in defined #model.
-    module OperationMethods
+    module OperationMethods #:nodoc
       include Gecode::Constraints::LeftHandSideMethods
       
       private
@@ -130,7 +204,7 @@ module Gecode
   
     # Describes a binary tree of expression nodes which together form a boolean 
     # expression.
-    class ExpressionTree
+    class ExpressionTree #:nodoc:
       include OperationMethods
     
       # Constructs a new expression with the specified nodes. The proc should 
@@ -153,7 +227,7 @@ module Gecode
     end
   
     # Describes a single node in a boolean expression.
-    class ExpressionNode
+    class ExpressionNode #:nodoc:
       include OperationMethods
     
       attr :model
