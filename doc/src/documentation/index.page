@@ -342,6 +342,26 @@ Using different propagation can, much like branching strategies, make a large
 difference. Much like branching strategies it's a matter of reasoning or simply
 trying them out.
 
+h4. Breaking symmetries
+
+In many situations several situations symmetries might appear. In the 
+"n-queens example":../example/n-queens.html we have several rotational and 
+reflection symmetries since the chessboard can be e.g. rotated without changing
+whether an assignment is a solution. Nothing is done to counter the symmetries 
+in the example, in total there are only 12 unique solutions, but the example 
+will give us 92 solutions in total.
+
+These symmetries are unnecessary as they add nothing. If we are able to remove
+them then we get a smaller search space, which means that we can find a 
+solution faster. 
+
+The way to remove symmetries is to inpose additional constraints that do not 
+remove any unique solutions, only symmetries. We could for instance constrain
+the queen in the first column to be above the queen in the last column. Any 
+solution that the additional constraint invalidates can be turned into a valid 
+solution through reflection in the y-axis of the board. Hence we are only 
+removing symmetries, not unique solutions.
+
 h3. Other resources
 
 * "Modelling for Constraint Programming":http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf 
