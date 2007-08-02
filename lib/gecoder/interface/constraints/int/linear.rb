@@ -27,7 +27,7 @@ module Gecode
   end
   
   module Constraints::Int
-    class Expression
+    class Expression #:nodoc:
       # Add some relation selection based on whether the expression is negated.
       alias_method :pre_linear_initialize, :initialize
       def initialize(model, params)
@@ -107,8 +107,26 @@ module Gecode
   end
   
   # A module that gathers the classes and modules used in linear constraints.
-  module Constraints::Int::Linear
-    # Describes a linear constraint.
+  module Constraints::Int::Linear #:nodoc:
+    # Linear constraints specify that an integer variable must have a linear 
+    # equation containing variables must hold. The same relations and options
+    # used in +SimpleRelationConstraint+ can also be used for linear 
+    # constraints.
+    # 
+    # == Examples
+    # 
+    #   # The sum of the int variables +x+ and +y+ must equal +z+ + 3.
+    #   (x + y).must == z + 3
+    #   
+    #   # Another way of writing the above. 
+    #   z.must == x + y - 3
+    #   
+    #   # The inequality 10(x + y) > 3x must not hold. 
+    #   (x + y)*10.must_not > x*3
+    #   
+    #   # Specifies the above, but reifies the constraint with the boolean 
+    #   # variable +bool+ and gives it propagation strength +domain+.
+    #   (x + y)*10.must_not_be.greater_than(x*3, :reify => bool, :strength => :domain)
     class LinearConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         lhs, rhs, relation_type, reif_var, strength = @params.values_at(:lhs, 
@@ -128,10 +146,46 @@ module Gecode
         end
       end
     end
-    
-    # Describes a simple relation constraint.
+
+    # Simple relation constraints specify that an integer variable must have a
+    # specified relation to a constant integer or another integer variable. The 
+    # following relations are supported (the aliases of each relation are also 
+    # listed).
+    # 
+    # * <, lesser, lesser_than
+    # * >, greater, greater_than
+    # * >=, greater_or_equal, greater_than_or_equal_to
+    # * <=, less_or_equal, less_than_or_equal_to
+    # * ==, equal, equal_to
+    # 
+    # Each can be negated by using +must_not+ instead of +must+.
+    # 
+    # Two options (given as a hash) are available:
+    # 
+    # [strength] Specifies the propagation strength of the constraint. Must be
+    #            one of +value+, +bounds+, +domain+ and +default+. The
+    #            strength generally progresses as +value+ -> +bounds+ -> 
+    #            +domain+ (+value+ being the weakest, but usually cheapest, 
+    #            while +domain+ is the strongest but usually costly).
+    # [reify]    Specifies a boolean variable that should be used for 
+    #            reification (see +ReifiableConstraint+).
+    # 
+    # == Examples
+    # 
+    #   # Int variable +x+ must not equal 0.
+    #   x.must_not.equal(0)
+    #   
+    #   # Another way of writing the above. 
+    #   x.must_not == 0
+    #   
+    #   # +x+ must be strictly larger than +y+.
+    #   x.must > y
+    #   
+    #   # Specifies the above, but reifies the constraint with the boolean 
+    #   # variable +bool+.
+    #   x.must_be.greater_than(y, :reify => bool)
     class SimpleRelationConstraint < Gecode::Constraints::ReifiableConstraint
-      def post        
+      def post
         # Fetch the parameters to Gecode.
         lhs, relation, rhs, reif_var, strength = @params.values_at(:lhs, 
           :relation_type, :element, :reif, :strength)
@@ -149,7 +203,7 @@ module Gecode
   
     # Helper methods for linear expressions. Classes mixing in this module must
     # have a method #model which gives the model the expression is operating in. 
-    module Helper
+    module Helper #:nodoc:
       include Gecode::Constraints::LeftHandSideMethods
       
       private
@@ -181,7 +235,7 @@ module Gecode
     
     # Describes a binary tree of expression nodes which together form a linear 
     # expression.
-    class ExpressionTree
+    class ExpressionTree #:nodoc:
       include Helper
     
       # Constructs a new expression with the specified variable
@@ -204,7 +258,7 @@ module Gecode
     end
     
     # Describes a single node in a linear expression.
-    class ExpressionNode
+    class ExpressionNode #:nodoc:
       include Helper
     
       attr :model
