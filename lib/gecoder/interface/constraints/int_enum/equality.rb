@@ -15,8 +15,15 @@ module Gecode::Constraints::IntEnum
   end
   
   # A module that gathers the classes and modules used in equality constraints.
-  module Equality
-    # Describes an equality constraint.
+  module Equality #:nodoc:
+    # Describes an equality constraint, which constrains all variables in an
+    # integer enumeration to be equal. Neither negation nor reification is 
+    # supported.
+    # 
+    # == Example
+    # 
+    #   # Constrains all variables in +int_enum+ to be equal.
+    #   int_enum.must_be.equal
     class EqualityConstraint < Gecode::Constraints::Constraint
       def post
         # Bind lhs.
