@@ -19,9 +19,18 @@ class Gecode::FreeIntVar
 end
 
 # A module that gathers the classes and modules used by arithmetic constraints.
-module Gecode::Constraints::Int::Arithmetic 
-  # Describes an expression stub started with an integer variable followed by 
-  # #abs .
+module Gecode::Constraints::Int::Arithmetic #:nodoc:
+  # Describes a CompositeStub for absolute value constraints, which constrain
+  # the absolute value of an integer variable.
+  # 
+  # == Examples
+  #   
+  #   # The absolute value of +x+ must be less than 2.
+  #   x.abs.must < 2
+  #   
+  #   # The absolute value of +x+ must be in the range 5..7, with +bool+ as 
+  #   # reification variable and +value+ as strength.
+  #   x.abs.must_be.in(5..7, :reify => bool, :strength => :value)
   class AbsExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
       lhs, strength = @params.values_at(:lhs, :strength)
@@ -34,8 +43,17 @@ module Gecode::Constraints::Int::Arithmetic
     end
   end
   
-  # Describes an expression stub started with an integer variable followed by 
-  # #* .
+  # Describes a CompositeStub for multiplication constraint, which constrain
+  # the value of the multiplication of two variables.
+  # 
+  # == Examples
+  #   
+  #   # The value of +x*y+ must be equal to their sum.
+  #   (x*y).must == x + y
+  #   
+  #   # The valye of +x*y+ must be less than 17, with +bool+ as reification 
+  #   # variable and +domain+ as strength.
+  #   (x*y).must_be.less_than(17, :reify => bool, :strength => :domain)
   class MultExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
       lhs, lhs2, strength = @params.values_at(:lhs, :var, :strength)
