@@ -14,6 +14,7 @@ module Gecode
   # A module containing constraints that have int variables as left hand side
   # (but not enumerations).
   module Constraints::Int
+    # Describes an integer expression.
     class Expression < Gecode::Constraints::Expression #:nodoc:
     end
     
