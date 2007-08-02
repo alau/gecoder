@@ -16,8 +16,22 @@ module Gecode::Constraints::Int
   end
   
   # A module that gathers the classes and modules used in domain constraints.
-  module Domain
-    # Describes a range domain constraint.
+  module Domain #:nodoc:
+    # Range domain constraints specify that an integer variable must be 
+    # contained within a specified range of integers. Supports reification and
+    # negation.
+    # 
+    # == Examples
+    # 
+    #   # +x+ must be in the range 1..10
+    #   x.must_be.in 1..10
+    #   
+    #   # +x+ must not be in the range -5...5
+    #   x.must_not_be.in -5...5
+    #   
+    #   # Specifies the above, but but reifies the constraint with the boolean 
+    #   # variable +bool+ and specified +value+ as strength.
+    #   x.must_not_be.in(-5...5, :reify => bool, :strength => :value)
     class RangeDomainConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         var, domain, reif_var, strength = @params.values_at(:lhs, :domain, 
@@ -31,7 +45,20 @@ module Gecode::Constraints::Int
       negate_using_reification
     end
     
-    # Describes a enum domain constraint.
+    # Enum domain constraints specify that an integer variable must be contained
+    # in an enumeration of integers. Supports reification and negation.
+    # 
+    # == Examples
+    # 
+    #   # +x+ must be in the enumeration [3,5,7].
+    #   x.must_be.in [3,5,7]
+    #   
+    #   # +x+ must not be in the enumeration [5,6,7,17].
+    #   x.must_not_be.in [5,6,7,17]
+    #   
+    #   # Specifies the above, but but reifies the constraint with the boolean 
+    #   # variable +bool+ and specified +value+ as strength.
+    #   x.must_not_be.in(-[5,6,7,17], :reify => bool, :strength => :value)
     class EnumDomainConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         space = @model.active_space
