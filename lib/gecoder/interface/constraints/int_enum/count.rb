@@ -48,17 +48,12 @@ module Gecode::Constraints::IntEnum::Count #:nodoc:
   end
   
   # Describes a count constraint, which constrains the number of times a value
-  # (constant or a variable) may occurr in an enumeration of integer variables
-  # or constant integers.
+  # (constant or a variable) may occurr in an enumeration of integer variable.
   # 
   # All relations available for +SimpleRelationConstraint+ can be used with
   # count constraints. Negation and reification is supported.
   # 
   # == Examples
-  # 
-  #   # Constrain an enumeration of constant integers to contain the value of
-  #   # the integer variable +x+ more than once.
-  #   wrap_enum([1,3,17]).count(x) > 1
   # 
   #   # Constrain +int_enum+ to not contain 0 exactly once.
   #   int_enum.count(0).must_not == 1
