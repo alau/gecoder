@@ -68,8 +68,27 @@ module Gecode::Constraints::Set
 
   # A module that gathers the classes and modules used in connection 
   # constraints.
-  module Connection
-    # Describes an expression stub started with an int var following by #min.
+  module Connection #:nodoc:
+    # Describes a CompositeStub for the min constraint which constrains the 
+    # minimum value of a set variable.
+    # 
+    # == Examples
+    # 
+    #   # Constrains the minimum value of +set+ to be larger than 17.
+    #   set.min.must > 17
+    #   
+    #   # Constrains the minimum value of +set+ to equal the integer variable 
+    #   # +min+.
+    #   set.min.must == min
+    #   
+    #   # Constrains the minimum value of +set+ to not be larger than the 
+    #   # integer variable +ceil+.
+    #   set.min.must_not > ceil
+    #   
+    #   # The same as above but reified with the boolean variable 
+    #   # +is_not_above_ceiling+ and with the strength +domain+ applied.
+    #   set.min.must_not_be.larger_than(ceil, :reify => :is_not_above_ceiling, 
+    #     :strength => :domain) 
     class MinExpressionStub < Gecode::Constraints::Int::CompositeStub
       def constrain_equal(variable, params, constrain)
         set = params[:lhs]
@@ -81,7 +100,26 @@ module Gecode::Constraints::Set
       end
     end
     
-    # Describes an expression stub started with an int var following by #max.
+    # Describes a CompositeStub for the max constraint which constrains the 
+    # maximum value of a set variable.
+    # 
+    # == Examples
+    # 
+    #   # Constrains the maximum value of +set+ to be larger than 17.
+    #   set.max.must > 17
+    #   
+    #   # Constrains the maximum value of +set+ to equal the integer variable 
+    #   # +max+.
+    #   set.max.must == max
+    #   
+    #   # Constrains the maximum value of +set+ to not be less than the 
+    #   # integer variable +floor+.
+    #   set.max.must_not < floor
+    #   
+    #   # The same as above but reified with the boolean variable 
+    #   # +is_not_below_floor+ and with the strength +domain+ applied.
+    #   set.max.must_not_be.less_than(ceil, :reify => :is_not_below_floor, 
+    #     :strength => :domain)
     class MaxExpressionStub < Gecode::Constraints::Int::CompositeStub
       def constrain_equal(variable, params, constrain)
         set = params[:lhs]
@@ -93,7 +131,26 @@ module Gecode::Constraints::Set
       end
     end
     
-    # Describes an expression stub started with an int var following by #max.
+    # Describes a CompositeStub for the sum constraint which constrains the 
+    # sum of all values in a set variable.
+    # 
+    # == Examples
+    # 
+    #   # Constrains the sum of all values in +set+ to be larger than 17.
+    #   set.sum.must > 17
+    #   
+    #   # Constrains the sum of all values in +set+ to equal the integer 
+    #   # variable +sum+.
+    #   set.sum.must == sum
+    #   
+    #   # Constrains the sum of all values in +set+ to not be larger than the 
+    #   # integer variable +resources+.
+    #   set.sum.must_not > resources
+    #   
+    #   # The same as above but reified with the boolean variable 
+    #   # +not_over_budget+ and with the strength +domain+ applied.
+    #   set.sum.must_not_be.larger_than(resources, :reify => :not_over_budget, 
+    #     :strength => :domain)
     class SumExpressionStub < Gecode::Constraints::Int::CompositeStub
       def constrain_equal(variable, params, constrain)
         set, subs = params.values_at(:lhs, :substitutions)
@@ -114,8 +171,17 @@ module Gecode::Constraints::Set
       end
     end
     
-    # Describes a constraint that constrains a set to include a number of 
-    # integer variables.
+    # Describes an include constraint, which constrains the set to include the
+    # values of the specified enumeration of integer variables. 
+    # 
+    # The constraint has the side effect of sorting the integer variables in a 
+    # non-descending order. It does not support reification nor negation.
+    # 
+    # == Examples
+    # 
+    #   # Constrain +set+ to include the values of all variables in 
+    #   # +int_enum+.
+    #   set.must.include int_enum 
     class IncludeConstraint < Gecode::Constraints::Constraint
       def post
         set, variables = @params.values_at(:lhs, :variables)
