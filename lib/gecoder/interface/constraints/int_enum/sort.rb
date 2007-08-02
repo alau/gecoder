@@ -47,8 +47,22 @@ module Gecode::Constraints::IntEnum
   end
 
   # A module that gathers the classes and modules used in sort constraints.
-  module Sort
-    # Describes a sort constraint with target and order.
+  module Sort #:nodoc:
+    # Describes a sort constraint which constrains a target enumeration of 
+    # integer variables to be the sorted version of another set of integer 
+    # variables. Optionally a third enumeration may be used to define the order
+    # in which the the variables should be sorted.
+    # 
+    # Neither negation nor reification is supported.
+    # 
+    # == Example
+    # 
+    #   # Constrains +sorted_numbers+ to be a sorted version of +numbers+. 
+    #   numbers.must_be.sorted(:as => sorted_numbers)
+    #   
+    #   # Constrains +sorted_numbers+ to be +numbers+ sorted in the order 
+    #   # described by the integer variable enumeration +order+. 
+    #   numbers.must_be.sorted(:as => sorted_numbers, :order => order)
     class SortConstraintWithOptions < Gecode::Constraints::Constraint
       def post
         if @params[:target].nil?
@@ -70,7 +84,18 @@ module Gecode::Constraints::IntEnum
       end
     end
     
-    # Describes a sort constraint.
+    # Describes a sort constraint which constrains an enumeration of integer 
+    # variables to be sorted. Supports reification and negation.
+    # 
+    # == Example
+    # 
+    #   # Constrains the variables in +int_enum+ to be sorted ascendingly.
+    #   int_enum.must_be.sorted
+    #   
+    #   # Reifies the constraint that the variables in +int_enum+ to be sorted 
+    #   # ascendingly with the boolean variable +is_sorted+, while selecting 
+    #   # +domain+ as strength.
+    #   int_enum.must_be.sorted(:reify => :is_sorted, :strength => :domain)
     class SortConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         lhs, strength, reif_var = @params.values_at(:lhs, :strength, :reif)
