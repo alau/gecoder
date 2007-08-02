@@ -15,8 +15,22 @@ module Gecode::IntEnumMethods
 end
 
 # A module that gathers the classes and modules used by arithmetic constraints.
-module Gecode::Constraints::IntEnum::Arithmetic 
-  # Describes an expression stub started with an int var enum following by #max.
+module Gecode::Constraints::IntEnum::Arithmetic #:nodoc:
+  # Describes a CompositeStub for the max constraint, which constrains the 
+  # maximum value of the integer variables in an enumeration.
+  # 
+  # == Example
+  # 
+  #   # The maximum must be positive.
+  #   int_enum.max.must > 0
+  #   
+  #   # The maximum must equal a integer variable +max+.
+  #   int_enum.max.must == max
+  #   
+  #   # The maximum must not be negative. The constraint is reified with the 
+  #   # boolean variable +is_negative+ and strength +domain+ is selected.
+  #   int_enum.max.must_not_be.less_than(0, :reify => is_negative, 
+  #     :strength => :domain)
   class MaxExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
       enum, strength = @params.values_at(:lhs, :strength)
@@ -29,7 +43,21 @@ module Gecode::Constraints::IntEnum::Arithmetic
     end
   end
   
-  # Describes an expression stub started with an int var enum following by #min.
+  # Describes a CompositeStub for the min constraint, which constrains the 
+  # minimum value of the integer variables in an enumeration.
+  # 
+  # == Example
+  # 
+  #   # The minimum must be positive.
+  #   int_enum.min.must > 0
+  #   
+  #   # The minimum must equal a integer variable +min+.
+  #   int_enum.min.must == min
+  #   
+  #   # The minimum must not be non-positive. The constraint is reified with the 
+  #   # boolean variable +is_positive+ and strength +domain+ is selected.
+  #   int_enum.min.must_not_be.less_or_equal(0, :reify => is_positive, 
+  #     :strength => :domain)
   class MinExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
       enum, strength = @params.values_at(:lhs, :strength)
