@@ -1,0 +1,76 @@
+---
+title: Quick reference
+long_title: Quick reference of the syntax used by Gecode/R
+inMenu: true
+description: A quick reference of the syntax used by Gecode/R to model problems and express constraints in Ruby.
+---
+
+h2. Quick reference
+
+All integer and boolean constraints accept the @strength@ option, set variables
+do not. If nothing else is noted then the constraint supports the @reify@ option
+along with negation.
+
+Composite constraints end with three dots (...) to signify where the first 
+constraint ends. It's noted whether the second part of the constraint should be 
+an integer, boolean or set constraint.
+
+h3. Integer constraints
+
+|_. name |_. template |_. notes |
+| relation | {quickrefTemplate: int_var.must.int_relation(int_var)} | |
+| linear | {quickrefTemplate: linear_expression_1.must.int_relation(linear_expression_2)} | |
+| domain | {quickrefTemplate: int_var.must.be_in(constant_set)} | |
+| abs | {quickrefTemplate: int_var.abs.must... } | int composite |
+| mult | {quickrefTemplate: (int_var_1 * int_var_2).must... } | int composite |
+
+h3. Integer enumeration constraints
+
+|_. name |_. template |_. notes |
+| min | {quickrefTemplate: int_enum.min.must... } | int composite |
+| max | {quickrefTemplate: int_enum.max.must... } | int composite |
+| channel | {quickrefTemplate: int_enum_1.must.channel(int_enum_2) } | no negation nor reification |
+| count | {quickrefTemplate: int_enum.count(int_var_or_constant).must.int_relation(int_var_or_constant) } | int composite |
+| distinct | {quickrefTemplate: int_enum.must_be.distinct } | no negation nor reification |
+| element | {quickrefTemplate: int_enum[int_var].must... } | int composite |
+| equality | {quickrefTemplate: int_enum.must_be.equal } | no negation nor reification |
+| sort | {quickrefTemplate: int_enum_1.must_be.sorted } | |
+| sort | {quickrefTemplate: int_enum_1.must_be.sorted(:as => int_enum_2, :order => int_enum_3) } | :order is optional, no negation nor reification |
+
+h3. Boolean constraints
+
+|_. name |_. template |_. notes |
+| domain | {quickrefTemplate: bool_expression.must_be.true } | must_be.false also works |
+| equality | {quickrefTemplate: bool_expression_1.must == bool_expression_2 } | |
+| implication | {quickrefTemplate: bool_expression_1.must.imply(bool_expression_2) } | |
+
+h3. Boolean enumeration constraints
+
+|_. name |_. template |_. notes |
+| conjunction | {quickrefTemplate: bool_enum.conjunction.must... } | bool composite |
+| disjunction | {quickrefTemplate: bool_enum.disjunction.must... } | bool composite |
+
+h3. Set constraints
+
+|_. name |_. template |_. notes |
+| cardinality | {quickrefTemplate: set_var.size.must... } | int composite |
+| min | {quickrefTemplate: set_var.min.must... } | int composite |
+| max | {quickrefTemplate: set_var.max.must... } | int composite |
+| sum | {quickrefTemplate: set_var.sum.must... } | int composite |
+| include | {quickrefTemplate: set_var.must.include(int_enum) } | no negation nor reification, @int_enum@ is sorted in non-descending order as side effect |
+| domain | {quickrefTemplate: set_var.must.set_relation(constant_set) } | |
+| operation | {quickrefTemplate: set_var_or_constant_1.set_operation(set_var_or_constant_2).must.set_relation(set_var_or_constant_3) } | no negation nor reification |
+| relation | {quickrefTemplate: set_var_1.must.set_relation(set_var_2) } | |
+| elements | {quickrefTemplate: set_var.elements.must.int_relation(int_var_or_constant) } | no reification |
+
+h3. Set enumeration constraints
+
+|_. name |_. template |_. notes |
+| channel | {quickrefTemplate: set_enum.must.channel(int_enum) } | no negation nor reification, set and int enum can be swapped |
+| distinct | {quickrefTemplate: set_enum.must_be.distinct(:size => constant_int) } | no negation nor reification |
+| at most one | {quickrefTemplate: set_enum.must.at_most_share_one_element(:size => constant_int) } | no negation nor reification |
+| operation | {quickrefTemplate: set_enum.set_operation.must... } | set composite |
+| select | {quickrefTemplate: set_enum[int_var].must... } | set composite |
+| select union | {quickrefTemplate: set_enum[set_var].union.must... } | set composite |
+| select intersection | {quickrefTemplate: set_enum[set_var_1].intersection(:with => set_var_2).must... } | set composite, :with is optional |
+| select disjoint | {quickrefTemplate: set_enum[set_var].must_be.disjoint } | no negation nor reification |

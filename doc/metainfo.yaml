@@ -13,12 +13,14 @@ documentation/index.page:
   orderInfo: 10
 documentation/constraints.page:
   orderInfo: 11
-documentation/integer-constraints.page:
+documentation/quick-reference.page:
   orderInfo: 12
-documentation/boolean-constraints.page:
+documentation/integer-constraints.page:
   orderInfo: 13
-documentation/set-constraints.page:
+documentation/boolean-constraints.page:
   orderInfo: 14
+documentation/set-constraints.page:
+  orderInfo: 15
 examples/index.page:
   orderInfo: 10
 examples/send-more-money.page:

@@ -7,6 +7,7 @@
 doc/config.yaml -text
 doc/metainfo.yaml -text
 doc/plugin/googlesitemap.rb -text
+doc/plugin/quickref.rb -text
 doc/plugin/rspec_content.rb -text
 doc/plugin/syntax.rb -text
 doc/src/default.css -text
@@ -15,6 +16,7 @@ doc/src/documentation/boolean-constraints.page -text
 doc/src/documentation/constraints.page -text
 doc/src/documentation/index.page -text
 doc/src/documentation/integer-constraints.page -text
+doc/src/documentation/quick-reference.page -text
 doc/src/documentation/set-constraints.page -text
 doc/src/examples/index.page -text
 doc/src/examples/magic-sequence.page -text
