@@ -41,8 +41,17 @@ module Gecode::Constraints::SetEnum
   end
   
   # A module that gathers the classes and modules used in distinct constraints.
-  module Distinct
-    # Describes a set distinct constraint.
+  module Distinct #:nodoc:
+    # Describes a set distinct constraint, which constrains all set variables
+    # in the enumeration to be distinct and of a specified size. Providing a 
+    # size is not optional.
+    # 
+    # Neither negation nor reification is supported.
+    # 
+    # == Examples
+    # 
+    #   # All set variables in +sets+ must have cardinality 4 and be different.
+    #   sets.must_be.distinct(:size => 4)
     class DistinctConstraint < Gecode::Constraints::Constraint
       def post
         sets, size = @params.values_at(:lhs, :size)
@@ -50,7 +59,17 @@ module Gecode::Constraints::SetEnum
       end
     end
     
-    # Describes an at most one set constraint.
+    # Describes an at most one constraint, which constrains all pairs of set 
+    # variables in the enumeration to at most have one element in common and be 
+    # of a specified size. Providing a size is not optional.
+    # 
+    # Neither negation nor reification is supported.
+    # 
+    # == Examples
+    # 
+    #   # All set variables in +sets+ must have cardinality 17 and no pair may
+    #   # have more than one element in common.
+    #   sets.must.at_most_share_one_element(:size => 17)
     class AtMostOneConstraint < Gecode::Constraints::Constraint
       def post
         sets, size = @params.values_at(:lhs, :size)
