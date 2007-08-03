@@ -65,10 +65,10 @@ module Gecode
       if variables.respond_to? :to_int_var_array or 
           variables.respond_to? :to_bool_var_array
         add_branch(variables, options, Constants::BRANCH_INT_VAR_CONSTANTS, 
-          BRANCH_INT_VALUE_CONSTANTS)
+          Constants::BRANCH_INT_VALUE_CONSTANTS)
       elsif variables.respond_to? :to_set_var_array
         add_branch(variables, options, Constants::BRANCH_SET_VAR_CONSTANTS, 
-          BRANCH_SET_VALUE_CONSTANTS)
+          Constants::BRANCH_SET_VALUE_CONSTANTS)
       else
         raise TypeError, "Unknown type of variable enum #{variables.class}."
       end
