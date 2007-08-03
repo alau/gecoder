@@ -75,7 +75,8 @@ module Gecode::Constraints::Set
     # [Enumeration of Fixnum] Represents a set containing the enumeration’s 
     #                         elements.
     #
-    # The relations allowed are the same as in +RelationConstraint+.
+    # The relations allowed are the same as in 
+    # <tt>Set::Relation::RelationConstraint</tt>.
     #
     # == Examples
     # 
