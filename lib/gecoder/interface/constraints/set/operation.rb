@@ -42,9 +42,9 @@ end
 
 module Gecode::Constraints::Set
   # A module that gathers the classes and modules used in operation constraints.
-  module Operation
+  module Operation #:nodoc:
     # An expression with a set operand and two operands followed by must.
-    class Expression < Gecode::Constraints::Expression
+    class Expression < Gecode::Constraints::Expression #:nodoc:
       Gecode::Constraints::Util::SET_RELATION_TYPES.each_pair do |name, type|
         module_eval <<-"end_code"
           # Creates an operation constraint using the specified expression.
@@ -76,8 +76,39 @@ module Gecode::Constraints::Set
       alias_set_methods
     end
     
-    # Describes a constraint involving a set operator operating on two set 
-    # operands.
+    # Describes an operation constraint, which constrains the result of an
+    # operation with two sets as operands. Either constant sets or set 
+    # variables may be used for the result and operands, with the exception of
+    # that all three may not be constant sets.
+    # 
+    # The typical form is
+    #   set_operand_1.<operation>(set_operand_2).must.<relation>(result_set)
+    # 
+    # The following operations are supported:
+    # 
+    # * union
+    # * disjoint_union
+    # * intersection
+    # * minus
+    # 
+    # The allowed relations are the same as for 
+    # <tt>Set::Relation::RelationConstraint</tt>.
+    # 
+    # Neither reification nor negation is supported.
+    # 
+    # == Examples
+    # 
+    #   # +set_1+ union +set_2+ must equal +set_3+.
+    #   set_1.union(set_2).must == set_3
+    #   
+    #   # +set_1+ intersection [3,5,6] must equal +set_3+.
+    #   set_1.intersection([3,5,6]).must == set_3
+    #   
+    #   # [0,1,2] minus +set_2+ must be superset of +set_3+.
+    #   wrap_enum([0,1,2]).minus(set_2).must_be.superset_of(set_3)
+    #   
+    #   # +set_1+ disjoint union with [0] must be subset of 0..17.
+    #   set_1.disjoint_union(0).must_be.subset_of 0..17
     class OperationConstraint < Gecode::Constraints::Constraint
       def post
         op1, op2, operation, relation, rhs, negate = @params.values_at(:lhs, 
