@@ -10,15 +10,15 @@ module Gecode
     # as left hand sides (i.e. the part before must*) when specifying 
     # constraints. Assumes that a method #expression is defined which produces
     # a new expression given the current constraint parameters.
-    module LeftHandSideMethods
-      # Specifies that a constraint must hold for the integer variable enum.
+    module LeftHandSideMethods #:nodoc:
+      # Specifies that a constraint must hold for the keft hand side.
       def must
         expression update_params(:negate => false)
       end
       alias_method :must_be, :must
       
-      # Specifies that the negation of a constraint must hold for the integer 
-      # variable.
+      # Specifies that the negation of a constraint must hold for the left hand 
+      # side.
       def must_not
         expression update_params(:negate => true)
       end
@@ -34,7 +34,7 @@ module Gecode
     end
     
     # A module that provides some utility-methods for constraints.
-    module Util
+    module Util #:nodoc:
       # Maps the name used in options to the value used in Gecode for 
       # propagation strengths.
       PROPAGATION_STRENGTHS = {
@@ -193,7 +193,7 @@ module Gecode
     # Describes a constraint expressions. An expression is produced by calling
     # some form of must on a left hand side. The expression waits for a right 
     # hand side so that it can post the corresponding constraint.
-    class Expression
+    class Expression #:nodoc:
       # Constructs a new expression with the specified parameters. The 
       # parameters shoud at least contain the keys :lhs, and :negate.
       #
@@ -235,7 +235,7 @@ module Gecode
     
     # A composite expression which is a expression with a left hand side 
     # resulting from a previous constraint.
-    class CompositeExpression < Gecode::Constraints::Expression
+    class CompositeExpression < Gecode::Constraints::Expression #:nodoc:
       # The expression class should be the class of the expression delegated to,
       # the variable class the kind of single variable used in the expression.
       # The new var proc should produce a new variable (of the appropriate type)
@@ -300,7 +300,7 @@ module Gecode
     # 
     # The call of with_offsets initiates the constraint as a stub, even though
     # must has not yet been called.
-    class ExpressionStub
+    class ExpressionStub #:nodoc:
       # Constructs a new expression with the specified parameters.
       def initialize(model, params)
         @model = model
@@ -311,7 +311,7 @@ module Gecode
     # Describes an expression stub which includes left hand side methods and
     # just sends models and parameters through a supplied block to construct the
     # resulting expression.
-    class SimpleExpressionStub < ExpressionStub
+    class SimpleExpressionStub < ExpressionStub #:nodoc:
       include Gecode::Constraints::LeftHandSideMethods
     
       # The block provided is executed when the expression demanded by the left
@@ -342,7 +342,7 @@ module Gecode
     # ".must > rhs" is then applied to. In the above case two constraints (and
     # one temporary variable) are required, but in the case of equality only 
     # one constraint is required.
-    class CompositeStub < Gecode::Constraints::ExpressionStub
+    class CompositeStub < Gecode::Constraints::ExpressionStub #:nodoc:
       include Gecode::Constraints::LeftHandSideMethods
       
       # The composite expression class should be the class that the stub uses
