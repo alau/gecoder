@@ -13,7 +13,7 @@ module Gecode
   
   # A module containing constraints that have enumerations of integer 
   # variables as left hand side.
-  module Constraints::IntEnum #:nodoc:
+  module Constraints::IntEnum
     # Expressions with int enums as left hand sides.
     class Expression < Gecode::Constraints::Expression #:nodoc:
       # Raises TypeError unless the left hand side is an int enum.

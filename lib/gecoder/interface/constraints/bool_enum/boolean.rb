@@ -17,7 +17,7 @@ module Gecode
   
   # A module that gathers the classes and modules used by boolean enumeration 
   # constraints.
-  module Constraints::BoolEnum #:nodoc:
+  module Constraints::BoolEnum
     # Describes a CompositeStub for the conjunction constraint, which constrain
     # the conjunction of all boolean variables in an enumeration.
     # 

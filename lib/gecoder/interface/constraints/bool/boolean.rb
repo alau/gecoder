@@ -22,7 +22,7 @@ module Gecode
   end
   
   # A module that gathers the classes and modules used in boolean constraints.
-  module Constraints::Bool #:nodoc:
+  module Constraints::Bool
     # Describes a boolean expression (following after must*).
     class Expression #:nodoc:
       def ==(expression, options = {})
