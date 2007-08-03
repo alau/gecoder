@@ -207,7 +207,7 @@ unchanged.
 
 h2. Modelling a problem
 
-The following is a brief introduction on how to model problems, using 
+The following is a brief introduction of how to model problems, using 
 "sudoku":http://en.wikipedia.org/wiki/Sudoku as a case study.
 
 h3. Understand the problem
@@ -225,13 +225,13 @@ This gives us some insight into what we need to express in our model.
 h3. Selecting the view
 
 The next step is to select how to represent the problem in terms of variables. 
-The variables will need to include all possible solutions. In the case of sudoku
+The variables will need to include the sought solutions. In the case of sudoku
 that means that the variables must in some way represent a 9x9 grid where each
 cell can be assigned a value in 1..9.
 
-One intuitive choice is to use a 9x9 matrix of integer variables with the domain
-1..9 as "shown in the sudoku example":../examples/sudoku.html . We will use this
-view for this case study. In terms of code that is expressed as
+One intuitive choice is to use a 9x9 matrix of integer variables with the 
+domains 1..9 as "shown in the sudoku example":../examples/sudoku.html. In terms 
+of code it's expressed as
 
 <ruby>
 @squares = int_var_matrix(9, 9, 1..9)
@@ -240,8 +240,8 @@ view for this case study. In terms of code that is expressed as
 h4. Multiple views
 
 There are however other ways to view the problem. For instance we could instead 
-choose to use 9 set variables, one for each assignable value, and have
-them contain each square where the corresponding value should be assigned. 
+choose to use 9 set variables, one for each assignable value. Each set would
+then contain a square iff the corresponding value is assigned to the square. 
 Meaning that the first set would contain the squares to which 1 is assigned, the
 second set would contain the squares to which 2 is assigned and so on. The 
 squares could be represented as number ranging from 1 to 81. This view is shown 
@@ -251,23 +251,23 @@ The point is that there are often multiple ways to view a single problem. Being
 aware of more than one might help further down the line. Constraints might end 
 up being hard to describe in one view, but trivial in another.
 
-There's also no need to restrict oneself to only use one view. One can also use 
-multiple views, linking them together for instance using the channel constraint
-and get the best of both worlds. The two sudoku views above are examples of two
-views that can be channeled.
+There's no need to restrict oneself to only using one view. One can link
+multiple views using the channel constraint to get the best of both worlds. The
+two sudoku views above are examples of two views which can be channeled.
 
 h3. Expressing the constraints
 
-The first thing we notice is that we no longer need to worry about 
+We select the integer variable view. The first thing we notice is that we no 
+longer need to worry about 
 
 bq. The objective is to fill a 9x9 grid ... contains the digits from 1 to 9.
 
 because our choice of view already takes care of that. This illustrates another
 reason for trying to find multiple views, some might cut down on the number of
-constraints that we explicitly have to express. An example is the "n-queens 
+constraints that we explicitly have to express. Another example is the "n-queens 
 problem":../examples/n-queens.html where the choice of view takes care of the
-constraint that there may only be one queen per column (a view that would
-not have that benefit is a nxn matrix of boolean variables).
+constraint that there may only be one queen per column. We would not have that
+benefit if we for instance would use a nxn matrix of boolean variables.
 
 We are left with the following constraints that still need to be expressed:
 
@@ -276,7 +276,7 @@ We are left with the following constraints that still need to be expressed:
 # Each of the nine 3x3 boxes must contain the digits from 1 to 9.
 # The puzzle setter provides a partially completed grid.
 
-Another way of phrase the first three constraints is that the digits in each 
+Another way to phrase the first three constraints is that the digits in each 
 row, column and 3x3 boxes must be distinct, since we have already made sure that
 only digits from 1 to 9 are allowed (and that each square must be assigned 
 exactly one).
