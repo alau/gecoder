@@ -43,9 +43,9 @@ module Gecode
     # (accessible from the model) to be as low as possible then one should write
     # the following.
     #
-    # model.optimize! do |model, best_so_far|
-    #   model.price.must < best_so_far.price.val
-    # end
+    #   model.optimize! do |model, best_so_far|
+    #     model.price.must < best_so_far.price.val
+    #   end
     #
     # Returns nil if there is no solution.
     def optimize!(&block)
