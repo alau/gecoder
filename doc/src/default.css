@@ -61,6 +61,38 @@ ul, ol {
 code {
   font-size: 120%;
 }
+table {
+	border-collapse: collapse;
+	margin: 0.5em;
+}
+table td, table th {
+	padding: 2px;
+}
+table th {
+	background: #CCC;
+}
+table tr td {
+	background: #FFF;
+}
+table tr.odd td {
+	background: #EEE;
+}
+table .right {
+	text-align: right;
+}
+table .left {
+	text-align: left;
+}
+table.container td, table.container th {
+	border: 0;
+}
+table.container {
+	margin-left: 0.2em;
+	border: 0;
+}
+
+
+
 div.header {
   width: 100%;
   position: absolute;

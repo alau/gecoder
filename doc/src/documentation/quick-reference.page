@@ -7,13 +7,15 @@ description: A quick reference of the syntax used by Gecode/R to model problems 
 
 h2. Quick reference
 
-All integer and boolean constraints accept the @strength@ option, set variables
-do not. If nothing else is noted then the constraint supports the @reify@ option
-along with negation.
+All integer and boolean constraints accept the @strength@ option, set 
+constraints do not. If nothing else is noted then the constraint supports the 
+@reify@ option along with negation.
 
 Composite constraints end with three dots (...) to signify where the first 
 constraint ends. It's noted whether the second part of the constraint should be 
-an integer, boolean or set constraint.
+an integer, boolean or set constraint. For instance @int_var.abs.must...@ with
+an int composite means that ... can e.g. be replaced with @> 5@ or any other
+integer domain or relation constraint.
 
 h3. Integer constraints
 
