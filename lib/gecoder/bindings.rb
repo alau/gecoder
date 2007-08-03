@@ -5,7 +5,7 @@ module Gecode
   
   # Describes a layer that delegates to GecodeRaw only after having logged the 
   # call.
-  module LoggingLayer
+  module LoggingLayer #:nodoc:
     require 'logger'
   
     def self.method_missing(name, *args)

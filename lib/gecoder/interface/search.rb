@@ -80,14 +80,14 @@ module Gecode
       return self
     end
     
-    class <<self
+    class <<self 
       # Sets the proc that should be used to handle constrain requests.
-      def constrain_proc=(proc)
+      def constrain_proc=(proc) #:nodoc:
         @constrain_proc = proc
       end
     
       # Called by spaces when they want to constrain as part of BAB-search.
-      def constrain(home, best)
+      def constrain(home, best) #:nodoc:
         if @constrain_proc.nil?
           raise NotImplementedError, 'Constrain method not implemented.' 
         else

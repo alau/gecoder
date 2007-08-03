@@ -1,52 +1,5 @@
 module Gecode
   class Model
-    private
-    
-    # Maps the names of the supported variable branch strategies for integer and
-    # booleans to the corresponding constant in Gecode. 
-    BRANCH_INT_VAR_CONSTANTS = {
-      :none                 => Gecode::Raw::BVAR_NONE,
-      :smallest_min         => Gecode::Raw::BVAR_MIN_MIN,
-      :largest_min          => Gecode::Raw::BVAR_MIN_MAX, 
-      :smallest_max         => Gecode::Raw::BVAR_MAX_MIN, 
-      :largest_max          => Gecode::Raw::BVAR_MAX_MAX, 
-      :smallest_size        => Gecode::Raw::BVAR_SIZE_MIN, 
-      :largest_size         => Gecode::Raw::BVAR_SIZE_MAX,
-      :smallest_degree      => Gecode::Raw::BVAR_DEGREE_MIN, 
-      :largest_degree       => Gecode::Raw::BVAR_DEGREE_MAX, 
-      :smallest_min_regret  => Gecode::Raw::BVAR_REGRET_MIN_MIN,
-      :largest_min_regret   => Gecode::Raw::BVAR_REGRET_MIN_MAX,
-      :smallest_max_regret  => Gecode::Raw::BVAR_REGRET_MAX_MIN, 
-      :largest_max_regret   => Gecode::Raw::BVAR_REGRET_MAX_MAX
-    }
-    # Maps the names of the supported variable branch strategies for sets to 
-    # the corresponding constant in Gecode. 
-    BRANCH_SET_VAR_CONSTANTS = {
-      :none                 => Gecode::Raw::SETBVAR_NONE,
-      :smallest_cardinality => Gecode::Raw::SETBVAR_MIN_CARD,
-      :largest_cardinality  => Gecode::Raw::SETBVAR_MAX_CARD, 
-      :smallest_unknown     => Gecode::Raw::SETBVAR_MIN_UNKNOWN_ELEM, 
-      :largest_unknown      => Gecode::Raw::SETBVAR_MAX_UNKNOWN_ELEM
-    }
-    
-    # Maps the names of the supported value branch strategies for integers and
-    # booleans to the corresponding constant in Gecode. 
-    BRANCH_INT_VALUE_CONSTANTS = {
-      :min        => Gecode::Raw::BVAL_MIN,
-      :med        => Gecode::Raw::BVAL_MED,
-      :max        => Gecode::Raw::BVAL_MAX,
-      :split_min  => Gecode::Raw::BVAL_SPLIT_MIN,
-      :split_max  => Gecode::Raw::BVAL_SPLIT_MAX
-    }
-    # Maps the names of the supported value branch strategies for sets to the 
-    # corresponding constant in Gecode. 
-    BRANCH_SET_VALUE_CONSTANTS = {
-      :min  => Gecode::Raw::SETBVAL_MIN,
-      :max  => Gecode::Raw::SETBVAL_MAX
-    }
-    
-    public
-  
     # Specifies which variables that should be branched on. One can optionally
     # also select which of the variables that should be used first with the
     # :variable option and which value in that variable's domain that should be 
@@ -111,10 +64,10 @@ module Gecode
     def branch_on(variables, options = {})
       if variables.respond_to? :to_int_var_array or 
           variables.respond_to? :to_bool_var_array
-        add_branch(variables, options, BRANCH_INT_VAR_CONSTANTS, 
+        add_branch(variables, options, Constants::BRANCH_INT_VAR_CONSTANTS, 
           BRANCH_INT_VALUE_CONSTANTS)
       elsif variables.respond_to? :to_set_var_array
-        add_branch(variables, options, BRANCH_SET_VAR_CONSTANTS, 
+        add_branch(variables, options, Constants::BRANCH_SET_VAR_CONSTANTS, 
           BRANCH_SET_VALUE_CONSTANTS)
       else
         raise TypeError, "Unknown type of variable enum #{variables.class}."
@@ -122,6 +75,52 @@ module Gecode
     end
     
     private
+    
+    # This is a hack to get RDoc to ignore the constants.
+    module Constants #:nodoc:
+      # Maps the names of the supported variable branch strategies for integer and
+      # booleans to the corresponding constant in Gecode. 
+      BRANCH_INT_VAR_CONSTANTS = {
+        :none                 => Gecode::Raw::BVAR_NONE,
+        :smallest_min         => Gecode::Raw::BVAR_MIN_MIN,
+        :largest_min          => Gecode::Raw::BVAR_MIN_MAX, 
+        :smallest_max         => Gecode::Raw::BVAR_MAX_MIN, 
+        :largest_max          => Gecode::Raw::BVAR_MAX_MAX, 
+        :smallest_size        => Gecode::Raw::BVAR_SIZE_MIN, 
+        :largest_size         => Gecode::Raw::BVAR_SIZE_MAX,
+        :smallest_degree      => Gecode::Raw::BVAR_DEGREE_MIN, 
+        :largest_degree       => Gecode::Raw::BVAR_DEGREE_MAX, 
+        :smallest_min_regret  => Gecode::Raw::BVAR_REGRET_MIN_MIN,
+        :largest_min_regret   => Gecode::Raw::BVAR_REGRET_MIN_MAX,
+        :smallest_max_regret  => Gecode::Raw::BVAR_REGRET_MAX_MIN, 
+        :largest_max_regret   => Gecode::Raw::BVAR_REGRET_MAX_MAX
+      }
+      # Maps the names of the supported variable branch strategies for sets to 
+      # the corresponding constant in Gecode. 
+      BRANCH_SET_VAR_CONSTANTS = { #:nodoc:
+        :none                 => Gecode::Raw::SETBVAR_NONE,
+        :smallest_cardinality => Gecode::Raw::SETBVAR_MIN_CARD,
+        :largest_cardinality  => Gecode::Raw::SETBVAR_MAX_CARD, 
+        :smallest_unknown     => Gecode::Raw::SETBVAR_MIN_UNKNOWN_ELEM, 
+        :largest_unknown      => Gecode::Raw::SETBVAR_MAX_UNKNOWN_ELEM
+      }
+      
+      # Maps the names of the supported value branch strategies for integers and
+      # booleans to the corresponding constant in Gecode. 
+      BRANCH_INT_VALUE_CONSTANTS = { #:nodoc:
+        :min        => Gecode::Raw::BVAL_MIN,
+        :med        => Gecode::Raw::BVAL_MED,
+        :max        => Gecode::Raw::BVAL_MAX,
+        :split_min  => Gecode::Raw::BVAL_SPLIT_MIN,
+        :split_max  => Gecode::Raw::BVAL_SPLIT_MAX
+      }
+      # Maps the names of the supported value branch strategies for sets to the 
+      # corresponding constant in Gecode. 
+      BRANCH_SET_VALUE_CONSTANTS = { #:nodoc:
+        :min  => Gecode::Raw::SETBVAL_MIN,
+        :max  => Gecode::Raw::SETBVAL_MAX
+      }
+    end
     
     # Adds a branching selection for the specified variable with the specified
     # options. The hashes are used to decode the options into Gecode's 

@@ -6,7 +6,7 @@
 #
 # This layer should be moved to the C++ side instead when possible for better
 # performance.
-module GecodeRaw
+module GecodeRaw #:nodoc: all
   class Space
     # Creates the specified number of integer variables in the space with the
     # specified domain. Returns the indices with which they can then be 
@@ -93,7 +93,7 @@ end
 
 module Gecode
   # Various utility (mainly used to change the behavior of the raw bindings).
-  module Util
+  module Util #:nodoc: all
     # Provides common methods to the variable stores. The stores must provide
     # @next_index, @var_array, @size, ARRAY_IDENTIFIER and #new_storage_array .
     module VarStoreMethods

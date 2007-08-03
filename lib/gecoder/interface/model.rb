@@ -120,7 +120,7 @@ module Gecode
     #
     # The space returned by this method should never be stored, it should be
     # rerequested from the model every time that it's needed.
-    def active_space
+    def active_space #:nodoc:
       unless @allow_space_access
         raise 'Space access is restricted and the permission to access the ' + 
           'space has not been given.'
@@ -130,7 +130,7 @@ module Gecode
     
     # Adds the specified constraint to the model. Returns the newly added 
     # constraint.
-    def add_constraint(constraint)
+    def add_constraint(constraint) #:nodoc:
       add_interaction do
         constraint.post
       end
@@ -139,7 +139,7 @@ module Gecode
     
     # Adds a block containing something that interacts with Gecode to a queue
     # where it is potentially executed.
-    def add_interaction(&block)
+    def add_interaction(&block) #:nodoc:
       gecode_interaction_queue << block
     end
     
@@ -149,7 +149,7 @@ module Gecode
     # the block ends.
     #
     # Returns the result of the block.
-    def allow_space_access(&block)
+    def allow_space_access(&block) #:nodoc:
       # We store the old value so that nested calls don't become a problem, i.e.
       # access is allowed as long as one call to this method is still on the 
       # stack.
@@ -162,7 +162,7 @@ module Gecode
     
     # Starts tracking a variable that depends on the space. All variables 
     # created should call this method for their respective models.
-    def track_variable(variable)
+    def track_variable(variable) #:nodoc:
       (@variables ||= []) << variable
     end
     
@@ -170,7 +170,7 @@ module Gecode
     
     # Gets a queue of objects that can be posted to the model's active_space 
     # (by calling their post method).
-    def gecode_interaction_queue
+    def gecode_interaction_queue #:nodoc:
       @gecode_interaction_queue ||= []
     end
     
