@@ -4,10 +4,10 @@ class Gecode::FreeIntVar
     Gecode::Constraints::Int::Arithmetic::AbsExpressionStub.new(@model, 
       :lhs => self)
   end
-  
-  # Creates a linear expression where the int variable is multiplied with 
-  # a constant integer.
+
   alias_method :pre_arith_mult, :* if instance_methods.include? '*'
+  
+  # Begins a multiplication constraint involving the two int variable.
   def *(var)
     if var.kind_of? Gecode::FreeIntVar
       Gecode::Constraints::Int::Arithmetic::MultExpressionStub.new(

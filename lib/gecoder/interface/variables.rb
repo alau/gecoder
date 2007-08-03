@@ -1,6 +1,7 @@
 module Gecode
-  # An variable that is bound to a model, but not to a particular space.  
-  class FreeVarBase
+  # Describes a variable that is bound to a model, but not to a particular 
+  # space.  
+  class FreeVarBase #:nodoc:
     attr_accessor :model
   
     # Creates an int variable with the specified index.
@@ -81,26 +82,44 @@ module Gecode
     return clazz
   end
   
-  # Int variables.
   FreeIntVar = FreeVar(Gecode::Raw::IntVar, :int_var)
+  # Describes an integer variable. Each integer variable has a domain of several
+  # integers which represent the possible values that the variable may take. 
+  # An integer variable is said to be assigned once the domain only contains a
+  # single element, at which point #value can be used to retrieve the value.
   class FreeIntVar
+    # Gets the minimum value still in the domain of the variable.
     delegate :min
+    # Gets the maximum value still in the domain of the variable.
     delegate :max
+    # Gets the number of elements still in the domain of the variable.
     delegate :size
+    # Gets the width of the variable's domain, i.e. the distance between the
+    # maximum and minimum values.
     delegate :width
+    # Gets the degree of the variable. The degree is the number of constraints
+    # that are affected by the variable. So if the variable is used in two
+    # constraints then the value will be 2.
     delegate :degree
+    # Checks whether the domain is a range, i.e. doesn't contain any holes.
     delegate :range?, :range
+    # Checks whether the variable has been assigned, i.e. its domain only 
+    # contains one element.
     delegate :assigned?, :assigned
+    # Checks whether a specified integer is in the variable's domain.
     delegate :include?, :in
     
-    # Gets the value of the assigned integer variable (a fixnum).
+    # Gets the value of the assigned integer variable (a Fixnum). The variable
+    # must be assigned, if it isn't then a RuntimeError is raised.
     def value
       raise 'No value is assigned.' unless assigned?
       send_bound(:val)
     end
     
+    private
+    
     # Returns a string representation of the the range of the variable's domain.
-    def domain
+    def domain #:nodoc:
       if assigned?
         "range: #{value.to_s}"
       else
@@ -109,16 +128,21 @@ module Gecode
     end
   end
   
-  # Bool variables.
   FreeBoolVar = FreeVar(Gecode::Raw::BoolVar, :bool_var)
+  # Describes a boolean variable. A boolean variable can be either true or 
+  # false.
   class FreeBoolVar
+    # Checks whether the variable has been assigned.
     delegate :assigned?, :assigned
     
-    # Gets the values in the assigned boolean variable (true or false).
+    # Gets the values in the assigned boolean variable (true or false). The 
+    # variable must be assigned, if it isn't then a RuntimeError is raised.
     def value
       raise 'No value is assigned.' unless assigned?
       send_bound(:val) == 1
     end
+  
+    private
   
     # Returns a string representation of the the variable's domain.
     def domain
@@ -130,12 +154,26 @@ module Gecode
     end
   end
 
-  # Set variables.
   FreeSetVar = FreeVar(Gecode::Raw::SetVar, :set_var)
+  # Describes a set variable. 
+  # 
+  # A set variable's domain, i.e. possible values that it can take, are 
+  # represented with a greatest lower bound (GLB) and a least upper bound (LUB).
+  # The set variable may then take any set value S such that S is a subset of
+  # the least upper bound and the greatest lower bound is a subset of S.
+  #   
+  # If for instance the set has a greatest lower bound {1} and least upper bound
+  # {1,3,5} then the assigned set may be any of the following four sets: {1}, 
+  # {1,3}, {1,5}, {1,3,5}. 
+  # 
+  # The domain of a set variable may also specify the cardinality of the set, 
+  # i.e. the number of elements that the set may contains.
   class FreeSetVar
+    # Checks whether the variable has been assigned.
     delegate :assigned?, :assigned
     
-    # Gets all the elements located in the greatest lower bound of the set.
+    # Gets all the elements located in the greatest lower bound of the set (an 
+    # Enumerable).
     def lower_bound
       min = send_bound(:glbMin)
       max = send_bound(:glbMax)
@@ -144,7 +182,8 @@ module Gecode
       end
     end
     
-    # Gets all the elements located in the least upper bound of the set.
+    # Gets all the elements located in the least upper bound of the set (an 
+    # Enumerable).
     def upper_bound
       min = send_bound(:lubMin)
       max = send_bound(:lubMax)
@@ -164,6 +203,8 @@ module Gecode
       send_bound(:cardMin)..send_bound(:cardMax)
     end
     
+    private
+    
     # Returns a string representation of the the variable's domain.
     def domain
       if assigned?
@@ -175,9 +216,12 @@ module Gecode
   end
   
   # Describes an immutable view of an enumerable.
-  class EnumerableView
+  class EnumerableView #:nodoc:
+    # Gets the number of elements in the view.
     attr :size
+    # Gets the minimum element of the view.
     attr :min
+    # Gets the maximum element of the view.
     attr :max
     include Enumerable
     
@@ -191,7 +235,7 @@ module Gecode
       @enum = nil
     end
 
-    # Used by Enumerable.
+    # Iterates over every element in the view.
     def each(&block)
       enum.each(&block)
     end

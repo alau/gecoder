@@ -6,9 +6,10 @@ module Gecode
         @model) + var
     end
     
+    alias_method :pre_linear_mult, :* if instance_methods.include? '*'
+
     # Creates a linear expression where the int variable is multiplied with 
     # a constant integer.
-    alias_method :pre_linear_mult, :* if instance_methods.include? '*'
     def *(int)
       if int.kind_of? Fixnum
         Gecode::Constraints::Int::Linear::ExpressionNode.new(self, 
