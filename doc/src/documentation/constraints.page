@@ -23,6 +23,10 @@ into the following categories.
 * "Boolean constraints":boolean-constraints.html - Constraints dealing with boolean variables.
 * "Set constraints":set-constraints.html - Constraints dealing with finite integer set variables.
 
+The RDoc documentation contains additional examples of all types of constraints.
+The "quick reference":quick-reference.html provides a list containing all of 
+them.
+
 h2. Options
 
 Constraints can in general take a couple of options: *proagation strength* and
@@ -34,6 +38,8 @@ The propagation strength basically _suggests_ how much effort the solver puts
 into trying to prune the domains of variables using the constraint. A higher 
 strength can reduce the search space quicker, but at the cost of making each 
 propagation more costly.
+
+Note that no set constraint accepts the propagation strength option.
 
 It's usually worth testing a few different strength to see how well they work, 
 a good choice of strengths can cut down the search time depending on the 
