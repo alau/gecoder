@@ -11,9 +11,11 @@ In the examples @constant_set@ represents a constant set, @set@ represents a
 single set variable and @sets@ represents an enumeration of set variables.
 
 A constant set can be represented with instances of the following classes:
-* Fixnum - represents a singleton set.
-* Range - represents a set containing all elements in the range. This represents the set more efficiently than when another enumeration with the same elements are used.
-* Enumeration of integers - represents a set containing the enumeration's elements.
+<dl>
+  <dt>Fixnum</dt><dd>Represents a singleton set.</dd>
+  <dt>Range</dt><dd>Represents a set containing all elements in the range. This represents the set more efficiently than when another enumeration with the same elements are used.</dd>
+  <dt>Enumeration of integers</dt><dd>Represents a set containing the enumeration's elements.</dd>
+</dl>
 
 h3. Domain
 

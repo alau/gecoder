@@ -239,7 +239,7 @@ pre {
   width: 508px; /*IE/Win fix*/
   font-size: 8pt;
 }
-#body ul, #body ol { 
+#body ul, #body ol, dl { 
   margin: 1em 1em 1em 2em;
 }
 #body li {

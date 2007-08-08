@@ -19,9 +19,11 @@ Using @must@ instead of @must_not@ negates the constraints. Not all constraints
 support that however. The constraints that are currently supported are divided
 into the following categories.
 
-* "Integer constraints":integer-constraints.html - Constraints dealing with finite domain integer variables.
-* "Boolean constraints":boolean-constraints.html - Constraints dealing with boolean variables.
-* "Set constraints":set-constraints.html - Constraints dealing with finite integer set variables.
+<dl>
+  <dt>"Integer constraints":integer-constraints.html</dt><dd>Constraints dealing with finite domain integer variables.</dd>
+  <dt>"Boolean constraints":boolean-constraints.html</dt><dd>Constraints dealing with boolean variables.</dd>
+  <dt>"Set constraints":set-constraints.html</dt><dd>Constraints dealing with finite integer set variables.</dd>
+</dl>
 
 The RDoc documentation contains additional examples of all types of constraints.
 The "quick reference":quick-reference.html provides a list containing all of 
@@ -46,10 +48,12 @@ a good choice of strengths can cut down the search time depending on the
 problem.
 
 The different strengths are:
-* @:value@ - value consistency (naive).
-* @:bounds@ - bounds consistency.
-* @:domain@ - domain consistency.
-* @:default@ - uses the default consistency of the constraint.
+<dl>
+  <dt>@:value@</dt><dd>Value consistency (naive).</dd>
+	<dt>@:bounds@</dt><dd>Bounds consistency.</dd>
+	<dt>@:domain@</dt><dd>Domain consistency.</dd>
+	<dt>@:default@</dt><dd>Yses the default consistency of the constraint.</dd>
+</dl>
 
 They are specified with the key @:strength@. The following places a domain 
 consistent distinct constraint on @numbers@.

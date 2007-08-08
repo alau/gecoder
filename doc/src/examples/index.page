@@ -9,12 +9,14 @@ h2. Overview
 
 The following are the examples located in the example directory. 
 
-* "send+more=money":send-more-money.html - The "Hello world" of constraint programming. Shows the basic usage with some linear and distinct constraints.
-* "send+most=money":send-most-money.html - Similar to the above, but also shows an example of optimization search.
-* "Sudoku":sudoku.html - The popular puzzle solved using constraint programming. Shows how to use matrices and set propagation strengths.
-* "Sudoku with sets":sudoku-set.html - The sudoku puzzle again, but this time using sets and a different viewpoint. Shows how to use set operations.
-* "N-queens":n-queens.html - Shows how to use distinct with offsets.
-* "Magic sequence":magic-sequence.html - Uses the count constraint and some implied constraints.
+<dl>
+  <dt>"send+more=money":send-more-money.html</dt><dd>The "Hello world" of constraint programming. Shows the basic usage with some linear and distinct constraints.</dd>
+  <dt>"send+most=money":send-most-money.html</dt><dd>Similar to the above, but also shows an example of optimization search.</dd>
+  <dt>"Sudoku":sudoku.html</dt><dd>The popular puzzle solved using constraint programming. Shows how to use matrices and set propagation strengths.</dd>
+  <dt>"Sudoku with sets":sudoku-set.html</dt><dd>The sudoku puzzle again, but this time using sets and a different viewpoint. Shows how to use set operations.</dd>
+  <dt>"N-queens":n-queens.html</dt><dd>Shows how to use distinct with offsets.</dd>
+  <dt>"Magic sequence":magic-sequence.html</dt><dd>Uses the count constraint and some implied constraints.</dd>
+</dl>
 
 Note that
 
