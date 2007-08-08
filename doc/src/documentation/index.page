@@ -102,9 +102,11 @@ bound.
 <ruby>
 # Creates a set variable with glb 1..2 and lub 1..6 .
 set = set_var(1..2, 1..6) 
-# Creates an array of 3 set variables with the above bounds and a minimum cardinality of 3.
+# Creates an array of 3 set variables with the above bounds and a minimum 
+# cardinality of 3.
 sets = set_var_array(3, 1..2, 1..6, 3)
-# Creates a 7x9 matrix of set variables with the above bounds and a cardinality between 2 and 5
+# Creates a 7x9 matrix of set variables with the above bounds and a cardinality 
+# between 2 and 5
 set_matrix = set_var_matrix(7, 9, 1..2, 1..6 2..5)
 </ruby>
 
