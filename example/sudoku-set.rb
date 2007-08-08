@@ -8,7 +8,8 @@ class SudokuSet < Gecode::Model
   # Takes a 9x9 matrix of values in the initial sudoku, 0 if the square is 
   # empty. 
   def initialize(predefined_values)
-    unless predefined_values.column_size == 9 and predefined_values.row_size == 9
+    unless predefined_values.column_size == 9 and 
+        predefined_values.row_size == 9
       raise ArgumentError, 'The matrix with predefined values must have ' +
         'dimensions 9x9.'
     end
