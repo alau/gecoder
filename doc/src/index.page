@@ -1,7 +1,7 @@
 ---
 title: Home
 long_title: Overview of Gecode/R, a Ruby interface to Gecode
-inMenu: true
+inMenu: false
 description: A Ruby interface to Gecode, an open source environment for constraint programming.
 ---
 h2. Purpose

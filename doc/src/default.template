@@ -2,28 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang:}">
 <head>
   <title>{long_title: }</title>
-  <link rel="stylesheet" type="text/css" href="{relocatable: default.css}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{relocatable: styles.css}" media="screen" />
   <link rel="stylesheet" type="text/css" href="{resource: webgen-css}" media="screen" />
   <meta name="description" content="{description:}" />
 </head>
 <body>
-  <h1>Gecode/R</h1><a name="top"></a>
-  <div id="contents">
-    <div id="body">
-      {block:}
-    </div>
-		
-    <div class="header">
-      {menu: {menuStyle: horizontal, options: {maxLevels: 1, divClass: "menu horizontal", selectedMenuitemClass: "selected"}}}
-      {menu: {menuStyle: horizontal, options: {startLevel: 2, maxLevels: 1, divClass: "submenu horizontal", selectedMenuitemClass: "selected"}}}
-    </div>
-    <div id="footer">
-    	<ul class="horizontal2">
-    	  <li><a class="top" href="#top">Top</a></li>
-    	  <li class="right"><a class="sitemap" href="{relocatable: sitemap.page}">Sitemap</a></li>
-    	</ul>
+<div id="header">
+  <a name="top"></a>
+</div>
+<div id="contents">
+  {menu: {menuStyle: breadcrumbs}}
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      {menu: {menuStyle: sidebar}}
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse">
+        <strong>Search the site</strong>
+        <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+        <input type="hidden" name="cof" value="FORID:0" />
+        <input name="q" type="text" size="15" />
+        <input type="submit" name="sa" value="Search" />
+      </form>
     </div>
   </div>
+  <div id="body">
+    {block:}
+  </div>
+  {menu: {menuStyle: tabs}}
+</div>
+<div id="footerWrapper">
+  {menu: {menuStyle: footer}}
+</div>
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
