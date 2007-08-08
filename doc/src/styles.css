@@ -21,19 +21,19 @@ body {
 }
 #sidebar {
   margin-top: 3em;
-  width: 200px;
+  width: 190px;
   float: right;
-  margin: 0 0 0 -200px;
+  margin: 0 0 0 -190px;
 }
 #sidebarWrapper {
-  margin: 0 0 0 200px;
+  margin: 0 0 0 190px;
   position: relative;
   z-index: 2;
   margin-top: 3em;
 }
 #body {
   margin-top: 3em;
-  margin-right: 300px;
+  margin-right: 280px;
   float: none;
 }
 #breadcrumbs {
@@ -221,10 +221,11 @@ pre {
   white-space: pre;
   background-color: #F8F8F8;
   border: 1px dashed #CCC;
-  margin: 1em;
+  margin: 1em 0;
+  margin-left: 10px
   overflow: auto;
   padding: 0.5em;
-  width: 500px; /*IE/Win fix*/
+  width: 508px; /*IE/Win fix*/
   font-size: 8pt;
 }
 #body ul, #body ol { 
@@ -232,4 +233,10 @@ pre {
 }
 #body li {
   margin: 0.5em 0;
+}
+
+/* Override webgen CodeRay highlight */
+div.CodeRay {
+  font-family: verdana, sans-serif;
+	border: 0;
 }
