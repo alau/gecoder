@@ -8,6 +8,9 @@
 </head>
 <body>
 <div id="header">
+  <a class="logoLink" href="{relocatable: index.page}" title="Gecode/R - constraint programming in Ruby">
+  	<span>Gecode/R - constraint programming in Ruby</span>
+  </a>
   <a name="top"></a>
 </div>
 <div id="contents">

@@ -52,6 +52,17 @@ body {
 #header {
   background: #31363E url(images/caption.png) no-repeat 50% 40%;
 }
+#header span {
+  display: none;
+  visibility: hidden;
+}
+#header a.logoLink {
+  display: block;
+  width: 800px;
+  height: 80%;
+  top: 0;
+  margin: 0 auto;
+}
 /* Tabs */
 #tabs {
   font-size: 1.2em;
