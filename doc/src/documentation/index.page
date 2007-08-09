@@ -4,11 +4,16 @@ long_title: Documentation for Gecode/R, a Ruby interface to Gecode
 inMenu: true
 description: How to use Gecode/R to model problems and solve them using constraint programming.
 ---
-h2. Introduction
+h1. Using Gecode/R
 
-When using Gecode/R to solve a problem you first have to model the problem by
-expressing what a solution to the problem is. Once the problem is modelled the
-underlying engine will search for a solution.
+<div class="summary">
+To use Gecode/R to solve a problem you first have to model the problem by
+expressing what a solution to the problem is using variables and constraints. 
+
+You can then fetch solutions with varying strategies.
+</div>
+
+h2. Creating models
 
 A model is typically constructed by creating a class that inherits from 
 @Gecode::Model@.
@@ -25,11 +30,14 @@ puts MyModel.new.solve!.to_s
 </ruby>
 
 There are three main parts of a model:
-* Variables
-* Constraints
-* Branching
+<dl>
+  <dt>"Variables":#variables</dt><dd>Specify how to view the problem. A solution is an assignment of the variables.</dd>
+  <dt>"Constraints":#constraints</dt><dd>Place constraints on the variables to ensure that an assignment must be a solution.</dd>
+  <dt>"Branching":#branching</dt><dd>Select how the search space should be explored.</dd>
+</dl>
 
 h3. Variables
+<a name="variables"></a>
 
 h4. Integer variables
 
@@ -111,6 +119,7 @@ set_matrix = set_var_matrix(7, 9, 1..2, 1..6 2..5)
 </ruby>
 
 h3. Constraints
+<a name="constraints"></a>
 
 The constraints specify what must hold for something to be a solution. They are
 created using variables in combination with @must@ and @must_not@. The 
@@ -122,6 +131,7 @@ x.must > y
 </ruby>
 
 h3. Branching
+<a name="branching"></a>
 
 The solver tries to prune the search space without actually exploring it, but
 sooner or later it will probably have to make a guess about a variable's value
@@ -141,9 +151,13 @@ well is that we can quicker exhaust the remaining possibilities of a variable
 with a small domain, and hence force a fail (or a solution to be found) so that
 we can backtrack to the next possible choice.
 
-h3. Accessing solutions
+h2. Accessing solutions
 
-h4. Depth first search
+If you just want any or all solutions then use depth first search. Use branch 
+and bound search if you want to fetch a specific solution, optimizing something
+of you choice.
+
+h3. Depth first search
 
 The solutions to a model can be accessed by several methods. The simplest case
 is when one just want a	single solution to the problem, in which case 
@@ -186,7 +200,7 @@ instance.each_solution{ |solution| puts solution.to_s }
 
 In both cases the model instance is unaffected after the method-call.
 
-h4. Branch and bound search
+h3. Branch and bound search
 
 Branch and bounds search is used when one is not just looking for _any_ 
 solution, but rather the _optimal_ solution (as defined by some criteria). For 
