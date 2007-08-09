@@ -20,11 +20,13 @@
       {menu: {menuStyle: sidebar}}
 
       <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse">
-        <strong>Search the site</strong>
-        <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
-        <input type="hidden" name="cof" value="FORID:0" />
-        <input name="q" type="text" size="15" />
-        <input type="submit" name="sa" value="Search" />
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
       </form>
     </div>
   </div>

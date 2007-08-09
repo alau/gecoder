@@ -252,6 +252,12 @@ table th {
 table tr {
 	border-bottom: 1px solid #CCC;
 }
+fieldset {
+  border: 0;
+}
+legend {
+  font-weight: bold;
+}
 #body ul, #body ol, dl { 
   margin: 1em 1em 1em 2em;
 }
