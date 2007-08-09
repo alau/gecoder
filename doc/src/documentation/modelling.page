@@ -8,8 +8,8 @@ description: How to use Gecode/R to model problems and solve them using constrai
 h1. Modelling a problem
 
 <div class="summary">
-The following is a brief introduction of how to model problems, using 
-"sudoku":http://en.wikipedia.org/wiki/Sudoku as a case study.
+<p>The following is a brief introduction of how to model problems, using 
+"sudoku":http://en.wikipedia.org/wiki/Sudoku as a case study.</p>
 </div>
 
 h2. Understand the problem

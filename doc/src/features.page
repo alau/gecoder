@@ -8,8 +8,8 @@ description: Constraints and various features of Gecode supported by the Ruby in
 h1. Features
 
 <div class="summary">
-Gecode/R provides access to many, but not all, of "Gecode's 
-features":http://www.gecode.org/gecode-doc-latest/modules.html.
+<p>Gecode/R provides access to many, but not all, of "Gecode's 
+features":http://www.gecode.org/gecode-doc-latest/modules.html.</p>
 </div>
 
 h2. Supported Gecode features 

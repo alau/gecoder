@@ -7,10 +7,11 @@ description: How to use Gecode/R to model problems and solve them using constrai
 h1. Using Gecode/R
 
 <div class="summary">
-To use Gecode/R to solve a problem you first have to model the problem by
-expressing what a solution to the problem is using variables and constraints. 
+<p>To use Gecode/R to solve a problem you first have to model the problem by
+expressing what a solution to the problem is using variables and 
+constraints.</p>
 
-You can then fetch solutions with varying strategies.
+<p>You can then fetch solutions with varying strategies.</p>
 </div>
 
 h2. Creating models
