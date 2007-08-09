@@ -12,6 +12,11 @@ examples:
   
 documentation/index.page:
   orderInfo: 10
+documentation/modelling.page:
+  orderInfo: 11
+documentation/constraints:
+  orderInfo: 12
+
 documentation/constraints/index.page:
   orderInfo: 20
 documentation/constraints/quick-reference.page:

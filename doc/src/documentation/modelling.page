@@ -1,0 +1,169 @@
+---
+title: Modelling
+long_title: How to model a constraint programming problem using Gecode/R
+inMenu: true
+description: How to use Gecode/R to model problems and solve them using constraint programming. What to watch out for and how to tweak the performance.
+---
+
+h2. Modelling a problem
+
+The following is a brief introduction of how to model problems, using 
+"sudoku":http://en.wikipedia.org/wiki/Sudoku as a case study.
+
+h3. Understand the problem
+
+The first step is to understand the problem, more specifically to understand 
+what is required of a solution to the problem. In the case of sudoku we just 
+need to know the following:
+
+bq. The objective is to fill a 9x9 grid so that each column, each row, and each 
+of the nine 3x3 boxes contains the digits from 1 to 9. The puzzle setter 
+provides a partially completed grid. - "Wikipedia":http://en.wikipedia.org/wiki/Soduko
+
+This gives us some insight into what we need to express in our model.
+
+h3. Selecting the view
+
+The next step is to select how to represent the problem in terms of variables. 
+The variables will need to include the sought solutions. In the case of sudoku
+that means that the variables must in some way represent a 9x9 grid where each
+cell can be assigned a value in 1..9.
+
+One intuitive choice is to use a 9x9 matrix of integer variables with the 
+domains 1..9 as "shown in the sudoku example":../examples/sudoku.html. In terms 
+of code it's expressed as
+
+<ruby>
+@squares = int_var_matrix(9, 9, 1..9)
+</ruby>
+
+h4. Multiple views
+
+There are however other ways to view the problem. For instance we could instead 
+choose to use 9 set variables, one for each assignable value. Each set would
+then contain a square iff the corresponding value is assigned to the square. 
+Meaning that the first set would contain the squares to which 1 is assigned, the
+second set would contain the squares to which 2 is assigned and so on. The 
+squares could be represented as number ranging from 1 to 81. This view is shown 
+in the "sudoku example with sets":../examples/sudoku-set.html .
+
+The point is that there are often multiple ways to view a single problem. Being 
+aware of more than one might help further down the line. Constraints might end 
+up being hard to describe in one view, but trivial in another.
+
+There's no need to restrict oneself to only using one view. One can link
+multiple views using the channel constraint to get the best of both worlds. The
+two sudoku views above are examples of two views which can be channeled.
+
+h3. Expressing the constraints
+
+We select the integer variable view. The first thing we notice is that we no 
+longer need to worry about 
+
+bq. The objective is to fill a 9x9 grid ... contains the digits from 1 to 9.
+
+because our choice of view already takes care of that. This illustrates another
+reason for trying to find multiple views, some might cut down on the number of
+constraints that we explicitly have to express. Another example is the "n-queens 
+problem":../examples/n-queens.html where the choice of view takes care of the
+constraint that there may only be one queen per column. We would not have that
+benefit if we for instance would use a nxn matrix of boolean variables.
+
+We are left with the following constraints that still need to be expressed:
+
+# Each column must contain the digits from 1 to 9.
+# Each row must contain the digits from 1 to 9.
+# Each of the nine 3x3 boxes must contain the digits from 1 to 9.
+# The puzzle setter provides a partially completed grid.
+
+Another way to phrase the first three constraints is that the digits in each 
+row, column and 3x3 boxes must be distinct, since we have already made sure that
+only digits from 1 to 9 are allowed (and that each square must be assigned 
+exactly one).
+
+The distinct constraint is a perfect match, so all we need to do to express the
+first three constraints is to place a distinct constraint on each row, column
+and 3x3 box of our variable matrix. Expressed in code it becomes:
+
+<ruby>
+9.times do |i|
+  # All rows must contain distinct numbers.
+  @squares.row(i).must_be.distinct
+  # All columns must contain distinct numbers.
+  @squares.column(i).must_be.distinct
+  # All 3x3 boxes must contain distinct numbers.
+  @squares.minor((i % 3) * 3, 3, (i / 3) * 3, 3).must_be.distinct
+end
+</ruby>
+
+That leaves us with the fourth constraint. We want to constraint specific 
+squares (i.e. integer variables) to only take a specified value, hence an 
+integer domain constraint would seem ideal (or alternatively creating each 
+variable individually with modified domains). In code we express it as:
+
+<ruby>
+predefined_values.row_size.times do |i|
+  predefined_values.column_size.times do |j|
+    unless predefined_values[i,j].zero?
+      @squares[i,j].must == predefined_values[i,j]
+    end
+  end
+end
+</ruby>
+
+Where @predefined_values@ is a matrix with the partially completed grid (
+containing 0 where nothing is assigned).
+
+h4. Implied constraints
+
+We have now given Gecode all of the sudoku rules, enough for it to be able to
+fetch us a solution. That does however not mean that we are out of constraints. 
+It might still be worth explicitly expressing some of the constraints that are
+implicitly given by our expressed constrained. It will not change the solutions,
+but it can help Gecode prune the search space faster.
+
+One such constraint in our case is a constraint linking the squares and the 
+rows. It's not necessary, but it will make the search faster.
+
+h3. Tweaking
+
+We have now built and implemented a model for solving the sudoku problem using 
+constraint programming, but there's still some tweaking to be considered. 
+
+h4. Branching strategies
+
+Branching strategies can make a large difference. Which is best depends on the
+problem. One can reason why some heuristics should fit better than others, but
+we can also simply try them all out and see how well they perform.
+
+h4. Propagation strengths
+
+Using different propagation can, much like branching strategies, make a large
+difference. Much like branching strategies it's a matter of reasoning or simply
+trying them out.
+
+h4. Breaking symmetries
+
+In many situations several situations symmetries might appear. In the 
+"n-queens example":../example/n-queens.html we have several rotational and 
+reflection symmetries since the chessboard can be e.g. rotated without changing
+whether an assignment is a solution. Nothing is done to counter the symmetries 
+in the example, in total there are only 12 unique solutions, but the example 
+will give us 92 solutions in total.
+
+These symmetries are unnecessary as they add nothing. If we are able to remove
+them then we get a smaller search space, which means that we can find a 
+solution faster. 
+
+The way to remove symmetries is to inpose additional constraints that do not 
+remove any unique solutions, only symmetries. We could for instance constrain
+the queen in the first column to be above the queen in the last column. Any 
+solution that the additional constraint invalidates can be turned into a valid 
+solution through reflection in the y-axis of the board. Hence we are only 
+removing symmetries, not unique solutions.
+
+h3. Other resources
+
+* "Modelling for Constraint Programming":http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf 
+from the "Constraint Programming summer 
+school":http://www.math.unipd.it/~frossi/cp-school/.
