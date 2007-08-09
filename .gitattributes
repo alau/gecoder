@@ -16,6 +16,9 @@ doc/plugin/syntax.rb -text
 doc/plugin/tags/example.rb -text
 doc/plugin/tags/quickref.rb -text
 doc/src/default.template -text
+doc/src/details/contribute.page -text
+doc/src/details/development.page -text
+doc/src/details/index.page -text
 doc/src/documentation/constraints/boolean-constraints.page -text
 doc/src/documentation/constraints/index.page -text
 doc/src/documentation/constraints/integer-constraints.page -text

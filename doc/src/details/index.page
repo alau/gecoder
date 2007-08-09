@@ -1,0 +1,41 @@
+---
+title: Project details
+long_title: The Gecode/R community, bringing constraint programming to Ruby
+inMenu: true
+description: How to get in touch with the Gecode/R community. Ask questions about Gecode/R and constraint programming.
+---
+
+h1. Details
+
+<div class="summary">
+<p>The project is hosted on "RubyForge":http://rubyforge.org/projects/gecoder, 
+which also hosts the project's mailing lists, version control and issue tracker.
+</p>
+</div>
+
+h2. Communication
+
+The following mailing lists are used for communication.
+
+<dl>
+  <dt>"gecoder-users":http://rubyforge.org/mailman/listinfo/gecoder-users</dt>
+  <dd>Usage questions and general Gecode/R discussion belongs here. Basically
+  	anything about Gecode/R that doesn't belong in gecoder-devel goes here.</dd>
+  <dt>"gecoder-devel":http://rubyforge.org/mailman/listinfo/gecoder-devel</dt>
+  <dd>Discussion about the development of Gecode/R goes here.</dd>
+  <dt>"gecoder-commits":http://rubyforge.org/mailman/listinfo/gecoder-commits</dt>
+  <dd>Diffs of all commits to the subversion repository are sent here. Reviewing
+    the code changes and sending feedback to gecoder-devel is encouraged.</dd>
+</dl>
+
+h2. Subversion
+
+Gecode/R uses "subversion":http://subversion.tigris.org/ for revision control. 
+It can be anonymously read via http at http://gecoder.rubyforge.org/svn/trunk/.
+Check out the trunk using
+  svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder
+
+h2. Issue tracker
+
+"The issue tracker":http://rubyforge.org/tracker/?group_id=3553 is available
+from the RubyForge project page. It handles bugs, feature requests and patches.

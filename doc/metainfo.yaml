@@ -5,10 +5,14 @@ features.page:
   orderInfo: 2
 installation.page:
   orderInfo: 3
-documentation:
-  orderInfo: 4
 examples:
+  orderInfo: 4
+documentation:
   orderInfo: 5
+details:
+  orderInfo: 6
+details/index.page:
+  directoryName: Project details
   
 documentation/index.page:
   orderInfo: 10
@@ -43,7 +47,7 @@ examples/n-queens.page:
 examples/magic-sequence.page:
   orderInfo: 16
 ---
-rubyforge.html:
+details/rubyforge.html:
   title: RubyForge
   url: http://rubyforge.org/projects/gecoder
   orderInfo: 21

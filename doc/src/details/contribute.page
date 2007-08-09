@@ -1,0 +1,45 @@
+---
+title: Contribute
+long_title: How to contribute to Gecode/R
+inMenu: true
+description: How to contribute to the development of Gecode/R, a Ruby interface to the Gecode constraint programming library.
+---
+
+h1. Contribute
+
+<div class="summary">
+<p>Anyone can contribute to Gecode/R by for instance pointing out flaws in the 
+documentation, requesting features, giving feedback, sending patches, reporting
+bugs and being active on the mailing lists.</p>
+</div>
+
+h2. Interact
+
+Tell us what you think of Gecode/R. Tell us what could be better, what should
+be changed, what is hard to understand. We want to know so that we can fix it.
+
+Use "gecoder-users":http://rubyforge.org/mailman/listinfo/gecoder-users for such
+feedback (just send a mail there if you want to, there's no need to sign up). 
+Subscribe to that mailing list and be helpful to contribute even more.
+
+h2. Report bugs
+
+Report bugs to "the bug 
+tracker":http://rubyforge.org/tracker/?atid=13720&group_id=3553&func=browse.
+Make sure that you include enough information for others to be able to reproduce
+the bug.
+
+h2. Submit patches
+
+Send your patches to "the patch 
+tracker":http://rubyforge.org/tracker/?atid=13722&group_id=3553&func=browse, 
+preferably as diffs against the current trunk. If you make a habit of sending
+good patches then we will just save us the hassle and give you direct commit 
+access.
+
+h2. Add feature requests
+
+If you have an idea for a feature, but can't implement it yourself, then send
+it to "the feature request 
+tracker":http://rubyforge.org/tracker/?atid=13723&group_id=3553&func=browse to
+let someone else have a go at it.

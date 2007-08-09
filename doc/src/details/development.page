@@ -1,0 +1,31 @@
+---
+title: Development
+long_title: Development of Gecode/R, a Ruby interface to Gecode
+inMenu: true
+description: The current developments of Gecode/R, a Ruby interface to the Gecode constraint programming library.
+---
+
+h1. Development
+
+h2. Design goals
+
+Gecode/R is designed to be readable, easy to learn and use without previous
+knowledge of constraint programming. Some times that comes at the cost of 
+brevity, performance and user control. The ambition is that code using the 
+interface should be readable enough to allow a new user to understand it 
+without referencing the API.
+
+h2. Development status
+
+The project has working releases and currently "supports many of 
+the constraints available in Gecode":../features.html.
+
+The current focus is on improving documentation before planning which features 
+to add next.
+
+h2. Future goals
+
+There are still some Gecode features left to implement, and ideas for other
+things that could be added. "A post on 
+gecoder-devel":http://rubyforge.org/pipermail/gecoder-devel/2007-August/000031.html
+might give some insight into what is next.

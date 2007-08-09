@@ -1,8 +1,8 @@
 ---
 title: Home
-long_title: Overview of Gecode/R, a Ruby interface to Gecode
+long_title: Gecode/R, constraint programming in Ruby
 inMenu: false
-description: A Ruby interface to Gecode, an open source environment for constraint programming.
+description: A Ruby interface to the Gecode constraint programming library.
 ---
 
 h1. Gecode/R
@@ -13,12 +13,6 @@ constraint programming. The interface is intended for people with no previous
 experience of constraint programming, aiming to be easy to pick up and use in 
 practice.</p>
 </div>
-
-h2. Design goals
-
-Gecode/R is designed to be readable, some times at the cost of brevity, 
-performance and user control. The ambition of the readability is that it should
-be clear what a written piece of code does without the need to refer to the API.
 
 h2. Constraint programming
 
@@ -34,19 +28,7 @@ linkText: solve a sudoku with constraint programming}}  you feed the rules (all
 numbers in each row must be distinct etc) to the solver, which then searches 
 for a solution satisfying all the constraints.
 
-h2. Development status
+h2. License
 
-The project has come far in development and "features":features.html many of 
-the constraints available in Gecode. The current focus is on improving 
-documentation before planning which features to add next ("feature 
-requests":http://rubyforge.org/tracker/?atid=13723&group_id=3553&func=browse
-are welcome).
-
-h2. Interaction
-
-Please use the 
-"gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-users 
-for usage questions and general discussion and 
-"gecoder-devel":http://rubyforge.org/mailman/listinfo/gecoder-devel for 
-development discussion. Bugs, feature requests and patches are welcome in "the 
-issue tracker":http://rubyforge.org/tracker/?group_id=3553.
+Gecode/R is licenced under "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html, 
+Gecode is licensed under "a BSD-style license":http://www.gecode.org/license.html.
