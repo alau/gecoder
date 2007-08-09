@@ -5,7 +5,7 @@ inMenu: true
 description: The different set constraints available in Gecode/R for use when modelling in Ruby.
 ---
 
-h2. Set constraints
+h1. Set constraints
 
 In the examples @constant_set@ represents a constant set, @set@ represents a 
 single set variable and @sets@ represents an enumeration of set variables.
@@ -17,7 +17,7 @@ A constant set can be represented with instances of the following classes:
   <dt>Enumeration of integers</dt><dd>Represents a set containing the enumeration's elements.</dd>
 </dl>
 
-h3. Domain
+h2. Domain
 
 Domain constraints are used to specify relations with constant sets.
 
@@ -34,7 +34,7 @@ listed).
 * @disjoint@, @disjoint_with@
 * @complement@, @complement_of@
 
-h3. Relation
+h2. Relation
 
 Relation constraints are used to specify relations with other sets.
 
@@ -54,7 +54,7 @@ set.elements.must <= upper_bound
 Constant integers instead of the integer variable are also supported. Note that
 this constraint is not reifiable.
 
-h3. Operation
+h2. Operation
 
 Using operations between sets is also possible.
 
@@ -79,7 +79,7 @@ supported.
 sets.union.must_be.subset_of set
 </ruby>
 
-h3. Cardinality
+h2. Cardinality
 
 Cardinality constraints constrain the size of the set. Constraining the size of 
 @set@ to be within the range @1..2@ can be expressed as follows.
@@ -98,7 +98,7 @@ set.size.must <= number
 Everything that's normally supported by single integer variables followed by 
 @must*@ is supported after @set.size.must*@ too.
 
-h3. Channel
+h2. Channel
 
 This is similar to the channel constraint for integer variable enumeration, but
 instead of having two integer enums we have one integer and one set enumeration.
@@ -118,7 +118,7 @@ This allows us to post constraints on @position_sets@ and have them affect
 @elements@ (gaining another viewpoint). Neither negation nor reification is 
 supported by the constraint.
 
-h3. Min and max
+h2. Min and max
 
 The min and max constraints constrain the minimum and maximum of a set. The 
 following constraints connects the integer variables @min@ and @max@ to the 
@@ -133,7 +133,7 @@ Constants can also be used (instead of e.g. @min@ in the example). Everything
 that's normally supported by single integer variables followed by @must*@ is 
 supported after @set.min.must*@ too (e.g. comparison methods).
 
-h3. Sum
+h2. Sum
 
 The following constrains the sum of @set@ to be in the range @-10..-1@.
 
@@ -163,7 +163,7 @@ indices.sum(:substitutions => substitutions).must == array_sum
 Everything that's normally supported by single integer variables followed by 
 @must*@ is supported after a set sum.
 
-h3. Include
+h2. Include
 
 The following can be used to constrain @set@ to include a number of integer 
 variables located in the integer variable enum @numbers@.
@@ -175,7 +175,7 @@ set.must.include numbers
 It has the side effect of sorting the integer variables in a non-descending 
 order. The constraint does not support reification nor negation.
 
-h3. Distinct
+h2. Distinct
 
 There exists a distinct constraint for set variables, it's similar to the one 
 for integer variables.
@@ -194,7 +194,7 @@ sets.must.at_most_share_one_element(:size => 17)
 
 Neither of the constraints support reification nor negation.
 
-h3. Selection
+h2. Selection
 
 The set selection constraint provides array access with variables as indices. 
 Lets say that we have many stores that provide different services, encoded as
@@ -211,7 +211,7 @@ store_services[selected_store].must_be.superset_of [4,7,17]
 Where @selected_store@ is an integer variable assigned the index of the selected
 store.
 
-h3. Select union
+h2. Select union
 
 The select uinion constraint provides array access using a set of indices, 
 giving the union of the selected sets. Lets take the selection example but say
@@ -226,7 +226,7 @@ store_services[visited_stores].union.must_be.superset_of [4,7,17]
 Where @store_services@ is an array of set variables and @visited_stores@ is a 
 set variable containing the stores we will visit.
 
-h3. Select intersection
+h2. Select intersection
 
 This constraint is much like select union, but it takes the intersection of the
 selected sets instead. So we could express that _each_ visited stores must 
@@ -242,7 +242,7 @@ Optionally a universe can also be specified as follows.
 store_services[visited_stores].intersection(:with => 5..17).must_be.superset_of [4,7,17]
 </ruby>
 
-h3. Disjoint
+h2. Disjoint
 
 Selected sets can also be specified to be disjoint. Taking the above example we
 could express that no two visited stores may provide the same service as 

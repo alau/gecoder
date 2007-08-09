@@ -5,9 +5,9 @@ inMenu: true
 description: The different integer constraints available in Gecode/R for use when modelling in Ruby.
 ---
 
-h2. Integer constraints
+h1. Integer constraints
 
-h3. Simple relations
+h2. Simple relations
 
 Simple relation constraints can for instance specify that x must be strictly 
 greater than 3, where x is an integer variable. An example of how to write that 
@@ -40,7 +40,7 @@ x.must_not.equal(0)
 x.must_not_be.equal_to(0)
 </ruby>
 
-h3. Linear
+h2. Linear
 
 Linear constraints can be used to specify that a linear equation containing
 variables must hold. It's specified in similar way to simple relation 
@@ -54,7 +54,7 @@ x,y,z are all integer variables.
 The constraint supports the same relations as simple relation constraints 
 inlcuding negating relations using @must_not@.
 
-h3. Variable multiplication
+h2. Variable multiplication
 
 Variable multiplication is also available, and works like one might expect. The
 following expresses that x * y must lesser or equal to z - 9 (where x,y,z are 
@@ -64,7 +64,7 @@ all integer variables).
 (x * y).must <= z - 9
 </ruby>
 
-h3. Domain
+h2. Domain
 
 Domain constraints are used to change the domain of integer variables (very much
 like when one specifies the domain upon construction).
@@ -74,7 +74,7 @@ number.must_be.in 1..4
 number.must_be.in [1,3,5]
 </ruby>
 
-h3. Distinct
+h2. Distinct
 
 The distinct constraint is used on enumerations of integer variables and 
 specifies that they must all be distinct. The following will for instance
@@ -98,7 +98,7 @@ no number may be the previous number incremented by one.
 numbers.with_offset((1..numbers.size).to_a.reverse).must_be.distinct
 </ruby>
 
-h3. Element
+h2. Element
 
 The element constraint basically provides array access with variables as 
 positions. Lets say that we want to purchase a fruit that costs more than 500 
@@ -122,7 +122,7 @@ arrays can also be used. Everything that's normally supported for single
 integer variables followed by @must*@ is supported by the result of the array 
 access too.
 
-h3. Channel
+h2. Channel
 
 The channel constraint is used to give access to multiple viewpoints when 
 modelling. Lets say that we're modelling a sequence of numbers that must be 
@@ -171,7 +171,7 @@ the rest from another.
 Sets can also be used instead of posistions in the above example, see the "set 
 constraints":set-constraints.html for more information.
 
-h3. Count
+h2. Count
 
 The count constraint is used to place constraints on the number of occurrences 
 of an element in an array of integer variables. For instance we could specify 
@@ -195,7 +195,7 @@ n.times{ |i| sequence.count(i).must == sequence[i] }
 The comparison itself supports everything that the simple relation constraint 
 does.
 
-h3. Min and max
+h2. Min and max
 
 The min and max constraints constrain the minimum and maximum of integer 
 variable arrays. The following for instance constrains number to have a minimum
@@ -209,7 +209,7 @@ Integer variables can also be used (instead of @5@ in the example). Everything
 that's normally supported by single integer variables followed by @must*@ is 
 supported after @min.must*@ too.
 
-h3. Absolute value
+h2. Absolute value
 
 The absolute value of a variable can be constrained using something like the
 following.
@@ -222,7 +222,7 @@ Where @number@ and @min_abs@ are integer variables. Constant integers can also
 be used and everything that's normally supported for @var.must*@ is supported 
 by @var.abs.must*@ too.
 
-h3. Equality
+h2. Equality
 
 The equality constraint used on enumerations of integer variables specifies that
 all variables in the enumeration must be equal.
@@ -231,7 +231,7 @@ all variables in the enumeration must be equal.
 numbers.must_be.equal
 </ruby>
 
-h3. Sortedness
+h2. Sortedness
 
 The sortedness constraints can be used to constraint arrays to be sorted.
 

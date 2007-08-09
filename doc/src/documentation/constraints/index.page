@@ -4,18 +4,20 @@ long_title: Constraints supported by Gecode/R
 inMenu: true
 description: An overview of the constraints available in Gecode/R for use when modelling in Ruby.
 ---
-h2. Constraints
+h1. Constraints
 
-There exist several different constraints that can be used when modelling. They
-are usually used with some form of call to the methods @must@ or @must_not@ of
-variables. The following for instance constrains an integer variable x to be
-strictly larger than 5.
+<div class="summary">
+<p>Constraints are used used to constrain variables when modelling. There exist 
+several types, but they can all be recognized by the use of @must@. The 
+following for instance constraints an integer variable @x@ to be strictly 
+larger than 5.</p>
 
 <ruby>
 x.must > 5
 </ruby>
+</div>
 
-Using @must@ instead of @must_not@ negates the constraints. Not all constraints
+Use @must_not@ instead of @must@ to negate a constraint. Not all constraints
 support that however. The constraints that are currently supported are divided
 into the following categories.
 
@@ -25,45 +27,16 @@ into the following categories.
   <dt>"Set constraints":set-constraints.html</dt><dd>Constraints dealing with finite integer set variables.</dd>
 </dl>
 
-The RDoc documentation contains additional examples of all types of constraints.
-The "quick reference":quick-reference.html provides a list containing all of 
-them.
+The "RDoc documentation":../../rdoc/index.html contains additional examples of all 
+types of constraints. The "quick reference":../quick-reference.html provides a 
+list containing all of them.
 
 h2. Options
 
-Constraints can in general take a couple of options: *proagation strength* and
-*reficiation*.
-
-h3. Propagation strength
-
-The propagation strength basically _suggests_ how much effort the solver puts 
-into trying to prune the domains of variables using the constraint. A higher 
-strength can reduce the search space quicker, but at the cost of making each 
-propagation more costly.
-
-Note that no set constraint accepts the propagation strength option.
-
-It's usually worth testing a few different strength to see how well they work, 
-a good choice of strengths can cut down the search time depending on the 
-problem.
-
-The different strengths are:
-<dl>
-  <dt>@:value@</dt><dd>Value consistency (naive).</dd>
-	<dt>@:bounds@</dt><dd>Bounds consistency.</dd>
-	<dt>@:domain@</dt><dd>Domain consistency.</dd>
-	<dt>@:default@</dt><dd>Yses the default consistency of the constraint.</dd>
-</dl>
-
-They are specified with the key @:strength@. The following places a domain 
-consistent distinct constraint on @numbers@.
-
-<ruby>
-numbers.must_be.distinct(:strength => :domain)
-</ruby>
-
-The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
-(@:value@ being the weakest, @:domain@ being the strongest). 
+Many constraints accept a *reification* option, which allows one to combine
+constraints. All integer and boolean constraints (but not set constraints) also 
+accept a *propagation strength* option which suggests how much effort the solver
+should put into pruning the search space based on a constraint.
 
 h3. Reification
  
@@ -95,3 +68,34 @@ expressions if wanted. The following constrains that either x must be less than
 <ruby>
 x.must < 0 | (y.must > 5 & x.must == 0)
 </ruby>
+
+h3. Propagation strength
+
+The propagation strength basically _suggests_ how much effort the solver puts 
+into trying to prune the domains of variables using the constraint. A higher 
+strength can reduce the search space quicker, but at the cost of making each 
+propagation more costly.
+
+Note that no set constraint accepts the propagation strength option.
+
+It's usually worth testing a few different strength to see how well they work, 
+a good choice of strengths can cut down the search time depending on the 
+problem.
+
+The different strengths are:
+<dl>
+  <dt>@:value@</dt><dd>Value consistency (naive).</dd>
+	<dt>@:bounds@</dt><dd>Bounds consistency.</dd>
+	<dt>@:domain@</dt><dd>Domain consistency.</dd>
+	<dt>@:default@</dt><dd>Yses the default consistency of the constraint.</dd>
+</dl>
+
+They are specified with the key @:strength@. The following places a domain 
+consistent distinct constraint on @numbers@.
+
+<ruby>
+numbers.must_be.distinct(:strength => :domain)
+</ruby>
+
+The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
+(@:value@ being the weakest, @:domain@ being the strongest). 
