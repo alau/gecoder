@@ -1,5 +1,5 @@
 class QuickRefTag < Tags::DefaultTag
-  infos(:name => 'Tag/QuickrefTemplate',
+  infos(:name => 'CustomTag/QuickrefTemplate',
         :author => 'Gecode/R',
         :summary => "Formats a template used in the documentation's quick reference.")
   
