@@ -5,17 +5,17 @@ inMenu: true
 description: An example showing how to solve the n-queens problem using constraint programming in Ruby with Gecode/R.
 ---
 
-h2. N-queens
+h1. N-queens
 
-h3. Definition
+h2. Problem
 
 bq. The eight queens puzzle is the problem of putting eight chess queens on an 
 8x8 chessboard such that none of them is able to capture any other using the 
 standard chess queen's moves. - "Wikipedia":http://en.wikipedia.org/wiki/Nqueens 
 
-Replacing "8" with "n" we get the n-queens puzzle.
+Replace "8" with "n" to get the n-queens puzzle.
 
-h3. Code
+h2. Code
 
 {includeFile: {filename: ../../../example/queens.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
 
@@ -41,6 +41,6 @@ h3. Output
 +-------------------------------+
 </pre>
 
-h3. Notes
+h2. Notes
 
 No attempt to break the involved symmetries is made here.

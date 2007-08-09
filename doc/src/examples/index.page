@@ -5,7 +5,7 @@ inMenu: true
 description: Examples of how to use Gecode/R to solve problems using constraint programming in Ruby.
 ---
 
-h2. Overview
+h1. Examples
 
 The following are the examples located in the example directory. 
 
@@ -18,11 +18,13 @@ The following are the examples located in the example directory.
   <dt>"Magic sequence":magic-sequence.html</dt><dd>Uses the count constraint and some implied constraints.</dd>
 </dl>
 
-Note that
+h2. Note
+
+Replace
 
 <ruby>require File.dirname(__FILE__) + '/example_helper'</ruby>
 
-should be replaced with 
+with 
 
 <ruby>
 require 'rubygems'
