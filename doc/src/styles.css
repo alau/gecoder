@@ -239,6 +239,19 @@ pre {
   width: 508px; /*IE/Win fix*/
   font-size: 8pt;
 }
+table {
+	border-collapse: collapse;
+	margin: 0.5em;
+}
+table td, table th {
+	padding: 2px;
+}
+table th {
+	background: #ACBEDA;
+}
+table tr {
+	border-bottom: 1px solid #CCC;
+}
 #body ul, #body ol, dl { 
   margin: 1em 1em 1em 2em;
 }
