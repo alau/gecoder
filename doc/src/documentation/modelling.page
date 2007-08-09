@@ -5,12 +5,14 @@ inMenu: true
 description: How to use Gecode/R to model problems and solve them using constraint programming. What to watch out for and how to tweak the performance.
 ---
 
-h2. Modelling a problem
+h1. Modelling a problem
 
+<div class="summary">
 The following is a brief introduction of how to model problems, using 
 "sudoku":http://en.wikipedia.org/wiki/Sudoku as a case study.
+</div>
 
-h3. Understand the problem
+h2. Understand the problem
 
 The first step is to understand the problem, more specifically to understand 
 what is required of a solution to the problem. In the case of sudoku we just 
@@ -22,7 +24,7 @@ provides a partially completed grid. - "Wikipedia":http://en.wikipedia.org/wiki/
 
 This gives us some insight into what we need to express in our model.
 
-h3. Selecting the view
+h2. Select the view
 
 The next step is to select how to represent the problem in terms of variables. 
 The variables will need to include the sought solutions. In the case of sudoku
@@ -37,7 +39,7 @@ of code it's expressed as
 @squares = int_var_matrix(9, 9, 1..9)
 </ruby>
 
-h4. Multiple views
+h3. Multiple views
 
 There are however other ways to view the problem. For instance we could instead 
 choose to use 9 set variables, one for each assignable value. Each set would
@@ -55,7 +57,7 @@ There's no need to restrict oneself to only using one view. One can link
 multiple views using the channel constraint to get the best of both worlds. The
 two sudoku views above are examples of two views which can be channeled.
 
-h3. Expressing the constraints
+h2. Express the constraints
 
 We select the integer variable view. The first thing we notice is that we no 
 longer need to worry about 
@@ -115,7 +117,7 @@ end
 Where @predefined_values@ is a matrix with the partially completed grid (
 containing 0 where nothing is assigned).
 
-h4. Implied constraints
+h3. Implied constraints
 
 We have now given Gecode all of the sudoku rules, enough for it to be able to
 fetch us a solution. That does however not mean that we are out of constraints. 
@@ -126,24 +128,24 @@ but it can help Gecode prune the search space faster.
 One such constraint in our case is a constraint linking the squares and the 
 rows. It's not necessary, but it will make the search faster.
 
-h3. Tweaking
+h2. Tweak the performance
 
 We have now built and implemented a model for solving the sudoku problem using 
 constraint programming, but there's still some tweaking to be considered. 
 
-h4. Branching strategies
+h3. Branching strategies
 
 Branching strategies can make a large difference. Which is best depends on the
 problem. One can reason why some heuristics should fit better than others, but
 we can also simply try them all out and see how well they perform.
 
-h4. Propagation strengths
+h3. Propagation strengths
 
 Using different propagation can, much like branching strategies, make a large
 difference. Much like branching strategies it's a matter of reasoning or simply
 trying them out.
 
-h4. Breaking symmetries
+h3. Break symmetries
 
 In many situations several situations symmetries might appear. In the 
 {example: {name: n-queens, linkText: n-queens example}} we have several 
@@ -163,7 +165,7 @@ solution that the additional constraint invalidates can be turned into a valid
 solution through reflection in the y-axis of the board. Hence we are only 
 removing symmetries, not unique solutions.
 
-h3. Other resources
+h2. Other resources
 
 * "Modelling for Constraint Programming":http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf 
 from the "Constraint Programming summer 
