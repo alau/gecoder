@@ -155,7 +155,7 @@ body {
   margin: 1em;
 }
 #sidebar ul li a {
-  padding: 1em 0;
+  padding: 0.5em 0;
   dislay: block;
   text-decoration: none;
 }
