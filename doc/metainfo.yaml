@@ -9,18 +9,20 @@ documentation:
   orderInfo: 4
 examples:
   orderInfo: 5
+  
 documentation/index.page:
   orderInfo: 10
-documentation/constraints.page:
-  orderInfo: 11
-documentation/quick-reference.page:
-  orderInfo: 12
-documentation/integer-constraints.page:
-  orderInfo: 13
-documentation/boolean-constraints.page:
-  orderInfo: 14
-documentation/set-constraints.page:
-  orderInfo: 15
+documentation/constraints/index.page:
+  orderInfo: 20
+documentation/constraints/quick-reference.page:
+  orderInfo: 21
+documentation/constraints/integer-constraints.page:
+  orderInfo: 22
+documentation/constraints/boolean-constraints.page:
+  orderInfo: 23
+documentation/constraints/set-constraints.page:
+  orderInfo: 24
+  
 examples/index.page:
   orderInfo: 10
 examples/send-more-money.page:

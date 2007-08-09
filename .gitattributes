@@ -16,12 +16,12 @@ doc/plugin/syntax.rb -text
 doc/plugin/tags/example.rb -text
 doc/plugin/tags/quickref.rb -text
 doc/src/default.template -text
-doc/src/documentation/boolean-constraints.page -text
-doc/src/documentation/constraints.page -text
+doc/src/documentation/constraints/boolean-constraints.page -text
+doc/src/documentation/constraints/index.page -text
+doc/src/documentation/constraints/integer-constraints.page -text
+doc/src/documentation/constraints/quick-reference.page -text
+doc/src/documentation/constraints/set-constraints.page -text
 doc/src/documentation/index.page -text
-doc/src/documentation/integer-constraints.page -text
-doc/src/documentation/quick-reference.page -text
-doc/src/documentation/set-constraints.page -text
 doc/src/examples/index.page -text
 doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text
