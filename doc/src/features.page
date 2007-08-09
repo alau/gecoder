@@ -5,13 +5,16 @@ inMenu: true
 description: Constraints and various features of Gecode supported by the Ruby interface Gecode/R.
 ---
 
-h2. Features
+h1. Features
 
-Gecode/R provides access to the following freatures of 
-"Gecode":http://www.gecode.org/ in Ruby. The Gecode/R syntax is intended to be 
-easy to read and adds a good deal of sugar on top. 
+<div class="summary">
+Gecode/R provides access to many, but not all, of "Gecode's 
+features":http://www.gecode.org/gecode-doc-latest/modules.html.
+</div>
 
-h3. Supported Gecode features 
+h2. Supported Gecode features 
+
+The following things are supported by Gecode/R.
 
 * "Boolean variables and constraints":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntBool.html
 * Finite domain integer variables with the following constraints
@@ -36,7 +39,7 @@ h3. Supported Gecode features
 * Reification and propagation strength
 * Branch and bound search
 
-h3. Gecode features not supported
+h2. Features not supported
 
 The following are some notable features that are included in Gecode but _not_
 in Gecode/R (but might be in the future).
