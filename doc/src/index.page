@@ -4,26 +4,35 @@ long_title: Overview of Gecode/R, a Ruby interface to Gecode
 inMenu: false
 description: A Ruby interface to Gecode, an open source environment for constraint programming.
 ---
-h2. Purpose
 
+h1. Gecode/R
+
+<div class="summary">
 Gecode/R is a Ruby interface to "Gecode":http://www.gecode.org/, a library for
 constraint programming. The interface is intended for people with no previous 
 experience of constraint programming, aiming to be easy to pick up and use in 
 practice.
+</div>
 
-h3. Constraint programming
+h2. Design goals
+
+Gecode/R is designed to be readable, some times at the cost of brevity, 
+performance and user control. The ambition of the readability is that it should
+be clear what a written piece of code does without the need to refer to the API.
+
+h2. Constraint programming
 
 Constraint programming is a declarative programming paradigm, you describe what 
 kind of solution you want rather than how you want it computed. When using 
-constraint programming you try to model the problem and then feed that model to 
-the solver. The solver then searches for a solution by exploring the space of 
-all possible assignments while using the constraints in the model to prune 
-parts without having to visit them.
+constraint programming you model the problem and then feed that model to the 
+solver. The solver then searches for a solution by exploring the space of all 
+possible assignments while using the constraints in the model to prune parts 
+without having to visit them.
 
-A popular example would be sudoku, to "solve a sudoku with constraint 
-programming":examples/sudoku.html  you feed the rules (all numbers in each row 
-must be distinct etc) to the solver, which then searches for a solution 
-satisfying all the constraints.
+A popular example is sudoku, to {example: {name: sudoku, 
+linkText: solve a sudoku with constraint programming}}  you feed the rules (all 
+numbers in each row must be distinct etc) to the solver, which then searches 
+for a solution satisfying all the constraints.
 
 h2. Development status
 
