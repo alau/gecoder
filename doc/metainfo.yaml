@@ -16,10 +16,12 @@ details/index.page:
   
 documentation/index.page:
   orderInfo: 10
-documentation/modelling.page:
+documentation/faq.page:
   orderInfo: 11
-documentation/constraints:
+documentation/modelling.page:
   orderInfo: 12
+documentation/constraints:
+  orderInfo: 13
 
 documentation/constraints/index.page:
   orderInfo: 20
