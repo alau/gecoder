@@ -140,7 +140,6 @@ body {
   color: #000;
   font-weight: bold;
 }
-
 /* Breadcrumbs */
 #breadcrumbs a {
   text-decoration: none;
@@ -161,6 +160,10 @@ body {
 }
 #sidebar form {
   margin-top: 3em;
+}
+/*Summaries*/
+div.summary {
+	font-size: 110%;
 }
 
 /* Common styles */
