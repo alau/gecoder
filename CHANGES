@@ -1,6 +1,7 @@
 == Version 0.7.1 (in SVN)
 
 * Set domain constraints now checks illegal parameters when it's added (rather than when the search begins).
+* Added boolean linear constraint.
 
 == Version 0.7.0
 This release adds the set selection and operation constraints.

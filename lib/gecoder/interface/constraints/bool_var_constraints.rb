@@ -72,3 +72,4 @@ module Gecode
 end
 
 require 'gecoder/interface/constraints/bool/boolean'
+require 'gecoder/interface/constraints/bool/linear'

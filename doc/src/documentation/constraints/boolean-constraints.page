@@ -44,6 +44,23 @@ Implication is expressed with @implies@ when used after boolean expressions and
 (b1.implies b2).must.imply b3
 </ruby>
 
+h2. Linear
+
+Much like integer variables one can place constraints on linear equations of 
+boolean variables. A boolean assigned false is treated as 0 in the equation, 
+and one that is assigned true is treated as 1.
+
+This can be used to express things such as that at least two booleans must be 
+true:
+
+<ruby>
+(b1 + b2 + b3).must >= 2
+</ruby>
+
+*Never mix boolean and integer variables* (it's possible, but it's not 
+supported). Also note that the left hand side must consist of more than a 
+single boolean variable.
+
 h2. Conjunction and disjunction of enumeration
 
 One can take the conjunction and disjunction of all variables in an enumeration 

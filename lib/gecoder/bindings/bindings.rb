@@ -518,6 +518,26 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "bool", "share"
         method.add_parameter "Gecode::BoolVar", "x"
       end
+      
+      klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
+        operator.add_parameter("int", "i")
+      end
+      
+      klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
+        operator.add_parameter("int", "i")
+      end
+      
+      klass.add_operator "*", "Gecode::MiniModel::LinExpr" do |operator|
+        operator.add_parameter("int", "i")
+      end
+      
+      klass.add_operator "!=", "Gecode::MiniModel::LinRel", "different" do |operator|
+        operator.add_parameter("Gecode::IntVar", "other")
+      end
+      
+      klass.add_operator "==", "Gecode::MiniModel::LinRel", "equal" do |operator|
+        operator.add_parameter("Gecode::IntVar", "other")
+      end
     end
     
     ns.add_cxx_class "SetVar" do |klass|

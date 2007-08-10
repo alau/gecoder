@@ -68,7 +68,9 @@ module Gecode
         if expression.nil?
           simple_expression?(@params[:lhs])
         else
-          expression.kind_of?(Gecode::FreeIntVar) or expression.kind_of?(Fixnum)
+          expression.kind_of?(Gecode::FreeIntVar) or
+            expression.kind_of?(Gecode::FreeBoolVar) or
+            expression.kind_of?(Fixnum)
         end
       end
       
@@ -83,12 +85,13 @@ module Gecode
       def add_linear_constraint(relation_type, right_hand_side)
         # Bind parameters.
         lhs = @params[:lhs]
-        if lhs.kind_of? Gecode::FreeIntVar
+        if lhs.kind_of?(Gecode::FreeIntVar) or lhs.kind_of?(Gecode::FreeBoolVar)
           lhs = lhs * 1 # Convert to Gecode::Raw::LinExp
         end
         if not (right_hand_side.respond_to? :to_minimodel_lin_exp or
-            right_hand_side.kind_of? Gecode::FreeIntVar or 
-            right_hand_side.kind_of? Fixnum)
+            right_hand_side.kind_of?(Gecode::FreeIntVar) or
+            right_hand_side.kind_of?(Gecode::FreeBoolVar) or  
+            right_hand_side.kind_of?(Fixnum))
           raise TypeError, 'Invalid right hand side of linear equation.'
         end
         
@@ -114,6 +117,14 @@ module Gecode
     # used in +SimpleRelationConstraint+ can also be used for linear 
     # constraints.
     # 
+    # Boolean variables can also be used instead of integer variables. In that
+    # case a boolean variable assigned true is equal to 1 and a boolean variable
+    # assigned false is equal to 0. There is one exception: boolean variables 
+    # can not be used alone as left hand side.
+    # 
+    # Do not mix boolean and integer variables. Even if possible it's not 
+    # supported, and might be removed in the future.
+    # 
     # == Examples
     # 
     #   # The sum of the int variables +x+ and +y+ must equal +z+ + 3.
@@ -135,7 +146,7 @@ module Gecode
         reif_var = reif_var.bind if reif_var.respond_to? :bind
         if rhs.respond_to? :to_minimodel_lin_exp
           rhs = rhs.to_minimodel_lin_exp
-        elsif rhs.kind_of? Gecode::FreeIntVar
+        elsif rhs.respond_to? :bind
           rhs = rhs.bind * 1
         end
 
@@ -273,7 +284,7 @@ module Gecode
       # Gecode::Raw::MiniModel::LinExpr
       def to_minimodel_lin_exp
         expression = @value
-        if expression.kind_of? Gecode::FreeIntVar
+        if expression.respond_to? :bind
           # Minimodel requires that we do this first.
           expression = expression.bind * 1
         end
