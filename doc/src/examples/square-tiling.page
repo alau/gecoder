@@ -1,0 +1,33 @@
+---
+title: Square tiling
+long_title: Solving square tiling using constraint programming in Ruby
+inMenu: true
+description: An example showing how to solve the square tiling problem using constraint programming in Ruby with Gecode/R.
+---
+
+h1. Square tiling
+
+h2. Problem
+
+The problem is to pack a set of squares into a larger rectangle so that no 
+squares overlap. Each square has an integer size and must be placed so that the
+squares border are parallel to the rectangle's. The total surface area of 
+the squares equal the surface area of the rectangle, so all have to be used.
+
+h2. Code
+
+{includeFile: {filename: ../../../example/square_tiling.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+
+h3. Output
+
+<pre>
+(0, 0), (41, 23), (42, 0), (0, 25), (22, 28), (25, 0), (25, 17), (36, 17), (36, 23), (22, 25)
+</pre>
+
+h2. Notes
+
+It can also handle larger problems. The following one takes about a minute.
+<ruby>
+puts(SquareTiling.new(112, 112, [50, 42, 37, 35, 33, 29, 27, 25, 24, 19, 18, 
+  17, 16, 15, 11, 9, 8, 7, 6, 4, 2]).solve! || 'Failed').to_s
+</ruby>
