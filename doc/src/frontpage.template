@@ -10,7 +10,12 @@ template: ~
   <style type="text/css">
 	<!--
     h1 {
-    	white-space: nowrap;
+      white-space: nowrap;
+      text-align: center;
+    }
+    #body {
+      width: 520px;
+      margin: 0 auto;
     }
   -->
   </style>
