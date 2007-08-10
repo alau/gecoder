@@ -3,6 +3,7 @@ title: Home
 long_title: Gecode/R, constraint programming in Ruby
 inMenu: false
 description: A Ruby interface to the Gecode constraint programming library.
+template: frontpage.template
 ---
 
 h1. Gecode/R - constraint programming in Ruby

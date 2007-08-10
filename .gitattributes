@@ -35,6 +35,7 @@ doc/src/examples/send-most-money.page -text
 doc/src/examples/sudoku-set.page -text
 doc/src/examples/sudoku.page -text
 doc/src/features.page -text
+doc/src/frontpage.template -text
 doc/src/images/background.png -text
 doc/src/images/caption.png -text
 doc/src/images/header-bg.png -text
