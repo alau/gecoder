@@ -28,6 +28,11 @@ The following mailing lists are used for communication.
     the code changes and sending feedback to gecoder-devel is encouraged.</dd>
 </dl>
 
+h2. License
+
+Gecode/R is licenced under "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html, 
+Gecode is licensed under "a BSD-style license":http://www.gecode.org/license.html.
+
 h2. Subversion
 
 Gecode/R uses "subversion":http://subversion.tigris.org/ for revision control. 
@@ -39,3 +44,4 @@ h2. Issue tracker
 
 "The issue tracker":http://rubyforge.org/tracker/?group_id=3553 is available
 from the RubyForge project page. It handles bugs, feature requests and patches.
+
