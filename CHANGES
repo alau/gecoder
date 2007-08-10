@@ -1,4 +1,5 @@
-== Version 0.7.1 (in SVN)
+== Version 0.7.1
+This release adds boolean linear constraints.
 
 * Set domain constraints now checks illegal parameters when it's added (rather than when the search begins).
 * Added boolean linear constraint.
