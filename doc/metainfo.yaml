@@ -33,6 +33,13 @@ documentation/constraints/boolean-constraints.page:
   orderInfo: 23
 documentation/constraints/set-constraints.page:
   orderInfo: 24
+
+documentation/modelling/index.page:
+  orderInfo: 20
+documentation/modelling/sudoku.page:
+  orderInfo: 21
+documentation/modelling/square-tiling.page:
+  orderInfo: 22
   
 examples/index.page:
   orderInfo: 10

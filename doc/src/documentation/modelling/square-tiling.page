@@ -1,0 +1,291 @@
+---
+title: Modelling square tiling
+long_title: Tutorial on solving square tiling using constraint programming
+inMenu: true
+description: How to use Gecode/R to model square tiling to solve it with constraint programming. Discusses implied constraints and symmetry breaking constraints.
+---
+
+h1. Modelling square tiling
+
+<div class="summary">
+<p>The following walks through the points of "the modelling 
+introduction":index.html and applies them to the {example: {name: square-tiling, linkText: 
+square tiling problem}}.</p>
+</div>
+
+h2. Understand the problem
+
+Lets break it down.
+* The squares must cover the entire rectangle.
+
+Since we know that all the surface area of the squares must be used we could 
+stop here. We note that it there are some notable implied conditions that might
+be easier to express.
+
+* No two squares may overlap.
+* All squares must be placed within the rectangle.
+
+These two should be much easier to express, and they are enough to express the 
+first point with the problem's definition.
+
+h2. Select the view
+
+It seems intuitive to view the problem as finding the positions of the squares 
+in the rectangel. The squares must be placed at _integer positions_, so we lay
+a grid on the rectangle and represent positions as integer coordinates.
+
+Additionally we are placing squares, so we can fully express the placement of 
+a square using a single coordinate. For simplicity we choose to represent the
+coordinate occupied by the upper left corner of the square.
+
+We assume that the sizes of the squares are held in a variable @sizes@ and that
+the dimensions of the rectangle are stored in @width@ and @height@. We then
+express the view as the following code.
+
+<ruby>
+square_count = sizes.size
+@xs = int_var_array(square_count, 0..width)
+@ys = int_var_array(square_count, 0..height)
+</ruby>
+
+The domains are derived from our coordinate system overlayed over the rectangle.
+
+h2. Express the constraints
+
+We need to express the following:
+
+# No two squares may overlap.
+# All squares must be placed within the rectangle.
+
+The second one is easy, we just place domain constraints on each coordinate
+making sure that the coordinate can never be large enough to cause any part of
+the square to leave the rectangle.
+
+<ruby>
+square_count.times do |i|
+  # Each square must be placed within the bounds
+  @xs[i].must <= width - sizes[i]
+  @ys[i].must <= height - sizes[i]
+end
+</ruby>
+
+The first one is trickier. There does not appear to be a single constraint that
+matches it, so we have to break it down into something that we can express. We
+need to find a way to express that two squares do not overlap, then we can 
+place that constraint on all pairs of squares.
+
+One way to say that two squares, A and B, must not overlap is that one of
+the following conditions must hold.
+
+* A is left of B
+* A is above B
+* B is left of A
+* B is above A
+
+We can express each of those using linear constraints on the coordinates and
+sizes. In other words we just need to glue them together, which is what 
+reification is for. The following code expresses that, it uses the syntactic 
+sugar @|@ between constraints instead of defining a bunch of boolean variables.
+
+<ruby>
+square_count.times do |i|
+  # Pairwise conditions, no pair of squares may overlap.
+  0.upto(i - 1) do |j|
+    # That the two squares don't overlap means that i is left of j, 
+    # or j is left of i, or i is above j, or j is above i.
+    ((@xs[j] - @xs[i]).must >= sizes[i]) | 
+      ((@xs[i] - @xs[j]).must >= sizes[j]) | 
+      ((@ys[j] - @ys[i]).must >= sizes[i]) | 
+      ((@ys[i] - @ys[j]).must >= sizes[j])
+  end
+end
+</ruby>
+
+h2. Branching
+
+We choose to place the squares along the x axis first, placing them from left 
+to right, and then place them on the y-axis top to bottom.
+
+<ruby>
+branch_on @xs, :variable => :smallest_min, :value => :min
+branch_on @ys, :variable => :smallest_min, :value => :min
+</ruby>
+
+h2. Tweak the performance
+
+We can now solve small problems, but larger ones (around 50x50) are problematic.
+We need to tweak our model a bit.
+
+h3. Implied constraints
+
+An implied constraint is that the sizes of the square occupying a column need
+to equal the rectangle's height. It might obvious, but it helps the solver
+eliminate assignments that are never going to fit.
+
+The same is of course also true for rows and the rectangle's width.
+
+How are we going to express it though? We need to somehow find out which 
+squares that occupy which column and then sum their sizes. It sounds like we
+need something conditional, so boolean variables hopefully spring to mind.
+
+The idea is to for each column create one boolean variable per square and then
+reify it with a constraint stating that the square must be in the column. As
+a result the variable will be true exactly when the square is in the column.
+
+We then take advantage of linear constraints to produce the sum. We basically
+weight the boolean variables with their respective sizes. A variable assigned
+true becomes 1 and a variable assigned false becomes 0, so the sum will equal
+the combined size of all squares that occupy the column.
+
+Expressed in code:
+<ruby>
+# Columns and height.
+width.times do |i|
+  # Place the reified constraints.
+  occupied = bool_var_array(square_count)
+  occupied.each_with_index do |is_occupying, j|
+    @xs[j].must_be.in((i - sizes[j] + 1)..i, :reify => is_occupying)
+  end
+
+  # Place the constraint on the weighted sum.
+  occupied_sizes = occupied.zip(sizes).map{ |bool, size| bool*size }
+  occupied_sizes.inject(0){ |sum, x| x + sum }.must == height
+end
+
+# Rows and width.
+height.times do |i|
+  # Place the reified constraints.
+  occupied = bool_var_array(square_count)
+  occupied.each_with_index do |is_occupying, j|
+    @ys[j].must_be.in((i - sizes[j] + 1)..i, :reify => is_occupying)
+  end
+
+  # Place the constraint on the weighted sum.
+  occupied_sizes = occupied.zip(sizes).map{ |bool, size| bool*size }
+  occupied_sizes.inject(0){ |sum, x| x + sum }.must == width
+end
+</ruby>
+
+h3. Break symmetries
+
+One symmetry is when we multiple squares of the same size since we can swap 
+the two squares. To remedy this we can impose the constraint that squares of
+the same size must be sorted.
+
+<ruby>
+square_count.times do |i|
+  @xs[i].must <= @xs[i+1] if sizes[i] == sizes[i+1]
+end
+</ruby>
+
+h2. The result
+
+Combining the code from above with a small to_s method we get the following 
+(without any error check or anything).
+
+<ruby>
+require 'rubygems'
+require 'gecoder'
+
+class SquareTiling < Gecode::Model
+  def initialize(width, height, sizes)
+    square_count = sizes.size
+    
+  	# Coordinate variables.
+    @xs = int_var_array(square_count, 0..width)
+    @ys = int_var_array(square_count, 0..height)
+    
+    # All squares must be placed within the rectangle.
+    square_count.times do |i|
+      @xs[i].must <= width - sizes[i]
+      @ys[i].must <= height - sizes[i]
+    end
+    
+    # No pair of squares may overlap.
+    square_count.times do |i|
+      # Pairwise conditions, no pair of squares may overlap.
+      0.upto(i - 1) do |j|
+        # That the two squares don't overlap means that i is left of j, 
+        # or j is left of i, or i is above j, or j is above i.
+        ((@xs[j] - @xs[i]).must >= sizes[i]) | 
+          ((@xs[i] - @xs[j]).must >= sizes[j]) | 
+          ((@ys[j] - @ys[i]).must >= sizes[i]) | 
+          ((@ys[i] - @ys[j]).must >= sizes[j])
+      end
+    end
+    
+    # Implied constraint for columns and height.
+    width.times do |i|
+      # Place the reified constraints.
+      occupied = bool_var_array(square_count)
+      occupied.each_with_index do |is_occupying, j|
+        @xs[j].must_be.in((i - sizes[j] + 1)..i, :reify => is_occupying)
+      end
+
+      # Place the constraint on the weighted sum.
+      occupied_sizes = occupied.zip(sizes).map{ |bool, size| bool*size }
+      occupied_sizes.inject(0){ |sum, x| x + sum }.must == height
+    end
+
+    # Implied constraint for rows and width.
+    height.times do |i|
+      # Place the reified constraints.
+      occupied = bool_var_array(square_count)
+      occupied.each_with_index do |is_occupying, j|
+        @ys[j].must_be.in((i - sizes[j] + 1)..i, :reify => is_occupying)
+      end
+
+      # Place the constraint on the weighted sum.
+      occupied_sizes = occupied.zip(sizes).map{ |bool, size| bool*size }
+      occupied_sizes.inject(0){ |sum, x| x + sum }.must == width
+    end
+
+    # Symmetry breaking constraint.
+    square_count.times do |i|
+      @xs[i].must <= @xs[i+1] if sizes[i] == sizes[i+1]
+    end
+
+    branch_on @xs, :variable => :smallest_min, :value => :min
+    branch_on @ys, :variable => :smallest_min, :value => :min
+  end
+  
+  # Displays the corrdinates of the squares.
+  def to_s
+    @xs.values.zip(@ys.values).map{ |x,y| "(#{x}, #{y})"}.join(', ')
+  end
+end
+</ruby>
+
+Lets give it a try
+
+<ruby>
+puts(SquareTiling.new(65, 47, 
+  [25, 24, 23, 22, 19, 17, 11, 6, 5, 3]).solve! || 'Failed').to_s
+</ruby>
+
+and get the following.
+
+<pre>
+(0, 0), (41, 23), (42, 0), (0, 25), (22, 28), (25, 0), (25, 17), (36, 17), (36, 23), (22, 25)
+</pre>
+
+The crowd goes wild!
+
+h3. Bonus round
+
+Here are some additional square tiling problems of varying sizes to test with.
+Make sure to remove some of the implied and symmetry breaking constraints and 
+to see the difference.
+
+<ruby>
+SquareTiling.new(1, 2, [1,1])
+SquareTiling.new(5, 4, [3, 2, 2, 1, 1, 1])
+SquareTiling.new(4, 4, [2,2,2,2])
+SquareTiling.new(20, 20, [9, 8, 8, 7, 5, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 1, 1])
+SquareTiling.new(32, 33, [18, 15, 14, 10, 9, 8, 7, 4, 1])
+SquareTiling.new(65, 47, [25, 24, 23, 22, 19, 17, 11, 6, 5, 3])
+SquareTiling.new(112, 112, [50, 42, 37, 35, 33, 29, 27, 25, 24, 19, 18, 17, 
+  16, 15, 11, 9, 8, 7, 6, 4, 2])
+SquareTiling.new(175, 175, [81, 64, 56, 55, 51, 43, 39, 38, 35, 33, 31, 30, 29,
+  20, 18, 16, 14, 9, 8, 5, 4, 3, 2, 1])
+</ruby>
