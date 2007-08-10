@@ -18,7 +18,7 @@ documentation/index.page:
   orderInfo: 10
 documentation/faq.page:
   orderInfo: 11
-documentation/modelling.page:
+documentation/modelling:
   orderInfo: 12
 documentation/constraints:
   orderInfo: 13

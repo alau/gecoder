@@ -26,7 +26,8 @@ doc/src/documentation/constraints/quick-reference.page -text
 doc/src/documentation/constraints/set-constraints.page -text
 doc/src/documentation/faq.page -text
 doc/src/documentation/index.page -text
-doc/src/documentation/modelling.page -text
+doc/src/documentation/modelling/index.page -text
+doc/src/documentation/modelling/sudoku.page -text
 doc/src/examples/index.page -text
 doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text

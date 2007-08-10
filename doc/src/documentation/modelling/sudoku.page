@@ -1,0 +1,214 @@
+---
+title: Modelling sudoku
+long_title: Tutorial on solving sudoku using constraint programming
+inMenu: true
+description: How to use Gecode/R to model sudoku to solve it with constraint programming. Discusses multiple views.
+---
+
+h1. Modelling sudoku
+
+<div class="summary">
+<p>The following walks through the points of "the modelling 
+introduction":index.html and applies them to the popular "sudoku 
+problem":http://en.wikipedia.org/wiki/Sudoku.</p>
+</div>
+
+The tutorial will lead up to the code in the {example: {name: sudoku, linkText: 
+sudoku example}}.
+
+h2. Understand the problem
+
+In the case of sudoku we just need to know the following:
+
+bq. The objective is to fill a 9x9 grid so that each column, each row, and each 
+of the nine 3x3 boxes contains the digits from 1 to 9. The puzzle setter 
+provides a partially completed grid. - "Wikipedia":http://en.wikipedia.org/wiki/Soduko
+
+This gives us some insight into what we need to express in our model.
+
+h2. Select the view
+
+A sudoku seems natural to represent as a 9x9 grid where each cell can be 
+assigned a value in 1..9. In terms of code it's expressed as
+
+<ruby>
+@squares = int_var_matrix(9, 9, 1..9)
+</ruby>
+
+h3. Multiple views
+
+There are however other ways to view the problem. For instance we could instead 
+choose to use 9 set variables, one for each assignable value. Each set would
+then contain a square iff the corresponding value is assigned to the square. 
+Meaning that the first set would contain the squares to which 1 is assigned, the
+second set would contain the squares to which 2 is assigned and so on. The 
+squares could be represented as number ranging from 1 to 81. This view is shown 
+in the {example: {name: sudoku-set, linkText: sudoku example with sets}}.
+
+h3. Be economic
+
+We could also choose to use 81*9 boolean variables, i.e. a matrix of boolean
+arrays, where a matrix cell has one boolean variable for each assignable number.
+While valid, the view would require us to add the constraint that only one 
+boolean variable may be true in each cell. Hence it's less economic than a 
+matrix of integer variables.
+
+h2. Express the constraints
+
+We select the integer variable view. The first thing we notice is that we no 
+longer need to worry about 
+
+bq. The objective is to fill a 9x9 grid ... contains the digits from 1 to 9.
+
+because our choice of view already takes care of that.
+
+We are left with the following constraints that still need to be expressed:
+
+# Each column must contain the digits from 1 to 9.
+# Each row must contain the digits from 1 to 9.
+# Each of the nine 3x3 boxes must contain the digits from 1 to 9.
+# The puzzle setter provides a partially completed grid.
+
+Another way to phrase the first three constraints is that the digits in each 
+row, column and 3x3 boxes must be distinct.
+
+The distinct constraint is a perfect match, so all we need to do to express the
+first three constraints is to place a distinct constraint on each row, column
+and 3x3 box of our variable matrix. Expressed in code it becomes:
+
+<ruby>
+9.times do |i|
+  # All rows must contain distinct numbers.
+  @squares.row(i).must_be.distinct
+  # All columns must contain distinct numbers.
+  @squares.column(i).must_be.distinct
+  # All 3x3 boxes must contain distinct numbers.
+  @squares.minor((i % 3) * 3, 3, (i / 3) * 3, 3).must_be.distinct
+end
+</ruby>
+
+That leaves us with the fourth constraint. We want to constrain specific 
+squares (i.e. integer variables) to only take a specified value, hence an 
+integer domain constraint would seem ideal (or alternatively creating each 
+variable individually with modified domains). In code we express it as:
+
+<ruby>
+predefined_values.row_size.times do |i|
+  predefined_values.column_size.times do |j|
+    unless predefined_values[i,j].zero?
+      @squares[i,j].must == predefined_values[i,j]
+    end
+  end
+end
+</ruby>
+
+Where @predefined_values@ is a matrix with the partially completed grid (
+containing 0 where nothing is assigned).
+
+h2. Branching
+
+We select the first fail heuristic. In code it's expressed as
+
+<ruby>
+branch_on @squares, :variable => :smallest_size, :value => :min
+</ruby>
+
+It works well because it tries to assign squares as quickly as possible, hence
+forcing fails earlier in the search tree.
+
+h2. Tweak the performance
+
+There's not an awfully lot to do for sudoku.
+
+h3. Implied constraints
+
+One implied constraint for sudoku is a constraint linking the squares and the 
+rows. It's not necessary, but it will make the search faster.
+
+h3. Propagation strengths
+
+Using a different propagation strength for the distinct constraints is worth 
+trying.
+
+h3. Break symmetries
+
+Part of being a sudoku is that there must be exactly one solution, hence 
+there are no symmetires.
+
+h2. The result
+
+Combining the code from above with a small to_s method we get the following 
+(without any error check or anything).
+
+<ruby>
+require 'rubygems'
+require 'gecoder'
+require 'enumerator'
+
+class Sudoku < Gecode::Model
+  def initialize(predefined_values)
+  	# Create the squares.
+    @squares = int_var_matrix(9, 9, 1..9)
+    
+    # Distinctness constraint.
+    9.times do |i|
+      # All rows must contain distinct numbers.
+      @squares.row(i).must_be.distinct
+      # All columns must contain distinct numbers.
+      @squares.column(i).must_be.distinct
+      # All 3x3 boxes must contain distinct numbers.
+      @squares.minor((i % 3) * 3, 3, (i / 3) * 3, 3).must_be.distinct
+    end
+    
+    # Place the constraints from the predefined squares on them.
+    predefined_values.row_size.times do |i|
+      predefined_values.column_size.times do |j|
+        unless predefined_values[i,j].zero?
+          @squares[i,j].must == predefined_values[i,j]
+        end
+      end
+    end
+	  
+    branch_on @squares, :variable => :smallest_size, :value => :min
+  end
+  
+  # Display the solved sudoku in a grid.  
+  def to_s
+    @squares.values.enum_slice(9).map{ |slice| slice.join(' ') }.join("\n")
+  end
+end
+</ruby>
+
+We try it out
+
+<ruby>
+given_squares = Matrix[
+  [0,0,0, 2,0,5, 0,0,0],
+  [0,9,0, 0,0,0, 7,3,0],
+  [0,0,2, 0,0,9, 0,6,0],
+    
+  [2,0,0, 0,0,0, 4,0,9],
+  [0,0,0, 0,7,0, 0,0,0],
+  [6,0,9, 0,0,0, 0,0,1],
+      
+  [0,8,0, 4,0,0, 1,0,0],
+  [0,6,3, 0,0,0, 0,8,0],
+  [0,0,0, 6,0,8, 0,0,0]]
+puts Sudoku.new(given_squares).solve!.to_s
+</ruby>
+
+and get the following.
+
+<pre>
+3 7 8 2 6 5 9 1 4
+5 9 6 8 1 4 7 3 2
+1 4 2 7 3 9 5 6 8
+2 1 7 3 8 6 4 5 9
+8 5 4 9 7 1 6 2 3
+6 3 9 5 4 2 8 7 1
+7 8 5 4 2 3 1 9 6
+4 6 3 1 9 7 2 8 5
+9 2 1 6 5 8 3 4 7
+</pre>
+
+Success!
