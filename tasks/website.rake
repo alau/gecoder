@@ -2,19 +2,11 @@ require 'rake/contrib/rubyforgepublisher'
 
 desc 'Regenerates the contents of the website'
 task :website do
-  Rake::Task[:clobber].invoke
-  mkdir 'doc/output'
-  begin
-    Rake::Task[:spec_html].invoke
-  rescue
-    # The task will fail unless all specs pass, we want it to continue.
-  end
+  mkpath 'doc/output'
+  Rake::Task[:spec_html].invoke
   Rake::Task[:rdoc].invoke
-  begin
-    Rake::Task[:rcov].invoke
-  rescue
-    # The task will fail unless all specs pass, we want it to continue.
-  end
+  Rake::Task[:rdoc_dev].invoke
+  Rake::Task[:rcov].invoke
   WebsiteRakeHelpers.webgen
 end
 
@@ -43,6 +35,7 @@ module WebsiteRakeHelpers
   # Remove generated documentation.
   def clobber
     rm_rf 'doc/output'
+    rm_rf 'doc/tmp'
   end
   
   # Generates the website with webgen.

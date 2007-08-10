@@ -6,10 +6,31 @@ PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
 
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_dir = "#{File.dirname(__FILE__)}/../doc/output/rdoc"
+  rdoc.rdoc_dir = 'doc/output/rdoc'
   rdoc.options << '--title' << 'Gecode/R' << '--line-numbers' << 
     '--inline-source' << '--accessor' << 'delegate' << '--main' << 'README'
   rdoc.rdoc_files.include('README', 'CHANGES', 'LGPL-LICENSE', 'lib/**/*.rb')
+end
+
+desc 'Generate RDoc, ignoring nodoc'
+Rake::RDocTask.new(:rdoc_dev) do |rdoc|
+  rdoc.rdoc_dir = 'doc/output/rdoc_dev'
+  rdoc.options << '--title' << 'Gecode/R Developers RDoc' << '--line-numbers' << 
+    '--inline-source' << '--accessor' << 'delegate'
+    
+  # Copy the rdoc and remove all #:nodoc: .
+  TMP_DIR = 'doc/tmp/rdoc_dev'
+  Dir['lib/**/*.rb'].each do |source_name|
+    destination_name = source_name.sub('lib', TMP_DIR)
+    File.makedirs File.dirname(destination_name)
+    destination = File.open(destination_name, 'w')
+    File.open(source_name) do |source|
+      source.each{ |line| destination << line.gsub('#:nodoc:', '' ) }
+    end
+    destination.close
+  end
+  
+  rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
 end
 
 spec = Gem::Specification.new do |s|

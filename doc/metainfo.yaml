@@ -55,17 +55,22 @@ details/rubyforge.html:
   orderInfo: 21
   inMenu: true
 documentation/rdoc.html:
-  title: RDoc
+  title: RDoc (users)
   url: ../rdoc/index.html
   orderInfo: 22
+  inMenu: true
+documentation/rdoc-devel.html:
+  title: RDoc (developers)
+  url: ../rdoc_dev/index.html
+  orderInfo: 23
   inMenu: true
 documentation/rcov.html:
   title: rcov Report
   url: ../coverage/index.html
-  orderInfo: 23
+  orderInfo: 24
   inMenu: true
 documentation/rspec.html:
   title: RSpec Report
   url: ../rspec.html
-  orderInfo: 24
+  orderInfo: 25
   inMenu: true
