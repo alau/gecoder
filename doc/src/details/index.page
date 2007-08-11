@@ -30,15 +30,16 @@ The following mailing lists are used for communication.
 
 h2. License
 
-Gecode/R is licenced under "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html, 
+Gecode/R is licensed under "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html, 
 Gecode is licensed under "a BSD-style license":http://www.gecode.org/license.html.
 
 h2. Subversion
 
 Gecode/R uses "subversion":http://subversion.tigris.org/ for revision control. 
-It can be anonymously read via http at http://gecoder.rubyforge.org/svn/trunk/.
-Check out the trunk using
-  svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder
+The repository can be "read anonymously via 
+http":http://gecoder.rubyforge.org/svn/trunk/ and checked out using
+
+ svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder
 
 h2. Issue tracker
 
