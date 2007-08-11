@@ -44,8 +44,8 @@ express the view as the following code.
 
 <ruby>
 square_count = sizes.size
-@xs = int_var_array(square_count, 0..width)
-@ys = int_var_array(square_count, 0..height)
+@xs = int_var_array(square_count, 0...width)
+@ys = int_var_array(square_count, 0...height)
 </ruby>
 
 The domains are derived from our coordinate system overlayed over the rectangle.
@@ -125,12 +125,13 @@ eliminate assignments that are never going to fit.
 The same is of course also true for rows and the rectangle's width.
 
 How are we going to express it though? We need to somehow find out which 
-squares that occupy which column and then sum their sizes. It sounds like we
+squares occupy which columns and then sum their sizes. It sounds like we
 need something conditional, so boolean variables hopefully spring to mind.
 
-The idea is to for each column create one boolean variable per square and then
-reify it with a constraint stating that the square must be in the column. As
-a result the variable will be true exactly when the square is in the column.
+The idea is to create one boolean variable per square and column combination 
+and then reify it with a constraint stating that the square must be in the 
+column. As a result the variable will be true exactly when the square is in the 
+column.
 
 We then take advantage of linear constraints to produce the sum. We basically
 weight the boolean variables with their respective sizes. A variable assigned
@@ -168,9 +169,9 @@ end
 
 h3. Break symmetries
 
-One symmetry is when we multiple squares of the same size since we can swap 
-the two squares. To remedy this we can impose the constraint that squares of
-the same size must be sorted.
+One symmetry is multiple squares of the same size, since we can then swap the 
+two squares. To remedy this we can impose the constraint that squares of the 
+same size must be sorted.
 
 <ruby>
 square_count.times do |i|
@@ -180,8 +181,7 @@ end
 
 h2. The result
 
-Combining the code from above with a small to_s method we get the following 
-(without any error check or anything).
+Combining the code from above with a small to_s method we get the following.
 
 <ruby>
 require 'rubygems'
@@ -192,8 +192,8 @@ class SquareTiling < Gecode::Model
     square_count = sizes.size
     
   	# Coordinate variables.
-    @xs = int_var_array(square_count, 0..width)
-    @ys = int_var_array(square_count, 0..height)
+    @xs = int_var_array(square_count, 0...width)
+    @ys = int_var_array(square_count, 0...height)
     
     # All squares must be placed within the rectangle.
     square_count.times do |i|
@@ -256,14 +256,14 @@ class SquareTiling < Gecode::Model
 end
 </ruby>
 
-Lets give it a try
+Lets give it a try.
 
 <ruby>
 puts(SquareTiling.new(65, 47, 
   [25, 24, 23, 22, 19, 17, 11, 6, 5, 3]).solve! || 'Failed').to_s
 </ruby>
 
-and get the following.
+Output:
 
 <pre>
 (0, 0), (41, 23), (42, 0), (0, 25), (22, 28), (25, 0), (25, 17), (36, 17), (36, 23), (22, 25)
@@ -274,8 +274,8 @@ The crowd goes wild!
 h3. Bonus round
 
 Here are some additional square tiling problems of varying sizes to test with.
-Make sure to remove some of the implied and symmetry breaking constraints and 
-to see the difference.
+Make sure to remove some of the implied and symmetry breaking constraints to 
+see the difference.
 
 <ruby>
 SquareTiling.new(1, 2, [1,1])
