@@ -37,7 +37,7 @@ linkText: n-queens problem}} where the choice of view takes care of the
 constraint that there may only be one queen per column. We would not have that 
 benefit if we for instance would use a nxn matrix of boolean variables.
 
-h3. Multiple views
+h3. Be aware of multiple views
 
 There may very well be multiple views that are equally good at representing 
 the problem. Being aware of more than one might help further down the line. 
@@ -63,7 +63,7 @@ together with reification.
 Hopefully you will find constraints that cover all of the problem's 
 requirements. 
 
-h2. Branching
+h2. Select branching strategy
 
 The last thing to think about is the branching. Anything that you tell Gecode
 to branch on will be required to be assigned in a solution. Do not branch on 
@@ -79,18 +79,18 @@ By now you should be able to feed the solver a simple problem and get pack a
 correct solution. If it works fast enough for you then that's great, if not then
 you need to tweak the performance.
 
-h3. Branching strategies
+h3. Select a better branching strategy
 
 Branching strategies can make a large difference. Which is best depends on the
 problem. Compare the available ones if you haven't already done so.
 
-h3. Propagation strengths
+h3. Change propagation strengths
 
 Using different propagation strength can, much like branching strategies, make 
 a large difference. Much like branching strategies it's a matter of reasoning 
 or simply trying them out.
 
-h3. Implied constraints
+h3. Add implied constraints
 
 Just because we have given the solver enough constraints to be able to identify
 a solution doesn't mean that we have to stop. It might still be worth 

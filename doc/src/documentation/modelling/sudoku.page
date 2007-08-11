@@ -35,7 +35,7 @@ assigned a value in 1..9. In terms of code it's expressed as
 @squares = int_var_matrix(9, 9, 1..9)
 </ruby>
 
-h3. Multiple views
+h3. Be aware of multiple views
 
 There are however other ways to view the problem. For instance we could instead 
 choose to use 9 set variables, one for each assignable value. Each set would
@@ -105,7 +105,7 @@ end
 Where @predefined_values@ is a matrix with the partially completed grid (
 containing 0 where nothing is assigned).
 
-h2. Branching
+h2. Select branching strategy
 
 We select the first fail heuristic. In code it's expressed as
 
@@ -120,12 +120,12 @@ h2. Tweak the performance
 
 There's not an awfully lot to do for sudoku.
 
-h3. Implied constraints
+h3. Add implied constraints
 
 One implied constraint for sudoku is a constraint linking the squares and the 
 rows. It's not necessary, but it will make the search faster.
 
-h3. Propagation strengths
+h3. Change propagation strengths
 
 Using a different propagation strength for the distinct constraints is worth 
 trying.

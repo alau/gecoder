@@ -101,7 +101,7 @@ square_count.times do |i|
 end
 </ruby>
 
-h2. Branching
+h2. Select branching strategy
 
 We choose to place the squares along the x axis first, placing them from left 
 to right, and then place them on the y-axis top to bottom.
@@ -116,7 +116,7 @@ h2. Tweak the performance
 We can now solve small problems, but larger ones (around 50x50) are problematic.
 We need to tweak our model a bit.
 
-h3. Implied constraints
+h3. Add implied constraints
 
 An implied constraint is that the sizes of the square occupying a column need
 to equal the rectangle's height. It might obvious, but it helps the solver
