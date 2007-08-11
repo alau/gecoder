@@ -20,6 +20,8 @@ h2. Describe your problem
 Constraint programming is a technique where you just *describe the problem* and 
 then let the *solver find solutions* for you.
 
+h3. Example
+
 Solve the equation system @x + y = z@, @x = y - 3@, @0 <= x,y,z <= 9@.
 
 <ruby>
@@ -39,7 +41,7 @@ class ExampleProblem < Gecode::Model
 end
 </ruby>
 
-All we then need to do to find a solution is to ask.
+To find a solution we just have to ask.
 
 <ruby>
 puts 'x y z'
@@ -54,5 +56,5 @@ x y z
 
 The equation system is no harder to solve than to describe. But many problems 
 are *simpler to describe than to solve*, causing constraint programming to be 
-a quick way of solving them. {example: {name: sudoku, 
+an easy way of solving them. {example: {name: sudoku, 
 linkText: Sudoku}} is one of many "examples":examples/index.html.
