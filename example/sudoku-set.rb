@@ -8,14 +8,13 @@ class SudokuSet < Gecode::Model
   # Takes a 9x9 matrix of values in the initial sudoku, 0 if the square is 
   # empty. 
   def initialize(predefined_values)
-    unless predefined_values.column_size == 9 and 
-        predefined_values.row_size == 9
-      raise ArgumentError, 'The matrix with predefined values must have ' +
-        'dimensions 9x9.'
-    end
-    
+    # Verify that the input is of a valid size.
     @size = n = predefined_values.row_size
-    sub_matrix_size = Math.sqrt(n).round
+    block_size = Math.sqrt(n).round
+    unless predefined_values.square? and block_size**2 == n
+      raise ArgumentError, 'Incorrect value matrix size.'
+    end
+    sub_count = block_size
     
     # Create one set per assignable number (i.e. 1..9). Each set contains the 
     # position of all squares that the number is located in. The squares are 
@@ -39,18 +38,22 @@ class SudokuSet < Gecode::Model
     rows = []
     columns = []
     n.times do |i|
-      rows << ((i*n + 1)..(i*n + 9))
-      columns << [1, 10, 19, 28, 37, 46, 55, 64, 73].map{ |e| e + i }
+      rows << ((i*n + 1)..(i*n + n))
+      columns << (0...n).map{ |e| e*n + 1 + i }
     end
     
     # Build arrays containing the square positions of each block.
     blocks = []
-    sub_matrix_size.times do |i|
-      sub_matrix_size.times do |j|
-        blocks << [1, 2, 3, 10, 11, 12, 19, 20, 21].map{ |e| e + (j*27)+(i*3) }
+    # The square numbers of the first block.
+    first_block = (0...block_size).map do |e| 
+      ((n*e+1)..(n*e+block_size)).to_a 
+    end.flatten
+    block_size.times do |i|
+      block_size.times do |j| 
+        blocks << first_block.map{ |e| e + (j*n*block_size)+(i*block_size) }
       end
     end
-    
+
     # All sets must be pairwise disjoint since two numbers can't be assigned to
     # the same square.
     n.times do |i|
