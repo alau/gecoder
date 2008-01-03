@@ -35,7 +35,7 @@ The following things are supported by Gecode/R.
 ** "Set selection":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetSelection.html
 ** "Set operation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRelOp.html
 * Branching selection
-* Depth first search search
+* Depth first search
 * Reification and propagation strength
 * Branch and bound search
 
