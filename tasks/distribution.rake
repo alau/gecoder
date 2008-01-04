@@ -1,8 +1,10 @@
 require 'lib/gecoder/version'
 
-PKG_NAME = 'gecoder'
+PROJECT_NAME = PKG_NAME = 'gecoder'
+PKG_NAME_WITH_GECODE = 'gecoder-with-gecode'
 PKG_VERSION = GecodeR::VERSION
 PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
+PKG_FILE_NAME_WITH_GECODE = "#{PKG_NAME_WITH_GECODE}-#{PKG_VERSION}"
 
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
@@ -69,14 +71,31 @@ spec = Gem::Specification.new do |s|
   s.rubyforge_project = "gecoder"
 end
 
-desc 'Generate Gem'
+# Create a clone of the gem spec that includes Gecode.
+spec_with_gecode = spec.clone
+spec_with_gecode.name = PKG_NAME_WITH_GECODE
+spec_with_gecode.extensions = ['ext/gecode-1.3.1/extconf.rb'] + spec.extensions
+spec_with_gecode.requirements = []
+spec_with_gecode.files = spec.files + FileList['ext/gecode-*/**/*'].to_a 
+
+desc 'Generate Gecode/R Gem'
 Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
 end
 
+desc 'Generate Gecode/R + Gecode Gem'
+Rake::GemPackageTask.new(spec_with_gecode) do |pkg|
+  pkg.need_zip = true
+  pkg.need_tar = true
+end
+
 desc "Publish packages on RubyForge"
-task :publish_packages => [:verify_user, :package] do
+task :publish_packages => [:publist_gecoder_packages, 
+  :publish_gecoder_with_gecode_packages]
+
+desc "Publish Gecode/R packages on RubyForge"
+task :publish_gecoder_packages => [:verify_user, :package] do
   release_files = FileList[
     "pkg/#{PKG_FILE_NAME}.gem",
     "pkg/#{PKG_FILE_NAME}.tgz",
@@ -85,9 +104,26 @@ task :publish_packages => [:verify_user, :package] do
   require 'meta_project'
   require 'rake/contrib/xforge'
 
-  Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new(PKG_NAME)) do |xf|
+  Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new(PROJECT_NAME)) do |xf|
     xf.user_name = ENV['RUBYFORGE_USER']
     xf.files = release_files.to_a
     xf.release_name = "Gecode/R #{PKG_VERSION}"
+  end
+end
+
+desc "Publish Gecode/R with Gecode packages on RubyForge"
+task :publish_gecoder_with_gecode_packages => [:verify_user, :package] do
+  release_files = FileList[
+    "pkg/#{PKG_FILE_NAME_WITH_GECODE}.gem",
+    "pkg/#{PKG_FILE_NAME_WITH_GECODE}.tgz",
+    "pkg/#{PKG_FILE_NAME_WITH_GECODE}.zip"
+  ]
+  require 'meta_project'
+  require 'rake/contrib/xforge'
+
+  Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new(PROJECT_NAME)) do |xf|
+    xf.user_name = ENV['RUBYFORGE_USER']
+    xf.files = release_files.to_a
+    xf.release_name = "Gecode/R with Gecode #{PKG_VERSION}"
   end
 end

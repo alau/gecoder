@@ -1,0 +1,53 @@
+
+/*
+ *  Main authors:
+ *     Grégoire Dooms <dooms@info.ucl.ac.be>
+ *
+ *  Copyright:
+ *     Grégoire Dooms (Université catholique de Louvain), 2005
+ *
+ *  Last modified:
+ *     $Date: 2005-11-29 10:57:21 +0100 (Tue, 29 Nov 2005) $
+ *     $Revision: 271 $
+ *
+ *  This file is part of CP(Graph)
+ *
+ *  See the file "contribs/graph/LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+1. To obtain CP(Graph):
+
+This software is released along with the main Gecode software as a Gecode contribution.
+You can download it by downloading the Gecode source code from the subversion
+repositories: 
+
+svn co https://svn.gecode.org/svn/trunk/gecode
+
+The CP(Graph) code is located in the contribs sub-directory and will be
+checked-out from our repository in the same process.
+
+2. To compile CP(Graph):
+
+in the top Gecode source directory, run
+make -f Makefile.contribs
+
+This will check for available contributions in the contrib directory and include them form further configuration and compilation. If you want to completely avoid the processing of one of these directories, touch a file named after the same name as the directory but with a .dis extention : for instance to disable the contribution in contribs/test, create the file contribs/test.dis. 
+
+It will also create the configure script (and configure.ac) from the configure.ac.in template.
+
+Then you can consult the various configuration options provided by the main gecode source and the contributions by running:
+./configure --help=recursive
+
+To compile CP(Graph) you will need the Boost Graph Library. Its default location under Linux is /usr/include. Under Windows, if installed by Cygwin, its default location is c:\cygwin\usr\include\boost-1_33. You can override that location by providing the option --with-boost-include=path_to_boost to the configure script. For instance:
+./configure --with-boost-include=/usr/local/boost-svn/
+
+You can disable a contribution at this stage by passing --disable-contrib_name to the configure script.
+
+The configure script invocation will call the configure scripts of the enabled contributions.
+
+Then, compiling Gecode using  make; make install, will compile the enabled contributions by recursively executing the Makefile of each enabled contribution.
+
+

@@ -16,17 +16,44 @@ people to play with it and give feedback.
 
 h2. Dependencies
 
-Gecode/R requires Gecode 1.3.1, install that first.
-* "Download link":http://www.gecode.org/download.html
-* "Installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
+Gecode/R requires Gecode 1.3.1. You can either manually install it or use the 
+gem that includes Gecode.
+* "Gecode download link":http://www.gecode.org/download.html
+* "Gecode installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
 
 h2. Installation
 
 h3. RubyGems
 
-This is probably the most convenient way.
+If you already have Gecode installed then just use the following.
 
  gem install gecoder
+
+If you don't already have Gecode installed then you might find it convenient to 
+install the following gem, which includes both Gecode/R and Gecode 1.3.1.
+
+ gem install gecoder-with-gecode 
+
+h4. Troubleshooting gem installation
+
+If you encounter an error that is not listed here then please let us know via 
+the "gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-users.
+
+h5. Windows
+
+You currently need a compiler installed to be able to install either gem (both 
+are source only). Precompiled binaries will hopefully be available soon.
+
+h5. Linux
+
+  libgecodeset.so.8: cannot open shared object file: No such file or directory
+
+If you get the above error message when requiring the Gecode/R gem then you 
+need to add @/usr/local/lib@ (where the Gecode libraries are stored) to 
+@ld.so.conf@ by doing the following.
+
+  echo "/usr/local/lib" >> /etc/ld.so.conf
+  /sbin/ldconfig
  
 h3. Direct download
 
@@ -52,7 +79,7 @@ h4. Without using gem
 generated on (replace the extension in the following commands with whatever 
 extension it's given).
 
-	cd ext
+  cd ext
   ruby extconf.rb
   make
   mv gecode.so ../lib/

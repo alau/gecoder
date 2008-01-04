@@ -1,0 +1,30 @@
+/*
+ *  Main authors:
+ *     Christian Schulte <schulte@gecode.org>
+ *
+ *  Copyright:
+ *     Christian Schulte, 2004
+ *
+ *  Last modified:
+ *     $Date: 2006-03-30 19:42:28 +0200 (Thu, 30 Mar 2006) $ by $Author: schulte $
+ *     $Revision: 3141 $
+ *
+ *  This file is part of Gecode, the generic constraint
+ *  development environment:
+ *     http://www.gecode.org
+ *
+ *  See the file "LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+namespace Gecode { namespace Search {
+
+  forceinline
+  Statistics::Statistics(void)
+    : propagate(0), fail(0), clone(0), commit(0), memory(0) {}
+
+}}
+
+// STATISTICS: search-any

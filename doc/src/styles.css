@@ -215,6 +215,11 @@ h4 {
   margin: 1.2em 0 .3em 0;
   color: #952;
 }
+h5 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 1em 0 .3em .5em;
+}
 p {
   margin: .7em 0;
 }

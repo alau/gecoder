@@ -1,0 +1,186 @@
+
+/*
+ *  Main authors:
+ *     Grégoire Dooms <dooms@info.ucl.ac.be>
+ *
+ *  Copyright:
+ *     Grégoire Dooms (Université catholique de Louvain), 2005
+ *
+ *  Last modified:
+ *     $Date: 2005-11-29 10:57:21 +0100 (Tue, 29 Nov 2005) $
+ *     $Revision: 271 $
+ *
+ *  This file is part of CP(Graph)
+ *
+ *  See the file "contribs/graph/LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+#include "graph.hh"
+#include "stlutility.icc"
+#include "set/rel.hh"
+#include "set.hh" 
+#include <list>
+#include <boost/utility.hpp>
+#undef TRACE 
+//#define TRACE(A) A
+#define TRACE(A)
+//using namespace boost;
+//using namespace std;
+namespace Gecode { namespace Graph {
+
+template <class GDV1, PropCond p1, class GDV2, PropCond p2>
+forceinline
+BinaryGraphPropagator<GDV1, p1, GDV2, p2>::~BinaryGraphPropagator(void) {
+        g1.cancel(this, p1); 
+        g2.cancel(this, p2); 
+}
+
+template <class GDV1, PropCond p1, class GDV2, PropCond p2>
+forceinline
+BinaryGraphPropagator<GDV1, p1, GDV2, p2>::BinaryGraphPropagator(Space* home, bool share, BinaryGraphPropagator<GDV1, p1, GDV2, p2> &p): 
+Propagator(home,share,p) {
+        g1.update(home, share, p.g1);
+        g2.update(home, share, p.g2);
+}
+
+template <class GDV1, PropCond p1, class GDV2, PropCond p2>
+forceinline
+BinaryGraphPropagator<GDV1, p1, GDV2, p2>::BinaryGraphPropagator(Space* home, GDV1 &g1, GDV2 &g2): Propagator(home), g1(g1), g2(g2) {
+        g1.subscribe(home, this, p1);
+        g2.subscribe(home, this, p2); 
+}
+
+template <class GDV1, PropCond p1, class GDV2, PropCond p2>
+PropCost    BinaryGraphPropagator<GDV1, p1, GDV2, p2>::cost(void) const {
+        return PC_QUADRATIC_LO;
+}
+
+
+
+/*
+ *
+ *  Complement Graph Propagator 
+ *
+ *
+ */
+
+
+
+template <class GDV1, class GDV2>
+void complement (Space * home, GDV1 &g1, GDV2 &g2){
+        if (home->failed()) return;
+        GECODE_ES_FAIL(home,(Set::Rel::Eq<NodeSetView<GDV1>, NodeSetView<GDV2> >::post(home, g1,g2)));
+        GECODE_ES_FAIL(home, (ComplementPropag<GDV1,GDV2>::post(home, g1, g2)));
+}
+
+template <class GDV1, class GDV2>
+ExecStatus ComplementPropag<GDV1, GDV2>::post(Space* home, GDV1 &g1, GDV2 &g2) {
+        (void) new (home) ComplementPropag(home, g1, g2);
+        return ES_OK;
+}
+
+
+template <class GDV1, class GDV2>
+ComplementPropag<GDV1, GDV2>::~ComplementPropag(void) {}
+
+template <class GDV1, class GDV2>
+        forceinline
+ComplementPropag<GDV1, GDV2>::ComplementPropag(Space* home, bool share, ComplementPropag &p)
+        : BinaryGraphPropagator<GDV1, Gecode::Graph::PC_GRAPH_ANY, GDV2, Gecode::Graph::PC_GRAPH_ANY>(home,share, p) { 
+        }
+
+template <class GDV1, class GDV2>
+        forceinline
+ComplementPropag<GDV1, GDV2>::ComplementPropag(Space* home, GDV1 &g1, GDV2 &g2)
+        : BinaryGraphPropagator<GDV1, Gecode::Graph::PC_GRAPH_ANY, GDV2, Gecode::Graph::PC_GRAPH_ANY>(home,g1,g2) {
+        }
+
+template <class GDV1, class GDV2>
+Actor*      ComplementPropag<GDV1, GDV2>::copy(Space* home,bool share) {
+        return new (home) ComplementPropag(home,share,*this);
+}
+
+
+
+
+/** \brief Visitor used by the complement propagator with scanTwoGraphsCompleteNodeArcs*/
+struct ComplVisit{
+        bool fail; ///< tells if the constraint must fail
+        bool assigned; ///< tells if the variables are assigned
+        list<pair<int,int> > incG1;///< stores arcs which must be included in G1
+        list<pair<int,int> > remG1;///< stores arcs which must be removed from G1
+        list<pair<int,int> > incG2;///< stores arcs which must be included in G2
+        list<pair<int,int> > remG2;///< stores arcs which must be removed from G2
+        ComplVisit():fail(false),assigned(true){}
+
+        /// called for an arc absent from both domains
+        void NoneNone(int t,int h){fail = true;                      TRACE(cout << t << " " << h << " NoneNone" << endl); }
+        /// called for an arc absent from g1 but in lub(g2)
+        void NoneLub(int t,int h) {incG2.push_back(make_pair(t,h));  TRACE(cout << t << " " << h << " NoneLub " << endl); }
+        /// called for an arc absent from g1 but in glb(g2)
+        void NoneGlb(int t,int h) {                                  TRACE(cout << t << " " << h << " NoneGlb " << endl); }
+        /// called for an arc in lub(g1) but absent from g2
+        void LubNone(int t,int h) {incG1.push_back(make_pair(t,h));  TRACE(cout << t << " " << h << " LubNone " << endl); }
+        /// called for an arc in both lubs 
+        void LubLub(int t,int h)  {assigned=false;                   TRACE(cout << t << " " << h << " LubLub  " << endl); }
+        /// called for an arc in lub(g1) and glb(g2)
+        void LubGlb(int t,int h)  {remG1.push_back(make_pair(t,h));  TRACE(cout << t << " " << h << " LubGlb  " << endl); }
+        /// called for an arc in glb(g1) and not in g2
+        void GlbNone(int t,int h) {                                  TRACE(cout << t << " " << h << " GlbNone " << endl); }
+        /// called for an arc in glb(g1) and in lub(g2)
+        void GlbLub(int t,int h)  {remG2.push_back(make_pair(t,h));  TRACE(cout << t << " " << h << " GlbLub  " << endl); }
+        /// called for an arc in both glb
+        void GlbGlb(int t,int h)  {fail = true;                      TRACE(cout << t << " " << h << " GlbGlb  " << endl); }
+};
+
+
+
+//using namespace Gecode::Set;
+/// \brief performs the propagation
+template <class GDV1, class GDV2>
+ExecStatus ComplementPropag<GDV1, GDV2>::propagate(Space* home) {
+        /* Scan  the arcs  in the complete graph build over nodes in the glb of both nodes(g1)=nodes(g2)
+           if an arc is in one of the lower bounds, remove from others upperbound
+           if it is not in one of the upperbounds add it to others lower bound 
+
+           */
+        ComplVisit visit;
+        //TRACE(cout << static_cast<GDV1>(g1) << endl); // no longer compiles since namespace cleanup
+        //TRACE(cout << g2 << endl);  // no longer compiles since namespace cleanup
+        typename GDV1::GlbNodeRangesIterator nR1 = g1.iter_nodes_ranges_LB();
+        typename GDV1::GlbNodeRangesIterator nR2 = g2.iter_nodes_ranges_LB();
+        typedef Iter::Ranges::Union<typename GDV1::GlbNodeRangesIterator,typename GDV1::GlbNodeRangesIterator> NR;
+        typedef Iter::Ranges::ToValues<NR> NVals;
+        NR ranges(nR1,nR2);
+        NVals values(ranges);
+        scanTwoGraphsCompleteNodeArcs<GDV1,GDV2,NVals,ComplVisit>(g1,g2,values,visit);
+        
+        if (visit.fail) { TRACE(cout << "fail " << endl); return ES_FAILED; }
+
+
+        typedef StlToGecodeValIterator<list<pair<int,int> >::iterator> ItVal;
+        ItVal remG1(visit.remG1.begin(),visit.remG1.end());
+        TRACE(cout << visit.remG1 << endl);
+        GECODE_ME_CHECK(g1._arcsOut(home,remG1));
+        ItVal remG2(visit.remG2.begin(),visit.remG2.end());
+        TRACE(cout << visit.remG2 << endl);
+        GECODE_ME_CHECK(g2._arcsOut(home,remG2));
+        ItVal incG1(visit.incG1.begin(),visit.incG1.end());
+        TRACE(cout << visit.incG1 << endl);
+        GECODE_ME_CHECK(g1._arcsIn(home,incG1));
+        TRACE(cout << visit.incG2 << endl);
+        ItVal incG2(visit.incG2.begin(),visit.incG2.end());
+        GECODE_ME_CHECK(g2._arcsIn(home,incG2));
+        if (visit.assigned && g1.nodeAssigned() && g2.nodeAssigned()){
+               TRACE(cout << "assigned" <<endl); 
+               return ES_SUBSUMED;
+        }
+        return ES_FIX;
+}
+                
+         
+} } 
+

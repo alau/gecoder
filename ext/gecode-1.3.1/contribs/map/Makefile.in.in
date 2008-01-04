@@ -1,0 +1,173 @@
+#
+gecode_top_srcdir = $(top_srcdir)
+cpmap_top_srcdir = $(curdir)
+
+#should be taken from graph config.status substitutions of @GRAPH@
+GRAPHNAME=graph
+
+
+KERNELDLL := $(KERNELDLL:%=../../%)
+SETDLL := $(SETDLL:%=../../%)
+INTDLL := $(INTDLL:%=../../%)
+SUPPORTOBJ := $(SUPPORTOBJ:%=../../%)
+
+GRAPHDLL := ../graph/$(LIBPREFIX)$(GRAPHNAME)$(DLLSUFFIX)
+ifeq "$(LIBPREFIX)" "$(LINKPREFIX)"
+#win
+#not robust
+LINKGRAPH := ../graph/$(LINKPREFIX)$(GRAPHNAME)$(LINKSUFFIX)
+else
+EXTRALINKFLAGS := -L../..
+endif
+
+ifeq "$(LIBPREFIX)" "$(LINKPREFIX)"
+LINKSET:=../../$(LINKSET)
+LINKKERNEL:=../../$(LINKKERNEL)
+LINKINT:=../../$(LINKINT)
+LINKMM:=../../$(LINKMM)
+LINKSEARCH:=../../$(LINKSEARCH)
+LINKALL := $(LINKMM) $(LINKSET) $(LINKINT) $(LINKSEARCH) $(LINKKERNEL) $(LINKGRAPH)
+else
+EXTRALINKFLAGS := -L../..
+endif
+
+#
+# MAP COMPONENTS
+#
+
+MAPSRC0 = var/imp.cc
+MAPHDR0 = var.icc var/imp.icc constraints.icc matching/mono.icc
+#view/outadjsets.icc view/constant.icc view/arcnode.h view/nodearcsets.icc maputils.icc  var.icc view.icc maputils.h view/boundsmaps.icc view/prop.icc path/path.icc path/pathmaps.icc path.hh path.icc
+
+
+MAPSRC		= $(MAPSRC0)
+MAPHDR		= map.hh $(MAPHDR0)
+MAPOBJ		= $(MAPSRC:%.cc=%$(OBJSUFFIX))
+MAPFLAGS      = -I@BOOST_DIR@ -L$(cpmap_top_srcdir)../../ -I../../gecode -I$(cpmap_top_srcdir)../../ -I$(cpmap_top_srcdir)../graph -L$(cpmap_src_top_srcdir)../graph 
+MAPDLL		= $(LIBPREFIX)@MAP@$(DLLSUFFIX)
+MAPSTATICLIB	= $(LIBPREFIX)@MAP@$(STATICLIBSUFFIX)
+MAPLIB		= $(LIBPREFIX)@MAP@$(LIBSUFFIX)
+LINKMAP      	= $(LINKPREFIX)@MAP@$(LINKSUFFIX)
+#MAPBUILDDIRS	= view
+
+LINKALL := $(LINKALL) $(LINKMAP) $(LINKGRAPH)
+
+#
+# MAP EXAMPLES
+#
+
+MAPEXAMPLESRC0 = map approximateMatching isomorphism subgraphmonomorphism 
+MAPEXAMPLESRC  = $(MAPEXAMPLESRC0:%=examples/%.cc)
+MAPEXAMPLEOBJ  = $(MAPEXAMPLESRC:%.cc=%$(OBJSUFFIX))
+MAPEXAMPLESBJ  = $(MAPEXAMPLESRC:%.cc=%$(SBJSUFFIX))
+MAPEXAMPLEEXE  = $(MAPEXAMPLESRC:%.cc=%$(EXESUFFIX))
+MAPEXAMPLEBUILDDIRS = examples/
+
+MAPEXAMPLEHDR0 = $(gecode_top_srcdir)/support.hh $(gecode_top_srcdir)/support.icc $(gecode_top_srcdir)/timer.hh
+MAPEXAMPLEHDR  = $(MAPEXAMPLEHDR0:%=../../examples/%) $(MAPHDR)
+
+MAPEXAMPLE_EXTRAFLAGS = -lgecodegraph
+
+
+ALLLIB :=  $(ALLLIB) $(MAPLIB) $(GRAPHLIB)
+
+
+LIBTARGETS = $(MAPDLL)
+
+all : $(LIBTARGETS) $(MAPEXAMPLEEXE)
+
+#
+# Object targets
+#
+
+examples/%$(OBJSUFFIX): examples/%.cc
+	$(CXX) $(CXXFLAGS) $(EXAMPLES_EXTRA_CXXFLAGS) $(MAPFLAGS) \
+	@COMPILEOBJ@$@ @COMPILERIN@ $<
+examples/%$(SBJSUFFIX): examples/%.cc
+	$(CXX) $(CXXFLAGS) $(EXAMPLES_EXTRA_CXXFLAGS) $(MAPFLAGS) \
+	@COMPILESBJ@$@ @COMPILERIN@ $<
+
+%$(OBJSUFFIX): %.cc
+	$(CXX) $(CXXFLAGS) -DGECODE_BUILD_MAP $(MAPFLAGS) \
+	@COMPILEOBJ@$@ @COMPILERIN@ $<
+%$(SBJSUFFIX): %.cc
+	$(CXX) $(CXXFLAGS) -DGECODE_BUILD_MAP  $(MAPFLAGS) \
+	@COMPILESBJ@$@ @COMPILERIN@ $<
+
+
+
+
+#
+# DLL Targets
+#
+
+ifeq "$(DLLSUFFIX)" "$(LIBSUFFIX)"
+#linux
+$(MAPDLL): $(MAPOBJ) $(KERNELDLL) $(INTDLL) $(SETDLL)
+	$(CXX) $(DLLFLAGS) $(MAPOBJ)  $(MAPFLAGS) \
+		@DLLPATH@ $(LINKKERNEL) $(LINKINT) \
+		@LINKOUTPUT@$(MAPDLL)
+	$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+	$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))
+else
+#win
+$(MAPDLL) $(MAPLIB): $(MAPOBJ) $(KERNELDLL) $(INTDLL) $(SETDLL) $(GRAPHDLL)
+	$(CXX) $(DLLFLAGS) $(MAPOBJ)  $(MAPFLAGS)\
+		@DLLPATH@ $(LINKKERNEL) $(LINKINT) $(LINKSET) $(LINKGRAPH) \
+		@LINKOUTPUT@$(MAPDLL)
+endif
+
+# 
+# EXE targets
+#
+#
+
+
+.PRECIOUS: examples/%$(OBJSUFFIX)
+# windows only ?
+examples/%$(EXESUFFIX): examples/%$(OBJSUFFIX) $(SUPPORTOBJ) 
+	$(CXX) -o $@ $< $(SUPPORTOBJ) $(DLLPATH) $(CXXFLAGS) $(MAPFLAGS) $(MAPEXAMPLE_EXTRAFLAGS) \
+	$(LDFLAGS) $(LINKALL) 
+#
+#for linux: ?
+CXXFLAGS := $(CXXFLAGS) $(MAPFLAGS) 
+
+
+#
+# Autoconf
+#
+
+configure: configure.ac 
+	autoconf
+config.status: configure
+	../../config.status --recheck
+	./config.status --recheck
+# use the sustitutions from gecode to generate the Makefile.in
+Makefile.in: Makefile.in.in ../../config.status 
+	../../config.status --file ./Makefile.in:./Makefile.in.in
+
+# use the sustitutions from configure to generate the Makefile
+Makefile: Makefile.in ./config.status 
+	./config.status --file ./Makefile:./Makefile.in
+
+
+.PHONY: clean veryclean distclean
+clean:
+	$(RMF) $(MAPOBJ) $(MAPSBJ)
+
+veryclean: clean
+	$(RMF) $(LIBTARGETS)
+	$(RMF) $(LIBTARGETS:%$(DLLSUFFIX)=%.exp) $(LIBTARGETS:%$(DLLSUFFIX)=%.lib)
+	$(RMF) $(LIBTARGETS:%$(DLLSUFFIX)=%.ilk) $(LIBTARGETS:%$(DLLSUFFIX)=%.pdb)
+	$(RMF) $(MAPEXAMPLEEXE:%.exe=%.pdb)
+	$(RMF) doc CPGraphReference.chm 
+	$(RMF) $(MAPEXAMPLEEXE)
+	$(RMF) $(MAPDLL)
+
+distclean: veryclean
+	$(RMF) config.log config.status
+
+.PHONY: doc
+doc: $(MAPHDR) $(MAPSRC) 
+	mkdir -p doc/html
+	doxygen doxygen.conf

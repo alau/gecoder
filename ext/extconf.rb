@@ -17,8 +17,8 @@ ORIGINAL_DIR = Pathname.new('.').realpath
 
 cppflags = "-I#{RUST_INCLUDES} -I#{EXT_DIR}"
 with_cppflags(cppflags) {
-	find_header("rust_conversions.hh", RUST_INCLUDES)
-	find_header("rust_checks.hh", RUST_INCLUDES)
+  find_header("rust_conversions.hh", RUST_INCLUDES)
+  find_header("rust_checks.hh", RUST_INCLUDES)
 }
 
 # Load the specification of the bindings. This creates the headers in the 

@@ -1,0 +1,98 @@
+/*
+ *  Main authors:
+ *     Christian Schulte <schulte@gecode.org>
+ *
+ *  Copyright:
+ *     Christian Schulte, 2004
+ *
+ *  Last modified:
+ *     $Date: 2006-09-12 10:05:22 +0200 (Tue, 12 Sep 2006) $ by $Author: tack $
+ *     $Revision: 3658 $
+ *
+ *  This file is part of Gecode, the generic constraint
+ *  development environment:
+ *     http://www.gecode.org
+ *
+ *  See the file "LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+/**
+ * \brief Check whether modification event \a me is failed, and forward failure.
+ *
+ * To be used inside the propagate member function of a propagator
+ * or the commit member function of a branching.
+ * \ingroup TaskActor
+ */
+#define GECODE_ME_CHECK(me)			\
+  if (::Gecode::me_failed(me))			\
+    return ::Gecode::ES_FAILED;
+
+/**
+ * \brief Check whether \a me is failed or modified, and forward failure.
+ *
+ * To be used inside the propagate member function of a propagator
+ * or the commit member function of a branching.
+ * \ingroup TaskActor
+ */
+#define GECODE_ME_CHECK_MODIFIED(modified, me) {           \
+    ModEvent __me__ ## __LINE__ = (me);                    \
+    if (::Gecode::me_failed(__me__ ## __LINE__))	   \
+      return ::Gecode::ES_FAILED;                          \
+    modified |= ::Gecode::me_modified(__me__ ## __LINE__); \
+  }
+
+/**
+ * \brief Check whether modification event \a me is failed, and fail space \a home.
+ *
+ * To be used inside post functions.
+ * \ingroup TaskActor
+ */
+#define GECODE_ME_FAIL(home,me)			\
+  if (::Gecode::me_failed(me)) {		\
+    (home)->fail();				\
+    return;					\
+  }
+
+
+
+/**
+ * \brief Check whether execution status \a es is failed, and forward failure.
+ * \ingroup TaskActor
+ */
+#define GECODE_ES_CHECK(es)		\
+  if ((es) < ::Gecode::ES_OK)		\
+    return ::Gecode::ES_FAILED;
+
+/**
+ * \brief Check whether execution status \a es is failed, and fail space \a home.
+ * \ingroup TaskActor
+ */
+#define GECODE_ES_FAIL(home,es)		\
+  if ((es) < ::Gecode::ES_OK) {		\
+    (home)->fail();			\
+    return;				\
+  }
+
+/**
+ * \def GECODE_NEVER
+ * \brief Assert that this command is never executed
+ *
+ * This is preferred over assert(false) as it is used for optimization,
+ * if supported by a compiler (for example, Microsoft Visual C++).
+ *
+ */
+
+#if defined(_MSC_VER) && defined(NDEBUG)
+
+#define GECODE_NEVER __assume(false);
+
+#else
+
+#define GECODE_NEVER assert(false);
+
+#endif
+
+// STATISTICS: kernel-other

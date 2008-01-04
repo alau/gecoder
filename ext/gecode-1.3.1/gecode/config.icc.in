@@ -1,0 +1,50 @@
+/*
+ *  Main authors:
+ *     Christian Schulte <schulte@gecode.org>
+ *
+ *  Contributing authors:
+ *     Guido Tack <tack@gecode.org>
+ *
+ *  Copyright:
+ *     Christian Schulte, 2004
+ *     Guido Tack, 2004
+ *
+ *  Last modified:
+ *     $Date: 2006-08-23 16:54:09 +0200 (Wed, 23 Aug 2006) $ by $Author: tack $
+ *     $Revision: 3556 $
+ *
+ *  This file is part of Gecode, the generic constraint
+ *  development environment:
+ *     http://www.gecode.org
+ *
+ *  See the file "LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+/* How to tell the compiler to really, really inline */
+#undef forceinline
+
+/* Heap memory alignment */
+#undef GECODE_MEMORY_ALIGNMENT
+
+/* Whether integer variables are built */
+#undef GECODE_HAVE_INT_VARS
+
+/* Whether set variables are built */
+#undef GECODE_HAVE_SET_VARS
+
+/* Whether we are compiling static libraries */
+#undef GECODE_STATIC_LIBS
+
+/* Whether we have mtrace for memory leak debugging*/
+#undef GECODE_HAVE_MTRACE
+
+/* Whether gcc understands visibility attributes */
+#undef GCC_HASCLASSVISIBILITY
+
+/* Whether to include audit code */
+#undef GECODE_AUDIT
+
+// STATISTICS: kernel-other
