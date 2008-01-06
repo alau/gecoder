@@ -14,26 +14,31 @@ features":http://www.gecode.org/gecode-doc-latest/modules.html.</p>
 
 h2. Supported Gecode features 
 
-The following things are supported by Gecode/R.
+Note that, while Gecode/R uses Gecode 1.3.1, the following links point to the
+Gecode 2.0 documentation. Hence the linked documentation does not correctly 
+reflect the constraints supported. In most cases the difference is small. Refer 
+to the corresponding Gecode 1.3.1 documentation for a more accurate view.
 
-* "Boolean variables and constraints":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntBool.html
+* Boolean variables with the following constraints
+** "Simple relation":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntRelBool.html
+** "Linear":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntLinearBool.html
 * Finite domain integer variables with the following constraints
-** "Arithmetic":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntArith.html
-** "Cardinality":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntCard.html without global cardinality
-** "Channel":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntChannel.html
-** "Distinct":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntDistinct.html
-** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntDomain.html
-** "Element":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntElement.html
-** "Linear":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntLinear.html
-** "Simple relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntRel.html
-** "Sorting":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntSort.html
+** "Arithmetic":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntArith.html
+** "Cardinality":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntCard.html without global cardinality constraints
+** "Channel":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntChannel.html
+** "Distinct":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntDistinct.html
+** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntDomain.html
+** "Element":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntElement.html
+** "Linear":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntLinearInt.html
+** "Simple relation":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntRelInt.html
+** "Sorting":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntSorted.html
 * Finite integer sets with the following constraints
-** "Distinct":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetDistinct.html
-** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetDom.html
-** "Connection constraints to finite domain variables":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetConnect.html
-** "Relation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRel.html
-** "Set selection":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetSelection.html
-** "Set operation":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetRelOp.html
+** Distinct
+** "Domain":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetDom.html
+** "Connection constraints to finite domain variables":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetConnect.html
+** "Relation":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetRel.html
+** "Set selection":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetSelection.html
+** "Set operation":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetRelOp.html
 * Branching selection
 * Depth first search
 * Reification and propagation strength
@@ -42,15 +47,16 @@ The following things are supported by Gecode/R.
 h2. Features not supported
 
 The following are some notable features that are included in Gecode but _not_
-in Gecode/R (but might be in the future).
+in Gecode/R (but might be in the future). Note that the list is based on the
+Gecode 1.3.1 feature set.
 
 * Unsupported integer constraints
-** "Regular":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntRegular.html
-** "Global cardinality":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntCard.html
-** "Scheduling":http://www.gecode.org/gecode-doc-latest/group__TaskIntIntScheduling.html
+** Regular
+** "Global cardinality":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntCard.html
+** "Scheduling":http://www.gecode.org/gecode-doc-latest/group__TaskModelIntScheduling.html
 * Unsupported set constraints
-** "Convexity":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetConvex.html
-** "Sequence":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetSequence.html
-** "Projector":http://www.gecode.org/gecode-doc-latest/group__TaskIntSetProjector.html
+** "Convexity":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetConvex.html
+** "Sequence":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetSequence.html
+** "Projector":http://www.gecode.org/gecode-doc-latest/group__TaskModelSetProjector.html
 * Limited discrepancy search
 * Custom propagators and branching strategies
