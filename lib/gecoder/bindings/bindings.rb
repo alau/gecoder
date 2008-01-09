@@ -74,6 +74,7 @@ end_custom_definition
 Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
   b.include_header 'gecode/kernel.hh', Rust::Bindings::HeaderGlobal
   b.include_header 'gecode/int.hh', Rust::Bindings::HeaderGlobal
+  b.include_header 'gecode/set.hh', Rust::Bindings::HeaderGlobal
   b.include_header 'gecode/search.hh', Rust::Bindings::HeaderGlobal
   b.include_header 'gecode/minimodel.hh', Rust::Bindings::HeaderGlobal
   b.include_header 'missing.h', Rust::Bindings::HeaderLocal
