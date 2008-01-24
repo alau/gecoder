@@ -14,7 +14,7 @@ and *backwards compatibility will be broken* time and time again. Don't use
 Gecode/R in production-code yet, it's merely available at this point to allow 
 people to play with it and give feedback.
 
-h2. Quick and dirty
+h2. Quick install
 
 The following works on Windows, Linux and OS X (and probably some more).
 
