@@ -41,8 +41,13 @@ the "gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-us
 
 h5. Windows
 
-You currently need a compiler installed to be able to install either gem (both 
-are source only). Precompiled binaries will hopefully be available soon.
+  ERROR: error installing gem [...]: buffer error
+
+The above error message means that you need to upgrade RubyGems (it works with
+1.0.1). Run the following command.
+
+  gem update --system
+
 
 h5. Linux
 

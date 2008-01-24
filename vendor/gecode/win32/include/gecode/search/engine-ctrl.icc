@@ -1,0 +1,109 @@
+/*
+ *  Main authors:
+ *     Christian Schulte <schulte@gecode.org>
+ *
+ *  Copyright:
+ *     Christian Schulte, 2004
+ *
+ *  Last modified:
+ *     $Date: 2006-08-04 16:03:17 +0200 (Fri, 04 Aug 2006) $ by $Author: schulte $
+ *     $Revision: 3511 $
+ *
+ *  This file is part of Gecode, the generic constraint
+ *  development environment:
+ *     http://www.gecode.org
+ *
+ *  See the file "LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+namespace Gecode { namespace Search {
+
+  forceinline
+  EngineCtrl::EngineCtrl(Stop* st0, size_t sz)
+    : st(st0), _stopped(false), mem_space(sz), mem_cur(0), mem_total(0) {
+    memory = 0;
+  }
+
+  forceinline void
+  EngineCtrl::start(void) {
+    _stopped = false;
+  }
+
+  forceinline bool
+  EngineCtrl::stop(size_t sz) {
+    if (st == NULL)
+      return false;
+    memory += sz;
+    _stopped |= st->stop(*this);
+    memory -= sz;
+    return _stopped;
+  }
+
+  forceinline bool
+  EngineCtrl::stopped(void) const {
+    return _stopped;
+  }
+
+  forceinline void
+  EngineCtrl::push(const Space* s, const BranchingDesc* d) {
+    if (s != NULL)
+      mem_total += mem_space + s->allocated();
+    mem_total += d->size();
+    if (mem_total > memory)
+      memory = mem_total;
+  }
+
+  forceinline void
+  EngineCtrl::adapt(const Space* s) {
+    mem_total += mem_space + s->allocated();
+    if (mem_total > memory)
+      memory = mem_total;
+  }
+
+  forceinline void
+  EngineCtrl::constrained(const Space* s1, const Space* s2) {
+    mem_total -= s1->allocated();
+    mem_total += s2->allocated();
+    if (mem_total > memory)
+      memory = mem_total;
+  }
+
+  forceinline void
+  EngineCtrl::lao(const Space* s) {
+    mem_total -= mem_space + s->allocated();
+  }
+
+  forceinline void
+  EngineCtrl::pop(const Space* s, const BranchingDesc* d) {
+    if (s != NULL)
+      mem_total -= mem_space + s->allocated();
+    mem_total -= d->size();
+  }
+
+  forceinline void
+  EngineCtrl::current(const Space* s) {
+    if (s == NULL) {
+      mem_total -= mem_cur;
+      mem_cur = 0;
+    } else {
+      mem_cur = mem_space + s->allocated() + s->cached();
+      mem_total += mem_cur;
+      if (mem_total > memory)
+	memory = mem_total;
+    }
+  }
+
+  forceinline void
+  EngineCtrl::reset(const Space* s) {
+    mem_cur   = mem_space+s->allocated()+s->cached();
+    mem_total = mem_cur;
+    if (mem_total > memory)
+      memory = mem_total;
+  }
+
+}}
+
+// STATISTICS: search-any

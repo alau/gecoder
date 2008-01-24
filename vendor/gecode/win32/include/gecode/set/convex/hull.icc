@@ -1,0 +1,52 @@
+/*
+ *  Main authors:
+ *     Guido Tack <tack@gecode.org>
+ *     Christian Schulte <schulte@gecode.org>
+ *
+ *  Contributing authors:
+ *     Gabor Szokoli <szokoli@gecode.org>
+ *
+ *  Copyright:
+ *     Guido Tack, 2004
+ *     Christian Schulte, 2004
+ *     Gabor Szokoli, 2004
+ *
+ *  Last modified:
+ *     $Date: 2006-05-23 15:09:53 +0200 (Tue, 23 May 2006) $ by $Author: tack $
+ *     $Revision: 3232 $
+ *
+ *  This file is part of Gecode, the generic constraint
+ *  development environment:
+ *     http://www.gecode.org
+ *
+ *  See the file "LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+namespace Gecode { namespace Set { namespace Convex {
+
+  /*
+   * "Convex hull" propagator
+   *
+   */
+
+  forceinline
+  ConvexHull::ConvexHull(Space* home, SetView x, SetView y)
+    : BinaryPropagator<SetView, PC_SET_ANY>(home, x, y) {}
+
+  forceinline
+  ConvexHull::ConvexHull(Space* home, bool share, ConvexHull& p)
+    : BinaryPropagator<SetView, PC_SET_ANY>(home, share, p) {}
+
+  forceinline ExecStatus
+  ConvexHull::post(Space* home, SetView x, SetView y) {
+    (void) new (home) ConvexHull(home,x,y);
+    return ES_OK;
+  }
+
+
+}}}
+
+// STATISTICS: set-prop

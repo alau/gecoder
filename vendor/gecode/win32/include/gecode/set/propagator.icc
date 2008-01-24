@@ -1,0 +1,96 @@
+/*
+ *  Main authors:
+ *     Guido Tack <tack@gecode.org>
+ *
+ *  Copyright:
+ *     Guido Tack, 2004, 2005
+ *
+ *  Last modified:
+ *     $Date: 2006-05-29 09:42:21 +0200 (Mon, 29 May 2006) $ by $Author: schulte $
+ *     $Revision: 3246 $
+ *
+ *  This file is part of Gecode, the generic constraint
+ *  development environment:
+ *     http://www.gecode.org
+ *
+ *  See the file "LICENSE" for information on usage and
+ *  redistribution of this file, and for a
+ *     DISCLAIMER OF ALL WARRANTIES.
+ *
+ */
+
+namespace Gecode {
+
+  /**
+   * \defgroup TaskPropSetPat Patterns for set propagators
+   *
+   * The optional last Boolean argument to the constructor for creation
+   * defines whether deletion must be forced.
+   * \ingroup TaskActor
+   */
+
+  //@{
+
+
+  /**
+   * \brief Set/Int connection propagator
+   *
+   * Stores single view of type \a View with propagation condition \a pcs
+   * and an integer variable with propagation condition \a pci.
+   */
+  template <class View, PropCond pcs, PropCond pci>
+  class IntSetPropagator : public Propagator {
+  protected:
+    View x0;
+    Gecode::Int::IntView x1;
+    /// Constructor for cloning
+    IntSetPropagator(Space* home,bool,IntSetPropagator&);
+    /// Constructor for creation
+    IntSetPropagator(Space* home,View,Gecode::Int::IntView,bool=false);
+  public:
+    /// Cost function (defined as PC_BINARY_LO)
+    virtual PropCost cost(void) const;
+    /// Delete propagator and return its size
+    virtual size_t dispose(Space* home);
+  };
+
+  //@}
+
+  template <class View, PropCond pcs, PropCond pci>
+  IntSetPropagator<View,pcs,pci>::IntSetPropagator
+  (Space* home, View y0, Gecode::Int::IntView y1, bool fd)
+    : Propagator(home,fd), x0(y0), x1(y1) {
+    x0.subscribe(home,this,pcs);
+    x1.subscribe(home,this,pci);
+  }
+
+  template <class View, PropCond pcs, PropCond pci>
+  forceinline
+  IntSetPropagator<View,pcs,pci>::IntSetPropagator
+  (Space* home, bool share, IntSetPropagator<View,pcs,pci>& p)
+    : Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+
+  template <class View, PropCond pcs, PropCond pci>
+  PropCost
+  IntSetPropagator<View,pcs,pci>::cost(void) const {
+    return PC_BINARY_LO;
+  }
+
+  template <class View, PropCond pcs, PropCond pci>
+  size_t
+  IntSetPropagator<View,pcs,pci>::dispose(Space* home) {
+    if (!home->failed()) {
+      x0.cancel(home,this,pcs);
+      x1.cancel(home,this,pci);
+    }
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+
+}
+
+// STATISTICS: set-prop
+
