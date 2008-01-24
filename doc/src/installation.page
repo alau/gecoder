@@ -14,27 +14,13 @@ and *backwards compatibility will be broken* time and time again. Don't use
 Gecode/R in production-code yet, it's merely available at this point to allow 
 people to play with it and give feedback.
 
-h2. Dependencies
+h2. Quick and dirty
 
-Gecode/R requires Gecode 1.3.1. You can either manually install it or use the 
-gem that includes Gecode.
-* "Gecode download link":http://www.gecode.org/download.html
-* "Gecode installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
+The following works on Windows, Linux and OS X (and probably some more).
 
-h2. Installation
+  gem install gecoder-with-gecode
 
-h3. RubyGems
-
-If you already have Gecode installed then just use the following.
-
- gem install gecoder
-
-If you don't already have Gecode installed then you might find it convenient to 
-install the following gem, which includes both Gecode/R and Gecode 1.3.1.
-
- gem install gecoder-with-gecode 
-
-h4. Troubleshooting gem installation
+h3. Troubleshooting
 
 If you encounter an error that is not listed here then please let us know via 
 the "gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-users.
@@ -48,7 +34,6 @@ The above error message means that you need to upgrade RubyGems (it works with
 
   gem update --system
 
-
 h5. Linux
 
   libgecodeset.so.8: cannot open shared object file: No such file or directory
@@ -59,6 +44,26 @@ need to add @/usr/local/lib@ (where the Gecode libraries are stored) to
 
   echo "/usr/local/lib" >> /etc/ld.so.conf
   /sbin/ldconfig
+
+h2. Detailed information
+
+h3. Dependencies
+
+Gecode/R requires Gecode 1.3.1. You can either manually install it or use the 
+gem that includes Gecode.
+* "Gecode download link":http://www.gecode.org/download.html
+* "Gecode installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
+
+h3. RubyGems
+
+Use the following gem if you don't have Gecode installed, or are using Windows. 
+It includes both Gecode/R and Gecode 1.3.1.
+
+ gem install gecoder-with-gecode 
+
+Use the following gem if you want to install Gecode/R without Gecode.
+
+ gem install gecoder
  
 h3. Direct download
 
@@ -70,24 +75,14 @@ There are two ways to get a hold of the source code.
 
 # Download the source of a release from "RubyForge":http://rubyforge.org/frs/?group_id=3553
 # Check out the most recent code from subversion using <pre>svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder</pre>
-  
-h4. Using gem
 
-Build and install the gem from source with
+The interface is installed as follows once the source is obtained. This is not
+tested under Windows (where it will probably differ a bit).
 
-  rake gem
-  gem install pkg/gecoder-0.x.x.gem
-
-h4. Without using gem
-
-"gecode.so" might have another extension depending on which platform it's 
-generated on (replace the extension in the following commands with whatever 
-extension it's given).
-
-  cd ext
-  ruby extconf.rb
-  make
-  mv gecode.so ../lib/
+# Enter the ext directory.
+# Run @ruby extconf.rb@ 
+# Run @make@ (builds the extension)
+# Move the created library named @gecode.so@ to the lib directory.
 
 h2. Running the tests
 
