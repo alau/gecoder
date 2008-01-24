@@ -545,7 +545,6 @@ ext/missing.cpp -text
 ext/missing.h -text
 ext/vararray.cpp -text
 ext/vararray.h -text
-ext/win32/rbconfig.rb -text
 lib/gecoder.rb -text
 lib/gecoder/bindings.rb -text
 lib/gecoder/bindings/bindings.rb -text
