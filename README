@@ -20,7 +20,16 @@ instructions.
 
 === Installing from gem
 
+There are two gems. The first includes only Gecode/R, and assumes that you have
+installed Gecode yourself. The second includes both Gecode/R and Gecode. If you 
+use Windows then you're recommended to use the second one, even though you 
+already have Gecode, as the other one does not come in a pre-compiled variant.
+
+Gecode/R only:
   gem install gecoder
+  
+Gecode/R and Gecode:
+  gem install gecoder-with-gecode
 
 === Installing from source using gem
 
