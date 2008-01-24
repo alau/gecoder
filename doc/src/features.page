@@ -12,6 +12,13 @@ h1. Features
 features":http://www.gecode.org/gecode-doc-search-1.3.1/modules.html.</p>
 </div>
 
+h2. Supported platforms
+
+Ruby 1.8.6 on
+* Windows (tested with the "one-click Ruby installer":http://rubyinstaller.rubyforge.org/wiki/wiki.pl)
+* Linux
+* OS X
+
 h2. Supported Gecode features 
 
 The following things are supported by Gecode/R.
