@@ -621,6 +621,7 @@ specs/search.rb -text
 specs/set_var.rb -text
 specs/spec_helper.rb -text
 tasks/all_tasks.rb -text
+tasks/dependencies.txt -text
 tasks/distribution.rake -text
 tasks/rcov.rake -text
 tasks/specs.rake -text
