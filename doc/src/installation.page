@@ -40,7 +40,7 @@ h5. Linux
 
 If you get the above error message when requiring the Gecode/R gem then you 
 need to add @/usr/local/lib@ (where the Gecode libraries are stored) to 
-@ld.so.conf@ by doing the following.
+@ld.so.conf@ by doing the following as root.
 
   echo "/usr/local/lib" >> /etc/ld.so.conf
   /sbin/ldconfig
