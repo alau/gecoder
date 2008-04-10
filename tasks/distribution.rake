@@ -142,6 +142,7 @@ task :publish_gecoder_packages => [:verify_user, :package] do
     xf.user_name = ENV['RUBYFORGE_USER']
     xf.files = release_files.to_a
     xf.release_name = "Gecode/R #{PKG_VERSION}"
+    xf.package_name = PKG_NAME
   end
 end
 
@@ -160,5 +161,6 @@ task :publish_gecoder_with_gecode_packages => [:verify_user, :package] do
     xf.user_name = ENV['RUBYFORGE_USER']
     xf.files = release_files.to_a
     xf.release_name = "Gecode/R with Gecode #{PKG_VERSION}"
+    xf.package_name = PKG_NAME_WITH_GECODE
   end
 end
