@@ -5,6 +5,8 @@ PKG_NAME_WITH_GECODE = 'gecoder-with-gecode'
 PKG_VERSION = GecodeR::VERSION
 PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
 PKG_FILE_NAME_WITH_GECODE = "#{PKG_NAME_WITH_GECODE}-#{PKG_VERSION}"
+# The location where the precompiled DLL should be placed.
+DLL_LOCATION = 'lib/gecode.dll'
 
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
@@ -59,7 +61,7 @@ spec = Gem::Specification.new do |s|
   ].to_a
   s.require_path = 'lib'
   s.extensions << 'ext/extconf.rb'
-  s.requirements << 'Gecode 1.3.1'
+  s.requirements << 'Gecode 2.1.1'
 
   s.has_rdoc = true
   s.rdoc_options = rd.options
@@ -87,7 +89,8 @@ spec_windows_binary_with_gecode.platform = Gem::Platform::WIN32
 # Create a clone of the gem spec that includes Gecode.
 spec_with_gecode = spec.dup
 spec_with_gecode.name = PKG_NAME_WITH_GECODE
-spec_with_gecode.extensions = spec.extensions.dup << 'ext/gecode-1.3.1/extconf.rb'
+spec_with_gecode.extensions = 
+  spec_with_gecode.extensions.dup.unshift 'ext/gecode-2.1.1/configure'
 spec_with_gecode.requirements = []
 spec_with_gecode.files = spec.files.dup + FileList['ext/gecode-*/**/*'].to_a 
 
@@ -112,8 +115,13 @@ file 'lib/gecode.dll' do
   cd 'ext' do
     sh 'ruby -Iwin32 extconf-win32.rb'
     sh 'make'
-    mv 'gecode.so', '../lib/gecode.dll'
+    mv 'gecode.so', "../#{DLL_LOCATION}"
   end
+end
+
+desc 'Removes generated distribution files'
+task :clobber do
+  rm DLL_LOCATION if File.exists? DLL_LOCATION
 end
 
 desc 'Publish packages on RubyForge'

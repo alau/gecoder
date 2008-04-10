@@ -67,9 +67,8 @@ module Gecode::Constraints::IntEnum::Count #:nodoc:
   #     :strength => :domain)
   class CountConstraint < Gecode::Constraints::ReifiableConstraint
     def post
-      lhs, element, relation_type, rhs, strength, reif_var = 
-        @params.values_at(:lhs, :element, :relation_type, :rhs, :strength, 
-          :reif)
+      lhs, element, relation_type, rhs, reif_var = 
+        @params.values_at(:lhs, :element, :relation_type, :rhs, :reif)
       
       # Bind variables if needed.
       element = element.bind if element.respond_to? :bind
@@ -78,14 +77,14 @@ module Gecode::Constraints::IntEnum::Count #:nodoc:
       # Post the constraint to gecode.
       if reif_var.nil?
         Gecode::Raw::count(@model.active_space, lhs.to_int_var_array, 
-          element, relation_type, rhs, strength)
+          element, relation_type, rhs, *propagation_options)
       else
         # We use a proxy int variable to get the reification.
         proxy = @model.int_var(rhs.min..rhs.max)
         rel = Gecode::Constraints::Util::RELATION_TYPES.invert[relation_type]
         proxy.must.send(rel, @params[:rhs], :reify => reif_var)
         Gecode::Raw::count(@model.active_space, lhs.to_int_var_array, 
-          element, Gecode::Raw::IRT_EQ, proxy.bind, strength)
+          element, Gecode::Raw::IRT_EQ, proxy.bind, *propagation_options)
       end
     end
   end

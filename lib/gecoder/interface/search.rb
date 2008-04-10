@@ -64,10 +64,11 @@ module Gecode
       end
 
       # Perform the search.
-      result = Gecode::Raw::bab(selected_space, 
-        Gecode::Raw::Search::Config::MINIMAL_DISTANCE, 
-        Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
-        nil)
+      options = Gecode::Raw::Search::Options.new
+      options.c_d = Gecode::Raw::Search::Config::MINIMAL_DISTANCE
+      options.a_d = Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE
+      options.stop = nil
+      result = Gecode::Raw::bab(selected_space, options)
       
       # Reset the method used constrain calls and return the result.
       Model.constrain_proc = nil

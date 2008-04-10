@@ -12,11 +12,14 @@ GECODE_DLL_DIR = "#{WIN32_DIR}/lib"
 GECODE_INCLUDES = "#{WIN32_DIR}/include"
 
 # Find the Gecode libraries.
-find_library("gecodeint", nil, GECODE_DLL_DIR)
+find_library("gecodesupport", nil, GECODE_DLL_DIR)
 find_library("gecodekernel", nil, GECODE_DLL_DIR)
-find_library("gecodeminimodel", nil, GECODE_DLL_DIR)
-find_library("gecodesearch", nil, GECODE_DLL_DIR)
+find_library("gecodeint", nil, GECODE_DLL_DIR)
 find_library("gecodeset", nil, GECODE_DLL_DIR)
+find_library("gecodesearch", nil, GECODE_DLL_DIR)
+find_library("gecodeminimodel", nil, GECODE_DLL_DIR)
+
+find_library('stdc++', nil)
 
 # The last flag is a bit mysterious, but it works.
 cppflags = "-I#{RUST_INCLUDES} -I#{EXT_DIR} -I#{GECODE_DLL_DIR} -I#{GECODE_INCLUDES} -DGECODE_BUILD_SET"

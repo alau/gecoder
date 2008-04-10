@@ -44,8 +44,6 @@ module Rust
 
       @definition_template = Templates["CxxClassDefinitions"]
 
-      @varname = "#{complete_name.gsub("::", "_")}"
-      
       if @parent
         @ptrmap = @parent.ptrmap
         @function_free = @parent.function_free

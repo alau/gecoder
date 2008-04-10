@@ -126,8 +126,8 @@ module Gecode
     #   (b1 & b2).must_not.imply b3
     class BooleanConstraint < Gecode::Constraints::ReifiableConstraint
       def post
-        lhs, rhs, negate, strength, reif_var = @params.values_at(:lhs, :rhs, 
-          :negate, :strength, :reif)
+        lhs, rhs, negate, reif_var = 
+          @params.values_at(:lhs, :rhs, :negate, :reif)
         space = (lhs.model || rhs.model).active_space
         
         # TODO: It should be possible to reduce the number of necessary 
@@ -136,24 +136,25 @@ module Gecode
         
         if rhs.respond_to? :bind
           if reif_var.nil?
-            Gecode::Raw::bool_eqv(space, lhs.bind, rhs.bind, !negate, strength)
+            Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_EQV, rhs.bind, 
+              (!negate ? 1 : 0), *propagation_options)
           else
             if negate
-              Gecode::Raw::bool_xor(space, lhs.bind, rhs.bind, reif_var.bind, 
-                strength)
+              Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_XOR, rhs.bind, 
+                reif_var.bind, *propagation_options)
             else
-              Gecode::Raw::bool_eqv(space, lhs.bind, rhs.bind, reif_var.bind, 
-                strength)
+              Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_EQV, rhs.bind, 
+                reif_var.bind, *propagation_options)
             end
           end
         else
           should_hold = !negate & rhs
           if reif_var.nil?
             Gecode::Raw::MiniModel::BoolExpr.new(lhs.bind).post(space, 
-              should_hold)
+              should_hold, *propagation_options)
           else
-            Gecode::Raw::bool_eqv(space, lhs.bind, reif_var.bind, should_hold, 
-              strength)
+            Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_EQV, 
+              reif_var.bind, (should_hold ? 1 : 0), *propagation_options)
           end
         end
       end
@@ -169,10 +170,10 @@ module Gecode
       # Maps the names of the methods to the corresponding bool constraint in 
       # Gecode.
       OPERATION_TYPES = {
-        :|        => :bool_or,
-        :&        => :bool_and,
-        :^        => :bool_xor,
-        :implies  => :bool_imp
+        :|        => Gecode::Raw::BOT_OR,
+        :&        => Gecode::Raw::BOT_AND,
+        :^        => Gecode::Raw::BOT_XOR,
+        :implies  => Gecode::Raw::BOT_IMP
       }
       
       public
@@ -185,8 +186,9 @@ module Gecode
             end
             ExpressionTree.new(self, expression) do |model, var1, var2|
               new_var = model.bool_var
-              Gecode::Raw::#{operation}(model.active_space, var1.bind, var2.bind,
-                new_var.bind, Gecode::Raw::ICL_DEF)
+              Gecode::Raw::rel(model.active_space, var1.bind, #{operation}, 
+                var2.bind, new_var.bind, Gecode::Raw::ICL_DEF, 
+                Gecode::Raw::PK_DEF)
               new_var
             end
           end

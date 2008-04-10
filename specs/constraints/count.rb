@@ -22,7 +22,7 @@ describe Gecode::Constraints::IntEnum::Count do
     @target = @model.target
     
     # Creates an expectation corresponding to the specified input.
-    @expect = lambda do |element, relation, target, strength, reif_var|
+    @expect = lambda do |element, relation, target, strength, kind, reif_var|
       @model.allow_space_access do
         target = an_instance_of(Gecode::Raw::IntVar) if target.respond_to? :bind
         element = an_instance_of(Gecode::Raw::IntVar) if element.respond_to? :bind
@@ -30,17 +30,17 @@ describe Gecode::Constraints::IntEnum::Count do
           Gecode::Raw.should_receive(:count).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVarArray), 
-            element, relation, target, strength)
+            element, relation, target, strength, kind)
         else
           Gecode::Raw.should_receive(:count).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVarArray), 
             element, Gecode::Raw::IRT_EQ,
-            an_instance_of(Gecode::Raw::IntVar), strength)
+            an_instance_of(Gecode::Raw::IntVar), strength, kind)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation,
-            target, an_instance_of(Gecode::Raw::BoolVar), strength)
+            target, an_instance_of(Gecode::Raw::BoolVar), strength, kind)
         end
       end
     end
@@ -50,8 +50,9 @@ describe Gecode::Constraints::IntEnum::Count do
       @list.count(@element).must_be.greater_than(@target, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
-      @expect.call(@element, Gecode::Raw::IRT_GR, @target, strength, reif_var)
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      @expect.call(@element, Gecode::Raw::IRT_GR, @target, strength, 
+        kind, reif_var)
     end
   end
 
@@ -61,14 +62,16 @@ describe Gecode::Constraints::IntEnum::Count do
 
   Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with variable element and target" do
-      @expect.call(@element, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(@element, type, @target, Gecode::Raw::ICL_DEF,
+        Gecode::Raw::PK_DEF, nil)
       @list.count(@element).must.send(relation, @target)
       @model.solve!
     end
   end
   Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with variable element and target" do
-      @expect.call(@element, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(@element, type, @target, Gecode::Raw::ICL_DEF, 
+        Gecode::Raw::PK_DEF, nil)
       @list.count(@element).must_not.send(relation, @target)
       @model.solve!
     end
@@ -76,14 +79,16 @@ describe Gecode::Constraints::IntEnum::Count do
   
   Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with variable element and constant target" do
-      @expect.call(@element, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(@element, type, 2, Gecode::Raw::ICL_DEF, 
+        Gecode::Raw::PK_DEF, nil)
       @list.count(@element).must.send(relation, 2)
       @model.solve!
     end
   end
   Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with variable element and constant target" do
-      @expect.call(@element, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(@element, type, 2, Gecode::Raw::ICL_DEF, 
+        Gecode::Raw::PK_DEF, nil)
       @list.count(@element).must_not.send(relation, 2)
       @model.solve!
     end
@@ -91,14 +96,14 @@ describe Gecode::Constraints::IntEnum::Count do
   
   Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with constant element and constant target" do
-      @expect.call(1, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(1, type, 2, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF, nil)
       @list.count(1).must.send(relation, 2)
       @model.solve!
     end
   end
   Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with constant element and constant target" do
-      @expect.call(1, type, 2, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(1, type, 2, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF, nil)
       @list.count(1).must_not.send(relation, 2)
       @model.solve!
     end
@@ -106,14 +111,16 @@ describe Gecode::Constraints::IntEnum::Count do
 
   Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
     it "should translate #{relation} with constant element and variable target" do
-      @expect.call(1, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(1, type, @target, Gecode::Raw::ICL_DEF, 
+        Gecode::Raw::PK_DEF, nil)
       @list.count(1).must.send(relation, @target)
       @model.solve!
     end
   end
   Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
     it "should translate negated #{relation} with constant element and variable target" do
-      @expect.call(1, type, @target, Gecode::Raw::ICL_DEF, nil)
+      @expect.call(1, type, @target, Gecode::Raw::ICL_DEF, 
+        Gecode::Raw::PK_DEF, nil)
       @list.count(1).must_not.send(relation, @target)
       @model.solve!
     end
@@ -135,5 +142,5 @@ describe Gecode::Constraints::IntEnum::Count do
     @model.solve!.should be_nil
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end

@@ -117,7 +117,7 @@ module Rust
       @parent = params[:parent]
       @optional_count = 0
 
-      @varname = "f#{@parent.varname}#{@name}"
+      @varname = "f#{@parent.varname}#{@name.gsub('::', '_').gsub(/[<>]/, '')}"
 
       @aliases = Set.new
       @variable = false # Variable arguments function
@@ -139,7 +139,7 @@ module Rust
       add_expansion 'function_parameters', 'ruby_parameters'
       add_expansion 'function_call', 'stub'
       add_expansion 'function_varname', 'varname'
-      add_expansion 'function_cname', '@name'
+      add_expansion 'function_cname', 'varname'
       add_expansion 'function_paramcount', 'paramcount'
       add_expansion 'function_bindname', '@bindname'
       add_expansion 'parent_varname', '@parent.varname'

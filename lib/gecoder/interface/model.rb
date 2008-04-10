@@ -5,7 +5,7 @@ module Gecode
     # either be a range, a single element, or an enumeration of elements. If no
     # domain is specified then the largest possible domain is used.
     def int_var(domain = 
-        Gecode::Raw::Limits::Int::INT_MIN..Gecode::Raw::Limits::Int::INT_MAX)
+        Gecode::Raw::IntLimits::MIN..Gecode::Raw::IntLimits::MAX)
       enum = domain_enum(domain)
       index = variable_creation_space.new_int_vars(enum).first
       FreeIntVar.new(self, index)
@@ -74,7 +74,7 @@ module Gecode
     # default range (anything) will be used. If only a single Fixnum is 
     # specified as cardinality_range then it's used as lower bound.
     def set_var(glb_domain = [], lub_domain = 
-        Gecode::Raw::Limits::Set::INT_MIN..Gecode::Raw::Limits::Set::INT_MAX, 
+        Gecode::Raw::SetLimits::MIN..Gecode::Raw::SetLimits::MAX, 
         cardinality_range = nil)
       check_set_bounds(glb_domain, lub_domain)
       
@@ -198,7 +198,7 @@ module Gecode
     # otherwise if the argument is a fixnum it's used as lower bound.
     def to_set_cardinality_range(arg)
       if arg.kind_of? Fixnum
-        arg..Gecode::Raw::Limits::Set::CARD_MAX
+        arg..Gecode::Raw::SetLimits::MAX
       else
         arg
       end

@@ -28,24 +28,28 @@ describe Gecode::Constraints::IntEnum::Sort, ' (without :as and :order)' do
       @vars.must_be.sorted(hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       if reif_var.nil?
         Gecode::Raw.should_receive(:rel).exactly(@vars.size - 1).times.with(
           an_instance_of(Gecode::Raw::Space), 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_LQ,
-          an_instance_of(Gecode::Raw::IntVar), strength)
+          an_instance_of(Gecode::Raw::IntVar), strength, kind)
       else
+        Gecode::Raw.should_receive(:rel).once.with(
+          an_instance_of(Gecode::Raw::Space), anything, 
+          an_instance_of(Gecode::Raw::BoolVarArray), 
+          anything, anything, anything)
         Gecode::Raw.should_receive(:rel).exactly(@vars.size - 1).times.with(
           an_instance_of(Gecode::Raw::Space), 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_LQ,
           an_instance_of(Gecode::Raw::IntVar), 
-          an_instance_of(Gecode::Raw::BoolVar), strength)
+          an_instance_of(Gecode::Raw::BoolVar), strength, kind)
       end
     end
   end
   
   it 'should translate into n relation constraints' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @invoke_options.call({})
   end
 
@@ -62,7 +66,7 @@ describe Gecode::Constraints::IntEnum::Sort, ' (without :as and :order)' do
     values.should_not == values.sort
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end
 
 describe Gecode::Constraints::IntEnum::Sort, ' (with :as)' do
@@ -78,16 +82,16 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :as)' do
       @vars.must_be.sorted hash.update(:as => @sorted) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:sortedness).once.with(
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      Gecode::Raw.should_receive(:sorted).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::IntVarArray), strength)
+        an_instance_of(Gecode::Raw::IntVarArray), strength, kind)
     end
   end
   
   it 'should translate into a sortedness constraints' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @invoke_options.call({})
   end
   
@@ -107,7 +111,7 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :as)' do
       Gecode::MissingConstraintError) 
   end
   
-  it_should_behave_like 'constraint with strength option'
+  it_should_behave_like 'non-reifiable constraint'
 end
 
 describe Gecode::Constraints::IntEnum::Sort, ' (with :order)' do
@@ -124,22 +128,22 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :order)' do
       @vars.must_be.sorted hash.update(:order => @indices, :as => @sorted) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:sortedness).once.with(
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      Gecode::Raw.should_receive(:sorted).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
         an_instance_of(Gecode::Raw::IntVarArray),
-        an_instance_of(Gecode::Raw::IntVarArray), strength)
+        an_instance_of(Gecode::Raw::IntVarArray), strength, kind)
     end
   end
   
   it 'should translate into a sortedness constraints' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @invoke_options.call({})
   end
   
   it 'should translate into a sortedness constraints, even without a target' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @vars.must_be.sorted(:order => @indices) 
     @model.solve!
   end
@@ -171,5 +175,5 @@ describe Gecode::Constraints::IntEnum::Sort, ' (with :order)' do
     end.should raise_error(Gecode::MissingConstraintError) 
   end
   
-  it_should_behave_like 'constraint with strength option'
+  it_should_behave_like 'non-reifiable constraint'
 end

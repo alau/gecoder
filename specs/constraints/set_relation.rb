@@ -31,7 +31,7 @@ describe Gecode::Constraints::Set::Relation do
       @set.must_be.superset_of(@set2, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(Gecode::Raw::SRT_SUP, @set2, reif_var, false)
     end
   end
@@ -84,7 +84,7 @@ describe Gecode::Constraints::Set::Relation, ' (equality)' do
       @set.must_be.equal_to(@set2, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(Gecode::Raw::SRT_EQ, @set2, reif_var)
     end
   end
@@ -141,10 +141,6 @@ describe Gecode::Constraints::Set::Relation, ' (elements)' do
           an_instance_of(Gecode::Raw::SetVar), relation_type, 
           an_instance_of(Gecode::Raw::IntVar))
       end
-    end
-    
-    @invoke_options = lambda do |hash|
-      @set.elements.must_be.equal_to(@int_var, hash)
     end
     
     @invoke_options = lambda do |hash|

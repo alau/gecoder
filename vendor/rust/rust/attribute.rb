@@ -38,10 +38,10 @@ module Rust
       @prototype_template = "void set!attribute_bindname!(VALUE self, VALUE val);\nVALUE get!attribute_bindname!(VALUE self);\n"
       @initialization_template = Templates["AttributeInitBinding"]
       
-      
       add_expansion 'parent_varname', "@options[:parent].varname"
       add_expansion 'attribute_bindname', "@name"
-      add_expansion 'attribute_type', "@type"
+      add_expansion 'attribute_type', "@type.name"
+      add_expansion 'attribute_convert_name', "@type.valid_name"
       add_expansion 'attribute_name', "@name"
     end
     

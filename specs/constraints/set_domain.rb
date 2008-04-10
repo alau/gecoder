@@ -35,7 +35,7 @@ describe Gecode::Constraints::Set::Domain do
       @set.must_be.superset_of(@non_range, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(Gecode::Raw::SRT_SUP, @non_range, reif_var, false)
     end
   end
@@ -100,6 +100,7 @@ describe Gecode::Constraints::Set::Domain, ' (equality)' do
     @range = 0..1
     @non_range = [0, 2]
     @singleton = 0
+    @model.branch_on @model.wrap_enum([@set])
     
     @expect = lambda do |relation_type, rhs, reif_var|
       @model.allow_space_access do
@@ -123,7 +124,7 @@ describe Gecode::Constraints::Set::Domain, ' (equality)' do
       @set.must_be.equal_to(@non_range, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(Gecode::Raw::SRT_EQ, @non_range, reif_var)
     end
   end
@@ -174,7 +175,10 @@ describe Gecode::Constraints::Set::Domain, ' (equality)' do
   
   it 'should constrain the domain with inequality' do
     @set.must_not == @singleton
-    @model.solve!.should be_nil
+    @model.solve!
+    @set.should be_assigned
+    @set.value.should include(@singleton)
+    @set.value.size.should > 1
   end
   
   it_should_behave_like 'reifiable set constraint'

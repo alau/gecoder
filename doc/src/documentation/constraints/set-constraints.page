@@ -177,22 +177,16 @@ order. The constraint does not support reification nor negation.
 
 h2. Distinct
 
-There exists a distinct constraint for set variables, it's similar to the one 
-for integer variables.
-
-<ruby>
-sets.must_be.distinct(:size => 17)
-</ruby>
-
-The "option" @:size@ above is not optional, it has to be specified when using
-the distinct constraint with sets. There's a similar constraint that constrains
-the sets to at most share one element.
+The "at most one" constraint constrains multiple sets to at most share one 
+element.
 
 <ruby>
 sets.must.at_most_share_one_element(:size => 17)
 </ruby>
 
-Neither of the constraints support reification nor negation.
+The mandatory "option" @:size@ specifies the cardinality that all affected 
+sets should be constrained to. Neither of the constraints support reification 
+nor negation.
 
 h2. Selection
 

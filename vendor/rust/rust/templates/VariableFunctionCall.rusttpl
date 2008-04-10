@@ -9,6 +9,6 @@
   
   if ( !ok )
   {
-	rb_raise(rb_eArgError, "Mantatory parameters missing");
+	rb_raise(rb_eArgError, "Mandatory parameters missing");
 	return Qnil;
   }

@@ -41,7 +41,7 @@ module Rust
       
       end
       
-      @valid_name = @valid_name.gsub("::", "_").gsub(/&|\s/, "")
+      @valid_name = @valid_name.gsub("::", "_").gsub(/[&\s<>]/, "")
     end
     
     def pointer?

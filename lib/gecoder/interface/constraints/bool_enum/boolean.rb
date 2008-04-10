@@ -36,16 +36,16 @@ module Gecode
     #     :strength => :domain)
     class ConjunctionStub < Gecode::Constraints::Bool::CompositeStub
       def constrain_equal(variable, params, constrain)
-        enum, strength = @params.values_at(:lhs, :strength)
+        enum = @params[:lhs]
         
         @model.add_interaction do
           if variable.respond_to? :bind
             bound = variable.bind
           else
-            bound = variable
+            bound = variable ? 1 : 0
           end
-          Gecode::Raw::bool_and(@model.active_space, enum.to_bool_var_array, 
-            bound, strength)
+          Gecode::Raw::rel(@model.active_space, Gecode::Raw::BOT_AND,
+            enum.to_bool_var_array, bound, *propagation_options)
         end
         return variable
       end
@@ -69,15 +69,17 @@ module Gecode
     #     :strength => :domain)
     class DisjunctionStub < Gecode::Constraints::Bool::CompositeStub
       def constrain_equal(variable, params, constrain)
-        enum, strength = @params.values_at(:lhs, :strength)
+        enum = @params[:lhs]
         
-        if variable.respond_to? :bind
-          bound = variable.bind
-        else
-          bound = variable
+        @model.add_interaction do
+          if variable.respond_to? :bind
+            bound = variable.bind
+          else
+            bound = variable ? 1 : 0
+          end
+          Gecode::Raw::rel(@model.active_space, Gecode::Raw::BOT_OR,
+            enum.to_bool_var_array, bound, *propagation_options)
         end
-        Gecode::Raw::bool_or(@model.active_space, enum.to_bool_var_array, 
-          bound, strength)
       end
     end
   end

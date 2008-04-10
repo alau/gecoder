@@ -13,17 +13,17 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
       @x.must_be.greater_than(3, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       if reif_var.nil?
         Gecode::Raw.should_receive(:rel).once.with(
           an_instance_of(Gecode::Raw::Space), 
           anything, Gecode::Raw::IRT_GR, anything, 
-          strength)
+          strength, kind)
       else
         Gecode::Raw.should_receive(:rel).once.with(
           an_instance_of(Gecode::Raw::Space), 
           an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, anything, 
-          an_instance_of(Gecode::Raw::BoolVar), strength)
+          reif_var, strength, kind)
       end
     end
   end
@@ -32,7 +32,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     it "should translate #{relation} with constant to simple relation" do
       Gecode::Raw.should_receive(:rel).once.with(
         an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
+        an_instance_of(Gecode::Raw::IntVar), 
+        type, @int, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
       @x.must.send(relation, @int)
       @model.solve!
     end
@@ -42,7 +43,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     it "should translate negated #{relation} with constant to simple relation" do
       Gecode::Raw.should_receive(:rel).once.with(
         an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::IntVar), type, @int, Gecode::Raw::ICL_DEF)
+        an_instance_of(Gecode::Raw::IntVar), 
+        type, @int, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
       @x.must_not.send(relation, @int)
       @model.solve!
     end
@@ -53,7 +55,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
       Gecode::Raw.should_receive(:rel).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVar), type, 
-        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
+        an_instance_of(Gecode::Raw::IntVar), 
+        Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
       @x.must.send(relation, @y)
       @model.solve!
     end
@@ -64,7 +67,8 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
       Gecode::Raw.should_receive(:rel).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVar), type, 
-        an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::ICL_DEF)
+        an_instance_of(Gecode::Raw::IntVar), 
+        Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
       @x.must_not.send(relation, @y)
       @model.solve!
     end
@@ -74,5 +78,5 @@ describe Gecode::Constraints::Int::Linear, ' (simple ones)' do
     lambda{ @x.must == 'hello' }.should raise_error(TypeError) 
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end

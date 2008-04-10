@@ -25,18 +25,18 @@ describe Gecode::Constraints::IntEnum::Channel, ' (two int enums)' do
       @positions.must.channel @elements, hash
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       Gecode::Raw.should_receive(:channel).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::IntVarArray), strength)
+        an_instance_of(Gecode::Raw::IntVarArray), strength, kind)
     end
   end
 
   it 'should translate into a channel constraint' do
     Gecode::Raw.should_receive(:channel).once.with(
       an_instance_of(Gecode::Raw::Space), 
-      anything, anything, Gecode::Raw::ICL_DEF)
+      anything, anything, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
     @invoke_options.call({})
   end
 
@@ -59,7 +59,7 @@ describe Gecode::Constraints::IntEnum::Channel, ' (two int enums)' do
     lambda{ @elements.must.channel 'hello' }.should raise_error(TypeError) 
   end
   
-  it_should_behave_like 'constraint with strength option'
+  it_should_behave_like 'reifiable constraint'
 end
 
 describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum)' do
@@ -99,7 +99,7 @@ describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' d
       @sets.must.channel @positions, hash
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       Gecode::Raw.should_receive(:channel).once.with(
         an_instance_of(Gecode::Raw::Space), 
         an_instance_of(Gecode::Raw::IntVarArray), 
@@ -108,7 +108,7 @@ describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' d
   end
 
   it 'should translate into a channel constraint' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @sets.must.channel @positions
     @model.solve!
   end

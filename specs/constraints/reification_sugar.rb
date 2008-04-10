@@ -29,12 +29,21 @@ describe Gecode::Constraints::ReifiableConstraint do
   it 'should translate disjunctions' do
     Gecode::Raw.should_receive(:rel).once.with(
       an_instance_of(Gecode::Raw::Space), 
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::BOT_OR, 
+      an_instance_of(Gecode::Raw::BoolVar), 
+      an_instance_of(Gecode::Raw::BoolVar),
+      Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF      
+    )
+    Gecode::Raw.should_receive(:rel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, 0, 
-      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF,
+      Gecode::Raw::PK_DEF)
     Gecode::Raw.should_receive(:rel).once.with(
       an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_EQ, 3, 
-      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF,
+      Gecode::Raw::PK_DEF)
     (@x.must > 0) | (@y.must == 3)
     sol = @model.solve!
   end
@@ -54,12 +63,21 @@ describe Gecode::Constraints::ReifiableConstraint do
   it 'should translate conjunctions' do
     Gecode::Raw.should_receive(:rel).once.with(
       an_instance_of(Gecode::Raw::Space), 
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::BOT_AND, 
+      an_instance_of(Gecode::Raw::BoolVar), 
+      an_instance_of(Gecode::Raw::BoolVar),
+      Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF      
+    )
+    Gecode::Raw.should_receive(:rel).once.with(
+      an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_GR, 0, 
-      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF,
+      Gecode::Raw::PK_DEF)
     Gecode::Raw.should_receive(:rel).once.with(
       an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), Gecode::Raw::IRT_EQ, 2, 
-      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF,
+      Gecode::Raw::PK_DEF)
     (@x.must > 0) & (@y.must == 2)
     sol = @model.solve!
   end

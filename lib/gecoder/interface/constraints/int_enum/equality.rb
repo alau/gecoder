@@ -8,6 +8,10 @@ module Gecode::Constraints::IntEnum
         raise Gecode::MissingConstraintError, 'A negated equality is not ' + 
           'implemented.'
       end
+      unless options[:reify].nil?
+        raise ArgumentError, 'Reification is not supported by the equality ' + 
+          'constraint.'
+      end
     
       @model.add_constraint Equality::EqualityConstraint.new(@model, 
         @params.update(Gecode::Constraints::Util.decode_options(options)))
@@ -27,11 +31,10 @@ module Gecode::Constraints::IntEnum
     class EqualityConstraint < Gecode::Constraints::Constraint
       def post
         # Bind lhs.
-        @params[:lhs] = @params[:lhs].to_int_var_array
+        lhs = @params[:lhs].to_int_var_array
         
         # Fetch the parameters to Gecode.
-        params = @params.values_at(:lhs, :strength)
-        Gecode::Raw::eq(@model.active_space, *params)
+        Gecode::Raw::eq(@model.active_space, lhs, *propagation_options)
       end
     end
   end

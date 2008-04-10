@@ -85,12 +85,12 @@ problem.
 The different strengths are:
 <dl>
   <dt>@:value@</dt><dd>Value consistency (naive).</dd>
-	<dt>@:bounds@</dt><dd>Bounds consistency.</dd>
-	<dt>@:domain@</dt><dd>Domain consistency.</dd>
-	<dt>@:default@</dt><dd>Yses the default consistency of the constraint.</dd>
+  <dt>@:bounds@</dt><dd>Bounds consistency.</dd>
+  <dt>@:domain@</dt><dd>Domain consistency.</dd>
+  <dt>@:default@</dt><dd>Uses the default consistency of the constraint.</dd>
 </dl>
 
-They are specified with the key @:strength@. The following places a domain 
+The option is specified with the key @:strength@. The following places a domain 
 consistent distinct constraint on @numbers@.
 
 <ruby>
@@ -99,3 +99,24 @@ numbers.must_be.distinct(:strength => :domain)
 
 The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
 (@:value@ being the weakest, @:domain@ being the strongest). 
+
+h3. Propagation kind
+
+The propagation kind option _suggests_ the implementation that should be 
+preferred if there are multiple implementations of a constraint. 
+
+The different kinds are:
+<dl>
+  <dt>@:speed@</dt><dd>Prefer speed over memory consumption.</dd>
+  <dt>@:memory@</dt><dd>Prefer low memory consumption over speed.</dd>
+  <dt>@:default@</dt><dd>Uses the constraint's default propagation kind.</dd>
+</dl>
+
+The option is specified with the key @:kind@. Gecode/R currently does not 
+support any constraints that do have multiple implementations in Gecode, but
+the suggestion can still be made. The following tells the distinct constraint,
+placed on @numbers@, to favor low memory consumption over speed. 
+
+<ruby>
+numbers.must_be.distinct(:kind => :memory)
+</ruby>

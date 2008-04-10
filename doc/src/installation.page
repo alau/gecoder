@@ -49,7 +49,7 @@ h2. Detailed information
 
 h3. Dependencies
 
-Gecode/R requires Gecode 1.3.1. You can either manually install it or use the 
+Gecode/R requires Gecode 2.1.1. You can either manually install it or use the 
 gem that includes Gecode.
 * "Gecode download link":http://www.gecode.org/download.html
 * "Gecode installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
@@ -57,7 +57,7 @@ gem that includes Gecode.
 h3. RubyGems
 
 Use the following gem if you don't have Gecode installed, or are using Windows. 
-It includes both Gecode/R and Gecode 1.3.1.
+It includes both Gecode/R and Gecode 2.1.1.
 
  gem install gecoder-with-gecode 
 

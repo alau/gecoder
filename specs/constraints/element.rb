@@ -26,7 +26,7 @@ describe Gecode::Constraints::IntEnum::Element do
     @fixnum_prices = @model.fixnum_prices
     
     # Creates an expectation corresponding to the specified input.
-    @expect = lambda do |element, relation, target, strength, reif_var, negated|
+    @expect = lambda do |element, relation, target, strength, kind, reif_var, negated|
       @model.allow_space_access do
         target = an_instance_of(Gecode::Raw::IntVar) if target.respond_to? :bind
         element = an_instance_of(Gecode::Raw::IntVar) if element.respond_to? :bind
@@ -36,25 +36,26 @@ describe Gecode::Constraints::IntEnum::Element do
             Gecode::Raw.should_receive(:element).once.with( 
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVarArray), 
-              element, target, strength)
+              element, target, strength, kind)
           else
             Gecode::Raw.should_receive(:element).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVarArray), 
-              element, an_instance_of(Gecode::Raw::IntVar), strength)
+              element, an_instance_of(Gecode::Raw::IntVar), strength, kind)
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
-              an_instance_of(Gecode::Raw::IntVar), relation, target, strength)
+              an_instance_of(Gecode::Raw::IntVar), 
+              relation, target, strength, kind)
           end
         else
           Gecode::Raw.should_receive(:element).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVarArray), 
-            element, an_instance_of(Gecode::Raw::IntVar), strength)
+            element, an_instance_of(Gecode::Raw::IntVar), strength, kind)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, target, 
-            an_instance_of(Gecode::Raw::BoolVar), strength)
+            an_instance_of(Gecode::Raw::BoolVar), strength, kind)
         end
       end
     end
@@ -64,9 +65,9 @@ describe Gecode::Constraints::IntEnum::Element do
       @prices[@store].must_be.greater_than(@price, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
-      @expect.call(@store, Gecode::Raw::IRT_GR, @price, strength, reif_var, 
-        false)
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      @expect.call(@store, Gecode::Raw::IRT_GR, @price, strength, kind, 
+        reif_var, false)
     end
     
     # For composite spec.
@@ -79,7 +80,8 @@ describe Gecode::Constraints::IntEnum::Element do
       @model.solve!
     end
     @expect_relation = lambda do |relation, target, negated|
-      @expect.call(@store, relation, target, Gecode::Raw::ICL_DEF, nil, negated)
+      @expect.call(@store, relation, target, Gecode::Raw::ICL_DEF, 
+        Gecode::Raw::PK_DEF, nil, negated)
     end
   end
 
@@ -96,11 +98,11 @@ describe Gecode::Constraints::IntEnum::Element do
   it 'should translate reification when using equality' do
     bool_var = @model.bool_var
     @expect.call(@store, Gecode::Raw::IRT_EQ, @target, Gecode::Raw::ICL_DEF, 
-      bool_var, false)
+      Gecode::Raw::PK_DEF, bool_var, false)
     @prices[@store].must_be.equal_to(@target, :reify => bool_var)
     @model.solve!
   end
   
   it_should_behave_like 'composite constraint'
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end

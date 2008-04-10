@@ -31,7 +31,7 @@ describe Gecode::Constraints::Set::Operation do
       @set1.union(@set2).must_be.superset_of(@rhs, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(@set1, Gecode::Raw::SOT_SUP, @set2, Gecode::Raw::SRT_SUP, 
         @rhs, reif_var, false)
     end
@@ -199,7 +199,7 @@ describe 'set enum operation constraint', :shared => true do
       @stub.must_be.superset_of(@rhs, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(@sets, @operation_type, Gecode::Raw::SRT_SUP, @rhs, 
         reif_var, false)
     end

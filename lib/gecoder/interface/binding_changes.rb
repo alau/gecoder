@@ -274,7 +274,7 @@ module Gecode
         grow(@next_index + count) # See the design note for more information.
 
         if cardinality_range.nil?
-          cardinality_range = 0..Gecode::Raw::Limits::Set::CARD_MAX
+          cardinality_range = 0..Gecode::Raw::SetLimits::CARD
         end
         
         params = [@space]

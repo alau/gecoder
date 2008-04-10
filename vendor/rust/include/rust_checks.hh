@@ -82,7 +82,8 @@ static inline bool is_array(VALUE val)
 
 static inline bool is_int(VALUE val)
 {
-  return isType(val, T_FIXNUM);
+  return isType(val, T_FIXNUM) || 
+  	(isType(val, T_BIGNUM) && NUM2INT(val) < INT_MAX);
 }
 
 static inline bool is_hash(VALUE val)

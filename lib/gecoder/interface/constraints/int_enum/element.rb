@@ -23,7 +23,7 @@ module Gecode::Constraints::IntEnum::Element #:nodoc:
   #   int_enum[x].must_be.in(7..17, :reify => bool, :strength => :domain)
   class ExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
-      enum, position, strength = @params.values_at(:lhs, :position, :strength)
+      enum, position = @params.values_at(:lhs, :position)
       if constrain
         variable.must_be.in enum.domain_range
       end
@@ -31,7 +31,7 @@ module Gecode::Constraints::IntEnum::Element #:nodoc:
       # The enum can be a constant array.
       enum = enum.to_int_var_array if enum.respond_to? :to_int_var_array
       Gecode::Raw::element(@model.active_space, enum, 
-        position.bind, variable.bind, strength)
+        position.bind, variable.bind, *propagation_options)
     end
   end
   

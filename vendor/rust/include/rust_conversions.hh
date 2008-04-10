@@ -38,11 +38,11 @@ static inline int32_t ruby2int(VALUE rval, int argn = -1) {
 }
 
 static inline VALUE cxx2ruby(int32_t val) {
-  return INT2FIX(val);
+  return INT2NUM(val);
 }
 
 static inline VALUE cxx2ruby(uint32_t val) {
-  return INT2FIX(val);
+  return INT2NUM(val);
 }
 
 static inline VALUE cxx2ruby(double val) {

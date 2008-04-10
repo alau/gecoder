@@ -86,42 +86,41 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
   # Gecode::Raw instead of GecodeRaw here (and avoid the hidious renaming)
   # when requiring them.
   b.add_namespace "GecodeRaw", "Gecode" do |ns|
-    ns.add_enum "BvarSel" do |enum|
-      enum.add_value "BVAR_NONE"
-      enum.add_value "BVAR_MIN_MIN"
-      enum.add_value "BVAR_MIN_MAX"
-      enum.add_value "BVAR_MAX_MIN"
-      enum.add_value "BVAR_MAX_MAX"
-      enum.add_value "BVAR_SIZE_MIN"
-      enum.add_value "BVAR_SIZE_MAX"
-      enum.add_value "BVAR_DEGREE_MAX"
-      enum.add_value "BVAR_DEGREE_MIN"
-      enum.add_value "BVAR_REGRET_MIN_MIN"
-      enum.add_value "BVAR_REGRET_MIN_MAX"
-      enum.add_value "BVAR_REGRET_MAX_MIN"
-      enum.add_value "BVAR_REGRET_MAX_MAX"
+    ns.add_enum "IntVarBranch" do |enum|
+      enum.add_value "INT_VAR_NONE"
+      enum.add_value "INT_VAR_MIN_MIN"
+      enum.add_value "INT_VAR_MIN_MAX"
+      enum.add_value "INT_VAR_MAX_MIN"
+      enum.add_value "INT_VAR_MAX_MAX"
+      enum.add_value "INT_VAR_SIZE_MIN"
+      enum.add_value "INT_VAR_SIZE_MAX"
+      enum.add_value "INT_VAR_DEGREE_MAX"
+      enum.add_value "INT_VAR_DEGREE_MIN"
+      enum.add_value "INT_VAR_REGRET_MIN_MIN"
+      enum.add_value "INT_VAR_REGRET_MIN_MAX"
+      enum.add_value "INT_VAR_REGRET_MAX_MIN"
+      enum.add_value "INT_VAR_REGRET_MAX_MAX"
     end
     
-    ns.add_enum "SetBvarSel" do |enum|
-      enum.add_value "SETBVAR_NONE"
-      enum.add_value "SETBVAR_MIN_CARD"
-      enum.add_value "SETBVAR_MAX_CARD"
-      enum.add_value "SETBVAR_MIN_UNKNOWN_ELEM"
-      enum.add_value "SETBVAR_MAX_UNKNOWN_ELEM"
+    ns.add_enum "IntValBranch" do |enum|
+      enum.add_value "INT_VAL_MIN"
+      enum.add_value "INT_VAL_MED"
+      enum.add_value "INT_VAL_MAX"
+      enum.add_value "INT_VAL_SPLIT_MIN"
+      enum.add_value "INT_VAL_SPLIT_MAX"
+    end    
+    
+    ns.add_enum "SetVarBranch" do |enum|
+      enum.add_value "SET_VAR_NONE"
+      enum.add_value "SET_VAR_MIN_CARD"
+      enum.add_value "SET_VAR_MAX_CARD"
+      enum.add_value "SET_VAR_MIN_UNKNOWN_ELEM"
+      enum.add_value "SET_VAR_MAX_UNKNOWN_ELEM"
     end
     
- 		ns.add_enum "SetBvalSel" do |enum|
-      enum.add_value "SETBVAL_MIN"
-      enum.add_value "SETBVAL_MAX"
-    end
- 		
-    
-    ns.add_enum "BvalSel" do |enum|
-      enum.add_value "BVAL_MIN"
-      enum.add_value "BVAL_MED"
-      enum.add_value "BVAL_MAX"
-      enum.add_value "BVAL_SPLIT_MIN"
-      enum.add_value "BVAL_SPLIT_MAX"
+    ns.add_enum "SetValBranch" do |enum|
+      enum.add_value "SET_VAL_MIN"
+      enum.add_value "SET_VAL_MAX"
     end
     
     ns.add_enum "IntRelType" do |enum|
@@ -131,6 +130,14 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       enum.add_value "IRT_LE"
       enum.add_value "IRT_GQ"
       enum.add_value "IRT_GR"
+    end
+    
+    ns.add_enum "BoolOpType" do |enum|
+      enum.add_value "BOT_AND"
+      enum.add_value "BOT_OR"
+      enum.add_value "BOT_IMP"
+      enum.add_value "BOT_EQV"
+      enum.add_value "BOT_XOR"
     end
     
     ns.add_enum "SetRelType" do |enum|
@@ -156,16 +163,22 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       enum.add_value "ICL_DEF"
     end
     
+    ns.add_enum "PropKind" do |enum|
+      enum.add_value "PK_DEF"
+      enum.add_value "PK_SPEED"
+      enum.add_value "PK_MEMORY"
+    end
+    
     ns.add_enum "SpaceStatus" do |enum|
       enum.add_value "SS_FAILED"
       enum.add_value "SS_SOLVED"
       enum.add_value "SS_BRANCH"
     end
     
-    ns.add_enum "AvalSel" do |enum|
-      enum.add_value "AVAL_MIN"
-      enum.add_value "AVAL_MED"
-      enum.add_value "AVAL_MAX"
+    ns.add_enum "IntAssign" do |enum|
+      enum.add_value "INT_ASSIGN_MIN"
+      enum.add_value "INT_ASSIGN_MED"
+      enum.add_value "INT_ASSIGN_MAX"
     end
     
     ns.add_cxx_class "MIntVarArray" do |klass|
@@ -379,9 +392,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_method "propagators", "int"
       klass.add_method "branchings", "int"
       klass.add_method "failed", "bool"
-      klass.add_method "cached", "int"
       
-      klass.add_method "mdescription", "Gecode::MBranchingDesc *", "description"
+      # The description method is commented out because it overlaps with the 
+      # description method used by rspec, and isn't used directly in the 
+      # interface.
+      #klass.add_method "mdescription", "Gecode::MBranchingDesc *", "description"
       
       klass.add_method "commit" do |method|
         method.add_parameter "Gecode::MBranchingDesc", "desc" do |param|
@@ -391,18 +406,19 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
     end
     
-    ns.add_namespace "Limits" do |limitsns|
-      limitsns.add_namespace "Int" do |intns|
-        intns.add_constant "INT_MAX", "Gecode::Limits::Int::int_max"
-        intns.add_constant "INT_MIN", "Gecode::Limits::Int::int_min"
-        intns.add_constant "DOUBLE_MAX", "Gecode::Limits::Int::double_max"
-        intns.add_constant "DOUBLE_MIN", "Gecode::Limits::Int::double_min"
-      end
-      limitsns.add_namespace "Set" do |setns|
-        setns.add_constant "INT_MAX", "Gecode::Limits::Set::int_max"
-        setns.add_constant "INT_MIN", "Gecode::Limits::Set::int_min"
-        setns.add_constant "CARD_MAX", "Gecode::Limits::Set::card_max"
-      end
+    # The namespace structure doesn't completely mimic Gecode's namespace 
+    # structure. This is because there's apparently some limitation that 
+    # prevents two namespaces from having the same name (Limits), regardless
+    # of if they have the same parent or not. 
+    ns.add_namespace "IntLimits" do |limitsns|
+      limitsns.add_constant "MAX", "Gecode::Int::Limits::max"
+      limitsns.add_constant "MIN", "Gecode::Int::Limits::min"
+    end
+
+    ns.add_namespace "SetLimits" do |limitsns|
+      limitsns.add_constant "MAX", "Gecode::Set::Limits::max"
+      limitsns.add_constant "MIN", "Gecode::Set::Limits::min"
+      limitsns.add_constant "CARD", "Gecode::Set::Limits::card"
     end
     
     ns.add_cxx_class "IntSet" do |klass|
@@ -466,23 +482,23 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "Gecode::IntVar", "x"
       end
       
-      klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
+      klass.add_operator "+", "Gecode::MiniModel::LinExpr<Gecode::IntVar>" do |operator|
         operator.add_parameter("int", "i")
       end
       
-      klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
+      klass.add_operator "-", "Gecode::MiniModel::LinExpr<Gecode::IntVar>" do |operator|
         operator.add_parameter("int", "i")
       end
       
-      klass.add_operator "*", "Gecode::MiniModel::LinExpr" do |operator|
+      klass.add_operator "*", "Gecode::MiniModel::LinExpr<Gecode::IntVar>" do |operator|
         operator.add_parameter("int", "i")
       end
       
-      klass.add_operator "!=", "Gecode::MiniModel::LinRel", "different" do |operator|
+      klass.add_operator "!=", "Gecode::MiniModel::LinRel<Gecode::IntVar>", "different" do |operator|
         operator.add_parameter("Gecode::IntVar", "other")
       end
       
-      klass.add_operator "==", "Gecode::MiniModel::LinRel", "equal" do |operator|
+      klass.add_operator "==", "Gecode::MiniModel::LinRel<Gecode::IntVar>", "equal" do |operator|
         operator.add_parameter("Gecode::IntVar", "other")
       end
       
@@ -494,9 +510,6 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "Gecode::MSpace*", "home"
         method.add_parameter "int", "min"
         method.add_parameter "int", "max"
-      end
-      klass.add_constructor do |method|
-        method.add_parameter "Gecode::IntVar", "x"
       end
       
       klass.add_method "max", "int"
@@ -520,24 +533,24 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         method.add_parameter "Gecode::BoolVar", "x"
       end
       
-      klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
+      klass.add_operator "+", "Gecode::MiniModel::LinExpr<Gecode::BoolVar>" do |operator|
         operator.add_parameter("int", "i")
       end
       
-      klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
+      klass.add_operator "-", "Gecode::MiniModel::LinExpr<Gecode::BoolVar>" do |operator|
         operator.add_parameter("int", "i")
       end
       
-      klass.add_operator "*", "Gecode::MiniModel::LinExpr" do |operator|
+      klass.add_operator "*", "Gecode::MiniModel::LinExpr<Gecode::BoolVar>" do |operator|
         operator.add_parameter("int", "i")
       end
       
-      klass.add_operator "!=", "Gecode::MiniModel::LinRel", "different" do |operator|
-        operator.add_parameter("Gecode::IntVar", "other")
+      klass.add_operator "!=", "Gecode::MiniModel::LinRel<Gecode::BoolVar>", "different" do |operator|
+        operator.add_parameter("Gecode::BoolVar", "other")
       end
       
-      klass.add_operator "==", "Gecode::MiniModel::LinRel", "equal" do |operator|
-        operator.add_parameter("Gecode::IntVar", "other")
+      klass.add_operator "==", "Gecode::MiniModel::LinRel<Gecode::BoolVar>", "equal" do |operator|
+        operator.add_parameter("Gecode::BoolVar", "other")
       end
     end
     
@@ -626,9 +639,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.bindname = "BAB"
       klass.add_constructor do |method|
         method.add_parameter "Gecode::MSpace *", "s"
-        method.add_parameter "int", "c_d"
-        method.add_parameter "int", "a_d"
-        method.add_parameter "Gecode::Search::MStop *", "st"
+        method.add_parameter "Gecode::Search::Options", "o"
       end
       
       klass.add_method "next", "Gecode::MSpace *"
@@ -652,6 +663,13 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         klass.add_attribute "commit", "int"
       end
       
+      searchns.add_cxx_class "Options" do |klass|
+        klass.add_constructor
+        klass.add_attribute "c_d", "int"
+        klass.add_attribute "a_d", "int"
+        klass.add_attribute "stop", "Gecode::Search::MStop*"
+      end
+      
       searchns.add_namespace "Config" do |intns|
         intns.add_constant "ADAPTIVE_DISTANCE", "Gecode::Search::Config::a_d"
         intns.add_constant "MINIMAL_DISTANCE", "Gecode::Search::Config::c_d"
@@ -661,68 +679,74 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     # MINIMODEL NAMESPACE
     
     ns.add_namespace "MiniModel" do |minimodelns|
-      minimodelns.add_cxx_class "LinExpr" do |klass|
-        klass.add_constructor
+      ['Gecode::IntVar', 'Gecode::BoolVar'].each do |template_type|
+        minimodelns.add_cxx_class "LinExpr<#{template_type}>" do |klass|
+          klass.add_constructor
         
-        klass.add_method "post" do |method|
-          method.add_parameter "Gecode::MSpace *", "home"
-          method.add_parameter "Gecode::IntRelType", "irt"
-          method.add_parameter "Gecode::IntConLevel", "icl"
-        end
-        
-        klass.add_method "post" do |method|
-          method.add_parameter "Gecode::MSpace *", "home"
-          method.add_parameter "Gecode::IntRelType", "irt"
-          method.add_parameter "Gecode::BoolVar", "b"
-        end
-        
-        klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("Gecode::MiniModel::LinExpr", "exp")
-        end
-        
-        klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("Gecode::IntVar", "exp")
-        end
-        
-        klass.add_operator "+", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("int", "c")
-        end
-        
-        klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("Gecode::MiniModel::LinExpr", "exp")
-        end
-        
-        klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("Gecode::IntVar", "exp")
-        end
-        
-        klass.add_operator "-", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("int", "c")
-        end
-        
-        klass.add_operator "*", "Gecode::MiniModel::LinExpr" do |operator|
-          operator.add_parameter("int", "c")
-        end
-        
-        klass.add_operator "==", "Gecode::MiniModel::LinRel", "equal" do |operator|
-          operator.add_parameter "Gecode::MiniModel::LinExpr", "other"
-        end
-        
-        klass.add_operator "!=", "Gecode::MiniModel::LinRel", "different" do |operator|
-          operator.add_parameter "Gecode::MiniModel::LinExpr", "other"
+          klass.add_method "post" do |method|
+            method.add_parameter "Gecode::MSpace *", "home"
+            method.add_parameter "Gecode::IntRelType", "irt"
+            method.add_parameter "Gecode::IntConLevel", "icl"
+            method.add_parameter "Gecode::PropKind", "pk"
+          end
+          
+          klass.add_method "post" do |method|
+            method.add_parameter "Gecode::MSpace *", "home"
+            method.add_parameter "Gecode::IntRelType", "irt"
+            method.add_parameter "Gecode::BoolVar", "b"
+            method.add_parameter "Gecode::IntConLevel", "icl"
+            method.add_parameter "Gecode::PropKind", "pk"
+          end
+          
+          klass.add_operator "+", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter("Gecode::MiniModel::LinExpr<#{template_type}>", "exp")
+          end
+          
+          klass.add_operator "+", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter(template_type, "exp")
+          end
+          
+          klass.add_operator "+", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter("int", "c")
+          end
+          
+          klass.add_operator "-", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter("Gecode::MiniModel::LinExpr<#{template_type}>", "exp")
+          end
+          
+          klass.add_operator "-", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter(template_type, "exp")
+          end
+          
+          klass.add_operator "-", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter("int", "c")
+          end
+          
+          klass.add_operator "*", "Gecode::MiniModel::LinExpr<#{template_type}>" do |operator|
+            operator.add_parameter("int", "c")
+          end
+          
+          klass.add_operator "==", "Gecode::MiniModel::LinRel<#{template_type}>", "equal" do |operator|
+            operator.add_parameter "Gecode::MiniModel::LinExpr<#{template_type}>", "other"
+          end
+          
+          klass.add_operator "!=", "Gecode::MiniModel::LinRel<#{template_type}>", "different" do |operator|
+            operator.add_parameter "Gecode::MiniModel::LinExpr<#{template_type}>", "other"
+          end
         end
       end
       
       minimodelns.add_cxx_class "BoolExpr" do |klass| # TODO
         klass.add_enum "NodeType" do |enum|
-          enum.add_value "BT_VAR"
-          enum.add_value "BT_NOT"
-          enum.add_value "BT_AND"
-          enum.add_value "BT_OR"
-          enum.add_value "BT_IMP"
-          enum.add_value "BT_XOR"
-          enum.add_value "BT_EQV"
-          enum.add_value "BT_RLIN"
+          enum.add_value "NT_VAR"
+          enum.add_value "NT_NOT"
+          enum.add_value "NT_AND"
+          enum.add_value "NT_OR"
+          enum.add_value "NT_IMP"
+          enum.add_value "NT_XOR"
+          enum.add_value "NT_EQV"
+          enum.add_value "NT_RLIN_INT"
+          enum.add_value "NT_RLIN_BOOL"
         end
         klass.add_constructor do |method|
           method.add_parameter "Gecode::MiniModel::BoolExpr", "e"
@@ -744,16 +768,24 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         end
         
         klass.add_constructor do |method|
-          method.add_parameter "Gecode::MiniModel::LinRel", "e"
+          method.add_parameter "Gecode::MiniModel::LinRel<Gecode::IntVar>", "e"
         end
+        
+        klass.add_constructor do |method|
+          method.add_parameter "Gecode::MiniModel::LinRel<Gecode::BoolVar>", "e"
+        end        
         
         klass.add_method "post" do |method|
           method.add_parameter "Gecode::MSpace *", "home"
+          method.add_parameter "Gecode::IntConLevel", "icl"
+          method.add_parameter "Gecode::PropKind", "pk"
         end
         
         klass.add_method "post" do |method|
           method.add_parameter "Gecode::MSpace *", "home"
           method.add_parameter "bool", "t"
+          method.add_parameter "Gecode::IntConLevel", "icl"
+          method.add_parameter "Gecode::PropKind", "pk"
         end
       end
       
@@ -764,40 +796,42 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         end
       end
       
-      minimodelns.add_cxx_class "LinRel" do |klass|
-        klass.add_constructor
+      ['Gecode::IntVar', 'Gecode::BoolVar'].each do |template_type|
+        minimodelns.add_cxx_class "LinRel<#{template_type}>" do |klass|
+          klass.add_constructor
         
-        klass.add_constructor do |method|
-          method.add_parameter "Gecode::MiniModel::LinExpr", "l"
-          method.add_parameter "Gecode::IntRelType", "irt"
-          method.add_parameter "Gecode::MiniModel::LinExpr", "r"
-        end
+          klass.add_constructor do |method|
+            method.add_parameter "Gecode::MiniModel::LinExpr<#{template_type}>", "l"
+            method.add_parameter "Gecode::IntRelType", "irt"
+            method.add_parameter "Gecode::MiniModel::LinExpr<#{template_type}>", "r"
+          end
         
-        klass.add_constructor do |method|
-          method.add_parameter "Gecode::MiniModel::LinExpr", "l"
-          method.add_parameter "Gecode::IntRelType", "irt"
-          method.add_parameter "int", "r"
+          klass.add_constructor do |method|
+            method.add_parameter "Gecode::MiniModel::LinExpr<#{template_type}>", "l"
+            method.add_parameter "Gecode::IntRelType", "irt"
+            method.add_parameter "int", "r"
+          end
+          
+          klass.add_constructor do |method|
+            method.add_parameter "int", "l"
+            method.add_parameter "Gecode::IntRelType", "irt"
+            method.add_parameter "Gecode::MiniModel::LinExpr<#{template_type}>", "r"
+          end
+          
+          klass.add_method "post", "void" do |method|
+            method.add_parameter "Gecode::MSpace*", "home"
+            method.add_parameter "bool", "t"
+            method.add_parameter "Gecode::IntConLevel", "icl"
+            method.add_parameter "Gecode::PropKind", "pk"
+          end
+          
+          klass.add_method "post", "void" do |method|
+            method.add_parameter "Gecode::MSpace*", "home"
+            method.add_parameter "Gecode::BoolVar", "b"
+            method.add_parameter "Gecode::IntConLevel", "icl"
+            method.add_parameter "Gecode::PropKind", "pk"
+          end
         end
-        
-        klass.add_constructor do |method|
-          method.add_parameter "int", "l"
-          method.add_parameter "Gecode::IntRelType", "irt"
-          method.add_parameter "Gecode::MiniModel::LinExpr", "r"
-        end
-        
-        klass.add_method "post", "void" do |method|
-          method.add_parameter "Gecode::MSpace*", "home"
-          method.add_parameter "bool", "t"
-          method.add_parameter "Gecode::IntConLevel", "icl"
-        end
-        klass.add_method "post", "void" do |method|
-          method.add_parameter "Gecode::MSpace*", "home"
-          method.add_parameter "Gecode::BoolVar", "b"
-        end
-        
-# 				klass.add_operator "==", "Gecode::MiniModel::LinRel", "equal" do |operator|
-# 					operator.add_parameter "int", "i"
-# 				end
       end
     end
     
@@ -809,7 +843,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MSpace *", "home"
       func.add_parameter "Gecode::IntVar", "x0"
       func.add_parameter "Gecode::IntVar", "x1"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "max" do |func|
@@ -817,7 +852,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "x0"
       func.add_parameter "Gecode::IntVar", "x1"
       func.add_parameter "Gecode::IntVar", "x2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "max" do |func|
@@ -826,7 +862,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 1)->ptr()"
       end
       func.add_parameter "Gecode::IntVar", "y"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "min" do |func|
@@ -834,7 +871,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "x0"
       func.add_parameter "Gecode::IntVar", "x1"
       func.add_parameter "Gecode::IntVar", "x2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "min" do |func|
@@ -843,7 +881,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 1)->ptr()"
       end
       func.add_parameter "Gecode::IntVar", "y"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "mult" do |func|
@@ -851,150 +890,17 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "x0"
       func.add_parameter "Gecode::IntVar", "x1"
       func.add_parameter "Gecode::IntVar", "x2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
-    
-    # Bool post functions
-    
-    ns.add_function "bool_not" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_eq" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_and" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::BoolVar", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_and" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "bool", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_and" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::MBoolVarArray", "b0" do |param|
-        param.custom_conversion = "*reinterpret_cast<Gecode::BoolVarArgs *>(ruby2Gecode_MBoolVarArrayPtr(argv[1], 1)->ptr())"
-      end
-      func.add_parameter "Gecode::BoolVar", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_and" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::MBoolVarArray", "b0" do |param|
-        param.custom_conversion = "*reinterpret_cast<Gecode::BoolVarArgs *>(ruby2Gecode_MBoolVarArrayPtr(argv[1], 1)->ptr())"
-      end
-      func.add_parameter "bool", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_or" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::BoolVar", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_or" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "bool", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_or" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::MBoolVarArray", "b" do |param|
-        param.custom_conversion = "*reinterpret_cast<Gecode::BoolVarArgs *>(ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr())"
-      end
-      func.add_parameter "Gecode::BoolVar", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_or" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::MBoolVarArray", "b" do |param|
-        param.custom_conversion = "*reinterpret_cast<Gecode::BoolVarArgs *>(ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr())"
-      end
-      func.add_parameter "bool", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_imp" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::BoolVar", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_imp" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "bool", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_eqv" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::BoolVar", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_eqv" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "bool", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_xor" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "Gecode::BoolVar", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "bool_xor" do |func|
-      func.add_parameter "Gecode::MSpace *", "home"
-      func.add_parameter "Gecode::BoolVar", "b0"
-      func.add_parameter "Gecode::BoolVar", "b1"
-      func.add_parameter "bool", "b2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    # 
     
     ns.add_function "branch" do |func|
       func.add_parameter "Gecode::MSpace *", "home"
       func.add_parameter "Gecode::MIntVarArray *", "iva" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
       end
-      func.add_parameter "Gecode::BvarSel", "vars"
-      func.add_parameter "Gecode::BvalSel", "vals"
+      func.add_parameter "Gecode::IntVarBranch", "vars"
+      func.add_parameter "Gecode::IntValBranch", "vals"
     end
     
     ns.add_function "branch" do |func|
@@ -1002,8 +908,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MBoolVarArray *", "iva" do |param|
         param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr()"
       end
-      func.add_parameter "Gecode::BvarSel", "vars"
-      func.add_parameter "Gecode::BvalSel", "vals"
+      func.add_parameter "Gecode::IntVarBranch", "vars"
+      func.add_parameter "Gecode::IntValBranch", "vals"
     end
     
     ns.add_function "branch" do |func|
@@ -1011,8 +917,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MSetVarArray *", "sva" do |param|
         param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(argv[1], 2)->ptr()"
       end
-      func.add_parameter "Gecode::SetBvarSel", "vars"
-      func.add_parameter "Gecode::SetBvalSel", "vals"
+      func.add_parameter "Gecode::SetVarBranch", "vars"
+      func.add_parameter "Gecode::SetValBranch", "vals"
     end
     
     ns.add_function "assign" do |func|
@@ -1020,7 +926,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MIntVarArray *", "iva" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(iva, 1)->ptr()"
       end
-      func.add_parameter "Gecode::AvalSel", "vals"
+      func.add_parameter "Gecode::IntAssign", "vals"
     end
     
     ns.add_function "channel" do |func|
@@ -1031,7 +937,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MIntVarArray *", "y" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
       end
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "count" do |func|
@@ -1043,7 +950,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "int", "y"
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "count" do |func|
@@ -1055,7 +963,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "y"
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "count" do |func|
@@ -1067,7 +976,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "int", "y"
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "count" do |func|
@@ -1079,140 +989,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "y"
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "duration" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "height" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[5], 6)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "duration"
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "height" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[5], 6)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine"
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "duration"
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "height" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[5], 6)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "duration" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "height"
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine"
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "duration" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "height"
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl"
-    end
-    
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "duration"
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "height"
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl"
-    end
-    
-    ns.add_function "cumulatives", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntArgs&", "machine"
-      method.add_parameter "Gecode::MIntVarArray", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "duration"
-      method.add_parameter "Gecode::MIntVarArray", "end" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[4], 5)->ptr()"
-      end
-      method.add_parameter "Gecode::IntArgs&", "height"
-      method.add_parameter "Gecode::IntArgs&", "limit"
-      method.add_parameter "bool", "at_most"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "distinct" do |func|
@@ -1220,7 +998,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MIntVarArray *", "iva" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
       end
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "distinct" do |func|
@@ -1229,16 +1008,18 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MIntVarArray *", "iva" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
       end
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     
     ns.add_function "dom" do |func|
-      func.add_parameter  "Gecode::MSpace*", "home"
-      func.add_parameter  "Gecode::IntVar", "x"
-      func.add_parameter  "int", "l"
-      func.add_parameter  "int", "m"
-      func.add_parameter  "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::IntVar", "x"
+      func.add_parameter "int", "l"
+      func.add_parameter "int", "m"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "dom" do |func|
@@ -1249,39 +1030,44 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "int", "l"
       func.add_parameter "int", "m"
       func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "dom" do |func|
-      func.add_parameter  "Gecode::MSpace*", "home"
-      func.add_parameter  "Gecode::IntVar", "x"
-      func.add_parameter  "Gecode::IntSet", "s"
-      func.add_parameter  "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::IntVar", "x"
+      func.add_parameter "Gecode::IntSet", "s"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "dom" do |func|
-      func.add_parameter  "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MIntVarArray *", "iva" do |param|
         param.custom_conversion = "*reinterpret_cast<Gecode::IntVarArgs *>(ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr())"
       end
-      func.add_parameter  "Gecode::IntSet", "s"
-      func.add_parameter  "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::IntSet", "s"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "dom" do |func|
-      func.add_parameter  "Gecode::MSpace*", "home"
-      func.add_parameter  "Gecode::IntVar", "x"
-      func.add_parameter  "int", "l"
-      func.add_parameter  "int", "m"
-      func.add_parameter  "Gecode::BoolVar", "b"
-      func.add_parameter  "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::IntVar", "x"
+      func.add_parameter "int", "l"
+      func.add_parameter "int", "m"
+      func.add_parameter "Gecode::BoolVar", "b"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "dom" do |func|
-      func.add_parameter  "Gecode::MSpace*", "home"
-      func.add_parameter  "Gecode::IntVar", "x"
-      func.add_parameter  "Gecode::IntSet", "s"
-      func.add_parameter  "Gecode::BoolVar", "b"
-      func.add_parameter  "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::IntVar", "x"
+      func.add_parameter "Gecode::IntSet", "s"
+      func.add_parameter "Gecode::BoolVar", "b"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "element", "void" do |func|
@@ -1289,7 +1075,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntArgs&", "x"
       func.add_parameter "Gecode::IntVar", "y0"
       func.add_parameter "Gecode::IntVar", "y1"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "element", "void" do |func|
@@ -1299,83 +1086,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "y0"
       func.add_parameter "Gecode::IntVar", "y1"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "gcc", "void" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "c"
-      func.add_parameter "int", "m"
-      func.add_parameter "int", "unspec_low"
-      func.add_parameter "int", "unspec_up"
-      func.add_parameter "int", "min"
-      func.add_parameter "int", "max"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "gcc", "void" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "c"
-      func.add_parameter "int", "m"
-      func.add_parameter "int", "unspec"
-      func.add_parameter "int", "min"
-      func.add_parameter "int", "max"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "gcc", "void" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*reinterpret_cast<Gecode::IntVarArgs *>(ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr())"
-      end
-      func.add_parameter "int", "lb"
-      func.add_parameter "int", "ub"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "gcc", "void" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "int", "ub"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "gcc", "void" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::MIntVarArray *", "c" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
-      end
-      func.add_parameter "int", "min"
-      func.add_parameter "int", "max"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "gcc", "void" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "v"
-      func.add_parameter "Gecode::MIntVarArray *", "c" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
-      end
-      func.add_parameter "int", "m"
-      func.add_parameter "int", "unspec"
-      func.add_parameter "bool", "all"
-      func.add_parameter "int", "min"
-      func.add_parameter "int", "max"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1385,7 +1096,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     ns.add_function "linear", "void" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
@@ -1395,7 +1107,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "c"
       func.add_parameter "Gecode::BoolVar", "b"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1406,7 +1119,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1418,7 +1132,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "c"
       func.add_parameter "Gecode::BoolVar", "b"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1428,7 +1143,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1439,7 +1155,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "c"
       func.add_parameter "Gecode::BoolVar", "b"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     
@@ -1451,7 +1168,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "y"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1463,7 +1181,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "y"
       func.add_parameter "Gecode::BoolVar", "b"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1473,7 +1192,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "y"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "linear", "void" do |func|
@@ -1483,7 +1203,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "y"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
 # 		ns.add_function "regular", "void" do |func|
@@ -1497,9 +1218,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_function "bab", "Gecode::MSpace*" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "int", "c_d"
-      func.add_parameter "int", "a_d"
-      func.add_parameter "Gecode::Search::MStop *", "st"
+      func.add_parameter "Gecode::Search::Options", "o"
     end
     
     ns.add_function "rel" do |func|
@@ -1507,7 +1226,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "x0"
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "c"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "rel" do |func|
@@ -1515,7 +1235,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntVar", "x0"
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "x1"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "rel" do |func|
@@ -1524,7 +1245,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "Gecode::IntVar", "x1"
       func.add_parameter "Gecode::BoolVar", "b"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "rel" do |func|
@@ -1533,7 +1255,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::IntRelType", "r"
       func.add_parameter "int", "c"
       func.add_parameter "Gecode::BoolVar", "b"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "rel" do |func|
@@ -1545,207 +1268,164 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MIntVarArray *", "y" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
       end
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
-    ns.add_function "eq", "void" do |func|
+    ns.add_function "rel" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::IntVar", "x1"
-      func.add_parameter "Gecode::IntVar", "x2"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::BoolVar", "x0"
+      func.add_parameter "Gecode::IntRelType", "r"
+      func.add_parameter "int", "c"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
-    ns.add_function "eq", "void" do |func|
+    ns.add_function "rel" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::IntVar", "x"
+      func.add_parameter "Gecode::BoolVar", "x0"
+      func.add_parameter "Gecode::IntRelType", "r"
+      func.add_parameter "Gecode::BoolVar", "x1"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
+    
+    ns.add_function "rel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::BoolVar", "x0"
+      func.add_parameter "Gecode::BoolOpType", "o"
+      func.add_parameter "Gecode::BoolVar", "x1"
+      func.add_parameter "Gecode::BoolVar", "x2"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
+    
+    ns.add_function "rel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::BoolVar", "x0"
+      func.add_parameter "Gecode::BoolOpType", "o"
+      func.add_parameter "Gecode::BoolVar", "x1"
       func.add_parameter "int", "n"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
-    ns.add_function "eq", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntVar", "x0"
-      method.add_parameter "Gecode::IntVar", "x1"
-      method.add_parameter "Gecode::BoolVar", "b"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
+    ns.add_function "rel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::BoolOpType", "o"
+      func.add_parameter "Gecode::MBoolVarArray *", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[2], 2)->ptr()"
+      end
+      func.add_parameter "int", "n"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
-    ns.add_function "eq", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::IntVar", "x"
-      method.add_parameter "int", "n"
-      method.add_parameter "Gecode::BoolVar", "b"
-      method.add_parameter "Gecode::IntConLevel", "icl", true
+    ns.add_function "rel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::BoolOpType", "o"
+      func.add_parameter "Gecode::MBoolVarArray *", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[2], 2)->ptr()"
+      end
+      func.add_parameter "Gecode::BoolVar", "y"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
-    
-    ns.add_function "eq", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::MIntVarArray *", "x" do |param|
+
+    ns.add_function "rel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MBoolVarArray *", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr()"
+      end
+      func.add_parameter "Gecode::IntRelType", "r"
+      func.add_parameter "Gecode::MBoolVarArray *", "y" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[3], 4)->ptr()"
+      end
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end    
+
+    ns.add_function "sorted", "void" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
       end
-      method.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "sortedness", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      method.add_parameter "Gecode::MIntVarArray *", "y" do |param|
+      func.add_parameter "Gecode::MIntVarArray *", "y" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
       end
-      method.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
-    ns.add_function "sortedness", "void" do |method|
-      method.add_parameter "Gecode::MSpace*", "home"
-      method.add_parameter "Gecode::MIntVarArray *", "x" do |param|
+    
+    ns.add_function "sorted", "void" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
       end
-      method.add_parameter "Gecode::MIntVarArray *", "y" do |param|
+      func.add_parameter "Gecode::MIntVarArray *", "y" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)->ptr()"
       end
-      method.add_parameter "Gecode::MIntVarArray *", "z" do |param|
+      func.add_parameter "Gecode::MIntVarArray *", "z" do |param|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
       end
-      method.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post", "Gecode::BoolVar" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MiniModel::BoolExpr", "e"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post", "Gecode::BoolVar" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::BoolVar", "e"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MiniModel::BoolRel", "r"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post", "Gecode::IntVar" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::IntVar", "e"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post", "Gecode::IntVar" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "int", "n"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post", "Gecode::IntVar" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MiniModel::LinExpr", "e"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::MiniModel::LinExpr<Gecode::IntVar>", "e"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MiniModel::LinRel", "e"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::MiniModel::LinRel<Gecode::IntVar>", "e"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "post" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "bool", "r"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "producer_consumer" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "produce_date" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "produce_amount"
-      func.add_parameter "Gecode::MIntVarArray *", "consume_date" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "consume_amount"
-      func.add_parameter "int", "initial"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "cumulative" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::MIntVarArray *", "duration" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::MIntVarArray *", "height" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "int", "limit"
-      func.add_parameter "bool", "at_most", true
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "cumulative" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "duration"
-      func.add_parameter "Gecode::MIntVarArray *", "height" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "int", "limit"
-      func.add_parameter "bool", "at_most", true
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "cumulative" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::MIntVarArray *", "duration" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "height"
-      func.add_parameter "int", "limit"
-      func.add_parameter "bool", "at_most", true
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "cumulative" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "duration"
-      func.add_parameter "Gecode::IntArgs", "height"
-      func.add_parameter "int", "limit"
-      func.add_parameter "bool", "at_most", true
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "serialized" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::MIntVarArray *", "duration" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntConLevel", "icl", true
-    end
-    
-    ns.add_function "serialized" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MIntVarArray *", "start" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-      end
-      func.add_parameter "Gecode::IntArgs", "duration"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atmost" do |func|
@@ -1755,7 +1435,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "int", "n"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atmost" do |func|
@@ -1765,7 +1446,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "n"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atmost" do |func|
@@ -1775,7 +1457,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "int", "n"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atmost" do |func|
@@ -1785,7 +1468,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "n"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atleast" do |func|
@@ -1795,7 +1479,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "int", "n"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atleast" do |func|
@@ -1805,7 +1490,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "n"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atleast" do |func|
@@ -1815,7 +1501,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "int", "n"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "atleast" do |func|
@@ -1825,7 +1512,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "n"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "exactly" do |func|
@@ -1835,7 +1523,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "int", "n"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "exactly" do |func|
@@ -1845,7 +1534,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "n"
       func.add_parameter "int", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "exactly" do |func|
@@ -1855,7 +1545,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "int", "n"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "exactly" do |func|
@@ -1865,7 +1556,8 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       func.add_parameter "Gecode::IntVar", "n"
       func.add_parameter "Gecode::IntVar", "m"
-      func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
     end
     
     ns.add_function "lex" do |func|
@@ -1878,6 +1570,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)->ptr()"
       end
       func.add_parameter "Gecode::IntConLevel", "icl", true
+      func.add_parameter "Gecode::PropKind", "pk", true
     end
     
     ns.add_function "cardinality" do |func|
@@ -1908,14 +1601,6 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MSetVarArray", "x" do |param|
         param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(x, 2)->ptr()"
-      end
-      func.add_parameter "int", "c"
-    end
-    
-    ns.add_function "distinct" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::MSetVarArray", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(argv[1], 2)->ptr()"
       end
       func.add_parameter "int", "c"
     end
@@ -2045,15 +1730,6 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::SetVar", "y"
       func.add_parameter "Gecode::SetRelType", "r"
       func.add_parameter "Gecode::IntSet", "z"
-    end
-    
-    ns.add_function "rel" do |func|
-      func.add_parameter "Gecode::MSpace*", "home"
-      func.add_parameter "Gecode::IntSet", "x"
-      func.add_parameter "Gecode::SetOpType", "op"
-      func.add_parameter "Gecode::IntSet", "y"
-      func.add_parameter "Gecode::SetRelType", "r"
-      func.add_parameter "Gecode::SetVar", "z"
     end
     
     ns.add_function "rel" do |func|

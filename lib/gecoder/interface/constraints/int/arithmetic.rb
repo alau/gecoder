@@ -33,13 +33,14 @@ module Gecode::Constraints::Int::Arithmetic #:nodoc:
   #   x.abs.must_be.in(5..7, :reify => bool, :strength => :value)
   class AbsExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
-      lhs, strength = @params.values_at(:lhs, :strength)
+      lhs = @params[:lhs]
       if constrain
         bounds = [lhs.min.abs, lhs.max.abs]
         variable.must_be.in bounds.min..bounds.max
       end
       
-      Gecode::Raw::abs(@model.active_space, lhs.bind, variable.bind, strength)
+      Gecode::Raw::abs(@model.active_space, lhs.bind, variable.bind, 
+        *propagation_options)
     end
   end
   
@@ -56,7 +57,7 @@ module Gecode::Constraints::Int::Arithmetic #:nodoc:
   #   (x*y).must_be.less_than(17, :reify => bool, :strength => :domain)
   class MultExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
-      lhs, lhs2, strength = @params.values_at(:lhs, :var, :strength)
+      lhs, lhs2 = @params.values_at(:lhs, :var)
       if constrain
         a_min = lhs.min; a_max = lhs.max
         b_min = lhs2.min; b_max = lhs2.max
@@ -65,7 +66,7 @@ module Gecode::Constraints::Int::Arithmetic #:nodoc:
       end
 
       Gecode::Raw::mult(@model.active_space, lhs.bind, lhs2.bind, 
-        variable.bind, strength)
+        variable.bind, *propagation_options)
     end
   end
 end

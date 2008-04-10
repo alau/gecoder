@@ -79,17 +79,27 @@ describe Gecode::Constraints::BoolEnum, ' (conjunction)' do
       @bools.conjunction.must_be.equal_to(true, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @model.allow_space_access do
-        Gecode::Raw.should_receive(:bool_and).once.with(
-          an_instance_of(Gecode::Raw::Space), 
-          an_instance_of(Gecode::Raw::BoolVarArray), 
-          an_instance_of(Gecode::Raw::BoolVar), strength)
-        unless reif_var.nil?
-          Gecode::Raw.should_receive(:bool_eqv).once.with(
-            an_instance_of(Gecode::Raw::Space), 
+        if reif_var.nil?
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space),
+            Gecode::Raw::BOT_AND, 
+            an_instance_of(Gecode::Raw::BoolVarArray),
             an_instance_of(Gecode::Raw::BoolVar), 
-            an_instance_of(Gecode::Raw::BoolVar), true, strength)
+            strength, kind)
+        else
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::BoolVar),
+            anything,
+            an_instance_of(Gecode::Raw::BoolVar),
+            anything, anything, anything)
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            Gecode::Raw::BOT_AND, 
+            an_instance_of(Gecode::Raw::BoolVarArray),
+            reif_var, strength, kind)
         end
       end
     end
@@ -100,7 +110,7 @@ describe Gecode::Constraints::BoolEnum, ' (conjunction)' do
   end
   
   it_should_behave_like 'bool enum constraint'
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end
 
 describe Gecode::Constraints::BoolEnum, ' (disjunction)' do
@@ -115,17 +125,27 @@ describe Gecode::Constraints::BoolEnum, ' (disjunction)' do
       @bools.disjunction.must_be.equal_to(true, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @model.allow_space_access do
-        Gecode::Raw.should_receive(:bool_or).once.with(
-          an_instance_of(Gecode::Raw::Space), 
-          an_instance_of(Gecode::Raw::BoolVarArray), 
-          an_instance_of(Gecode::Raw::BoolVar), strength)
-        unless reif_var.nil?
-          Gecode::Raw.should_receive(:bool_eqv).once.with(
+        if reif_var.nil?
+          Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
+            Gecode::Raw::BOT_OR, 
+            an_instance_of(Gecode::Raw::BoolVarArray),
             an_instance_of(Gecode::Raw::BoolVar), 
-            an_instance_of(Gecode::Raw::BoolVar), true, strength)
+            strength, kind)
+        else
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::BoolVar),
+            anything,
+            an_instance_of(Gecode::Raw::BoolVar),
+            anything, anything, anything)          
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            Gecode::Raw::BOT_OR, 
+            an_instance_of(Gecode::Raw::BoolVarArray),
+            reif_var, strength, kind)
         end
       end
     end
@@ -136,5 +156,5 @@ describe Gecode::Constraints::BoolEnum, ' (disjunction)' do
   end
   
   it_should_behave_like 'bool enum constraint'
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end

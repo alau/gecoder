@@ -13,8 +13,8 @@ describe Gecode::Model, ' (integer creation)' do
   it 'should allow the creation of int variables without specified domain' do
     var = @model.int_var
     var.should be_range
-    var.min.should == Gecode::Raw::Limits::Int::INT_MIN
-    var.max.should == Gecode::Raw::Limits::Int::INT_MAX
+    var.min.should == Gecode::Raw::IntLimits::MIN
+    var.max.should == Gecode::Raw::IntLimits::MAX
   end
 
   it 'should allow the creation of int variables with non-range domains' do
@@ -98,8 +98,8 @@ describe Gecode::Model, ' (set creation)' do
   it 'should allow the creation of set variables without specified bounds' do
     var = @model.set_var
     var.lower_bound.size.should == 0
-    var.upper_bound.min.should == Gecode::Raw::Limits::Set::INT_MIN
-    var.upper_bound.max.should == Gecode::Raw::Limits::Set::INT_MAX
+    var.upper_bound.min.should == Gecode::Raw::SetLimits::MIN
+    var.upper_bound.max.should == Gecode::Raw::SetLimits::MAX
   end
 
   it 'should allow the creation of set variables with glb range and lub range' do

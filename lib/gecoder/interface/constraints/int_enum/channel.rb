@@ -83,13 +83,13 @@ module Gecode::Constraints::IntEnum
     #   set_enum.must.channel int_enum
     class ChannelConstraint < Gecode::Constraints::Constraint
       def post
-        lhs, rhs, strength = @params.values_at(:lhs, :rhs, :strength)
+        lhs, rhs = @params.values_at(:lhs, :rhs)
       
         lhs = lhs.to_int_var_array
         if rhs.respond_to? :to_int_var_array
           # Int var array.
           Gecode::Raw::channel(@model.active_space, lhs, rhs.to_int_var_array,
-            strength)
+            *propagation_options)
         else
           # Set var array, no strength.
           Gecode::Raw::channel(@model.active_space, lhs, rhs.to_set_var_array)

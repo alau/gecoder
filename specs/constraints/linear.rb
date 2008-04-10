@@ -54,7 +54,7 @@ describe Gecode::Constraints::Int::Linear do
       (@x + @y).must_be.greater_than(@z, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       # TODO: this is hard to spec from this level.
     end
   end
@@ -187,7 +187,7 @@ describe Gecode::Constraints::Int::Linear do
     (@x * :foo).should be_nil
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end
 
 describe Gecode::Constraints::Int::Linear, '(with booleans)' do
@@ -202,7 +202,7 @@ describe Gecode::Constraints::Int::Linear, '(with booleans)' do
       (@x + @y).must_be.greater_than(@z, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       # TODO: this is hard to spec from this level.
     end
   end
@@ -326,7 +326,7 @@ describe Gecode::Constraints::Int::Linear, '(with booleans)' do
     (@x * :foo).should be_nil
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end
 
 

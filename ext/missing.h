@@ -87,7 +87,7 @@ class MDFS : public Gecode::Search::DFS
 class MBAB : public Gecode::BAB<MSpace>
 {
 	public:
-		MBAB(MSpace* space, unsigned int c_d, unsigned int a_d, Search::Stop* st = 0);
+		MBAB(MSpace* space, const Search::Options &o);
 		~MBAB();
 };
 

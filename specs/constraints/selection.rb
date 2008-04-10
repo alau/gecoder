@@ -79,7 +79,7 @@ describe 'selection constraint', :shared => true do
       @stub.must_be.subset_of(@target, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(17, Gecode::Raw::SRT_SUB, @target, reif_var, false)
     end
   end
@@ -267,7 +267,7 @@ describe Gecode::Constraints::SetEnum::Selection, ' (disjoint)' do
       @sets[@set].must_be.disjoint(hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(@set)
     end
   end

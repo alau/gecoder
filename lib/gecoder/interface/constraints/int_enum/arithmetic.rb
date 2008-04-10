@@ -33,13 +33,13 @@ module Gecode::Constraints::IntEnum::Arithmetic #:nodoc:
   #     :strength => :domain)
   class MaxExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
-      enum, strength = @params.values_at(:lhs, :strength)
+      enum = @params[:lhs]
       if constrain
         variable.must_be.in enum.domain_range
       end
       
       Gecode::Raw::max(@model.active_space, enum.to_int_var_array, 
-        variable.bind, strength)
+        variable.bind, *propagation_options)
     end
   end
   
@@ -60,13 +60,13 @@ module Gecode::Constraints::IntEnum::Arithmetic #:nodoc:
   #     :strength => :domain)
   class MinExpressionStub < Gecode::Constraints::Int::CompositeStub
     def constrain_equal(variable, params, constrain)
-      enum, strength = @params.values_at(:lhs, :strength)
+      enum = @params[:lhs]
       if constrain
         variable.must_be.in enum.domain_range
       end
       
       Gecode::Raw::min(@model.active_space, enum.to_int_var_array, 
-        variable.bind, strength)
+        variable.bind, *propagation_options)
     end
   end
 end

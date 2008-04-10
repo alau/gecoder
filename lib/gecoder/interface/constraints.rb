@@ -44,6 +44,14 @@ module Gecode
         :domain   => Gecode::Raw::ICL_DOM
       }
       
+      # Maps the name used in options to the value used in Gecode for 
+      # propagation kinds.
+      PROPAGATION_KINDS = {
+        :default  => Gecode::Raw::PK_DEF,
+        :speed    => Gecode::Raw::PK_SPEED,
+        :memory   => Gecode::Raw::PK_MEMORY,
+      } 
+      
       # Maps the names of the methods to the corresponding integer relation 
       # type in Gecode.
       RELATION_TYPES = { 
@@ -103,9 +111,10 @@ module Gecode
       
       module_function
       
-      # Decodes the common options to constraints: strength and reification. 
-      # Returns a hash with up to two values. :strength is the strength that 
-      # should be used for the constraint and :reif is the (bound) boolean 
+      # Decodes the common options to constraints: strength, kind and 
+      # reification. Returns a hash with up to three values. :strength is the 
+      # strength that should be used for the constraint, :kind is the 
+      # propagation kind that should be used, and :reif is the (bound) boolean 
       # variable that should be used for reification. The decoded options are 
       # removed from the hash (so in general the hash will be consumed in the 
       # process).
@@ -120,6 +129,12 @@ module Gecode
           raise ArgumentError, "Unrecognized propagation strength #{strength}."
         end
         
+        # Propagation kind.
+        kind = options.delete(:kind) || :default
+        unless PROPAGATION_KINDS.include? kind
+          raise ArgumentError, "Unrecognized propagation kind #{kind}."
+        end  
+                      
         # Reification.
         reif_var = options.delete(:reify)
         unless reif_var.nil? or reif_var.kind_of? FreeBoolVar
@@ -131,7 +146,11 @@ module Gecode
           raise ArgumentError, 'Unrecognized constraint option: ' + 
             options.keys.first.to_s
         end
-        return {:strength => PROPAGATION_STRENGTHS[strength], :reif => reif_var}
+        return {
+          :strength => PROPAGATION_STRENGTHS[strength], 
+          :kind => PROPAGATION_KINDS[kind],
+          :reif => reif_var
+        }
       end
       
       # Converts the different ways to specify constant sets in the interface
@@ -187,6 +206,14 @@ module Gecode
           expression.kind_of?(Fixnum) ||        # It's a single fixnum.
           (expression.kind_of?(Enumerable) &&   # It's an enum of fixnums.
            expression.all?{ |e| e.kind_of? Fixnum })
+      end
+      
+      # Extracts an array of the values selected for the standard propagation 
+      # options (propagation strength and propagation kind) from the hash of
+      # parameters given. The options are returned in the order that they are 
+      # given when posting constraints to Gecode.      
+      def extract_propagation_options(params)
+        params.values_at(:strength, :kind)
       end
     end
     
@@ -368,6 +395,13 @@ module Gecode
           constrain_equal(var, params, constrain)
         end
       end
+      
+      # Gives an array of the values selected for the standard propagation 
+      # options (propagation strength and propagation kind) in the order that
+      # they are given when posting constraints to Gecode.
+      def propagation_options
+        Gecode::Constraints::Util::extract_propagation_options(@params)
+      end      
     end
     
     # Base class for all constraints.
@@ -383,6 +417,15 @@ module Gecode
       # method and should be overridden by all sub-classes.
       def post
         raise NoMethodError, 'Abstract method has not been implemented.'
+      end
+      
+      private
+      
+      # Gives an array of the values selected for the standard propagation 
+      # options (propagation strength and propagation kind) in the order that
+      # they are given when posting constraints to Gecode.
+      def propagation_options
+        Gecode::Constraints::Util::extract_propagation_options(@params)
       end
     end
   end

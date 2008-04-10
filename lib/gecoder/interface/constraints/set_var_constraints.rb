@@ -26,6 +26,11 @@ module Gecode
           raise ArgumentError, 'Set constraints do not support the strength ' +
             'option.'
         end
+        if options.has_key? :kind
+          raise ArgumentError, 'Set constraints do not support the kind ' +
+            'option.'
+        end
+        
         Gecode::Constraints::Util.decode_options(options)
       end
     end

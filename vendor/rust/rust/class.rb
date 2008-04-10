@@ -41,7 +41,7 @@ module Rust
     # and a few other needed information.
     #
     # Don't call this function directly, use Namespace.add_cxx_class
-    def initialize(name, namespace, bindname = name.split("::").last ) # :notnew:
+    def initialize(name, namespace, bindname = name.gsub(/::([^<>]+)$/,'\1') ) # :notnew:
       super()
       
       @name = name
@@ -220,7 +220,7 @@ module Rust
         super
 
         @varname =
-        "f#{@parent.namespace.name.gsub("::","_")}_#{@parent.name}_#{@name}"
+        "f#{@parent.namespace.name.gsub("::","_")}_#{@parent.varname}_#{@name}"
 
         @definition_template = Templates["CxxMethodStub"]
         @initialization_template = Templates["MethodInitBinding"]

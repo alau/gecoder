@@ -111,13 +111,13 @@ class MSetVarArray : public MVarArray
 		MSetVarArray(const Gecode::SetVarArray &arr);
 		
 		MSetVarArray(Space *home, int n);
-		MSetVarArray(Space *home, int n, int glbMin, int glbMax, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Limits::Set::card_max);
+		MSetVarArray(Space *home, int n, int glbMin, int glbMax, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
-		MSetVarArray(Space *home, int n, const IntSet &glb, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Limits::Set::card_max);
+		MSetVarArray(Space *home, int n, const IntSet &glb, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
-		MSetVarArray(Space *home, int n, int glbMin, int glbMax, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Limits::Set::card_max);
+		MSetVarArray(Space *home, int n, int glbMin, int glbMax, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
-		MSetVarArray(Space *home, int n, const IntSet &glb, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Limits::Set::card_max);
+		MSetVarArray(Space *home, int n, const IntSet &glb, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
 		~MSetVarArray();
 		

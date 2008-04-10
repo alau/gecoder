@@ -49,11 +49,13 @@ describe Gecode::Constraints::Set::Cardinality, ' (range)' do
   it 'should not shadow the integer variable domain constrain' do
     Gecode::Raw.should_receive(:dom).with(
       an_instance_of(Gecode::Raw::Space), 
-      an_instance_of(Gecode::Raw::IntVar), 0, 11, Gecode::Raw::ICL_DEF)
+      an_instance_of(Gecode::Raw::IntVar), 0, 11, Gecode::Raw::ICL_DEF, 
+      Gecode::Raw::PK_DEF)
     Gecode::Raw.should_receive(:dom).with(
       an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), an_instance_of(Gecode::Raw::IntSet), 
-      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF)
+      an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::ICL_DEF, 
+      Gecode::Raw::PK_DEF)
     @set.size.must_not_be.in [1,3]
     @model.solve!
   end
@@ -73,7 +75,7 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
       @set.size.must == rhs 
       @model.solve!
     end
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
       @model.allow_space_access do
         rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
@@ -91,7 +93,7 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-              strength)
+              strength, kind)
           end
         else
           Gecode::Raw.should_receive(:cardinality).once.with(
@@ -102,7 +104,7 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs,
             an_instance_of(Gecode::Raw::BoolVar),
-            strength)
+            strength, kind)
         end
       end
     end
@@ -117,7 +119,8 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
       @model.solve!
     end
     @expect_relation = lambda do |relation, target, negated|
-      @expect.call(relation, target, Gecode::Raw::ICL_DEF, nil, negated)
+      @expect.call(relation, target, Gecode::Raw::ICL_DEF,  Gecode::Raw::PK_DEF,
+        nil, negated)
     end
     
     # For options spec.
@@ -125,8 +128,8 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
       @set.size.must_be.less_than_or_equal_to(17, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
-      @expect.call(Gecode::Raw::IRT_LQ, 17, strength, reif_var, false)
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      @expect.call(Gecode::Raw::IRT_LQ, 17, strength, kind, reif_var, false)
     end
   end
   
@@ -149,6 +152,6 @@ describe Gecode::Constraints::Set::Cardinality, ' (composite)' do
     @set.value.size.should == 2
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
   it_should_behave_like 'composite constraint'
 end

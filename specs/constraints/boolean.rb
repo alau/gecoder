@@ -25,19 +25,20 @@ describe Gecode::Constraints::Bool do
       (@b1 | @b2).must_be.equal_to(true, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @model.allow_space_access do
-        Gecode::Raw.should_receive(:bool_or).once.with(
+        Gecode::Raw.should_receive(:rel).once.with(
           an_instance_of(Gecode::Raw::Space), 
+          an_instance_of(Gecode::Raw::BoolVar),
+          Gecode::Raw::BOT_OR, 
           an_instance_of(Gecode::Raw::BoolVar), 
-          an_instance_of(Gecode::Raw::BoolVar), 
-          an_instance_of(Gecode::Raw::BoolVar), 
-          Gecode::Raw::ICL_DEF)
+          an_instance_of(Gecode::Raw::BoolVar),
+          Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
         unless reif_var.nil?
-          Gecode::Raw.should_receive(:bool_eqv).once.with(
+          Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
-            an_instance_of(Gecode::Raw::BoolVar), 
-            an_instance_of(Gecode::Raw::BoolVar), true, strength)
+            an_instance_of(Gecode::Raw::BoolVar), Gecode::Raw::BOT_EQV, 
+            an_instance_of(Gecode::Raw::BoolVar), 1, strength, kind)
         end
       end
     end
@@ -227,6 +228,5 @@ describe Gecode::Constraints::Bool do
     sol.b3.value.should be_true
   end
   
-  
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end

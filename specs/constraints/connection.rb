@@ -19,7 +19,8 @@ describe 'connection constraint', :shared => true do
       @model.solve!
     end
     @expect_relation = lambda do |relation, target, negated|
-      @expect.call(relation, target, Gecode::Raw::ICL_DEF, nil, negated)
+      @expect.call(relation, target, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF,
+        nil, negated)
     end
     
     # For options spec.
@@ -27,12 +28,12 @@ describe 'connection constraint', :shared => true do
       @stub.must_be.less_than_or_equal_to(17, hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
-      @expect.call(Gecode::Raw::IRT_LQ, 17, strength, reif_var, false)
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      @expect.call(Gecode::Raw::IRT_LQ, 17, strength, kind, reif_var, false)
     end
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
   it_should_behave_like 'composite constraint'
 end
 
@@ -44,7 +45,7 @@ describe Gecode::Constraints::Set::Connection, ' (min)' do
     @model.branch_on @model.wrap_enum([@set])
     @stub = @set.min
     
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
       @model.allow_space_access do
         rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
@@ -62,7 +63,7 @@ describe Gecode::Constraints::Set::Connection, ' (min)' do
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-              strength)
+              strength, kind)
           end
         else
           Gecode::Raw.should_receive(:min).once.with(
@@ -72,8 +73,7 @@ describe Gecode::Constraints::Set::Connection, ' (min)' do
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-            an_instance_of(Gecode::Raw::BoolVar),
-            strength)
+            reif_var, strength, kind)
         end
       end
     end
@@ -96,7 +96,7 @@ describe Gecode::Constraints::Set::Connection, ' (max)' do
     @model.branch_on @model.wrap_enum([@set])
     @stub = @set.max
     
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
       @model.allow_space_access do
         rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
@@ -114,7 +114,7 @@ describe Gecode::Constraints::Set::Connection, ' (max)' do
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-              strength)
+              strength, kind)
           end
         else
           Gecode::Raw.should_receive(:max).once.with(
@@ -124,8 +124,7 @@ describe Gecode::Constraints::Set::Connection, ' (max)' do
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-            an_instance_of(Gecode::Raw::BoolVar),
-            strength)
+            reif_var, strength, kind)
         end
       end
     end
@@ -148,7 +147,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum)' do
     @model.branch_on @model.wrap_enum([@set])
     @stub = @set.sum
     
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
       @model.allow_space_access do
         rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
@@ -167,7 +166,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum)' do
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-              strength)
+              strength, kind)
           end
         else
           Gecode::Raw.should_receive(:weights).once.with(
@@ -177,8 +176,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum)' do
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-            an_instance_of(Gecode::Raw::BoolVar),
-            strength)
+            reif_var, strength, kind)
         end
       end
     end
@@ -214,7 +212,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with weights)' do
     @weights = Hash[*(0..9).zip((-9..-0).to_a.reverse).flatten]
     @stub = @set.sum(:weights => @weights)
     
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
       @model.allow_space_access do
         rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
@@ -232,7 +230,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with weights)' do
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-              strength)
+              strength, kind)
           end
         else
           Gecode::Raw.should_receive(:weights).once.with(
@@ -242,8 +240,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with weights)' do
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-            an_instance_of(Gecode::Raw::BoolVar),
-            strength)
+            reif_var, strength, kind)
         end
       end
     end
@@ -275,7 +272,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with substitutions)' do
     @subs = Hash[*(0..9).zip((-9..-0).to_a.reverse).flatten]
     @stub = @set.sum(:substitutions => @subs)
     
-    @expect = lambda do |relation, rhs, strength, reif_var, negated|
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
       @model.allow_space_access do
         rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
         if reif_var.nil?
@@ -293,7 +290,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with substitutions)' do
             Gecode::Raw.should_receive(:rel).once.with(
               an_instance_of(Gecode::Raw::Space), 
               an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-              strength)
+              strength, kind)
           end
         else
           Gecode::Raw.should_receive(:weights).once.with(
@@ -303,8 +300,7 @@ describe Gecode::Constraints::Set::Connection, ' (sum with substitutions)' do
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
-            an_instance_of(Gecode::Raw::BoolVar),
-            strength)
+            reif_var, strength, kind)
         end
       end
     end
@@ -339,7 +335,7 @@ describe Gecode::Constraints::Set::Connection, ' (include)' do
       end
     end
     
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @expect.call(@array, strength, reif_var)
     end
     @invoke_options = lambda do |hash|
@@ -349,7 +345,7 @@ describe Gecode::Constraints::Set::Connection, ' (include)' do
   end
   
   it 'should translate to a match constraint' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @set.must.include @array
     @model.solve!
   end

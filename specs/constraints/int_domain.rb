@@ -14,19 +14,20 @@ describe Gecode::Constraints::Int::Domain do
       @x.must_be.in(@non_range_domain, hash) 
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       @model.allow_space_access do
         if reif_var.nil?
           Gecode::Raw.should_receive(:dom).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), 
-            an_instance_of(Gecode::Raw::IntSet), strength)
+            an_instance_of(Gecode::Raw::IntSet), 
+            strength, kind)
         else
           Gecode::Raw.should_receive(:dom).once.with(
             an_instance_of(Gecode::Raw::Space), 
             an_instance_of(Gecode::Raw::IntVar), 
             an_instance_of(Gecode::Raw::IntSet), 
-            an_instance_of(Gecode::Raw::BoolVar), strength)
+            reif_var, strength, kind)
         end
       end
     end
@@ -36,7 +37,7 @@ describe Gecode::Constraints::Int::Domain do
     Gecode::Raw.should_receive(:dom).once.with(
       an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), @range_domain.first, 
-      @range_domain.last, Gecode::Raw::ICL_DEF)
+      @range_domain.last, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
     @x.must_be.in @range_domain
     @model.solve!
   end
@@ -45,13 +46,13 @@ describe Gecode::Constraints::Int::Domain do
     Gecode::Raw.should_receive(:dom).once.with(
       an_instance_of(Gecode::Raw::Space), 
       an_instance_of(Gecode::Raw::IntVar), @three_dot_range_domain.first, 
-      @three_dot_range_domain.last, Gecode::Raw::ICL_DEF)
+      @three_dot_range_domain.last, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
     @x.must_be.in @three_dot_range_domain
     @model.solve!
   end
   
   it 'should translate domain constraints with non-range domains' do
-    @expect_options.call(Gecode::Raw::ICL_DEF, nil)
+    @expect_options.call({})
     @invoke_options.call({})
   end
   
@@ -65,5 +66,5 @@ describe Gecode::Constraints::Int::Domain do
     lambda{ @x.must_be.in 'hello' }.should raise_error(TypeError)
   end
   
-  it_should_behave_like 'constraint with options'
+  it_should_behave_like 'reifiable constraint'
 end

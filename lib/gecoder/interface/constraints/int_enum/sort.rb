@@ -29,6 +29,7 @@ module Gecode::Constraints::IntEnum
       end
       
       # Extract standard options and convert to constraint.
+      reified = !options[:reify].nil?
       @params.update(Gecode::Constraints::Util.decode_options(options))
       if target.nil? and order.nil?
         @model.add_constraint Sort::SortConstraint.new(@model, @params)
@@ -37,6 +38,10 @@ module Gecode::Constraints::IntEnum
         if @params[:negate]
           raise Gecode::MissingConstraintError, 'A negated sort with options ' +
             'is not implemented.'
+        end
+        if reified
+          raise ArgumentError, 'Reification is not supported by the sorted ' + 
+            'constraint.'
         end
       
         @params.update(:target => target, :order => order)
@@ -72,15 +77,17 @@ module Gecode::Constraints::IntEnum
         end
         
         # Prepare the parameters.
-        params = @params.values_at(:lhs, :target, :order, :strength).map do |param| 
+        params = @params.values_at(:lhs, :target, :order).map do |param| 
           if param.respond_to? :to_int_var_array
             param.to_int_var_array
           else
             param
           end
         end.delete_if{ |param| param.nil? }
+        params.concat propagation_options
+        
         # Post the constraint.
-        Gecode::Raw::sortedness(@model.active_space, *params)
+        Gecode::Raw::sorted(@model.active_space, *params)
       end
     end
     
@@ -98,12 +105,17 @@ module Gecode::Constraints::IntEnum
     #   int_enum.must_be.sorted(:reify => :is_sorted, :strength => :domain)
     class SortConstraint < Gecode::Constraints::ReifiableConstraint
       def post
-        lhs, strength, reif_var = @params.values_at(:lhs, :strength, :reif)
+        lhs, strength, kind, reif_var = 
+          @params.values_at(:lhs, :strength, :kind, :reif)
         using_reification = !reif_var.nil?
         
         # We translate the constraint into n-1 relation constraints.
-        options = {:strength => 
-          Gecode::Constraints::Util::PROPAGATION_STRENGTHS.invert[strength]}
+        options = {
+          :strength => 
+            Gecode::Constraints::Util::PROPAGATION_STRENGTHS.invert[strength],
+          :kind => 
+            Gecode::Constraints::Util::PROPAGATION_KINDS.invert[kind]
+        }
         if using_reification
           reification_variables = @model.bool_var_array(lhs.size - 1)
         end

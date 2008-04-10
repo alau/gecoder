@@ -141,8 +141,8 @@ module Gecode
     #   (x + y)*10.must_not_be.greater_than(x*3, :reify => bool, :strength => :domain)
     class LinearConstraint < Gecode::Constraints::ReifiableConstraint
       def post
-        lhs, rhs, relation_type, reif_var, strength = @params.values_at(:lhs, 
-          :rhs, :relation_type, :reif, :strength)
+        lhs, rhs, relation_type, reif_var = 
+          @params.values_at(:lhs, :rhs, :relation_type, :reif)
         reif_var = reif_var.bind if reif_var.respond_to? :bind
         if rhs.respond_to? :to_minimodel_lin_exp
           rhs = rhs.to_minimodel_lin_exp
@@ -152,9 +152,11 @@ module Gecode
 
         final_exp = (lhs.to_minimodel_lin_exp - rhs)
         if reif_var.nil?
-          final_exp.post(@model.active_space, relation_type, strength)
+          final_exp.post(@model.active_space, relation_type, 
+            *propagation_options)
         else
-          final_exp.post(@model.active_space, relation_type, reif_var)
+          final_exp.post(@model.active_space, relation_type, reif_var, 
+            *propagation_options)
         end
       end
     end
@@ -199,16 +201,16 @@ module Gecode
     class SimpleRelationConstraint < Gecode::Constraints::ReifiableConstraint
       def post
         # Fetch the parameters to Gecode.
-        lhs, relation, rhs, reif_var, strength = @params.values_at(:lhs, 
-          :relation_type, :element, :reif, :strength)
+        lhs, relation, rhs, reif_var = 
+          @params.values_at(:lhs, :relation_type, :element, :reif)
           
         rhs = rhs.bind if rhs.respond_to? :bind
         if reif_var.nil?
           Gecode::Raw::rel(@model.active_space, lhs.bind, relation, rhs, 
-            strength)
+            *propagation_options)
         else
           Gecode::Raw::rel(@model.active_space, lhs.bind, relation, rhs, 
-            reif_var.bind, strength)
+            reif_var.bind, *propagation_options)
         end
       end
     end

@@ -19,17 +19,17 @@ describe Gecode::Constraints::IntEnum::Distinct do
       @model.vars.must_be.distinct(hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       Gecode::Raw.should_receive(:distinct).once.with(
         an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::IntVarArray), strength)
+        an_instance_of(Gecode::Raw::IntVarArray), strength, kind)
     end
   end
 
   it 'should translate into a distinct constraint' do
     Gecode::Raw.should_receive(:distinct).once.with(
       an_instance_of(Gecode::Raw::Space), 
-      anything, Gecode::Raw::ICL_DEF)
+      anything, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
     @invoke_options.call({})
   end
 
@@ -46,7 +46,7 @@ describe Gecode::Constraints::IntEnum::Distinct do
       Gecode::MissingConstraintError) 
   end
   
-  it_should_behave_like 'constraint with strength option'
+  it_should_behave_like 'non-reifiable constraint'
 end
 
 describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
@@ -56,16 +56,16 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
       @model.vars.with_offsets(1,2).must_be.distinct(hash)
       @model.solve!
     end
-    @expect_options = lambda do |strength, reif_var|
+    @expect_options = option_expectation do |strength, kind, reif_var|
       if reif_var.nil?
         Gecode::Raw.should_receive(:distinct).once.with(
           an_instance_of(Gecode::Raw::Space), 
-          anything, an_instance_of(Gecode::Raw::IntVarArray), strength)
+          anything, an_instance_of(Gecode::Raw::IntVarArray), strength, kind)
       else
         Gecode::Raw.should_receive(:distinct).once.with(
           an_instance_of(Gecode::Raw::Space), 
-          anything, an_instance_of(Gecode::Raw::IntVarArray), strength,
-          an_instance_of(Gecode::Raw::BoolVar))
+          anything, an_instance_of(Gecode::Raw::IntVarArray), 
+          strength, kind, reif_var)
       end
     end
   end
@@ -73,7 +73,7 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   it 'should translate into a distinct constraint with offsets' do
     Gecode::Raw.should_receive(:distinct).once.with(
       an_instance_of(Gecode::Raw::Space), 
-      anything, anything, Gecode::Raw::ICL_DEF)
+      anything, anything, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
     @invoke_options.call({})
   end
 
@@ -103,61 +103,7 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
       raise_error(Gecode::MissingConstraintError)
   end
   
-  it_should_behave_like 'constraint with strength option'
-end
-
-describe Gecode::Constraints::SetEnum::Distinct do
-  before do
-    @model = DistinctSampleProblem.new
-    @sets = @model.sets
-    @size = 1
-    
-    @invoke_options = lambda do |hash| 
-      @sets.must_be.distinct(hash.update(:size => @size))
-      @model.solve!
-    end
-    @expect_options = lambda do |strength, reif_var|
-      Gecode::Raw.should_receive(:distinct).once.with(
-        an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::SetVarArray), @size)
-    end
-  end
-
-  it 'should translate into a distinct constraint' do
-    Gecode::Raw.should_receive(:distinct).once.with(
-      an_instance_of(Gecode::Raw::Space), 
-      an_instance_of(Gecode::Raw::SetVarArray), @size)
-    @sets.must_be.distinct(:size => @size)
-    @model.solve!
-  end
-
-  it 'should constrain sets to be distinct' do
-    @sets.must_be.distinct(:size => @size)
-    @sets[0].must_be.superset_of 0
-    solution = @model.solve!
-    solution.should_not be_nil
-    set1, set2 = solution.sets
-    set1.value.size.should == @size
-    set2.value.size.should == @size
-    set1.value.should_not == set2.value
-  end
-  
-  it 'should not allow negation' do
-    lambda{ @sets.must_not_be.distinct(:size => @size) }.should raise_error(
-      Gecode::MissingConstraintError)
-  end
-  
-  it 'should not allow options other than :size' do
-    lambda do
-      @sets.must_be.distinct(:size => @size, :foo => 17)
-    end.should raise_error(ArgumentError)
-  end
-  
-  it 'should raise error if :size is not specified' do
-    lambda{ @sets.must_be.distinct }.should raise_error(ArgumentError)
-  end
-  
-  it_should_behave_like 'non-reifiable set constraint'
+  it_should_behave_like 'non-reifiable constraint'
 end
 
 describe Gecode::Constraints::SetEnum::Distinct, ' (at most one)' do

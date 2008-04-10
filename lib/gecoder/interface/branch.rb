@@ -81,44 +81,44 @@ module Gecode
       # Maps the names of the supported variable branch strategies for integer and
       # booleans to the corresponding constant in Gecode. 
       BRANCH_INT_VAR_CONSTANTS = {
-        :none                 => Gecode::Raw::BVAR_NONE,
-        :smallest_min         => Gecode::Raw::BVAR_MIN_MIN,
-        :largest_min          => Gecode::Raw::BVAR_MIN_MAX, 
-        :smallest_max         => Gecode::Raw::BVAR_MAX_MIN, 
-        :largest_max          => Gecode::Raw::BVAR_MAX_MAX, 
-        :smallest_size        => Gecode::Raw::BVAR_SIZE_MIN, 
-        :largest_size         => Gecode::Raw::BVAR_SIZE_MAX,
-        :smallest_degree      => Gecode::Raw::BVAR_DEGREE_MIN, 
-        :largest_degree       => Gecode::Raw::BVAR_DEGREE_MAX, 
-        :smallest_min_regret  => Gecode::Raw::BVAR_REGRET_MIN_MIN,
-        :largest_min_regret   => Gecode::Raw::BVAR_REGRET_MIN_MAX,
-        :smallest_max_regret  => Gecode::Raw::BVAR_REGRET_MAX_MIN, 
-        :largest_max_regret   => Gecode::Raw::BVAR_REGRET_MAX_MAX
+        :none                 => Gecode::Raw::INT_VAR_NONE,
+        :smallest_min         => Gecode::Raw::INT_VAR_MIN_MIN,
+        :largest_min          => Gecode::Raw::INT_VAR_MIN_MAX, 
+        :smallest_max         => Gecode::Raw::INT_VAR_MAX_MIN, 
+        :largest_max          => Gecode::Raw::INT_VAR_MAX_MAX, 
+        :smallest_size        => Gecode::Raw::INT_VAR_SIZE_MIN, 
+        :largest_size         => Gecode::Raw::INT_VAR_SIZE_MAX,
+        :smallest_degree      => Gecode::Raw::INT_VAR_DEGREE_MIN, 
+        :largest_degree       => Gecode::Raw::INT_VAR_DEGREE_MAX, 
+        :smallest_min_regret  => Gecode::Raw::INT_VAR_REGRET_MIN_MIN,
+        :largest_min_regret   => Gecode::Raw::INT_VAR_REGRET_MIN_MAX,
+        :smallest_max_regret  => Gecode::Raw::INT_VAR_REGRET_MAX_MIN, 
+        :largest_max_regret   => Gecode::Raw::INT_VAR_REGRET_MAX_MAX
       }
       # Maps the names of the supported variable branch strategies for sets to 
       # the corresponding constant in Gecode. 
       BRANCH_SET_VAR_CONSTANTS = { #:nodoc:
-        :none                 => Gecode::Raw::SETBVAR_NONE,
-        :smallest_cardinality => Gecode::Raw::SETBVAR_MIN_CARD,
-        :largest_cardinality  => Gecode::Raw::SETBVAR_MAX_CARD, 
-        :smallest_unknown     => Gecode::Raw::SETBVAR_MIN_UNKNOWN_ELEM, 
-        :largest_unknown      => Gecode::Raw::SETBVAR_MAX_UNKNOWN_ELEM
+        :none                 => Gecode::Raw::SET_VAR_NONE,
+        :smallest_cardinality => Gecode::Raw::SET_VAR_MIN_CARD,
+        :largest_cardinality  => Gecode::Raw::SET_VAR_MAX_CARD, 
+        :smallest_unknown     => Gecode::Raw::SET_VAR_MIN_UNKNOWN_ELEM, 
+        :largest_unknown      => Gecode::Raw::SET_VAR_MAX_UNKNOWN_ELEM
       }
       
       # Maps the names of the supported value branch strategies for integers and
       # booleans to the corresponding constant in Gecode. 
       BRANCH_INT_VALUE_CONSTANTS = { #:nodoc:
-        :min        => Gecode::Raw::BVAL_MIN,
-        :med        => Gecode::Raw::BVAL_MED,
-        :max        => Gecode::Raw::BVAL_MAX,
-        :split_min  => Gecode::Raw::BVAL_SPLIT_MIN,
-        :split_max  => Gecode::Raw::BVAL_SPLIT_MAX
+        :min        => Gecode::Raw::INT_VAL_MIN,
+        :med        => Gecode::Raw::INT_VAL_MED,
+        :max        => Gecode::Raw::INT_VAL_MAX,
+        :split_min  => Gecode::Raw::INT_VAL_SPLIT_MIN,
+        :split_max  => Gecode::Raw::INT_VAL_SPLIT_MAX
       }
       # Maps the names of the supported value branch strategies for sets to the 
       # corresponding constant in Gecode. 
       BRANCH_SET_VALUE_CONSTANTS = { #:nodoc:
-        :min  => Gecode::Raw::SETBVAL_MIN,
-        :max  => Gecode::Raw::SETBVAL_MAX
+        :min  => Gecode::Raw::SET_VAL_MIN,
+        :max  => Gecode::Raw::SET_VAL_MAX
       }
     end
     

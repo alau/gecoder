@@ -25,7 +25,11 @@ module Gecode::Constraints::IntEnum
         raise Gecode::MissingConstraintError, 'A negated distinct is not ' + 
           'implemented.'
       end
-    
+      unless options[:reify].nil?
+        raise ArgumentError, 'Reification is not supported by the distinct ' + 
+          'constraint.'
+      end
+      
       @model.add_constraint Distinct::DistinctConstraint.new(@model, 
         @params.update(Gecode::Constraints::Util.decode_options(options)))
     end
@@ -60,8 +64,9 @@ module Gecode::Constraints::IntEnum
         @params[:lhs] = @params[:lhs].to_int_var_array
         
         # Fetch the parameters to Gecode.
-        params = @params.values_at(:offsets, :lhs, :strength)
+        params = @params.values_at(:offsets, :lhs)
         params.delete_if{ |x| x.nil? }
+        params.concat propagation_options
         Gecode::Raw::distinct(@model.active_space, *params)
       end
     end

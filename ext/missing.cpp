@@ -271,7 +271,7 @@ MDFS::~MDFS()
 
 
 // BAB
-MBAB::MBAB(MSpace *space, unsigned int c_d, unsigned int a_d, Search::Stop* st) : Gecode::BAB<MSpace>(space, c_d, a_d, st)
+MBAB::MBAB(MSpace *space, const Search::Options &o) : Gecode::BAB<MSpace>(space, o)
 {
 }
 
