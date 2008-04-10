@@ -125,7 +125,7 @@ task :clobber do
 end
 
 desc 'Publish packages on RubyForge'
-task :publish_packages => [:publist_gecoder_packages, 
+task :publish_packages => [:publish_gecoder_packages, 
   :publish_gecoder_with_gecode_packages]
 
 desc 'Publish Gecode/R packages on RubyForge'
