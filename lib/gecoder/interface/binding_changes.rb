@@ -291,15 +291,11 @@ module Gecode
   
       private
       
-      # Transforms a lub or glb domain given as a range or enumeration into one
-      # or more parameters that describe the domain to Gecode::Raw::SetVar .
+      # Transforms a lub or glb domain given as a fixnum, range or enumeration 
+      # into one or more parameters that describe the domain to 
+      # Gecode::Raw::SetVar .
       def domain_to_args(domain)
-        if domain.kind_of? Range
-          return domain.first, domain.last
-        else
-          elements = domain.to_a
-          return Gecode::Raw::IntSet.new(domain, domain.size)
-        end
+        Gecode::Constraints::Util.constant_set_to_int_set(domain)
       end
       
       # Creates a new storage array for bool variables.

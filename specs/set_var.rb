@@ -47,7 +47,7 @@ end
 describe Gecode::FreeSetVar, '(assigned)' do
   before do
     model = Gecode::Model.new
-    @var = model.set_var([1], [1])
+    @var = model.set_var(1, 1)
     model.solve!
   end
   

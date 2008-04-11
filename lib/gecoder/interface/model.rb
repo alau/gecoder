@@ -67,11 +67,11 @@ module Gecode
     end
     
     # Creates a set variable with the specified domain for greatest lower bound
-    # and least upper bound (specified as either a range or enum). If no bounds
-    # are specified then the empty set is used as greates lower bound and the 
-    # universe as least upper bound. A range for the allowed cardinality of the 
-    # set can also be specified, if none is specified, or nil is given, then the
-    # default range (anything) will be used. If only a single Fixnum is 
+    # and least upper bound (specified as either a fixnum, range or enum). If 
+    # no bounds are specified then the empty set is used as greates lower bound 
+    # and the universe as least upper bound. A range for the allowed cardinality
+    # of the set can also be specified, if none is specified, or nil is given, 
+    # then the default range (anything) will be used. If only a single Fixnum is 
     # specified as cardinality_range then it's used as lower bound.
     def set_var(glb_domain = [], lub_domain = 
         Gecode::Raw::SetLimits::MIN..Gecode::Raw::SetLimits::MAX, 
@@ -220,6 +220,8 @@ module Gecode
       if glb.kind_of?(Range) and lub.kind_of?(Range)
         glb.first >= lub.first and glb.last <= lub.last
       else
+        glb = [glb] if glb.kind_of?(Fixnum)
+        lub = [lub] if lub.kind_of?(Fixnum)
         (glb.to_a - lub.to_a).empty?
       end
     end
