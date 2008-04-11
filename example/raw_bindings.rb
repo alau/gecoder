@@ -12,14 +12,16 @@ s, e, n, d, m, o, r, y = (0..7).to_a.map{ |i| letters.at(i) }
 Gecode::Raw::post(space, (s * 1000 + e * 100 + n * 10  + d   + 
                      m * 1000 + o * 100 + r * 10  + e).
             equal(m * 10000 + o * 1000 + n * 100 + e * 10  + y ), 
-            Gecode::Raw::ICL_DEF)
-Gecode::Raw::rel(space, s, Gecode::Raw::IRT_NQ, 0, Gecode::Raw::ICL_DEF)
-Gecode::Raw::rel(space, m, Gecode::Raw::IRT_NQ, 0, Gecode::Raw::ICL_DEF)
-Gecode::Raw::distinct(space, letters, Gecode::Raw::ICL_DEF)
+            Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
+Gecode::Raw::rel(space, s, Gecode::Raw::IRT_NQ, 0, Gecode::Raw::ICL_DEF, 
+  Gecode::Raw::PK_DEF)
+Gecode::Raw::rel(space, m, Gecode::Raw::IRT_NQ, 0, Gecode::Raw::ICL_DEF, 
+  Gecode::Raw::PK_DEF)
+Gecode::Raw::distinct(space, letters, Gecode::Raw::ICL_DEF, Gecode::Raw::PK_DEF)
 
 # Branching.
 Gecode::Raw::branch(space, letters, 
-  Gecode::Raw::BVAR_SIZE_MIN, Gecode::Raw::BVAL_MIN)
+  Gecode::Raw::INT_VAR_SIZE_MIN, Gecode::Raw::INT_VAL_MIN)
 
 # Search
 COPY_DIST = 16

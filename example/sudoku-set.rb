@@ -61,9 +61,6 @@ class SudokuSet < Gecode::Model
         @sets[i].must_be.disjoint_with @sets[j]
       end
     end
-    # The above implies that the sets must be distinct (since cardinality 0 is
-    # not allowed), but we also explicitly add the distinctness constraint.
-    @sets.must_be.distinct(:size => n)
 
     # The sets must intersect in exactly one element with each row column and
     # block. I.e. an assignable number must be assigned exactly once in each
