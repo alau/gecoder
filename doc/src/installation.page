@@ -73,8 +73,8 @@ h3. Building from source
 
 There are two ways to get a hold of the source code.
 
-# Download the source of a release from "RubyForge":http://rubyforge.org/frs/?group_id=3553
-# Check out the most recent code from subversion using <pre>svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder</pre>
+* Download the source of a release from "RubyForge":http://rubyforge.org/frs/?group_id=3553
+* Check out the most recent code from subversion using <pre>svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder</pre>
 
 The interface is installed as follows once the source is obtained. This is not
 tested under Windows (where it will probably differ a bit).
