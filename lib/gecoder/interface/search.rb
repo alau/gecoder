@@ -6,14 +6,14 @@ module Gecode
     def solve!
       space = dfs_engine.next
       return nil if space.nil?
-      @active_space = space
+      self.active_space = space
       return self
     end
     
     # Returns to the original state, before any search was made (but propagation 
     # might have been performed). Returns the reset model.
     def reset!
-      @active_space = base_space
+      self.active_space = base_space
       return self
     end
     
@@ -30,7 +30,9 @@ module Gecode
     # Yields each solution that the model has.
     def each_solution(&block)
       dfs = dfs_engine
-      while not (@active_space = dfs.next).nil?
+      next_solution = nil
+      while not (next_solution = dfs.next).nil?
+        self.active_space = next_solution
         yield self
       end
       self.reset!
@@ -54,10 +56,10 @@ module Gecode
 
       # Set the method used for constrain calls by the BAB-search.
       Model.constrain_proc = lambda do |home_space, best_space|
-        @active_space = best_space
+        self.active_space = best_space
         @variable_creation_space = home_space
         yield(self, self)
-        @active_space = home_space
+        self.active_space = home_space
         @variable_creation_space = nil
         
         perform_queued_gecode_interactions
@@ -74,10 +76,8 @@ module Gecode
       Model.constrain_proc = nil
       return nil if result.nil?
       
-      # Refresh the solution.
-      result.refresh
-      refresh_variables
-      @active_space = result
+      # Switch to the result.
+      self.active_space = result
       return self
     end
     
@@ -110,15 +110,6 @@ module Gecode
         Gecode::Raw::Search::Config::MINIMAL_DISTANCE,
         Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
         nil)
-    end
-    
-    # Executes any interactions with Gecode still waiting in the queue 
-    # (emptying the queue) in the process.
-    def perform_queued_gecode_interactions
-      allow_space_access do
-        gecode_interaction_queue.each{ |con| con.call }
-        gecode_interaction_queue.clear # Empty the queue.
-      end
     end
   end
 end

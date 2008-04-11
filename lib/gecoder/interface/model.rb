@@ -232,7 +232,8 @@ module Gecode
     # Retrieves the currently selected space, the one which constraints and 
     # variables should be bound to.
     def selected_space
-      @active_space ||= base_space
+      return @active_space unless @active_space.nil?
+      self.active_space = base_space
     end
     
     # Retrieves the space that should be used for variable creation.
@@ -243,9 +244,28 @@ module Gecode
     # Refreshes all cached variables. This should be called if the variables
     # in an existing space were changed.
     def refresh_variables
+      return if @variables.nil?
       @variables.each do |variable|
         variable.refresh if variable.cached?
       end
     end
+    
+    # Executes any interactions with Gecode still waiting in the queue 
+    # (emptying the queue) in the process.
+    def perform_queued_gecode_interactions
+      allow_space_access do
+        gecode_interaction_queue.each{ |con| con.call }
+        gecode_interaction_queue.clear # Empty the queue.
+      end
+    end
+    
+    # Switches the active space used (the space from which variables are read
+    # and to which constraints are posted). @active_space should never be 
+    # assigned directly.
+    def active_space=(new_space)
+      @active_space = new_space
+      new_space.refresh
+      refresh_variables
+    end    
   end
 end
