@@ -668,6 +668,7 @@ specs/constraints/sort.rb -text
 specs/distribution.rb -text
 specs/enum_matrix.rb -text
 specs/enum_wrapper.rb -text
+specs/examples.rb -text
 specs/int_var.rb -text
 specs/logging.rb -text
 specs/model.rb -text
