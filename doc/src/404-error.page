@@ -1,0 +1,17 @@
+---
+title: Error page
+long_title: 404 Not Found
+inMenu: false
+description: The page couldn't be found. 
+---
+
+h1. Page Not Found
+
+The requested page could not be found. Common reasons include
+
+* An out-of-date bookmark/favorite.
+* A search engine that has an out-of-date listing.
+* A mis-typed address.
+
+Try using the "sitemap":/sitemap.html and search box to find what you are 
+looking for.

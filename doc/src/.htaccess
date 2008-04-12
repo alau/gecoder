@@ -1,0 +1,4 @@
+ErrorDocument 404 /404-error.html
+
+RewriteEngine On
+RewriteRule ^examples\.html /examples/index.html [R=301,L]

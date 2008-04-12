@@ -15,6 +15,8 @@ doc/plugin/rspec_content.rb -text
 doc/plugin/syntax.rb -text
 doc/plugin/tags/example.rb -text
 doc/plugin/tags/quickref.rb -text
+doc/src/.htaccess -text
+doc/src/404-error.page -text
 doc/src/default.template -text
 doc/src/details/contribute.page -text
 doc/src/details/development.page -text
