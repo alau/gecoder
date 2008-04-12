@@ -214,7 +214,7 @@ strictly better than the best solution so far.
 
 <ruby>
 optimal_solution = price_model_instance.optimize! do |model, best_so_far|
-  model.price.must < best_so_far.price.val
+  model.price.must < best_so_far.price.value
 end
 </ruby>
 
@@ -223,3 +223,10 @@ solution, just like @Model#solve!@. If there is not solution then
 @optimal_solution@ will be assigned @nil@ and @price_model_instance@ will be
 unchanged.
 
+There exist convenience methods, named @Model#maximize!@ and @Model#minimize!@, 
+for optimizing single integer variables. The above minimization of the variable
+@price@ can for instance also be done as follows.
+
+<ruby>
+optimal_solution = price_model_instance.minimize! :price
+</ruby>

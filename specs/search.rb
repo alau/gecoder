@@ -205,6 +205,66 @@ describe Gecode::Model, '(optimization search)' do
     solution.z.value.should == 25
   end
   
+  it 'should support maximizing singe variables given as symbols' do
+    solution = SampleOptimizationProblem.new.maximize! :z
+    solution.should_not be_nil
+    solution.x.value.should == 5
+    solution.y.value.should == 5
+    solution.z.value.should == 25
+  end
+  
+  it 'should support maximizing singe variables given as strings' do
+    solution = SampleOptimizationProblem.new.maximize! 'z'
+    solution.should_not be_nil
+    solution.x.value.should == 5
+    solution.y.value.should == 5
+    solution.z.value.should == 25
+  end
+  
+  it 'should raise error if maximize! is given a non-existing method' do
+    lambda do
+      SampleOptimizationProblem.new.maximize! :does_not_exist
+    end.should raise_error(NameError)
+  end
+  
+  it 'should raise error if maximize! is given a method that does not return an integer variable' do
+    lambda do
+      SampleOptimizationProblem.new.maximize! :object_id
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should support minimizing singe variables given as symbols' do
+    problem = SampleOptimizationProblem.new
+    problem.z.must > 2
+    solution = problem.minimize! :x
+    solution.should_not be_nil
+    solution.x.value.should == 1
+    solution.y.value.should == 3
+    solution.z.value.should == 3
+  end
+  
+  it 'should support minimizing singe variables given as strings' do
+    problem = SampleOptimizationProblem.new
+    problem.z.must > 2
+    solution = problem.minimize! 'x'
+    solution.should_not be_nil
+    solution.x.value.should == 1
+    solution.y.value.should == 3
+    solution.z.value.should == 3
+  end
+  
+  it 'should raise error if minimize! is given a non-existing method' do
+    lambda do
+      SampleOptimizationProblem.new.minimize! :does_not_exist
+    end.should raise_error(NameError)
+  end
+  
+  it 'should raise error if minimize! is given a method that does not return an integer variable' do
+    lambda do
+      SampleOptimizationProblem.new.minimize! :object_id
+    end.should raise_error(ArgumentError)
+  end
+  
   it 'should not be bothered by garbage collecting' do
     # This goes through 400+ spaces.
     solution = SampleOptimizationProblem2.new.optimize! do |model, best_so_far|

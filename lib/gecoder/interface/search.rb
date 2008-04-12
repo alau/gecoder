@@ -81,6 +81,44 @@ module Gecode
       return self
     end
     
+    # Finds the solution that maximizes a given integer variable. The name of 
+    # the method that accesses the variable from the model should be given. To 
+    # for instance maximize a variable named "profit", that's accessible through 
+    # the model, one would use the following.
+    #
+    #   model.maximize! :profit
+    #
+    # Returns nil if there is no solution.
+    def maximize!(var)
+      variable = self.method(var).call
+      unless variable.kind_of? Gecode::FreeIntVar
+        raise ArgumentError.new("Expected integer variable, got #{variable.class}.")
+      end
+      
+      optimize! do |model, best_so_far|
+        model.method(var).call.must > best_so_far.method(var).call.value
+      end
+    end
+    
+    # Finds the solution that minimizes a given integer variable. The name of 
+    # the method that accesses the variable from the model should be given. To 
+    # for instance minimize a variable named "cost", that's accessible through 
+    # the model, one would use the following.
+    #
+    #   model.minimize! :cost
+    #
+    # Returns nil if there is no solution.
+    def minimize!(var)
+      variable = self.method(var).call
+      unless variable.kind_of? Gecode::FreeIntVar
+        raise ArgumentError.new("Expected integer variable, got #{variable.class}.")
+      end
+      
+      optimize! do |model, best_so_far|
+        model.method(var).call.must < best_so_far.method(var).call.value
+      end
+    end
+    
     class <<self 
       # Sets the proc that should be used to handle constrain requests.
       def constrain_proc=(proc) #:nodoc:
