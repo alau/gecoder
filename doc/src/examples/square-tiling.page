@@ -11,7 +11,7 @@ h2. Problem
 
 The problem is to pack a set of squares into a larger rectangle so that no 
 squares overlap. Each square has an integer size and must be placed so that the
-squares border are parallel to the rectangle's. The total surface area of 
+square's borders are parallel to the rectangle's. The total surface area of 
 the squares equal the surface area of the rectangle, so all have to be used.
 
 h2. Code
