@@ -28,9 +28,9 @@ module Gecode::Constraints::IntEnum
   # A module that gathers the classes and modules used in extensional 
   # constraints.
   module Extensional #:nodoc:
-    # Describes a tuple constraint, which constrains all variables in an 
-    # integer enumeration to have one of the specified values. Neither negation 
-    # nor reification is supported.
+    # Describes a tuple constraint, which constrains all the variables in an 
+    # enumeration of integer variables to be equal to one of the specified 
+    # tuples. Neither negation nor reification is supported.
     # 
     # == Example
     # 
