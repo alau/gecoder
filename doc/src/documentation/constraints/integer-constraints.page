@@ -263,7 +263,7 @@ other variations support neither.
 
 h2. Tuple
 
-The tuple constraints can be used to constraint arrays of integer variable to 
+The tuple constraints can be used to constrain arrays of integer variable to 
 only take values in a specified set of tuples.
 
 <ruby>
