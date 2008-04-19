@@ -622,6 +622,7 @@ lib/gecoder/interface/constraints/int_enum/count.rb -text
 lib/gecoder/interface/constraints/int_enum/distinct.rb -text
 lib/gecoder/interface/constraints/int_enum/element.rb -text
 lib/gecoder/interface/constraints/int_enum/equality.rb -text
+lib/gecoder/interface/constraints/int_enum/extensional.rb -text
 lib/gecoder/interface/constraints/int_enum/sort.rb -text
 lib/gecoder/interface/constraints/int_enum_constraints.rb -text
 lib/gecoder/interface/constraints/int_var_constraints.rb -text
@@ -658,6 +659,7 @@ specs/constraints/count.rb -text
 specs/constraints/distinct.rb -text
 specs/constraints/element.rb -text
 specs/constraints/equality.rb -text
+specs/constraints/extensional.rb -text
 specs/constraints/int_domain.rb -text
 specs/constraints/int_relation.rb -text
 specs/constraints/linear.rb -text

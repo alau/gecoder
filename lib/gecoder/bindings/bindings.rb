@@ -149,7 +149,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       enum.add_value "SRT_CMPL"
     end
     
-    ns.add_enum "SetOpType " do |enum|
+    ns.add_enum "SetOpType" do |enum|
       enum.add_value "SOT_UNION"
       enum.add_value "SOT_DUNION"
       enum.add_value "SOT_INTER"
@@ -335,6 +335,20 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_method "size", "int"
       
       klass.add_method "debug"
+    end
+    
+    ns.add_cxx_class "TupleSet" do |klass|
+      klass.add_constructor
+      
+      klass.add_method "add" do |method|
+        method.add_parameter "Gecode::IntArgs", "tuple"
+      end
+      
+      klass.add_method "finalize"
+      
+      klass.add_method "finalized", "bool"
+      
+      klass.add_method "tuples", "int"
     end
     
     ns.add_cxx_class "MBranchingDesc" do |klass|
@@ -1207,6 +1221,15 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::PropKind", "pk"
     end
     
+    ns.add_function "extensional", "void" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(x, 2)->ptr()"
+      end
+      func.add_parameter "Gecode::TupleSet", "t"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
 # 		ns.add_function "regular", "void" do |func|
 # 			func.add_parameter "Gecode::MSpace*", "home"
 # 			func.add_parameter "Gecode::MIntVarArray *", "x" do |param|

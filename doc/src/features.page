@@ -36,6 +36,7 @@ The following things are supported by Gecode/R.
 ** "Linear":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntLinearInt.html
 ** "Simple relation":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntRelInt.html
 ** "Sorted":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntSorted.html
+** "Extensional":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntExt.html except for boolean and DFA versions
 * Finite integer sets with the following constraints
 ** "Distinct":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetDistinct.html
 ** "Domain":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetDom.html
@@ -58,7 +59,6 @@ in Gecode/R (but might be in the future).
 ** The exceptions noted in the list of supported constraints
 ** "Scheduling":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntScheduling.html
 ** "Graph":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntGraph.html
-** "Extensional":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntExt.html
 * Unsupported set constraints
 ** The exceptions noted in the list of supported constraints
 ** "Convexity":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetConvex.html

@@ -112,11 +112,9 @@ The different kinds are:
   <dt>@:default@</dt><dd>Uses the constraint's default propagation kind.</dd>
 </dl>
 
-The option is specified with the key @:kind@. Gecode/R currently does not 
-support any constraints that do have multiple implementations in Gecode, but
-the suggestion can still be made. The following tells the distinct constraint,
-placed on @numbers@, to favor low memory consumption over speed. 
+The option is specified with the key @:kind@. The following tells the tuple
+constraint, placed on @numbers@, to favor speed over low memory consumption. 
 
 <ruby>
-numbers.must_be.distinct(:kind => :memory)
+numbers.must_be.in(tuples, :kind => :speed)
 </ruby>

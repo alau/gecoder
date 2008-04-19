@@ -39,6 +39,7 @@ h2. Integer enumeration constraints
 | equality | {quickrefTemplate: int_enum.must_be.equal } | no negation nor reification |
 | sort | {quickrefTemplate: int_enum_1.must_be.sorted } | |
 | sort | {quickrefTemplate: int_enum_1.must_be.sorted(:as => int_enum_2, :order => int_enum_3) } | :order is optional, no negation nor reification |
+| tuple | {quickrefTemplate: int_enum.must_be.in tuples } | no negation nor reification |
 
 h2. Boolean constraints
 
