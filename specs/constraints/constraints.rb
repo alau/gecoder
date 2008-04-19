@@ -17,6 +17,15 @@ describe Gecode::Constraints::IntEnum::Expression do
   end
 end
 
+describe Gecode::Constraints::BoolEnum::Expression do
+  it 'should raise error unless lhs is a bool enum' do
+    lambda do
+      Gecode::Constraints::BoolEnum::Expression.new(Gecode::Model.new, 
+        :lhs => 'foo', :negate => false)
+    end.should raise_error(TypeError)
+  end
+end
+
 describe Gecode::Constraints::SetEnum::Expression do
   it 'should raise error unless lhs is a set enum' do
     lambda do

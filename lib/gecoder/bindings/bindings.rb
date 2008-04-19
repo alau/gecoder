@@ -1224,12 +1224,23 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     ns.add_function "extensional", "void" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(x, 2)->ptr()"
+        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
       end
       func.add_parameter "Gecode::TupleSet", "t"
       func.add_parameter "Gecode::IntConLevel", "icl"
       func.add_parameter "Gecode::PropKind", "pk"
     end
+    
+    ns.add_function "extensional", "void" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MBoolVarArray *", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr()"
+      end
+      func.add_parameter "Gecode::TupleSet", "t"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
+  
 # 		ns.add_function "regular", "void" do |func|
 # 			func.add_parameter "Gecode::MSpace*", "home"
 # 			func.add_parameter "Gecode::MIntVarArray *", "x" do |param|

@@ -53,6 +53,7 @@ h2. Boolean enumeration constraints
 |_. name |_. template |_. notes |
 | conjunction | {quickrefTemplate: bool_enum.conjunction.must... } | bool composite |
 | disjunction | {quickrefTemplate: bool_enum.disjunction.must... } | bool composite |
+| tuple | {quickrefTemplate: bool_enum.must_be.in tuples } | no negation nor reification |
 
 h2. Set constraints
 
