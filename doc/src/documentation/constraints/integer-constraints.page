@@ -231,9 +231,9 @@ all variables in the enumeration must be equal.
 numbers.must_be.equal
 </ruby>
 
-h2. Sortedness
+h2. Sorted
 
-The sortedness constraints can be used to constraint arrays to be sorted.
+The sorted constraints can be used to constraint arrays to be sorted.
 
 <ruby>
 numbers.must_be.sorted
