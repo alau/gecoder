@@ -34,11 +34,11 @@ module Gecode::Constraints::IntEnum
     # 
     # == Example
     # 
-    #   # Constrains the two integer variables variables in +numbers+ to either
-    #   # have values 1 and 7, or values 47 and 11.
+    #   # Constrains the two integer variables in +numbers+ to either have 
+    #   # values 1 and 7, or values 47 and 11.
     #   numbers.must_be.in [[1,7], [47,11]]
     #
-    #   # The same as above, but preferring speed above low memory usage.
+    #   # The same as above, but preferring speed over low memory usage.
     #   numbers.must_be.in([[1,7], [47,11]], :kind => :speed)
     class TupleConstraint < Gecode::Constraints::Constraint
       def post
