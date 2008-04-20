@@ -7,6 +7,7 @@ PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
 PKG_FILE_NAME_WITH_GECODE = "#{PKG_NAME_WITH_GECODE}-#{PKG_VERSION}"
 # The location where the precompiled DLL should be placed.
 DLL_LOCATION = 'lib/gecode.dll'
+EXT_DIR = 'ext'
 
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
@@ -122,6 +123,12 @@ end
 desc 'Removes generated distribution files'
 task :clobber do
   rm DLL_LOCATION if File.exists? DLL_LOCATION
+  FileList[
+    "#{EXT_DIR}/*.o",
+    "#{EXT_DIR}/gecode.{cc,hh}",
+    "#{EXT_DIR}/Makefile",
+    "#{EXT_DIR}/mkmf.log"
+  ].to_a.each{ |file| rm file }
 end
 
 desc 'Publish packages on RubyForge'
