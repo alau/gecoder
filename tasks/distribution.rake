@@ -128,7 +128,7 @@ task :clobber do
     "#{EXT_DIR}/gecode.{cc,hh}",
     "#{EXT_DIR}/Makefile",
     "#{EXT_DIR}/mkmf.log"
-  ].to_a.each{ |file| rm file }
+  ].to_a.each{ |file| rm file if File.exists? file }
 end
 
 desc 'Publish packages on RubyForge'
