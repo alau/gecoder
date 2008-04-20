@@ -138,38 +138,41 @@ desc 'Publish packages on RubyForge'
 task :publish_packages => [:publish_gecoder_packages, 
   :publish_gecoder_with_gecode_packages]
 
+# Files included in the vanilla Gecode/R release.
+vanilla_release_files = [
+  "pkg/#{PKG_FILE_NAME}.gem",
+  "pkg/#{PKG_FILE_NAME}.tgz",
+  "pkg/#{PKG_FILE_NAME}.zip"
+]
 desc 'Publish Gecode/R packages on RubyForge'
-task :publish_gecoder_packages => [:verify_user, :package] do
-  release_files = FileList[
-    "pkg/#{PKG_FILE_NAME}.gem",
-    "pkg/#{PKG_FILE_NAME}.tgz",
-    "pkg/#{PKG_FILE_NAME}.zip"
-  ]
+task :publish_gecoder_packages => [:verify_user] + vanilla_release_files do
   require 'meta_project'
   require 'rake/contrib/xforge'
 
   Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new(PROJECT_NAME)) do |xf|
     xf.user_name = ENV['RUBYFORGE_USER']
-    xf.files = release_files.to_a
+    xf.files = vanilla_release_files.to_a
     xf.release_name = "Gecode/R #{PKG_VERSION}"
     xf.package_name = PKG_NAME
   end
 end
 
+# Files included in the release with Gecode.
+gecode_release_files = [
+  "pkg/#{PKG_FILE_NAME_WITH_GECODE}.gem",
+  #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.tgz",
+  #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.zip",
+  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-mswin32.gem"
+]
 desc 'Publish Gecode/R with Gecode packages on RubyForge'
-task :publish_gecoder_with_gecode_packages => [:verify_user, :package] do
-  release_files = FileList[
-    "pkg/#{PKG_FILE_NAME_WITH_GECODE}*.gem",
-    "pkg/#{PKG_FILE_NAME_WITH_GECODE}*.tgz",
-    "pkg/#{PKG_FILE_NAME_WITH_GECODE}*.zip"
-  ]
-  
+task :publish_gecoder_with_gecode_packages => 
+    [:verify_user] + gecode_release_files do
   require 'meta_project'
   require 'rake/contrib/xforge'
 
   Rake::XForge::Release.new(MetaProject::Project::XForge::RubyForge.new(PROJECT_NAME)) do |xf|
     xf.user_name = ENV['RUBYFORGE_USER']
-    xf.files = release_files.to_a
+    xf.files = gecode_release_files.to_a
     xf.release_name = "Gecode/R with Gecode #{PKG_VERSION}"
     xf.package_name = PKG_NAME_WITH_GECODE
   end
