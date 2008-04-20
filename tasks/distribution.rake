@@ -17,14 +17,19 @@ rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README', 'CHANGES', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 
+TMP_DIR = 'doc/tmp/rdoc_dev'
 desc 'Generate RDoc, ignoring nodoc'
-Rake::RDocTask.new(:rdoc_dev) do |rdoc|
+Rake::RDocTask.new(:rdoc_dev => :prepare_rdoc_dev) do |rdoc|
   rdoc.rdoc_dir = 'doc/output/rdoc_dev'
   rdoc.options << '--title' << 'Gecode/R Developers RDoc' << '--line-numbers' << 
     '--inline-source' << '--accessor' << 'delegate'
-    
+  
+  rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
+end
+
+desc 'Copies the files that RDoc should parse, removing #:nodoc:'
+task :prepare_rdoc_dev do
   # Copy the rdoc and remove all #:nodoc: .
-  TMP_DIR = 'doc/tmp/rdoc_dev'
   Dir['lib/**/*.rb'].each do |source_name|
     destination_name = source_name.sub('lib', TMP_DIR)
     File.makedirs File.dirname(destination_name)
@@ -34,8 +39,6 @@ Rake::RDocTask.new(:rdoc_dev) do |rdoc|
     end
     destination.close
   end
-  
-  rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
 end
 
 spec = Gem::Specification.new do |s|
