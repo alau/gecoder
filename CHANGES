@@ -1,4 +1,4 @@
-== Next version
+== Version 0.8.1
 
 * [#19435] Fixed a bug causing inconsistencies during BAB-search. The bug stopped the send+more=money example from working correctly.
 * Fixed the "raw_bindings" and "sudoku-set" examples, which were broken by the 0.8.0 release.
