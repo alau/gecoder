@@ -28,5 +28,5 @@ module Gecode
   end
 end
 
-require 'gecoder/interface/constraints/bool_enum/boolean'
+require 'gecoder/interface/constraints/bool_enum/relation'
 require 'gecoder/interface/constraints/bool_enum/extensional'
