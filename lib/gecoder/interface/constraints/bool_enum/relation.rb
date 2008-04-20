@@ -3,21 +3,23 @@ module Gecode
     # Produces an expression that can be handled as if it was a variable 
     # representing the conjunction of all boolean variables in the enumeration.
     def conjunction
-      return Gecode::Constraints::BoolEnum::ConjunctionStub.new(
+      return Gecode::Constraints::BoolEnum::Relation::ConjunctionStub.new(
         @model, :lhs => self)
     end
     
     # Produces an expression that can be handled as if it was a variable 
     # representing the disjunction of all boolean variables in the enumeration.
     def disjunction
-      return Gecode::Constraints::BoolEnum::DisjunctionStub.new(
+      return Gecode::Constraints::BoolEnum::Relation::DisjunctionStub.new(
         @model, :lhs => self)
     end
   end
-  
+end
+
+module Gecode::Constraints::BoolEnum
   # A module that gathers the classes and modules used by boolean enumeration 
-  # constraints.
-  module Constraints::BoolEnum
+  # relation constraints.
+  module Relation #:nodoc:
     # Describes a CompositeStub for the conjunction constraint, which constrain
     # the conjunction of all boolean variables in an enumeration.
     # 

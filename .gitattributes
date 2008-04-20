@@ -610,8 +610,8 @@ lib/gecoder/interface/branch.rb -text
 lib/gecoder/interface/constraints.rb -text
 lib/gecoder/interface/constraints/bool/boolean.rb -text
 lib/gecoder/interface/constraints/bool/linear.rb -text
-lib/gecoder/interface/constraints/bool_enum/boolean.rb -text
 lib/gecoder/interface/constraints/bool_enum/extensional.rb -text
+lib/gecoder/interface/constraints/bool_enum/relation.rb -text
 lib/gecoder/interface/constraints/bool_enum_constraints.rb -text
 lib/gecoder/interface/constraints/bool_var_constraints.rb -text
 lib/gecoder/interface/constraints/int/arithmetic.rb -text
@@ -649,7 +649,7 @@ specs/binding_changes.rb -text
 specs/bool_var.rb -text
 specs/branch.rb -text
 specs/constraints/arithmetic.rb -text
-specs/constraints/bool_enum.rb -text
+specs/constraints/bool_enum_relation.rb -text
 specs/constraints/boolean.rb -text
 specs/constraints/cardinality.rb -text
 specs/constraints/channel.rb -text

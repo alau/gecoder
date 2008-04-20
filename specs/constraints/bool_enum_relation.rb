@@ -17,7 +17,7 @@ end
 
 # Expects @stub, which contains the started constraint and @compute_result which 
 # computes whether the left hand side is true or not.
-describe 'bool enum constraint', :shared => true do
+describe 'bool enum relation constraint', :shared => true do
   it 'should handle being constrained to be true' do
     @stub.must_be.true
     @model.solve!
@@ -67,7 +67,7 @@ describe 'bool enum constraint', :shared => true do
   end
 end
 
-describe Gecode::Constraints::BoolEnum, ' (conjunction)' do
+describe Gecode::Constraints::BoolEnum::Relation, ' (conjunction)' do
   before do
     @model = BoolEnumSampleProblem.new
     @bools = @model.bools
@@ -109,11 +109,11 @@ describe Gecode::Constraints::BoolEnum, ' (conjunction)' do
     @compute_result = lambda{ @bools.all?{ |b| b.value } }
   end
   
-  it_should_behave_like 'bool enum constraint'
+  it_should_behave_like 'bool enum relation constraint'
   it_should_behave_like 'reifiable constraint'
 end
 
-describe Gecode::Constraints::BoolEnum, ' (disjunction)' do
+describe Gecode::Constraints::BoolEnum::Relation, ' (disjunction)' do
   before do
     @model = BoolEnumSampleProblem.new
     @bools = @model.bools
@@ -155,6 +155,6 @@ describe Gecode::Constraints::BoolEnum, ' (disjunction)' do
     @compute_result = lambda{ @bools.any?{ |b| b.value } }
   end
   
-  it_should_behave_like 'bool enum constraint'
+  it_should_behave_like 'bool enum relation constraint'
   it_should_behave_like 'reifiable constraint'
 end
