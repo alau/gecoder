@@ -1,0 +1,14 @@
+---
+title: Changes
+useERB: true
+long_title: Changes made to Gecode/R
+inMenu: true
+description: A changelog of changes made to Gecode/R. Shows when support for various constraints were added.
+---
+
+h1. Changes
+
+<notextile> 
+  <% changes = File.readlines('../CHANGES').join %>
+  <%= RedCloth.new(changes.gsub(/== (.+)\n/, 'h2. \1' + $/*2)).to_html %> 
+</notextile>
