@@ -10,13 +10,23 @@ module Gecode::Constraints::IntEnum
         raise ArgumentError, 'Reification is not supported by the tuple ' + 
           'constraint.'
       end
+      
+      # Check that the tuples are correct.
       unless tuples.respond_to?(:each) and 
           tuples.all?{ |tuple| tuple.respond_to?(:each) }
         raise TypeError, 'Expected an enumeration with tuples, got ' + 
           "#{tuples.class}."
       end
+      if tuples.empty?
+        raise ArgumentError, 'One or more tuples must be specified.'
+      end
       unless tuples.all?{ |tuple| tuple.all?{ |x| x.kind_of? Fixnum }}
         raise TypeError, 'All tuples must contain Fixnum.'
+      end
+      expected_size = @params[:lhs].size
+      unless tuples.all?{ |tuple| tuple.size == expected_size}
+        raise ArgumentError, 'All tuples must be of the same size as the ' + 
+          'number of variables in the array.'
       end
     
       @params[:tuples] = tuples

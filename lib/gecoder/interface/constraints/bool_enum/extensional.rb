@@ -10,16 +10,26 @@ module Gecode::Constraints::BoolEnum
         raise ArgumentError, 'Reification is not supported by the tuple ' + 
           'constraint.'
       end
+      
+      # Check that the tuples are correct.
       unless tuples.respond_to?(:each) and 
           tuples.all?{ |tuple| tuple.respond_to?(:each) }
         raise TypeError, 'Expected an enumeration with tuples, got ' + 
           "#{tuples.class}."
       end
+      if tuples.empty?
+        raise ArgumentError, 'One or more tuples must be specified.'
+      end
       unless tuples.all?{ |tuple| 
           tuple.all?{ |x| x.kind_of?(TrueClass) or x.kind_of?(FalseClass) }}
         raise TypeError, 'All tuples must contain booleans.'
       end
-    
+      expected_size = @params[:lhs].size
+      unless tuples.all?{ |tuple| tuple.size == expected_size}
+        raise ArgumentError, 'All tuples must be of the same size as the ' + 
+          'number of variables in the array.'
+      end
+      
       @params[:tuples] = tuples
       @model.add_constraint Extensional::TupleConstraint.new(@model, 
         @params.update(Gecode::Constraints::Util.decode_options(options)))
