@@ -8,7 +8,7 @@ class DistinctSampleProblem < Gecode::Model
   def initialize
     @vars = int_var_array(2, 1)
     @sets = set_var_array(2, [], 0..2)
-    branch_on wrap_enum(@sets)
+    branch_on @sets
   end
 end
 

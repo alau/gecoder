@@ -40,6 +40,13 @@ describe Gecode::Model, ' (enum wrapping)' do
     end.should raise_error(ArgumentError)
   end
   
+  it 'should not allow wrapping a wrapped enumerable' do
+    lambda do 
+      enum = [@bool]
+      @model.wrap_enum(@model.wrap_enum(enum)) 
+    end.should raise_error(ArgumentError)
+  end
+  
   it 'should not allow enumerables without variables or fixnums to be wrapped' do
     lambda do 
       @model.wrap_enum(['foo']) 

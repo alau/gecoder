@@ -6,6 +6,9 @@ module Gecode
       unless enum.kind_of? Enumerable
         raise TypeError, 'Only enumerables can be wrapped.'
       end
+      if enum.kind_of? Gecode::EnumMethods
+        raise ArgumentError, 'The enumration is already wrapped.'
+      end
       elements = enum.to_a
       if elements.empty?
         raise ArgumentError, 'Enumerable must not be empty.'
