@@ -34,6 +34,13 @@ describe 'tuple constraint', :shared => true do
     end.should raise_error(ArgumentError)
   end
   
+  it 'should raise error if the right hand side does not contain tuples of correct type' do
+    lambda do 
+      size = @variables.size
+      @variables.must_be.in ['h'*size, 'i'*size] 
+    end.should raise_error(TypeError)
+  end
+  
   it_should_behave_like 'non-reifiable constraint'
 end
 
@@ -67,10 +74,6 @@ describe Gecode::Constraints::IntEnum::Extensional do
     lambda{ @digits.must_be.in [17, 4711] }.should raise_error(TypeError)
   end
   
-  it 'should raise error if the right hand side does not contain integer tuples' do
-    lambda{ @digits.must_be.in ['hello'] }.should raise_error(TypeError)
-  end
-  
   it_should_behave_like 'tuple constraint'
 end
 
@@ -102,10 +105,6 @@ describe Gecode::Constraints::BoolEnum::Extensional do
   
   it 'should raise error if the right hand side does not contain tuples' do
     lambda{ @bools.must_be.in [true, false] }.should raise_error(TypeError)
-  end
-  
-  it 'should raise error if the right hand side does not contain boolean tuples' do
-    lambda{ @bools.must_be.in ['hello'] }.should raise_error(TypeError)
   end
   
   it_should_behave_like 'tuple constraint'

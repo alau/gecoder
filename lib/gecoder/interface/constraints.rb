@@ -217,6 +217,40 @@ module Gecode
       end
     end
     
+    # A module that contains utility-methods for extensional constraints.
+    module Util::Extensional #:nodoc:
+      module_function
+      
+      # Checks that the specified enumeration is an enumeration containing 
+      # one or more tuples of the specified size. It also allows the caller
+      # to define additional tests by providing a block, which is given each
+      # tuple. If a test fails then an appropriate error is raised.
+      def perform_tuple_checks(tuples, expected_size, &additional_test)
+        unless tuples.respond_to?(:each)
+          raise TypeError, 'Expected an enumeration with tuples, got ' + 
+            "#{tuples.class}."
+        end
+        
+        if tuples.empty?
+          raise ArgumentError, 'One or more tuples must be specified.'
+        end
+        
+        tuples.each do |tuple|
+          unless tuple.respond_to?(:each)
+            raise TypeError, 'Expected an enumeration containing enumeraions, ' +
+              "got #{tuple.class}."
+          end
+          
+          unless tuple.size == expected_size
+            raise ArgumentError, 'All tuples must be of the same size as the ' + 
+              'number of variables in the array.'
+          end
+          
+          yield tuple
+        end
+      end
+    end
+    
     # Describes a constraint expressions. An expression is produced by calling
     # some form of must on a left hand side. The expression waits for a right 
     # hand side so that it can post the corresponding constraint.
