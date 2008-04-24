@@ -30,8 +30,8 @@ The following mailing lists are used for communication.
 
 h2. License
 
-Gecode/R is licensed under "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html, 
-Gecode is licensed under "a BSD-style license":http://www.gecode.org/license.html.
+Gecode/R is licensed under the "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html. 
+Gecode is licensed under the "MIT license":http://www.gecode.org/license.html.
 
 h2. Subversion
 
