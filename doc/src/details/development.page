@@ -20,8 +20,8 @@ h2. Development status
 The project has working releases and currently "supports many of 
 the constraints available in Gecode":../features.html.
 
-The current focus is on improving documentation before planning which features 
-to add next.
+The current focus is on implementing missing features, especially the ones 
+introduced in Gecode 2.* .
 
 h2. Future goals
 
