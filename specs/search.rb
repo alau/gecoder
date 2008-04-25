@@ -65,6 +65,12 @@ describe Gecode::Model, ' (with multiple solutions)' do
       s.var.should have_domain(@solved_domain)
     end
   end
+
+  it 'should update the search statistics before yielding to #solution' do
+    @model.solution do |s|
+      @model.search_stats.should_not be_nil
+    end
+  end
   
   it 'should only evaluate the block for one solution in #solution' do
     i = 0
@@ -82,6 +88,18 @@ describe Gecode::Model, ' (with multiple solutions)' do
       solutions << s.var.value
     end
     Set.new(solutions).should == Set.new([2,3])
+  end
+  
+  it 'should update the search statistics before yielding to #each_solution' do
+    solutions = []
+    old_stats = @model.search_stats
+    old_stats.should be_nil
+    @model.each_solution do |s|
+      solutions << s.var.value
+      @model.search_stats.should_not == old_stats
+      @model.search_stats.should_not be_nil
+      old_stats = @model.search_stats
+    end
   end
 end
 
@@ -114,6 +132,15 @@ describe Gecode::Model, ' (after #solve!)' do
     enum[2].first.should have_domain(@solved_domain)
     enum[3][1][:b].should have_domain(@solved_domain)
   end
+  
+  it 'should have updated the search statistics' do
+    stats = @model.search_stats
+    stats[:propagations].should == 0
+    stats[:failures].should == 0
+    stats[:clones].should_not be_nil
+    stats[:commits].should_not be_nil
+    stats[:memory].should > 0
+  end
 end
 
 describe 'reset model', :shared => true do
@@ -125,6 +152,10 @@ describe 'reset model', :shared => true do
     enum = @model.nested_enum
     enum[2].first.should have_domain(@reset_domain)
     enum[3][1][:b].should have_domain(@reset_domain)
+  end
+  
+  it 'should have cleared the search statistics' do
+    @model.search_stats.should be_nil
   end
 end
 

@@ -4,7 +4,9 @@ module Gecode
     # to that solution. Returns the model if a solution was found, nil 
     # otherwise.
     def solve!
-      space = dfs_engine.next
+      dfs = dfs_engine
+      space = dfs.next
+      @statistics = dfs.statistics
       return nil if space.nil?
       self.active_space = space
       return self
@@ -14,6 +16,7 @@ module Gecode
     # might have been performed). Returns the reset model.
     def reset!
       self.active_space = base_space
+      @statistics = nil
       return self
     end
     
@@ -33,9 +36,31 @@ module Gecode
       next_solution = nil
       while not (next_solution = dfs.next).nil?
         self.active_space = next_solution
+        @statistics = dfs.statistics
         yield self
       end
       self.reset!
+    end
+    
+    # Returns search statistics providing various information from Gecode about
+    # the search that resulted in the model's current variable state. If the 
+    # model's variables have not undegone any search then nil is returned. The 
+    # statistics is a hash with the following keys:
+    # [:propagations]   The number of propagation steps performed.
+    # [:failures]       The number of failed nodes in the search tree.
+    # [:clones]         The number of clones created.
+    # [:commits]        The number of commit operations performed.
+    # [:memory]         The peak memory allocated to Gecode.
+    def search_stats
+      return nil if @statistics.nil?
+      
+      return {
+        :propagations => @statistics.propagate,
+        :failures     => @statistics.fail,
+        :clones       => @statistics.clone,
+        :commits      => @statistics.commit,
+        :memory       => @statistics.memory
+      }
     end
     
     # Finds the optimal solution. Optimality is defined by the provided block
