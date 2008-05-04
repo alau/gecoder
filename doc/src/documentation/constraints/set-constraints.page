@@ -1,6 +1,6 @@
 ---
 title: Set Constraints
-long_title: Set constraints supported by Gecode/R
+longTitle: Set constraints supported by Gecode/R
 inMenu: true
 description: The different set constraints available in Gecode/R for use when modelling in Ruby.
 ---

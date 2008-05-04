@@ -4,7 +4,7 @@ template: ~
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang:}">
 <head>
-  <title>{long_title: }</title>
+  <title>{longTitle: }</title>
   <link rel="stylesheet" type="text/css" href="{relocatable: styles.css}" media="screen" />
   <link rel="stylesheet" type="text/css" href="{resource: webgen-css}" media="screen" />
   <style type="text/css">

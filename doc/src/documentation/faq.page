@@ -1,6 +1,6 @@
 ---
 title: FAQ
-long_title: Frequently asked questions about Gecode/R
+longTitle: Frequently asked questions about Gecode/R
 inMenu: true
 description: Frequently asked question about Gecode/R and constraint programming in Ruby.
 ---

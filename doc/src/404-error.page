@@ -1,6 +1,6 @@
 ---
 title: Error page
-long_title: 404 Not Found
+longTitle: 404 Not Found
 inMenu: false
 description: The page couldn't be found. 
 additionalHeadContents: '<link rel="stylesheet" type="text/css" href="/{resource: webgen-css}" media="screen" />'

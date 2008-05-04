@@ -1,6 +1,6 @@
 ---
 title: Integer Constraints
-long_title: Integer constraints supported by Gecode/R
+longTitle: Integer constraints supported by Gecode/R
 inMenu: true
 description: The different integer constraints available in Gecode/R for use when modelling in Ruby.
 ---

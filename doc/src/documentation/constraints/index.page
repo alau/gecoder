@@ -1,6 +1,6 @@
 ---
 title: Constraints
-long_title: Constraints supported by Gecode/R
+longTitle: Constraints supported by Gecode/R
 inMenu: true
 description: An overview of the constraints available in Gecode/R for use when modelling in Ruby.
 ---

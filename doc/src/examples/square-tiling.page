@@ -1,6 +1,6 @@
 ---
 title: Square tiling
-long_title: Solving square tiling using constraint programming in Ruby
+longTitle: Solving square tiling using constraint programming in Ruby
 inMenu: true
 description: An example showing how to solve the square tiling problem using constraint programming in Ruby with Gecode/R.
 ---

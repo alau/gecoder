@@ -1,6 +1,6 @@
 ---
 title: Contribute
-long_title: How to contribute to Gecode/R
+longTitle: How to contribute to Gecode/R
 inMenu: true
 description: How to contribute to the development of Gecode/R, a Ruby interface to the Gecode constraint programming library.
 ---

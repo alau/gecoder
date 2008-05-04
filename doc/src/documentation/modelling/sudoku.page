@@ -1,6 +1,6 @@
 ---
 title: Modelling sudoku
-long_title: Tutorial on solving sudoku using constraint programming
+longTitle: Tutorial on solving sudoku using constraint programming
 inMenu: true
 description: How to use Gecode/R to model sudoku to solve it with constraint programming. Discusses multiple views.
 ---

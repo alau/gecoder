@@ -1,6 +1,6 @@
 ---
 title: Quick reference
-long_title: Quick reference of the syntax used by Gecode/R
+longTitle: Quick reference of the syntax used by Gecode/R
 inMenu: true
 description: A quick reference of the syntax used by Gecode/R to model problems and express constraints in Ruby.
 ---

@@ -1,6 +1,6 @@
 ---
 title: Development
-long_title: Development of Gecode/R, a Ruby interface to Gecode
+longTitle: Development of Gecode/R, a Ruby interface to Gecode
 inMenu: true
 description: The current developments of Gecode/R, a Ruby interface to the Gecode constraint programming library.
 ---

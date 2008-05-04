@@ -1,6 +1,6 @@
 ---
 title: Modelling square tiling
-long_title: Tutorial on solving square tiling using constraint programming
+longTitle: Tutorial on solving square tiling using constraint programming
 inMenu: true
 description: How to use Gecode/R to model square tiling to solve it with constraint programming. Discusses implied constraints and symmetry breaking constraints.
 ---

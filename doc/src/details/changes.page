@@ -1,7 +1,7 @@
 ---
 title: Changes
 useERB: true
-long_title: Changes made to Gecode/R
+longTitle: Changes made to Gecode/R
 inMenu: true
 description: A changelog of changes made to Gecode/R. Shows when support for various constraints were added.
 ---

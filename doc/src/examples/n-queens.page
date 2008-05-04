@@ -1,6 +1,6 @@
 ---
 title: N-queens
-long_title: Solving n-queens using constraint programming in Ruby
+longTitle: Solving n-queens using constraint programming in Ruby
 inMenu: true
 description: An example showing how to solve the n-queens problem using constraint programming in Ruby with Gecode/R.
 ---

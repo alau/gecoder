@@ -1,6 +1,6 @@
 ---
 title: Features
-long_title: Constraints and features of Gecode/R
+longTitle: Constraints and features of Gecode/R
 inMenu: true
 description: Constraints and various features of Gecode supported by the Ruby interface Gecode/R.
 ---

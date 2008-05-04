@@ -1,6 +1,6 @@
 ---
 title: Sudoku
-long_title: Solving sudoku using constraint programming in Ruby
+longTitle: Solving sudoku using constraint programming in Ruby
 inMenu: true
 description: An example showing how to solve a sudoku puzzle using constraint programming in Ruby with Gecode/R.
 ---

@@ -1,6 +1,6 @@
 ---
 title: Sudoku with sets
-long_title: Solving sudoku using constraint programming with sets in Ruby
+longTitle: Solving sudoku using constraint programming with sets in Ruby
 inMenu: true
 description: An example showing how to solve a sudoku puzzle using constraint programming with sets in Ruby with Gecode/R.
 ---

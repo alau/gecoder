@@ -1,6 +1,6 @@
 ---
 title: send+most=money
-long_title: Solving send+most=money using constraint programming in Ruby
+longTitle: Solving send+most=money using constraint programming in Ruby
 inMenu: true
 description: An example showing how to solve the send+most=money problem using constraint programming in Ruby with Gecode/R.
 ---
