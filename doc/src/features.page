@@ -66,6 +66,5 @@ in Gecode/R (but might be in the future).
 ** "Projector":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetProjector.html
 * Limited discrepancy search
 * Custom propagators and branching strategies
-* Search statistics
 * Reflection
 

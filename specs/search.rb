@@ -334,4 +334,17 @@ describe Gecode::Model, '(optimization search)' do
     solution.y.value.should == 5
     solution.z.value.should == 25
   end
+  
+  it 'should update the search statistics' do
+    model = SampleOptimizationProblem.new
+    solution = model.maximize! :z
+    
+    stats = model.search_stats
+    stats.should_not be_nil
+    stats[:propagations].should be_between(1, 100)
+    stats[:failures].should be_between(1, 100)
+    stats[:clones].should_not be_nil
+    stats[:commits].should_not be_nil
+    stats[:memory].should > 0
+  end
 end
