@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="{relocatable: styles.css}" media="screen" />
   <link rel="stylesheet" type="text/css" href="{resource: webgen-css}" media="screen" />
   <meta name="description" content="{description:}" />
+  {additionalHeadContents:}
 </head>
 <body>
 <div id="header">
