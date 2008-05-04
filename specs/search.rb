@@ -236,66 +236,6 @@ describe Gecode::Model, '(optimization search)' do
     solution.z.value.should == 25
   end
   
-  it 'should support maximizing singe variables given as symbols' do
-    solution = SampleOptimizationProblem.new.maximize! :z
-    solution.should_not be_nil
-    solution.x.value.should == 5
-    solution.y.value.should == 5
-    solution.z.value.should == 25
-  end
-  
-  it 'should support maximizing singe variables given as strings' do
-    solution = SampleOptimizationProblem.new.maximize! 'z'
-    solution.should_not be_nil
-    solution.x.value.should == 5
-    solution.y.value.should == 5
-    solution.z.value.should == 25
-  end
-  
-  it 'should raise error if maximize! is given a non-existing method' do
-    lambda do
-      SampleOptimizationProblem.new.maximize! :does_not_exist
-    end.should raise_error(NameError)
-  end
-  
-  it 'should raise error if maximize! is given a method that does not return an integer variable' do
-    lambda do
-      SampleOptimizationProblem.new.maximize! :object_id
-    end.should raise_error(ArgumentError)
-  end
-  
-  it 'should support minimizing singe variables given as symbols' do
-    problem = SampleOptimizationProblem.new
-    problem.z.must > 2
-    solution = problem.minimize! :x
-    solution.should_not be_nil
-    solution.x.value.should == 1
-    solution.y.value.should == 3
-    solution.z.value.should == 3
-  end
-  
-  it 'should support minimizing singe variables given as strings' do
-    problem = SampleOptimizationProblem.new
-    problem.z.must > 2
-    solution = problem.minimize! 'x'
-    solution.should_not be_nil
-    solution.x.value.should == 1
-    solution.y.value.should == 3
-    solution.z.value.should == 3
-  end
-  
-  it 'should raise error if minimize! is given a non-existing method' do
-    lambda do
-      SampleOptimizationProblem.new.minimize! :does_not_exist
-    end.should raise_error(NameError)
-  end
-  
-  it 'should raise error if minimize! is given a method that does not return an integer variable' do
-    lambda do
-      SampleOptimizationProblem.new.minimize! :object_id
-    end.should raise_error(ArgumentError)
-  end
-  
   it 'should not be bothered by garbage collecting' do
     # This goes through 400+ spaces.
     solution = SampleOptimizationProblem2.new.optimize! do |model, best_so_far|
@@ -348,3 +288,77 @@ describe Gecode::Model, '(optimization search)' do
     stats[:memory].should > 0
   end
 end
+
+describe 'single variable optimization', :shared => true do
+  it "should support #{@method_name} having the variable given as a symbol" do
+    solution = @model.method(@method_name).call(@variable_name.to_sym)
+    @expect_to_be_correct.call(solution)
+  end
+  
+  it "should support #{@method_name} having the variable given as a string" do
+    solution = @model.method(@method_name).call(@variable_name.to_s)
+    @expect_to_be_correct.call(solution)
+  end
+  
+  it "should raise error if #{@method_name} is given a non-existing method" do
+    lambda do
+      SampleOptimizationProblem.new.method(@method_name).call(:does_not_exist)
+    end.should raise_error(NameError)
+  end
+  
+  it "should raise error if #{@method_name} is given a method that does not return an integer variable" do
+    lambda do
+      SampleOptimizationProblem.new.method(@method_name).call(:object_id)
+    end.should raise_error(ArgumentError)
+  end
+  
+  it 'should update the search statistics' do
+    @model.method(@method_name).call(@variable_name.to_sym)
+    
+    stats = @model.search_stats
+    stats.should_not be_nil
+    stats[:propagations].should be_between(1, 100)
+    stats[:failures].should be_between(1, 100)
+    stats[:clones].should_not be_nil
+    stats[:commits].should_not be_nil
+    stats[:memory].should > 0
+  end
+end
+
+describe Gecode::Model, '(single variable minimization)' do
+  before do
+    @method_name = 'minimize!'
+    @variable_name = 'x'
+    
+    @model = SampleOptimizationProblem.new
+    @model.z.must > 2
+    
+    @expect_to_be_correct = lambda do |solution|
+      solution.should_not be_nil
+      solution.x.value.should == 1
+      solution.y.value.should == 3
+      solution.z.value.should == 3
+    end
+  end
+  
+  it_should_behave_like 'single variable optimization'
+end
+
+describe Gecode::Model, '(single variable maximization)' do
+  before do
+    @method_name = 'maximize!'
+    @variable_name = 'z'
+    
+    @model = SampleOptimizationProblem.new
+    
+    @expect_to_be_correct = lambda do |solution|
+      solution.should_not be_nil
+      solution.x.value.should == 5
+      solution.y.value.should == 5
+      solution.z.value.should == 25
+    end
+  end
+  
+  it_should_behave_like 'single variable optimization'
+end
+
