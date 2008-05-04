@@ -28,7 +28,7 @@ into the following categories.
 </dl>
 
 The "RDoc documentation":../../rdoc/index.html contains additional examples of all 
-types of constraints. The "quick reference":../quick-reference.html provides a 
+types of constraints. The "quick reference":quick-reference.html provides a 
 list containing all of them.
 
 h2. Options
