@@ -11,6 +11,14 @@ class Gecode::FreeIntVar
       :lhs => self)
   end
 
+  # Initiates an arithmetic squared root constraint.
+  def sqrt
+    Gecode::Constraints::Int::Arithmetic::SquareRootExpressionStub.new(@model, 
+      :lhs => self)
+  end
+  alias_method :square_root, :sqrt
+
+
   alias_method :pre_arith_mult, :* if instance_methods.include? '*'
   
   # Begins a multiplication constraint involving the two int variable.
@@ -97,6 +105,44 @@ module Gecode::Constraints::Int::Arithmetic #:nodoc:
       end
 
       Gecode::Raw::sqr(@model.active_space, lhs.bind, variable.bind, 
+        *propagation_options)
+    end
+  end
+  
+  # Describes a CompositeStub for the square root constraint, which constrain
+  # the rounded down square root of the variable.
+  # 
+  # == Examples
+  #   
+  #   # The square root of +x+, rounded down, must equal y.
+  #   x.square_root.must == y   
+  #
+  #   # The square root of +x+, rounded down, must be larger than 17, with 
+  #   # +bool+ as reification variable and +domain+ as strength.
+  #   x.square_root.must_be.larger_than(17, :reify => bool, :strength => :domain)
+  class SquareRootExpressionStub < Gecode::Constraints::Int::CompositeStub
+    def constrain_equal(variable, params, constrain)
+      lhs = @params[:lhs]
+      if constrain
+        max = lhs.max
+        if max < 0
+          # The left hand side does not have a real valued square root.
+          upper_bound = 0
+        else
+          upper_bound = Math.sqrt(max).floor;
+        end
+        
+        min = lhs.min
+        if min < 0
+          lower_bound = 0
+        else
+          lower_bound = Math.sqrt(min).floor;
+        end
+        
+        variable.must_be.in lower_bound..upper_bound
+      end
+
+      Gecode::Raw::sqrt(@model.active_space, lhs.bind, variable.bind, 
         *propagation_options)
     end
   end

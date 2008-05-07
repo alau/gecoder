@@ -26,6 +26,7 @@ h2. Integer constraints
 | abs | {quickrefTemplate: int_var.abs.must... } | int composite |
 | mult | {quickrefTemplate: (int_var_1 * int_var_2).must... } | int composite |
 | square | {quickrefTemplate: int_var.squared.must... } | int composite |
+| square_root | {quickrefTemplate: int_var.square_root.must... } | int composite |
 
 h2. Integer enumeration constraints
 

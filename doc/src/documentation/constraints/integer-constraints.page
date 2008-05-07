@@ -222,18 +222,24 @@ Where @number@ and @min_abs@ are integer variables. Constant integers can also
 be used and everything that's normally supported for @var.must*@ is supported 
 by @var.abs.must*@ too.
 
-h2. squared value
+h2. Squared and square root
 
-The squared value of a variable can be constrained using something like the
-following.
+Use the following to constrain the squared value of a variable
 
 <ruby>
 number.squared.must >= min_square
 </ruby>
 
-Where @number@ and @min_square@ are integer variables. Constant integers can 
-also be used and everything that's normally supported for @var.must*@ is 
-supported by @var.squared.must*@ too.
+and the following to constrain the square root, rounded down, of a variable
+
+<ruby>
+number.square_root.must >= min_square_root
+</ruby>
+
+Where @number@, @min_square@ and @min_square_root@ are integer variables. 
+Constant integers can also be used and everything that's supported by 
+@var.must*@ is supported by @var.squared.must*@ and @var.square_root.must*@ 
+as well.
 
 h2. Equality
 

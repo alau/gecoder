@@ -916,6 +916,14 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::PropKind", "pk"
     end
     
+    ns.add_function "sqrt" do |func|
+      func.add_parameter "Gecode::MSpace *", "home"
+      func.add_parameter "Gecode::IntVar", "x0"
+      func.add_parameter "Gecode::IntVar", "x1"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
+    
     ns.add_function "branch" do |func|
       func.add_parameter "Gecode::MSpace *", "home"
       func.add_parameter "Gecode::MIntVarArray *", "iva" do |param|
