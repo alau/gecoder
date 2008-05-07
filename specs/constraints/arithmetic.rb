@@ -334,9 +334,15 @@ describe Gecode::Constraints::Int::Arithmetic, ' (square root)' do
     Math.sqrt(sol.var.value).floor.should == 0
   end
   
+  it 'should constrain the square root of the variable (3)' do
+    @var.must < 0
+    @var.square_root.must == 0
+    @model.solve!.should be_nil
+  end
+  
   it 'should round down the square root' do
-    @var.square_root.must == 2
     @var.must > 4
+    @var.square_root.must == 2
     sol = @model.solve!
     sol.var.value.should be_between(5,8)
   end
