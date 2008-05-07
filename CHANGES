@@ -2,6 +2,7 @@
 
 * Wrapping an enumerable that is already wrapped is no longer allowed.
 * Added search statistics.
+* Added squared value constraint.
 
 == Version 0.8.1
 This release adds tuple constraints along with a couple of minor features. It 

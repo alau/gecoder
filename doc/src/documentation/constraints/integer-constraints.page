@@ -222,6 +222,19 @@ Where @number@ and @min_abs@ are integer variables. Constant integers can also
 be used and everything that's normally supported for @var.must*@ is supported 
 by @var.abs.must*@ too.
 
+h2. squared value
+
+The squared value of a variable can be constrained using something like the
+following.
+
+<ruby>
+number.squared.must >= min_square
+</ruby>
+
+Where @number@ and @min_square@ are integer variables. Constant integers can 
+also be used and everything that's normally supported for @var.must*@ is 
+supported by @var.squared.must*@ too.
+
 h2. Equality
 
 The equality constraint used on enumerations of integer variables specifies that

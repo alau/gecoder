@@ -282,3 +282,58 @@ describe Gecode::Constraints::Int::Arithmetic, ' (multiplication)' do
   
   it_should_behave_like 'arithmetic constraint'
 end
+
+describe Gecode::Constraints::Int::Arithmetic, ' (squared)' do
+  before do
+    @model = ArithmeticSampleProblem.new
+    @var = @model.var
+    @stub = @var.squared
+    @target = @model.var2
+    
+    # Creates an expectation corresponding to the specified input.
+    @expect = lambda do |relation, rhs, strength, kind, reif_var, negated|
+      @model.allow_space_access do
+        rhs = an_instance_of(Gecode::Raw::IntVar) if rhs.respond_to? :bind
+        if reif_var.nil?
+          if !negated and relation == Gecode::Raw::IRT_EQ and 
+              !rhs.kind_of? Fixnum
+            Gecode::Raw.should_receive(:sqr).once.with(
+              an_instance_of(Gecode::Raw::Space),
+              an_instance_of(Gecode::Raw::IntVar), 
+              rhs, strength, kind)
+            Gecode::Raw.should_receive(:rel).exactly(0).times
+          else
+            Gecode::Raw.should_receive(:sqr).once.with(
+              an_instance_of(Gecode::Raw::Space),
+              an_instance_of(Gecode::Raw::IntVar), 
+              an_instance_of(Gecode::Raw::IntVar), 
+              strength, kind)
+            Gecode::Raw.should_receive(:rel).once.with(
+              an_instance_of(Gecode::Raw::Space), 
+              an_instance_of(Gecode::Raw::IntVar), 
+              relation, rhs, strength, kind)
+          end
+        else
+          Gecode::Raw.should_receive(:sqr).once.with(
+            an_instance_of(Gecode::Raw::Space),
+            an_instance_of(Gecode::Raw::IntVar), 
+            an_instance_of(Gecode::Raw::IntVar), 
+            strength, kind)
+          Gecode::Raw.should_receive(:rel).once.with(
+            an_instance_of(Gecode::Raw::Space), 
+            an_instance_of(Gecode::Raw::IntVar), relation, rhs, 
+            an_instance_of(Gecode::Raw::BoolVar),
+            strength, kind)
+        end
+      end
+    end
+  end
+  
+  it 'should constrain the value of the variable squared' do
+    @var.squared.must == 9
+    sol = @model.solve!
+    sol.var.value.abs.should == 3
+  end
+  
+  it_should_behave_like 'arithmetic constraint'
+end

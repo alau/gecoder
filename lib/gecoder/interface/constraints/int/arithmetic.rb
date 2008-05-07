@@ -4,6 +4,12 @@ class Gecode::FreeIntVar
     Gecode::Constraints::Int::Arithmetic::AbsExpressionStub.new(@model, 
       :lhs => self)
   end
+  
+  # Initiates an arithmetic squared value constraint.
+  def squared
+    Gecode::Constraints::Int::Arithmetic::SquaredExpressionStub.new(@model, 
+      :lhs => self)
+  end
 
   alias_method :pre_arith_mult, :* if instance_methods.include? '*'
   
@@ -52,7 +58,7 @@ module Gecode::Constraints::Int::Arithmetic #:nodoc:
   #   # The value of +x*y+ must be equal to their sum.
   #   (x*y).must == x + y
   #   
-  #   # The valye of +x*y+ must be less than 17, with +bool+ as reification 
+  #   # The value of +x*y+ must be less than 17, with +bool+ as reification 
   #   # variable and +domain+ as strength.
   #   (x*y).must_be.less_than(17, :reify => bool, :strength => :domain)
   class MultExpressionStub < Gecode::Constraints::Int::CompositeStub
@@ -67,6 +73,31 @@ module Gecode::Constraints::Int::Arithmetic #:nodoc:
 
       Gecode::Raw::mult(@model.active_space, lhs.bind, lhs2.bind, 
         variable.bind, *propagation_options)
+    end
+  end
+  
+  # Describes a CompositeStub for the squared constraint, which constrain
+  # the squared value of the variable.
+  # 
+  # == Examples
+  #   
+  #   # The value of +x*x+ must be equal to y.
+  #   x.squared.must == y
+  #   
+  #   # The value of +x*x+ must be less than or equal to 16, with +bool+ as 
+  #   # reification variable and +domain+ as strength.
+  #   x.squared.must_be.less_or_equal(16, :reify => bool, :strength => :domain)
+  class SquaredExpressionStub < Gecode::Constraints::Int::CompositeStub
+    def constrain_equal(variable, params, constrain)
+      lhs = @params[:lhs]
+      if constrain
+        min = lhs.min; max = lhs.max
+        products = [min*max, min*min, max*max]
+        variable.must_be.in products.min..products.max
+      end
+
+      Gecode::Raw::sqr(@model.active_space, lhs.bind, variable.bind, 
+        *propagation_options)
     end
   end
 end
