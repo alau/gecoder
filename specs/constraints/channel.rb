@@ -16,6 +16,20 @@ class ChannelSampleProblem < Gecode::Model
   end
 end
 
+class BoolChannelSampleProblem < Gecode::Model
+  attr :bool_enum
+  attr :bool
+  attr :int
+  
+  def initialize
+    @bool_enum = bool_var_array(4)
+    @int = int_var(0..3)
+    @bool = bool_var
+    
+    branch_on wrap_enum([@int])
+  end
+end
+
 describe Gecode::Constraints::IntEnum::Channel, ' (two int enums)' do
   before do
     @model = ChannelSampleProblem.new
@@ -133,4 +147,94 @@ describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' d
   end
   
   it_should_behave_like 'non-reifiable set constraint'
+end
+
+describe Gecode::Constraints::Int::Channel, ' (one int and one bool variable)' do
+  before do
+    @model = BoolChannelSampleProblem.new
+    @bool = @model.bool_var
+    @int = @model.int_var
+    
+    @invoke_options = lambda do |hash| 
+      @int.must.equal(@bool, hash)
+      @model.solve!
+    end
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      Gecode::Raw.should_receive(:channel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
+        an_instance_of(Gecode::Raw::IntVar), 
+        an_instance_of(Gecode::Raw::BoolVar), 
+        strength, kind)
+    end
+  end
+  
+  ([:==] + Gecode::Constraints::Util::COMPARISON_ALIASES[:==]).each do |ali|
+    it "should translate #{ali} into a channel constraint" do
+      @expect_options.call({})
+      @int.must.method(ali).call(@bool)
+      @model.solve!
+    end
+  end
+  
+  it 'should not shadow linear boolean constraints' do
+    lambda do
+      (@bool + @bool).must == @bool
+      @model.solve!
+    end.should_not raise_error 
+  end
+  
+  it 'should not allow negation' do
+    lambda do
+      @int.must_not == @bool
+    end.should raise_error(Gecode::MissingConstraintError) 
+  end
+  
+  it 'should raise error for unsupported right hand sides' do
+    lambda{ @int.must == 'hello' }.should raise_error(TypeError) 
+  end
+  
+  it_should_behave_like 'non-reifiable constraint'
+end
+
+describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' do
+  before do
+    @model = BoolChannelSampleProblem.new
+    @bool = @model.bool_var
+    @int = @model.int_var
+    
+    @invoke_options = lambda do |hash| 
+      @bool.must.equal(@int, hash)
+      @model.solve!
+    end
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      Gecode::Raw.should_receive(:channel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
+        an_instance_of(Gecode::Raw::IntVar), 
+        an_instance_of(Gecode::Raw::BoolVar), 
+        strength, kind)
+    end
+  end
+  
+  ([:==] + Gecode::Constraints::Util::COMPARISON_ALIASES[:==]).each do |ali|
+    it "should translate #{ali} into a channel constraint" do
+      @expect_options.call({})
+      @bool.must.method(ali).call(@int)
+      @model.solve!
+    end
+  end
+  
+  it 'should not shadow linear boolean constraints' do
+    lambda do
+      @bool.must == @bool + @bool
+      @model.solve!
+    end.should_not raise_error 
+  end
+  
+  it 'should not allow negation' do
+    lambda do
+      @bool.must_not == @int
+    end.should raise_error(Gecode::MissingConstraintError) 
+  end
+  
+  it_should_behave_like 'non-reifiable constraint'
 end

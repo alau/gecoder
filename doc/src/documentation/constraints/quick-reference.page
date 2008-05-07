@@ -49,6 +49,7 @@ h2. Boolean constraints
 | domain | {quickrefTemplate: bool_expression.must_be.true } | must_be.false also works |
 | equality | {quickrefTemplate: bool_expression_1.must == bool_expression_2 } | |
 | implication | {quickrefTemplate: bool_expression_1.must.imply(bool_expression_2) } | |
+| channel | {quickrefTemplate: bool.must == int } | no negation nor reification, bool and int can be swapped |
 
 h2. Boolean enumeration constraints
 

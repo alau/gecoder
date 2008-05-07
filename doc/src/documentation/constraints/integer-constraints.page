@@ -168,8 +168,10 @@ above property. Hence we can pick the most comfortable viewpoint for each
 constraint and use it, posting a part of the constraint from one viewpoint and 
 the rest from another.
 
-Sets can also be used instead of posistions in the above example, see the "set 
-constraints":set-constraints.html for more information.
+Sets can also be used instead of positions in the above example, see the "set 
+constraints":set-constraints.html for more information. Boolean variables can
+also be connected to integer variables, see the 
+"boolean constraints":boolean-constraints.html for more information.
 
 h2. Count
 

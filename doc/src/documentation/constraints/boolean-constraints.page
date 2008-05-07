@@ -61,6 +61,23 @@ true:
 supported). Also note that the left hand side must consist of more than a 
 single boolean variable.
 
+h2. Channel
+
+The value of a boolean variable can be connected to the value of an integer 
+variable using
+
+<ruby>
+bool.must == int
+</ruby>
+or
+<ruby>
+int.must == bool
+</ruby>
+
+where @bool@ is a boolean variable and @int@ is an integer variable. The 
+integer variable is constrained to be 1 when the boolean variable is true and 0 
+otherwise.
+
 h2. Conjunction and disjunction of enumeration
 
 One can take the conjunction and disjunction of all variables in an enumeration 
