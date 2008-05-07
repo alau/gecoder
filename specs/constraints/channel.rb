@@ -67,13 +67,21 @@ describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum
     @model = ChannelSampleProblem.new
     @positions = @model.positions
     @sets = @model.sets
+    
+    @invoke_options = lambda do |hash| 
+      @positions.must.channel @sets, hash
+      @model.solve!
+    end
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      Gecode::Raw.should_receive(:channel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
+        an_instance_of(Gecode::Raw::IntVarArray), 
+        an_instance_of(Gecode::Raw::SetVarArray))
+    end
   end
 
   it 'should translate into a channel constraint' do
-    Gecode::Raw.should_receive(:channel).once.with(
-      an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::IntVarArray), 
-        an_instance_of(Gecode::Raw::SetVarArray))
+    @expect_options.call({})
     @positions.must.channel @sets
     @model.solve!
   end
@@ -87,6 +95,8 @@ describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum
       sets[position].value.should include(i)
     end
   end
+  
+  it_should_behave_like 'non-reifiable set constraint'
 end
 
 describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' do

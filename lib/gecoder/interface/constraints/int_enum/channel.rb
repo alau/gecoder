@@ -11,8 +11,16 @@ module Gecode::Constraints::IntEnum
           enum.respond_to?(:to_set_var_array)
         raise TypeError, "Expected int or set enum, got #{enum.class}."
       end
+      if enum.respond_to? :to_set_var_array
+        if options.has_key? :reify
+          raise ArgumentError, 'The channel constraints does not support the ' +
+            'reification option.'
+        end
+        @params.update(Gecode::Constraints::Set::Util.decode_options(options))
+      else
+        @params.update(Gecode::Constraints::Util.decode_options(options))
+      end
       
-      @params.update(Gecode::Constraints::Util.decode_options(options))
       @params.update(:rhs => enum)
       @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
     end
@@ -91,7 +99,7 @@ module Gecode::Constraints::IntEnum
           Gecode::Raw::channel(@model.active_space, lhs, rhs.to_int_var_array,
             *propagation_options)
         else
-          # Set var array, no strength.
+          # Set var array, no propagation options.
           Gecode::Raw::channel(@model.active_space, lhs, rhs.to_set_var_array)
         end
       end
