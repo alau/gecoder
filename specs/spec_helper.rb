@@ -58,34 +58,6 @@ module CustomVarMatchers
   def have_bounds(expected_glb, expected_lub)
     HaveBounds.new(expected_glb, expected_lub)
   end
-  
-  class IsAlias
-    def initialize(expected)
-      @expected = expected.to_a
-    end
-    
-    def matches?(target)
-      @target = target
-      return false unless @target.size == @expected.size
-      @expected.each do |element|
-        return false unless @target.in(element)
-      end
-      return true
-    end
-    
-    def failure_message
-      "expected #{@target.inspect} to be an alias of #{@expected.inspect}"
-    end
-    
-    def negative_failure_message
-      "expected #{@target.inspect} not to be an alias of #{@expected.inspect}"
-    end
-  end
-
-  # Tests whether a method with a specified name is the alias of another.
-  def is_alias_of(expected)
-    HaveDomain.new(expected)
-  end
 end
 
 Spec::Runner.configure do |config|
