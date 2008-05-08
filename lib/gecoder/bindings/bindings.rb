@@ -973,6 +973,14 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
     
     ns.add_function "channel" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::IntVar", "x0"
+      func.add_parameter "Gecode::BoolVar", "x1"
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
+    
+    ns.add_function "channel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MBoolVarArray *", "x" do |param|
         param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr()"
       end

@@ -223,6 +223,20 @@ describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' d
     end
   end
   
+  it 'should constrain the int variable to be 1 when the boolean variable is true' do
+    @bool.must_be.true
+    @bool.must == @int
+    @model.solve!
+    @int.value.should == 1
+  end
+  
+  it 'should constrain the int variable to be 0 when the boolean variable is false' do
+    @bool.must_be.false
+    @bool.must == @int
+    @model.solve!
+    @int.value.should == 0
+  end
+  
   it 'should not shadow linear boolean constraints' do
     lambda do
       @bool.must == @bool + @bool
