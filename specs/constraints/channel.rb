@@ -149,14 +149,14 @@ describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' d
   it_should_behave_like 'non-reifiable set constraint'
 end
 
-describe Gecode::Constraints::Int::Channel, ' (one int and one bool variable)' do
+# Requires @model, @bool and @int. Also requires @place_constraint which is a 
+# method that takes five variables: a boolean variable, an integer variable, 
+# the name of the equality method to use, whether or not the constraint should 
+# be negated and a hash of options, and places the channel constraint on them.
+describe 'channel constraint between one int and one bool variable', :shared => true do 
   before do
-    @model = BoolChannelSampleProblem.new
-    @bool = @model.bool_var
-    @int = @model.int_var
-    
     @invoke_options = lambda do |hash| 
-      @int.must.equal(@bool, hash)
+      @place_constraint.call(@bool, @int, :==, false, hash)
       @model.solve!
     end
     @expect_options = option_expectation do |strength, kind, reif_var|
@@ -171,11 +171,49 @@ describe Gecode::Constraints::Int::Channel, ' (one int and one bool variable)' d
   ([:==] + Gecode::Constraints::Util::COMPARISON_ALIASES[:==]).each do |ali|
     it "should translate #{ali} into a channel constraint" do
       @expect_options.call({})
-      @int.must.method(ali).call(@bool)
+      @place_constraint.call(@bool, @int, ali, false, {})
       @model.solve!
     end
   end
   
+  it 'should constrain the int variable to be 1 when the boolean variable is true' do
+    @bool.must_be.true
+    @place_constraint.call(@bool, @int, :==, false, {})
+    @model.solve!
+    @int.value.should == 1
+  end
+  
+  it 'should constrain the int variable to be 0 when the boolean variable is false' do
+    @bool.must_be.false
+    @place_constraint.call(@bool, @int, :==, false, {})
+    @model.solve!
+    @int.value.should == 0
+  end
+  
+  it 'should not allow negation' do
+    lambda do
+      @place_constraint.call(@bool, @int, :==, true, {})
+    end.should raise_error(Gecode::MissingConstraintError) 
+  end
+  
+  it_should_behave_like 'non-reifiable constraint'
+end
+
+describe Gecode::Constraints::Int::Channel, ' (one int and one bool variable)' do
+  before do
+    @model = BoolChannelSampleProblem.new
+    @bool = @model.bool_var
+    @int = @model.int_var
+
+    @place_constraint = lambda do |bool, int, equals_method_name, negate, options|
+      if negate
+        int.must_not.method(equals_method_name).call(bool, options)
+      else
+        int.must.method(equals_method_name).call(bool, options)
+      end
+    end
+  end
+
   it 'should not shadow linear boolean constraints' do
     lambda do
       (@bool + @bool).must == @bool
@@ -183,17 +221,11 @@ describe Gecode::Constraints::Int::Channel, ' (one int and one bool variable)' d
     end.should_not raise_error 
   end
   
-  it 'should not allow negation' do
-    lambda do
-      @int.must_not == @bool
-    end.should raise_error(Gecode::MissingConstraintError) 
-  end
-  
   it 'should raise error for unsupported right hand sides' do
     lambda{ @int.must == 'hello' }.should raise_error(TypeError) 
   end
   
-  it_should_behave_like 'non-reifiable constraint'
+  it_should_behave_like 'channel constraint between one int and one bool variable'
 end
 
 describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' do
@@ -202,39 +234,13 @@ describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' d
     @bool = @model.bool_var
     @int = @model.int_var
     
-    @invoke_options = lambda do |hash| 
-      @bool.must.equal(@int, hash)
-      @model.solve!
+    @place_constraint = lambda do |bool, int, equals_method_name, negate, options|
+      if negate
+        bool.must_not.method(equals_method_name).call(int, options)
+      else
+        bool.must.method(equals_method_name).call(int, options)
+      end
     end
-    @expect_options = option_expectation do |strength, kind, reif_var|
-      Gecode::Raw.should_receive(:channel).once.with(
-        an_instance_of(Gecode::Raw::Space), 
-        an_instance_of(Gecode::Raw::IntVar), 
-        an_instance_of(Gecode::Raw::BoolVar), 
-        strength, kind)
-    end
-  end
-  
-  ([:==] + Gecode::Constraints::Util::COMPARISON_ALIASES[:==]).each do |ali|
-    it "should translate #{ali} into a channel constraint" do
-      @expect_options.call({})
-      @bool.must.method(ali).call(@int)
-      @model.solve!
-    end
-  end
-  
-  it 'should constrain the int variable to be 1 when the boolean variable is true' do
-    @bool.must_be.true
-    @bool.must == @int
-    @model.solve!
-    @int.value.should == 1
-  end
-  
-  it 'should constrain the int variable to be 0 when the boolean variable is false' do
-    @bool.must_be.false
-    @bool.must == @int
-    @model.solve!
-    @int.value.should == 0
   end
   
   it 'should not shadow linear boolean constraints' do
@@ -244,13 +250,11 @@ describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' d
     end.should_not raise_error 
   end
   
-  it 'should not allow negation' do
-    lambda do
-      @bool.must_not == @int
-    end.should raise_error(Gecode::MissingConstraintError) 
+  it 'should raise error for unsupported right hand sides' do
+    lambda{ @bool.must == 'hello' }.should raise_error(TypeError) 
   end
   
-  it_should_behave_like 'non-reifiable constraint'
+  it_should_behave_like 'channel constraint between one int and one bool variable'
 end
 
 # Requires @model, @bool_enum and @int. Also requires @place_constraint which 
