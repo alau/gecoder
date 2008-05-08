@@ -67,16 +67,34 @@ The value of a boolean variable can be connected to the value of an integer
 variable using
 
 <ruby>
-bool.must == int
+bool_var.must == int_var
 </ruby>
 or
 <ruby>
-int.must == bool
+int_var.must == bool_var
 </ruby>
 
-where @bool@ is a boolean variable and @int@ is an integer variable. The 
+where @bool_var@ is a boolean variable and @int_var@ is an integer variable. The 
 integer variable is constrained to be 1 when the boolean variable is true and 0 
 otherwise.
+
+The value of an enumeration of boolean variables can be connected with the value
+of a single integer variable using the following.
+
+<ruby>
+bool_enum.must.channel int_var
+</ruby>
+
+This constrains the integer variable @int_var@ to take value i exactly when the 
+variable at index i in the boolean enumeration @bool_enum@ is true and the 
+others are false. An offset option can also be given, which makes the integer
+variable take value i+offset in the above situation.
+
+<ruby>
+bool_enum.must.channel(int_var, :offset => 17)
+</ruby>
+
+Neither reification nor negation is supported.
 
 h2. Conjunction and disjunction of enumeration
 
@@ -100,4 +118,5 @@ bools.must_be.in [[true, false, true], [false, false, true]]
 </ruby>
 
 The above constrains @bools@, containing three boolean variables, to either 
-be true, false, true, or false, false, true.
+be true, false, true, or false, false, true. Neither reification nor negation 
+is supported.

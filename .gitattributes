@@ -613,6 +613,7 @@ lib/gecoder/interface/constraints.rb -text
 lib/gecoder/interface/constraints/bool/boolean.rb -text
 lib/gecoder/interface/constraints/bool/channel.rb -text
 lib/gecoder/interface/constraints/bool/linear.rb -text
+lib/gecoder/interface/constraints/bool_enum/channel.rb -text
 lib/gecoder/interface/constraints/bool_enum/extensional.rb -text
 lib/gecoder/interface/constraints/bool_enum/relation.rb -text
 lib/gecoder/interface/constraints/bool_enum_constraints.rb -text

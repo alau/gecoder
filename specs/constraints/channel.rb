@@ -238,3 +238,58 @@ describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' d
   
   it_should_behave_like 'non-reifiable constraint'
 end
+
+describe Gecode::Constraints::BoolEnum::Channel, ' (bool enum as lhs with int variable)' do
+  before do
+    @model = BoolChannelSampleProblem.new
+    @bools = @model.bool_enum
+    @int = @model.int
+    
+    @invoke_options = lambda do |hash| 
+      @bools.must.channel(@int, hash)
+      @model.solve!
+    end
+    @expect_options = option_expectation do |strength, kind, reif_var|
+      Gecode::Raw.should_receive(:channel).once.with(
+        an_instance_of(Gecode::Raw::Space), 
+        an_instance_of(Gecode::Raw::BoolVarArray),
+        an_instance_of(Gecode::Raw::IntVar), 0,
+        strength, kind)
+    end
+  end
+  
+  it 'should channel the bool enum with the integer variable' do
+    @int.must > 2
+    @bools.must.channel @int
+    @model.solve!.should_not be_nil
+    int_val = @int.value
+    @bools.values.each_with_index do |bool, index|
+      bool.should == (index == int_val)
+    end
+  end
+  
+  it 'should take the offset into account when channeling' do
+    @int.must > 2
+    offset = 1
+    @bools.must.channel(@int, :offset => offset)
+    @model.solve!.should_not be_nil
+    int_val = @int.value
+    @bools.values.each_with_index do |bool, index|
+      bool.should == (index + offset == int_val)
+    end
+  end
+
+  it 'should raise error if an integer variable is not given as right hand side' do
+    lambda do
+      @bools.must.channel 'hello'
+    end.should raise_error(TypeError) 
+  end
+  
+  it 'should not allow negation' do
+    lambda do
+      @bools.must_not.channel @int
+    end.should raise_error(Gecode::MissingConstraintError) 
+  end
+  
+  it_should_behave_like 'non-reifiable constraint'
+end

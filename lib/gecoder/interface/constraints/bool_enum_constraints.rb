@@ -30,3 +30,4 @@ end
 
 require 'gecoder/interface/constraints/bool_enum/relation'
 require 'gecoder/interface/constraints/bool_enum/extensional'
+require 'gecoder/interface/constraints/bool_enum/channel'

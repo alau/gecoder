@@ -4,6 +4,7 @@
 * Added search statistics.
 * Added the squared value and square root constraints.
 * Added channel constraints between single integer variables and boolean variables.
+* Added a channel constraint between enumerations of boolean variables and single integer variables.
 
 == Version 0.8.1
 This release adds tuple constraints along with a couple of minor features. It 

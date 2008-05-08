@@ -29,7 +29,7 @@ The following things are supported by Gecode/R.
 * Finite domain integer variables with the following constraints
 ** "Arithmetic":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntArith.html
 ** "Cardinality":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntCard.html except for the ones involving more than one variable array
-** "Channel":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntChannel.html except for channeling between integer variables and arrays of boolean variables 
+** "Channel":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntChannel.html 
 ** "Distinct":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntDistinct.html
 ** "Domain":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntDomain.html
 ** "Element":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntElement.html
