@@ -240,6 +240,14 @@ describe Gecode::Constraints::Int::Linear, '(with booleans)' do
     (x + y).should equal(1)
   end
   
+  it 'should handle singe booleans as left hand side' do
+    @x.must == @y + 1 
+    sol = @model.solve!
+    x = sol.x.value.to_i
+    y = sol.y.value.to_i
+    x.should equal(y + 1)
+  end
+  
   it 'should handle variables as right hand side' do
     (@x + @y).must == @z
     sol = @model.solve!

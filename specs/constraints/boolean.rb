@@ -228,5 +228,9 @@ describe Gecode::Constraints::Bool do
     sol.b3.value.should be_true
   end
   
+  it 'should raise error on right hand sides of the wrong type' do
+    lambda{ @b1.must == 'hello' }.should raise_error(TypeError) 
+  end
+  
   it_should_behave_like 'reifiable constraint'
 end

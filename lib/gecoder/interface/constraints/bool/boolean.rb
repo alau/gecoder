@@ -26,6 +26,13 @@ module Gecode
     # Describes a boolean expression (following after must*).
     class Expression #:nodoc:
       def ==(expression, options = {})
+        unless expression.kind_of?(ExpressionTree) or 
+            expression.kind_of?(Gecode::FreeBoolVar) or 
+            expression.kind_of?(TrueClass) or expression.kind_of?(FalseClass) or
+            expression.respond_to?(:to_minimodel_lin_exp)
+          raise TypeError, 'Invalid right hand side of boolean equation.'
+        end
+        
         @params.update Gecode::Constraints::Util.decode_options(options)
         @model.add_constraint BooleanConstraint.new(@model, 
           @params.update(:rhs => expression))
