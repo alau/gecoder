@@ -159,6 +159,9 @@ If you just want any or all solutions then use depth first search. Use branch
 and bound search if you want to fetch a specific solution, optimizing something
 of you choice.
 
+The "Model#search_stats":../rdoc/classes/Gecode/Model.html#M000088 method can 
+be used after the search to obtain various statistics about the search.
+
 h3. Depth first search
 
 The solutions to a model can be accessed by several methods. The simplest case
