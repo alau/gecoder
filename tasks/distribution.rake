@@ -54,7 +54,7 @@ spec = Gem::Specification.new do |s|
   s.files = FileList[
     '[A-Z]*',
     'lib/**/*.rb', 
-    'example/**/*',
+    'example/**/*.rb',
     'src/**/*',
     'vendor/rust/**/*',
     'tasks/**/*',
