@@ -3,7 +3,8 @@ module Gecode::Constraints::Int
     alias_method :pre_channel_equals, :==
     
     # Constrains the integer variable to be equal to the specified boolean 
-    # variable.
+    # variable. I.e. constrains the integer variable to be 1 when the boolean
+    # variable is true and 0 if the boolean variable is false.
     def ==(bool, options = {})
       unless @params[:lhs].kind_of?(Gecode::FreeIntVar) and 
           bool.kind_of?(Gecode::FreeBoolVar)
@@ -25,14 +26,36 @@ module Gecode::Constraints::Int
     end
     
     alias_comparison_methods
+    
+    # Adds a channel constraint on the integer variable and the variables in 
+    # the specifed enum of boolean variables. Beyond the common options the 
+    # channel constraint can also take the following option:
+    #
+    # [:offset]  Specifies an offset for the integer variable. If the offset is
+    #            set to k then the integer variable takes value i+k exactly 
+    #            when the variable at index i in the boolean enumration is true 
+    #            and the rest are false.
+    def channel(bool_enum, options = {})
+      unless bool_enum.respond_to? :to_bool_var_array
+        raise TypeError, 'Expected an enumration of boolean variables, got ' + 
+          "#{bool_enum.class}."
+      end
+      
+      # Just provide commutivity with the boolean enum channel constraint.
+      if @params[:negate]
+        bool_enum.must_not.channel(@params[:lhs], options)
+      else
+        bool_enum.must.channel(@params[:lhs], options)
+      end
+    end
   end
   
   # A module that gathers the classes and modules used in channel constraints
   # involving a single integer variable.
   module Channel #:nodoc:
     # Describes a channel constraint that constrains an integer variable to be 
-    # 1 if a bool variable is true, and false otherwise. Does not support 
-    # negation nor reification.
+    # 1 if a boolean variable is true, and 0 when the boolean variable is false. 
+    # Does not support negation nor reification.
     #
     # == Examples
     #
@@ -42,8 +65,6 @@ module Gecode::Constraints::Int
     class ChannelConstraint < Gecode::Constraints::Constraint
       def post
         lhs, rhs = @params.values_at(:lhs, :rhs)
-      
-        # Int var array.
         Gecode::Raw::channel(@model.active_space, lhs.bind, rhs.bind,
           *propagation_options)
       end

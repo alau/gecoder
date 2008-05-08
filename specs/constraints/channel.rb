@@ -253,14 +253,14 @@ describe Gecode::Constraints::Int::Channel, ' (one bool and one int variable)' d
   it_should_behave_like 'non-reifiable constraint'
 end
 
-describe Gecode::Constraints::BoolEnum::Channel, ' (bool enum as lhs with int variable)' do
+# Requires @model, @bool_enum and @int. Also requires @place_constraint which 
+# is a method that takes four variables: a boolean enum, an integer variable,
+# whether or not the constraint should be negated and a hash of options, and 
+# places the channel constraint on them.
+describe 'channel constraint between bool enum and int variable', :shared => true do
   before do
-    @model = BoolChannelSampleProblem.new
-    @bools = @model.bool_enum
-    @int = @model.int
-    
     @invoke_options = lambda do |hash| 
-      @bools.must.channel(@int, hash)
+      @place_constraint.call(@bools, @int, false, hash)
       @model.solve!
     end
     @expect_options = option_expectation do |strength, kind, reif_var|
@@ -274,7 +274,7 @@ describe Gecode::Constraints::BoolEnum::Channel, ' (bool enum as lhs with int va
   
   it 'should channel the bool enum with the integer variable' do
     @int.must > 2
-    @bools.must.channel @int
+    @place_constraint.call(@bools, @int, false, {})
     @model.solve!.should_not be_nil
     int_val = @int.value
     @bools.values.each_with_index do |bool, index|
@@ -285,11 +285,35 @@ describe Gecode::Constraints::BoolEnum::Channel, ' (bool enum as lhs with int va
   it 'should take the offset into account when channeling' do
     @int.must > 2
     offset = 1
-    @bools.must.channel(@int, :offset => offset)
+    @place_constraint.call(@bools, @int, false, :offset => offset)
     @model.solve!.should_not be_nil
     int_val = @int.value
     @bools.values.each_with_index do |bool, index|
       bool.should == (index + offset == int_val)
+    end
+  end
+
+  it 'should not allow negation' do
+    lambda do
+      @place_constraint.call(@bools, @int, true, {})
+    end.should raise_error(Gecode::MissingConstraintError) 
+  end
+  
+  it_should_behave_like 'non-reifiable constraint'
+end
+
+describe Gecode::Constraints::BoolEnum::Channel, ' (bool enum as lhs with int variable)' do
+  before do
+    @model = BoolChannelSampleProblem.new
+    @bools = @model.bool_enum
+    @int = @model.int
+    
+    @place_constraint = lambda do |bools, int, negate, options|
+      unless negate
+        bools.must.channel(int, options)
+      else
+        bools.must_not.channel(int, options)
+      end
     end
   end
 
@@ -299,11 +323,30 @@ describe Gecode::Constraints::BoolEnum::Channel, ' (bool enum as lhs with int va
     end.should raise_error(TypeError) 
   end
   
-  it 'should not allow negation' do
+  it_should_behave_like 'channel constraint between bool enum and int variable'
+end
+
+
+describe Gecode::Constraints::BoolEnum::Channel, ' (int variable as lhs with bool enum)' do
+  before do
+    @model = BoolChannelSampleProblem.new
+    @bools = @model.bool_enum
+    @int = @model.int
+    
+    @place_constraint = lambda do |bools, int, negate, options|
+      unless negate
+        int.must.channel(bools, options)
+      else
+        int.must_not.channel(bools, options)
+      end
+    end
+  end
+
+  it 'should raise error if a boolean enum is not given as right hand side' do
     lambda do
-      @bools.must_not.channel @int
-    end.should raise_error(Gecode::MissingConstraintError) 
+      @int.must.channel 'hello'
+    end.should raise_error(TypeError) 
   end
   
-  it_should_behave_like 'non-reifiable constraint'
+  it_should_behave_like 'channel constraint between bool enum and int variable'
 end

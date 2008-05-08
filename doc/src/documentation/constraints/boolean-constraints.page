@@ -84,6 +84,10 @@ of a single integer variable using the following.
 <ruby>
 bool_enum.must.channel int_var
 </ruby>
+or
+<ruby>
+int_var.must.channel bool_enum
+</ruby>
 
 This constrains the integer variable @int_var@ to take value i exactly when the 
 variable at index i in the boolean enumeration @bool_enum@ is true and the 

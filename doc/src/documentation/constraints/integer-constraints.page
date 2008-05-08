@@ -169,8 +169,8 @@ constraint and use it, posting a part of the constraint from one viewpoint and
 the rest from another.
 
 Sets can also be used instead of positions in the above example, see the "set 
-constraints":set-constraints.html for more information. Boolean variables can
-also be connected to integer variables, see the 
+constraints":set-constraints.html for more information. Boolean variables and
+enumerations can also be connected to integer variables, see the 
 "boolean constraints":boolean-constraints.html for more information.
 
 h2. Count
