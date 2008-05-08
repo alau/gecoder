@@ -1,10 +1,12 @@
-== Next version
+== Version 0.8.2
+This release adds search statistics along with some new arithmetic constraints 
+and channel constraints between boolean and integer variables.
 
 * Wrapping an enumerable that is already wrapped is no longer allowed.
 * Added search statistics.
-* Added the squared value and square root constraints.
+* Added squared value and square root constraints.
 * Added channel constraints between single integer variables and boolean variables.
-* Added a channel constraint between enumerations of boolean variables and single integer variables.
+* Added channel constraints between enumerations of boolean variables and single integer variables.
 
 == Version 0.8.1
 This release adds tuple constraints along with a couple of minor features. It 
