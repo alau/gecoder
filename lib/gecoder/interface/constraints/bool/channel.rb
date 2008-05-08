@@ -10,13 +10,12 @@ module Gecode::Constraints::Bool
         return pre_channel_equals(int, options)
       end
       
-      if @params[:negate]
-        raise Gecode::MissingConstraintError, 'A negated channel constraint ' +
-          'is not implemented.'
-      end
-      
       # Provide commutivity to the corresponding int variable constraint.
-      int.must.equal(@params[:lhs], options)
+      if @params[:negate]
+        int.must_not.equal(@params[:lhs], options)
+      else
+        int.must.equal(@params[:lhs], options)
+      end
     end
     
     alias_comparison_methods
