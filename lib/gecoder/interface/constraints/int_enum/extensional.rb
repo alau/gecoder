@@ -1,6 +1,7 @@
 module Gecode::Constraints::IntEnum
   class Expression
-    # Posts an equality constraint on the variables in the enum.
+    # Posts a tuple constraint on the variables in the enum, constraining them
+    # to equal one of the specified tuples.
     def in(tuples, options = {})
       if @params[:negate]
         raise Gecode::MissingConstraintError, 'A negated tuple constraint is ' +
