@@ -73,10 +73,10 @@ describe Gecode::Constraints::IntEnum::Channel, ' (two int enums)' do
     lambda{ @elements.must.channel 'hello' }.should raise_error(TypeError) 
   end
   
-  it_should_behave_like 'reifiable constraint'
+  it_should_behave_like 'non-reifiable constraint'
 end
 
-describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum)' do
+describe Gecode::Constraints::SetEnum::Channel::IntChannelConstraint, ' (channel with set as right hand side)' do
   before do
     @model = ChannelSampleProblem.new
     @positions = @model.positions
@@ -113,7 +113,7 @@ describe Gecode::Constraints::IntEnum::Channel, ' (one int enum and one set enum
   it_should_behave_like 'non-reifiable set constraint'
 end
 
-describe Gecode::Constraints::SetEnum, ' (channel with set as left hand side)' do
+describe Gecode::Constraints::SetEnum::Channel::IntChannelConstraint, ' (channel with set as left hand side)' do
   before do
     @model = ChannelSampleProblem.new
     @positions = @model.positions

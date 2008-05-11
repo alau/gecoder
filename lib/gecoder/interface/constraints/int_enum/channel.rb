@@ -11,18 +11,24 @@ module Gecode::Constraints::IntEnum
           enum.respond_to?(:to_set_var_array)
         raise TypeError, "Expected int or set enum, got #{enum.class}."
       end
+      
       if enum.respond_to? :to_set_var_array
+        # Provide commutivity via the set constraint.
+        if @params[:negate]
+          enum.must_not.channel(@params[:lhs], options)
+        else
+          enum.must.channel(@params[:lhs], options)
+        end
+      else
         if options.has_key? :reify
           raise ArgumentError, 'The channel constraints does not support the ' +
             'reification option.'
         end
-        @params.update(Gecode::Constraints::Set::Util.decode_options(options))
-      else
+        
         @params.update(Gecode::Constraints::Util.decode_options(options))
+        @params.update(:rhs => enum)
+        @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
       end
-      
-      @params.update(:rhs => enum)
-      @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
     end
   end
   
@@ -33,14 +39,12 @@ module Gecode::Constraints::IntEnum
     # enumeration of set variables. Channel constraints are used to give 
     # access to multiple viewpoints when modelling. 
     # 
-    # When used on two integer enumeration, the channel constraint can be 
-    # thought of as constraining the arrays to be each other's inverses. When 
-    # used with an enumeration of sets the i:th set includes the value of the
-    # j:th integer.  
+    # The channel constraint can be thought of as constraining the arrays to 
+    # be each other's inverses. I.e. if the i:th value in the first enumeration
+    # is j, then the j:th value in the second enumeration is constrained to be 
+    # i.
     # 
-    # Neither reification nor negation is supported. Selecting strength is only 
-    # supported when using the constraint between two integer enumerations, 
-    # it's not supported when a set enumeration is used.  
+    # Neither reification nor negation is supported.
     # 
     # == Example
     # 
@@ -82,26 +86,11 @@ module Gecode::Constraints::IntEnum
     # 
     #   elements.must.channel positions
     # 
-    # == Example (sets)
-    # 
-    #   # +set_enum+ is constrained to channel +int_enum+.
-    #   int_enum.must.channel set_enum
-    # 
-    #   # This is another way of saying the above.
-    #   set_enum.must.channel int_enum
     class ChannelConstraint < Gecode::Constraints::Constraint
       def post
         lhs, rhs = @params.values_at(:lhs, :rhs)
-      
-        lhs = lhs.to_int_var_array
-        if rhs.respond_to? :to_int_var_array
-          # Int var array.
-          Gecode::Raw::channel(@model.active_space, lhs, rhs.to_int_var_array,
-            *propagation_options)
-        else
-          # Set var array, no propagation options.
-          Gecode::Raw::channel(@model.active_space, lhs, rhs.to_set_var_array)
-        end
+        Gecode::Raw::channel(@model.active_space, lhs.to_int_var_array, 
+          rhs.to_int_var_array, *propagation_options)
       end
     end
   end
