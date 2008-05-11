@@ -271,6 +271,43 @@ module Gecode
       
       private
       
+      # Provides commutivity for the constraint with the specified method name.
+      # If the method with the specified method name is called with something 
+      # that, when given to the block, evaluates to true, then the constraint
+      # will be called on the right hand side with the left hand side as 
+      # argument.
+      #
+      # The original constraint method is assumed to take two arguments: a 
+      # right hand side and a hash of options.
+      def self.provide_commutivity(constraint_name, &block)
+        unique_id = constraint_name.to_sym.to_i
+        pre_alias_method_name = 'pre_commutivity_' << unique_id.to_s
+        if method_defined? constraint_name
+          alias_method pre_alias_method_name, constraint_name
+        end
+        
+        module_eval <<-end_code
+          @@commutivity_check_#{unique_id} = block
+          def #{constraint_name}(rhs, options = {})
+            if @@commutivity_check_#{unique_id}.call(rhs, options)
+              if @params[:negate]
+                rhs.must_not.method(:#{constraint_name}).call(
+                  @params[:lhs], options)
+              else
+                rhs.must.method(:#{constraint_name}).call(
+                  @params[:lhs], options)
+              end
+            else
+              if self.class.method_defined? :#{pre_alias_method_name}
+                #{pre_alias_method_name}(rhs, options)
+              else
+                raise TypeError, \"Unexpected argument type \#{rhs.class}.\" 
+              end
+            end
+          end
+        end_code
+      end
+      
       # Creates aliases for any defined comparison methods.
       def self.alias_comparison_methods
         Gecode::Constraints::Util::COMPARISON_ALIASES.each_pair do |orig, aliases|

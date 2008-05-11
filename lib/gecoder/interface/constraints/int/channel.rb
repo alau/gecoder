@@ -35,19 +35,7 @@ module Gecode::Constraints::Int
     #            set to k then the integer variable takes value i+k exactly 
     #            when the variable at index i in the boolean enumration is true 
     #            and the rest are false.
-    def channel(bool_enum, options = {})
-      unless bool_enum.respond_to? :to_bool_var_array
-        raise TypeError, 'Expected an enumration of boolean variables, got ' + 
-          "#{bool_enum.class}."
-      end
-      
-      # Just provide commutivity with the boolean enum channel constraint.
-      if @params[:negate]
-        bool_enum.must_not.channel(@params[:lhs], options)
-      else
-        bool_enum.must.channel(@params[:lhs], options)
-      end
-    end
+    provide_commutivity(:channel){ |rhs, _| rhs.respond_to? :to_bool_var_array }
   end
   
   # A module that gathers the classes and modules used in channel constraints

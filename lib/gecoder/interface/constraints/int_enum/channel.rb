@@ -7,29 +7,20 @@ module Gecode::Constraints::IntEnum
         raise Gecode::MissingConstraintError, 'A negated channel constraint ' + 
           'is not implemented.'
       end
-      unless enum.respond_to?(:to_int_var_array) or 
-          enum.respond_to?(:to_set_var_array)
-        raise TypeError, "Expected int or set enum, got #{enum.class}."
+      unless enum.respond_to?(:to_int_var_array)
+        raise TypeError, "Expected int enum, got #{enum.class}."
+      end
+      if options.has_key? :reify
+        raise ArgumentError, 'The channel constraints does not support the ' +
+          'reification option.'
       end
       
-      if enum.respond_to? :to_set_var_array
-        # Provide commutivity via the set constraint.
-        if @params[:negate]
-          enum.must_not.channel(@params[:lhs], options)
-        else
-          enum.must.channel(@params[:lhs], options)
-        end
-      else
-        if options.has_key? :reify
-          raise ArgumentError, 'The channel constraints does not support the ' +
-            'reification option.'
-        end
-        
-        @params.update(Gecode::Constraints::Util.decode_options(options))
-        @params.update(:rhs => enum)
-        @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
-      end
+      @params.update(Gecode::Constraints::Util.decode_options(options))
+      @params.update(:rhs => enum)
+      @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
     end
+    
+    provide_commutivity(:channel){ |rhs, _| rhs.respond_to? :to_set_var_array }
   end
   
   # A module that gathers the classes and modules used in channel constraints.
