@@ -3,7 +3,7 @@ title: Error page
 longTitle: 404 Not Found
 inMenu: false
 description: The page couldn't be found. 
-additionalHeadContents: '<link rel="stylesheet" type="text/css" href="/{resource: webgen-css}" media="screen" />'
+additionalHeadContents: '<link rel="stylesheet" type="text/css" href="/{resource: webgen-css}" media="screen" /><link rel="stylesheet" type="text/css" href="/{relocatable: styles.css}" media="screen" />'
 ---
 
 h1. Page Not Found
