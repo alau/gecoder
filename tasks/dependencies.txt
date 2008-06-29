@@ -9,6 +9,7 @@ coderay
 
 # To run the specs and produce a report for the website.
 rspec
+rcov
 
 # To release files to RubyForge.
 meta_project
