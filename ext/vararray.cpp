@@ -133,7 +133,7 @@ IntVar &MIntVarArray::operator [](int index)
 void MIntVarArray::gc_mark()
 {
   for(int i = size(); i--; ) {
-		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i])));
+		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i]), false, false));
 	}
 }
 
@@ -210,7 +210,7 @@ Gecode::BoolVar &MBoolVarArray::operator[](int index)
 void MBoolVarArray::gc_mark()
 {
   for(int i = size(); i--; ) {
-		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i])));
+		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i]), false, false));
 	}
 }
 
@@ -306,7 +306,7 @@ Gecode::SetVar &MSetVarArray::operator[](int index)
 void MSetVarArray::gc_mark()
 {
   for(int i = size(); i--; ) {
-		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i])));
+		rb_gc_mark(Rust_gecode::cxx2ruby(&(d->array[i]), false, false));
 	}
 }
 

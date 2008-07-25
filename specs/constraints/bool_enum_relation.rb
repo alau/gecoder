@@ -15,8 +15,8 @@ class BoolEnumSampleProblem < Gecode::Model
   end
 end
 
-# Expects @stub, which contains the started constraint and @compute_result which 
-# computes whether the left hand side is true or not.
+# Expects @stub, which contains the started constraint and @compute_result 
+# which computes whether the left hand side is true or not.
 describe 'bool enum relation constraint', :shared => true do
   it 'should handle being constrained to be true' do
     @stub.must_be.true
@@ -76,7 +76,7 @@ describe Gecode::Constraints::BoolEnum::Relation, ' (conjunction)' do
     
     # For constraint option spec.
     @invoke_options = lambda do |hash| 
-      @bools.conjunction.must_be.equal_to(true, hash) 
+      @bools.conjunction.must.equal(@b1, hash) 
       @model.solve!
     end
     @expect_options = option_expectation do |strength, kind, reif_var|
@@ -94,7 +94,7 @@ describe Gecode::Constraints::BoolEnum::Relation, ' (conjunction)' do
             an_instance_of(Gecode::Raw::BoolVar),
             anything,
             an_instance_of(Gecode::Raw::BoolVar),
-            anything, anything, anything)
+            anything, anything)
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             Gecode::Raw::BOT_AND, 
@@ -122,7 +122,7 @@ describe Gecode::Constraints::BoolEnum::Relation, ' (disjunction)' do
     
     # For constraint option spec.
     @invoke_options = lambda do |hash| 
-      @bools.disjunction.must_be.equal_to(true, hash) 
+      @bools.disjunction.must.equal(@b1, hash) 
       @model.solve!
     end
     @expect_options = option_expectation do |strength, kind, reif_var|
@@ -140,7 +140,7 @@ describe Gecode::Constraints::BoolEnum::Relation, ' (disjunction)' do
             an_instance_of(Gecode::Raw::BoolVar),
             anything,
             an_instance_of(Gecode::Raw::BoolVar),
-            anything, anything, anything)          
+            anything, anything)          
           Gecode::Raw.should_receive(:rel).once.with(
             an_instance_of(Gecode::Raw::Space), 
             Gecode::Raw::BOT_OR, 

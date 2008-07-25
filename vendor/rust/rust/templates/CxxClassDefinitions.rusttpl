@@ -51,10 +51,14 @@ bool is_!class_varname!(VALUE val)
   return *ruby2!class_varcname!Ptr(rval, argn);
 }
 
-VALUE cxx2ruby(!c_class_name!* instance, bool free) {
+VALUE cxx2ruby(!c_class_name!* instance, bool free, bool create_new_if_needed) {
   if ( instance == NULL ) return Qnil;
 
   T!class_ptrmap!::iterator it, eend = !class_ptrmap!.end();
+
+#ifdef DEBUG      
+  fprintf(stderr, "rust: searching for !c_class_name! %p\n", instance);
+#endif
 
   for(it = !class_ptrmap!.begin(); it != eend; it++)
      if ( (*it).second == (!c_class_name!*)instance ) break;
@@ -62,6 +66,11 @@ VALUE cxx2ruby(!c_class_name!* instance, bool free) {
    if ( it != !class_ptrmap!.end() )
       return (*it).first;
    else {
+#ifdef DEBUG      
+      fprintf(stderr, "rust: failed to find match for %p\n", instance);
+#endif
+      if(!create_new_if_needed) return Qnil;
+   
       VALUE klass = r!class_varname!;
 
 !test_children!

@@ -8,21 +8,9 @@ module Gecode
     def initialize(model, index)
       @model = model
       @index = index
-      @bound_space = @bound_var = nil
       model.track_variable(self)
     end
-    
-    # Checks whether the variable is cached, i.e. whether it needs to be 
-    # rebound after changes to a space.
-    def cached?
-      not @bound_space.nil?
-    end
-    
-    # Forces the variable to refresh itself.
-    def refresh
-      @bound_space = nil
-    end
-    
+
     def inspect
       if assigned?
         "#<#{self.class} #{domain}>"
@@ -54,13 +42,7 @@ module Gecode
       # Binds the int variable to the currently active space of the model, 
       # returning the bound int variable.
       def bind
-        space = active_space
-        unless @bound_space == space
-          # We have not bound the variable to this space, so we do it now.
-          @bound = space.method(:#{space_bind_method}).call(@index)
-          @bound_space = space
-        end
-        return @bound
+        active_space.method(:#{space_bind_method}).call(@index)
       end
       
       private

@@ -58,7 +58,6 @@ doc/src/styles.css -text
 example/example_helper.rb -text
 example/magic_sequence.rb -text
 example/queens.rb -text
-example/raw_bindings.rb -text
 example/send_more_money.rb -text
 example/send_most_money.rb -text
 example/square_tiling.rb -text
@@ -599,8 +598,8 @@ ext/gecode-2.1.1/misc/getrevision.perl -text
 ext/gecode-2.1.1/misc/makedepend.perl -text
 ext/gecode-2.1.1/misc/svn-ignore.txt -text
 ext/gecode-2.1.1/variables.vsl -text
-ext/missing.cpp -text
-ext/missing.h -text
+ext/gecoder.cpp -text
+ext/gecoder.h -text
 ext/vararray.cpp -text
 ext/vararray.h -text
 lib/gecoder.rb -text
@@ -650,7 +649,6 @@ lib/gecoder/interface/model.rb -text
 lib/gecoder/interface/search.rb -text
 lib/gecoder/interface/variables.rb -text
 lib/gecoder/version.rb -text
-specs/binding_changes.rb -text
 specs/bool_var.rb -text
 specs/branch.rb -text
 specs/constraints/arithmetic.rb -text

@@ -6,64 +6,48 @@ module Gecode
     # domain is specified then the largest possible domain is used.
     def int_var(domain = 
         Gecode::Raw::IntLimits::MIN..Gecode::Raw::IntLimits::MAX)
-      enum = domain_enum(domain)
-      index = variable_creation_space.new_int_vars(enum).first
-      FreeIntVar.new(self, index)
+      args = domain_arguments(domain)
+      FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
     end
     
     # Creates an array containing the specified number of integer variables 
     # with the specified domain. The domain can either be a range, a single 
     # element, or an enumeration of elements. 
     def int_var_array(count, domain)
-      enum = domain_enum(domain)
-      variables = []
-      variable_creation_space.new_int_vars(enum, count).each do |index|
-        variables << FreeIntVar.new(self, index)
+      args = domain_arguments(domain)
+      build_var_array(count) do
+        FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
       end
-      return wrap_enum(variables)
     end
     
     # Creates a matrix containing the specified number rows and columns of 
     # integer variables with the specified domain. The domain can either be a 
     # range, a single element, or an enumeration of elements. 
     def int_var_matrix(row_count, col_count, domain)
-      enum = domain_enum(domain)
-      indices = variable_creation_space.new_int_vars(enum, row_count*col_count)
-      rows = []
-      row_count.times do |i|
-        rows << indices[(i*col_count)...(i.succ*col_count)].map! do |index|
-          FreeIntVar.new(self, index)
-        end
+      args = domain_arguments(domain)
+      build_var_matrix(row_count, col_count) do
+        FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
       end
-      return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
     # Creates a new boolean variable.
     def bool_var
-      index = variable_creation_space.new_bool_vars.first
-      FreeBoolVar.new(self, index)
+      FreeBoolVar.new(self, variable_creation_space.new_bool_var)
     end
     
     # Creates an array containing the specified number of boolean variables.
     def bool_var_array(count)
-      variables = []
-      variable_creation_space.new_bool_vars(count).each do |index|
-        variables << FreeBoolVar.new(self, index)
+      build_var_array(count) do
+        FreeBoolVar.new(self, variable_creation_space.new_bool_var)
       end
-      return wrap_enum(variables)
     end
     
     # Creates a matrix containing the specified number rows and columns of 
     # boolean variables.
     def bool_var_matrix(row_count, col_count)
-      indices = variable_creation_space.new_bool_vars(row_count*col_count)
-      rows = []
-      row_count.times do |i|
-        rows << indices[(i*col_count)...(i.succ*col_count)].map! do |index|
-          FreeBoolVar.new(self, index)
-        end
+      build_var_matrix(row_count, col_count) do
+        FreeBoolVar.new(self, variable_creation_space.new_bool_var)
       end
-      return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
     # Creates a set variable with the specified domain for greatest lower bound
@@ -71,29 +55,22 @@ module Gecode
     # no bounds are specified then the empty set is used as greates lower bound 
     # and the universe as least upper bound. A range for the allowed cardinality
     # of the set can also be specified, if none is specified, or nil is given, 
-    # then the default range (anything) will be used. If only a single Fixnum is 
-    # specified as cardinality_range then it's used as lower bound.
+    # then the default range (anything) will be used. If only a single Fixnum 
+    # is specified as cardinality_range then it's used as lower bound.
     def set_var(glb_domain = [], lub_domain = 
         Gecode::Raw::SetLimits::MIN..Gecode::Raw::SetLimits::MAX, 
         cardinality_range = nil)
-      check_set_bounds(glb_domain, lub_domain)
-      
-      index = variable_creation_space.new_set_vars(glb_domain, lub_domain, 
-        to_set_cardinality_range(cardinality_range)).first
-      FreeSetVar.new(self, index)
+      args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
+      FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
     end
     
     # Creates an array containing the specified number of set variables. The
     # parameters beyond count are the same as for #set_var .
     def set_var_array(count, glb_domain, lub_domain, cardinality_range = nil)
-      check_set_bounds(glb_domain, lub_domain)
-      
-      variables = []
-      variable_creation_space.new_set_vars(glb_domain, lub_domain, 
-          to_set_cardinality_range(cardinality_range), count).each do |index|
-        variables << FreeSetVar.new(self, index)
+      args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
+      build_var_array(count) do
+        FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
       end
-      return wrap_enum(variables)
     end
     
     # Creates a matrix containing the specified number of rows and columns 
@@ -101,17 +78,10 @@ module Gecode
     # the same as for #set_var .
     def set_var_matrix(row_count, col_count, glb_domain, lub_domain, 
         cardinality_range = nil)
-      check_set_bounds(glb_domain, lub_domain)
-      
-      indices = variable_creation_space.new_set_vars(glb_domain, lub_domain, 
-        to_set_cardinality_range(cardinality_range), row_count*col_count)
-      rows = []
-      row_count.times do |i|
-        rows << indices[(i*col_count)...(i.succ*col_count)].map! do |index|
-          FreeSetVar.new(self, index)
-        end
+      args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
+      build_var_matrix(row_count, col_count) do
+        FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
       end
-      return wrap_enum(Util::EnumMatrix.rows(rows, false))
     end
     
     # Retrieves the currently used space. Calling this method is only allowed 
@@ -176,20 +146,49 @@ module Gecode
     
     private
     
-    # Returns an enumeration of the specified domain arguments, which can 
-    # either be given as a range, a single number, or an enumerable of elements. 
-    def domain_enum(domain)
+    # Creates an array containing the specified number of variables, all
+    # constructed using the provided block..
+    def build_var_array(count, &block)
+      variables = []
+      count.times do 
+        variables << yield
+      end
+      return wrap_enum(variables)
+    end
+    
+    # Creates a matrix containing the specified number rows and columns of 
+    # variables, all constructed using the provided block. 
+    def build_var_matrix(row_count, col_count, &block)
+      rows = []
+      row_count.times do |i|
+        row = []
+        col_count.times do |j|
+          row << yield
+        end
+        rows << row
+      end
+      return wrap_enum(Util::EnumMatrix.rows(rows, false))
+    end
+
+    # Returns the array of arguments that correspond to the specified 
+    # domain when given to Gecode. The domain can be given as a range, 
+    # a single number, or an enumerable of elements. 
+    def domain_arguments(domain)
       if domain.respond_to?(:first) and domain.respond_to?(:last) and
             domain.respond_to?(:exclude_end?)
         if domain.exclude_end?
-          return domain.first..(domain.last - 1)
+          return [domain.first, (domain.last - 1)]
         else
-          return domain
+          return [domain.first, domain.last]
         end
       elsif domain.kind_of? Enumerable
-        return domain
+        array = domain.to_a
+        return [Gecode::Raw::IntSet.new(array, array.size)]
+      elsif domain.kind_of? Fixnum
+        return [domain, domain]
       else
-        return domain..domain
+        raise TypeError, 'The domain must be given as an instance of ' +
+          "Enumerable or Fixnum, but #{domain.class} was given."
       end
     end
     
@@ -202,6 +201,21 @@ module Gecode
       else
         arg
       end
+    end
+    
+    # Converts the specified set var domain to parameters accepted by
+    # Gecode. The bounds can be specified as a fixnum, range or # enum. 
+    # The parameters are returned as an array.
+    def set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
+      check_set_bounds(glb_domain, lub_domain)
+      args = []
+      args << Gecode::Constraints::Util.constant_set_to_int_set(glb_domain)
+      args << Gecode::Constraints::Util.constant_set_to_int_set(lub_domain)
+      card_range = to_set_cardinality_range(cardinality_range)
+      if card_range.nil?
+        card_range = 0..Gecode::Raw::SetLimits::CARD
+      end
+      args << card_range.first << card_range.last
     end
     
     # Checks whether the specified greatest lower bound is a subset of least 
@@ -243,15 +257,6 @@ module Gecode
       @variable_creation_space || selected_space
     end
     
-    # Refreshes all cached variables. This should be called if the variables
-    # in an existing space were changed.
-    def refresh_variables
-      return if @variables.nil?
-      @variables.each do |variable|
-        variable.refresh if variable.cached?
-      end
-    end
-    
     # Executes any interactions with Gecode still waiting in the queue 
     # (emptying the queue) in the process.
     def perform_queued_gecode_interactions
@@ -266,8 +271,6 @@ module Gecode
     # assigned directly.
     def active_space=(new_space)
       @active_space = new_space
-      new_space.refresh
-      refresh_variables
     end    
   end
 end

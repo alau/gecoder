@@ -26,16 +26,15 @@ module Gecode
     # Describes a boolean expression (following after must*).
     class Expression #:nodoc:
       def ==(expression, options = {})
-        unless expression.kind_of?(ExpressionTree) or 
-            expression.kind_of?(Gecode::FreeBoolVar) or 
-            expression.kind_of?(TrueClass) or expression.kind_of?(FalseClass) or
-            expression.respond_to?(:to_minimodel_lin_exp)
-          raise TypeError, 'Invalid right hand side of boolean equation.'
+        if expression.kind_of? Gecode::Constraints::Int::Linear::ExpressionTree
+          return expression.must == @params[:lhs]
         end
-        
+        unless expression.respond_to? :to_minimodel_bool_expr
+          expression = Constraints::Bool::ExpressionNode.new(expression, @model)
+        end
         @params.update Gecode::Constraints::Util.decode_options(options)
-        @model.add_constraint BooleanConstraint.new(@model, 
-          @params.update(:rhs => expression))
+        @params.update(:lhs => @params[:lhs], :rhs => expression)
+        @model.add_constraint BooleanConstraint.new(@model, @params)
       end
       alias_comparison_methods
       
@@ -47,14 +46,14 @@ module Gecode
       end
       
       # Constrains the boolean expression to be true.
-      def true
-        @params.update Gecode::Constraints::Util.decode_options({})
+      def true(options = {})
+        @params.update Gecode::Constraints::Util.decode_options(options)
         @model.add_constraint BooleanConstraint.new(@model, 
           @params.update(:rhs => true))
       end
       
       # Constrains the boolean expression to be false.
-      def false
+      def false(options = {})
         @params[:negate] = !@params[:negate]
         self.true
       end
@@ -136,32 +135,37 @@ module Gecode
         lhs, rhs, negate, reif_var = 
           @params.values_at(:lhs, :rhs, :negate, :reif)
         space = (lhs.model || rhs.model).active_space
-        
-        # TODO: It should be possible to reduce the number of necessary 
-        # variables and constraints a bit by altering the way that the top node
-        # is posted, using its constraint for reification etc when possible. 
-        
-        if rhs.respond_to? :bind
+
+        if lhs.kind_of?(Gecode::FreeBoolVar)
+          lhs = Constraints::Bool::ExpressionNode.new(lhs, @model)
+        end
+
+        bot_eqv = Gecode::Raw::IRT_EQ
+        bot_xor = Gecode::Raw::IRT_NQ
+
+        if rhs.respond_to? :to_minimodel_bool_expr
           if reif_var.nil?
-            Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_EQV, rhs.bind, 
-              (!negate ? 1 : 0), *propagation_options)
+            tree = ExpressionTree.new(lhs, 
+              Gecode::Raw::MiniModel::BoolExpr::NT_EQV, rhs)
+            tree.to_minimodel_bool_expr.post(space, !negate, 
+              *propagation_options)
           else
-            if negate
-              Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_XOR, rhs.bind, 
-                reif_var.bind, *propagation_options)
-            else
-              Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_EQV, rhs.bind, 
-                reif_var.bind, *propagation_options)
-            end
+            tree = ExpressionTree.new(lhs, 
+              Gecode::Raw::MiniModel::BoolExpr::NT_EQV, rhs)
+            var = tree.to_minimodel_bool_expr.post(space, *propagation_options)
+            Gecode::Raw::rel(space, var, (negate ? bot_xor : bot_eqv),
+              reif_var.bind, *propagation_options)
           end
         else
           should_hold = !negate & rhs
           if reif_var.nil?
-            Gecode::Raw::MiniModel::BoolExpr.new(lhs.bind).post(space, 
-              should_hold, *propagation_options)
+            lhs.to_minimodel_bool_expr.post(space, should_hold, 
+              *propagation_options)
           else
-            Gecode::Raw::rel(space, lhs.bind, Gecode::Raw::BOT_EQV, 
-              reif_var.bind, (should_hold ? 1 : 0), *propagation_options)
+            var = lhs.to_minimodel_bool_expr.post(space, *propagation_options)
+            Gecode::Raw::rel(space, var, 
+              (should_hold ? bot_eqv : bot_xor),
+              reif_var.bind, *propagation_options)
           end
         end
       end
@@ -177,10 +181,10 @@ module Gecode
       # Maps the names of the methods to the corresponding bool constraint in 
       # Gecode.
       OPERATION_TYPES = {
-        :|        => Gecode::Raw::BOT_OR,
-        :&        => Gecode::Raw::BOT_AND,
-        :^        => Gecode::Raw::BOT_XOR,
-        :implies  => Gecode::Raw::BOT_IMP
+        :|        => Gecode::Raw::MiniModel::BoolExpr::NT_OR,
+        :&        => Gecode::Raw::MiniModel::BoolExpr::NT_AND,
+        :^        => Gecode::Raw::MiniModel::BoolExpr::NT_XOR,
+        :implies  => Gecode::Raw::MiniModel::BoolExpr::NT_IMP
       }
       
       public
@@ -191,13 +195,7 @@ module Gecode
             unless expression.kind_of? ExpressionTree
               expression = ExpressionNode.new(expression)
             end
-            ExpressionTree.new(self, expression) do |model, var1, var2|
-              new_var = model.bool_var
-              Gecode::Raw::rel(model.active_space, var1.bind, #{operation}, 
-                var2.bind, new_var.bind, Gecode::Raw::ICL_DEF, 
-                Gecode::Raw::PK_DEF)
-              new_var
-            end
+            ExpressionTree.new(self, #{operation}, expression)
           end
         end_code
       end
@@ -216,17 +214,19 @@ module Gecode
     class ExpressionTree #:nodoc:
       include OperationMethods
     
-      # Constructs a new expression with the specified nodes. The proc should 
-      # take a model followed by two variables and return a new variable.
-      def initialize(left_tree, right_tree, &block)
+      # Constructs a new expression with the specified binary operation 
+      # applied to the specified trees.
+      def initialize(left_tree, operation, right_tree)
         @left = left_tree
+        @operation = operation
         @right = right_tree
-        @bind_proc = block
       end
       
-      # Returns a bound boolean variable representing the expression. 
-      def bind
-        @bind_proc.call(model, @left, @right).bind
+      # Returns a MiniModel boolean expression representing the tree.
+      def to_minimodel_bool_expr
+        Gecode::Raw::MiniModel::BoolExpr.new(
+          @left.to_minimodel_bool_expr, @operation, 
+          @right.to_minimodel_bool_expr)
       end
       
       # Fetches the space that the expression's variables is in.
@@ -242,13 +242,17 @@ module Gecode
       attr :model
     
       def initialize(value, model = nil)
+        unless value.kind_of?(Gecode::FreeBoolVar)
+          raise TypeError, 'Invalid type used in boolean equation: ' +
+            "#{value.class}."
+        end
         @value = value
         @model = model
       end
       
-      # Returns a bound boolean variable representing the expression. 
-      def bind
-        @value.bind
+      # Returns a MiniModel boolean expression representing the tree.
+      def to_minimodel_bool_expr
+        Gecode::Raw::MiniModel::BoolExpr.new(@value.bind)
       end
     end
   end

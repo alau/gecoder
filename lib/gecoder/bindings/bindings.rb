@@ -77,7 +77,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
   b.include_header 'gecode/set.hh', Rust::Bindings::HeaderGlobal
   b.include_header 'gecode/search.hh', Rust::Bindings::HeaderGlobal
   b.include_header 'gecode/minimodel.hh', Rust::Bindings::HeaderGlobal
-  b.include_header 'missing.h', Rust::Bindings::HeaderLocal
+  b.include_header 'gecoder.h', Rust::Bindings::HeaderLocal
   
   b.add_custom_definition ruby2intargs
   b.add_custom_definition custom_mark_definitions
@@ -351,52 +351,47 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_method "tuples", "int"
     end
     
-    ns.add_cxx_class "MBranchingDesc" do |klass|
-      klass.bindname = "BranchingDesc"
-      klass.add_constructor
-      klass.add_method "alternatives", "int"
-      klass.add_method "size", "int"
-    end
-    
     ns.add_cxx_class "MSpace" do |klass|
       klass.bindname = "Space"
       klass.function_mark = 'Gecode_MSpace_custom_mark'
       
       klass.add_constructor
-      
-      klass.add_method "debug"
-      
+
       klass.add_method "constrain" do |method|
         method.add_parameter "Gecode::MSpace*", "s"
       end
       
-      klass.add_method "own" do |method|
-        method.add_parameter "Gecode::MIntVarArray *", "x"
-        method.add_parameter "char*", "name"
+      klass.add_method "new_int_var", "int" do |method|
+        method.add_parameter "int", "min"
+        method.add_parameter "int", "max"
       end
       
-      klass.add_method "own" do |method|
-        method.add_parameter "Gecode::MBoolVarArray *", "x"
-        method.add_parameter "char*", "name"
+      klass.add_method "new_int_var", "int" do |method|
+        method.add_parameter "Gecode::IntSet", "domain"
+      end
+
+      klass.add_method "new_bool_var", "int" do |method|
+      end
+
+      klass.add_method "new_set_var", "int" do |method|
+        method.add_parameter "Gecode::IntSet", "glb"
+        method.add_parameter "Gecode::IntSet", "lub"
+        method.add_parameter "int", "cardMin"
+        method.add_parameter "int", "cardMax"
+      end
+
+      klass.add_method "int_var", "Gecode::IntVar*" do |method|
+        method.add_parameter "int", "id"
+      end
+
+      klass.add_method "bool_var", "Gecode::BoolVar*" do |method|
+        method.add_parameter "int", "id"
       end
       
-      klass.add_method "own" do |method|
-        method.add_parameter "Gecode::MSetVarArray *", "x"
-        method.add_parameter "char*", "name"
+      klass.add_method "set_var", "Gecode::SetVar*" do |method|
+        method.add_parameter "int", "id"
       end
-      
-      klass.add_method "intVarArray", "Gecode::MIntVarArray *" do |method|
-        method.add_parameter "char *", "name"
-      end
-      
-      klass.add_method "boolVarArray", "Gecode::MBoolVarArray *" do |method|
-        method.add_parameter "char *", "name"
-      end
-      
-      klass.add_method "setVarArray", "Gecode::MSetVarArray *" do |method|
-        method.add_parameter "char *", "name"
-      end
-      
+
       klass.add_method "clone", "Gecode::MSpace *" do |method|
         method.add_parameter "bool", "shared"
       end
@@ -411,13 +406,6 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       # description method used by rspec, and isn't used directly in the 
       # interface.
       #klass.add_method "mdescription", "Gecode::MBranchingDesc *", "description"
-      
-      klass.add_method "commit" do |method|
-        method.add_parameter "Gecode::MBranchingDesc", "desc" do |param|
-          param.custom_conversion = "ruby2Gecode_MBranchingDescPtr(desc, 1)->ptr()"
-        end
-        method.add_parameter "int", "a"
-      end
     end
     
     # The namespace structure doesn't completely mimic Gecode's namespace 
@@ -789,7 +777,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
           method.add_parameter "Gecode::MiniModel::LinRel<Gecode::BoolVar>", "e"
         end        
         
-        klass.add_method "post" do |method|
+        klass.add_method "post", "Gecode::BoolVar" do |method|
           method.add_parameter "Gecode::MSpace *", "home"
           method.add_parameter "Gecode::IntConLevel", "icl"
           method.add_parameter "Gecode::PropKind", "pk"
