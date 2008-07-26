@@ -51,6 +51,7 @@ h3. Dependencies
 
 Gecode/R requires Gecode 2.1.1. You can either manually install it or use the 
 gem that includes Gecode.
+
 * "Gecode download link":http://www.gecode.org/download.html
 * "Gecode installation instructions":http://www.gecode.org/gecode-doc-latest/PageComp.html
 
