@@ -9,7 +9,7 @@ describe Gecode::Model, ' (integer creation)' do
     range = 0..3
     @model.int_var(range).should have_domain(range)
   end
-  
+
   it 'should allow the creation of int variables without specified domain' do
     var = @model.int_var
     var.should be_range
@@ -43,6 +43,17 @@ describe Gecode::Model, ' (integer creation)' do
     vars.each{ |var| var.should have_domain(domain) }
   end
   
+  it 'should allow the creation of int-var arrays without specified domain' do
+    count = 5
+    vars = @model.int_var_array(count)
+    vars.size.should equal(count)
+    vars.each do |var|
+      var.should be_range
+      var.min.should == Gecode::Raw::IntLimits::MIN
+      var.max.should == Gecode::Raw::IntLimits::MAX
+    end
+  end
+  
   it 'should allow the creation of int-var matrices with range domains' do
     range = 0..3
     rows = 5
@@ -61,6 +72,19 @@ describe Gecode::Model, ' (integer creation)' do
     vars.row_size.should equal(rows)
     vars.column_size.should equal(columns)
     vars.each{ |var| var.should have_domain(domain) }
+  end
+  
+  it 'should allow the creation of int-var matrices without specified domain' do
+    rows = 5
+    columns = 4
+    vars = @model.int_var_matrix(rows, columns)
+    vars.row_size.should equal(rows)
+    vars.column_size.should equal(columns)
+    vars.each do |var|
+      var.should be_range
+      var.min.should == Gecode::Raw::IntLimits::MIN
+      var.max.should == Gecode::Raw::IntLimits::MAX
+    end
   end
   
   it 'should raise error if the domain is of incorrect type' do
@@ -163,6 +187,15 @@ describe Gecode::Model, ' (set creation)' do
     end
   end
   
+  it 'should allow the creation of arrays of set variables without specified bounds' do
+    vars = @model.set_var_array(3)
+    vars.each do |var|
+      var.lower_bound.size.should == 0
+      var.upper_bound.min.should == Gecode::Raw::SetLimits::MIN
+      var.upper_bound.max.should == Gecode::Raw::SetLimits::MAX
+    end
+  end
+  
   it 'should allow the creation of matrices of set variables' do
     matrix = @model.set_var_matrix(4, 5, @glb_enum, @lub_enum, 
       @lower_card..@upper_card)
@@ -172,6 +205,15 @@ describe Gecode::Model, ' (set creation)' do
       var.should have_bounds(@glb_enum, @lub_enum)
       var.cardinality.end.should <= @upper_card
       var.cardinality.begin.should >= @lower_card
+    end
+  end
+
+  it 'should allow the creation of matrices of set variables without specified bounds' do
+    matrix = @model.set_var_matrix(4, 5)
+    matrix.each do |var|
+      var.lower_bound.size.should == 0
+      var.upper_bound.min.should == Gecode::Raw::SetLimits::MIN
+      var.upper_bound.max.should == Gecode::Raw::SetLimits::MAX
     end
   end
   

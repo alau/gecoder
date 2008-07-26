@@ -1,19 +1,38 @@
 module Gecode
   # Model is the base class that all models must inherit from.
   class Model
+    # The largest integer allowed in the domain of an integer variable.
+    MAX_INT = Gecode::Raw::IntLimits::MAX
+    # The smallest integer allowed in the domain of an integer variable.
+    MIN_INT = Gecode::Raw::IntLimits::MIN
+
+    # The largest integer allowed in the domain of a set variable.
+    SET_MAX_INT = Gecode::Raw::SetLimits::MAX
+    # The smallest integer allowed in the domain of a set variable.
+    SET_MIN_INT = Gecode::Raw::SetLimits::MIN
+
+    # The largest possible domain for an integer variable.
+    LARGEST_INT_DOMAIN = MIN_INT..MAX_INT
+    # The largest possible domain, without negative integers, for an
+    # integer variable.
+    NON_NEGATIVE_INT_DOMAIN = 0..MAX_INT
+
+    # The largest possible bound for a set variable.
+    LARGEST_SET_BOUND = SET_MIN_INT..SET_MAX_INT
+
     # Creates a new integer variable with the specified domain. The domain can
     # either be a range, a single element, or an enumeration of elements. If no
     # domain is specified then the largest possible domain is used.
-    def int_var(domain = 
-        Gecode::Raw::IntLimits::MIN..Gecode::Raw::IntLimits::MAX)
+    def int_var(domain = LARGEST_INT_DOMAIN)
       args = domain_arguments(domain)
       FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
     end
     
     # Creates an array containing the specified number of integer variables 
     # with the specified domain. The domain can either be a range, a single 
-    # element, or an enumeration of elements. 
-    def int_var_array(count, domain)
+    # element, or an enumeration of elements. If no domain is specified then 
+    # the largest possible domain is used.
+    def int_var_array(count, domain = LARGEST_INT_DOMAIN)
       args = domain_arguments(domain)
       build_var_array(count) do
         FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
@@ -22,8 +41,9 @@ module Gecode
     
     # Creates a matrix containing the specified number rows and columns of 
     # integer variables with the specified domain. The domain can either be a 
-    # range, a single element, or an enumeration of elements. 
-    def int_var_matrix(row_count, col_count, domain)
+    # range, a single element, or an enumeration of elements. If no domain 
+    # is specified then the largest possible domain is used.
+    def int_var_matrix(row_count, col_count, domain = LARGEST_INT_DOMAIN)
       args = domain_arguments(domain)
       build_var_matrix(row_count, col_count) do
         FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
@@ -52,13 +72,14 @@ module Gecode
     
     # Creates a set variable with the specified domain for greatest lower bound
     # and least upper bound (specified as either a fixnum, range or enum). If 
-    # no bounds are specified then the empty set is used as greates lower bound 
-    # and the universe as least upper bound. A range for the allowed cardinality
-    # of the set can also be specified, if none is specified, or nil is given, 
-    # then the default range (anything) will be used. If only a single Fixnum 
-    # is specified as cardinality_range then it's used as lower bound.
-    def set_var(glb_domain = [], lub_domain = 
-        Gecode::Raw::SetLimits::MIN..Gecode::Raw::SetLimits::MAX, 
+    # no bounds are specified then the empty set is used as greatest lower 
+    # bound and the largest possible set as least upper bound. 
+    #
+    # A range for the allowed cardinality of the set can also be
+    # specified, if none is specified, or nil is given, then the default
+    # range (anything) will be used. If only a single Fixnum is
+    # specified as cardinality_range then it's used as lower bound.
+    def set_var(glb_domain = [], lub_domain = LARGEST_SET_BOUND,
         cardinality_range = nil)
       args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
       FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
@@ -66,7 +87,8 @@ module Gecode
     
     # Creates an array containing the specified number of set variables. The
     # parameters beyond count are the same as for #set_var .
-    def set_var_array(count, glb_domain, lub_domain, cardinality_range = nil)
+    def set_var_array(count, glb_domain = [], lub_domain = LARGEST_SET_BOUND, 
+        cardinality_range = nil)
       args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
       build_var_array(count) do
         FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
@@ -76,8 +98,8 @@ module Gecode
     # Creates a matrix containing the specified number of rows and columns 
     # filled with set variables. The parameters beyond row and column counts are
     # the same as for #set_var .
-    def set_var_matrix(row_count, col_count, glb_domain, lub_domain, 
-        cardinality_range = nil)
+    def set_var_matrix(row_count, col_count, glb_domain = [], 
+        lub_domain = LARGEST_SET_BOUND, cardinality_range = nil)
       args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
       build_var_matrix(row_count, col_count) do
         FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
