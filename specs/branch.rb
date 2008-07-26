@@ -37,6 +37,16 @@ describe Gecode::Model, ' (integer branch)' do
     @model.solve!.bools.each{ |var| var.should be_assigned }
   end
 
+  it 'should allow branching on a single integer variable' do
+    @model.branch_on @vars.first
+    @model.solve!.vars.first.should be_assigned
+  end
+
+  it 'should allow branching on a single boolean variable' do
+    @model.branch_on @bools.first
+    @model.solve!.bools.first.should be_assigned
+  end
+
   supported_var_selectors = {
     :none                 => Gecode::Raw::INT_VAR_NONE,
     :smallest_min         => Gecode::Raw::INT_VAR_MIN_MIN,
@@ -119,6 +129,11 @@ describe Gecode::Model, ' (set branch)' do
   it 'should ensure that branched set variables are assigned in a solution' do
     @model.branch_on @sets
     @model.solve!.sets.each{ |var| var.should be_assigned }
+  end
+  
+  it 'should allow branching on a single boolean variable' do
+    @model.branch_on @sets.first
+    @model.solve!.sets.first.should be_assigned
   end
 
   supported_var_selectors = {

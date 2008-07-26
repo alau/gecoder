@@ -1,13 +1,14 @@
 module Gecode
   class Model
-    # Specifies which variables that should be branched on. One can optionally
-    # also select which of the variables that should be used first with the
-    # :variable option and which value in that variable's domain that should be 
-    # used with the :value option. If nothing is specified then :variable uses
-    # :none and value uses :min.
+    # Specifies which variables that should be branched on (given as an
+    # enum of variables or as a single variable). One can optionally
+    # also select which of the variables that should be used first with
+    # the :variable option and which value in that variable's domain
+    # that should be used with the :value option. If nothing is
+    # specified then :variable uses :none and value uses :min.
     #
-    # The following values can be used with :variable for integer and boolean 
-    # enums:
+    # The following values can be used with :variable for integer and
+    # boolean enums:
     # [:none]                 The first unassigned variable.
     # [:smallest_min]         The one with the smallest minimum.
     # [:largest_min]          The one with the largest minimum.
@@ -58,10 +59,13 @@ module Gecode
     #                         elements
     #
     # The following values can be used with :value set enums: 
-    # enums:
     # [:min]        Selects the smallest value in the unknown part of the set.
     # [:max]        Selects the largest value in the unknown part of the set.
     def branch_on(variables, options = {})
+      if variables.respond_to? :bind
+        variables = wrap_enum [variables]
+      end
+
       if variables.respond_to? :to_int_var_array or 
           variables.respond_to? :to_bool_var_array
         add_branch(variables, options, Constants::BRANCH_INT_VAR_CONSTANTS, 
@@ -78,8 +82,8 @@ module Gecode
     
     # This is a hack to get RDoc to ignore the constants.
     module Constants #:nodoc:
-      # Maps the names of the supported variable branch strategies for integer and
-      # booleans to the corresponding constant in Gecode. 
+      # Maps the names of the supported variable branch strategies for
+      # integer and booleans to the corresponding constant in Gecode. 
       BRANCH_INT_VAR_CONSTANTS = {
         :none                 => Gecode::Raw::INT_VAR_NONE,
         :smallest_min         => Gecode::Raw::INT_VAR_MIN_MIN,

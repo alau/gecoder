@@ -4,6 +4,7 @@
 * Boolean constraints can no longer be specified using the form "bool.must == true". Only the "bool.must_be.true" form can now be used.
 * Added constants in Model that contain the limits of the variables' domains.
 * The domain when construction arrays and matrices of int variables now default to the same as when creating single variables (the largest possible domain).
+* Model#branch_on now accepts single variables as well as enums.
 
 == Version 0.8.2
 This release adds search statistics along with some new arithmetic constraints 
