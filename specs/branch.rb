@@ -131,7 +131,7 @@ describe Gecode::Model, ' (set branch)' do
     @model.solve!.sets.each{ |var| var.should be_assigned }
   end
   
-  it 'should allow branching on a single boolean variable' do
+  it 'should allow branching on a single set variable' do
     @model.branch_on @sets.first
     @model.solve!.sets.first.should be_assigned
   end
