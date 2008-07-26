@@ -152,6 +152,10 @@ body {
 }
 #sidebar ul li {
   margin: 1em;
+  margin-left: 0.6em;
+}
+#sidebar ul li li {
+  margin: 0.6em;
 }
 #sidebar ul li a {
   padding: 0.5em 0;
