@@ -37,7 +37,7 @@ body {
   float: none;
 }
 #breadcrumbs {
-	margin-top: 1em;
+  margin-top: 1em;
   font-align: left;
   clear: both;
 }
@@ -163,7 +163,7 @@ body {
 }
 /*Summaries*/
 div.summary {
-	font-size: 110%;
+  font-size: 110%;
 }
 
 /* Common styles */
@@ -186,7 +186,7 @@ h1, h2, h3, h4, h5 {
 }
 h1 {
   font-size: 2.7em;
-  height: 132px;
+  height: 110px;
   font-weight: normal;
   margin: 0 0 10px 0;
   letter-spacing: -.015em;
@@ -247,17 +247,17 @@ pre {
   font-size: 8pt;
 }
 table {
-	border-collapse: collapse;
-	margin: 0.5em;
+  border-collapse: collapse;
+  margin: 0.5em;
 }
 table td, table th {
-	padding: 2px;
+  padding: 2px;
 }
 table th {
-	background: #ACBEDA;
+  background: #ACBEDA;
 }
 table tr {
-	border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #CCC;
 }
 fieldset {
   border: 0;
@@ -275,5 +275,5 @@ legend {
 /* Override webgen CodeRay highlight */
 div.CodeRay {
   font-family: verdana, sans-serif;
-	border: 0;
+  border: 0;
 }
