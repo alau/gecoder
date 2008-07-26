@@ -23,7 +23,7 @@ class SidbarMenuStyle < MenuStyles::DefaultMenuStyle
     section_menu = ''
     sections = src_node.node_info[:pagesections]
     unless sections.empty?
-      section_menu = '<h3>Sections</h3>' + section_menu(sections, 1)
+      section_menu = '<h3>Shortcuts</h3>' + section_menu(sections, 1)
     end
 
     return page_menu + section_menu
