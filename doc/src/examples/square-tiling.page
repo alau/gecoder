@@ -16,7 +16,12 @@ the squares equal the surface area of the rectangle, so all have to be used.
 
 h2. Code
 
-{includeFile: {filename: ../../../example/square_tiling.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+<notextile> 
+  <% example_name = 'square_tiling' %>
+  <% contents = File.readlines("../example/#{example_name}.rb")[1..-1].join %>
+  <% contents = "require 'rubygems'#{$/}require 'gecoder'#{$/}" + contents %>
+  <%= @plugin_manager['Misc/SyntaxHighlighter'].highlight(contents, 'ruby') %> 
+</notextile>
 
 h3. Output
 

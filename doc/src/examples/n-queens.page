@@ -17,7 +17,12 @@ Replace "8" with "n" to get the n-queens puzzle.
 
 h2. Code
 
-{includeFile: {filename: ../../../example/queens.rb, escapeHTML: false, processOutput: false, highlight: ruby}}
+<notextile> 
+  <% example_name = 'queens' %>
+  <% contents = File.readlines("../example/#{example_name}.rb")[1..-1].join %>
+  <% contents = "require 'rubygems'#{$/}require 'gecoder'#{$/}" + contents %>
+  <%= @plugin_manager['Misc/SyntaxHighlighter'].highlight(contents, 'ruby') %> 
+</notextile>
 
 h3. Output
 
