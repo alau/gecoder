@@ -260,7 +260,7 @@ module Rust
       
       private
       def raw_call(nparam = nil)
-        case @position
+        case position(@parameters.size)
           when 1 # pre
             "#{@name} (*tmp)"
           when 2 # mid
@@ -272,43 +272,41 @@ module Rust
         end
       end
       
+      # 1: pre 2: mid 3: post 4: mixed
+      def position(nparam)
+        case @name
+          when "+": (nparam.zero? ? 1 : 3)
+          when "-": 3
+          when "*": (nparam.zero? ? 1 : 3)
+          when "/": 3
+          when /\[\s*\]=/: 4
+          when /\[\s*\]/: 2
+          when "==": 3
+          when "!=": 3
+          when "<<": 3
+          when ">>": 3
+          when "!": 1
+          when "()": 2
+          else
+            3
+        end
+      end
+      
       def valid_name
         case @name
-          when "+"
-            @position = 3
-            "plusop"
-          when "-"
-            @position = 3
-            "minusop"
-          when "*"
-            @position = 3
-            "multop"
-          when "/"
-            @position = 3
-            "divop"
-          when /\[\s*\]=/
-            @position = 4
-            "ateqop"
-          when /\[\s*\]/
-            @position = 2
-            "atop"
-          when "=="
-            @position = 3
-            "equalop"
-          when "!="
-            @position = 3
-            "notequalop"
-          when "<<"
-            @position = 3
-            "outstream"
-          when ">>"
-            @position = 3
-            "intstream"
-          when "!"
-            @position = 1
-            "notop"
+          when "+": "plusop"
+          when "-": "minusop"
+          when "*": "multop"
+          when "/": "divop"
+          when /\[\s*\]=/: "ateqop"
+          when /\[\s*\]/: "atop"
+          when "==": "equalop"
+          when "!=": "notequalop"
+          when "<<": "outstream"
+          when ">>": "intstream"
+          when "!": "notop"
+          when "()": "parenthesisop"
           else
-            @position = 3
             "undefop_#{@name[0].chr.to_i}#{rand(1024)}"
         end
       end
