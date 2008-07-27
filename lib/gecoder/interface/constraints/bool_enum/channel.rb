@@ -39,13 +39,13 @@ module Gecode::Constraints::BoolEnum
     #
     # == Examples
     #
-    # # Constrains the enumeration called +selected_option+ to be false in the
-    # # first four positions and have exactly one true variable in the other. 
+    # Constrains the enumeration called +selected_option+ to be false in the
+    # first four positions and have exactly one true variable in the other. 
     # selected_option.must.channel selected_option_index 
     # selected_option_index.must_be > 3
     #
-    # # Constrains the enumeration called +selected_option+ to be false in the
-    # # first five positions and have exactly one true variable in the other. 
+    # Constrains the enumeration called +selected_option+ to be false in the
+    # first five positions and have exactly one true variable in the other. 
     # selected_option.must.channel(selected_option_index, :offset => 1) 
     # selected_option_index.must_be > 3
     class ChannelConstraint < Gecode::Constraints::Constraint
