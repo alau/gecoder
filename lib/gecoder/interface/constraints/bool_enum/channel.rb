@@ -6,7 +6,7 @@ module Gecode::Constraints::BoolEnum
     #
     # [:offset]  Specifies an offset for the integer variable. If the offset is
     #            set to k then the integer variable takes value i+k exactly 
-    #            when the variable at index i in the boolean enumration is true 
+    #            when the variable at index i in the boolean enumeration is true 
     #            and the rest are false.
     def channel(int_var, options = {})
       if @params[:negate]
@@ -30,23 +30,24 @@ module Gecode::Constraints::BoolEnum
   # A module that gathers the classes and modules used in channel constraints
   # involving one boolean enum and one integer variable.
   module Channel #:nodoc:
-    # Describes a channel constraint that "channels" an enumerations of 
+    # Describes a channel constraint that "channels" an enumeration of 
     # boolean variables with an integer variable. This constrains the integer
     # variable to take value i exactly when the variable at index i in the 
     # boolean enumeration is true and the others are false.
     # 
-    # Neither reification nor negation is supported.
+    # Neither reification nor negation is supported. The int variable
+    # and the enumeration can be interchanged.
     #
     # == Examples
     #
-    # Constrains the enumeration called +selected_option+ to be false in the
-    # first four positions and have exactly one true variable in the other. 
-    # selected_option.must.channel selected_option_index 
+    # # Constrains the enumeration called +option_is_selected+ to be false in the
+    # # first four positions and have exactly one true variable in the other. 
+    # option_is_selected.must.channel selected_option_index 
     # selected_option_index.must_be > 3
     #
-    # Constrains the enumeration called +selected_option+ to be false in the
-    # first five positions and have exactly one true variable in the other. 
-    # selected_option.must.channel(selected_option_index, :offset => 1) 
+    # # Constrains the enumeration called +option_is_selected+ to be false in the
+    # # first five positions and have exactly one true variable in the other. 
+    # selected_option_index.must.channel(option_is_selected, :offset => 1) 
     # selected_option_index.must_be > 3
     class ChannelConstraint < Gecode::Constraints::Constraint
       def post
