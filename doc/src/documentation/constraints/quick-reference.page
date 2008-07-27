@@ -73,6 +73,7 @@ h2. Set constraints
 							  set_var_or_constant_3) } | no negation nor reification |
 | relation | {quickrefTemplate: set_var_1.must.set_relation(set_var_2) } | |
 | elements | {quickrefTemplate: set_var.elements.must.int_relation(int_var_or_constant) } | no reification |
+| channel | {quickrefTemplate: set_var.must.channel bool_enum } | no negation nor reification, set and bool_enum can be swapped |
 
 h2. Set enumeration constraints
 

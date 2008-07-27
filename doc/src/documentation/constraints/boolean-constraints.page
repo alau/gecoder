@@ -98,6 +98,10 @@ variable take value i+offset in the above situation.
 bool_enum.must.channel(int_var, :offset => 17)
 </ruby>
 
+Single set variables can also be connected to boolean enumerations using a
+channel constraint; see the "set constraints":set-constraints.html#channel for more
+information.
+
 Neither reification nor negation is supported.
 
 h2. Conjunction and disjunction of enumeration

@@ -104,7 +104,7 @@ This is similar to the channel constraint for integer variable enumeration, but
 instead of having two integer enums we have one integer and one set enumeration.
 If we revisit the integer constraint's channel example we can replace the 
 position variables with several sets that are constructed so that set i contains
-a position iff element i is located at that position.
+a position if and only if element i is located at that position.
 
 <ruby>
 position_sets.must.channel elements
@@ -115,8 +115,22 @@ elements.must.channel position_sets
 </ruby>
 
 This allows us to post constraints on @position_sets@ and have them affect
-@elements@ (gaining another viewpoint). Neither negation nor reification is 
-supported by the constraint.
+@elements@ (gaining another viewpoint). 
+
+There also exists a channel constraint between a single set variable and an
+enumeration of boolean variables. It constrains the set variable to include
+value i exactly when the variable at index i in the boolean enumeration is
+true. It is written as
+
+<ruby>
+set.must.channel bool_enum
+</ruby>
+or
+<ruby>
+bool_enum.must.channel set
+</ruby>
+
+Neither negation nor reification is supported by any of the channel constraints.
 
 h2. Min and max
 

@@ -635,6 +635,7 @@ lib/gecoder/interface/constraints/int_enum_constraints.rb -text
 lib/gecoder/interface/constraints/int_var_constraints.rb -text
 lib/gecoder/interface/constraints/reifiable_constraints.rb -text
 lib/gecoder/interface/constraints/set/cardinality.rb -text
+lib/gecoder/interface/constraints/set/channel.rb -text
 lib/gecoder/interface/constraints/set/connection.rb -text
 lib/gecoder/interface/constraints/set/domain.rb -text
 lib/gecoder/interface/constraints/set/operation.rb -text

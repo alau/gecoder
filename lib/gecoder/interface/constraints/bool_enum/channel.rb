@@ -25,6 +25,10 @@ module Gecode::Constraints::BoolEnum
       @params.update(Gecode::Constraints::Util.decode_options(options))
       @model.add_constraint Channel::ChannelConstraint.new(@model, @params)
     end
+
+    # Adds a channel constraint on the variables in the enum with the specified 
+    # set variable.
+    provide_commutivity(:channel){ |rhs, _| rhs.kind_of? Gecode::FreeSetVar }
   end
   
   # A module that gathers the classes and modules used in channel constraints

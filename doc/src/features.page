@@ -40,7 +40,7 @@ The following things are supported by Gecode/R.
 * Finite integer sets with the following constraints
 ** "Distinct":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetDistinct.html
 ** "Domain":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetDom.html
-** "Connection constraints to finite domain variables":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetConnect.html except for channeling with boolean variables
+** "Connection constraints to finite domain variables":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetConnect.html
 ** "Relation":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetRel.html
 ** "Set selection":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetSelection.html
 ** "Set operation":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetRelOp.html

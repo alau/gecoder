@@ -1753,6 +1753,14 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
         param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(argv[2], 3)->ptr()"
       end
     end
+
+    ns.add_function "channel" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MBoolVarArray", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)->ptr()"
+      end
+      func.add_parameter "Gecode::SetVar", "y"
+    end
     
     ns.add_function "weights" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
