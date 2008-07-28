@@ -25,6 +25,27 @@ module Gecode::Constraints::BoolEnum
       @model.add_constraint Extensional::TupleConstraint.new(@model, 
         @params.update(Gecode::Constraints::Util.decode_options(options)))
     end
+
+    # Adds a constraint that forces the enumeration to match the
+    # specified regular expression over the boolean domain. The regular
+    # expression is expressed using arrays and boolean values (or
+    # integers). See BoolEnum::Extensional::RegexpConstraint for more information 
+    # and examples of such regexps.
+    def match(regexp, options = {})
+      if @params[:negate]
+        raise Gecode::MissingConstraintError, 'A negated regexp constraint ' +
+          'is not implemented.'
+      end
+      unless options[:reify].nil?
+        raise ArgumentError, 'Reification is not supported by the regexp ' + 
+          'constraint.'
+      end
+
+      @params[:regexp] = 
+        Gecode::Constraints::Util::Extensional.parse_regexp regexp
+      @params.update Gecode::Constraints::Util.decode_options(options)
+      @model.add_constraint Extensional::RegexpConstraint.new(@model, @params)
+    end
   end
   
   # A module that gathers the classes and modules used in extensional 
@@ -58,6 +79,33 @@ module Gecode::Constraints::BoolEnum
         # Post the constraint.
         Gecode::Raw::extensional(@model.active_space, lhs, tuple_set, 
           *propagation_options)
+      end
+    end
+
+    # Describes a regexp constraint, which constrains the enumeration of
+    # boolean variables to match a specified regexp in the boolean
+    # domain. Neither negation nor reification is supported.
+    #
+    # The regular expressions are specified as described in
+    # IntEnum::Extensional::RegexpConstraint but true and false can be
+    # used instead of integers.
+    #
+    # == Example
+    #
+    #   # Constrains the two boolean variables in +bools+ to be false
+    #   # and true respectively.
+    #   bools.must.match [false, true]
+    #
+    #   # Constrains the boolean variables in +bools+ to be false,
+    #   # except for three consecutive variables which should be true
+    #   # followed by false followed by true.
+    #   bools.must.match [repeat(false), true, false, true, repeat(false)]]
+    #
+    class RegexpConstraint < Gecode::Constraints::Constraint
+      def post
+        lhs, regexp = @params.values_at(:lhs, :regexp)
+        Gecode::Raw::extensional(@model.active_space, lhs.to_bool_var_array, 
+          regexp, *propagation_options)
       end
     end
   end

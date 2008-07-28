@@ -128,3 +128,20 @@ bools.must_be.in [[true, false, true], [false, false, true]]
 The above constrains @bools@, containing three boolean variables, to either 
 be true, false, true, or false, false, true. Neither reification nor negation 
 is supported.
+
+h2. Regular expression
+
+The regular expression constraint can be used to constrain arrays of
+boolean variables to only take values that match a specified regular
+expression in the boolean domain.
+
+<ruby>
+bools.must.match[repeat(false), true, false, true, repeat(false)]
+</ruby>
+
+The above constrains @bools@, containing more than three boolean variables, to 
+have three consecutive variables with values false, true and false. All
+other variables are constrained to be false.
+
+See the "RDoc documentation for RegexpConstraint":/rdoc/classes/Gecode/Constraints/IntEnum/Extensional/RegexpConstraint.html 
+for details on how to specify the regular expression.

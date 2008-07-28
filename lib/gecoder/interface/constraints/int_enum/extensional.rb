@@ -30,7 +30,7 @@ module Gecode::Constraints::IntEnum
     # Adds a constraint that forces the enumeration to match the
     # specified regular expression over the integer domain. The regular
     # expression is expressed using arrays and integers. See
-    # Extensional::RegexpConstraint for more information and examples of
+    # IntEnum::Extensional::RegexpConstraint for more information and examples of
     # such regexps.
     def match(regexp, options = {})
       if @params[:negate]
@@ -43,7 +43,7 @@ module Gecode::Constraints::IntEnum
       end
 
       @params[:regexp] = 
-        Gecode::Constraints::Util::Extensional.parse_integer_regexp regexp
+        Gecode::Constraints::Util::Extensional.parse_regexp regexp
       @params.update Gecode::Constraints::Util.decode_options(options)
       @model.add_constraint Extensional::RegexpConstraint.new(@model, @params)
     end
@@ -83,7 +83,7 @@ module Gecode::Constraints::IntEnum
     end
 
     # Describes a regexp constraint, which constrains the enumeration of
-    # integer variables to match a specified regexp over the integer
+    # integer variables to match a specified regexp in the integer
     # domain. Neither negation nor reification is supported.
     #
     # == Regexp syntax

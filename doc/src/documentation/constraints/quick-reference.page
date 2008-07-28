@@ -59,6 +59,7 @@ h2. Boolean enumeration constraints
 | disjunction | {quickrefTemplate: bool_enum.disjunction.must... } | bool composite |
 | tuple | {quickrefTemplate: bool_enum.must_be.in tuples } | no negation nor reification |
 | channel | {quickrefTemplate: bool_enum.must.channel int_var } | no negation nor reification, bool enum and int can be swapped |
+| regexp | {quickrefTemplate: bool_enum.must.match bool_regexp } | no negation nor reification
 
 h2. Set constraints
 

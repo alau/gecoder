@@ -110,15 +110,12 @@ describe Gecode::Constraints::BoolEnum::Extensional, ' (tuple constraint)' do
   it_should_behave_like 'tuple constraint'
 end
 
-describe Gecode::Constraints::IntEnum::Extensional, ' (regexp constraint)' do
+# Assumes that @variables, @expected_array, @value1, @value2 (must not
+# equal @value1) and @regexp are defined. 
+describe 'regular expression constraint', :shared => true do
   before do
-    @model = Gecode::Model.new
-    @variables = @digits = @model.int_var_array(3, 0..9)
-    @model.branch_on @digits
-
-    @expected_array = an_instance_of Gecode::Raw::IntVarArray
     @invoke_options = lambda do |hash| 
-      @variables.must.match([1, @model.any(3, 4), @model.at_most_once(5)], hash)
+      @variables.must.match(@regexp, hash)
       @model.solve!
     end
     @expect_options = option_expectation do |strength, kind, reif_var|
@@ -129,68 +126,124 @@ describe Gecode::Constraints::IntEnum::Extensional, ' (regexp constraint)' do
     end
   end
 
-  it 'should handle integers grouped in a single array' do
-    @digits.must.match [3,5,3]
+  it 'should handle values grouped in a single array' do
+    @variables.must.match [@value1, @value2, @value1]
     @model.solve!.should_not be_nil
-    @digits.values.should == [3,5,3]
+    @variables.values.should == [@value1, @value2, @value1]
   end
 
-  it 'should allow nested groups of integers' do
-    @digits.must.match [3,[5,[3]]]
+  it 'should allow nested groups of values' do
+    @variables.must.match [@value1, [@value2, [@value1]]]
     @model.solve!.should_not be_nil
-    @digits.values.should == [3,5,3]
+    @variables.values.should == [@value1, @value2, @value1]
   end
   
   it 'should handle the repeat operation' do
-    @digits.must.match [3, @model.repeat([5], 1, 2)]
+    @variables.must.match [@value1, @model.repeat([@value2], 1, 2)]
     @model.solve!.should_not be_nil
-    @digits.values.should == [3,5,5]
+    @variables.values.should == [@value1, @value2, @value2]
   end
 
-  it 'should handle repeat operations that do not encase constant integers in arrays' do
-    @digits.must.match [3, @model.repeat(5, 1, 2)]
+  it 'should handle repeat operations that do not encase constant values in arrays' do
+    @variables.must.match [@value1, @model.repeat(@value2, 1, 2)]
     @model.solve!.should_not be_nil
-    @digits.values.should == [3,5,5]
+    @variables.values.should == [@value1, @value2, @value2]
   end
 
   it 'should handle nested repeat operations' do
-    @digits.must.match [[@model.repeat(@model.repeat([5], 1, 3), 1, 2)]]
+    @variables.must.match [[@model.repeat(@model.repeat([@value2], 1, 3), 1, 2)]]
     @model.solve!.should_not be_nil
-    @digits.values.should == [5,5,5]
+    @variables.values.should == [@value2, @value2, @value2]
   end
 
   it 'should handle nested repeat operations (2)' do
-    @digits.must.match [[@model.repeat([@model.repeat(5, 1, 3)], 1, 2)]]
+    @variables.must.match [[@model.repeat([@model.repeat(@value2, 1, 3)], 1, 2)]]
     @model.solve!.should_not be_nil
-    @digits.values.should == [5,5,5]
+    @variables.values.should == [@value2, @value2, @value2]
   end
 
   it 'should interpret the repeat operation with the last argument omitted as only giving a lower bound' do
-    @digits.must.match [3, @model.repeat([5], 1)]
+    @variables.must.match [@value1, @model.repeat([@value2], 1)]
     @model.solve!.should_not be_nil
-    @digits.values.should == [3,5,5]
+    @variables.values.should == [@value1, @value2, @value2]
   end
 
   it 'should interpret the repeat operation with all but the first argument omitted as not giving any bound' do
-    @digits.must.match [@model.repeat(5), 3, 3, 3]
+    @variables.must.match [@model.repeat(@value2), @value1, @value1, @value1]
     @model.solve!.should_not be_nil
-    @digits.values.should == [3,3,3]
+    @variables.values.should == [@value1, @value1, @value1]
   end
 
   it 'should interpret the repeat operation with all but the first argument omitted as not giving any bound (2)' do
-    @digits.must.match [@model.repeat(5)]
+    @variables.must.match [@model.repeat(@value2)]
     @model.solve!.should_not be_nil
-    @digits.values.should == [5,5,5]
+    @variables.values.should == [@value2, @value2, @value2]
   end
 
   it 'should translate at_most_once(reg) to repeat(reg, 0, 1)' do
-    @model.should_receive(:repeat).once.with([1], 0, 1)
-    @model.at_most_once [1]
+    @model.should_receive(:repeat).once.with([@value1], 0, 1)
+    @model.at_most_once [@value1]
   end
 
   it 'should translate at_least_once(reg) to repeat(reg, 1)' do
-    @model.should_receive(:repeat).once.with([1], 1)
-    @model.at_least_once [1]
+    @model.should_receive(:repeat).once.with([@value1], 1)
+    @model.at_least_once [@value1]
+  end
+
+  it 'should raise error if the right hand side is not an enumeration' do
+    lambda do 
+      @variables.must.match Object.new
+    end.should raise_error(TypeError)
+  end
+  
+  it 'should raise error if the right hand side does not a regexp of the right type' do
+    lambda do 
+      @variables.must.match [@value1, 'foo'] 
+    end.should raise_error(TypeError)
+  end
+
+  it 'should raise error if the right hand side contains a nested element of an incorrect type' do
+    lambda do 
+      @variables.must.match [@value1, [@value2, 'foo']] 
+    end.should raise_error(TypeError)
+  end
+
+  it 'should raise error if the repeat operation is given arguments of incorrect type (2)' do
+    lambda do 
+      @variables.must.match @model.repeat(@value1, [0], 1)
+    end.should raise_error(TypeError)
+  end
+
+  it 'should raise error if the repeat operation is given arguments of incorrect type (3)' do
+    lambda do 
+      @variables.must.match @model.repeat(@value1, 0, [1])
+    end.should raise_error(TypeError)
+  end
+  
+  it 'should raise error if the repeat operation is given arguments of incorrect type' do
+    lambda do 
+      @variables.must.match @model.repeat('foo', 0, 1)
+    end.should raise_error(TypeError)
+  end
+
+  it 'should not allow negation' do
+    lambda do 
+      @variables.must_not.match @regexp
+    end.should raise_error(Gecode::MissingConstraintError)
+  end
+
+  it_should_behave_like 'non-reifiable constraint'
+end
+
+describe Gecode::Constraints::IntEnum::Extensional, ' (regexp constraint)' do
+  before do
+    @model = Gecode::Model.new
+    @variables = @digits = @model.int_var_array(3, 0..9)
+    @model.branch_on @digits
+    @expected_array = an_instance_of Gecode::Raw::IntVarArray
+    @value1 = 3
+    @value2 = 5
+    @regexp = [1, @model.any(3, 4), @model.at_most_once(5)]
   end
 
   it 'should handle the any operation' do
@@ -208,41 +261,34 @@ describe Gecode::Constraints::IntEnum::Extensional, ' (regexp constraint)' do
     @digits.values.should == [1,2,2]
   end
 
-  it 'should raise error if the right hand side is not an enumeration' do
-    lambda{ @digits.must.match 'foo' }.should raise_error(TypeError)
-  end
-  
-  it 'should raise error if the right hand side does not a regexp of the right type' do
-    lambda{ @digits.must.match [17, 'foo'] }.should raise_error(TypeError)
+  it_should_behave_like 'regular expression constraint'
+end
+
+describe Gecode::Constraints::BoolEnum::Extensional, ' (regexp constraint)' do
+  before do
+    @model = Gecode::Model.new
+    @variables = @bools = @model.bool_var_array(3)
+    @model.branch_on @bools
+    @expected_array = an_instance_of Gecode::Raw::BoolVarArray
+    @value1 = true
+    @value2 = false
+    @regexp = [true, @model.any(true, false), @model.at_most_once(true)]
   end
 
-  it 'should raise error if the right hand side contains a nested element of an incorrect type' do
-    lambda{ @digits.must.match [17, [4, 'foo']] }.should raise_error(TypeError)
+  it 'should handle the any operation' do
+    @bools.must.match [@model.repeat(@model.any(true, false))]
+    @bools[0].must_be.true
+    @bools[1].must_be.false
+    @model.solve!.should_not be_nil
+    @bools[0].value.should be_true
+    @bools[1].value.should be_false
   end
 
-  it 'should raise error if the repeat operation are given arguments of incorrect type' do
-    lambda do 
-      @digits.must.match @model.repeat('foo', 0, 1)
-    end.should raise_error(TypeError)
+  it 'should handle the any operator with nested expressions' do
+    @bools.must.match [@model.any(@model.at_least_once(true), [false])]
+    @model.solve!.should_not be_nil
+    @bools.values.should == [true, true, true]
   end
 
-  it 'should raise error if the repeat operation are given arguments of incorrect type (2)' do
-    lambda do 
-      @digits.must.match @model.repeat(4, [0], 1)
-    end.should raise_error(TypeError)
-  end
-
-  it 'should raise error if the repeat operation are given arguments of incorrect type (3)' do
-    lambda do 
-      @digits.must.match @model.repeat(4, 0, [1])
-    end.should raise_error(TypeError)
-  end
-  
-  it 'should not allow negation' do
-    lambda do 
-      @variables.must_not.match 5
-    end.should raise_error(Gecode::MissingConstraintError)
-  end
-
-  it_should_behave_like 'non-reifiable constraint'
+  it_should_behave_like 'regular expression constraint'
 end
