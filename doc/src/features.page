@@ -36,7 +36,7 @@ The following things are supported by Gecode/R.
 ** "Linear":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntLinearInt.html
 ** "Simple relation":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntRelInt.html
 ** "Sorted":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntSorted.html
-** "Extensional":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntExt.html except for DFA versions
+** "Extensional":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntExt.html but the DFA can not be specified directly, only via an interface to REG
 * Finite integer sets with the following constraints
 ** "Distinct":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetDistinct.html
 ** "Domain":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelSetDom.html

@@ -647,6 +647,57 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.add_method "next", "Gecode::MSpace *"
       klass.add_method "statistics", "Gecode::Search::Statistics"
     end
+
+    ns.add_cxx_class "DFA" do |klass|
+      klass.add_constructor
+    end
+
+    ns.add_cxx_class "REG" do |klass|
+      klass.add_constructor
+
+      klass.add_constructor do |method|
+        method.add_parameter "int", "s"
+      end
+
+      klass.add_constructor do |method|
+        method.add_parameter "Gecode::IntArgs&", "x"
+      end
+
+      klass.add_constructor do |method|
+        method.add_parameter "Gecode::REG&", "r"
+      end
+
+      klass.add_operator "+", "Gecode::REG" do |operator|
+        operator.add_parameter "Gecode::REG&", "r"
+      end
+
+      klass.add_operator "+=", "Gecode::REG&" do |operator|
+        operator.add_parameter "Gecode::REG&", "r"
+      end
+
+      klass.add_operator "|", "Gecode::REG" do |operator|
+        operator.add_parameter "Gecode::REG&", "r"
+      end
+      
+      klass.add_operator "|=", "Gecode::REG&" do |operator|
+        operator.add_parameter "Gecode::REG&", "r"
+      end
+      
+      klass.add_operator "*", "Gecode::REG" do |operator|
+      end
+      
+      klass.add_operator "+", "Gecode::REG" do |operator|
+      end
+
+      klass.add_operator "()", "Gecode::REG" do |operator|
+        operator.add_parameter "int", "n"
+        operator.add_parameter "int", "m"
+      end
+
+      klass.add_operator "()", "Gecode::REG" do |operator|
+        operator.add_parameter "int", "n"
+      end
+    end
     
     # SEARCH NAMESPACE
     
@@ -1264,14 +1315,15 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::PropKind", "pk"
     end
   
-# 		ns.add_function "regular", "void" do |func|
-# 			func.add_parameter "Gecode::MSpace*", "home"
-# 			func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
-# 				param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
-# 			end
-# 			func.add_parameter "Gecode::DFA", "dfa" # TODO: add class DFA
-# 			func.add_parameter "Gecode::IntConLevel", "icl", true
-# 		end
+    ns.add_function "extensional", "void" do |func|
+      func.add_parameter "Gecode::MSpace*", "home"
+      func.add_parameter "Gecode::MIntVarArray *", "x" do |param|
+        param.custom_conversion = "*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)->ptr()"
+      end
+      func.add_parameter "Gecode::REG", "dfa" 
+      func.add_parameter "Gecode::IntConLevel", "icl"
+      func.add_parameter "Gecode::PropKind", "pk"
+    end
     
     ns.add_function "bab", "Gecode::MSpace*" do |func|
       func.add_parameter "Gecode::MSpace*", "home"

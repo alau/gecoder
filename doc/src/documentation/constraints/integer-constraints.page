@@ -293,3 +293,20 @@ numbers.must_be.in [[1,7], [47,11]]
 
 The above constrains @numbers@, containing two integer variables, to either 
 have values 1 and 7, or values 47 and 11 respectively.
+
+h2. Regular expression
+
+The regular expression constraint can be used to constrain arrays of
+integer variables to only take values that match a specified regular
+expression in the integer domain.
+
+<ruby>
+numbers.must.match[repeat(-1), 47, 11, repeat(-1)]
+</ruby>
+
+The above constrains @numbers@, containing more than two integer
+variables, to contain the value 47 followed by 11, with all other 
+values set to -1.
+
+See the "RDoc documentation for RegexpConstraint":/rdoc/classes/Gecode/Constraints/IntEnum/Extensional/RegexpConstraint.html 
+for details on how to specify the regular expression.
