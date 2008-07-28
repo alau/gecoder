@@ -4,7 +4,7 @@ constraint and various minor convenience improvements. It also fixes a
 rather serious bug that occurs when using the latest patchlevels of Ruby
 1.8.6. 
 
-* [#20888] Fixed a bug causing problems with Ruby 1.8.6 at patchlevels around 230.
+* [#20888] Fixed a GC bug causing problems with Ruby 1.8.6 at patchlevels around 230.
 * Boolean constraints can no longer be specified using the form "bool.must == true". Only the "bool.must_be.true" form can now be used.
 * Added constants in Model that contain the limits of the variables' domains.
 * The domain when construction arrays and matrices of int variables now default to the same as when creating single variables (the largest possible domain).
