@@ -13,19 +13,31 @@ Gecode/R is designed to be readable, easy to learn and use without previous
 knowledge of constraint programming. Some times that comes at the cost of 
 brevity, performance and user control. The ambition is that code using the 
 interface should be readable enough to allow a new user to understand it 
-without referencing the API.
+without having to look in the API documentation.
 
 h2. Development status
 
 The project has working releases and currently "supports many of 
 the constraints available in Gecode":../features.html.
 
-The current focus is on implementing missing features, especially the ones 
-introduced in Gecode 2.* .
+The set of constraints currently available is considered to be complete, and 
+no further additions are likely until after version 1.0 has been released. 
+The current focus is to add some finishing touches of sugar before
+releasing version 1.0 .
 
 h2. Future goals
 
-There are still some Gecode features left to implement, and ideas for other
-things that could be added. "A post on 
-gecoder-devel":http://rubyforge.org/pipermail/gecoder-devel/2007-August/000031.html
-might give some insight into what is next.
+h3. Scheduled for 1.0
+
+* Add sugar to make all the composite constraints behave like variables
+  of the corresponding type. This would e.g. allow placing constraints
+  such as @(enum1.size + enum2.size).must > 17@, removing the need for
+  defining additional variables.
+* Add sugar for easily creating models with variables that are
+  accessible from outside the model.
+
+h3. Beyond 1.0
+
+* Add support for defining custom propagators and branching selection.
+  This should primarily be aimed at rapid prototyping since the performance 
+  will be much worse than if the e.g. propagator was implemented in C++.
