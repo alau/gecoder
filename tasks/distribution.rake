@@ -72,11 +72,22 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = rd.rdoc_files
   s.test_files = FileList['specs/**/*.rb']
 
-  s.autorequire = 'gecoder'
-  s.author = ["Gecode/R Development Team"]
+  s.authors = ["Gecode/R Development Team"]
   s.email = "gecoder-users@rubyforge.org"
   s.homepage = "http://gecoder.rubyforge.org"
   s.rubyforge_project = "gecoder"
+
+  # Development dependencies.
+  [['rubygems', '>= 1.2'], 
+    ['rake'], 
+    ['webgen', '= 0.4.7'], 
+    ['coderay'], 
+    ['rspec', '>= 1.0'], 
+    ['rcov'], 
+    ['meta_project'], 
+    ['rubyforge']].each do |dependency|
+    spec.add_development_dependency(*dependency)
+  end
 end
 
 # Create a clone of the gem spec with the precompiled binaries for Windows.
@@ -88,7 +99,7 @@ spec_windows_binary_with_gecode.requirements = []
 spec_windows_binary_with_gecode.files = spec.files.dup -
   FileList['ext/**/*'].to_a + 
   FileList['vendor/gecode/win32/lib/*'].to_a << 'lib/gecode.dll'
-spec_windows_binary_with_gecode.platform = Gem::Platform::WIN32
+spec_windows_binary_with_gecode.platform = 'mswin32' #Gem::Platform::WIN32
 
 # Create a clone of the gem spec that includes Gecode.
 spec_with_gecode = spec.dup
