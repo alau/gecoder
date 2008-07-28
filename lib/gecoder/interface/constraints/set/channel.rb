@@ -35,14 +35,14 @@ module Gecode::Constraints::Set
     #
     # == Examples
     #
-    # # Constrains the enumeration of boolean variables called +bools+ to at
-    # # least have the first and third variables set to true 
-    # set.must_be.superset_of [0, 2]
-    # set.must.channel bools
+    #   # Constrains the enumeration of boolean variables called +bools+ to at
+    #   # least have the first and third variables set to true 
+    #   set.must_be.superset_of [0, 2]
+    #   set.must.channel bools
     #
-    # # An alternative way of writing the above.
-    # set.must_be.superset_of [0, 2]
-    # bools.must.channel set
+    #   # An alternative way of writing the above.
+    #   set.must_be.superset_of [0, 2]
+    #   bools.must.channel set
     class ChannelConstraint < Gecode::Constraints::Constraint
       def post
         lhs, rhs = @params.values_at(:lhs, :rhs)
