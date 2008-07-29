@@ -32,7 +32,7 @@ task :prepare_rdoc_dev do
   # Copy the rdoc and remove all #:nodoc: .
   Dir['lib/**/*.rb'].each do |source_name|
     destination_name = source_name.sub('lib', TMP_DIR)
-    File.makedirs File.dirname(destination_name)
+    FileUtils.makedirs File.dirname(destination_name)
     destination = File.open(destination_name, 'w')
     File.open(source_name) do |source|
       source.each{ |line| destination << line.gsub('#:nodoc:', '' ) }
@@ -78,15 +78,15 @@ spec = Gem::Specification.new do |s|
   s.rubyforge_project = "gecoder"
 
   # Development dependencies.
-  [['rubygems', '>= 1.2'], 
-    ['rake'], 
+  # Not listed: rubygems >= 1.2
+  [['rake'], 
     ['webgen', '= 0.4.7'], 
     ['coderay'], 
     ['rspec', '>= 1.0'], 
     ['rcov'], 
     ['meta_project'], 
     ['rubyforge']].each do |dependency|
-    spec.add_development_dependency(*dependency)
+    s.add_development_dependency(*dependency)
   end
 end
 
