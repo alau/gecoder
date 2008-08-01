@@ -9,23 +9,23 @@ class NQueens < Gecode::Model
     # The row number that the queen in the i:th column has. By using this as
     # our variables we already make sure that no two queens are in the same
     # column.
-    @queen_rows = int_var_array(n, 0...n)
+    queen_rows_is_an int_var_array(n, 0...n)
     
     # Set up the constraints
     # Queens must not be in the same diagonal (negative slope).
-    @queen_rows.with_offsets((0...n).to_a).must_be.distinct
+    queen_rows.with_offsets((0...n).to_a).must_be.distinct
     # Queens must not be in the same diagonal (positive slope).
-    @queen_rows.with_offsets((0...n).to_a.reverse).must_be.distinct
+    queen_rows.with_offsets((0...n).to_a.reverse).must_be.distinct
     # Queens must not be in the same row.
-    @queen_rows.must_be.distinct
+    queen_rows.must_be.distinct
     
     # Branching, we use first-fail heuristic.
-    branch_on @queen_rows, :variable => :smallest_size, :value => :min
+    branch_on queen_rows, :variable => :smallest_size, :value => :min
   end
   
   # Displays the assignment as a chessboard with queens denoted by 'x'.
   def to_s
-    rows = @queen_rows.values
+    rows = queen_rows.values
   
     separator = '+' << '-' * (3 * @size + (@size - 1)) << "+\n"
     res = (0...@size).inject(separator) do |s, i|
@@ -39,5 +39,4 @@ end
 # Print the first solution. Note that there are 92 solutions, but only 12 
 # are rotationally distinct. For any serious use one should place additional
 # constraints to eliminate those symmetries.
-NQueens.new( (ARGV[0] || 8).to_i ).solution{ |sol| puts sol.to_s }
-
+puts NQueens.new((ARGV[0] || 8).to_i).solve!.to_s

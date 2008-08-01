@@ -74,11 +74,11 @@ class SquareTiling < Gecode::Model
     end
   end
   
-  # Displays the corrdinates of the squares.
+  # Displays the coordinates of the squares.
   # TODO: Something more impressive. 
   def to_s
     @xs.values.zip(@ys.values).map{ |x,y| "(#{x}, #{y})"}.join(', ')
   end
 end
 
-puts(SquareTiling.new(65, 47, [25, 24, 23, 22, 19, 17, 11, 6, 5, 3]).solve! || 'Failed').to_s		
+puts SquareTiling.new(65, 47, [25, 24, 23, 22, 19, 17, 11, 6, 5, 3]).solve!.to_s
