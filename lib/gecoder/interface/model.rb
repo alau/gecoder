@@ -157,7 +157,29 @@ module Gecode
     def track_variable(variable) #:nodoc:
       (@variables ||= []) << variable
     end
-    
+
+    # Wraps method to handle #foo_is_a and #foo_is_an .
+    def method_missing(name_symbol, *args)
+      name = name_symbol.to_s
+      if name =~ /._is_an?$/
+        name.sub!(/_is_an?$/, '')
+        unless args.size == 1
+          raise ArgumentError, "Wrong number of argmuments (#{args.size} for 1)."
+        end 
+
+        # We use the meta class to avoid defining the variable in all
+        # other instances of the class.
+        eval <<-"end_eval"
+          @#{name} = args.first
+          class <<self
+            attr :#{name}
+          end
+        end_eval
+      else
+        super
+      end
+    end
+
     protected
     
     # Gets a queue of objects that can be posted to the model's active_space 

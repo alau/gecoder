@@ -266,3 +266,44 @@ describe Gecode::Model, ' (space access restriction)' do
     end.should_not raise_error(RuntimeError)
   end
 end
+
+describe Gecode::Model, ' (accessible variable creation)' do
+  before do
+    @model = Class.new(Gecode::Model).new
+  end
+
+  it 'should allow creation of named variable using #foo_is_a' do
+    var = @model.int_var(17)
+    lambda{ @model.foo }.should raise_error(NoMethodError)
+    @model.instance_eval{ foo_is_a var }
+    lambda{ @model.foo }.should_not raise_error
+    @model.foo.should == var
+  end
+
+  it 'should allow creation of named variable using #foo_is_an' do
+    var = @model.int_var(17)
+    lambda{ @model.foo }.should raise_error(NoMethodError)
+    @model.instance_eval{ foo_is_an var }
+    lambda{ @model.foo }.should_not raise_error
+    @model.foo.should == var
+  end
+
+  it 'should only allow one argument to be given to #foo_is_a' do
+    lambda do
+      @model.instance_eval{ foo_is_a }
+    end.should raise_error(ArgumentError)
+    lambda do
+      @model.instance_eval{ foo_is_a bool_var, bool_var }
+    end.should raise_error(ArgumentError)
+  end
+
+  it 'should only define the variable in the current instance' do
+    klass = Class.new Gecode::Model
+    model_a = klass.new
+    model_b = klass.new
+
+    model_a.instance_eval{ bar_is_a bool_var }
+    lambda{ model_a.bar }.should_not raise_error
+    lambda{ model_b.bar }.should raise_error(NoMethodError)
+  end
+end

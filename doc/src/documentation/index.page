@@ -38,7 +38,6 @@ There are three main parts of a model:
 </dl>
 
 h3. Variables
-<a name="variables"></a>
 
 h4. Integer variables
 
@@ -120,8 +119,40 @@ sets = set_var_array(3, 1..2, 1..6, 3)
 set_matrix = set_var_matrix(7, 9, 1..2, 1..6 2..5)
 </ruby>
 
+h4. Accessing variables from the outside
+
+It is often desirable to be able to access a variable from outside the
+class in order to e.g. access the selected values of the solution. One
+way to do this is to assign the variable to an instance variable and
+then add an accessor, but since it's such a common operation a more
+convenient way has been added. Write @<variable_name>_is_a <variable>@
+or @<variable_name>_is_an <variable>@, replacing @<variable_name>@ with
+the variable's name and @<variable>@ with the variable, to add an
+instance variable and accessor with the specified name.
+
+To exemplify, The following two pieces of code are equivalent.
+<ruby>
+class Foo < Gecode::Model
+  attr :digit
+
+  def initialize
+    @digit = int_var 0..9
+
+    branch_on @digit
+  end
+end
+</ruby>
+<ruby>
+class Foo < Gecode::Model
+  def initialize
+    digit_is_an int_var(0..9)
+    
+    branch_on digit
+  end
+end
+</ruby>
+
 h3. Constraints
-<a name="constraints"></a>
 
 The constraints specify what must hold for something to be a solution. They are
 created using variables in combination with @must@ and @must_not@. The 
@@ -133,7 +164,6 @@ x.must > y
 </ruby>
 
 h3. Branching
-<a name="branching"></a>
 
 The solver tries to prune the search space without actually exploring it, but
 sooner or later it will probably have to make a guess about a variable's value
