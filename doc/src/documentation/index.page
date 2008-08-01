@@ -16,8 +16,7 @@ constraints.</p>
 
 h2. Creating models
 
-A model is typically constructed by creating a class that inherits from 
-@Gecode::Model@.
+A model can be constructed as a class that inherits from @Gecode::Model@.
 
 <ruby>
 class MyModel < Gecode::Model
@@ -26,8 +25,16 @@ class MyModel < Gecode::Model
   end
 end
 
-# Print the solution.
-puts MyModel.new.solve!.to_s
+# Fetch the solution.
+solution = MyModel.new.solve!
+</ruby>
+
+The above can also be shortened as the following.
+
+<ruby>
+solution = Gecode.solve do
+  # Place variables, constraints and branching selection here.
+end
 </ruby>
 
 There are three main parts of a model:

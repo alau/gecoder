@@ -650,6 +650,7 @@ lib/gecoder/interface/constraints/set_var_constraints.rb -text
 lib/gecoder/interface/enum_matrix.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/model.rb -text
+lib/gecoder/interface/model_sugar.rb -text
 lib/gecoder/interface/search.rb -text
 lib/gecoder/interface/variables.rb -text
 lib/gecoder/version.rb -text
@@ -684,6 +685,7 @@ specs/examples.rb -text
 specs/int_var.rb -text
 specs/logging.rb -text
 specs/model.rb -text
+specs/model_sugar.rb -text
 specs/search.rb -text
 specs/set_var.rb -text
 specs/spec_helper.rb -text

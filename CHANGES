@@ -1,6 +1,7 @@
 == Next version
 
-* Variables that should be accessible from outside the model can now easily be created by calling "variable_name_is_a variable" where "variable_name" is the desired name of the variable and "variable" is the variable (e.g. "int_var(17)"). Take a look at the examples to see it in action.
+* Variables that should be accessible from outside the model can now easily be created by calling "<variable_name>_is_a <variable>" where "<variable_name>" is the desired name of the variable and "<variable>" is the variable (e.g. "int_var(17)"). Take a look at the examples to see it in action.
+* Gecode#solve can now be used to solve a problem without having to explicitly create a class for the model.
 
 == Version 0.8.3 
 This release adds regular expression constraints, the last channel
