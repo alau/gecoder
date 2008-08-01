@@ -270,3 +270,13 @@ for optimizing single integer variables. The above minimization of the variable
 <ruby>
 optimal_solution = price_model_instance.minimize! :price
 </ruby>
+
+@Gecode.minimize@ and @Gecode.maximize@ can be used, in a manner similar to 
+@Gecode.solve@, to shorten the problem formulation for problems that optimize 
+single variables.
+
+<ruby>
+optimal_solution = Gecode.minimize :price do 
+  # Describe the model.
+end
+</ruby>
