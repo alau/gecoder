@@ -2,6 +2,7 @@
 
 * Variables that should be accessible from outside the model can now easily be created by calling "<variable_name>_is_a <variable>" where "<variable_name>" is the desired name of the variable and "<variable>" is the variable (e.g. "int_var(17)"). Take a look at the examples to see it in action.
 * Gecode.solve, Gecode.maximize and Gecode.minimize can now be used to solve a problem without first having to explicitly create a class for the model.
+* An exception (Gecode::NoSolutionError) is now thrown if a solution can not be found when using Model#solve!, Model#minimize!, Model#maximize! and Model#optimize! (rather than returning nil). This change breaks backwards compatibility. If you feel that this is a bad change then please tell the mailing list.
 
 == Version 0.8.3 
 This release adds regular expression constraints, the last channel

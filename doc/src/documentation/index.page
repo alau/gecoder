@@ -211,11 +211,10 @@ instance = MyModel.new
 solution = instance.solve!
 </ruby>
 
-If there are no solutions then @solution@ will be @nil@ (and the instance of the
-model will be untouched). If there is a solution then the model instance will
-reflect that solution (i.e. all variables accessed through the model instance 
-will be the solution's variables) as well as return it to be assigned to 
-@solution@.
+The model instance will reflect the found solution (i.e. all variables
+accessed through the model instance will be the solution's variables) as
+well as return it to be assigned to @solution@. If there is no solution
+then the @Gecode::NoSolutionError@ exception is raised.
 
 It's possible to reset the instance back to the original form using 
 @Model#reset!@.
@@ -260,8 +259,7 @@ end
 
 This destructively updates @price_model_instance@ to contain the returned 
 solution, just like @Model#solve!@. If there is not solution then 
-@optimal_solution@ will be assigned @nil@ and @price_model_instance@ will be
-unchanged.
+the @Gecode::NoSolutionError@ exception is raised.
 
 There exist convenience methods, named @Model#maximize!@ and @Model#minimize!@, 
 for optimizing single integer variables. The above minimization of the variable

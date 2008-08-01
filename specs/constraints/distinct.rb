@@ -38,7 +38,7 @@ describe Gecode::Constraints::IntEnum::Distinct do
     # just shows that the distinct constraint will cause trivially unsolvable
     # problems to directly fail.
     @model.vars.must_be.distinct
-    @model.solve!.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
 
   it 'should not allow negation' do
@@ -88,7 +88,7 @@ describe Gecode::Constraints::IntEnum::Distinct, ' (with offsets)' do
   it 'should play nice with normal distinct' do
     @model.vars.with_offsets(-1,0).must_be.distinct
     @model.vars.must_be.distinct
-    @model.solve!.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
   
   it 'should accept an array as offsets' do

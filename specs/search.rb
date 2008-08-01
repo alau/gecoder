@@ -201,16 +201,35 @@ describe Gecode::Model, ' (without solution)' do
   end
   
   it 'should return nil when calling #solution' do
-    @model.var.must < 0
     @model.solution{ |s| 'test' }.should be_nil
   end
-  
-  it 'should return nil when calling #solve!' do
-    @model.solve!.should be_nil
+
+  it 'should not yield anything to #each_solution' do 
+    @model.each_solution{ |s| violated }
   end
   
-  it 'should return nil when calling #optimize!' do
-    @model.optimize!{}.should be_nil
+  it 'should raise NoSolutionError when calling #solve!' do
+    lambda do 
+      @model.solve!
+    end.should raise_error(Gecode::NoSolutionError)
+  end
+  
+  it 'should raise NoSolutionError when calling #optimize!' do
+    lambda do 
+      @model.optimize!{}
+    end.should raise_error(Gecode::NoSolutionError)
+  end
+
+  it 'should raise NoSolutionError when calling #minimize!' do
+    lambda do 
+      @model.optimize!{}
+    end.should raise_error(Gecode::NoSolutionError)
+  end
+
+  it 'should raise NoSolutionError when calling #maximize!' do
+    lambda do 
+      @model.maximize!(:var)
+    end.should raise_error(Gecode::NoSolutionError)
   end
 end
 

@@ -23,7 +23,7 @@ describe Gecode::Constraints::ReifiableConstraint do
 
   it 'should fail disjunctions if neither side can be satisfied' do
     (@x.must == 3) | (@y.must == 3)
-    @model.solve!.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
   
   it 'should solve disjunctions' do
@@ -35,7 +35,7 @@ describe Gecode::Constraints::ReifiableConstraint do
   
   it 'should fail conjunctions if one side can\'t be satisfied' do
     (@x.must > 3) & (@y.must == 3)
-    @model.solve!.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
 
   it 'should solve conjunctions' do
@@ -64,7 +64,6 @@ describe Gecode::Constraints::ReifiableConstraint do
   
   it 'should handle negations' do
     (@z.must_not == 4) & (@z.must == 4)
-    sol = @model.solve!
-    sol.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
 end

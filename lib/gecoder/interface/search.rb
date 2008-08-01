@@ -1,19 +1,27 @@
 module Gecode
+  # An exception raised when a search failed because there are no
+  # solutions.
+  class NoSolutionError < RuntimeError
+    def initialize
+      super('No solution could be found.')
+    end
+  end
+
   class Model
     # Finds the first solution to the modelled problem and updates the variables
-    # to that solution. Returns the model if a solution was found, nil 
-    # otherwise.
+    # to that solution. The found solution is also returned. Raises
+    # Gecode::NoSolutionError if no solution can be found.
     def solve!
       dfs = dfs_engine
       space = dfs.next
       @statistics = dfs.statistics
-      return nil if space.nil?
+      raise Gecode::NoSolutionError if space.nil?
       self.active_space = space
       return self
     end
     
-    # Returns to the original state, before any search was made (but propagation 
-    # might have been performed). Returns the reset model.
+    # Returns to the original state, before any search was made (but 
+    # propagation might have been performed). Returns the reset model.
     def reset!
       self.active_space = base_space
       @statistics = nil
@@ -24,10 +32,14 @@ module Gecode
     # then the block is not used. Returns the result of the block (nil in case
     # the block wasn't run). 
     def solution(&block)
-      solution = self.solve!
-      res = yield solution unless solution.nil?
-      self.reset!
-      return res
+      begin
+        solution = self.solve!
+        res = yield solution
+        self.reset!
+        return res
+      rescue Gecode::NoSolutionError
+        return nil
+      end
     end
     
     # Yields each solution that the model has.
@@ -44,7 +56,7 @@ module Gecode
     
     # Returns search statistics providing various information from Gecode about
     # the search that resulted in the model's current variable state. If the 
-    # model's variables have not undegone any search then nil is returned. The 
+    # model's variables have not undergone any search then nil is returned. The 
     # statistics is a hash with the following keys:
     # [:propagations]   The number of propagation steps performed.
     # [:failures]       The number of failed nodes in the search tree.
@@ -74,7 +86,7 @@ module Gecode
     #     model.price.must < best_so_far.price.val
     #   end
     #
-    # Returns nil if there is no solution.
+    # Raises Gecode::NoSolutionError if no solution can be found.
     def optimize!(&block)
       # Execute constraints.
       perform_queued_gecode_interactions
@@ -106,7 +118,7 @@ module Gecode
       
       # Reset the method used constrain calls and return the result.
       Model.constrain_proc = nil
-      return nil if result.nil?
+      raise Gecode::NoSolutionError if result.nil?
       
       # Switch to the result.
       self.active_space = result
@@ -115,12 +127,12 @@ module Gecode
     
     # Finds the solution that maximizes a given integer variable. The name of 
     # the method that accesses the variable from the model should be given. To 
-    # for instance maximize a variable named "profit", that's accessible through 
-    # the model, one would use the following.
+    # for instance maximize a variable named "profit", that's accessible 
+    # through the model, one would use the following.
     #
     #   model.maximize! :profit
     #
-    # Returns nil if there is no solution.
+    # Raises Gecode::NoSolutionError if no solution can be found.
     def maximize!(var)
       variable = self.method(var).call
       unless variable.kind_of? Gecode::FreeIntVar
@@ -139,7 +151,7 @@ module Gecode
     #
     #   model.minimize! :cost
     #
-    # Returns nil if there is no solution.
+    # Raises Gecode::NoSolutionError if no solution can be found.
     def minimize!(var)
       variable = self.method(var).call
       unless variable.kind_of? Gecode::FreeIntVar

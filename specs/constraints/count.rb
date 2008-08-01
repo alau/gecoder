@@ -139,7 +139,7 @@ describe Gecode::Constraints::IntEnum::Count do
   it 'should constrain the count' do
     @list.must_be.distinct
     @list.count(0).must <= 0
-    @model.solve!.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
   
   it_should_behave_like 'reifiable constraint'

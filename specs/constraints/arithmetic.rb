@@ -337,7 +337,7 @@ describe Gecode::Constraints::Int::Arithmetic, ' (square root)' do
   it 'should constrain the square root of the variable (3)' do
     @var.must < 0
     @var.square_root.must == 0
-    @model.solve!.should be_nil
+    lambda{ @model.solve! }.should raise_error(Gecode::NoSolutionError)
   end
   
   it 'should round down the square root' do
