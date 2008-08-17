@@ -22,19 +22,10 @@ the constraints available in Gecode":../features.html.
 
 The set of constraints currently available is considered to be complete, and 
 no further additions are likely until after version 1.0 has been released. 
-The current focus is to add some finishing touches of sugar before
-releasing version 1.0 .
+The current focus is to polish the documentation and to ensure that 
+everything is stable before releasing version 1.0 .
 
 h2. Future goals
-
-h3. Scheduled for 1.0
-
-* Add sugar to make all the composite constraints behave like variables
-  of the corresponding type. This would e.g. allow placing constraints
-  such as @(enum1.size + enum2.size).must > 17@, removing the need for
-  defining additional variables.
-* Add sugar for easily creating models with variables that are
-  accessible from outside the model.
 
 h3. Beyond 1.0
 
