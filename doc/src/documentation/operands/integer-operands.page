@@ -1,0 +1,99 @@
+---
+title: Integer Operands
+longTitle: Integer Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the integer operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Integer Operands
+
+<div class="summary">
+<p>Integer operands are created either by creating integer variables (which
+are the simplest integer operands) or by using operand properties that
+produce integer operands.</p></div>
+
+h4. Examples of Integer Operands
+
+The simplest integer operands, integer variables, can be created using
+{RDoc: Model#int_var}. The method takes one argument, the domain of the
+integer variable. The domain represents the values that the variable can
+take. A variable with domain 0..9 can for instance take any value in the
+range 0 to 9. 
+
+<ruby>
+int_operand = int_var(0..9) # Creates an integer variable with domain 0..9.
+</ruby>
+
+A couple of examples of properties that produce integer operands include
+the {RDoc: IntOperand#+} property, which produces a new integer operand
+representing the sum of two integer operands:
+
+<ruby>
+new_int_operand = int_operand1 + int_operand2
+</ruby>
+
+The {RDoc: IntEnumOperand#max} property produces a new integer operand
+representing the maximum value of the integer operands in an
+enumeration:
+
+<ruby>
+new_int_operand = int_enum.max
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: IntConstraintReceiver}.
+
+h3. @==@
+
+{importRDoc: {file: constraints/int/relation.rb, method: def ==}}
+
+h3. @>@
+
+{importRDoc: {file: constraints/int/relation.rb, method: def >}}
+
+h3. @>=@
+
+{importRDoc: {file: constraints/int/relation.rb, method: def >=}}
+
+h3. @<@
+
+{importRDoc: {file: constraints/int/relation.rb, method: def <}}
+
+h3. @<=@
+
+{importRDoc: {file: constraints/int/relation.rb, method: def <=}}
+
+h3. @in@
+
+{importRDoc: {file: constraints/int/domain.rb, method: def in}}
+
+h2. Properties
+
+Generated from {RDoc: IntOperand}.
+
+h3. @+@
+
+{importRDoc: {file: constraints/int/linear.rb, method: def +}}
+
+h3. @-@
+
+{importRDoc: {file: constraints/int/linear.rb, method: def -}}
+
+h3. @*@
+
+{importRDoc: {file: constraints/int/linear.rb, method: def *}}
+
+{importRDoc: {file: constraints/int/arithmetic.rb, method: def *}}
+
+h3. @abs@
+
+{importRDoc: {file: constraints/int/arithmetic.rb, method: def abs}}
+
+h3. @square_root@
+
+{importRDoc: {file: constraints/int/arithmetic.rb, method: def square_root}}
+
+h3. @squared@
+
+{importRDoc: {file: constraints/int/arithmetic.rb, method: def squared}}

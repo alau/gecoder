@@ -64,17 +64,16 @@ class SudokuSet < Gecode::Model
 
     # The sets must intersect in exactly one element with each row column and
     # block. I.e. an assignable number must be assigned exactly once in each
-    # row, column and block. We specify the constraint by expressing that the 
-    # intersection must be equal with a set variable with cardinality 1.
+    # row, column and block. 
     sets.each do |set|
       rows.each do |row|
-        set.intersection(row).must == set_var([], 1..n*n, 1..1)
+        set.intersection(row).size.must == 1
       end
       columns.each do |column|
-        set.intersection(column).must == set_var([], 1..n*n, 1..1)
+        set.intersection(column).size.must == 1
       end
       blocks.each do |block|
-        set.intersection(block).must == set_var([], 1..n*n, 1..1)
+        set.intersection(block).size.must == 1
       end
     end
 

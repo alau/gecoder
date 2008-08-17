@@ -13,9 +13,9 @@ class NQueens < Gecode::Model
     
     # Set up the constraints
     # Queens must not be in the same diagonal (negative slope).
-    queen_rows.with_offsets((0...n).to_a).must_be.distinct
+    queen_rows.must_be.distinct(:offsets => (0...n).to_a)
     # Queens must not be in the same diagonal (positive slope).
-    queen_rows.with_offsets((0...n).to_a.reverse).must_be.distinct
+    queen_rows.must_be.distinct(:offsets => (0...n).to_a.reverse)
     # Queens must not be in the same row.
     queen_rows.must_be.distinct
     

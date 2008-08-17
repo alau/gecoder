@@ -1,0 +1,90 @@
+---
+title: Boolean Operands
+longTitle: Boolean Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the boolean operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Boolean Operands
+
+<div class="summary">
+<p>Boolean operands are created either by creating boolean variables (which
+are the simplest boolean operands) or by using operand properties that
+produce boolean operands.</p></div>
+
+h4. Examples of Boolean Operands
+
+The simplest boolean operands, boolean variables, can be created using
+{RDoc: Model#bool_var}.
+
+<ruby>
+bool_operand = bool_var
+</ruby>
+
+A couple of examples of properties that produce boolean operands include
+the {RDoc: BoolOperand#&} property, which produces a new boolean operand
+representing the AND operation applied to two boolean operands:
+
+<ruby>
+new_bool_operand = bool_operand1 + bool_operand2
+</ruby>
+
+The {RDoc: BoolEnumOperand#conjunction} property produces a new boolean 
+operand representing the conjunction of all boolean operands in an
+enumeration:
+
+<ruby>
+new_bool_operand = bool_enum.conjunction
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: BoolConstraintReceiver}.
+
+h3. @true@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def true}}
+
+h3. @false@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def false}}
+
+h3. @==@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def ==}}
+
+h3. @imply@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def imply}}
+
+h2. Properties
+
+Generated from {RDoc: BoolOperand}.
+
+h3. @&@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def &}}
+
+h3. @|@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def |}}
+
+h3. @^@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def ^}}
+
+h3. @implies@
+
+{importRDoc: {file: constraints/bool/boolean.rb, method: def implies}}
+
+h3. @+@
+
+{importRDoc: {file: constraints/bool/linear.rb, method: def +}}
+
+h3. @-@
+
+{importRDoc: {file: constraints/bool/linear.rb, method: def -}}
+
+h3. @*@
+
+{importRDoc: {file: constraints/bool/linear.rb, method: def *}}

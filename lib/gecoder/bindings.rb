@@ -1,3 +1,45 @@
+# Problems can be formulated and solved either through defining a new
+# class that inherits from Gecode::Model or by using Gecode#solve et al.
+# Gecode::Model describes how to formulate problems.
+#
+# ==== Examples 
+#
+# The following two examples show how to solve the following equation 
+# system, using both ways to define and solve a problem.
+#
+# Equation system:
+#   x + y = z
+#   x = y - 3
+#   0 <= x,y,z <= 9
+#
+# === Inheriting from Gecode::Model
+#
+#   class EquationProblem < Gecode::Model
+#     def initialize
+#       variables_is_an int_var_array(3, 0..9)
+#       x, y, z = variables
+#
+#       (x + y).must == z
+#       x.must == y - 3
+#
+#       branch_on variables
+#     end
+#   end
+#   puts EquationProblem.new.solve!.variables.join(' ')
+#
+# === Using Gecode#solve
+#
+#   solution = Gecode.solve do
+#     variables_is_an int_var_array(3, 0..9)
+#     x, y, z = variables
+#
+#     (x + y).must == z
+#     x.must == y - 3
+#
+#     branch_on variables
+#   end
+#   puts solution.variables.values.join(' ')
+# 
 module Gecode
   # Loads the binding libraries. This is done as a method in order to be easier
   # to test. 

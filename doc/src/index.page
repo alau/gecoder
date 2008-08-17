@@ -26,17 +26,17 @@ Solve the equation system @x + y = z@, @x = y - 3@, @0 <= x,y,z <= 9@.
 
 <ruby>
 class ExampleProblem < Gecode::Model
-  attr :variables
+  attr :vars
   def initialize
     # Set up the variables, three integers with domain 0..9.
-    x,y,z = @variables = int_var_array(3, 0..9) 
+    x,y,z = @vars = int_var_array(3, 0..9) 
     
     # Describe the problem (in this case the equations).
     (x + y).must == z 
     x.must == y - 3
     
     # Tell it what the variables of the problem are.
-    branch_on @variables
+    branch_on @vars
   end
 end
 </ruby>
@@ -45,7 +45,7 @@ To find a solution we just have to ask.
 
 <ruby>
 puts 'x y z'
-puts ExampleProblem.new.solve!.variables.values.join(' ')
+puts ExampleProblem.new.solve!.vars.values.join(' ')
 </ruby>
 
 Output:

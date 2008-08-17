@@ -281,3 +281,6 @@ div.CodeRay {
   font-family: verdana, sans-serif;
   border: 0;
 }
+div.CodeRay .c {
+  color: #383;
+}

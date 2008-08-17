@@ -1,0 +1,64 @@
+---
+title: Set Enumeration Operands
+longTitle: Set Enumeration Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the set enumeration operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Set Enumeration Operands
+
+<div class="summary">
+<p>An set enumeration operand is an enumeration of set
+operands.</p></div>
+
+h4. Examples of Set Enumeration Operands
+
+Enumerations of set operands are commonly created using {RDoc:
+Gecode::Model#set_var_array} and {RDoc: Gecode::Model#set_var_matrix}.
+
+<ruby>
+# Creates an array of five set operands, with greatest lower bound
+# {0} and least upper bound {0, 1, 2}.
+set_enum = set_var_array(5, 0, 1..2)
+</ruby>
+
+A less common way to create the operands is by using {RDoc:
+Gecode::Model#wrap_enum} to wrap an existing enumeration that contains
+set operands.
+
+<ruby>
+set_enum = wrap_enum([set_operand1, set_operand2])
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: SetEnumConstraintReceiver}.
+
+h3. @channel@
+
+{importRDoc: {file: constraints/set_enum/channel.rb, method: def channel}}
+
+h3. @at_most_share_one_element@
+
+{importRDoc: {file: constraints/set_enum/distinct.rb, method: def at_most_share_one_element}}
+
+h2. Properties
+
+Generated from {RDoc: SetEnumOperand}.
+
+h3. @[]@
+
+{importRDoc: {file: constraints/set_enum/select.rb, method: def []}}
+
+h3. @union@
+
+{importRDoc: {file: constraints/set_enum/operation.rb, method: def union}}
+
+h3. @intersection@
+
+{importRDoc: {file: constraints/set_enum/operation.rb, method: def intersection}}
+
+h3. @disjoint_union@
+
+{importRDoc: {file: constraints/set_enum/operation.rb, method: def disjoint_union}}
+

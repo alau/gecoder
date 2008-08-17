@@ -1,0 +1,121 @@
+---
+title: Set Operands
+longTitle: Set Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the set operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Set operands
+
+<div class="summary">
+<p>Set operands are created either by creating set variables (which
+are the simplest set operands) or by using operand properties that
+produce set operands.</p></div>
+
+h4. Examples of Set Operands
+
+The simplest set operands, set variables, can be created using
+{RDoc: Model#set_var}.
+
+<ruby>
+# Creates a set var withgreatest lower bound {0} and least upper bound 
+# {0, 1, 2}.
+set_operand = set_var(0, 0..2)
+</ruby>
+
+A couple of examples of properties that produce set operands include
+the {RDoc: SetOperand#union} property, which produces a new set operand
+representing the union of two set operands:
+
+<ruby>
+new_set_operand = set_operand1.union set_operand2
+</ruby>
+
+The {RDoc: SetEnumOperand#union} property produces a new set operand
+representing the union of all the set operands in an enumeration:
+
+<ruby>
+new_set_operand = set_enum.union
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: SetConstraintReceiver}.
+
+h3. @==@
+
+{importRDoc: {file: constraints/set/domain.rb, method: def ==}}
+
+{importRDoc: {file: constraints/set/relation.rb, method: def ==}}
+
+h3. @subset@
+
+{importRDoc: {file: constraints/set/domain.rb, method: def subset}}
+
+{importRDoc: {file: constraints/set/relation.rb, method: def subset}}
+
+h3. @superset@
+
+{importRDoc: {file: constraints/set/domain.rb, method: def superset}}
+
+{importRDoc: {file: constraints/set/relation.rb, method: def superset}}
+
+h3. @disjoint@
+
+{importRDoc: {file: constraints/set/domain.rb, method: def disjoint}}
+
+{importRDoc: {file: constraints/set/relation.rb, method: def disjoint}}
+
+h3. @channel@
+
+{importRDoc: {file: constraints/set/channel.rb, method: def channel}}
+
+h3. @complement@
+
+{importRDoc: {file: constraints/set/domain.rb, method: def complement}}
+
+{importRDoc: {file: constraints/set/relation.rb, method: def complement}}
+
+h3. @include@
+
+{importRDoc: {file: constraints/set/include.rb, method: def include}}
+
+h2. Properties
+
+Generated from {RDoc: SetOperand}.
+
+h3. @union@
+
+{importRDoc: {file: constraints/set/operation.rb, method: def union}}
+
+h3. @intersection@
+
+{importRDoc: {file: constraints/set/operation.rb, method: def intersection}}
+
+h3. @minus@
+
+{importRDoc: {file: constraints/set/operation.rb, method: def minus}}
+
+h3. @size@
+
+{importRDoc: {file: constraints/set/cardinality.rb, method: def size}}
+
+h3. @sum@
+
+{importRDoc: {file: constraints/set/connection.rb, method: def sum}}
+
+h3. @max@
+
+{importRDoc: {file: constraints/set/connection.rb, method: def max}}
+
+h3. @min@
+
+{importRDoc: {file: constraints/set/connection.rb, method: def min}}
+
+h3. @elements@
+
+{importRDoc: {file: constraints/set_elements_constraints.rb, method: def elements}}
+
+h3. @disjoint_union@
+
+{importRDoc: {file: constraints/set/operation.rb, method: def disjoint_union}}

@@ -1,8 +1,8 @@
 require 'matrix'
 
-module Gecode::Util
+module Gecode::Util #:nodoc:
   # Methods that make a matrix an enumerable.
-  module MatrixEnumMethods
+  module MatrixEnumMethods #:nodoc:
     include Enumerable
   
     # Iterates over every element in the matrix.
@@ -16,7 +16,7 @@ module Gecode::Util
   end
 
   # Extends Matrix so that it's an enumerable.
-  class EnumMatrix < Matrix
+  class EnumMatrix < Matrix #:nodoc:
     include MatrixEnumMethods
     
     def row(i)

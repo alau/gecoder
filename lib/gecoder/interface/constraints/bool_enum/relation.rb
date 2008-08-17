@@ -1,87 +1,54 @@
-module Gecode
-  module BoolEnumMethods
-    # Produces an expression that can be handled as if it was a variable 
-    # representing the conjunction of all boolean variables in the enumeration.
+module Gecode::BoolEnum
+  module BoolEnumOperand
+    # Produces a BoolOperand that represents the conjunction (AND) of all
+    # boolean operands in this enumeration.
+    #
+    # ==== Examples 
+    #
+    #   # Conjunction of all elements in +bool_enum+.
+    #   bool_enum.conjunction
     def conjunction
-      return Gecode::Constraints::BoolEnum::Relation::ConjunctionStub.new(
-        @model, :lhs => self)
+      Relation::BoolEnumConjunctionOperand.new(@model, self)
     end
     
-    # Produces an expression that can be handled as if it was a variable 
-    # representing the disjunction of all boolean variables in the enumeration.
+    # Produces a BoolOperand that represents the disjunction (OR) of all
+    # boolean operands in this enumeration.
+    #
+    # ==== Examples 
+    #
+    #   # Disjunction of all elements in +bool_enum+.
+    #   bool_enum.disjunction
     def disjunction
-      return Gecode::Constraints::BoolEnum::Relation::DisjunctionStub.new(
-        @model, :lhs => self)
+      Relation::BoolEnumDisjunctionOperand.new(@model, self)
     end
   end
-end
 
-module Gecode::Constraints::BoolEnum
   # A module that gathers the classes and modules used by boolean enumeration 
   # relation constraints.
   module Relation #:nodoc:
-    # Describes a CompositeStub for the conjunction constraint, which constrain
-    # the conjunction of all boolean variables in an enumeration.
-    # 
-    # == Example
-    # 
-    #   # The conjunction of all variables in +bool_enum+ must be true. I.e. all
-    #   # boolean variables must take the value true.
-    #   bool_enum.conjunction.must_be.true
-    #   
-    #   # The conjunction of all variables in +bool_enum+ must equal b1.
-    #   bool_enum.conjunction.must ==  b1
-    #   
-    #   # The conjunction of all variables in +bool_enum+ must not equal b1 and 
-    #   # b2. It's reified it with +bool+ and selects the strength +domain+.
-    #   bool_enum.conjunction.must_not.equal(b1 & b2, :reify => bool, 
-    #     :strength => :domain)
-    class ConjunctionStub < Gecode::Constraints::Bool::CompositeStub
-      def constrain_equal(variable, params, constrain)
-        enum = @params[:lhs]
-        
-        @model.add_interaction do
-          if variable.respond_to? :bind
-            bound = variable.bind
-          else
-            bound = variable ? 1 : 0
-          end
-          Gecode::Raw::rel(@model.active_space, Gecode::Raw::BOT_AND,
-            enum.to_bool_var_array, bound, *propagation_options)
-        end
-        return variable
+    class BoolEnumConjunctionOperand < Gecode::Bool::ShortCircuitEqualityOperand #:nodoc:
+      def initialize(model, bool_enum)
+        super model
+        @enum = bool_enum
+      end
+
+      def constrain_equal(bool_operand, constrain_domain, propagation_options)
+        Gecode::Raw::rel(@model.active_space, Gecode::Raw::BOT_AND,
+          @enum.to_bool_enum.bind_array, bool_operand.to_bool_var.bind, 
+          *propagation_options)
       end
     end
     
-    # Describes a CompositeStub for the disjunction constraint, which constrain
-    # the disjunction of all boolean variables in an enumeration.
-    # 
-    # == Example
-    # 
-    #   # The disjunction of all variables in +bool_enum+ must be true. I.e. at
-    #   # least one of the boolean variables must take the value true.
-    #   bool_enum.disjunction.must_be.true
-    #   
-    #   # The disjunction of all variables in +bool_enum+ must equal b1.
-    #   bool_enum.conjunction.must ==  b1
-    #   
-    #   # The disjunction of all variables in +bool_enum+ must not equal b1 and 
-    #   # b2. It's reified it with +bool+ and selects the strength +domain+.
-    #   bool_enum.disjunction.must_not.equal(b1 & b2, :reify => bool, 
-    #     :strength => :domain)
-    class DisjunctionStub < Gecode::Constraints::Bool::CompositeStub
-      def constrain_equal(variable, params, constrain)
-        enum = @params[:lhs]
-        
-        @model.add_interaction do
-          if variable.respond_to? :bind
-            bound = variable.bind
-          else
-            bound = variable ? 1 : 0
-          end
-          Gecode::Raw::rel(@model.active_space, Gecode::Raw::BOT_OR,
-            enum.to_bool_var_array, bound, *propagation_options)
-        end
+    class BoolEnumDisjunctionOperand < Gecode::Bool::ShortCircuitEqualityOperand #:nodoc:
+      def initialize(model, bool_enum)
+        super model
+        @enum = bool_enum
+      end
+
+      def constrain_equal(bool_operand, constrain_domain, propagation_options)
+        Gecode::Raw::rel(@model.active_space, Gecode::Raw::BOT_OR,
+          @enum.to_bool_enum.bind_array, bool_operand.to_bool_var.bind, 
+          *propagation_options)
       end
     end
   end

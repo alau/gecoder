@@ -1,0 +1,152 @@
+---
+title: Operands
+longTitle: Operands and constraints supported by Gecode/R
+inMenu: true
+description: An overview of the operands available in Gecode/R, as well as their constraints and properties.
+---
+h1. Operands
+
+<div class="summary">
+<p>Operands are the basic building blocks in Gecode/R. An operand is
+anything you can place a *constraint* on. The most basic operands
+are the various types of variables, but operand can also be
+built upon to produced new operands, using *properties* defined by
+operands.</p>
+</div>
+
+All types of operands, their properties and constraints are found in the
+menu.
+
+h2. Properties
+
+Properties are methods, defined by operands, that produce new operands.
+An example is the @+@ method of "integer operands":integer-operands.html
+that takes another integer operand and produces a third integer operand
+that represents the sum of the two operands.
+
+<ruby>
+new_integer_operand = int_operand1 + int_operand2
+</ruby>
+
+Another example is the @size@ method of "set operands":set-operands.html
+that produces an integer operand representing the size of the set.
+
+<ruby>
+new_integer_operand = set_operand.size
+</ruby>
+
+Use properties to produce the operands that you want to place
+constraints on.
+
+h2. Constraints
+
+Constraints are used used to constrain the value of operands. All
+constraints are placed using the @must@ or @must_not@ methods defined 
+by operands.
+
+<ruby>
+operand.must.constraint_method(params)
+</ruby>
+
+The following constraints @int_operand@ to be strictly greater than 5.
+
+<ruby>
+int_operand.must > 5
+</ruby>
+
+Use operand properties to constrain e.g. the sum of two integer operands.
+
+<ruby>
+(int_operand1 + int_operand2).must > 5
+</ruby>
+
+Using @must_not@ instead of @must@ negates a constraint. Not all constraints
+support being negated. 
+
+h3. Options
+
+Many constraints accept a *reification* option, which allows one to combine
+constraints. All integer and boolean constraints (but not set constraints) also 
+accept a *propagation strength* option which suggests how much effort the solver
+should put into pruning the search space based on a constraint.
+
+h4. Reification
+ 
+Reification is used to link a constraint to a boolean variable in such a way
+that the variable is true if and only if the constraint is satisfied. The 
+propagation goes both ways, so if the variable is constrained to be false then
+the constraint is not allowed to be satisfied.
+
+Reification can be thought of as a last resort glue which can be used to combine
+constraints so that e.g. exactly 3 out of 17 constraints must be satisfied.
+
+The variable to use for reification is specified with the key @:reify@. The
+following connects the boolean variable @is_large@ with a relation constraint.
+
+<ruby>
+number.must_be.greater_than(17, :reify => is_large)
+</ruby>
+
+This constraint does not force @number@ to be greater than 17 (which would be 
+the case if no reification has been used).
+
+There exist some syntactic sugar for combining reifiable constraints, which can
+be used with all reifiable constraints. To express a conjunction of two 
+constraints simply place @|@ between them, analogically for conjunctions and 
+@&@. The new expression is also a reifiable constraint, so one can nest the
+expressions if wanted. The following constrains that either x must be less than 
+0 or y must be greater than 5 and x must be 0.
+
+<ruby>
+x.must < 0 | (y.must > 5 & x.must == 0)
+</ruby>
+
+h4. Propagation strength
+
+The propagation strength basically _suggests_ how much effort the solver
+should put into trying to prune the domains of variables using the
+constraint. A higher strength can reduce the search space quicker, but
+at the cost of making each propagation more costly.
+
+Note that no set constraint accepts the propagation strength option.
+
+It's usually worth testing a few different strength to see how well they work, 
+a good choice of strengths can cut down the search time depending on the 
+problem.
+
+The different strengths are:
+<dl>
+  <dt>@:value@</dt><dd>Value consistency (naive).</dd>
+  <dt>@:bounds@</dt><dd>Bounds consistency.</dd>
+  <dt>@:domain@</dt><dd>Domain consistency.</dd>
+  <dt>@:default@</dt><dd>Uses the default consistency of the constraint.</dd>
+</dl>
+
+The option is specified with the key @:strength@. The following places a domain 
+consistent distinct constraint on @numbers@.
+
+<ruby>
+numbers.must_be.distinct(:strength => :domain)
+</ruby>
+
+The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
+(@:value@ being the weakest, @:domain@ being the strongest). 
+
+h4. Propagation kind
+
+The propagation kind option _suggests_ the implementation that should be 
+preferred if there are multiple implementations of a constraint. 
+
+The different kinds are:
+<dl>
+  <dt>@:speed@</dt><dd>Prefer speed over memory consumption.</dd>
+  <dt>@:memory@</dt><dd>Prefer low memory consumption over speed.</dd>
+  <dt>@:default@</dt><dd>Uses the constraint's default propagation kind.</dd>
+</dl>
+
+The option is specified with the key @:kind@. The following tells the tuple
+constraint, placed on @numbers@, to favor speed over low memory consumption. 
+
+<ruby>
+numbers.must_be.in(tuples, :kind => :speed)
+</ruby>

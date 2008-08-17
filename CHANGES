@@ -3,6 +3,12 @@
 * Variables that should be accessible from outside the model can now easily be created by calling "<variable_name>_is_a <variable>" where "<variable_name>" is the desired name of the variable and "<variable>" is the variable (e.g. "int_var(17)"). Take a look at the examples to see it in action.
 * Gecode.solve, Gecode.maximize and Gecode.minimize can now be used to solve a problem without first having to explicitly create a class for the model.
 * An exception (Gecode::NoSolutionError) is now thrown if a solution can not be found when using Model#solve!, Model#minimize!, Model#maximize! and Model#optimize! (rather than returning nil). This change breaks backwards compatibility. If you feel that this is a bad change then please tell the mailing list.
+* The offset option to the distinct constraint is now given as "int_enum.must_be.distinct(:offset => offsets)" rather than the previous "int_enum.with_offsets(offsets).must_be.distinct".
+* Complex combinations of several constraints such as "(set1.size + set2.size).must > int.abs - 3" can now be used. The underlying code has been changed quite a bit, but it should remain backwards compatible except for above mentioned exception. The change also brings about some changed terminology, which mostly aims to remove the concept of "composite constraints" and replace them with the more general "operands" (see the documentation for further details).
+* [#21578] Fixed a bug that caused options given to the boolean "false" domain constraint to not be processed.
+* [#21579] Fixed a bug that caused the integer enumeration equality constraint to not work at all (threw an exception).
+* [#21580] Fixed a bug that caused ranges that use three dots to not be correctly interpreted by the negated integer domain constraint.
+* [#21581] Fixed a bug that caused the abs constraint to prune away valid solutions in some cases.
 
 == Version 0.8.3 
 This release adds regular expression constraints, the last channel

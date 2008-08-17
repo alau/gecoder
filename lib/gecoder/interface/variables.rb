@@ -13,9 +13,9 @@ module Gecode
 
     def inspect
       if assigned?
-        "#<#{self.class} #{domain}>"
+        "#<#{self.class} #{domain_string}>"
       else
-        "#<#{self.class} #{domain}>"
+        "#<#{self.class} #{domain_string}>"
       end
     end
     
@@ -36,11 +36,11 @@ module Gecode
   
   # Creates a class for a free variable that can be bound into the specified
   # class using the specified method in a space.
-  def Gecode::FreeVar(bound_class, space_bind_method)
+  def Gecode::FreeVar(bound_class, space_bind_method) #:nodoc:
     clazz = Class.new(FreeVarBase)
     clazz.class_eval <<-"end_method_definitions"      
-      # Binds the int variable to the currently active space of the model, 
-      # returning the bound int variable.
+      # Binds the variable to the currently active space of the model, 
+      # returning the bound variable.
       def bind
         active_space.method(:#{space_bind_method}).call(@index)
       end
@@ -64,12 +64,25 @@ module Gecode
     return clazz
   end
   
-  FreeIntVar = FreeVar(Gecode::Raw::IntVar, :int_var)
-  # Describes an integer variable. Each integer variable has a domain of several
-  # integers which represent the possible values that the variable may take. 
-  # An integer variable is said to be assigned once the domain only contains a
-  # single element, at which point #value can be used to retrieve the value.
-  class FreeIntVar
+  IntVar = FreeVar(Gecode::Raw::IntVar, :int_var)
+  # Describes an integer variable. 
+  #
+  # An integer variable can take the value of any integer in its 
+  # domain, which is specified upon constructing the variable and
+  # further constrained by placing constraints on the variable.
+  # An integer variable is said to be assigned once the domain only
+  # contains a single element, at which point #value can be used to
+  # retrieve the value.
+  #
+  # Integer variables are integer operands and hence respond to
+  # everything that Gecode::Int::IntOperand responds to.
+  # Any constraint found in
+  # Gecode::Int::IntConstraintReceiver can thereby be 
+  # placed on integer variables.
+  class IntVar
+    include Gecode::Int::IntOperand
+    attr :model
+
     # Gets the minimum value still in the domain of the variable.
     delegate :min
     # Gets the maximum value still in the domain of the variable.
@@ -97,11 +110,27 @@ module Gecode
       raise 'No value is assigned.' unless assigned?
       send_bound(:val)
     end
+
+    # Returns the receiver.
+    def to_int_var
+      self
+    end
     
+    # Returns an enumeration corresponding to the domain.
+    def domain
+      if range?
+        min..max
+      else
+        (min..max).select do |i|
+          include? i
+        end
+      end
+    end
+
     private
     
-    # Returns a string representation of the the range of the variable's domain.
-    def domain #:nodoc:
+    # Returns a string representation of the range of the variable's domain.
+    def domain_string #:nodoc:
       if assigned?
         "range: #{value.to_s}"
       else
@@ -110,10 +139,20 @@ module Gecode
     end
   end
   
-  FreeBoolVar = FreeVar(Gecode::Raw::BoolVar, :bool_var)
-  # Describes a boolean variable. A boolean variable can be either true or 
-  # false.
-  class FreeBoolVar
+  BoolVar = FreeVar(Gecode::Raw::BoolVar, :bool_var)
+  # Describes a boolean variable. 
+  #
+  # A boolean variable can be either true or false.
+  #
+  # Boolean variables are boolean operands and hence respond to
+  # everything that Gecode::Bool::BoolOperand responds to.
+  # Any constraint found in
+  # Gecode::Bool::BoolConstraintReceiver can thereby be 
+  # placed on boolean variables.
+  class BoolVar
+    include Gecode::Bool::BoolOperand
+    attr :model
+
     # Checks whether the variable has been assigned.
     delegate :assigned?, :assigned
     
@@ -123,11 +162,16 @@ module Gecode
       raise 'No value is assigned.' unless assigned?
       send_bound(:val) == 1
     end
+
+    # Returns the receiver.
+    def to_bool_var
+      self
+    end
   
     private
   
     # Returns a string representation of the the variable's domain.
-    def domain
+    def domain_string
       if assigned?
         value.to_s
       else
@@ -136,24 +180,37 @@ module Gecode
     end
   end
 
-  FreeSetVar = FreeVar(Gecode::Raw::SetVar, :set_var)
+  SetVar = FreeVar(Gecode::Raw::SetVar, :set_var)
   # Describes a set variable. 
   # 
-  # A set variable's domain, i.e. possible values that it can take, are 
-  # represented with a greatest lower bound (GLB) and a least upper bound (LUB).
-  # The set variable may then take any set value S such that S is a subset of
-  # the least upper bound and the greatest lower bound is a subset of S.
+  # A set variable's domain, i.e. possible values that it can take, are
+  # represented with a greatest lower bound (GLB) and a least upper
+  # bound (LUB).  The set variable may then take any set value S such
+  # that S is a subset of the least upper bound and the greatest lower
+  # bound is a subset of S.
   #   
-  # If for instance the set has a greatest lower bound {1} and least upper bound
-  # {1,3,5} then the assigned set may be any of the following four sets: {1}, 
-  # {1,3}, {1,5}, {1,3,5}. 
+  # If for instance the set has a greatest lower bound {1} and least
+  # upper bound {1,3,5} then the assigned set may be any of the
+  # following four sets: {1}, {1,3}, {1,5}, {1,3,5}. 
   # 
-  # The domain of a set variable may also specify the cardinality of the set, 
-  # i.e. the number of elements that the set may contains.
-  class FreeSetVar
+  # The domain of a set variable may also specify the cardinality of the
+  # set, i.e. the number of elements that the set may contains.
+  #
+  # Set variables are set operands and hence respond to everything that
+  # Gecode::Set::SetOperand responds to.  Any constraint
+  # found in Gecode::Set::SetConstraintReceiver can thereby
+  # be placed on set variables.
+  class SetVar
+    include Gecode::Set::SetOperand
+    attr :model
+
     # Checks whether the variable has been assigned.
     delegate :assigned?, :assigned
-    
+    # Checks whether a value is included in the set.
+    delegate :in_lower_bound?, :contains
+    # Checks whether a value is not included in the set.
+    delegate :not_in_upper_bound?, :notContains
+
     # Gets all the elements located in the greatest lower bound of the set (an 
     # Enumerable).
     def lower_bound
@@ -185,14 +242,27 @@ module Gecode
       send_bound(:cardMin)..send_bound(:cardMax)
     end
     
+    # Returns the receiver.
+    def to_set_var
+      self
+    end
+    
     private
     
     # Returns a string representation of the the variable's domain.
-    def domain
+    def domain_string
       if assigned?
-        lower_bound.to_a.inspect
+        if lower_bound.size < 100
+          lower_bound.to_a.inspect
+        else
+          "the domain is too large to display"
+        end
       else
-        "glb-range: #{lower_bound.to_a.inspect}, lub-range: #{upper_bound.to_a.inspect}"
+        if upper_bound.size < 100
+          "glb-range: #{lower_bound.to_a.inspect}, lub-range: #{upper_bound.to_a.inspect}"
+        else
+          "the domain is too large to display"
+        end
       end
     end
   end

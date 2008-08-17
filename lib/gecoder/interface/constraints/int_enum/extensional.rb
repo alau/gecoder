@@ -1,7 +1,17 @@
-module Gecode::Constraints::IntEnum
-  class Expression
-    # Posts a tuple constraint on the variables in the enum, constraining them
-    # to equal one of the specified tuples.
+module Gecode::IntEnum
+  class IntEnumConstraintReceiver
+    # Constrains all the operands in this enumeration to be equal to
+    # one of the specified tuples. Neither negation nor reification is
+    # supported.
+    # 
+    # ==== Examples 
+    # 
+    #   # Constrains the two integer operands in +numbers+ to either have 
+    #   # values 1 and 7, or values 47 and 11.
+    #   numbers.must_be.in [[1,7], [47,11]]
+    #
+    #   # The same as above, but preferring speed over low memory usage.
+    #   numbers.must_be.in([[1,7], [47,11]], :kind => :speed)
     def in(tuples, options = {})
       if @params[:negate]
         raise Gecode::MissingConstraintError, 'A negated tuple constraint is ' +
@@ -12,7 +22,7 @@ module Gecode::Constraints::IntEnum
           'constraint.'
       end
       
-      util = Gecode::Constraints::Util
+      util = Gecode::Util
       
       # Check that the tuples are correct.
       expected_size = @params[:lhs].size
@@ -27,64 +37,9 @@ module Gecode::Constraints::IntEnum
         @params.update(util.decode_options(options)))
     end
 
-    # Adds a constraint that forces the enumeration to match the
-    # specified regular expression over the integer domain. The regular
-    # expression is expressed using arrays and integers. See
-    # IntEnum::Extensional::RegexpConstraint for more information and examples of
-    # such regexps.
-    def match(regexp, options = {})
-      if @params[:negate]
-        raise Gecode::MissingConstraintError, 'A negated regexp constraint ' +
-          'is not implemented.'
-      end
-      unless options[:reify].nil?
-        raise ArgumentError, 'Reification is not supported by the regexp ' + 
-          'constraint.'
-      end
-
-      @params[:regexp] = 
-        Gecode::Constraints::Util::Extensional.parse_regexp regexp
-      @params.update Gecode::Constraints::Util.decode_options(options)
-      @model.add_constraint Extensional::RegexpConstraint.new(@model, @params)
-    end
-  end
-  
-  # A module that gathers the classes and modules used in extensional 
-  # constraints.
-  module Extensional #:nodoc:
-    # Describes a tuple constraint, which constrains all the variables in an 
-    # enumeration of integer variables to be equal to one of the specified 
-    # tuples. Neither negation nor reification is supported.
-    # 
-    # == Example
-    # 
-    #   # Constrains the two integer variables in +numbers+ to either have 
-    #   # values 1 and 7, or values 47 and 11.
-    #   numbers.must_be.in [[1,7], [47,11]]
-    #
-    #   # The same as above, but preferring speed over low memory usage.
-    #   numbers.must_be.in([[1,7], [47,11]], :kind => :speed)
-    class TupleConstraint < Gecode::Constraints::Constraint
-      def post
-        # Bind lhs.
-        lhs = @params[:lhs].to_int_var_array
-
-        # Create the tuple set.
-        tuple_set = Gecode::Raw::TupleSet.new
-        @params[:tuples].each do |tuple|
-          tuple_set.add tuple
-        end
-        tuple_set.finalize
-
-        # Post the constraint.
-        Gecode::Raw::extensional(@model.active_space, lhs, tuple_set, 
-          *propagation_options)
-      end
-    end
-
-    # Describes a regexp constraint, which constrains the enumeration of
-    # integer variables to match a specified regexp in the integer
-    # domain. Neither negation nor reification is supported.
+    # Constrains the sequence of operands in this enumeration to match
+    # a specified regexp in the integer domain. Neither negation nor
+    # reification is supported.
     #
     # == Regexp syntax
     #
@@ -114,7 +69,7 @@ module Gecode::Constraints::IntEnum
     # Additionally Model#at_least_once and Model#at_most_once are
     # provided as convenience methods.
     #
-    # === Examples
+    # ==== Examples 
     #
     #   # Matches 1 followed by any number of 2s.
     #   [1, repeat(2)]
@@ -166,28 +121,66 @@ module Gecode::Constraints::IntEnum
     #   # Exactly the same as the above.
     #   [0, repeat(1, 0, 1)]
     #
-    # == Example
+    # ==== Examples 
     #
-    #   # Constrains the two integer variables in +numbers+ to have
+    #   # Constrains the two integer operands in +numbers+ to have
     #   # values 1 and 7.
     #   numbers.must.match [1, 7]
     #
-    #   # Constrains the integer variables in +numbers+ to contain the
+    #   # Constrains the integer operands in +numbers+ to contain the
     #   # value 47 followed by 11, with all other values set to -1.
     #   numbers.must.match [repeat(-1), 47, 11, repeat(-1)]
     #
-    #   # Constrains exactly three of the integer variables in +numbers+ to 
+    #   # Constrains exactly three of the integer operands in +numbers+ to 
     #   # contain 47 or 11, each followed by at least two
-    #   # variables set to -1. All other variables are constrained to
+    #   # operands set to -1. All other operands are constrained to
     #   # equal -1.
     #   numbers.must.match repeat([repeat(-1), any(11, 47), 
     #                              repeat(-1, 2)], 3, 3)
     #
-    class RegexpConstraint < Gecode::Constraints::Constraint
+    def match(regexp, options = {})
+      if @params[:negate]
+        raise Gecode::MissingConstraintError, 'A negated regexp constraint ' +
+          'is not implemented.'
+      end
+      unless options[:reify].nil?
+        raise ArgumentError, 'Reification is not supported by the regexp ' + 
+          'constraint.'
+      end
+
+      @params[:regexp] = 
+        Gecode::Util::Extensional.parse_regexp regexp
+      @params.update Gecode::Util.decode_options(options)
+      @model.add_constraint Extensional::RegexpConstraint.new(@model, @params)
+    end
+  end
+  
+  # A module that gathers the classes and modules used in extensional 
+  # constraints.
+  module Extensional #:nodoc:
+    class TupleConstraint < Gecode::Constraint #:nodoc:
+      def post
+        # Bind lhs.
+        lhs = @params[:lhs].to_int_enum.bind_array
+
+        # Create the tuple set.
+        tuple_set = Gecode::Raw::TupleSet.new
+        @params[:tuples].each do |tuple|
+          tuple_set.add tuple
+        end
+        tuple_set.finalize
+
+        # Post the constraint.
+        Gecode::Raw::extensional(@model.active_space, lhs, tuple_set, 
+          *propagation_options)
+      end
+    end
+
+    class RegexpConstraint < Gecode::Constraint #:nodoc:
       def post
         lhs, regexp = @params.values_at(:lhs, :regexp)
-        Gecode::Raw::extensional(@model.active_space, lhs.to_int_var_array, 
-          regexp, *propagation_options)
+        Gecode::Raw::extensional(@model.active_space, 
+          lhs.to_int_enum.bind_array, regexp, *propagation_options)
       end
     end
   end

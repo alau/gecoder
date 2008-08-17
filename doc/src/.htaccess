@@ -2,3 +2,8 @@ ErrorDocument 404 /404-error.html
 
 RewriteEngine On
 RewriteRule ^examples\.html /examples/index.html [R=301,L]
+RewriteRule ^documentation/constraints/index\.html /documentation/operands/index.html [R=301,L]
+RewriteRule ^documentation/constraints/quick-reference\.html /documentation/operands/quick-reference.html [R=301,L]
+RewriteRule ^documentation/constraints/integer-constraints\.html /documentation/operands/integer-operands.html [R=301,L]
+RewriteRule ^documentation/constraints/boolean-constraints\.html /documentation/operands/boolean-operands.html [R=301,L]
+RewriteRule ^documentation/constraints/set-constraints\.html /documentation/operands/set-operands.html [R=301,L]

@@ -1,8 +1,12 @@
-== Gecode/R
+= Gecode/R
+
+Website: http://gecoder.org
 
 Gecode/R is a Ruby interface to the Gecode constraint programming library. 
 Gecode/R is intended for people with no previous experience of constraint 
 programming, aiming to be easy to pick up and use.
+
+See Gecode::Model to get started.
 
 == Warning
 
@@ -47,7 +51,7 @@ extension it's given).
   make
   mv gecode.so ../lib/
 
-== Running the tests
+=== Running the tests
 
   rake specs
 

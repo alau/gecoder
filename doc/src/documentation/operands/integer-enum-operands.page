@@ -1,0 +1,78 @@
+---
+title: Integer Enumeration Operands
+longTitle: Integer Enumeration Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the integer enumeration operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Integer Enumeration Operands
+
+<div class="summary">
+<p>An integer enumeration operand is an enumeration of integer
+operands.</p></div>
+
+h4. Examples of Integer Enumeration Operands
+
+Enumerations of integer operands are commonly created using {RDoc:
+Gecode::Model#int_var_array} and {RDoc: Gecode::Model#int_var_matrix}.
+
+<ruby>
+# Creates an array of five integer operands with domain 0..9 .
+int_enum = int_var_array(5, 0..9) 
+</ruby>
+
+A less common way to create the operands is by using {RDoc:
+Gecode::Model#wrap_enum} to wrap an existing enumeration that contains
+integer operands.
+
+<ruby>
+int_enum = wrap_enum([int_operand1, int_operand2])
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: IntEnumConstraintReceiver}.
+
+h3. @distinct@
+
+{importRDoc: {file: constraints/int_enum/distinct.rb, method: def distinct}}
+
+h3. @channel@
+
+{importRDoc: {file: constraints/int_enum/channel.rb, method: def channel}}
+
+h3. @in@
+
+{importRDoc: {file: constraints/int_enum/extensional.rb, method: def in}}
+
+h3. @match@
+
+{importRDoc: {file: constraints/int_enum/extensional.rb, method: def match}}
+
+h3. @sorted@
+
+{importRDoc: {file: constraints/int_enum/sort.rb, method: def sorted}}
+
+h3. @equal@
+
+{importRDoc: {file: constraints/int_enum/equality.rb, method: def equal}}
+
+h2. Properties
+
+Generated from {RDoc: IntEnumOperand}.
+
+h3. @[]@
+
+{importRDoc: {file: constraints/int_enum/element.rb, method: def []}}
+
+h3. @count@
+
+{importRDoc: {file: constraints/int_enum/count.rb, method: def count}}
+
+h3. @max@
+
+{importRDoc: {file: constraints/int_enum/arithmetic.rb, method: def max}}
+
+h3. @min@
+
+{importRDoc: {file: constraints/int_enum/arithmetic.rb, method: def min}}

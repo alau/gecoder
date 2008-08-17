@@ -1,36 +1,60 @@
-module Gecode::Constraints::IntEnum
-  class Expression
-    # Initiates a sort constraint. Beyond the common options the sort constraint
-    # can also take the following options:
+module Gecode::IntEnum
+  class IntEnumConstraintReceiver
+    # Constrains the elements in this enumeration to be sorted in ascending 
+    # order. The following options can be given in addition to the
+    # common constraint options:
     # 
-    # [:as]     Defines a target (must be an int variable enumerable) that will
+    # [:as]     Defines a target (must be an IntEnum) that will
     #           hold the sorted version of the original enumerable. The original
     #           enumerable will not be affected (i.e. will not necessarily be 
     #           sorted)
-    # [:order]  Sets an int variable enumerable that should be used to store the
-    #           order of the original enum's variables when sorted. The original
+    # [:order]  Sets an IntEnum that should be used to store the
+    #           order of the original enum's operands when sorted. The original
     #           enumerable will not be affected (i.e. will not necessarily be 
     #           sorted)
     # 
     # If neither of those options are specified then the original enumerable
     # will be constrained to be sorted (otherwise not). Sort constraints with
     # options do not allow negation.
+    #
+    # ==== Examples 
+    #
+    #   # Constrain +numbers+ to be sorted.
+    #   numbers.must_be.sorted
+    #
+    #   # Constrain +numbers+ to not be sorted.
+    #   numbers.must_not_be.sorted
+    # 
+    #   # Constrain +sorted_numbers+ to be a sorted version of +numbers+. 
+    #   numbers.must_be.sorted(:as => sorted_numbers)
+    #
+    #   # Constrain +order+ to be the order in which +numbers+ has to be
+    #   # ordered to be sorted.
+    #   numbers.must_be.sorted(:order => order)
+    #   
+    #   # Constrain +sorted_numbers+ to be +numbers+ sorted in the order 
+    #   # described by the IntEnum +order+. 
+    #   numbers.must_be.sorted(:as => sorted_numbers, :order => order)
+    #
+    #   # Constrains +numbers+ to be sorted, reifying with the boolean 
+    #   # operand +is_sorted+, while selecting +domain+ as strength.
+    #   numbers.must_be.sorted(:reify => :is_sorted, :strength => :domain)
     def sorted(options = {})
       # Extract and check options.
       target = options.delete(:as)
       order = options.delete(:order)
-      unless target.nil? or target.respond_to? :to_int_var_array
+      unless target.nil? or target.respond_to? :to_int_enum
         raise TypeError, 'Expected int var enum as :as, got ' + 
           "#{target.class}."
       end
-      unless order.nil? or order.respond_to? :to_int_var_array
+      unless order.nil? or order.respond_to? :to_int_enum
         raise TypeError, 'Expected int var enum as :order, got ' + 
           "#{order.class}."
       end
       
       # Extract standard options and convert to constraint.
       reified = !options[:reify].nil?
-      @params.update(Gecode::Constraints::Util.decode_options(options))
+      @params.update(Gecode::Util.decode_options(options))
       if target.nil? and order.nil?
         @model.add_constraint Sort::SortConstraint.new(@model, @params)
       else
@@ -53,33 +77,18 @@ module Gecode::Constraints::IntEnum
 
   # A module that gathers the classes and modules used in sort constraints.
   module Sort #:nodoc:
-    # Describes a sort constraint which constrains a target enumeration of 
-    # integer variables to be the sorted version of another set of integer 
-    # variables. Optionally a third enumeration may be used to define the order
-    # in which the the variables should be sorted.
-    # 
-    # Neither negation nor reification is supported.
-    # 
-    # == Example
-    # 
-    #   # Constrains +sorted_numbers+ to be a sorted version of +numbers+. 
-    #   numbers.must_be.sorted(:as => sorted_numbers)
-    #   
-    #   # Constrains +sorted_numbers+ to be +numbers+ sorted in the order 
-    #   # described by the integer variable enumeration +order+. 
-    #   numbers.must_be.sorted(:as => sorted_numbers, :order => order)
-    class SortConstraintWithOptions < Gecode::Constraints::Constraint
+    class SortConstraintWithOptions < Gecode::Constraint #:nodoc:
       def post
         if @params[:target].nil?
           # We must have a target.
-          lhs = @params[:lhs]
+          lhs = @params[:lhs].to_int_enum
           @params[:target] = @model.int_var_array(lhs.size, lhs.domain_range)
         end
         
         # Prepare the parameters.
         params = @params.values_at(:lhs, :target, :order).map do |param| 
-          if param.respond_to? :to_int_var_array
-            param.to_int_var_array
+          if param.respond_to? :to_int_enum
+            param.to_int_enum.bind_array
           else
             param
           end
@@ -91,19 +100,7 @@ module Gecode::Constraints::IntEnum
       end
     end
     
-    # Describes a sort constraint which constrains an enumeration of integer 
-    # variables to be sorted. Supports reification and negation.
-    # 
-    # == Example
-    # 
-    #   # Constrains the variables in +int_enum+ to be sorted ascendingly.
-    #   int_enum.must_be.sorted
-    #   
-    #   # Reifies the constraint that the variables in +int_enum+ to be sorted 
-    #   # ascendingly with the boolean variable +is_sorted+, while selecting 
-    #   # +domain+ as strength.
-    #   int_enum.must_be.sorted(:reify => :is_sorted, :strength => :domain)
-    class SortConstraint < Gecode::Constraints::ReifiableConstraint
+    class SortConstraint < Gecode::ReifiableConstraint #:nodoc:
       def post
         lhs, strength, kind, reif_var = 
           @params.values_at(:lhs, :strength, :kind, :reif)
@@ -112,9 +109,9 @@ module Gecode::Constraints::IntEnum
         # We translate the constraint into n-1 relation constraints.
         options = {
           :strength => 
-            Gecode::Constraints::Util::PROPAGATION_STRENGTHS.invert[strength],
+            Gecode::Util::PROPAGATION_STRENGTHS.invert[strength],
           :kind => 
-            Gecode::Constraints::Util::PROPAGATION_KINDS.invert[kind]
+            Gecode::Util::PROPAGATION_KINDS.invert[kind]
         }
         if using_reification
           reification_variables = @model.bool_var_array(lhs.size - 1)

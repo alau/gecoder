@@ -1,5 +1,113 @@
 module Gecode
   # Model is the base class that all models must inherit from.
+  #
+  # == Formulating problems
+  #
+  # Models are used to formulate the problems that Gecode should solve.
+  # Below is an example of a model that formulates the problem of finding
+  # a solution to the following equation system.
+  #
+  # Equation system:
+  #   x + y = z
+  #   x = y - 3
+  #   0 <= x,y,z <= 9
+  #
+  # Model:
+  #   class EquationProblem < Gecode::Model
+  #     attr :vars
+  #
+  #     def initialize
+  #       x, y, z = @vars = int_var_array(3, 0..9)
+  #
+  #       (x + y).must == z
+  #       x.must == y - 3
+  #
+  #       branch_on @vars
+  #     end
+  #   end
+  # 
+  # A model typically consists of three main parts:
+  # [Variables] Variables specify how to view the problem. A solution is an 
+  #             assignment of the variables. In the example above we created 
+  #             an array of three integer variables with domains 0..9 and gave 
+  #             it the name +variables+.
+  #
+  #             There are three types of variables: integer variables
+  #             (Gecode::IntVar, can be assigned one of many
+  #             possible integer values), boolean variables
+  #             (Gecode::BoolVar, can be assigned either true or
+  #             false) and set variables (Gecode::SetVar, can be
+  #             assigned a set of integers).  Variables of the different
+  #             types are constructed using #int_var, #int_var_array,
+  #             #int_var_matrix, #bool_var, #bool_var_array,
+  #             #bool_var_matrix, #set_var, #set_var_array and
+  #             #set_var_matrix .
+  #
+  #             The various variables all have the functionality of Operand 
+  #             and have many properties depending on their type. For 
+  #             instance integer variables have the properties defined
+  #             in Gecode::Int::IntOperand and
+  #             enumerations of integer variables (such as the array
+  #             +variables+ we used) have the properties defined in  
+  #             Gecode::IntEnum::IntEnumOperand .
+  #             
+  # [Constraints] Constraints are placed on the variables to ensure that a 
+  #               valid assignment of the variables must also be a solution.
+  #               In the example above we constrained the variables so
+  #               that all equations were satisfied (which is exactly when
+  #               we have found a solution).
+  #
+  #               The various constraints that can be placed on the various
+  #               kinds of operands are found in the respective
+  #               constraint receivers. For instance, the constraints
+  #               that can be placed on integer operands are found in 
+  #               Gecode::Int::IntConstraintReceiver and
+  #               the constraints that can be placed on enumerations of
+  #               integer operands are found in 
+  #               Gecode::IntEnum::IntEnumConstraintReceiver .
+  #
+  # [Branching] "branch_on variables" in the example tells Gecode that
+  #             it should explore the search space until it has assigned
+  #             +variables+ (or exhausted the search space). It also
+  #             tells Gecode in what order the search space should be
+  #             explore, which can have a big effect on the search
+  #             performance. See #branch_on for details.
+  #
+  # == Finding solutions
+  #
+  # Solutions to a formulated problem are found are found by using
+  # methods such as #solve!, #solution, #each_solution . If one wants to
+  # find a solution that optimizes a certain quantity (i.e. maximizes a
+  # certain variable) then one should have a look at #maximize!,
+  # #minimize! and #optimize! .
+  #
+  # The first solution to the example above could for instance be found
+  # using
+  #
+  #   puts EquationProblem.new.solve!.vars.values.join(', ')
+  #
+  # which would find the first solution to the problem, access the
+  # assigned values of +variables+ and print them (in order x, y, z).
+  #
+  # == Shorter ways of formulating problems
+  #
+  # Problems can also be formulated without defining a new class by
+  # using Gecode#solve et al.
+  #
+  # Additionally one can use "foo_is_an ..." to create an accessor of 
+  # name foo, without having to use instance variables. The above
+  # problem becomes
+  #   class EquationProblem < Gecode::Model
+  #     def initialize
+  #       x, y, z = vars_is_an int_var_array(3, 0..9)
+  #
+  #       (x + y).must == z
+  #       x.must == y - 3
+  #
+  #       branch_on vars
+  #     end
+  #   end
+  #
   class Model
     # The largest integer allowed in the domain of an integer variable.
     MAX_INT = Gecode::Raw::IntLimits::MAX
@@ -25,7 +133,7 @@ module Gecode
     # domain is specified then the largest possible domain is used.
     def int_var(domain = LARGEST_INT_DOMAIN)
       args = domain_arguments(domain)
-      FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
+      IntVar.new(self, variable_creation_space.new_int_var(*args))
     end
     
     # Creates an array containing the specified number of integer variables 
@@ -35,7 +143,7 @@ module Gecode
     def int_var_array(count, domain = LARGEST_INT_DOMAIN)
       args = domain_arguments(domain)
       build_var_array(count) do
-        FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
+        IntVar.new(self, variable_creation_space.new_int_var(*args))
       end
     end
     
@@ -46,19 +154,19 @@ module Gecode
     def int_var_matrix(row_count, col_count, domain = LARGEST_INT_DOMAIN)
       args = domain_arguments(domain)
       build_var_matrix(row_count, col_count) do
-        FreeIntVar.new(self, variable_creation_space.new_int_var(*args))
+        IntVar.new(self, variable_creation_space.new_int_var(*args))
       end
     end
     
     # Creates a new boolean variable.
     def bool_var
-      FreeBoolVar.new(self, variable_creation_space.new_bool_var)
+      BoolVar.new(self, variable_creation_space.new_bool_var)
     end
     
     # Creates an array containing the specified number of boolean variables.
     def bool_var_array(count)
       build_var_array(count) do
-        FreeBoolVar.new(self, variable_creation_space.new_bool_var)
+        BoolVar.new(self, variable_creation_space.new_bool_var)
       end
     end
     
@@ -66,7 +174,7 @@ module Gecode
     # boolean variables.
     def bool_var_matrix(row_count, col_count)
       build_var_matrix(row_count, col_count) do
-        FreeBoolVar.new(self, variable_creation_space.new_bool_var)
+        BoolVar.new(self, variable_creation_space.new_bool_var)
       end
     end
     
@@ -82,7 +190,7 @@ module Gecode
     def set_var(glb_domain = [], lub_domain = LARGEST_SET_BOUND,
         cardinality_range = nil)
       args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
-      FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
+      SetVar.new(self, variable_creation_space.new_set_var(*args))
     end
     
     # Creates an array containing the specified number of set variables. The
@@ -91,7 +199,7 @@ module Gecode
         cardinality_range = nil)
       args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
       build_var_array(count) do
-        FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
+        SetVar.new(self, variable_creation_space.new_set_var(*args))
       end
     end
     
@@ -102,7 +210,7 @@ module Gecode
         lub_domain = LARGEST_SET_BOUND, cardinality_range = nil)
       args = set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
       build_var_matrix(row_count, col_count) do
-        FreeSetVar.new(self, variable_creation_space.new_set_var(*args))
+        SetVar.new(self, variable_creation_space.new_set_var(*args))
       end
     end
     
@@ -158,7 +266,24 @@ module Gecode
       (@variables ||= []) << variable
     end
 
-    # Wraps method to handle #foo_is_a and #foo_is_an .
+    # Wraps method missing to handle #foo_is_a and #foo_is_an . 
+    #
+    # "<variable_name>_is_a <variable>" or "<variable_name>_is_an <variable>", 
+    # replacing "<variable_name>" with the variable's name and 
+    # "<variable>" with the variable, adds an instance variable and 
+    # accessor with the specified name.
+    #
+    # The method also returns the variable given.
+    #
+    # ==== Example
+    #
+    #   # Add an instance variable and accessor named "foo" that return
+    #   # the integer variable.
+    #   foo_is_an int_var(0..9)
+    #
+    #   # Add an instance variable and accessor named "bar" that return
+    #   # the boolean variable array.
+    #   bar_is_a bool_var_array(2)
     def method_missing(name_symbol, *args)
       name = name_symbol.to_s
       if name =~ /._is_an?$/
@@ -166,6 +291,13 @@ module Gecode
         unless args.size == 1
           raise ArgumentError, "Wrong number of argmuments (#{args.size} for 1)."
         end 
+        if respond_to? name
+          raise ArgumentError, "Method with name #{name} already exists."
+        end
+        if instance_variable_defined? "@#{name}"
+          raise ArgumentError, 
+            "Instance variable with name @#{name} already exists."
+        end
 
         # We use the meta class to avoid defining the variable in all
         # other instances of the class.
@@ -175,6 +307,7 @@ module Gecode
             attr :#{name}
           end
         end_eval
+        return args.first
       else
         super
       end
@@ -253,8 +386,8 @@ module Gecode
     def set_bounds_to_parameters(glb_domain, lub_domain, cardinality_range)
       check_set_bounds(glb_domain, lub_domain)
       args = []
-      args << Gecode::Constraints::Util.constant_set_to_int_set(glb_domain)
-      args << Gecode::Constraints::Util.constant_set_to_int_set(lub_domain)
+      args << Gecode::Util.constant_set_to_int_set(glb_domain)
+      args << Gecode::Util.constant_set_to_int_set(lub_domain)
       card_range = to_set_cardinality_range(cardinality_range)
       if card_range.nil?
         card_range = 0..Gecode::Raw::SetLimits::CARD

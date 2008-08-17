@@ -13,7 +13,7 @@ class ReifSugarSampleProblem < Gecode::Model
   end
 end
 
-describe Gecode::Constraints::ReifiableConstraint do
+describe Gecode::ReifiableConstraint do
   before do
     @model = ReifSugarSampleProblem.new
     @x = @model.x

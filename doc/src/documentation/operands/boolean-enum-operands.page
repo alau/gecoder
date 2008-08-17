@@ -1,0 +1,58 @@
+---
+title: Boolean Enumeration Operands
+longTitle: Boolean Enumeration Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the boolean enumeration operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Boolean Enumeration Operands
+
+<div class="summary">
+<p>A boolean enumeration operand is an enumeration of boolean
+operands.</p></div>
+
+h4. Examples of Boolean Enumeration Operands
+
+Enumerations of boolean operands are commonly created using {RDoc:
+Gecode::Model#bool_var_array} and {RDoc: Gecode::Model#bool_var_matrix}.
+
+<ruby>
+# Creates an array of five boolean operands.
+bool_enum = bool_var_array(5)
+</ruby>
+
+A less common way to create the operands is by using {RDoc:
+Gecode::Model#wrap_enum} to wrap an existing enumeration that contains
+boolean operands.
+
+<ruby>
+bool_enum = wrap_enum([bool_operand1, bool_operand2])
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: BoolEnumConstraintReceiver}.
+
+h3. @channel@
+
+{importRDoc: {file: constraints/bool_enum/channel.rb, method: def channel}}
+
+h3. @in@
+
+{importRDoc: {file: constraints/bool_enum/extensional.rb, method: def in}}
+
+h3. @match@
+
+{importRDoc: {file: constraints/bool_enum/extensional.rb, method: def match}}
+
+h2. Properties
+
+Generated from {RDoc: BoolEnumOperand}.
+
+h3. @conjunction@
+
+{importRDoc: {file: constraints/bool_enum/relation.rb, method: def conjunction}}
+
+h3. @disjunction@
+
+{importRDoc: {file: constraints/bool_enum/relation.rb, method: def disjunction}}

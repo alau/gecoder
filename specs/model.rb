@@ -306,4 +306,20 @@ describe Gecode::Model, ' (accessible variable creation)' do
     lambda{ model_a.bar }.should_not raise_error
     lambda{ model_b.bar }.should raise_error(NoMethodError)
   end
+
+  it 'should raise error if a method would be overwritten' do
+    var = @model.int_var(17)
+    lambda{ @model.class }.should_not raise_error
+    lambda do
+      @model.instance_eval{ class_is_an var } 
+    end.should raise_error(ArgumentError)
+  end
+
+  it 'should raise error if an instance variable would be overwritten' do
+    @model.instance_eval{ @foo = 17 }
+    var = @model.int_var(17)
+    lambda do
+      @model.instance_eval{ foo_is_a var } 
+    end.should raise_error(ArgumentError)
+  end
 end

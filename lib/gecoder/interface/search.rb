@@ -2,7 +2,7 @@ module Gecode
   # An exception raised when a search failed because there are no
   # solutions.
   class NoSolutionError < RuntimeError
-    def initialize
+    def initialize #:nodoc:
       super('No solution could be found.')
     end
   end
@@ -135,7 +135,7 @@ module Gecode
     # Raises Gecode::NoSolutionError if no solution can be found.
     def maximize!(var)
       variable = self.method(var).call
-      unless variable.kind_of? Gecode::FreeIntVar
+      unless variable.kind_of? Gecode::IntVar
         raise ArgumentError.new("Expected integer variable, got #{variable.class}.")
       end
       
@@ -154,7 +154,7 @@ module Gecode
     # Raises Gecode::NoSolutionError if no solution can be found.
     def minimize!(var)
       variable = self.method(var).call
-      unless variable.kind_of? Gecode::FreeIntVar
+      unless variable.kind_of? Gecode::IntVar
         raise ArgumentError.new("Expected integer variable, got #{variable.class}.")
       end
       

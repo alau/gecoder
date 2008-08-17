@@ -5,7 +5,7 @@ module Gecode
     # omitted then no upper bound is placed. If both +at_least+ and
     # +at_most+ are omitted then no bounds are placed.
     #
-    # See Constraints::IntEnum::Extensional::RegexpConstraint for the
+    # See IntEnum::Extensional::RegexpConstraint for the
     # allowed syntax of +regexp+.
     def repeat(regexp, at_least = nil, at_most = nil)
       unless at_least.nil? or at_least.kind_of? Fixnum
@@ -17,7 +17,7 @@ module Gecode
           "Expected the at_most argument to be a Fixnum, got #{at_most.class}"
       end
 
-      reg = Constraints::Util::Extensional.parse_regexp regexp
+      reg = Util::Extensional.parse_regexp regexp
       if at_most.nil?
         if at_least.nil?
           reg.send '*'
@@ -48,12 +48,12 @@ module Gecode
     # Matches any of the specified +regexps+.
     def any(*regexps)
       regexps.inject(Gecode::Raw::REG.new) do |result, regexp|
-        result | Constraints::Util::Extensional.parse_regexp(regexp)
+        result | Util::Extensional.parse_regexp(regexp)
       end
     end
   end
 
-  module Constraints::Util::Extensional
+  module Util::Extensional
     module_function
 
     # Parses a regular expression over the integer domain, returning

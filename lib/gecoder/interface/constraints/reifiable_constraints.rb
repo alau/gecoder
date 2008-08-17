@@ -1,12 +1,12 @@
-module Gecode::Constraints
+module Gecode
   # Base class for all reifiable constraints.
-  class ReifiableConstraint < Constraint
-    # Gets the reification variable of the constraint, nil if none exists.
+  class ReifiableConstraint < Constraint #:nodoc:
+    # Gets the reification operand of the constraint, nil if none exists.
     def reification_var
       @params[:reif]
     end
     
-    # Sets the reification variable of the constraint, nil if none should be
+    # Sets the reification operand of the constraint, nil if none should be
     # used.
     def reification_var=(new_var)
       @params[:reif] = new_var
@@ -15,7 +15,7 @@ module Gecode::Constraints
     # Produces a disjunction of two reifiable constraints, producing a new
     # reifiable constraint.
     def |(constraint)
-      with_reification_variables(constraint) do |b1, b2|
+      with_reification_operands(constraint) do |b1, b2|
         # Create the disjunction constraint.
         (b1 | b2).must_be.true
       end
@@ -24,7 +24,7 @@ module Gecode::Constraints
     # Produces a conjunction of two reifiable constraints, producing a new
     # reifiable constraint.
     def &(constraint)
-      with_reification_variables(constraint) do |b1, b2|
+      with_reification_operands(constraint) do |b1, b2|
         # Create the conjunction constraint.
         (b1 & b2).must_be.true
       end
@@ -32,14 +32,14 @@ module Gecode::Constraints
     
     private
     
-    # Yields two boolean variables to the specified block. The first one is 
-    # self's reification variable and the second one is the reification variable
-    # of the specified constraint. Reuses reification variables if possible,
-    # otherwise creates new ones.
-    def with_reification_variables(constraint, &block)
+    # Yields two boolean operands to the specified block. The first one
+    # is self's reification operand and the second one is the
+    # reification operand of the specified constraint. Reuses
+    # reification operands if possible, otherwise creates new ones.
+    def with_reification_operands(constraint, &block)
       raise TypeError unless constraint.kind_of? ReifiableConstraint
       
-      # Set up the reification variables, using existing variables if they 
+      # Set up the reification operands, using existing operands if they 
       # exist.
       con1_holds = self.reification_var
       con2_holds = constraint.reification_var
@@ -55,7 +55,7 @@ module Gecode::Constraints
     end
     
     # If called the negation of the constraint will be handled using the 
-    # reification variable. This means that the post method (which has to be 
+    # reification operand. This means that the post method (which has to be 
     # defined prior to calling this method) doesn't have to bother about 
     # negation.
     def self.negate_using_reification

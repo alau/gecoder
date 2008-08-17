@@ -24,7 +24,7 @@ h2. Supported Gecode features
 The following things are supported by Gecode/R.
 
 * Boolean variables with the following constraints
-** "Simple relation":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntRelBool.html
+** "Simple relation":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntRelBool.html except the ones involving arrays of variables
 ** "Linear":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntLinearBool.html
 * Finite domain integer variables with the following constraints
 ** "Arithmetic":http://www.gecode.org/gecode-doc-search-2.1.1/group__TaskModelIntArith.html

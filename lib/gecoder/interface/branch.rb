@@ -1,7 +1,7 @@
 module Gecode
   class Model
     # Specifies which variables that should be branched on (given as an
-    # enum of variables or as a single variable). One can optionally
+    # enum of operands or as a single operand). One can optionally
     # also select which of the variables that should be used first with
     # the :variable option and which value in that variable's domain
     # that should be used with the :value option. If nothing is
@@ -62,16 +62,23 @@ module Gecode
     # [:min]        Selects the smallest value in the unknown part of the set.
     # [:max]        Selects the largest value in the unknown part of the set.
     def branch_on(variables, options = {})
-      if variables.respond_to? :bind
+      if variables.respond_to?(:to_int_var) or 
+          variables.respond_to?(:to_bool_var) or 
+          variables.respond_to?(:to_set_var)
         variables = wrap_enum [variables]
       end
 
-      if variables.respond_to? :to_int_var_array or 
-          variables.respond_to? :to_bool_var_array
-        add_branch(variables, options, Constants::BRANCH_INT_VAR_CONSTANTS, 
+      if variables.respond_to? :to_int_enum 
+        add_branch(variables.to_int_enum, options,
+          Constants::BRANCH_INT_VAR_CONSTANTS, 
           Constants::BRANCH_INT_VALUE_CONSTANTS)
-      elsif variables.respond_to? :to_set_var_array
-        add_branch(variables, options, Constants::BRANCH_SET_VAR_CONSTANTS, 
+      elsif variables.respond_to? :to_bool_enum
+        add_branch(variables.to_bool_enum, options, 
+          Constants::BRANCH_INT_VAR_CONSTANTS, 
+          Constants::BRANCH_INT_VALUE_CONSTANTS)
+      elsif variables.respond_to? :to_set_enum
+        add_branch(variables.to_set_enum, options, 
+          Constants::BRANCH_SET_VAR_CONSTANTS, 
           Constants::BRANCH_SET_VALUE_CONSTANTS)
       else
         raise TypeError, "Unknown type of variable enum #{variables.class}."
@@ -126,7 +133,7 @@ module Gecode
       }
     end
     
-    # Adds a branching selection for the specified variable with the specified
+    # Adds a branching selection for the specified variables with the specified
     # options. The hashes are used to decode the options into Gecode's 
     # constants.
     def add_branch(variables, options, branch_var_hash, branch_value_hash)
@@ -148,7 +155,7 @@ module Gecode
 
       # Add the branching as a gecode interaction.
       add_interaction do
-        Gecode::Raw.branch(active_space, variables.to_var_array, 
+        Gecode::Raw.branch(active_space, variables.bind_array, 
           branch_var_hash[var_strat], branch_value_hash[val_strat])
       end
     end

@@ -1,28 +1,143 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# Several of these shared specs requires one or more of the following instance 
-# variables to be used: 
-# [@expect_options]  A method that creates an expectation on the aspect to be 
-#                    tested, using the provided hash of Gecode values. The hash 
-#                    can have values for the keys :icl (ICL_*), :pk (PK_*), and 
-#                    :bool (bound reification variable). Any values not 
-#                    provided are assumed to be default values (nil in the case 
-#                    of :bool).
-# [@invoke_options]  A method that invokes the aspect to be tested, with the 
-#                    provided hash of options (with at most the keys :strength, 
-#                    :kind and :reify).
+# Every constraint should have a spec that specs the following:
+#
+# * An example where the constraint is used to constrain a sample
+# problem (and one for negation if deemed necessary).
+# * should_behave_like [non-reifiable|reifiable] constraint (possibly
+# indirect).
+# * Those constraints that do not support negation must
+# should_behave_like 'non-negatable constraint'
+#
+
+
+# These specs assume that the following variables are defined:
+# [@expect]          A proc that creates an expectation corresponding to
+#                    constraint. It should take three parameter. The
+#                    first is an array of operands of types specified by
+#                    @types. The second is whether or not the constraint
+#                    should be negated. The third is a hash that can
+#                    have values for the keys :icl (ICL_*), :pk (PK_*),
+#                    and :bool (bound reification variable). Any values
+#                    not provided are assumed to be default values (nil
+#                    in the case of :bool).
+# [@invoke]          A proc that invokes the constraint to be tested, It 
+#                    should have arity arity(@types) + 1. The first
+#                    parameter is a constraint receiver (type decided by 
+#                    @types). The next arity(@types)-1 parameters are 
+#                    given operands of types specified by @types. The
+#                    last parameter is a hash of options (with at most
+#                    the keys :strength, :kind and :reify)..
+# [@types]           An array of symbols signaling what types of
+#                    arguments @ accepts. The symbols
+#                    must be one of: :int, :bool, :set, :int_enum,
+#                    :bool_enum, :set_enum, :fixnum_enum.
 # [@model]           The model instance that contains the aspects being tested.
-# [@expect_relation] A method that takes a relation, right hand side, and 
-#                    whether it's negated, as arguments and sets up the 
-#                    corresponding expectations. 
-# [@invoke_relation] A method that takes a relation, right hand side, and 
-#                    whether it's negated, as arguments and adds the 
-#                    corresponding constraint and invokes it.
-# [@target]          A legal right hand side that can be used as argument to 
-#                    the above two methods.
 
+def expect(variables, options)
+  bool = options[:bool]
+  bool = @model.allow_space_access{ bool.bind } unless bool.nil?
+  args = @model.allow_space_access do 
+    variables.map do |var| 
+      if var.respond_to? :bind
+        var.bind
+      else
+        var.bind_array
+      end
+    end
+  end
+  args << [options[:icl] || Gecode::Raw::ICL_DEF,
+           options[:pk]  || Gecode::Raw::PK_DEF]
+  args << bool
+  @expect.call(*args)
+end
 
-# Requires @invoke_options and @expect_options.
+def invoke(operands, options)
+  base_op = operands.first
+  if options.delete(:negate)
+    receiver = base_op.must_not
+  else
+    receiver = base_op.must
+  end
+  args = ([receiver] + operands[1..-1]) << options
+  @invoke.call(*args)
+end
+
+describe 'reifiable constraint', :shared => true do
+  it_should_behave_like 'constraint with default options'
+  it_should_behave_like 'constraint with reification option'
+  it_should_behave_like 'constraint'
+end
+
+describe 'non-reifiable constraint', :shared => true do
+  it 'should raise errors if reification is used' do
+    operands, variables = produce_general_arguments(@types)
+    lambda do 
+      invoke(operands, :reify => @model.bool_var)
+    end.should raise_error(ArgumentError)
+  end
+
+  it_should_behave_like 'constraint with default options'
+  it_should_behave_like 'constraint'
+end
+
+describe 'non-negatable constraint', :shared => true do
+  it 'should raise errors if negation is used' do
+    operands, variables = produce_general_arguments(@types)
+    lambda do 
+      invoke(operands, :negate => true)
+    end.should raise_error(Gecode::MissingConstraintError)
+  end
+end
+
+describe 'constraint', :shared => true do
+  it 'should raise errors if parameters of the incorrect type are given' do
+    operands, variables = produce_general_arguments(@types)
+    (1...operands.size).each do |i|
+      bogus_operands = operands.clone
+      bogus_operands[i] = Object.new
+      lambda do
+        invoke(bogus_operands, {})
+      end.should raise_error(TypeError)
+    end
+  end
+end
+
+describe 'constraint with reification option', :shared => true do
+  it 'should translate reification' do
+    operands, variables = produce_general_arguments(@types)
+    var = @model.bool_var
+    expect(variables, :bool => var)
+    invoke(operands, :reify => var)
+  end
+
+  it 'should translate reification with arbitrary bool operand' do
+    operands, variables = produce_general_arguments(@types)
+    op, bool_var = general_bool_operand(@model)
+    expect(variables, :bool => bool_var)
+    invoke(operands, :reify => op)
+  end
+  
+  it 'should raise errors for reification variables of incorrect type' do
+    operands, variables = produce_general_arguments(@types)
+    lambda do 
+      invoke(operands, :reify => 'foo')
+    end.should raise_error(TypeError)
+  end
+end
+
+describe 'constraint with default options', :shared => true do
+  it 'should raise errors for unrecognized options' do
+    operands, variables = produce_general_arguments(@types)
+    lambda do 
+      invoke(operands, :does_not_exist => :foo) 
+    end.should raise_error(ArgumentError)
+  end
+
+  it_should_behave_like 'constraint with strength option'
+  it_should_behave_like 'constraint with kind option'
+end
+
 describe 'constraint with strength option', :shared => true do
   { :default  => Gecode::Raw::ICL_DEF,
     :value    => Gecode::Raw::ICL_VAL,
@@ -30,235 +145,90 @@ describe 'constraint with strength option', :shared => true do
     :domain   => Gecode::Raw::ICL_DOM
   }.each_pair do |name, gecode_value|
     it "should translate propagation strength #{name}" do
-      @expect_options.call(:icl => gecode_value)
-      @invoke_options.call(:strength => name)
+      operands, variables = produce_general_arguments(@types)
+      expect(variables, :icl => gecode_value)
+      invoke(operands, :strength => name)
     end
   end
   
   it 'should default to using default as propagation strength' do
-    @expect_options.call({})
-    @invoke_options.call({})
+    operands, variables = produce_general_arguments(@types)
+    expect(variables, {})
+    invoke(operands, {})
   end
   
   it 'should raise errors for unrecognized propagation strengths' do
+    operands, variables = produce_general_arguments(@types)
     lambda do 
-      @invoke_options.call(:strength => :does_not_exist) 
+      invoke(operands, :strength => :does_not_exist) 
     end.should raise_error(ArgumentError)
   end
 end
 
-# Requires @invoke_options and @expect_options.
 describe 'constraint with kind option', :shared => true do
   { :default  => Gecode::Raw::PK_DEF,
     :speed    => Gecode::Raw::PK_SPEED,
     :memory   => Gecode::Raw::PK_MEMORY
   }.each_pair do |name, gecode_value|
     it "should translate propagation kind #{name}" do
-      @expect_options.call(:pk => gecode_value)
-      @invoke_options.call(:kind => name)
+      operands, variables = produce_general_arguments(@types)
+      expect(variables, :pk => gecode_value)
+      invoke(operands, :kind => name)
     end
   end
   
   it 'should default to using default as propagation kind' do
-    @expect_options.call({})
-    @invoke_options.call({})
+    operands, variables = produce_general_arguments(@types)
+    expect(variables, {})
+    invoke(operands, {})
   end
   
   it 'should raise errors for unrecognized propagation kinds' do
+    operands, variables = produce_general_arguments(@types)
     lambda do 
-      @invoke_options.call(:kind => :does_not_exist)
+      invoke(operands, :kind => :does_not_exist)
     end.should raise_error(ArgumentError)
-  end
-end
-
-
-# Requires @invoke_options and @expect_options.
-describe 'constraint with reification option', :shared => true do
-  it 'should translate reification' do
-    var = @model.bool_var
-    @expect_options.call(:bool => var)
-    @invoke_options.call(:reify => var)
-  end
-  
-  it 'should raise errors for reification variables of incorrect type' do
-    lambda do 
-      @invoke_options.call(:reify => 'foo')
-    end.should raise_error(TypeError)
-  end
-end
-
-# Requires @invoke_options and @expect_options.
-describe 'reifiable constraint', :shared => true do
-  it_should_behave_like 'constraint with default options'
-  it_should_behave_like 'constraint with reification option'
-end
-
-# Requires @invoke_options, @expect_options and @model.
-describe 'non-reifiable constraint', :shared => true do
-  it 'should raise errors if reification is used' do
-    lambda do 
-      @invoke_options.call(:reify => @model.bool_var)
-    end.should raise_error(ArgumentError)
-  end
-  
-  it_should_behave_like 'constraint with default options'
-end
-
-# Requires @invoke_options and @expect_options.
-describe 'constraint with default options', :shared => true do
-  it 'should raise errors for unrecognized options' do
-    lambda{ @invoke_options.call(:does_not_exist => :foo) }.should(
-      raise_error(ArgumentError))
-  end
-  
-  it_should_behave_like 'constraint with strength option'
-  it_should_behave_like 'constraint with kind option'
-end
-
-# Requires @expect_relation, @invoke_relation and @target.
-describe 'composite constraint', :shared => true do
-  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-    it "should translate #{relation} with constant target" do
-      @expect_relation.call(type, 1, false)
-      @invoke_relation.call(relation, 1, false)
-    end
-  end
-  
-  Gecode::Constraints::Util::RELATION_TYPES.each_pair do |relation, type|
-    it "should translate #{relation} with variable target" do
-      @expect_relation.call(type, @target, false)
-      @invoke_relation.call(relation, @target, false)
-    end
-  end
-  
-  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate negated #{relation} with constant target" do
-      @expect_relation.call(type, 1, true)
-      @invoke_relation.call(relation, 1, true)
-    end
-  end
-  
-  Gecode::Constraints::Util::NEGATED_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate negated #{relation} with variable target" do
-      @expect_relation.call(type, @target, true)
-      @invoke_relation.call(relation, @target, true)
-    end
-  end
-
-  it 'should raise error if the target is of the wrong type' do
-    lambda do 
-      @invoke_relation.call(:==, 'hello', false)
-    end.should raise_error(TypeError) 
-  end
-end
-
-# Requires @expect_relation, @invoke_relation and @target.
-describe 'composite set constraint', :shared => true do
-  Gecode::Constraints::Util::SET_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate #{relation} with constant target" do
-      @expect_relation.call(type, [1], false)
-      @invoke_relation.call(relation, [1], false)
-    end
-  end
-  
-  Gecode::Constraints::Util::SET_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate #{relation} with variable target" do
-      @expect_relation.call(type, @target, false)
-      @invoke_relation.call(relation, @target, false)
-    end
-  end
-  
-  Gecode::Constraints::Util::NEGATED_SET_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate negated #{relation} with constant target" do
-      @expect_relation.call(type, [1], true)
-      @invoke_relation.call(relation, [1], true)
-    end
-  end
-  
-  Gecode::Constraints::Util::NEGATED_SET_RELATION_TYPES.each_pair do |relation, type|
-    it "should translate negated #{relation} with variable target" do
-      @expect_relation.call(type, @target, true)
-      @invoke_relation.call(relation, @target, true)
-    end
-  end
-
-  it 'should raise error if the target is of the wrong type' do
-    lambda do 
-      @invoke_relation.call(:==, 'hello', false)
-    end.should raise_error(TypeError) 
   end
 end
 
 describe 'set constraint', :shared => true do
   it 'should not accept strength option' do
+    operands, variables = produce_general_arguments(@types)
     lambda do 
-      @invoke_options.call(:strength => :default)
+      invoke(operands, :strength => :default)
     end.should raise_error(ArgumentError)
   end
   
   it 'should not accept kind option' do
+    operands, variables = produce_general_arguments(@types)
     lambda do 
-      @invoke_options.call(:kind => :default)
+      invoke(operands, :kind => :default)
     end.should raise_error(ArgumentError)
   end
   
   it 'should raise errors for unrecognized options' do
+    operands, variables = produce_general_arguments(@types)
     lambda do 
-      @invoke_options.call(:does_not_exist => :foo) 
+      invoke(operands, :does_not_exist => :foo) 
     end.should raise_error(ArgumentError)
   end
+
+  it_should_behave_like 'constraint'
 end
 
-# Requires @invoke_options and @model.
 describe 'non-reifiable set constraint', :shared => true do
   it 'should not accept reification option' do
     bool = @model.bool_var
+    operands, variables = produce_general_arguments(@types)
     lambda do 
-      @invoke_options.call(:reify => bool)
+      invoke(operands, :reify => bool)
     end.should raise_error(ArgumentError)
   end
   
   it_should_behave_like 'set constraint'
 end
 
-# Requires @invoke_options, @expect_options and @model.
 describe 'reifiable set constraint', :shared => true do
   it_should_behave_like 'set constraint'
   it_should_behave_like 'constraint with reification option'
-end
-
-# Help methods for the GecodeR specs. 
-module GecodeR::Specs
-  module SetHelper
-    module_function
-  
-    # Returns the arguments that should be used in a partial mock to expect the
-    # specified constant set (possibly an array of arguments).
-    def expect_constant_set(constant_set)
-      if constant_set.kind_of? Range
-        return constant_set.first, constant_set.last
-      elsif constant_set.kind_of? Fixnum
-        constant_set
-      else
-        an_instance_of(Gecode::Raw::IntSet)
-      end
-    end
-  end
-end
-
-# Helper for creating @expect_option. Creates a method which takes a hash that
-# may have values for the keys :icl (ICL_*), :pk (PK_*), and :bool (reification 
-# variable). Expectations corresponding to the hash values are given to the 
-# specified block in the order of icl, pk and bool. Default values are provided 
-# if the hash doesn't specify anything else.
-def option_expectation(&block)
-  lambda do |hash|
-    bool = hash[:bool]
-    # We loosen the expectation some to avoid practical problems with expecting
-    # specific variables not under our control.
-    bool = an_instance_of(Gecode::Raw::BoolVar) unless bool.nil?
-    yield(hash[:icl] || Gecode::Raw::ICL_DEF,
-      hash[:pk]  || Gecode::Raw::PK_DEF,
-      bool)
-  end
 end

@@ -20,19 +20,25 @@ documentation/faq.page:
   orderInfo: 11
 documentation/modelling:
   orderInfo: 12
-documentation/constraints:
+documentation/operands:
   orderInfo: 13
 
-documentation/constraints/index.page:
+documentation/operands/index.page:
   orderInfo: 20
-documentation/constraints/quick-reference.page:
+documentation/operands/quick-reference.page:
   orderInfo: 21
-documentation/constraints/integer-constraints.page:
+documentation/operands/integer-operands.page:
   orderInfo: 22
-documentation/constraints/boolean-constraints.page:
+documentation/operands/integer-enum-operands.page:
   orderInfo: 23
-documentation/constraints/set-constraints.page:
+documentation/operands/boolean-operands.page:
   orderInfo: 24
+documentation/operands/boolean-enum-operands.page:
+  orderInfo: 25
+documentation/operands/set-operands.page:
+  orderInfo: 26
+documentation/operands/set-enum-operands.page:
+  orderInfo: 27
 
 documentation/modelling/index.page:
   orderInfo: 20

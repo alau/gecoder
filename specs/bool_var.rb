@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/spec_helper'
+require File.dirname(__FILE__) + '/constraints/property_helper'
 
 describe 'non-empty bool variable', :shared => true do
   it 'should give a NoMethodError when calling a method that doesn\'t exist' do
@@ -6,10 +7,10 @@ describe 'non-empty bool variable', :shared => true do
   end
 end
 
-describe Gecode::FreeBoolVar, '(not assigned)' do
+describe Gecode::BoolVar, '(not assigned)' do
   before do
-    model = Gecode::Model.new
-    @var = model.bool_var
+    @model = Gecode::Model.new
+    @operand = @var = @model.bool_var
   end
   
   it_should_behave_like 'non-empty bool variable'
@@ -25,14 +26,16 @@ describe Gecode::FreeBoolVar, '(not assigned)' do
   it 'should raise error when trying to access assigned value' do
     lambda{ @var.value }.should raise_error(RuntimeError)
   end
+
+  it_should_behave_like 'bool var operand'
 end
 
-describe Gecode::FreeBoolVar, '(assigned true)' do
+describe Gecode::BoolVar, '(assigned true)' do
   before do
-    model = Gecode::Model.new
-    @var = model.bool_var
+    @model = Gecode::Model.new
+    @operand = @var = @model.bool_var
     @var.must_be.true
-    model.solve!
+    @model.solve!
   end
   
   it_should_behave_like 'non-empty bool variable'
@@ -48,14 +51,16 @@ describe Gecode::FreeBoolVar, '(assigned true)' do
   it "should say that it's true when inspecting" do
     @var.inspect.should include('true')
   end
+  
+  it_should_behave_like 'bool var operand'
 end
 
-describe Gecode::FreeBoolVar, '(assigned false)' do
+describe Gecode::BoolVar, '(assigned false)' do
   before do
-    model = Gecode::Model.new
-    @var = model.bool_var
+    @model = Gecode::Model.new
+    @operand = @var = @model.bool_var
     @var.must_be.false
-    model.solve!
+    @model.solve!
   end
   
   it_should_behave_like 'non-empty bool variable'
@@ -71,4 +76,6 @@ describe Gecode::FreeBoolVar, '(assigned false)' do
   it "should say that it's false when inspecting" do
     @var.inspect.should include('false')
   end
+
+  it_should_behave_like 'bool var operand'
 end

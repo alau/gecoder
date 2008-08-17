@@ -75,7 +75,7 @@ module Gecode
   def self.create_model(&block)
     model = Class.new(Gecode::Model)
     model.class_eval do
-      def initialize(&init_block)
+      def initialize(&init_block) #:nodoc:
         instance_eval &init_block
       end
     end

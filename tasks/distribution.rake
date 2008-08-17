@@ -12,8 +12,10 @@ EXT_DIR = 'ext'
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'doc/output/rdoc'
-  rdoc.options << '--title' << 'Gecode/R' << '--line-numbers' << 
-    '--inline-source' << '--accessor' << 'delegate' << '--main' << 'README'
+  rdoc.title = 'Gecode/R'
+  rdoc.template = 'doc/rdoc/jamis.rb'
+  rdoc.options << '--line-numbers' << '--inline-source' << 
+    '--accessor' << 'delegate' << '--main' << 'README'
   rdoc.rdoc_files.include('README', 'CHANGES', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 

@@ -13,7 +13,18 @@ class AddHeaderIdsContentConverter < ContentConverters::DefaultContentConverter
     content.map do |line|
       match = /h(\d)\. (.+)$/.match line
       next line if match.nil? or match[1].to_i < 2
-      id = match[2].downcase.tr("^#{characters.join}", '_')
+      id = match[2].downcase
+      # A real simple bit of substitution to avoid collisions.
+      id.gsub!('+', 'p')
+      id.gsub!('-', 'm')
+      id.gsub!('=', 'e')
+      id.gsub!('<', 'l')
+      id.gsub!('>', 'g')
+      id.gsub!('*', 'u')
+      id.gsub!('&', 'a')
+      id.gsub!('|', 'i')
+      id.gsub!('^', 'c')
+      id = id.tr("^#{characters.join}", '_')
       line.sub(/h#{match[1]}\./, "h#{match[1]}(##{id}).")
     end.join
   end

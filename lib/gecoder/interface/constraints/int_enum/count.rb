@@ -1,90 +1,65 @@
-module Gecode
-  module IntEnumMethods
-    # Specifies that a specific element should be counted, starting a count
-    # constraint. The element can be either an int var or a fixnum.
-    def count(element)
-      unless element.kind_of?(FreeIntVar) or element.kind_of?(Fixnum)
-        raise TypeError, 'Elements used with count can not be of type ' + 
-          "#{element.class}."
+module Gecode::IntEnum
+  module IntEnumOperand
+    # Produces a new IntOperand representing the number of times
+    # +int_operand_or_fixnum+ is present in this enumeration.
+    #
+    # ==== Examples 
+    #
+    #   # The number of times 17 occurs in +int_enum+.
+    #   int_enum.count(17)
+    #
+    #   # The number of times +int_operand+ occurs in +int_enum+.
+    #   int_enum.count(int_operand)
+    def count(int_operand_or_fixnum)
+      unless int_operand_or_fixnum.respond_to? :to_int_var or 
+          int_operand_or_fixnum.kind_of?(Fixnum)
+        raise TypeError, 'Expected integer operand of fixnum, got ' + 
+          "#{int_operand_or_fixnum.class}."
       end
-      params = {:lhs => self, :element => element}
-      Gecode::Constraints::SimpleExpressionStub.new(@model, params) do |m, ps|
-        Gecode::Constraints::IntEnum::Count::Expression.new(m, ps)
-      end
+      Count::IntEnumCountOperand.new(@model, self, int_operand_or_fixnum)
     end
   end
-end
 
-# A module that gathers the classes and modules used in count constraints.
-module Gecode::Constraints::IntEnum::Count #:nodoc:
-  # Describes an expression 
-  class Expression < Gecode::Constraints::IntEnum::Expression #:nodoc:
-    def initialize(model, params)
-      super
-      unless params[:negate]
-        @method_relations = Gecode::Constraints::Util::RELATION_TYPES
-      else
-        @method_relations = Gecode::Constraints::Util::NEGATED_RELATION_TYPES
+  # A module that gathers the classes and modules used in count constraints.
+  module Count #:nodoc:
+    class IntEnumCountOperand < Gecode::Int::ShortCircuitRelationsOperand #:nodoc:
+      def initialize(model, int_enum, element)
+        super model
+        @enum = int_enum
+        @element = element
+      end
+      
+      def relation_constraint(relation, int_operand_or_fix, params)
+        unless params[:negate]
+          relation_type = 
+            Gecode::Util::RELATION_TYPES[relation]
+        else
+          relation_type = 
+            Gecode::Util::NEGATED_RELATION_TYPES[relation]
+        end
+        
+        params.update(:enum => @enum, :element => @element, 
+          :rhs => int_operand_or_fix, :relation_type => relation_type)
+        CountConstraint.new(@model, params)
       end
     end
     
-    Gecode::Constraints::Util::RELATION_TYPES.each_pair do |name, type|
-      class_eval <<-"end_code"
-        def #{name}(expression, options = {})
-          unless expression.kind_of?(Fixnum) or 
-              expression.kind_of?(Gecode::FreeIntVar)
-            raise TypeError, 'Invalid right hand side of count constraint: ' + 
-              "\#{expression.class}."
-          end
+    class CountConstraint < Gecode::ReifiableConstraint #:nodoc:
+      def post
+        enum, element, relation_type, rhs = 
+          @params.values_at(:enum, :element, :relation_type, :rhs)
         
-          relation = @method_relations[:#{name}]
-          @params.update(Gecode::Constraints::Util.decode_options(options))
-          @params.update(:rhs => expression, :relation_type => relation)
-          @model.add_constraint CountConstraint.new(@model, @params)
+        # Bind variables if needed.
+        unless element.kind_of? Fixnum
+          element = element.to_int_var.bind
         end
-      end_code
-    end
-    alias_comparison_methods
-  end
-  
-  # Describes a count constraint, which constrains the number of times a value
-  # (constant or a variable) may occurr in an enumeration of integer variable.
-  # 
-  # All relations available for +SimpleRelationConstraint+ can be used with
-  # count constraints. Negation and reification is supported.
-  # 
-  # == Examples
-  # 
-  #   # Constrain +int_enum+ to not contain 0 exactly once.
-  #   int_enum.count(0).must_not == 1
-  #   
-  #   # Constrain +int_enum+ to contain +x+ exactly +x_count+ times.
-  #   int_enum.count(x).must == x_count
-  #   
-  #   # Reifies the constraint that +int_enum+ has +x+ zeros with the boolean
-  #   # variable +has_x_zeros+ and selects the strength +domain+.
-  #   int_enum.count(0).must.equal(x, :reify => has_x_zeros, 
-  #     :strength => :domain)
-  class CountConstraint < Gecode::Constraints::ReifiableConstraint
-    def post
-      lhs, element, relation_type, rhs, reif_var = 
-        @params.values_at(:lhs, :element, :relation_type, :rhs, :reif)
-      
-      # Bind variables if needed.
-      element = element.bind if element.respond_to? :bind
-      rhs = rhs.bind if rhs.respond_to? :bind
-      
-      # Post the constraint to gecode.
-      if reif_var.nil?
-        Gecode::Raw::count(@model.active_space, lhs.to_int_var_array, 
+        unless rhs.kind_of? Fixnum
+          rhs = rhs.to_int_var.bind
+        end
+        
+        # Post the constraint to gecode.
+        Gecode::Raw::count(@model.active_space, enum.to_int_enum.bind_array, 
           element, relation_type, rhs, *propagation_options)
-      else
-        # We use a proxy int variable to get the reification.
-        proxy = @model.int_var(rhs.min..rhs.max)
-        rel = Gecode::Constraints::Util::RELATION_TYPES.invert[relation_type]
-        proxy.must.send(rel, @params[:rhs], :reify => reif_var)
-        Gecode::Raw::count(@model.active_space, lhs.to_int_var_array, 
-          element, Gecode::Raw::IRT_EQ, proxy.bind, *propagation_options)
       end
     end
   end

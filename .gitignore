@@ -10,8 +10,8 @@ doc/plugin/tags/*.swp
 doc/src/*.swp
 doc/src/details/*.swp
 doc/src/documentation/*.swp
-doc/src/documentation/constraints/*.swp
 doc/src/documentation/modelling/*.swp
+doc/src/documentation/operands/*.swp
 doc/src/examples/*.swp
 doc/src/images/*.swp
 example/*.swp
