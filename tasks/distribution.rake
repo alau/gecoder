@@ -175,7 +175,7 @@ gecode_release_files = [
   "pkg/#{PKG_FILE_NAME_WITH_GECODE}.gem",
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.tgz",
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.zip",
-  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-mswin32.gem"
+  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-x86-mswin32.gem"
 ]
 desc 'Publish Gecode/R with Gecode packages on RubyForge'
 task :publish_gecoder_with_gecode_packages => 
