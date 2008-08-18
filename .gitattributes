@@ -37,7 +37,6 @@ doc/src/documentation/operands/boolean-operands.page -text
 doc/src/documentation/operands/index.page -text
 doc/src/documentation/operands/integer-enum-operands.page -text
 doc/src/documentation/operands/integer-operands.page -text
-doc/src/documentation/operands/quick-reference.page -text
 doc/src/documentation/operands/set-enum-operands.page -text
 doc/src/documentation/operands/set-operands.page -text
 doc/src/examples/index.page -text
