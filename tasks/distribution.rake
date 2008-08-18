@@ -79,6 +79,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = "http://gecoder.rubyforge.org"
   s.rubyforge_project = "gecoder"
 
+=begin
   # Development dependencies.
   # Not listed: rubygems >= 1.2
   [['rake'], 
@@ -90,6 +91,7 @@ spec = Gem::Specification.new do |s|
     ['rubyforge']].each do |dependency|
     s.add_development_dependency(*dependency)
   end
+=end
 end
 
 # Create a clone of the gem spec with the precompiled binaries for Windows.
