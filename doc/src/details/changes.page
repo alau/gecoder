@@ -10,5 +10,5 @@ h1. Changes
 
 <notextile> 
   <% changes = File.readlines('../CHANGES').join %>
-  <%= RedCloth.new(changes.gsub(/== (.+)\n/, 'h2. \1' + $/*2)).to_html %> 
+  <%= @plugin_manager['ContentConverter/RDoc'].call(changes) %>
 </notextile>
