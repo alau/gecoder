@@ -5,14 +5,14 @@ module Gecode::Bool #:nodoc:
   # constraints defined in BoolConstraintReceiver can be placed.
   #
   # Boolean operands can be created either by using
-  # Gecode::Model#bool_var et al, or by using properties that produce
+  # Gecode::Mixin#bool_var et al, or by using properties that produce
   # boolean operands. The operands, no matter how they were created, 
   # all respond to the properties defined by BoolOperand.
   #
   # ==== Examples 
   #
   # Produces a single boolean operand (more specifically a BoolVar)
-  # inside a problem formulation, using Gecode::Model#bool_var:
+  # inside a problem formulation, using Gecode::Mixin#bool_var:
   #
   #   bool_operand = bool_var
   #

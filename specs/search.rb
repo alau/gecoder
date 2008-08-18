@@ -266,7 +266,7 @@ describe Gecode::Model, '(optimization search)' do
   
   it 'should raise error if no constrain proc has been defined' do
     lambda do 
-      Gecode::Model.constrain(nil, nil) 
+      Gecode::Mixin.constrain(nil, nil) 
     end.should raise_error(NotImplementedError)
   end
   

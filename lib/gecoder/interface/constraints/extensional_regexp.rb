@@ -1,5 +1,5 @@
 module Gecode
-  class Model
+  module Mixin
     # Specifies an integer regexp that matches +regexp+ repeated between
     # +at_least+ and +at_most+ times (inclusive). If +at_most+ is
     # omitted then no upper bound is placed. If both +at_least+ and

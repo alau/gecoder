@@ -7,7 +7,7 @@ module Gecode
     end
   end
 
-  class Model
+  module Mixin
     # Finds the first solution to the modelled problem and updates the variables
     # to that solution. The found solution is also returned. Raises
     # Gecode::NoSolutionError if no solution can be found.
@@ -92,7 +92,7 @@ module Gecode
       perform_queued_gecode_interactions
 
       # Set the method used for constrain calls by the BAB-search.
-      Model.constrain_proc = lambda do |home_space, best_space|
+      Mixin.constrain_proc = lambda do |home_space, best_space|
         self.active_space = best_space
         @variable_creation_space = home_space
         yield(self, self)
@@ -117,7 +117,7 @@ module Gecode
       @statistics = bab.statistics
       
       # Reset the method used constrain calls and return the result.
-      Model.constrain_proc = nil
+      Mixin.constrain_proc = nil
       raise Gecode::NoSolutionError if result.nil?
       
       # Switch to the result.

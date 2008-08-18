@@ -5,19 +5,19 @@ module Gecode::BoolEnum #:nodoc:
   # constraints defined in BoolEnumConstraintReceiver can be placed.
   #
   # Enumerations of boolean operands can be created either by using
-  # Gecode::Model#bool_var_array and Gecode::Model#bool_var_matrix, or
+  # Gecode::Mixin#bool_var_array and Gecode::Mixin#bool_var_matrix, or
   # by wrapping an existing enumeration containing BoolOperand using
-  # Gecode::Model#wrap_enum. The enumerations, no matter how they were
+  # Gecode::Mixin#wrap_enum. The enumerations, no matter how they were
   # created, all respond to the properties defined by BoolEnumOperand.
   #
   # ==== Examples 
   #
   # Produces an array of five boolean operands inside a problem formulation
-  # using Gecode::Model#bool_var_array:
+  # using Gecode::Mixin#bool_var_array:
   #
   #   bool_enum = bool_var_array(5)
   #
-  # Uses Gecode::Model#wrap_enum inside a problem formulation to create
+  # Uses Gecode::Mixin#wrap_enum inside a problem formulation to create
   # a BoolEnumOperand from an existing enumeration containing the
   # boolean operands +bool_operand1+ and +bool_operand2+:
   #

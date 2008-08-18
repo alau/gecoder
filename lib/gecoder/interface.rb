@@ -1,5 +1,6 @@
 require 'gecoder/interface/binding_changes'
 require 'gecoder/interface/enum_matrix'
+require 'gecoder/interface/mixin'
 require 'gecoder/interface/model'
 require 'gecoder/interface/search'
 require 'gecoder/interface/constraints'
