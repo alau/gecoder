@@ -34,5 +34,6 @@ h2. Code
 
 h2. Output
 
- s: 3, e: 7, n: 8, d: 2, m: 1, o: 0, s: 9, t: 4, y: 6
+ s e n d m o s t y
+ 3 7 8 2 1 0 9 4 6
  money: 10876
