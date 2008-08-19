@@ -103,7 +103,7 @@ spec_windows_binary_with_gecode.requirements = []
 spec_windows_binary_with_gecode.files = spec.files.dup -
   FileList['ext/**/*'].to_a + 
   FileList['vendor/gecode/win32/lib/*'].to_a << 'lib/gecode.dll'
-spec_windows_binary_with_gecode.platform = 'mswin32' #Gem::Platform::WIN32
+spec_windows_binary_with_gecode.platform = 'x86-mswin32-60' #Gem::Platform::WIN32
 
 # Create a clone of the gem spec that includes Gecode.
 spec_with_gecode = spec.dup

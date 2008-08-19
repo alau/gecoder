@@ -30,7 +30,7 @@ h5. Windows
   ERROR: error installing gem [...]: buffer error
 
 The above error message means that you need to upgrade RubyGems (it works with
-1.0.1). Run the following command.
+1.2.0). Run the following command.
 
   gem update --system
 
