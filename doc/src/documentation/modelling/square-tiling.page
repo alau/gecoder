@@ -15,23 +15,23 @@ square tiling problem}}.</p>
 
 h2. Understand the problem
 
-Lets break it down.
+Let's break it down.
 * The squares must cover the entire rectangle.
 
-Since we know that all the surface area of the squares must be used we could 
-stop here. We note that it there are some notable implied conditions that might
-be easier to express.
+Since we know that all the surface area of the squares must be used we
+could stop here. There are however some notable implied conditions that
+might be easier to express.
 
 * No two squares may overlap.
 * All squares must be placed within the rectangle.
 
 These two should be much easier to express, and they are enough to express the 
-first point with the problem's definition.
+first point in the problem's definition.
 
 h2. Select the view
 
 It seems intuitive to view the problem as finding the positions of the squares 
-in the rectangel. The squares must be placed at _integer positions_, so we lay
+in the rectangle. The squares must be placed at _integer positions_, so we lay
 a grid on the rectangle and represent positions as integer coordinates.
 
 Additionally we are placing squares, so we can fully express the placement of 
