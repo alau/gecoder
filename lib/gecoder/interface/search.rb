@@ -75,15 +75,16 @@ module Gecode
       }
     end
     
-    # Finds the optimal solution. Optimality is defined by the provided block
-    # which is given one parameter, a solution to the problem. The block should
-    # constrain the solution so that that only "better" solutions can be new 
-    # solutions. For instance if one wants to optimize a variable named price
-    # (accessible from the model) to be as low as possible then one should write
-    # the following.
+    # Finds the optimal solution. Optimality is defined by the provided
+    # block which is given two parameters, the model and the best
+    # solution found so far to the problem. The block should constrain
+    # the model so that that only "better" solutions can be new
+    # solutions. For instance if one wants to optimize a variable named
+    # price (accessible from the model) to be as low as possible then
+    # one should write the following.
     #
     #   model.optimize! do |model, best_so_far|
-    #     model.price.must < best_so_far.price.val
+    #     model.price.must < best_so_far.price.value
     #   end
     #
     # Raises Gecode::NoSolutionError if no solution can be found.
