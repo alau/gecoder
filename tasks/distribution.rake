@@ -8,6 +8,10 @@ PKG_FILE_NAME_WITH_GECODE = "#{PKG_NAME_WITH_GECODE}-#{PKG_VERSION}"
 # The location where the precompiled DLL should be placed.
 DLL_LOCATION = 'lib/gecode.dll'
 EXT_DIR = 'ext'
+GECODE_DIR = 'vendor/gecode'
+GECODE_NAME = 'gecode-2.2.0'
+GECODE_ARCHIVE_NAME = "#{GECODE_NAME}.tar.gz"
+
 
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
@@ -42,6 +46,18 @@ task :prepare_rdoc_dev do
     destination.close
   end
 end
+
+desc 'Extracts the source of Gecode before it is packaged into a gem'
+task :extract_gecode do
+  next if File.exist? "#{EXT_DIR}/#{GECODE_NAME}"
+  cd(EXT_DIR) do
+    cp "../#{GECODE_DIR}/#{GECODE_ARCHIVE_NAME}", GECODE_ARCHIVE_NAME
+    system("tar -xvf #{GECODE_ARCHIVE_NAME}")
+    rm GECODE_ARCHIVE_NAME 
+  end
+end
+# To ensure that the Gecode files exist for the gem spec.
+Rake::Task['extract_gecode'].invoke 
 
 spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
@@ -141,6 +157,8 @@ end
 desc 'Removes generated distribution files'
 task :clobber do
   rm DLL_LOCATION if File.exists? DLL_LOCATION
+  extracted_gecode = "#{EXT_DIR}/#{GECODE_NAME}"
+  rm_r extracted_gecode if File.exists? extracted_gecode
   FileList[
     "#{EXT_DIR}/*.o",
     "#{EXT_DIR}/gecode.{cc,hh}",
@@ -179,6 +197,9 @@ gecode_release_files = [
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.zip",
   "pkg/#{PKG_FILE_NAME_WITH_GECODE}-x86-mswin32.gem"
 ]
+gecode_release_files.each do |pkg|
+  file pkg => :extract_gecode
+end
 desc 'Publish Gecode/R with Gecode packages on RubyForge'
 task :publish_gecoder_with_gecode_packages => 
     [:verify_user] + gecode_release_files do
