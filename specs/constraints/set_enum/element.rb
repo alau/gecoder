@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class SelectionSampleProblem < Gecode::Model
+class SetElementSampleProblem < Gecode::Model
   attr :sets
   attr :set
   attr :target
@@ -18,17 +18,17 @@ end
 
 # Requires everything that composite behaviour spec requires in addition to
 # @stub and @expect_constrain_equal .
-describe 'selection constraint', :shared => true do
+describe 'element constraint', :shared => true do
   it 'should not disturb normal array access' do
     @sets[0].should be_kind_of(Gecode::SetVar)
   end
 end
 
-describe Gecode::SetEnum::Select, ' (int operand)' do
+describe Gecode::SetEnum::Element, ' (int operand)' do
   include GecodeR::Specs::SetHelper
 
   before do
-    @model = SelectionSampleProblem.new
+    @model = SetElementSampleProblem.new
     @sets = @model.sets
     @target = @set = @model.target
     @index = @model.index
@@ -43,26 +43,30 @@ describe Gecode::SetEnum::Select, ' (int operand)' do
     @constraint_class = Gecode::BlockConstraint
   end
   
+  it 'should not disturb normal array access' do
+    @sets[0].respond_to?(:to_set_var).should be_true
+  end
+  
   it 'should constrain the specified element of an enum of sets' do
     @sets[@index].must_be.superset_of([5,7,9])
     @model.solve!
     @sets[@index.value].value.should include(5,7,9)
   end
 
-  it 'should translate into a select constraint' do
-    Gecode::Raw.should_receive(:selectSet)
+  it 'should translate into a element constraint' do
+    Gecode::Raw.should_receive(:element)
     @sets[@index].must_be.superset_of([5,7,9])
     @model.solve!
   end
   
-  it_should_behave_like 'selection constraint'
+  it_should_behave_like 'element constraint'
   it_should_behave_like(
     'property that produces set operand by short circuiting equality')
 end
 
-describe Gecode::SetEnum::Select, ' (set operand)' do
+describe Gecode::SetEnum::Element, ' (set operand)' do
   before do
-    @model = SelectionSampleProblem.new
+    @model = SetElementSampleProblem.new
     @sets = @model.sets
     @set = @model.set
   end

@@ -658,8 +658,8 @@ lib/gecoder/interface/constraints/set_elements/relation.rb -text
 lib/gecoder/interface/constraints/set_elements_constraints.rb -text
 lib/gecoder/interface/constraints/set_enum/channel.rb -text
 lib/gecoder/interface/constraints/set_enum/distinct.rb -text
+lib/gecoder/interface/constraints/set_enum/element.rb -text
 lib/gecoder/interface/constraints/set_enum/operation.rb -text
-lib/gecoder/interface/constraints/set_enum/select.rb -text
 lib/gecoder/interface/constraints/set_enum_constraints.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text
 lib/gecoder/interface/enum_matrix.rb -text
@@ -713,8 +713,8 @@ specs/constraints/set/relation.rb -text
 specs/constraints/set_elements/relation.rb -text
 specs/constraints/set_enum/channel.rb -text
 specs/constraints/set_enum/distinct.rb -text
+specs/constraints/set_enum/element.rb -text
 specs/constraints/set_enum/operation.rb -text
-specs/constraints/set_enum/select.rb -text
 specs/distribution.rb -text
 specs/enum_matrix.rb -text
 specs/enum_wrapper.rb -text

@@ -7,14 +7,14 @@ module Gecode::SetEnum
       mod.module_eval do
         # Now we enter the module SetEnumOperands is mixed into.
         class << self
-          alias_method :pre_selection_included, :included
+          alias_method :pre_set_element_included, :included
           def included(mod) #:nodoc:
             mod.module_eval do
               # Now we enter the module that the module possibly defining #[] 
               # is mixed into.
               if instance_methods.include?('[]') and 
-                  not instance_methods.include?('pre_selection_access')
-                alias_method :pre_selection_access, :[]
+                  not instance_methods.include?('pre_set_element_access')
+                alias_method :pre_set_element_access, :[]
               end
             
               # Produces a SetOperand representing the i:th set
@@ -38,27 +38,27 @@ module Gecode::SetEnum
                 # Hook in an element constraint if a operand is used for array 
                 # access.
                 if vars.first.respond_to? :to_int_var
-                  Select::SelectSetOperand.new(
+                  Element::ElementSetOperand.new(
                     model, self, vars.first)
                 elsif vars.first.respond_to? :to_set_var
                   Gecode::SelectedSet::SelectedSetOperand.new(
                     self, vars.first)
                 else
-                  if respond_to? :pre_selection_access
-                    pre_selection_access(*vars) 
+                  if respond_to? :pre_set_element_access
+                    pre_set_element_access(*vars) 
                   end
                 end
               end
             end
-            pre_selection_included(mod)
+            pre_set_element_included(mod)
           end
         end
       end
     end
   end
 
-  module Select #:nodoc:
-    class SelectSetOperand < Gecode::Set::ShortCircuitEqualityOperand #:nodoc:
+  module Element #:nodoc:
+    class ElementSetOperand < Gecode::Set::ShortCircuitEqualityOperand #:nodoc:
       def initialize(model, enum_op, position_int_op)
         super model
         @enum = enum_op
@@ -71,7 +71,7 @@ module Gecode::SetEnum
           set_operand.must_be.subset_of enum.upper_bound_range
         end
 
-        Gecode::Raw::selectSet(@model.active_space, enum.bind_array, 
+        Gecode::Raw::element(@model.active_space, enum.bind_array, 
           @position.to_int_var.bind, set_operand.to_set_var.bind)
       end
     end

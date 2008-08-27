@@ -67,7 +67,7 @@ spec = Gem::Specification.new do |s|
   ].to_a
   s.require_path = 'lib'
   s.extensions << 'ext/extconf.rb'
-  s.requirements << 'Gecode 2.1.1'
+  s.requirements << 'Gecode 2.2.0'
 
   s.has_rdoc = true
   s.rdoc_options = rd.options
@@ -109,7 +109,7 @@ spec_windows_binary_with_gecode.platform = 'x86-mswin32-60' #Gem::Platform::WIN3
 spec_with_gecode = spec.dup
 spec_with_gecode.name = PKG_NAME_WITH_GECODE
 spec_with_gecode.extensions = 
-  spec_with_gecode.extensions.dup.unshift 'ext/gecode-2.1.1/configure'
+  spec_with_gecode.extensions.dup.unshift 'ext/gecode-2.2.0/configure'
 spec_with_gecode.requirements = []
 spec_with_gecode.files = spec.files.dup + FileList['ext/gecode-*/**/*'].to_a 
 

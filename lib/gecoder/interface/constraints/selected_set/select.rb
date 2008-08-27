@@ -7,7 +7,7 @@ module Gecode::SelectedSet
     #   # The union of all sets selected by +set_enum[set]+.
     #   set_enum[set].union
     def union
-      Select::SelectedSetUnionOperand.new(model, self)
+      Element::SelectedSetUnionOperand.new(model, self)
     end
      
     # Produces a SetOperand representing the selected sets' intersection.
@@ -36,7 +36,7 @@ module Gecode::SelectedSet
         end
       end
       
-      Select::SelectedSetIntersectionOperand.new(model, self, universe)
+      Element::SelectedSetIntersectionOperand.new(model, self, universe)
     end
   end
 
@@ -59,11 +59,11 @@ module Gecode::SelectedSet
       end
 
       @params.update Gecode::Set::Util.decode_options(options)
-      @model.add_constraint Select::DisjointConstraint.new(@model, @params)
+      @model.add_constraint Element::DisjointConstraint.new(@model, @params)
     end
   end
 
-  module Select #:nodoc:
+  module Element #:nodoc:
     class SelectedSetUnionOperand < Gecode::Set::ShortCircuitEqualityOperand #:nodoc:
       def initialize(model, selected_set)
         super model
@@ -76,7 +76,7 @@ module Gecode::SelectedSet
           set_operand.must_be.subset_of enum.upper_bound_range
         end
         
-        Gecode::Raw::selectUnion(@model.active_space, 
+        Gecode::Raw::elementsUnion(@model.active_space, 
           enum.to_set_enum.bind_array, indices.to_set_var.bind, 
           set_operand.to_set_var.bind)
       end
@@ -97,11 +97,11 @@ module Gecode::SelectedSet
         # is the universe.
 
         if universe.nil?
-          Gecode::Raw::selectInter(@model.active_space, 
+          Gecode::Raw::elementsInter(@model.active_space, 
             enum.to_set_enum.bind_array, indices.to_set_var.bind, 
             set_operand.to_set_var.bind)
         else
-          Gecode::Raw::selectInterIn(@model.active_space,  
+          Gecode::Raw::elementsInter(@model.active_space,  
             enum.to_set_enum.bind_array, indices.to_set_var.bind, 
             set_operand.to_set_var.bind,
             Gecode::Util.constant_set_to_int_set(universe))
@@ -112,7 +112,7 @@ module Gecode::SelectedSet
     class DisjointConstraint < Gecode::Constraint #:nodoc:
       def post
         enum, indices = @params[:lhs].to_selected_set
-        Gecode::Raw.selectDisjoint(@model.active_space, 
+        Gecode::Raw.elementsDisjoint(@model.active_space, 
           enum.to_set_enum.bind_array, indices.to_set_var.bind)
       end
     end

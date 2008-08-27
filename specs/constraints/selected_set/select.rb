@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class SelectionSampleProblem < Gecode::Model
+class SelectSampleProblem < Gecode::Model
   attr :sets
   attr :set
   attr :target
@@ -16,11 +16,11 @@ class SelectionSampleProblem < Gecode::Model
   end
 end
 
-describe Gecode::SetEnum::Select, ' (disjoint)' do
+describe Gecode::SetEnum::Element, ' (disjoint)' do
   include GecodeR::Specs::SetHelper
 
   before do
-    @model = SelectionSampleProblem.new
+    @model = SelectSampleProblem.new
     @sets = @model.sets
     @set = @model.set
     @target = @model.target
@@ -33,7 +33,7 @@ describe Gecode::SetEnum::Select, ' (disjoint)' do
     end
     @expect = lambda do |var, opts, reif_var|
       set_enum, set = var
-      Gecode::Raw.should_receive(:selectDisjoint).once.with(
+      Gecode::Raw.should_receive(:elementDisjoint).once.with(
         an_instance_of(Gecode::Raw::Space), 
         set_enum, set)
     end
