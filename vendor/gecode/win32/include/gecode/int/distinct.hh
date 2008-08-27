@@ -13,8 +13,8 @@
  *     Gabor Szokoli, 2003
  *
  *  Last modified:
- *     $Date: 2008-01-29 13:37:51 +0100 (Tue, 29 Jan 2008) $ by $Author: tack $
- *     $Revision: 5993 $
+ *     $Date: 2008-07-11 09:28:48 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7285 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -94,7 +94,7 @@ namespace Gecode { namespace Int { namespace Distinct {
    *
    * This is actually the propagation algorithm for Distinct::Val.
    * It is available as separate function as it is reused for
-   * both bounds-consistent and domain-consistent distinct
+   * both bounds consistent and domain consistent distinct
    * propagators.
    *
    * If \a complete is true, computes fixpoint, otherwise might not
@@ -108,13 +108,13 @@ namespace Gecode { namespace Int { namespace Distinct {
 
 
   /**
-   * \brief Bounds-consistent distinct propagator
+   * \brief Bounds consistent distinct propagator
    *
    * The propagator uses staging: first it uses naive value-based
-   * propagation and only then uses bounds-consistent propagation.
+   * propagation and only then uses bounds consistent propagation.
    * Due to using naive value-based propagation, the propagator
    * might actually achieve stronger consistency than just
-   * bounds-consistency.
+   * bounds consistency.
    *
    * The algorithm is taken from:
    *        A. Lopez-Ortiz, C.-G. Quimper, J. Tromp, and P. van Beek.
@@ -170,11 +170,11 @@ namespace Gecode { namespace Int { namespace Distinct {
   };
 
   /**
-   * \brief Perform bounds-consistent distinct propagation
+   * \brief Perform bounds consistent distinct propagation
    *
    * This is actually the propagation algorithm for Distinct::Bnd.
    * It is available as separate function as it is reused for
-   * both bounds-consistent and domain-consistent distinct
+   * both bounds consistent and domain consistent distinct
    * propagators.
    */
   template <class View>
@@ -184,10 +184,10 @@ namespace Gecode { namespace Int { namespace Distinct {
   template <class View> class ValNode;
 
   /**
-   * \brief Propagation controller for domain-consistent distinct
+   * \brief Propagation controller for domain consistent distinct
    *
    * The propagation controller provides convenient access to
-   * performing incremental domain-consistent distinct propagation
+   * performing incremental domain consistent distinct propagation
    * so that the routines can be reused easily.
    *
    * Requires \code #include "gecode/int/distinct.hh" \endcode
@@ -246,10 +246,10 @@ namespace Gecode { namespace Int { namespace Distinct {
   };
 
   /**
-   * \brief Domain-consistent distinct propagator
+   * \brief Domain consistent distinct propagator
    *
    * The propagator uses staging: first it uses naive value-based
-   * propagation and only then uses domain-consistent propagation.
+   * propagation and only then uses domain consistent propagation.
    *
    * The algorithm is taken from:
    *    Jean-Charles Régin, A filtering algorithm for constraints
@@ -295,7 +295,7 @@ namespace Gecode { namespace Int { namespace Distinct {
   };
 
   /**
-   * \brief Ternary domain-consistent distinct propagator
+   * \brief Ternary domain consistent distinct propagator
    *
    * Requires \code #include "gecode/int/distinct.hh" \endcode
    * \ingroup FuncIntProp

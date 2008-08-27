@@ -11,8 +11,8 @@
  *     Mikael Lagerkvist, 2006
  *
  *  Last modified:
- *     $Date: 2008-01-31 18:29:16 +0100 (Thu, 31 Jan 2008) $ by $Author: tack $
- *     $Revision: 6017 $
+ *     $Date: 2008-07-11 09:32:27 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7289 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -138,7 +138,7 @@ namespace Gecode { namespace Int { namespace Channel {
         ModEvent me = x[k].view.nq(home,j);
         if (me_failed(me))
           return ES_FAILED;
-        if (me_modified(me))
+        if (me_modified(me)) {
           if (me == ME_INT_VAL) {
             // Record that x[k] has been assigned and must be propagated
             xa.push(k);
@@ -148,13 +148,14 @@ namespace Gecode { namespace Int { namespace Channel {
             // that y[j] != k.
             x[k].removed(j);
           }
+        }
       }
       // The same for the other views
       for (int k=i+1; k<n; k++) {
         ModEvent me = x[k].view.nq(home,j);
         if (me_failed(me))
           return ES_FAILED;
-        if (me_modified(me))
+        if (me_modified(me)) {
           if (me == ME_INT_VAL) {
             // Record that x[k] has been assigned and must be propagated
             xa.push(k);
@@ -164,6 +165,7 @@ namespace Gecode { namespace Int { namespace Channel {
             // that y[j] != k.
             x[k].removed(j);
           }
+        }
       }
       x[i].assigned(); n_na--;
     } while (!xa.empty());
@@ -231,7 +233,7 @@ namespace Gecode { namespace Int { namespace Channel {
   template <class View, bool shared>
   Support::Symbol
   Val<View,shared>::ati(void) {
-    return Reflection::mangle<View,shared>("Gecode::Int::Channel::Val");
+    return Reflection::mangle<View>("Gecode::Int::Channel::Val",shared);
   }
 
   template <class View, bool shared>

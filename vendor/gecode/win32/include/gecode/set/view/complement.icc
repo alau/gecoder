@@ -11,8 +11,8 @@
  *     Christian Schulte, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-06 18:48:22 +0100 (Wed, 06 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6102 $
+ *     $Date: 2008-07-11 10:24:32 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7328 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -356,21 +356,6 @@ namespace Gecode { namespace Set {
   ComplementView<View>::lubAny(const Delta* d) const {
     return view.glbAny(d);
   }
-
-  /*
-   * Specialization for double negation
-   *
-   */
-
-  template <class View>
-  forceinline
-  ComplementView<ComplementView<View> >::ComplementView(void) {}
-
-  template <class View>
-  forceinline
-  ComplementView<ComplementView<View> >::
-  ComplementView(ComplementView<View>& s0)
-    : View(s0.base()) {}
 
 
   /**

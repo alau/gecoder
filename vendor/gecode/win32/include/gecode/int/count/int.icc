@@ -7,8 +7,8 @@
  *     Christian Schulte, 2006
  *
  *  Last modified:
- *     $Date: 2008-01-31 18:29:16 +0100 (Thu, 31 Jan 2008) $ by $Author: tack $
- *     $Revision: 6017 $
+ *     $Date: 2008-07-11 09:20:23 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7282 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -500,11 +500,12 @@ namespace Gecode { namespace Int { namespace Count {
       return ES_OK;
     if (n == 0)
       return (c == 0) ? ES_FAILED : ES_OK;
-    if (n == 1)
+    if (n == 1) {
       if (c == 1)
         return post_false(home,x[0],y) ? ES_FAILED : ES_OK;
       else 
         return post_true(home,x[0],y) ? ES_FAILED : ES_OK;
+    }
     (void) new (home) NqInt(home,x,y,c);
     return ES_OK;
   }

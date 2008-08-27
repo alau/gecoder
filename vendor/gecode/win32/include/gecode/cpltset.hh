@@ -7,8 +7,8 @@
  *     Patrick Pekczynski, 2006
  *
  *  Last modified:
- *     $Date: 2008-03-04 15:04:21 +0100 (Tue, 04 Mar 2008) $ by $Author: tack $
- *     $Revision: 6407 $
+ *     $Date: 2008-08-06 10:39:34 +0200 (Wed, 06 Aug 2008) $ by $Author: raphael $
+ *     $Revision: 7494 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -587,22 +587,22 @@ namespace Gecode {
 
   //@{
 
-  /// Post propagator for \f$ (x \diamond_{\mathit{op}} y) \sim_r z \f$
+  /// Post propagator for \f$ (x \diamond_{\mathit{o}} y) \sim_r z \f$
   GECODE_CPLTSET_EXPORT void
   rel(Space* home, CpltSetVar x, CpltSetOpType o, CpltSetVar y, 
       CpltSetRelType r, CpltSetVar z);
 
-  /// Post propagator for \f$ (x \diamond_{\mathit{op}} y) \sim_r z \f$
+  /// Post propagator for \f$ (x \diamond_{\mathit{o}} y) \sim_r z \f$
   GECODE_CPLTSET_EXPORT void
   rel(Space* home, CpltSetVar x, CpltSetOpType o, CpltSetVar y, 
       SetRelType r, CpltSetVar z);
 
-  /// Post propagator for \f$ (x \diamond_{\mathit{op}} y) \sim_r z \f$
+  /// Post propagator for \f$ (x \diamond_{\mathit{o}} y) \sim_r z \f$
   GECODE_CPLTSET_EXPORT void
   rel(Space* home, CpltSetVar x, SetOpType o, CpltSetVar y, 
       CpltSetRelType r, CpltSetVar z);
 
-  /// Post propagator for \f$ (x \diamond_{\mathit{op}} y) \sim_r z \f$
+  /// Post propagator for \f$ (x \diamond_{\mathit{o}} y) \sim_r z \f$
   GECODE_CPLTSET_EXPORT void
   rel(Space* home, CpltSetVar x, SetOpType o, CpltSetVar y, 
       SetRelType r, CpltSetVar z);

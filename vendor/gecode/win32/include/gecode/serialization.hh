@@ -7,8 +7,8 @@
  *     Guido Tack, 2007
  *
  *  Last modified:
- *     $Date: 2008-02-01 12:10:00 +0100 (Fri, 01 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6034 $
+ *     $Date: 2008-07-11 09:39:08 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7297 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -118,7 +118,7 @@ namespace Serialization {
 }
 }
 
-#ifdef GECODE_HAS_BOOST_SERIALIZATION
+#ifdef GECODE_HAS_BOOST
 
 namespace Gecode {
   /**

@@ -7,8 +7,8 @@
  *     Christian Schulte, 2005
  *
  *  Last modified:
- *     $Date: 2008-01-24 13:05:13 +0100 (Thu, 24 Jan 2008) $ by $Author: tack $
- *     $Revision: 5974 $
+ *     $Date: 2008-07-11 09:39:08 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7297 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -310,6 +310,18 @@ namespace Gecode {
   public:
     /// The variable type of an IntView
     typedef Int::IntView View;
+  };
+
+  /**
+   * \brief Class providing domain size info
+   *
+   * This class specializes the DomainSize class for integer views.
+   */
+  template<>
+  class DomainSize<Int::IntView> {
+  public:
+    /// The size of an integer domain
+    static int size(const Int::IntView& iv) { return iv.size(); }
   };
 
   namespace Int {
@@ -1560,6 +1572,18 @@ namespace Gecode {
   public:
     /// The variable type of an IntView
     typedef Int::BoolView View;
+  };
+
+  /**
+   * \brief Class providing domain size info
+   *
+   * This class specializes the DomainSize class for Boolean views.
+   */
+  template<>
+  class DomainSize<Int::BoolView> {
+  public:
+    /// The size of an integer domain
+    static int size(const Int::BoolView& iv) { return iv.size(); }
   };
 
   namespace Int {

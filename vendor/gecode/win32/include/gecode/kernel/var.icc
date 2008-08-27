@@ -7,8 +7,8 @@
  *     Christian Schulte, 2008
  *
  *  Last modified:
- *     $Date: 2008-02-22 07:19:02 +0100 (Fri, 22 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6276 $
+ *     $Date: 2008-07-11 09:31:51 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7288 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -50,8 +50,6 @@ namespace Gecode {
     VarBase(void);
     /// Initialize with variable implementation \a x
     VarBase(VarImp* x);
-    /// Initialize with reflection variable \a x
-    VarBase(const Reflection::Var& x);
   public:
     /// \name Generic variable information
     //@{
@@ -88,10 +86,6 @@ namespace Gecode {
   forceinline
   VarBase<VarImp>::VarBase(VarImp* x)
     : varimp(x) {}
-  template <class VarImp>
-  forceinline
-  VarBase<VarImp>::VarBase(const Reflection::Var& x)
-    : varimp(x.var<VarImp>()) {}
   template <class VarImp>
   forceinline VarImp*
   VarBase<VarImp>::var(void) const {

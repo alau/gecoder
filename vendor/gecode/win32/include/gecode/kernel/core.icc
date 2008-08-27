@@ -14,8 +14,8 @@
  *     Alexander Samoilov <alexander_samoilov@yahoo.com>
  *
  *  Last modified:
- *     $Date: 2008-02-28 09:12:58 +0100 (Thu, 28 Feb 2008) $ by $Author: tack $
- *     $Revision: 6338 $
+ *     $Date: 2008-07-11 10:27:28 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7332 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -479,7 +479,7 @@ namespace Gecode {
     ES_NOFIX            =  0, ///< Propagation has not computed fixpoint
     ES_OK               =  0, ///< Execution is okay
     ES_FIX              =  1, ///< Propagation has computed fixpoint
-    __ES_PARTIAL        =  2, ///< Internal: propagator has computed partial fixpoint, do not use
+    __ES_PARTIAL        =  2  ///< Internal: propagator has computed partial fixpoint, do not use
   };
 
   /**
@@ -728,17 +728,17 @@ namespace Gecode {
      * uses advisors. The advise function must return an execution
      * status as follows:
      *  - ES_FAILED: the advisor has detected failure
-     *  - ES_NOFIX: the advisor's propagator (that is, this propagator) 
+     *  - ES_FIX: the advisor's propagator (that is, this propagator) 
      *    does not need to be run
-     *  - ES_FIX: the advisor's propagator (that is, this propagator)
+     *  - ES_NOFIX: the advisor's propagator (that is, this propagator)
      *    must be run
      *
      * Apart from the above values, an advisor can return
      * the result from calling the function
-     *  - ES_SUBSUMED_NOFIX: the advisor is subsumed, the advisor's
-     *    propagator does not need to be run
      *  - ES_SUBSUMED_FIX: the advisor is subsumed, the advisor's
      *    propagator does not need to be run
+     *  - ES_SUBSUMED_NOFIX: the advisor is subsumed, the advisor's
+     *    propagator must be run
      * For more details, see the function documentation.
      *
      * The delta \a d describes how the variable has been changed
@@ -847,6 +847,10 @@ namespace Gecode {
   private:
     /// Is the advisor disposed?
     bool disposed(void) const;
+    /// Static cast
+    static Advisor* cast(ActorLink* al);
+    /// Static cast
+    static const Advisor* cast(const ActorLink* al);
   protected:
     /// Return the advisor's propagator
     Propagator* propagator(void) const; 
@@ -1043,7 +1047,7 @@ namespace Gecode {
          * This maintains the following invariant (but only if the
          * space does not perform propagation):
          *  - If active points to a queue, this queue might contain
-         *    a propagator. However, there will be at least on queue
+         *    a propagator. However, there will be at least one queue
          *    containing a propagator.
          *  - Otherwise, active is smaller than the beginning of
          *    the queues. Then, the space is stable.
@@ -1646,12 +1650,14 @@ namespace Gecode {
   forceinline ExecStatus
   ES_FIX_PARTIAL(Propagator* p, ModEventDelta med) {
     p->u.med = med; 
+    assert(p->u.med != 0);
     return __ES_PARTIAL;
   }
 
   forceinline ExecStatus
   ES_NOFIX_PARTIAL(Propagator* p, ModEventDelta med) {
-    p->u.med ^= AllVarConf::med_combine(p->u.med,med); 
+    p->u.med = AllVarConf::med_combine(p->u.med,med); 
+    assert(p->u.med != 0);
     return __ES_PARTIAL;
   }
 
@@ -1755,6 +1761,16 @@ namespace Gecode {
     return prev() == NULL;
   }
 
+  forceinline Advisor* 
+  Advisor::cast(ActorLink* al) {
+    return static_cast<Advisor*>(al);
+  }
+
+  forceinline const Advisor* 
+  Advisor::cast(const ActorLink* al) {
+    return static_cast<const Advisor*>(al);
+  }
+
   forceinline Propagator* 
   Advisor::propagator(void) const { 
     assert(!disposed());
@@ -1767,7 +1783,7 @@ namespace Gecode {
     assert(!disposed());
     ActorLink::prev(NULL); 
     // Shorten chains of disposed advisors by one, if possible
-    Advisor* n = static_cast<Advisor*>(next());
+    Advisor* n = Advisor::cast(next());
     if ((n != NULL) && n->disposed())
       next(n->next());
   }
@@ -1826,7 +1842,7 @@ namespace Gecode {
       // The propagator in from-space
       Propagator* p_f = static_cast<A*>(c.advisors)->propagator();
       // The propagator in to-space
-      Propagator* p_t = static_cast<Propagator*>(p_f->prev());
+      Propagator* p_t = Propagator::cast(p_f->prev());
       // Advisors in from-space
       ActorLink** a_f = &c.advisors;
       // Advisors in to-space
@@ -2210,7 +2226,7 @@ namespace Gecode {
     // As removal is done from the back the advisors have to be executed
     // in inverse order.
     do {
-      Advisor* a = static_cast<Advisor*>(*la);
+      Advisor* a = Advisor::cast(*la);
       Propagator* p = a->propagator();
       switch (p->advise(home,a,d)) {
       case ES_FIX:

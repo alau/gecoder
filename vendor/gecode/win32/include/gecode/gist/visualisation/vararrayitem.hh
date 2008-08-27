@@ -6,8 +6,8 @@
  *     Niko Paltzer, 2007
  *
  *  Last modified:
- *     $Date: 2008-01-13 13:20:50 +0100 (Sun, 13 Jan 2008) $ by $Author: schulte $
- *     $Revision: 5857 $
+ *     $Date: 2008-07-11 10:37:06 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7340 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -103,9 +103,11 @@ namespace Gecode { namespace Gist { namespace Visualisation {
 
     varItems.resize(numberOfVariables);
 
+    typename VarItem::ItemData data = VarItem::initData(specs);
+
     for (int i = 0; i < numberOfVariables; ++i) {
 
-      VarItem* item = new VarItem(specs[i], this);
+      VarItem* item = new VarItem(specs[i], data, this);
 
       if(i>0)
         item->moveBy(0, childrenBoundingRect().height());

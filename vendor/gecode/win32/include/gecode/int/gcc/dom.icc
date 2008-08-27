@@ -7,9 +7,9 @@
  *     Patrick Pekczynski, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-18 14:52:31 +0100 (Mon, 18 Feb 2008) $
+ *     $Date: 2008-07-11 09:32:27 +0200 (Fri, 11 Jul 2008) $
        $Author: tack $
- *     $Revision: 6214 $
+ *     $Revision: 7289 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -143,7 +143,7 @@ namespace Gecode { namespace Int { namespace GCC {
   template <class View, class Card, bool isView>
   Support::Symbol
   Dom<View,Card,isView>::ati(void) {
-    return Reflection::mangle<View,Card,isView>("Gecode::Int::GCC::Dom");
+    return Reflection::mangle<View,Card>("Gecode::Int::GCC::Dom",isView);
   }
 
   template <class View, class Card, bool isView>

@@ -7,8 +7,8 @@
  *     Christian Schulte, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-25 00:16:01 +0100 (Mon, 25 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6288 $
+ *     $Date: 2008-08-20 18:02:33 +0200 (Wed, 20 Aug 2008) $ by $Author: schulte $
+ *     $Revision: 7665 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -752,7 +752,7 @@ namespace Gecode { namespace Int { namespace Bool {
   template<class BV>
   PropCost
   NaryOrTrue<BV>::cost(ModEventDelta) const {
-    return cost_lo(x.size(),PC_LINEAR_LO);
+    return PC_BINARY_LO;
   }
 
   template<class BV>

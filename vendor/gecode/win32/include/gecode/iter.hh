@@ -7,8 +7,8 @@
  *     Christian Schulte, 2005
  *
  *  Last modified:
- *     $Date: 2007-09-18 14:58:14 +0200 (Tue, 18 Sep 2007) $ by $Author: schulte $
- *     $Revision: 5045 $
+ *     $Date: 2008-07-11 09:47:36 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7308 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -61,8 +61,11 @@ namespace Gecode {
 #include "gecode/iter/ranges-diff.icc"
 #include "gecode/iter/ranges-empty.icc"
 #include "gecode/iter/ranges-inter.icc"
+#include "gecode/iter/ranges-map.icc"
 #include "gecode/iter/ranges-minus.icc"
+#include "gecode/iter/ranges-negative.icc"
 #include "gecode/iter/ranges-offset.icc"
+#include "gecode/iter/ranges-positive.icc"
 #include "gecode/iter/ranges-scale.icc"
 #include "gecode/iter/ranges-singleton.icc"
 #include "gecode/iter/ranges-union.icc"
@@ -71,10 +74,15 @@ namespace Gecode {
 #include "gecode/iter/ranges-singleton-append.icc"
 
 #include "gecode/iter/values-array.icc"
+#include "gecode/iter/values-map.icc"
+#include "gecode/iter/values-inter.icc"
 #include "gecode/iter/values-minus.icc"
+#include "gecode/iter/values-negative.icc"
 #include "gecode/iter/values-offset.icc"
+#include "gecode/iter/values-positive.icc"
 #include "gecode/iter/values-ranges.icc"
 #include "gecode/iter/values-singleton.icc"
+#include "gecode/iter/values-union.icc"
 #include "gecode/iter/values-unique.icc"
 
 #include "gecode/iter/ranges-size.icc"

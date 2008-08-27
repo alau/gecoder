@@ -11,8 +11,8 @@
  *     Guido Tack, 2004
  *
  *  Last modified:
- *     $Date: 2008-01-31 18:29:16 +0100 (Thu, 31 Jan 2008) $ by $Author: tack $
- *     $Revision: 6017 $
+ *     $Date: 2008-07-11 09:31:51 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7288 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -327,8 +327,8 @@ namespace Gecode { namespace Int { namespace Element {
     if (n == 1) {
       GECODE_ME_CHECK(x0.eq(home,iv[0].idx));
     } else if (adjust) {
-      IterIdxView<VA> i(&iv[0],&iv[n]);
-      GECODE_ME_CHECK(x0.narrow_v(home,i,false));
+      IterIdxView<VA> v(&iv[0],&iv[n]);
+      GECODE_ME_CHECK(x0.narrow_v(home,v,false));
       assert(x0.size() == static_cast<unsigned int>(n));
     }
     return ES_OK;
@@ -338,7 +338,7 @@ namespace Gecode { namespace Int { namespace Element {
 
 
   /*
-   * Bounds-consistent propagator
+   * Bounds consistent propagator
    *
    */
 

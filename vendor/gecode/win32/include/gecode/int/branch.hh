@@ -7,8 +7,8 @@
  *     Christian Schulte, 2002
  *
  *  Last modified:
- *     $Date: 2008-02-16 10:42:26 +0100 (Sat, 16 Feb 2008) $ by $Author: tack $
- *     $Revision: 6185 $
+ *     $Date: 2008-07-11 10:10:11 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7310 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -566,10 +566,21 @@ namespace Gecode { namespace Int { namespace Branch {
     static Support::Symbol type(void);
   };
 
+  template <template <class,class,class,class> class B>
+  void
+  createBranch(Space* home, const IntVarArgs& x,
+               IntVarBranch vars, IntValBranch vals);
+
+  template <template <class,class,class,class> class B>
+  void
+  createBranch(Space* home, const BoolVarArgs& x, 
+               IntVarBranch vars, IntValBranch vals);
+
 }}}
 
 #include "gecode/int/branch/select-val.icc"
 #include "gecode/int/branch/select-view.icc"
+#include "gecode/int/branch/create-branch.icc"
 
 #endif
 
