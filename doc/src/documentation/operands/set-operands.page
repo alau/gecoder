@@ -18,7 +18,7 @@ The simplest set operands, set variables, can be created using
 {RDoc: Model#set_var}.
 
 <ruby>
-# Creates a set var withgreatest lower bound {0} and least upper bound 
+# Creates a set var with greatest lower bound {0} and least upper bound 
 # {0, 1, 2}.
 set_operand = set_var(0, 0..2)
 </ruby>
