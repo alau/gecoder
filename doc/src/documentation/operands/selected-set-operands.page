@@ -1,0 +1,44 @@
+---
+title: Selected Set Operands
+longTitle: Selected Set Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the selected set operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Selected Set Operands
+
+<div class="summary">
+<p>The set elements operand is a relatively uncommon type of
+operand created by using array access (the @#[]@ property) on set enumeration 
+operands with a set operand as index. The operand represents all sets
+with indices present in the set operand index.</p></div>
+
+h4. Examples of Selected Set Operands
+
+All selected set operands are created by using {RDoc: SetEnumOperand#[]} 
+property.
+
+<ruby>
+# Creates a selected set operand from set_enum_operand and set_operand.
+selected_set_operand = set_enum_operand[set_operand]
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: SelectedSetConstraintReceiver}.
+
+h3. @disjoint@
+
+{importRDoc: {file: constraints/selected_set/select.rb, method: def disjoint}}
+
+h2. Properties
+
+Generated from {RDoc: SelectedSetOperand}.
+
+h3. @union@
+
+{importRDoc: {file: constraints/selected_set/select.rb, method: def union}}
+
+h3. @intersection@
+
+{importRDoc: {file: constraints/selected_set/select.rb, method: def intersection}}

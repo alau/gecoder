@@ -1,0 +1,51 @@
+---
+title: Set Elements Operands
+longTitle: Set Elements Operands - Constraints Supported by Gecode/R
+inMenu: true
+description: The constraints and properties of the set elements operand available in Gecode/R for Constraint Programming in Ruby.
+---
+
+h1. Set Elements Operands
+
+<div class="summary">
+<p>The set elements operand is a relatively uncommon type of
+operand created by using the @#elements@ property of set operands. It is used 
+to place constraints on all elements of a set.</p></div>
+
+h4. Examples of Set Elements Operands
+
+All set elements operands are created by using {RDoc: SetOperand#elements} 
+property.
+
+<ruby>
+# Creates a set elements operand from set_operand.
+set_elements_operand = set_operand.elements
+</ruby>
+
+h2. Constraints
+
+Generated from {RDoc: SetElementsConstraintReceiver}.
+
+h3. @==@
+
+{importRDoc: {file: constraints/set_elements/relation.rb, method: def ==}}
+
+h3. @>@
+
+{importRDoc: {file: constraints/set_elements/relation.rb, method: def >}}
+
+h3. @>=@
+
+{importRDoc: {file: constraints/set_elements/relation.rb, method: def >=}}
+
+h3. @<@
+
+{importRDoc: {file: constraints/set_elements/relation.rb, method: def <}}
+
+h3. @<=@
+
+{importRDoc: {file: constraints/set_elements/relation.rb, method: def <=}}
+
+h2. Properties
+
+None.
