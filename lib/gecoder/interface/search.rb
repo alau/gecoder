@@ -14,7 +14,7 @@ module Gecode
     def solve!
       dfs = dfs_engine
       space = dfs.next
-      @statistics = dfs.statistics
+      @gecoder_mixin_statistics = dfs.statistics
       raise Gecode::NoSolutionError if space.nil?
       self.active_space = space
       return self
@@ -24,7 +24,7 @@ module Gecode
     # propagation might have been performed). Returns the reset model.
     def reset!
       self.active_space = base_space
-      @statistics = nil
+      @gecoder_mixin_statistics = nil
       return self
     end
     
@@ -48,7 +48,7 @@ module Gecode
       next_solution = nil
       while not (next_solution = dfs.next).nil?
         self.active_space = next_solution
-        @statistics = dfs.statistics
+        @gecoder_mixin_statistics = dfs.statistics
         yield self
       end
       self.reset!
@@ -64,14 +64,14 @@ module Gecode
     # [:commits]        The number of commit operations performed.
     # [:memory]         The peak memory allocated to Gecode.
     def search_stats
-      return nil if @statistics.nil?
+      return nil if @gecoder_mixin_statistics.nil?
       
       return {
-        :propagations => @statistics.propagate,
-        :failures     => @statistics.fail,
-        :clones       => @statistics.clone,
-        :commits      => @statistics.commit,
-        :memory       => @statistics.memory
+        :propagations => @gecoder_mixin_statistics.propagate,
+        :failures     => @gecoder_mixin_statistics.fail,
+        :clones       => @gecoder_mixin_statistics.clone,
+        :commits      => @gecoder_mixin_statistics.commit,
+        :memory       => @gecoder_mixin_statistics.memory
       }
     end
     
@@ -95,10 +95,10 @@ module Gecode
       # Set the method used for constrain calls by the BAB-search.
       Mixin.constrain_proc = lambda do |home_space, best_space|
         self.active_space = best_space
-        @variable_creation_space = home_space
+        @gecoder_mixin_variable_creation_space = home_space
         yield(self, self)
         self.active_space = home_space
-        @variable_creation_space = nil
+        @gecoder_mixin_variable_creation_space = nil
         
         perform_queued_gecode_interactions
       end
@@ -115,7 +115,7 @@ module Gecode
       until (previous_solution = bab.next).nil?
         result = previous_solution
       end
-      @statistics = bab.statistics
+      @gecoder_mixin_statistics = bab.statistics
       
       # Reset the method used constrain calls and return the result.
       Mixin.constrain_proc = nil

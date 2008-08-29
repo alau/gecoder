@@ -229,7 +229,7 @@ module Gecode
     # The space returned by this method should never be stored, it should be
     # rerequested from the model every time that it's needed.
     def active_space #:nodoc:
-      unless @allow_space_access
+      unless @gecoder_mixin_allow_space_access
         raise 'Space access is restricted and the permission to access the ' + 
           'space has not been given.'
       end
@@ -261,63 +261,90 @@ module Gecode
       # We store the old value so that nested calls don't become a problem, i.e.
       # access is allowed as long as one call to this method is still on the 
       # stack.
-      old = @allow_space_access
-      @allow_space_access = true
+      old = @gecoder_mixin_allow_space_access
+      @gecoder_mixin_allow_space_access = true
       res = yield
-      @allow_space_access = old
+      @gecoder_mixin_allow_space_access = old
       return res
     end
     
     # Starts tracking a variable that depends on the space. All variables 
     # created should call this method for their respective models.
     def track_variable(variable) #:nodoc:
-      (@variables ||= []) << variable
+      (@gecoder_mixin_variables ||= []) << variable
     end
 
-    # Wraps method missing to handle #foo_is_a and #foo_is_an . 
-    #
-    # "<variable_name>_is_a <variable>" or "<variable_name>_is_an <variable>", 
-    # replacing "<variable_name>" with the variable's name and 
-    # "<variable>" with the variable, adds an instance variable and 
-    # accessor with the specified name.
-    #
-    # The method also returns the variable given.
-    #
-    # ==== Example
-    #
-    #   # Add an instance variable and accessor named "foo" that return
-    #   # the integer variable.
-    #   foo_is_an int_var(0..9)
-    #
-    #   # Add an instance variable and accessor named "bar" that return
-    #   # the boolean variable array.
-    #   bar_is_a bool_var_array(2)
-    def method_missing(name_symbol, *args)
-      name = name_symbol.to_s
-      if name =~ /._is_an?$/
-        name.sub!(/_is_an?$/, '')
-        unless args.size == 1
-          raise ArgumentError, "Wrong number of argmuments (#{args.size} for 1)."
-        end 
-        if respond_to? name
-          raise ArgumentError, "Method with name #{name} already exists."
-        end
-        if instance_variable_defined? "@#{name}"
-          raise ArgumentError, 
-            "Instance variable with name @#{name} already exists."
-        end
+    def self.included(mod)
+      mod.class_eval do
+        alias_method :pre_gecoder_method_missing, :method_missing
+        # Wraps method missing to handle #foo_is_a and #foo_is_an . 
+        #
+        # "<variable_name>_is_a <variable>" or "<variable_name>_is_an
+        # <variable>", # replacing "<variable_name>" with the variable's
+        # name and "<variable>" with the variable, adds an instance
+        # variable and accessor with the specified name.
+        #
+        # The method also returns the variable given.
+        #
+        # ==== Example
+        #
+        #   # Add an instance variable and accessor named "foo" that return
+        #   # the integer variable.
+        #   foo_is_an int_var(0..9)
+        #
+        #   # Add an instance variable and accessor named "bar" that return
+        #   # the boolean variable array.
+        #   bar_is_a bool_var_array(2)
+        def method_missing(method, *args)
+          name = method.to_s
+          if name =~ /._is_an?$/
+            name.sub!(/_is_an?$/, '')
+            unless args.size == 1
+              raise ArgumentError, 
+                "Wrong number of argmuments (#{args.size} for 1)."
+            end 
+            if respond_to? name
+              raise ArgumentError, "Method with name #{name} already exists."
+            end
+            if instance_variable_defined? "@#{name}"
+              raise ArgumentError, 
+                "Instance variable with name @#{name} already exists."
+            end
 
-        # We use the meta class to avoid defining the variable in all
-        # other instances of the class.
-        eval <<-"end_eval"
-          @#{name} = args.first
-          class <<self
-            attr :#{name}
+            # We use the meta class to avoid defining the variable in all
+            # other instances of the class.
+            eval <<-"end_eval"
+              @#{name} = args.first
+              class <<self
+                attr :#{name}
+              end
+            end_eval
+            return args.first
+          else
+            pre_gecoder_method_missing(method, *args)
           end
-        end_eval
-        return args.first
-      else
-        super
+        end
+        alias_method :mixin_method_missing, :method_missing
+
+        def self.method_added(method)
+          if method == :method_missing && !@redefining_method_missing
+            # The class that is mixing in the mixin redefined method
+            # missing. Redefine method missing again to combine the two
+            # definitions.
+            @redefining_method_missing = true
+            class_eval do 
+              alias_method :mixee_method_missing, :method_missing
+              def combined_method_missing(*args)
+                begin
+                  mixin_method_missing(*args)
+                rescue NoMethodError => e
+                  mixee_method_missing(*args)
+                end
+              end
+              alias_method :method_missing, :combined_method_missing
+            end
+          end
+        end
       end
     end
 
@@ -427,19 +454,19 @@ module Gecode
     
     # Retrieves the base from which searches are made. 
     def base_space
-      @base_space ||= Gecode::Raw::Space.new
+      @gecoder_mixin_base_space ||= Gecode::Raw::Space.new
     end
     
     # Retrieves the currently selected space, the one which constraints and 
     # variables should be bound to.
     def selected_space
-      return @active_space unless @active_space.nil?
+      return @gecoder_mixin_active_space unless @gecoder_mixin_active_space.nil?
       self.active_space = base_space
     end
     
     # Retrieves the space that should be used for variable creation.
     def variable_creation_space
-      @variable_creation_space || selected_space
+      @gecoder_mixin_variable_creation_space || selected_space
     end
     
     # Executes any interactions with Gecode still waiting in the queue 
@@ -452,10 +479,10 @@ module Gecode
     end
     
     # Switches the active space used (the space from which variables are read
-    # and to which constraints are posted). @active_space should never be 
-    # assigned directly.
+    # and to which constraints are posted). @gecoder_mixin_active_space 
+    # should never be assigned directly.
     def active_space=(new_space)
-      @active_space = new_space
+      @gecoder_mixin_active_space = new_space
     end
   end
 end
