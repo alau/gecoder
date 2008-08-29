@@ -19,7 +19,7 @@ sudoku = Matrix[
 
 solution = Gecode.solve do
   # Verify that the input is of a valid size.
-  @size = n = sudoku.row_size
+  n = sudoku.row_size
   sub_matrix_size = Math.sqrt(n).round
   unless sudoku.square? and sub_matrix_size**2 == n
     raise ArgumentError, 'Incorrect value matrix size.'
