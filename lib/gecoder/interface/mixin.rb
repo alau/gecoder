@@ -9,8 +9,6 @@ module Gecode
   # problem. Below is an example of a model that formulates the problem
   # of finding a solution to the following equation system.
   #
-  # An alternative to mixing in 
-  #
   # Equation system:
   #   x + y = z
   #   x = y - 3

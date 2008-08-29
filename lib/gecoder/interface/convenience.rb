@@ -1,5 +1,7 @@
 module Gecode
-  # A class that just includes Gecode::Mixin.
+  # A convenient class that just includes Gecode::Mixin. Can be useful
+  # when you don't want to create your own class that mixes in
+  # Gecode::Mixin.
   class Model
     include Gecode::Mixin
   end
