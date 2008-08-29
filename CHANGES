@@ -1,7 +1,8 @@
-== Next version
+== Version 0.9.1
+This release changes the preferred way of defining a model to including Gecode::Mixin (a mixin) rather than inheriting from Gecode::Model. The backend has also been updated to fix some rare bugs.
 
 * Added Gecode::Mixin which can be mixed in rather than inheriting from Gecode::Model. Thanks to Adam Rose for the suggestion.
-* Upgraded the backend to Gecode 2.2.0. See http://www.gecode.org/gecode-doc-latest/PageChanges_2_2_0.html for a list of changes.
+* Updated the backend to Gecode 2.2.0. See http://www.gecode.org/gecode-doc-latest/PageChanges_2_2_0.html for a list of changes.
 
 == Version 0.9.0
 This release adds a generous amount of sugar designed to cut down on often 
