@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class SortSampleProblem < Gecode::Model
+class SortSampleProblem
+  include Gecode::Mixin
+
   attr :vars
   attr :sorted
   attr :indices

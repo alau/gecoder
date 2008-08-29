@@ -1,4 +1,11 @@
 module Gecode
+  # A convenient class that just includes Gecode::Mixin. Can be useful
+  # when you don't want to create your own class that mixes in
+  # Gecode::Mixin.
+  class Model
+    include Gecode::Mixin
+  end
+
   # Provides a convenient way to construct a model and then find a
   # solution. The model constructed uses the specified block as 
   # initialization method. The first solution to the model is then
@@ -12,7 +19,9 @@ module Gecode
   # 
   # is equivalent to
   # 
-  #   class Foo < Gecode::Model
+  #   class Foo 
+  #     include Gecode::Mixin
+  #
   #     def initialize
   #       # Do something
   #     end
@@ -35,7 +44,9 @@ module Gecode
   # 
   # is equivalent to
   # 
-  #   class Foo < Gecode::Model
+  #   class Foo 
+  #     include Gecode::Mixin
+  #
   #     def initialize
   #       # Do something
   #     end
@@ -58,7 +69,9 @@ module Gecode
   # 
   # is equivalent to
   # 
-  #   class Foo < Gecode::Model
+  #   class Foo
+  #     include Gecode::Mixin
+  #
   #     def initialize
   #       # Do something
   #     end
@@ -73,8 +86,10 @@ module Gecode
   # Creates an instance of a class that subclasses Model and uses the 
   # specified block as initialization method.
   def self.create_model(&block)
-    model = Class.new(Gecode::Model)
+    model = Class.new
     model.class_eval do
+      include Gecode::Mixin
+
       def initialize(&init_block) #:nodoc:
         instance_eval &init_block
       end

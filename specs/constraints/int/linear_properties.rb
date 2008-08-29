@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class LinearPropertySampleProblem < Gecode::Model
+class LinearPropertySampleProblem
+  include Gecode::Mixin
+
   attr :x
   attr :y
   attr :z

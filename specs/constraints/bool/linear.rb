@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class BoolLinearSampleProblem < Gecode::Model
+class BoolLinearSampleProblem
+  include Gecode::Mixin
+
   attr :x
   attr :y
   attr :z

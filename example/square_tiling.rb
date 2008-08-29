@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/example_helper'
 
 # Solves the square tiling problem. The objective is to pack supplied squares 
 # into a bigger rectangle so that there is no overlap.
-class SquareTiling < Gecode::Model
+class SquareTiling
+  include Gecode::Mixin
+
   # Takes the width and height of the rectangle to pack the squares into. Then
   # the sizes of the squares that should be packed into the rectangle. The sizes
   # must be sorted.

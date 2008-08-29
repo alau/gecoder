@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/example_helper'
 
 # Solves the magic sequence problem.
-class MagicSequence < Gecode::Model
+class MagicSequence
+  include Gecode::Mixin
+
   # n is the length of the sequence.
   def initialize(n)
     # The i:th variable represents the value of the i:th element in the 

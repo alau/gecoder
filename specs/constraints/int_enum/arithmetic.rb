@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class IntEnumArithmeticSampleProblem < Gecode::Model
+class IntEnumArithmeticSampleProblem
+  include Gecode::Mixin
+
   attr :numbers
   attr :var
   

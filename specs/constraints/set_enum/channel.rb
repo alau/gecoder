@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class ChannelSampleProblem < Gecode::Model
+class ChannelSampleProblem
+  include Gecode::Mixin
+
   attr :elements
   attr :positions
   attr :sets

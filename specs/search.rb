@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/spec_helper'
 require 'set'
 
-class SampleProblem < Gecode::Model
+class SampleProblem
+  include Gecode::Mixin
+
   attr :var
   attr :array
   attr :hash
@@ -19,7 +21,9 @@ class SampleProblem < Gecode::Model
   end
 end
 
-class SampleOptimizationProblem < Gecode::Model
+class SampleOptimizationProblem
+  include Gecode::Mixin
+
   attr :x
   attr :y
   attr :z
@@ -33,7 +37,9 @@ class SampleOptimizationProblem < Gecode::Model
   end
 end
 
-class SampleOptimizationProblem2 < Gecode::Model
+class SampleOptimizationProblem2
+  include Gecode::Mixin
+
   attr :money
   
   def initialize
@@ -53,7 +59,7 @@ class Array
   end
 end
 
-describe Gecode::Model, ' (with multiple solutions)' do
+describe Gecode::Mixin, ' (with multiple solutions)' do
   before do
     @domain = 0..3
     @solved_domain = [2]
@@ -103,7 +109,7 @@ describe Gecode::Model, ' (with multiple solutions)' do
   end
 end
 
-describe Gecode::Model, ' (after #solve!)' do
+describe Gecode::Mixin, ' (after #solve!)' do
   before do
     @domain = 0..3
     @solved_domain = [2]
@@ -159,7 +165,7 @@ describe 'reset model', :shared => true do
   end
 end
 
-describe Gecode::Model, ' (after #reset!)' do
+describe Gecode::Mixin, ' (after #reset!)' do
   before do
     @domain = 0..3
     @reset_domain = 2..3
@@ -171,7 +177,7 @@ describe Gecode::Model, ' (after #reset!)' do
   it_should_behave_like 'reset model'
 end
 
-describe Gecode::Model, ' (after #solution)' do
+describe Gecode::Mixin, ' (after #solution)' do
   before do
     @domain = 0..3
     @reset_domain = 2..3
@@ -182,7 +188,7 @@ describe Gecode::Model, ' (after #solution)' do
   it_should_behave_like 'reset model'
 end
 
-describe Gecode::Model, ' (after #each_solution)' do
+describe Gecode::Mixin, ' (after #each_solution)' do
   before do
     @domain = 0..3
     @reset_domain = 2..3
@@ -193,7 +199,7 @@ describe Gecode::Model, ' (after #each_solution)' do
   it_should_behave_like 'reset model'
 end
 
-describe Gecode::Model, ' (without solution)' do
+describe Gecode::Mixin, ' (without solution)' do
   before do
     @domain = 0..3
     @model = SampleProblem.new(@domain)
@@ -233,7 +239,7 @@ describe Gecode::Model, ' (without solution)' do
   end
 end
 
-describe Gecode::Model, ' (without constraints)' do
+describe Gecode::Mixin, ' (without constraints)' do
   before do
     @model = Gecode::Model.new
     @x = @model.int_var(0..1)
@@ -244,7 +250,7 @@ describe Gecode::Model, ' (without constraints)' do
   end
 end
 
-describe Gecode::Model, '(optimization search)' do
+describe Gecode::Mixin, '(optimization search)' do
   it 'should optimize the solution' do
     solution = SampleOptimizationProblem.new.optimize! do |model, best_so_far|
       model.z.must > best_so_far.z.value
@@ -266,7 +272,7 @@ describe Gecode::Model, '(optimization search)' do
   
   it 'should raise error if no constrain proc has been defined' do
     lambda do 
-      Gecode::Model.constrain(nil, nil) 
+      Gecode::Mixin.constrain(nil, nil) 
     end.should raise_error(NotImplementedError)
   end
   
@@ -344,7 +350,7 @@ describe 'single variable optimization', :shared => true do
   end
 end
 
-describe Gecode::Model, '(single variable minimization)' do
+describe Gecode::Mixin, '(single variable minimization)' do
   before do
     @method_name = 'minimize!'
     @variable_name = 'x'
@@ -363,7 +369,7 @@ describe Gecode::Model, '(single variable minimization)' do
   it_should_behave_like 'single variable optimization'
 end
 
-describe Gecode::Model, '(single variable maximization)' do
+describe Gecode::Mixin, '(single variable maximization)' do
   before do
     @method_name = 'maximize!'
     @variable_name = 'z'

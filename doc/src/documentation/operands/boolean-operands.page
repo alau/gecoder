@@ -15,7 +15,7 @@ produce boolean operands.</p></div>
 h4. Examples of Boolean Operands
 
 The simplest boolean operands, boolean variables, can be created using
-{RDoc: Model#bool_var}.
+{RDoc: Mixin#bool_var}.
 
 <ruby>
 bool_operand = bool_var

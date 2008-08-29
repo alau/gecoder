@@ -5,7 +5,7 @@ module Gecode::Int #:nodoc:
   # constraints defined in IntConstraintReceiver can be placed.
   #
   # Integer operands can be created either by using
-  # Gecode::Model#int_var et al, or by using properties that produce
+  # Gecode::Mixin#int_var et al, or by using properties that produce
   # integer operands. The operands, no matter how they were created, 
   # all respond to the properties defined by IntOperand.
   #
@@ -13,7 +13,7 @@ module Gecode::Int #:nodoc:
   #
   # Produces a single integer operand (more specifically an IntVar) with
   # domain 0..9 inside a problem formulation, using
-  # Gecode::Model#int_var:
+  # Gecode::Mixin#int_var:
   #
   #   int_operand = int_var(0..9)
   #

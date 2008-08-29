@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/example_helper'
 
 # Solves the cryptarithmetic send+most=money problem while maximizing the value
 # of "money".
-class SendMoreMoney < Gecode::Model
+class SendMoreMoney
+  include Gecode::Mixin
+
   attr :money
 
   def initialize

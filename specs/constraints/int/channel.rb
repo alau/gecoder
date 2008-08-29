@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class BoolChannelSampleProblem < Gecode::Model
+class BoolChannelSampleProblem
+  include Gecode::Mixin
+
   attr :bool_enum
   attr :bool
   attr :int

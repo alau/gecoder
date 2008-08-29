@@ -44,7 +44,7 @@ module Gecode::IntEnum
     # == Regexp syntax
     #
     # The regular expressions are specified using arrays, integers and a
-    # few methods provided by Model. Arrays are used to group the
+    # few methods provided by Mixin. Arrays are used to group the
     # integers in sequences that must be matched. The following array
     # describes a regular expression matching a 1 followed by a 7.
     #
@@ -55,18 +55,18 @@ module Gecode::IntEnum
     #
     #   [[[1], 7]]
     #
-    # A couple of methods provided by Model are used to express patterns 
+    # A couple of methods provided by Mixin are used to express patterns 
     # beyond mere sequences:
     #
-    # [Model#repeat] Used for specifying patterns that include patterns
+    # [Mixin#repeat] Used for specifying patterns that include patterns
     #                that may be repeated a given number of times. The 
     #                number of times to repeat a pattern can be specified 
     #                using a lower and upper bound, but the bounds can be 
     #                omitted to for instance allow an expression to be 
     #                repeated any number of times.
-    # [Model#any]    Used for specifying alternatives.
+    # [Mixin#any]    Used for specifying alternatives.
     # 
-    # Additionally Model#at_least_once and Model#at_most_once are
+    # Additionally Mixin#at_least_once and Mixin#at_most_once are
     # provided as convenience methods.
     #
     # ==== Examples 

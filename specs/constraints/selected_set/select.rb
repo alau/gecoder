@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class SelectSampleProblem < Gecode::Model
+class DisjointSelectSampleProblem
+  include Gecode::Mixin
+
   attr :sets
   attr :set
   attr :target
@@ -20,7 +22,7 @@ describe Gecode::SetEnum::Element, ' (disjoint)' do
   include GecodeR::Specs::SetHelper
 
   before do
-    @model = SelectSampleProblem.new
+    @model = DisjointSelectSampleProblem.new
     @sets = @model.sets
     @set = @model.set
     @target = @model.target
@@ -53,4 +55,3 @@ describe Gecode::SetEnum::Element, ' (disjoint)' do
   it_should_behave_like 'non-reifiable set constraint'
   it_should_behave_like 'non-negatable constraint'
 end
-

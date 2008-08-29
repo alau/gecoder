@@ -5,19 +5,19 @@ module Gecode::IntEnum #:nodoc:
   # constraints defined in IntEnumConstraintReceiver can be placed.
   #
   # Enumerations of integer operands can be created either by using
-  # Gecode::Model#int_var_array and Gecode::Model#int_var_matrix, or
+  # Gecode::Mixin#int_var_array and Gecode::Mixin#int_var_matrix, or
   # by wrapping an existing enumeration containing IntOperand using
-  # Gecode::Model#wrap_enum. The enumerations, no matter how they were
+  # Gecode::Mixin#wrap_enum. The enumerations, no matter how they were
   # created, all respond to the properties defined by IntEnumOperand.
   #
   # ==== Examples 
   #
   # Produces an array of five int operands with domain 0..9 inside a 
-  # problem formulation using Gecode::Model#int_var_array:
+  # problem formulation using Gecode::Mixin#int_var_array:
   #
   #   int_enum = int_var_array(5, 0..9)
   #
-  # Uses Gecode::Model#wrap_enum inside a problem formulation to create
+  # Uses Gecode::Mixin#wrap_enum inside a problem formulation to create
   # a IntEnumOperand from an existing enumeration containing the
   # integer operands +int_operand1+ and +int_operand2+:
   #

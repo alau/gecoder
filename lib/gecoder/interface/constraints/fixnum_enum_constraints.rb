@@ -6,12 +6,12 @@ module Gecode::FixnumEnum #:nodoc:
   # They typically service as constant arrays or constant sets.
   #
   # The fixnum enumeration operands are created by wrapping an enumeration 
-  # of fixnum Gecode::Model#wrap_enum. The enumerations created that way
+  # of fixnum Gecode::Mixin#wrap_enum. The enumerations created that way
   # all respond to the properties defined by FixnumEnumOperand.
   #
   # ==== Examples 
   #
-  # Uses Gecode::Model#wrap_enum inside a problem formulation to create
+  # Uses Gecode::Mixin#wrap_enum inside a problem formulation to create
   # a FixnumEnumOperand from an existing enumeration of Fixnum:
   #
   #   fixnum_enum = wrap_enum([3, 5, 7])

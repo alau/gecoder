@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-class BranchSampleProblem < Gecode::Model
+class BranchSampleProblem
+  include Gecode::Mixin
+
   attr :vars
   attr :bools
   attr :sets
@@ -12,7 +14,7 @@ class BranchSampleProblem < Gecode::Model
   end
 end
 
-describe Gecode::Model, ' (integer branch)' do
+describe Gecode::Mixin, ' (integer branch)' do
   before do
     @model = BranchSampleProblem.new
     @vars = @model.vars
@@ -112,7 +114,7 @@ describe Gecode::Model, ' (integer branch)' do
   end
 end
 
-describe Gecode::Model, ' (set branch)' do
+describe Gecode::Mixin, ' (set branch)' do
   before do
     @model = BranchSampleProblem.new
     @sets = @model.sets

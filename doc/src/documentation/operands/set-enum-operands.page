@@ -14,7 +14,7 @@ operands.</p></div>
 h4. Examples of Set Enumeration Operands
 
 Enumerations of set operands are commonly created using {RDoc:
-Gecode::Model#set_var_array} and {RDoc: Gecode::Model#set_var_matrix}.
+Gecode::Mixin#set_var_array} and {RDoc: Gecode::Mixin#set_var_matrix}.
 
 <ruby>
 # Creates an array of five set operands, with greatest lower bound
@@ -23,7 +23,7 @@ set_enum = set_var_array(5, 0, 1..2)
 </ruby>
 
 A less common way to create the operands is by using {RDoc:
-Gecode::Model#wrap_enum} to wrap an existing enumeration that contains
+Gecode::Mixin#wrap_enum} to wrap an existing enumeration that contains
 set operands.
 
 <ruby>

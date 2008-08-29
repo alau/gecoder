@@ -1,5 +1,5 @@
 module Gecode
-  class Model
+  module Mixin
     # Wraps a custom enumerable so that constraints can be specified using it.
     # The argument is altered and returned. 
     def wrap_enum(enum)

@@ -4,7 +4,7 @@ module Gecode::Set #:nodoc:
   # A SetOperand is a combination of operands on which the
   # constraints defined in SetConstraintReceiver can be placed.
   #
-  # Set operands can be created either by using Gecode::Model#set_var et
+  # Set operands can be created either by using Gecode::Mixin#set_var et
   # al, or by using properties that produce set operands. The operands,
   # no matter how they were created, all respond to the properties
   # defined by SetOperand.
@@ -13,7 +13,7 @@ module Gecode::Set #:nodoc:
   #
   # Produces a single set operand (more specifically a SetVar), with
   # greatest lower bound {0} and least upper bound {0, 1, 2}, inside a
-  # problem formulation, using Gecode::Model#set_var:
+  # problem formulation, using Gecode::Mixin#set_var:
   #
   #   set_operand = set_var(0, 0..2)
   #

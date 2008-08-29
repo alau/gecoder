@@ -1,5 +1,5 @@
 module Gecode
-  class Model
+  module Mixin
     # Specifies which variables that should be branched on (given as an
     # enum of operands or as a single operand). One can optionally
     # also select which of the variables that should be used first with

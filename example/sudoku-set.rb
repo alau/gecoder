@@ -4,7 +4,9 @@ require 'enumerator'
 # Solves the sudoku problem using sets. The model used is a fairly direct 
 # translation of the corresponding Gecode example: 
 # http://www.gecode.org/gecode-doc-latest/sudoku-set_8cc-source.html .
-class SudokuSet < Gecode::Model
+class SudokuSet
+  include Gecode::Mixin
+
   # Takes a 9x9 matrix of values in the initial sudoku, 0 if the square is 
   # empty. 
   def initialize(predefined_values)

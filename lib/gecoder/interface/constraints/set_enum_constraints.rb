@@ -5,20 +5,20 @@ module Gecode::SetEnum #:nodoc:
   # constraints defined in SetEnumConstraintReceiver can be placed.
   #
   # Enumerations of set operands can be created either by using
-  # Gecode::Model#set_var_array and Gecode::Model#set_var_matrix, or
+  # Gecode::Mixin#set_var_array and Gecode::Mixin#set_var_matrix, or
   # by wrapping an existing enumeration containing SetOperand using
-  # Gecode::Model#wrap_enum. The enumerations, no matter how they were
+  # Gecode::Mixin#wrap_enum. The enumerations, no matter how they were
   # created, all respond to the properties defined by SetEnumOperand.
   #
   # ==== Examples 
   #
   # Produces an array of five set operands, with greatest lower bound
   # {0} and least upper bound {0, 1, 2}, inside a problem formulation
-  # using Gecode::Model#set_var_array:
+  # using Gecode::Mixin#set_var_array:
   #
   #   set_enum = set_var_array(5, 0, 1..2)
   #
-  # Uses Gecode::Model#wrap_enum inside a problem formulation to create
+  # Uses Gecode::Mixin#wrap_enum inside a problem formulation to create
   # a SetEnumOperand from an existing enumeration containing the
   # set operands +set_operand1+ and +set_operand2+:
   #

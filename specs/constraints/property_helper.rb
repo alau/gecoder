@@ -30,14 +30,14 @@ require File.dirname(__FILE__) + '/../spec_helper'
 # Requires @operand and @model.
 describe 'int var operand', :shared => true do
   it 'should implement #model' do
-    @operand.model.should be_kind_of(Gecode::Model)
+    @operand.model.should be_kind_of(Gecode::Mixin)
   end
 
   it 'should implement #to_int_var' do
     int_var = @operand.to_int_var
     int_var.should be_kind_of(Gecode::IntVar)
     @model.solve!
-    (int_var.min..int_var.max).should_not equal(Gecode::Model::LARGEST_INT_DOMAIN)
+    (int_var.min..int_var.max).should_not equal(Gecode::Mixin::LARGEST_INT_DOMAIN)
   end
 
   it 'should implement #must' do
@@ -50,7 +50,7 @@ end
 # Requires @operand and @model.
 describe 'bool var operand', :shared => true do
   it 'should implement #model' do
-    @operand.model.should be_kind_of(Gecode::Model)
+    @operand.model.should be_kind_of(Gecode::Mixin)
   end
 
   it 'should implement #to_bool_var' do
@@ -68,7 +68,7 @@ end
 # Requires @operand and @model.
 describe 'set var operand', :shared => true do
   it 'should implement #model' do
-    @operand.model.should be_kind_of(Gecode::Model)
+    @operand.model.should be_kind_of(Gecode::Mixin)
   end
 
   it 'should implement #to_set_var' do
@@ -76,7 +76,7 @@ describe 'set var operand', :shared => true do
     set_var.should be_kind_of(Gecode::SetVar)
     @model.solve!
     ((set_var.lower_bound == []) && 
-     (set_var.upper_bound == Gecode::Model::LARGEST_SET_BOUND)).should_not(
+     (set_var.upper_bound == Gecode::Mixin::LARGEST_SET_BOUND)).should_not(
       be_true)
   end
 
@@ -108,7 +108,7 @@ describe 'property that produces int operand', :shared => true do
     operand = @select_property.call(*operands)
 
     # Test the same invariants as in the test for int var operands.
-    operand.model.should be_kind_of(Gecode::Model)
+    operand.model.should be_kind_of(Gecode::Mixin)
 
     int_var = operand.to_int_var
     int_var.should be_kind_of(Gecode::IntVar)
@@ -128,7 +128,7 @@ describe 'property that produces bool operand', :shared => true do
     operand = @select_property.call(*operands)
 
     # Test the same invariants as in the test for bool var operands.
-    operand.model.should be_kind_of(Gecode::Model)
+    operand.model.should be_kind_of(Gecode::Mixin)
 
     bool_var = operand.to_bool_var
     bool_var.should be_kind_of(Gecode::BoolVar)
@@ -148,7 +148,7 @@ describe 'property that produces set operand', :shared => true do
     operand = @select_property.call(*operands)
 
     # Test the same invariants as in the test for int var operands.
-    operand.model.should be_kind_of(Gecode::Model)
+    operand.model.should be_kind_of(Gecode::Mixin)
 
     set_var = operand.to_set_var
     set_var.should be_kind_of(Gecode::SetVar)
@@ -178,7 +178,7 @@ describe 'property that produces int operand by short circuiting equality', :sha
     @selected_property.must == indirect_int_op
     @model.solve!
 
-    direct_int_var.should_not have_domain(Gecode::Model::LARGEST_INT_DOMAIN)
+    direct_int_var.should_not have_domain(Gecode::Mixin::LARGEST_INT_DOMAIN)
     direct_int_var.should have_domain(indirect_int_op.domain)
   end
 
@@ -282,7 +282,7 @@ describe 'property that produces int operand by short circuiting relations', :sh
       @selected_property.must.method(relation).call indirect_int_var
       @model.solve!
 
-      direct_int_var.should_not have_domain(Gecode::Model::LARGEST_INT_DOMAIN)
+      direct_int_var.should_not have_domain(Gecode::Mixin::LARGEST_INT_DOMAIN)
       direct_int_var.should have_domain(indirect_int_var.domain)
     end
 

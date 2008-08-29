@@ -25,7 +25,9 @@ h3. Example
 Solve the equation system @x + y = z@, @x = y - 3@, @0 <= x,y,z <= 9@.
 
 <ruby>
-class ExampleProblem < Gecode::Model
+class ExampleProblem 
+  include Gecode::Mixin
+
   attr :vars
   def initialize
     # Set up the variables, three integers with domain 0..9.
