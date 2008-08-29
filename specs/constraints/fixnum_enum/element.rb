@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class FixnumElementSampleProblem < Gecode::Model
+class FixnumElementSampleProblem
+  include Gecode::Mixin
+
   attr :prices
   attr :store
   attr :price

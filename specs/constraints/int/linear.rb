@@ -3,7 +3,9 @@ require File.dirname(__FILE__) + '/../constraint_helper'
 # This is neither an operand or a constraint spec. It is mostly a sanity
 # check.
 
-class LinearSampleProblem < Gecode::Model
+class LinearSampleProblem
+  include Gecode::Mixin
+
   attr :x
   attr :y
   attr :z

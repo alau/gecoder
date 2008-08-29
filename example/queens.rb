@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/example_helper'
 
 # Solves the n-queens problem: http://en.wikipedia.org/wiki/Nqueens . No attempt
 # to break the involved symmetries is made.
-class NQueens < Gecode::Model
+class NQueens
+  include Gecode::Mixin
+
   def initialize(n)
     @size = n
   

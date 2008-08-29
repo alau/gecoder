@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-class ReifSugarSampleProblem < Gecode::Model
+class ReifSugarSampleProblem
+  include Gecode::Mixin
+
   attr :x
   attr :y
   attr :z

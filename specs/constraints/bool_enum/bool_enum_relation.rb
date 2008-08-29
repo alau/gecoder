@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class BoolEnumSampleProblem < Gecode::Model
+class BoolEnumSampleProblem
+  include Gecode::Mixin
+
   attr :bools
   attr :b1
   attr :b2

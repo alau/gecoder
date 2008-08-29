@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class ElementSampleProblem < Gecode::Model
+class ElementSampleProblem
+  include Gecode::Mixin
+
   attr :prices
   attr :store
   attr :price

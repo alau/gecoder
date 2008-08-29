@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-class BranchSampleProblem < Gecode::Model
+class BranchSampleProblem
+  include Gecode::Mixin
+
   attr :vars
   attr :bools
   attr :sets

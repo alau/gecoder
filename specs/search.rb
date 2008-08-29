@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/spec_helper'
 require 'set'
 
-class SampleProblem < Gecode::Model
+class SampleProblem
+  include Gecode::Mixin
+
   attr :var
   attr :array
   attr :hash
@@ -19,7 +21,9 @@ class SampleProblem < Gecode::Model
   end
 end
 
-class SampleOptimizationProblem < Gecode::Model
+class SampleOptimizationProblem
+  include Gecode::Mixin
+
   attr :x
   attr :y
   attr :z
@@ -33,7 +37,9 @@ class SampleOptimizationProblem < Gecode::Model
   end
 end
 
-class SampleOptimizationProblem2 < Gecode::Model
+class SampleOptimizationProblem2
+  include Gecode::Mixin
+
   attr :money
   
   def initialize

@@ -1,6 +1,6 @@
 # Problems can be formulated and solved either through defining a new
-# class that inherits from Gecode::Model or by using Gecode#solve et al.
-# Gecode::Model describes how to formulate problems.
+# class that mixes in Gecode::Mixin or by using Gecode.solve et al.
+# Gecode::Mixin describes how to formulate problems.
 #
 # ==== Examples 
 #
@@ -12,9 +12,11 @@
 #   x = y - 3
 #   0 <= x,y,z <= 9
 #
-# === Inheriting from Gecode::Model
+# === Mixing in Gecode::Mixin
 #
-#   class EquationProblem < Gecode::Model
+#   class EquationProblem 
+#     include Gecode::Mixin
+#
 #     def initialize
 #       variables_is_an int_var_array(3, 0..9)
 #       x, y, z = variables
@@ -27,7 +29,7 @@
 #   end
 #   puts EquationProblem.new.solve!.variables.join(' ')
 #
-# === Using Gecode#solve
+# === Using Gecode.solve
 #
 #   solution = Gecode.solve do
 #     variables_is_an int_var_array(3, 0..9)

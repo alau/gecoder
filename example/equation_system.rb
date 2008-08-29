@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/example_helper'
 
-class EquationProblem < Gecode::Model
+class EquationProblem
+  include Gecode::Mixin
+
   def initialize
     x, y, z = vars_is_an int_var_array(3, 0..9)
 

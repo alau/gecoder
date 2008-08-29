@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class SelectionSampleProblem < Gecode::Model
+class SelectionSampleProblem
+  include Gecode::Mixin
+
   attr :sets
   attr :set
   attr :target

@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class ArithmeticSampleProblem < Gecode::Model
+class ArithmeticSampleProblem
+  include Gecode::Mixin
+
   attr :var
   attr :var2
   

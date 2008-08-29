@@ -12,7 +12,9 @@ module Gecode
   # 
   # is equivalent to
   # 
-  #   class Foo < Gecode::Model
+  #   class Foo 
+  #     include Gecode::Mixin
+  #
   #     def initialize
   #       # Do something
   #     end
@@ -35,7 +37,9 @@ module Gecode
   # 
   # is equivalent to
   # 
-  #   class Foo < Gecode::Model
+  #   class Foo 
+  #     include Gecode::Mixin
+  #
   #     def initialize
   #       # Do something
   #     end
@@ -58,7 +62,9 @@ module Gecode
   # 
   # is equivalent to
   # 
-  #   class Foo < Gecode::Model
+  #   class Foo
+  #     include Gecode::Mixin
+  #
   #     def initialize
   #       # Do something
   #     end
@@ -73,8 +79,10 @@ module Gecode
   # Creates an instance of a class that subclasses Model and uses the 
   # specified block as initialization method.
   def self.create_model(&block)
-    model = Class.new(Gecode::Model)
+    model = Class.new
     model.class_eval do
+      include Gecode::Mixin
+
       def initialize(&init_block) #:nodoc:
         instance_eval &init_block
       end

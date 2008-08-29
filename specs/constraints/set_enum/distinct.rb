@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class SetEnumDistinctSampleProblem < Gecode::Model
+class SetEnumDistinctSampleProblem
+  include Gecode::Mixin
+
   attr :vars
   attr :sets
   

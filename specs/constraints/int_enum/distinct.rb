@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../constraint_helper'
 
-class DistinctSampleProblem < Gecode::Model
+class DistinctSampleProblem
+  include Gecode::Mixin
+
   def initialize
     vars_is_an int_var_array(2, 0..1)
     branch_on vars

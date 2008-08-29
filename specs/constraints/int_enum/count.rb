@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class CountSampleProblem < Gecode::Model
+class CountSampleProblem
+  include Gecode::Mixin
+
   attr :list
   attr :element
   attr :target
