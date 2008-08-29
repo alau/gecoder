@@ -187,7 +187,9 @@ Combining the code from above with a small to_s method we get the following.
 require 'rubygems'
 require 'gecoder'
 
-class SquareTiling < Gecode::Model
+class SquareTiling 
+  include Gecode::Mixin
+
   def initialize(width, height, sizes)
     square_count = sizes.size
     

@@ -15,7 +15,7 @@ produce integer operands.</p></div>
 h4. Examples of Integer Operands
 
 The simplest integer operands, integer variables, can be created using
-{RDoc: Model#int_var}. The method takes one argument, the domain of the
+{RDoc: Mixin#int_var}. The method takes one argument, the domain of the
 integer variable. The domain represents the values that the variable can
 take. A variable with domain 0..9 can for instance take any value in the
 range 0 to 9. 

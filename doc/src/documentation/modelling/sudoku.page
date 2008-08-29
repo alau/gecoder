@@ -145,7 +145,9 @@ require 'rubygems'
 require 'gecoder'
 require 'enumerator'
 
-class Sudoku < Gecode::Model
+class Sudoku 
+  include Gecode::Mixin
+
   def initialize(predefined_values)
   	# Create the squares.
     @squares = int_var_matrix(9, 9, 1..9)

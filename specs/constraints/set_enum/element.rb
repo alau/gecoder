@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../property_helper'
 
-class SetElementSampleProblem < Gecode::Model
+class SetElementSampleProblem
+  include Gecode::Mixin
+
   attr :sets
   attr :set
   attr :target

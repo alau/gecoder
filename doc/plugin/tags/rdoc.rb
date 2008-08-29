@@ -14,10 +14,15 @@ class RDocTag < Tags::DefaultTag
     target_param = CGI::unescapeHTML(param('target'))
 
     target = target_param.split('::').last
-    rdoc_class = target.split('#').first
+    if target.include? '#'
+      split = '#'
+    else
+      split = '.'
+    end
+    rdoc_class = target.split(split).first
     method = nil
-    unless target.split('#').size == 1
-      method = target.split('#').last
+    unless target.split(split).size == 1
+      method = target.split(split).last
     end
 
     rdoc_file = Dir["output/rdoc/**/#{rdoc_class}.html"]

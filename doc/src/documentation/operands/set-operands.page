@@ -15,7 +15,7 @@ produce set operands.</p></div>
 h4. Examples of Set Operands
 
 The simplest set operands, set variables, can be created using
-{RDoc: Model#set_var}.
+{RDoc: Mixin#set_var}.
 
 <ruby>
 # Creates a set var with greatest lower bound {0} and least upper bound 

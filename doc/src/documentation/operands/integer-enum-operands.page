@@ -14,7 +14,7 @@ operands.</p></div>
 h4. Examples of Integer Enumeration Operands
 
 Enumerations of integer operands are commonly created using {RDoc:
-Gecode::Model#int_var_array} and {RDoc: Gecode::Model#int_var_matrix}.
+Gecode::Mixin#int_var_array} and {RDoc: Gecode::Mixin#int_var_matrix}.
 
 <ruby>
 # Creates an array of five integer operands with domain 0..9 .
@@ -22,7 +22,7 @@ int_enum = int_var_array(5, 0..9)
 </ruby>
 
 A less common way to create the operands is by using {RDoc:
-Gecode::Model#wrap_enum} to wrap an existing enumeration that contains
+Gecode::Mixin#wrap_enum} to wrap an existing enumeration that contains
 integer operands.
 
 <ruby>

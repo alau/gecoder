@@ -16,10 +16,12 @@ constraints.</p>
 
 h2. Creating models
 
-A model can be constructed as a class that inherits from @Gecode::Model@.
+A model is a class that mixes in {RDoc: Gecode::Mixin}.
 
 <ruby>
-class MyModel < Gecode::Model
+class MyModel
+  include Gecode::Mixin
+
   def initialize
     # Place variables, constraints and branching selection here.
   end
@@ -29,13 +31,6 @@ end
 solution = MyModel.new.solve!
 </ruby>
 
-The above can also be shortened as the following.
-
-<ruby>
-solution = Gecode.solve do
-  # Place variables, constraints and branching selection here.
-end
-</ruby>
 
 There are three main parts of a model:
 <dl>
@@ -76,7 +71,7 @@ The primary variables are:
 
 h4. Creating integer variables
 
-Use {RDoc: Model#int_var} to create a new integer variable. The method takes
+Use {RDoc: Mixin#int_var} to create a new integer variable. The method takes
 one argument, the domain of the integer variable. The domain represents
 the values that the variable can take. A variable with domain 0..9 can
 for instance take any value in the range 0 to 9. 
@@ -86,7 +81,7 @@ number = int_var(0..9) # Creates an integer variable with domain 0..9.
 </ruby>
 
 Alternatively one can also create multiple integer variables with the same 
-domain at once using {RDoc: Model#int_var_array} which returns an array of variables.
+domain at once using {RDoc: Mixin#int_var_array} which returns an array of variables.
 
 <ruby>
 numbers = int_var_array(8, 0..9) # Creates 8 variables with domains 0..9.
@@ -100,7 +95,7 @@ of elements. The following creates an integer variable with the odd numbers in
 odd_number = int_var([1,3,5,7,9])
 </ruby>
 
-Matrices can be created using {RDoc: Model#int_var_matrix} (returns an instance of
+Matrices can be created using {RDoc: Mixin#int_var_matrix} (returns an instance of
 Matrix). 
 
 <ruby>
@@ -108,7 +103,7 @@ number_matrix = int_var_matrix(5, 4, 0..9) # 5 rows and 4 columns.
 </ruby>
 
 Additional custom enumerations containing variables can be used, but they have
-to be wrapped using {RDoc: Model#wrap_enum} first.
+to be wrapped using {RDoc: Mixin#wrap_enum} first.
 
 <ruby>
 my_enum = wrap_enum(my_enum)
@@ -117,8 +112,8 @@ my_enum.must_be.distinct
 
 h4. Creating boolean variables
 
-Use any of {RDoc: Model#bool_var}, {RDoc: Model#bool_var_array} and 
-{RDoc: Model#bool_var_matrix} to create boolean variables. The methods
+Use any of {RDoc: Mixin#bool_var}, {RDoc: Mixin#bool_var_array} and 
+{RDoc: Mixin#bool_var_matrix} to create boolean variables. The methods
 work just like for integer variables, except for not requiring a domain.
 
 <ruby>
@@ -129,10 +124,10 @@ bool_matrix = bool_var_matrix(3, 4) # Creates a 3x4 matrix of boolean variables.
 
 h4. Creating set variables
 
-Use any of {RDoc: Model#set_var}, {RDoc: Model#set_var_array} and {RDoc:
-Model#set_var_matrix} to create set variables. The domain of a set
-variable is specified through a *greatest lower bound* (GLB), a *least
-upper bound* (LUB) and the allowed cardinality (which is optional). 
+Use any of {RDoc: Mixin#set_var}, {RDoc: Mixin#set_var_array} and {RDoc:
+Mixin#set_var_matrix} to create set variables. The domain of a set
+variable is specified through a _greatest lower bound_ (GLB), a 
+_least upper bound_ (LUB) and the allowed cardinality (which is optional). 
 
 The greatest lower bound is the largest set of elements that are certain
 to be in the set, the least upper bound is the smallest set of elements
@@ -175,7 +170,9 @@ instance variable and accessor with the specified name.
 
 To exemplify, The following two pieces of code are equivalent.
 <ruby>
-class Foo < Gecode::Model
+class Foo
+  include Gecode::Mixin
+
   attr :digit
 
   def initialize
@@ -186,7 +183,9 @@ class Foo < Gecode::Model
 end
 </ruby>
 <ruby>
-class Foo < Gecode::Model
+class Foo
+  include Gecode::Mixin
+
   def initialize
     digit_is_an int_var(0..9)
     
@@ -221,7 +220,7 @@ The solver tries to prune the search space without actually exploring it, but
 sooner or later it will probably have to make a guess about a variable's value
 in order to get any further (i.e. it will have to explore the search space).
 This is called branching. Which variable and selection strategies to use is 
-specified with @Model#branch_on@
+specified with @Mixin#branch_on@
 
 <ruby>
 branch_on numbers, :variable => :smallest_size, :value => :min
@@ -241,14 +240,14 @@ If you just want any or all solutions then use depth first search. Use branch
 and bound search if you want to fetch a specific solution, optimizing something
 of you choice.
 
-{RDoc: Model#search_stats} can be used after the search to obtain
+{RDoc: Mixin#search_stats} can be used after the search to obtain
 various statistics about the search.
 
 h3. Depth first search
 
 The solutions to a model can be accessed by several methods. The simplest case
 is when one just want a	single solution to the problem, in which case 
-@Model#solve!@ (which destructivly alters the instance of @Model@) is 
+{RDoc: Mixin#solve!} (which destructivly alters the instance) is 
 convenient.
 
 <ruby>
@@ -262,23 +261,23 @@ well as return it to be assigned to @solution@. If there is no solution
 then the @Gecode::NoSolutionError@ exception is raised.
 
 It's possible to reset the instance back to the original form using 
-@Model#reset!@.
+{RDoc: Mixin#reset!}.
 
 <ruby>
 instance.reset!
 </ruby>
 
-Note that this also resets any solutions returned earlier by @Model#solve!@.
+Note that this also resets any solutions returned earlier by 
+{RDoc: Mixin#solve!}.
 
-A similar form with blocks if also available through @Model#solution@.
+A similar form with blocks if also available through {RDoc: Mixin#solution}.
 
 <ruby>
 string = instance.solution{ |solution| solution.to_s }
 </ruby>
 
 It gives a solution to the block and then returns the result of the block. 
-Iterating through all solutions to a problem is done using 
-@Model.each_solution@.
+Use {RDoc: Mixin#each_solution} to iterate over all solutions to a problem.
 
 <ruby>
 instance.each_solution{ |solution| puts solution.to_s }
@@ -291,7 +290,7 @@ h3. Branch and bound search
 Branch and bounds search is used when one is not just looking for _any_ 
 solution, but rather the _optimal_ solution (as defined by some criteria). For 
 instance we might want to find the solution which assigns the smallest value
-to a price variable. This is done by using the @Model#optimize!@ method, which
+to a price variable. This is done by using the {RDoc: Mixin#optimize!} method, which
 takes a block with two arguments: the model itself and the best solution found
 so far. The block should then add a constraint that constrains the model to be
 strictly better than the best solution so far.
@@ -303,10 +302,10 @@ end
 </ruby>
 
 This destructively updates @price_model_instance@ to contain the returned 
-solution, just like @Model#solve!@. If there is not solution then 
-the @Gecode::NoSolutionError@ exception is raised.
+solution, just like {RDoc: Mixin#solve!}. If there is not solution then 
+the {RDoc: Gecode::NoSolutionError} exception is raised.
 
-There exist convenience methods, named @Model#maximize!@ and @Model#minimize!@, 
+There exist convenience methods, named {RDoc: Mixin#maximize!} and {RDoc: Mixin#minimize!}, 
 for optimizing single integer variables. The above minimization of the variable
 @price@ can for instance also be done as follows.
 
@@ -314,12 +313,46 @@ for optimizing single integer variables. The above minimization of the variable
 optimal_solution = price_model_instance.minimize! :price
 </ruby>
 
-@Gecode.minimize@ and @Gecode.maximize@ can be used, in a manner similar to 
-@Gecode.solve@, to shorten the problem formulation for problems that optimize 
-single variables.
+h2. Convenience
+
+There exists handy convenience methods for common operations related to
+models.
+
+h3. Gecode.solve
+
+Use {RDoc: Gecode.solve} to create a model and search for a single
+solution without having to explicitly define a class.
+
+<ruby>
+solution = Gecode.solve do
+  # Describe the model.
+end
+</ruby>
+
+h3. Gecode.minimize and Gecode::maximize
+
+Use {RDoc: Gecode.minimize} and {RDoc: Gecode.maximize} to create a
+model and search for a solution that maximizes or minimizes a given
+variable.
 
 <ruby>
 optimal_solution = Gecode.minimize :price do 
   # Describe the model.
 end
+</ruby>
+
+h3. Gecode::Model
+
+{RDoc: Gecode::Model} is a convenient class that only mixes in
+@Gecode::Mixin@. It is useful for creating models without mixin in
+Gecode::Mixin into the current context or creating a new class.
+
+<ruby>
+model = Gecode::Model.new
+var = model.int_var(0..9)
+var.must > 5
+model.branch_on var
+model.solve!
+
+p var.value
 </ruby>

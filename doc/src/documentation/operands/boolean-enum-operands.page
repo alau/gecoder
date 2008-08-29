@@ -14,7 +14,7 @@ operands.</p></div>
 h4. Examples of Boolean Enumeration Operands
 
 Enumerations of boolean operands are commonly created using {RDoc:
-Gecode::Model#bool_var_array} and {RDoc: Gecode::Model#bool_var_matrix}.
+Gecode::Mixin#bool_var_array} and {RDoc: Gecode::Mixin#bool_var_matrix}.
 
 <ruby>
 # Creates an array of five boolean operands.
@@ -22,7 +22,7 @@ bool_enum = bool_var_array(5)
 </ruby>
 
 A less common way to create the operands is by using {RDoc:
-Gecode::Model#wrap_enum} to wrap an existing enumeration that contains
+Gecode::Mixin#wrap_enum} to wrap an existing enumeration that contains
 boolean operands.
 
 <ruby>
