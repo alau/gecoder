@@ -195,7 +195,7 @@ gecode_release_files = [
   "pkg/#{PKG_FILE_NAME_WITH_GECODE}.gem",
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.tgz",
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.zip",
-  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-x86-mswin32.gem"
+  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-x86-mswin32-60.gem"
 ]
 gecode_release_files.each do |pkg|
   file pkg => :extract_gecode
