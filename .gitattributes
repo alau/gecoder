@@ -4,6 +4,7 @@
 /LGPL-LICENSE -text
 /README -text
 /Rakefile -text
+/THANKS -text
 doc/config.yaml -text
 doc/metainfo.yaml -text
 doc/plugin/contentconverters/add_header_ids.rb -text

@@ -1,0 +1,18 @@
+A list of people who have contributed to making Gecode/R what it is
+today.  Sorted in alphabetical order by last name.
+
+* David Cuadrado - For the initial raw bindings from Gecode to Ruby.
+* Eivind Eklund - For the idea that led to the syntax used to specify 
+  the regular expressions used in regexp constraints.
+* Google and Ruby Central - For the funding through Google Summer of 
+  Code 2007 that got the project started.
+* James Edward Gray II - For the superb mentoring during Google Summer 
+  of Code 2007, influencing many decisions made.
+* Mikael Lagerkvist - For the support from the Gecode side.
+* Andreas Launila - For the interface on top of the raw bindings and 
+  the website.
+* Adam Rose - For suggesting that Gecode/R should use a mixin rather 
+  than inheritance.
+
+If you think that you should be on this list then please contact the 
+gecoder-devel mailing list.

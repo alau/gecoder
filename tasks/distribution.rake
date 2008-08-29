@@ -20,7 +20,7 @@ rd = Rake::RDocTask.new do |rdoc|
   rdoc.template = 'doc/rdoc/jamis.rb'
   rdoc.options << '--line-numbers' << '--inline-source' << 
     '--accessor' << 'delegate' << '--main' << 'README'
-  rdoc.rdoc_files.include('README', 'CHANGES', 'LGPL-LICENSE', 'lib/**/*.rb')
+  rdoc.rdoc_files.include('README', 'CHANGES', 'THANKS', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 
 TMP_DIR = 'doc/tmp/rdoc_dev'
