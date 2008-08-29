@@ -12,8 +12,8 @@
  *     Guido Tack, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-29 01:09:17 +0100 (Fri, 29 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6355 $
+ *     $Date: 2008-08-06 10:39:34 +0200 (Wed, 06 Aug 2008) $ by $Author: raphael $
+ *     $Revision: 7494 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -172,6 +172,12 @@ namespace Gecode {
     /// Initialize with range iterator \a i
     template <class I>
     explicit IntSet(I& i);
+#ifdef __INTEL_COMPILER
+    /// Initialize with range iterator \a i
+    IntSet(const IntSet& s);
+    /// Initialize with range iterator \a i
+    IntSet(IntSet& s);
+#endif
     //@}
 
     /// \name Range length
@@ -375,7 +381,13 @@ namespace Gecode {
     int max(void) const;
     /// Return median of domain
     int med(void) const;
-    /// Return assigned value (only if assigned)
+    /**
+     * \brief Return assigned value
+     *
+     * Throws an exception of type Int::ValOfUnassignedVar if variable
+     * is not yet assigned.
+     *
+     */
     int val(void) const;
 
     /// Return size (cardinality) of domain
@@ -502,7 +514,13 @@ namespace Gecode {
     int max(void) const;
     /// Return median of domain
     int med(void) const;
-    /// Return assigned value (only if assigned)
+    /**
+     * \brief Return assigned value
+     *
+     * Throws an exception of type Int::ValOfUnassignedVar if variable
+     * is not yet assigned.
+     *
+     */
     int val(void) const;
 
     /// Return size (cardinality) of domain
@@ -698,13 +716,13 @@ namespace Gecode {
    * \brief Consistency levels for integer propagators
    *
    * The descriptions are meant to be suggestions. It is not
-   * required that a propagator achieves full domain-consistency or
-   * full bounds-consistency. It is more like: which level
+   * required that a propagator achieves full domain consistency or
+   * full bounds consistency. It is more like: which level
    * of consistency comes closest.
    *
    * If in the description of a constraint below no consistency level
    * is mentioned, the propagator for the constraint implements
-   * domain-consistency.
+   * domain consistency.
    * \ingroup TaskModelInt
    */
   enum IntConLevel {
@@ -760,7 +778,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$ x_0 \sim_r x_1\f$
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    */
   GECODE_INT_EXPORT void
   rel(Space* home, IntVar x0, IntRelType r, IntVar x1,
@@ -768,7 +786,7 @@ namespace Gecode {
   /** \brief Post propagators for \f$ x_i \sim_r y \f$ for all \f$0\leq i<|x|\f$
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    */
   GECODE_INT_EXPORT void
   rel(Space* home, const IntVarArgs& x, IntRelType r, IntVar y,
@@ -784,7 +802,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$ (x_0 \sim_r x_1)\Leftrightarrow b\f$
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    */
   GECODE_INT_EXPORT void
   rel(Space* home, IntVar x0, IntRelType r, IntVar x1, BoolVar b,
@@ -792,7 +810,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$(x \sim_r c)\Leftrightarrow b\f$
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    */
   GECODE_INT_EXPORT void
   rel(Space* home, IntVar x, IntRelType r, int c, BoolVar b,
@@ -802,14 +820,14 @@ namespace Gecode {
    * States that the elements of \a x are in the following relation:
    *  - if \a r = IRT_EQ, then all elements of \a x must be equal. 
    *    Supports both bounds (\a icl = ICL_BND) and
-   *    domain-consistency (\a icl = ICL_DOM, default).
+   *    domain consistency (\a icl = ICL_DOM, default).
    *  - if \a r = IRT_LE, \a r = IRT_LQ, \a r = IRT_GR, or \a r = IRT_GQ, 
    *    then the elements of \a x are ordered with respt to \a r.
-   *    Supports domain-consistency (\a icl = ICL_DOM, default).
+   *    Supports domain consistency (\a icl = ICL_DOM, default).
    *  - if \a r = IRT_NQ, then all elements of \a x must be pairwise 
    *    distinct (corresponds to the distinct constraint).
    *    Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-   *    and domain-consistency (\a icl = ICL_DOM).
+   *    and domain consistency (\a icl = ICL_DOM).
    *    Throws an exception of type Int::ArgumentSame, if \a x contains
    *    the same unassigned variable multiply.
    *
@@ -823,7 +841,7 @@ namespace Gecode {
    * the lexical order between \a x and \a y.
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    *
    * Throws an exception of type Int::ArgumentSizeMismatch, if
    * \a x and \a y are of different size.
@@ -843,6 +861,10 @@ namespace Gecode {
   GECODE_INT_EXPORT void
   rel(Space* home, BoolVar x0, IntRelType r, BoolVar x1,
       IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
+  /// Post propagator for \f$(x_0 \sim_r x_1)\Leftrightarrow b\f$
+  GECODE_INT_EXPORT void
+  rel(Space* home, BoolVar x0, IntRelType r, BoolVar x1, BoolVar b,
+      IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /// Post propagator for \f$ x_i \sim_r y \f$ for all \f$0\leq i<|x|\f$
   GECODE_INT_EXPORT void
   rel(Space* home, const BoolVarArgs& x, IntRelType r, BoolVar y,
@@ -855,6 +877,15 @@ namespace Gecode {
    */
   GECODE_INT_EXPORT void
   rel(Space* home, BoolVar x, IntRelType r, int n,
+      IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
+  /**
+   * \brief Propagates \f$(x \sim_r n)\Leftrightarrow b\f$
+   *
+   * Throws an exception of type Int::NotZeroOne, if \a n is neither
+   * 0 or 1.
+   */
+  GECODE_INT_EXPORT void
+  rel(Space* home, BoolVar x, IntRelType r, int n, BoolVar b,
       IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /**
    * \brief Propagates \f$ x_i \sim_r n \f$ for all \f$0\leq i<|x|\f$
@@ -909,7 +940,7 @@ namespace Gecode {
   /** \brief Post propagator for Boolean operation on \a x
    *
    * Posts propagator for \f$ x_0 \diamond_{\mathit{o}} \cdots  
-   * \diamond_{\mathit{op}} x_{|x|-1}= y\f$
+   * \diamond_{\mathit{o}} x_{|x|-1}= y\f$
    *
    * Throws an exception of type Int::TooFewArguments, if \f$|x|<2\f$
    * and \a o is BOT_IMP, BOT_EQV, or BOT_XOR.
@@ -920,7 +951,7 @@ namespace Gecode {
   /** \brief Post propagator for Boolean operation on \a x
    *
    * Posts propagator for \f$ x_0 \diamond_{\mathit{o}} \cdots  
-   * \diamond_{\mathit{op}} x_{|x|-1}= n\f$
+   * \diamond_{\mathit{o}} x_{|x|-1}= n\f$
    *
    * Throws an exception of type Int::NotZeroOne, if \a n is neither
    * 0 or 1.
@@ -967,7 +998,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$ x_{y_0}=y_1\f$
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    */
   GECODE_INT_EXPORT void
   element(Space* home, const IntVarArgs& x, IntVar y0, IntVar y1,
@@ -975,7 +1006,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$ x_{y_0}=y_1\f$
    *
    * Supports both bounds (\a icl = ICL_BND) and
-   * domain-consistency (\a icl = ICL_DOM, default).
+   * domain consistency (\a icl = ICL_DOM, default).
    */
   GECODE_INT_EXPORT void
   element(Space* home, const IntVarArgs& x, IntVar y0, int y1,
@@ -1000,7 +1031,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$ x_i\neq x_j\f$ for all \f$0\leq i\neq j<|x|\f$
    *
    * Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-   * and domain-consistency (\a icl = ICL_DOM).
+   * and domain consistency (\a icl = ICL_DOM).
    *
    * Throws an exception of type Int::ArgumentSame, if \a x contains
    * the same unassigned variable multiply.
@@ -1011,7 +1042,7 @@ namespace Gecode {
   /** \brief Post propagator for \f$ x_i+n_i\neq x_j+n_j\f$ for all \f$0\leq i\neq j<|x|\f$
    *
    * \li Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-   *     and domain-consistency (\a icl = ICL_DOM).
+   *     and domain consistency (\a icl = ICL_DOM).
    * \li Throws an exception of type Int::OutOfLimits, if
    *     the integers in \a n exceed the limits in Int::Limits
    *     or if the sum of \a n and \a x exceed the limits.
@@ -1045,6 +1076,22 @@ namespace Gecode {
    */
   GECODE_INT_EXPORT void
   channel(Space* home, const IntVarArgs& x, const IntVarArgs& y,
+          IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
+
+  /** \brief Post propagator for \f$ x_i - \mathit{xoff} = j\leftrightarrow y_j - \mathit{yoff} = i\f$ for all \f$0\leq i<|x|\f$
+   *
+   * \li Supports domain (\a icl = ICL_DOM) and value propagation (all other
+   *     values for \a icl).
+   * \li Throws an exception of type Int::ArgumentSizeMismatch, if
+   *     \a x and \a y are of different size.
+   * \li Throws an exception of type Int::ArgumentSame, if \a x or
+   *     \a y contain the same unassigned variable multiply. Note that a
+   *     variable can occur in both \a x and \a y, but not more than
+   *     once in either \a x or \a y.
+   */
+  GECODE_INT_EXPORT void
+  channel(Space* home, const IntVarArgs& x, unsigned int xoff,
+          const IntVarArgs& y, unsigned int yoff,
           IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
 
   /// Post propagator for channeling a Boolean and an integer variable \f$ x_0 = x_1\f$
@@ -1081,7 +1128,7 @@ namespace Gecode {
    *
    * Supports domain (\a icl = ICL_DOM) and value propagation (all
    * other values for \a icl), where this refers to whether value or
-   * domain-consistent distinct in enforced on \a x.
+   * domain consistent distinct in enforced on \a x.
    *
    * Throws an exception of type Int::ArgumentSame, if \a x 
    * contains the same unassigned variable multiply.
@@ -1217,7 +1264,7 @@ namespace Gecode {
   /**
    * \defgroup TaskModelIntSorted Sorted constraints
    *
-   * All sorted constraints support bounds-consistency.
+   * All sorted constraints support bounds consistency.
    *
    * \ingroup TaskModelInt
    */
@@ -1268,21 +1315,21 @@ namespace Gecode {
   //@{
   /** \brief Post propagator for \f$\#\{i\in\{0,\ldots,|x|-1\}\;|\;x_i=n\}\sim_r m\f$
    *
-   * Supports domain-consistent propagation only.
+   * Supports domain consistent propagation only.
    */
   GECODE_INT_EXPORT void
   count(Space* home, const IntVarArgs& x, int n, IntRelType r, int m,
         IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$\#\{i\in\{0,\ldots,|x|-1\}\;|\;x_i=y\}\sim_r m\f$
    *
-   * Supports domain-consistent propagation only.
+   * Supports domain consistent propagation only.
    */
   GECODE_INT_EXPORT void
   count(Space* home, const IntVarArgs& x, IntVar y, IntRelType r, int m,
         IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$\#\{i\in\{0,\ldots,|x|-1\}\;|\;x_i=y_i\}\sim_r m\f$
    *
-   * Supports domain-consistent propagation only.
+   * Supports domain consistent propagation only.
    *
    * Throws an exception of type Int::ArgumentSizeMismatch, if
    *  \a x and \a y are of different size.
@@ -1292,21 +1339,21 @@ namespace Gecode {
         IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$\#\{i\in\{0,\ldots,|x|-1\}\;|\;x_i=n\}\sim_r z\f$
    *
-   * Supports domain-consistent propagation only.
+   * Supports domain consistent propagation only.
    */
   GECODE_INT_EXPORT void
   count(Space* home, const IntVarArgs& x, int n, IntRelType r, IntVar z,
         IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$\#\{i\in\{0,\ldots,|x|-1\}\;|\;x_i=y\}\sim_r z\f$
    *
-   * Supports domain-consistent propagation only.
+   * Supports domain consistent propagation only.
    */
   GECODE_INT_EXPORT void
   count(Space* home, const IntVarArgs& x, IntVar y, IntRelType r, IntVar z,
         IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$\#\{i\in\{0,\ldots,|x|-1\}\;|\;x_i=y_i\}\sim_r z\f$
    *
-   * Supports domain-consistent propagation only.
+   * Supports domain consistent propagation only.
    *
    * Throws an exception of type Int::ArgumentSizeMismatch, if
    *  \a x and \a y are of different size.
@@ -1323,7 +1370,7 @@ namespace Gecode {
     * (no other value occurs).
     * 
     * Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-    * and domain-consistency (\a icl = ICL_DOM).
+    * and domain consistency (\a icl = ICL_DOM).
     *
     * Throws an exception of type Int::ArgumentSame, if \a x contains
     * the same unassigned variable multiply.
@@ -1340,7 +1387,7 @@ namespace Gecode {
     * (no other value occurs).
     * 
     * Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-    * and domain-consistency (\a icl = ICL_DOM).
+    * and domain consistency (\a icl = ICL_DOM).
     *
     * Throws an exception of type Int::ArgumentSame, if \a x contains
     * the same unassigned variable multiply.
@@ -1357,7 +1404,7 @@ namespace Gecode {
     * (no other value occurs).
     * 
     * Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-    * and domain-consistency (\a icl = ICL_DOM).
+    * and domain consistency (\a icl = ICL_DOM).
     *
     * Throws an exception of type Int::ArgumentSame, if \a x contains
     * the same unassigned variable multiply.
@@ -1378,7 +1425,7 @@ namespace Gecode {
     * (no other value occurs).
     * 
     * Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-    * and domain-consistency (\a icl = ICL_DOM).
+    * and domain consistency (\a icl = ICL_DOM).
     *
     * Throws an exception of type Int::ArgumentSame, if \a x contains
     * the same unassigned variable multiply.
@@ -1399,7 +1446,7 @@ namespace Gecode {
     * (no other value occurs).
     * 
     * Supports value (\a icl = ICL_VAL, default), bounds (\a icl = ICL_BND),
-    * and domain-consistency (\a icl = ICL_DOM).
+    * and domain consistency (\a icl = ICL_DOM).
     *
     * Throws an exception of type Int::ArgumentSame, if \a x contains
     * the same unassigned variable multiply.
@@ -1605,7 +1652,7 @@ namespace Gecode {
    *
    * \li Supports implementations optimized for memory (\a pk = \a
    *     PK_MEMORY, default) and speed (\a pk = \a PK_SPEED).
-   * \li Supports domain-consistency (\a icl = ICL_DOM, default) only.
+   * \li Supports domain consistency (\a icl = ICL_DOM, default) only.
    * \li Throws an exception of type Int::ArgumentSizeMismatch, if
    *     \a x and \a t are of different size.
    *
@@ -1625,7 +1672,7 @@ namespace Gecode {
    *
    * \li Supports implementations optimized for memory (\a pk = \a
    *     PK_MEMORY, default) and speed (\a pk = \a PK_SPEED).
-   * \li Supports domain-consistency (\a icl = ICL_DOM, default) only.
+   * \li Supports domain consistency (\a icl = ICL_DOM, default) only.
    * \li Throws an exception of type Int::ArgumentSizeMismatch, if
    *     \a x and \a t are of different size.
    */
@@ -1648,30 +1695,36 @@ namespace Gecode {
   //@{
   /** \brief Post propagator for \f$ \min\{x_0,x_1\}=x_2\f$
    *
-   * Only bounds-consistency is supported.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
    */
   GECODE_INT_EXPORT void
   min(Space* home, IntVar x0, IntVar x1, IntVar x2,
       IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$ \min x=y\f$
    *
-   * Only bounds-consistency is supported.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
+   *
+   * If \a x is empty, an exception of type Int::TooFewArguments is thrown.
    */
   GECODE_INT_EXPORT void
   min(Space* home, const IntVarArgs& x, IntVar y,
       IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$ \max\{x_0,x_1\}=x_2\f$
    *
-   * Only bounds-consistency is supported. If \a x is empty,
-   * an exception of type Int::TooFewArguments is thrown.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
    */
   GECODE_INT_EXPORT void
   max(Space* home, IntVar x0, IntVar x1, IntVar x2,
       IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   /** \brief Post propagator for \f$ \max x=y\f$
    *
-   * Only bounds-consistency is supported. If \a x is empty,
-   * an exception of type Int::TooFewArguments is thrown.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
+   *
+   * If \a x is empty, an exception of type Int::TooFewArguments is thrown.
    */
   GECODE_INT_EXPORT void
   max(Space* home, const IntVarArgs& x, IntVar y,
@@ -1679,7 +1732,8 @@ namespace Gecode {
 
   /** \brief Post propagator for \f$ |x_0|=x_1\f$
    *
-   * Only bounds-consistency is supported.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
    */
   GECODE_INT_EXPORT void
   abs(Space* home, IntVar x0, IntVar x1,
@@ -1687,7 +1741,8 @@ namespace Gecode {
 
   /** \brief Post propagator for \f$x_0\cdot x_1=x_2\f$
    *
-   * Only bounds-consistency is supported.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
    */
   GECODE_INT_EXPORT void
   mult(Space* home, IntVar x0, IntVar x1, IntVar x2,
@@ -1695,7 +1750,8 @@ namespace Gecode {
 
   /** \brief Post propagator for \f$x_0\cdot x_0=x_1\f$
    *
-   * Only bounds-consistency is supported.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
    */
   GECODE_INT_EXPORT void
   sqr(Space* home, IntVar x0, IntVar x1,
@@ -1703,11 +1759,36 @@ namespace Gecode {
 
   /** \brief Post propagator for \f$\lfloor\sqrt{x_0}\rfloor=x_1\f$
    *
-   * Only bounds-consistency is supported.
+   * Supports both bounds consistency (\a icl = ICL_BND, default)
+   * and domain consistency (\a icl = ICL_DOM).
    */
   GECODE_INT_EXPORT void
   sqrt(Space* home, IntVar x0, IntVar x1,
        IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
+
+  /** \brief Post propagator for \f$x_0\mathrm{div} x_1=x_2 \land x_0\mathrm{mod} x_1 = x_3\f$
+   *
+   * Supports bounds consistency (\a icl = ICL_BND, default).
+   */
+  GECODE_INT_EXPORT void
+  divmod(Space* home, IntVar x0, IntVar x1, IntVar x2, IntVar x3,
+         IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
+
+  /** \brief Post propagator for \f$x_0\mathrm{div} x_1=x_2\f$
+   *
+   * Supports bounds consistency (\a icl = ICL_BND, default).
+   */
+  GECODE_INT_EXPORT void
+  div(Space* home, IntVar x0, IntVar x1, IntVar x2,
+      IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
+
+  /** \brief Post propagator for \f$x_0\mathrm{mod} x_1=x_2\f$
+   *
+   * Supports bounds consistency (\a icl = ICL_BND, default).
+   */
+  GECODE_INT_EXPORT void
+  mod(Space* home, IntVar x0, IntVar x1, IntVar x2,
+      IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
   //@}
 
   /**
@@ -1716,12 +1797,12 @@ namespace Gecode {
    *
    * All variants for linear constraints over integer variables share
    * the following properties:
-   *  - Bounds-consistency (over the real numbers) is supported for
-   *    all constraints (actually, for disequlities always domain-consistency
-   *    is used as it is cheaper). Domain-consistency is supported for all
-   *    non-reified constraint. As bounds-consistency for inequalities
-   *    coincides with domain-consistency, the only
-   *    real variation is for linear equations. Domain-consistent
+   *  - Bounds consistency (over the real numbers) is supported for
+   *    all constraints (actually, for disequlities always domain consistency
+   *    is used as it is cheaper). Domain consistency is supported for all
+   *    non-reified constraint. As bounds consistency for inequalities
+   *    coincides with domain consistency, the only
+   *    real variation is for linear equations. Domain consistent
    *    linear equations have exponential complexity, so use with care!
    *  - Variables occurring multiply in the argument arrays are replaced
    *    by a single occurrence: for example, \f$ax+bx\f$ becomes
@@ -1738,7 +1819,6 @@ namespace Gecode {
    *  - In all other cases, the created propagators are accurate (that
    *    is, they will not silently overflow during propagation).
    */
-
   //@{
   /// Post propagator for \f$\sum_{i=0}^{|x|-1}x_i\sim_r c\f$
   GECODE_INT_EXPORT void
@@ -1805,8 +1885,8 @@ namespace Gecode {
    *
    * All variants for linear constraints over Boolean variables share 
    * the following properties:
-   *  - Bounds-consistency (over the real numbers) is supported for
-   *    all constraints (actually, for disequlities always domain-consistency
+   *  - Bounds consistency (over the real numbers) is supported for
+   *    all constraints (actually, for disequlities always domain consistency
    *    is used as it is cheaper).
    *  - Variables occurring multiply in the argument arrays are replaced
    *    by a single occurrence: for example, \f$ax+bx\f$ becomes
@@ -1871,7 +1951,7 @@ namespace Gecode {
   linear(Space* home, const IntArgs& a, const BoolVarArgs& x,
          IntRelType r, IntVar y,
          IntConLevel icl=ICL_DEF, PropKind pk=PK_DEF);
-  /** \brief Post propagator for \f$\left(\sum_{i=0}^{|x|-1}a_i\cdot x_i\sim_r y\f\right)\Leftrightarrow b$
+  /** \brief Post propagator for \f$\left(\sum_{i=0}^{|x|-1}a_i\cdot x_i\sim_r y\right)\Leftrightarrow b\f$
    *
    *  Throws an exception of type Int::ArgumentSizeMismatch, if
    *  \a a and \a x are of different size.
@@ -1885,6 +1965,7 @@ namespace Gecode {
 
   /**
    * \defgroup TaskModelIntUnshare Unsharing variables
+   * \ingroup TaskModelInt
    *
    * Unsharing replaces multiple occurences of the same variable by
    * fresh yet equal (enforced through propagators for equality)
@@ -1903,8 +1984,8 @@ namespace Gecode {
   /**
    * \brief Replace multiple variable occurences in \a x by fresh variables
    *
-   * Supports domain-consistency (\a icl = ICL_DOM, default) and
-   * bounds-consistency (\a icl = ICL_BND).
+   * Supports domain consistency (\a icl = ICL_DOM, default) and
+   * bounds consistency (\a icl = ICL_BND).
    *
    */
   GECODE_INT_EXPORT void
@@ -1921,7 +2002,6 @@ namespace Gecode {
    * \defgroup TaskModelIntBranch Branching
    * \ingroup TaskModelInt
    */
-
   //@{
   /// Which variable to select for branching
   enum IntVarBranch {
@@ -1991,6 +2071,7 @@ namespace Gecode {
   GECODE_INT_EXPORT void
   branch(Space* home, const BoolVarArgs& x, 
          IntVarBranch vars, IntValBranch vals);
+
   //@}
 
   /**

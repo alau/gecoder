@@ -11,8 +11,8 @@
  *     Guido Tack, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-22 06:55:38 +0100 (Fri, 22 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6274 $
+ *     $Date: 2008-07-11 10:10:11 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7310 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -126,6 +126,13 @@
 #include "gecode/kernel/var-traits.icc"
 
 /*
+ * Variables and testing for shared variables
+ *
+ */
+
+#include "gecode/kernel/var.icc"
+
+/*
  * Access to the constraint graph
  *
  */
@@ -133,12 +140,11 @@
 #include "gecode/kernel/reflection.icc"
 
 /*
- * Variables, views and testing for shared variables
+ * Views
  *
  */
 
 #include "gecode/kernel/view.icc"
-#include "gecode/kernel/var.icc"
 
 /*
  * Variable and argument arrays

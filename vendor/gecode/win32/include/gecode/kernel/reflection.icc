@@ -7,8 +7,8 @@
  *     Guido Tack, 2007
  *
  *  Last modified:
- *     $Date: 2008-03-05 09:20:52 +0100 (Wed, 05 Mar 2008) $ by $Author: tack $
- *     $Revision: 6414 $
+ *     $Date: 2008-07-11 09:39:08 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7297 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -305,7 +305,7 @@ namespace Gecode { namespace Reflection {
     /// Construct empty VarSpec
     VarSpec(void);
     /// Construct specification for a variable
-    VarSpec(Support::Symbol vti, Arg* domain);
+    VarSpec(Support::Symbol vti, Arg* domain, bool assigned=false);
     /// Copy constructor
     VarSpec(const VarSpec& s);
     /// Assignment operator
@@ -320,6 +320,8 @@ namespace Gecode { namespace Reflection {
     bool hasName(void) const;
     /// Get the domain of this variable
     Arg* dom(void) const;
+    /// Return whether variable is assigned
+    bool assigned(void) const;
     // Get the variable type identifier for this variable
     Support::Symbol vti(void) const;
   };
@@ -712,7 +714,9 @@ namespace Gecode { namespace Reflection {
     /// Default constructor
     Var(void);
     /// Construct from \a v
-    template <class V> explicit Var(const V& v);
+    template <class VarImp> explicit Var(const VarBase<VarImp>& v);
+    /// Construct from \a v
+    Var(const Var& v);
     /// Construct from \a var with variable type identifier \a vti
     Var(VarImpBase* var, const Support::Symbol& vti);
     /// Update during cloning
@@ -721,6 +725,8 @@ namespace Gecode { namespace Reflection {
     GECODE_KERNEL_EXPORT std::ostream& print(std::ostream& os) const;
     /// Reflection
     GECODE_KERNEL_EXPORT Arg* spec(const Space* home, VarMap& vm) const;
+    /// Cast to variable implementation base
+    VarImpBase* varImpBase(void) const;
     /// Cast to concrete variable type
     template <class VarImp>
     VarImp* var(void) const;
@@ -761,30 +767,27 @@ namespace Gecode { namespace Reflection {
   forceinline
   Var::Var(void) {}
     
-  template <class V>
-  Var::Var(const V& v) {
-    typedef typename VarViewTraits<V>::View View;
-    View view(v);
-    _var = view.var();
-    _vti = view.var()->vti;
+  template <class VarImp>
+  forceinline
+  Var::Var(const VarBase<VarImp>& v) {
+    _var = v.var();
+    _vti = v.var()->vti;
   }
 
-  template <>
-  inline
+  forceinline
   Var::Var(const Var& v) : _var(v._var), _vti(v._vti) {}
   
-  inline
+  forceinline
   Var::Var(VarImpBase* var, const Support::Symbol& vti)
     : _var(var), _vti(vti) {}
 
-  template <>
-  inline VarImpBase*
-  Var::var(void) const {
-    return static_cast<VarImpBase*>(_var);
+  forceinline VarImpBase*
+  Var::varImpBase(void) const {
+    return static_cast<VarImpBase*>(_var);    
   }
-  
+
   template <class VarImp>
-  VarImp*
+  inline VarImp*
   Var::var(void) const {
     if (! (VarImp::vti == _vti))
       throw ReflectionException("VTI mismatch");
@@ -797,22 +800,22 @@ namespace Gecode { namespace Reflection {
 
 /// Register a propagator with zero or one template argument
 #define GECODE_REGISTER1(P) \
-  ::Gecode::Reflection::ActorRegistrar< P > GECODE_FRESH(r);
+  ::Gecode::Reflection::ActorRegistrar< P > GECODE_FRESH(r)
 /// Register a propagator with two template arguments
 #define GECODE_REGISTER2(P1,P2) \
-  ::Gecode::Reflection::ActorRegistrar< P1,P2 > GECODE_FRESH(r);
+  ::Gecode::Reflection::ActorRegistrar< P1,P2 > GECODE_FRESH(r)
 /// Register a propagator with three template arguments
 #define GECODE_REGISTER3(P1,P2,P3) \
-  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3 > GECODE_FRESH(r);
+  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3 > GECODE_FRESH(r)
 /// Register a propagator with four template arguments
 #define GECODE_REGISTER4(P1,P2,P3,P4) \
-  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3,P4 > GECODE_FRESH(r);
+  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3,P4 > GECODE_FRESH(r)
 /// Register a propagator with five template arguments
 #define GECODE_REGISTER5(P1,P2,P3,P4,P5) \
-  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3,P4,P5 > GECODE_FRESH(r);
+  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3,P4,P5 > GECODE_FRESH(r)
 /// Register a propagator with six template arguments
 #define GECODE_REGISTER6(P1,P2,P3,P4,P5,P6) \
-  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3,P4,P5,P6 > GECODE_FRESH(r);
+  ::Gecode::Reflection::ActorRegistrar< P1,P2,P3,P4,P5,P6 > GECODE_FRESH(r)
 
   //@}
 
@@ -899,14 +902,38 @@ namespace Reflection {
     return mangled;
   }
   /// Mangle ati with type information
-  template <class View0, bool b>
+  template <class View0>
   Support::Symbol
-  mangle(const Support::Symbol& ati) {
+  mangle(const Support::Symbol& ati, bool b) {
     Support::Symbol mangled = ati.copy();
     mangled += "<";
     mangled += TypeOf<View0>::t();
     mangled += ",";
-    mangled += (b ? "true" : "false");
+    mangled += Support::Symbol(b);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, unsigned int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
     mangled += ">";
     return mangled;
   }
@@ -923,16 +950,44 @@ namespace Reflection {
     return mangled;
   }
   /// Mangle ati with type information
-  template <class View0, class View1, bool b>
+  template <class View0, class View1>
   Support::Symbol
-  mangle(const Support::Symbol& ati) {
+  mangle(const Support::Symbol& ati, bool b) {
     Support::Symbol mangled = ati.copy();
     mangled += "<";
     mangled += TypeOf<View0>::t();
     mangled += ",";
     mangled += TypeOf<View1>::t();
     mangled += ",";
-    mangled += (b ? "true" : "false");
+    mangled += Support::Symbol(b);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, unsigned int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
     mangled += ">";
     return mangled;
   }
@@ -951,9 +1006,9 @@ namespace Reflection {
     return mangled;
   }
   /// Mangle ati with type information
-  template <class View0, class View1, class View2, bool b>
+  template <class View0, class View1, class View2>
   Support::Symbol
-  mangle(const Support::Symbol& ati) {
+  mangle(const Support::Symbol& ati, bool b) {
     Support::Symbol mangled = ati.copy();
     mangled += "<";
     mangled += TypeOf<View0>::t();
@@ -962,7 +1017,39 @@ namespace Reflection {
     mangled += ",";
     mangled += TypeOf<View2>::t();
     mangled += ",";
-    mangled += (b ? "true" : "false");
+    mangled += Support::Symbol(b);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, unsigned int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
     mangled += ">";
     return mangled;
   }
@@ -983,7 +1070,62 @@ namespace Reflection {
     return mangled;
   }
   /// Mangle ati with type information
-  template <class View0, class View1, class View2, class View3, bool b>
+  template <class View0, class View1, class View2, class View3>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, bool b) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += TypeOf<View3>::t();
+    mangled += ",";
+    mangled += Support::Symbol(b);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2, class View3>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += TypeOf<View3>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2, class View3>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, unsigned int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += TypeOf<View3>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
+  
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2, class View3, class View4>
   Support::Symbol
   mangle(const Support::Symbol& ati) {
     Support::Symbol mangled = ati.copy();
@@ -996,11 +1138,70 @@ namespace Reflection {
     mangled += ",";
     mangled += TypeOf<View3>::t();
     mangled += ",";
-    mangled += (b ? "true" : "false");
+    mangled += TypeOf<View4>::t();
     mangled += ">";
     return mangled;
   }
-  
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2, class View3, class View4>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, bool b) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += TypeOf<View3>::t();
+    mangled += ",";
+    mangled += TypeOf<View4>::t();
+    mangled += ",";
+    mangled += Support::Symbol(b);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2, class View3, class View4>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += TypeOf<View3>::t();
+    mangled += ",";
+    mangled += TypeOf<View4>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
+  /// Mangle ati with type information
+  template <class View0, class View1, class View2, class View3, class View4>
+  Support::Symbol
+  mangle(const Support::Symbol& ati, unsigned int i) {
+    Support::Symbol mangled = ati.copy();
+    mangled += "<";
+    mangled += TypeOf<View0>::t();
+    mangled += ",";
+    mangled += TypeOf<View1>::t();
+    mangled += ",";
+    mangled += TypeOf<View2>::t();
+    mangled += ",";
+    mangled += TypeOf<View3>::t();
+    mangled += ",";
+    mangled += TypeOf<View4>::t();
+    mangled += ",";
+    mangled += Support::Symbol(i);
+    mangled += ">";
+    return mangled;
+  }
   //@}
 
 }}

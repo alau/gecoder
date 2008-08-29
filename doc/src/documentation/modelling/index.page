@@ -7,20 +7,21 @@ description: How to use Gecode/R to model problems and solve them using constrai
 
 h1. Modelling a problem
 
-<div class="summary">
-<p>Modelling can be broken down into several steps. The first part of the job
-is to express the problem so that one can get a solution. The second part is to
-look for ways to improve the pruning so that one can get a solution quicker.</p>
-</div>
+<div class="summary"> <p>Modelling can be broken down into several
+steps. The first steps aim to express the problem so that one can get a
+solution. The rest of the steps aim to look for ways to improve the
+pruning so that one can get a solution quicker.</p> </div>
 
-The following points are duplicated in the modelling examples, to make them easy
-to follow.
+The following points are duplicated in the modelling examples found in
+the menu. It might be helpful to read an example in parallel with this
+page to get some concrete examples of each step.
 
 h2. Understand the problem
 
 The first step is to understand the problem, more specifically to understand 
-what is required of a solution to the problem. Understand the problem well 
-enough to completely express it in a few concise points or rules.
+what is required of a solution to the problem. Express the entire problem in 
+a few concise bullet points that describe exactly what is expected of a
+solution.
 
 h2. Select the view
 
@@ -29,13 +30,14 @@ The variables will need to include the sought solutions.
 
 h3. Be economic
 
-Try to pick a view that cuts down on the number of constraints that we 
-explicitly have to express.
+Try to pick a view that cuts down on the number of constraints that 
+explicitly have to be expressed.
 
-An example is the {example: {name: n-queens, 
-linkText: n-queens problem}} where the choice of view takes care of the 
-constraint that there may only be one queen per column. We would not have that 
-benefit if we for instance would use a nxn matrix of boolean variables.
+An example is the {example: {name: n-queens, linkText: n-queens problem}} 
+where the choice of view takes care of the constraint that
+there may only be one queen per column. Using for instance an n-times-n matrix
+of boolean variables would have required explicitly expressing that
+constraint.
 
 h3. Be aware of multiple views
 
@@ -45,14 +47,14 @@ Constraints might end up being hard to describe in one view, but trivial in
 another.
 
 There's no need to restrict oneself to only using one view. One can link
-multiple views using the channel constraint to get the best of both worlds. The
-two sudoku views above are examples of two views which can be channeled.
+multiple views using the channel constraints to get the best of both
+worlds.
 
 h2. Express the constraints
 
-This is the time to apply your understanding of the problem. Take a look at 
-the points and try to convert them into constraints (possibly multiple). 
-Multiple views can help here since it might be easier to find corresponding
+Now apply your understanding of the problem. Take a look at the points
+and try to convert them into constraints (possibly multiple).  Multiple
+views can help here since it might be easier to find corresponding
 constraints when looking at a different view of the problem.
 
 Remember that reification can be used to combine constraints and thereby express
@@ -60,18 +62,16 @@ complex rules. Reification should be thought of as a last resort as a single
 constraint will probably be more powerful than if you glue several constraints 
 together with reification.
 
-Hopefully you will find constraints that cover all of the problem's 
-requirements. 
-
 h2. Select branching strategy
 
 The last thing to think about is the branching. Anything that you tell Gecode
 to branch on will be required to be assigned in a solution. Do not branch on 
 variables that you do not need the values of from a solution.
 
-Selecting branching strategy is mostly a question about coming up with a 
-heuristic that would fit the problem well. You can also resort to simply 
-testing all the strategies to find out which work and which don't.
+Selecting branching strategy is mostly a question about coming up with a
+heuristic that fits the problem. This can either be done by reasoning
+about how the possibilities should best be explored or by simply testing
+all the strategies to find out which work and which don't.
 
 h2. Tweak the performance
 
@@ -81,8 +81,9 @@ you need to tweak the performance.
 
 h3. Select a better branching strategy
 
-Branching strategies can make a large difference. Which is best depends on the
-problem. Compare the available ones if you haven't already done so.
+Branching strategies can make a large difference. Which strategy is best
+depends on the problem. Compare the available ones if you haven't
+already done so.
 
 h3. Change propagation strengths
 
@@ -92,32 +93,33 @@ or simply trying them out.
 
 h3. Add implied constraints
 
-Just because we have given the solver enough constraints to be able to identify
-a solution doesn't mean that we have to stop. It might still be worth 
-explicitly expressing some of the constraints that are implicitly given by our 
-expressed constrained. It will not change the solutions, but it can help Gecode 
+Just because you have given the solver enough constraints to be able to identify
+a solution doesn't mean that you have to stop there. It might still be worth 
+explicitly expressing some of the constraints that are implicitly given by the 
+expressed constraints. It will not change the solutions, but it can help Gecode 
 prune the search space faster.
 
 h3. Break symmetries
 
 In many situations symmetries will appear. 
 
-In the {example: {name: n-queens, linkText: n-queens example}} we have several 
-rotational and reflection symmetries since the chessboard can be e.g. rotated 
+In the {example: {name: n-queens, linkText: n-queens example}} there are several 
+rotational and reflection symmetries. The chessboard can for instance be rotated 
 without changing whether an assignment is a solution. Nothing is done to counter 
-the symmetries in the example, in total there are only 12 unique solutions, but 
-the example will give us 92 solutions in total.
+the symmetries in the example. There are in total only 12 unique solutions, but 
+the example will return 92.
 
-Symmetries are unnecessary since they add nothing. If we are able to remove
-them then we get a smaller search space, which means that we can find a 
+Symmetries are unnecessary since they add nothing. Removing them
+means that you get a smaller search space, which means that you can find a 
 solution faster. 
 
-The way to remove symmetries is to impose additional constraints that do not 
-remove any unique solutions, only symmetries. We could for instance constrain
-the queen in the first column to be above the queen in the last column. Any 
-solution that the additional constraint invalidates can be turned into a valid 
-solution through reflection in the y-axis of the board. Hence we are only 
-removing symmetries, not unique solutions.
+The way to remove symmetries is to impose additional constraints that do
+not remove any unique solutions, only symmetries. In the n-queens case
+you can for instance constrain the queen in the first column to be above
+the queen in the last column. Any solution that the additional
+constraint invalidates can be turned into a valid solution through
+reflection in the y-axis of the board. Hence only removing symmetries,
+not unique solutions.
 
 
 h2. Other resources

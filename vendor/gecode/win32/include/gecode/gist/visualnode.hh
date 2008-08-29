@@ -6,8 +6,8 @@
  *     Guido Tack, 2006
  *
  *  Last modified:
- *     $Date: 2008-02-19 11:05:15 +0100 (Tue, 19 Feb 2008) $ by $Author: tack $
- *     $Revision: 6231 $
+ *     $Date: 2008-07-11 10:37:06 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7340 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -38,36 +38,100 @@
 #define GECODE_GIST_VISUALNODE_HH
 
 #include "gecode/gist/spacenode.hh"
-#include "gecode/gist/shapelist.hh"
 #include "gecode/kernel.hh"
-#include <vector>
 #include <string>
 
 namespace Gecode { namespace Gist {
 
+  /// \brief Bounding box
+  class BoundingBox {
+  public:
+    /// Left coordinate
+    int left;
+    /// Right coordinate 
+    int right;
+    /// Constructor
+    BoundingBox(int l, int r);
+    /// Default constructor
+    BoundingBox(void) {}
+  };
+
+  /// \brief Extent, representing shape of a tree at one depth level
+  class Extent {
+  public:
+    /// Left extent
+    int l;
+    /// Right extent
+    int r;
+    /// Default constructor
+    Extent(void);
+    /// Construct with \a l0 and \a r0
+    Extent(int l0, int r0);
+    /// Construct with width \a width
+    Extent(int width);
+    
+    /// Extend extent by \a deltaL and \a deltaR
+    void extend(int deltaL, int deltaR);
+    /// Move extent by \a delta
+    void move(int delta);
+  };
+
+  /// \brief The shape of a subtree
+  class Shape {
+  private:
+    /// The depth of this shape
+    int _depth;
+    /// The shape is an array of extents, one for each depth level
+    Extent shape[1];
+    /// Copy construtor
+    Shape(const Shape&);
+    /// Assignment operator
+    Shape& operator=(const Shape&);
+    /// Constructor
+    Shape(void);
+  public:
+    /// Construct shape of depth \a d
+    static Shape* allocate(int d);
+    /// Construct with single extent \a e
+    static Shape* allocate(Extent e);
+    /// Construct with \e for the root and \a subShape for the children
+    static Shape* allocate(Extent e, const Shape* subShape);
+    /// Construct from \a subShape
+    static Shape* allocate(const Shape* subShape);
+    // Destruct
+    static void deallocate(Shape*);
+
+    /// Static shape for leaf nodes
+    static Shape* leaf;
+    /// Static shape for hidden nodes
+    static Shape* hidden;
+
+    /// Return depth of the shape
+    int depth(void) const;
+    /// Return extent at depth \a i
+    const Extent& operator[](int i) const;
+    /// Return extent at depth \a i
+    Extent& operator[](int i);
+    /// Return if extent exists at \a depth, if yes return it in \a extent
+    bool getExtentAtDepth(int depth, Extent& extent);
+    /// Return bounding box
+    BoundingBox getBoundingBox(void);
+  };
+  
   /// \brief Node class that supports visual layout
   class VisualNode : public SpaceNode {
   protected:
     /// Relative offset from the parent node
     int offset;
-    /// Whether the node needs re-layout
-    bool dirty;
-    /// Whether the layout of the node's children is completed
-    bool childrenLayoutDone;
-    /// Whether the node is hidden
-    bool hidden;
-    /// Whether the node is marked
-    bool marked;
     
-    /// Whether the node is on the selected path
-    bool onPath;
-    /// Whether the node is the head of the selected path
-    bool lastOnPath;
-    /// The alternative that is next on the path
-    int pathAlternative;
-
-    /// Heat value 
-    unsigned char heat;
+    /// Flags for VisualNodes
+    enum VisualNodeFlags {
+      DIRTY = SpaceNode::LASTBIT+1,
+      CHILDRENLAYOUTDONE,
+      HIDDEN,
+      MARKED,
+      ONPATH
+    };
 
     /// Shape of this node
     Shape* shape;
@@ -77,17 +141,12 @@ namespace Gecode { namespace Gist {
     bool containsCoordinateAtDepth(int x, int depth);
   public:
     /// Constructor
-    VisualNode(int alternative, BestNode* b);
+    VisualNode(void);
     /// Constructor for root node from \a root and \a b
-    VisualNode(Space* root, Better* b);
+    VisualNode(Space* root);
     /// Destructor
-    virtual ~VisualNode(void);
+    ~VisualNode(void);
     
-    /// Shape of a single node
-    static const Shape singletonShape;
-    /// Unit shape
-    static const Shape unitShape;
-
     /// Return if node is hidden
     bool isHidden(void);
     /// Set hidden state to \a h
@@ -118,18 +177,11 @@ namespace Gecode { namespace Gist {
     void unPathUp(void);
     /// Return whether node is on the path
     bool isOnPath(void);
-    /// Return whether node is the head of the path
-    bool isLastOnPath(void);
     /// Return the alternative of the child that is on the path (-1 if none)
     int getPathAlternative(void);
-    /// Set the path attributes of the node
-    void setPathInfos(bool onPath0, int pathAlternative0 = -1, bool lastOnPath0 = false);
-    
-    /// Return heat value
-    unsigned char getHeat(void) const;
-    /// Set heat value to \a h
-    void setHeat(unsigned char h);
-    
+    /// Set whether node is on the path
+    void setOnPath(bool onPath0);
+        
     /// Toggle whether this node is hidden
     void toggleHidden(void);
     /// Hide all failed subtrees of this node
@@ -141,14 +193,16 @@ namespace Gecode { namespace Gist {
     Shape* getShape(void);
     /// Set the shape of this node
     void setShape(Shape* s);
+    /// Compute the shape according to the shapes of the children
+    void computeShape(void);
     /// Set the bounding box
     void setBoundingBox(BoundingBox b);
     /// Return the bounding box
     BoundingBox getBoundingBox(void);
-    /// Create a child for alternative \a alternative
-    virtual VisualNode* createChild(int alternative);
+    /// Return depth of the subtree of this node
+    int depth(void);
     /// Signal that the status has changed
-    virtual void changedStatus();
+    void changedStatus();
     /// Return the parent
     VisualNode* getParent(void);
     /// Return child \a i
@@ -156,10 +210,16 @@ namespace Gecode { namespace Gist {
     /// Find a node in this subtree at coordinates \a x, \a y
     VisualNode* findNode(int x, int y);    
     
-    std::string toolTip(void);
+    /// Return string that is used as a tool tip
+    std::string toolTip(BestNode* curBest);
+    
+    /// Return size information
+    size_t size(void) const;
   };
 
 }}
+
+#include "gecode/gist/visualnode.icc"
 
 #endif
 

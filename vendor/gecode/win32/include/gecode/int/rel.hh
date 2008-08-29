@@ -13,8 +13,8 @@
  *     Gabor Szokoli, 2003
  *
  *  Last modified:
- *     $Date: 2008-01-29 13:37:51 +0100 (Tue, 29 Jan 2008) $ by $Author: tack $
- *     $Revision: 5993 $
+ *     $Date: 2008-07-11 09:33:32 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7290 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -59,7 +59,7 @@ namespace Gecode { namespace Int { namespace Rel {
    */
 
   /**
-   * \brief Binary domain-consistent equality propagator
+   * \brief Binary domain consistent equality propagator
    *
    * Uses staging by first performing bounds propagation and only
    * then domain propagation.
@@ -79,6 +79,8 @@ namespace Gecode { namespace Int { namespace Rel {
   public:
     /// Constructor for posting
     EqDom(Space* home, View0 x0, View1 x1);
+    /// Constructor for rewriting \a p during cloning
+    EqDom(Space* home, bool share, Propagator& p, View0 x0, View1 x1);
     /// Copy propagator during cloning
     virtual Actor* copy(Space* home, bool share);
     /**
@@ -93,18 +95,18 @@ namespace Gecode { namespace Int { namespace Rel {
     virtual ExecStatus propagate(Space* home, ModEventDelta med);
     /// Specification for this propagator
     virtual Reflection::ActorSpec spec(const Space* home,
-                                        Reflection::VarMap& m) const;
+                                       Reflection::VarMap& m) const;
     /// Post propagator according to specification
     static void post(Space* home, Reflection::VarMap& vars,
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post domain-consistent propagator \f$ x_0 = x_1\f$
+    /// Post domain consistent propagator \f$ x_0 = x_1\f$
     static  ExecStatus post(Space* home, View0 x0, View1 x1);
   };
 
   /**
-   * \brief Binary bounds-consistent equality propagator
+   * \brief Binary bounds consistent equality propagator
    *
    * Requires \code #include "gecode/int/rel.hh" \endcode
    * \ingroup FuncIntProp
@@ -135,12 +137,12 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post bounds-consistent propagator \f$ x_0 = x_1\f$
+    /// Post bounds consistent propagator \f$ x_0 = x_1\f$
     static  ExecStatus post(Space* home, View0 x0, View1 x1);
   };
 
   /**
-   * \brief n-ary domain-consistent equality propagator
+   * \brief n-ary domain consistent equality propagator
    *
    * Uses staging by first performing bounds propagation and only
    * then domain propagation.
@@ -178,12 +180,12 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post domain-consistent propagator \f$ x_0 = x_1=\ldots =x_{|x|-1}\f$
+    /// Post domain consistent propagator \f$ x_0 = x_1=\ldots =x_{|x|-1}\f$
     static  ExecStatus post(Space* home, ViewArray<View>& x);
   };
 
   /**
-   * \brief n-ary bounds-consistent equality propagator
+   * \brief n-ary bounds consistent equality propagator
    *
    * Requires \code #include "gecode/int/rel.hh" \endcode
    * \ingroup FuncIntProp
@@ -217,12 +219,12 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post bounds-consistent propagator \f$ x_0 = x_1=\ldots =x_{|x|-1}\f$
+    /// Post bounds consistent propagator \f$ x_0 = x_1=\ldots =x_{|x|-1}\f$
     static  ExecStatus post(Space* home, ViewArray<View>& x);
   };
 
   /**
-   * \brief Reified binary domain-consistent equality propagator
+   * \brief Reified binary domain consistent equality propagator
    *
    * Requires \code #include "gecode/int/rel.hh" \endcode
    * \ingroup FuncIntProp
@@ -251,12 +253,12 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post domain-consistent propagator \f$ (x_0 = x_1)\Leftrightarrow b\f$
+    /// Post domain consistent propagator \f$ (x_0 = x_1)\Leftrightarrow b\f$
     static  ExecStatus post(Space* home, View x0, View x1, CtrlView b);
   };
 
   /**
-   * \brief Reified binary bounds-consistent equality propagator
+   * \brief Reified binary bounds consistent equality propagator
    *
    * Requires \code #include "gecode/int/rel.hh" \endcode
    * \ingroup FuncIntProp
@@ -285,12 +287,12 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post bounds-consistent propagator \f$ (x_0 = x_1)\Leftrightarrow b\f$
+    /// Post bounds consistent propagator \f$ (x_0 = x_1)\Leftrightarrow b\f$
     static  ExecStatus post(Space* home, View x0, View x1, CtrlView b);
   };
 
   /**
-   * \brief Reified domain-consistent equality with integer propagator
+   * \brief Reified domain consistent equality with integer propagator
    *
    * Requires \code #include "gecode/int/rel.hh" \endcode
    * \ingroup FuncIntProp
@@ -320,12 +322,12 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post domain-consistent propagator \f$ (x = c)\Leftrightarrow b\f$
+    /// Post domain consistent propagator \f$ (x = c)\Leftrightarrow b\f$
     static  ExecStatus post(Space* home, View x, int c, CtrlView b);
   };
 
   /**
-   * \brief Reified bounds-consistent equality with integer propagator
+   * \brief Reified bounds consistent equality with integer propagator
    *
    * Requires \code #include "gecode/int/rel.hh" \endcode
    * \ingroup FuncIntProp
@@ -355,7 +357,7 @@ namespace Gecode { namespace Int { namespace Rel {
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post bounds-consistent propagator \f$ (x = c)\Leftrightarrow b\f$
+    /// Post bounds consistent propagator \f$ (x = c)\Leftrightarrow b\f$
     static  ExecStatus post(Space* home, View x, int c, CtrlView b);
   };
 
@@ -579,69 +581,37 @@ namespace Gecode { namespace Int { namespace Rel {
    * \ingroup FuncIntProp
    */
   template <class View>
-  class Lex : public NaryPropagator<ViewTuple<View,2>,PC_INT_BND> {
+  class Lex : public Propagator {
   protected:
-    using NaryPropagator<ViewTuple<View,2>,PC_INT_BND>::x;
-
+    /// View arrays
+    ViewArray<View> x, y;
     /// Determines whether propagator is strict or not
     bool strict;
     /// Constructor for cloning \a p
     Lex(Space* home, bool share, Lex& p);
     /// Constructor for posting
-    Lex(Space* home, ViewArray<ViewTuple<View,2> >& xy, bool strict);
+    Lex(Space* home, ViewArray<View>& x, ViewArray<View>& y, bool strict);
   public:
     /// Copy propagator during cloning
     virtual Actor* copy(Space* home, bool share);
+    /// Cost function (defined as dynamic PC_LINEAR_LO)
+    virtual PropCost cost(ModEventDelta med) const;
     /// Perform propagation
     virtual ExecStatus propagate(Space* home, ModEventDelta med);
     /// Specification for this propagator
     virtual Reflection::ActorSpec spec(const Space* home,
-                                        Reflection::VarMap& m) const;
+                                       Reflection::VarMap& m) const;
     /// Post propagator according to specification
     static void post(Space* home, Reflection::VarMap& vars,
                      const Reflection::ActorSpec& spec);
     /// Mangled propagator name
     static Support::Symbol ati(void);
-    /// Post propagator for lexical order on \a xy
-    static  ExecStatus post(Space* home,
-                            ViewArray<ViewTuple<View,2> >& xy, bool strict);
+    /// Post propagator for lexical order between \a x and \a y
+    static ExecStatus post(Space* home, ViewArray<View>& x, ViewArray<View>& y,
+                           bool strict);
+    /// Delete propagator and return its size
+    virtual size_t dispose(Space* home);
   };
-
-
-  /**
-   * \brief %Propagator for n-ary disequlaity
-   *
-   * Requires \code #include "gecode/int/rel.hh" \endcode
-   * \ingroup FuncIntProp
-   */
-  template<class View>
-  class NaryNq : public BinaryPropagator<ViewTuple<View,2>,PC_INT_DOM> {
-  protected:
-    using BinaryPropagator<ViewTuple<View,2>,PC_INT_DOM>::x0;
-    using BinaryPropagator<ViewTuple<View,2>,PC_INT_DOM>::x1;
-    /// Views not yet subscribed to
-    ViewArray<ViewTuple<View,2> > x;
-    /// Constructor for posting
-    NaryNq(Space* home,  ViewArray<ViewTuple<View,2> >& x);
-    /// Constructor for cloning \a p
-    NaryNq(Space* home, bool share, NaryNq& p);
-  public:
-    /// Copy propagator during cloning
-    virtual Actor* copy(Space* home, bool share);
-    /// Perform propagation
-    virtual ExecStatus propagate(Space* home, ModEventDelta med);
-    /// Specification for this propagator
-    virtual Reflection::ActorSpec spec(const Space* home,
-                                        Reflection::VarMap& m) const;
-    /// Post propagator according to specification
-    static void post(Space* home, Reflection::VarMap& vars,
-                     const Reflection::ActorSpec& spec);
-    /// Mangled propagator name
-    static Support::Symbol ati(void);
-    /// Post propagator for \f$\exists i\in\{0,\ldots,|x|-1\}:\;x_i\neq y_i\f$
-    static  ExecStatus post(Space* home, ViewArray<ViewTuple<View,2> >& x);
-  };
-
 
 }}}
 

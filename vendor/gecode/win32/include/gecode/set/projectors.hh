@@ -11,8 +11,8 @@
  *     Christian Schulte, 2007
  *
  *  Last modified:
- *     $Date: 2008-02-27 18:06:13 +0100 (Wed, 27 Feb 2008) $ by $Author: tack $
- *     $Revision: 6332 $
+ *     $Date: 2008-08-07 16:04:08 +0200 (Thu, 07 Aug 2008) $ by $Author: tack $
+ *     $Revision: 7536 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -298,9 +298,9 @@ namespace Gecode {
     GECODE_SET_EXPORT Formula(bool b);
     /// Construct formula from \a f with sign \a s
     GECODE_SET_EXPORT Formula(const Formula& f, int sign);
-    /// Construct formula for \f$\mathit{fs}\times f\mathit{op} \mathit{gs}\times g\f$
+    /// Construct formula for \f$\mathit{fs}\times f\mathit{o} \mathit{gs}\times g\f$
     GECODE_SET_EXPORT Formula(const Formula& f, int fs,
-                              Operator r,
+                              Operator o,
                               const Formula& g, int gs);
     /// Extract projectors from formula
     GECODE_SET_EXPORT ProjectorSet projectors(void);

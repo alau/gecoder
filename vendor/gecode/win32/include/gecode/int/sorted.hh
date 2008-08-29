@@ -7,8 +7,8 @@
  *     Patrick Pekczynski, 2004
  *
  *  Last modified:
- *     $Date: 2008-01-13 15:02:42 +0100 (Sun, 13 Jan 2008) $ by $Author: schulte $
- *     $Revision: 5862 $
+ *     $Date: 2008-07-11 09:33:32 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7290 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -49,7 +49,7 @@
 namespace Gecode { namespace Int { namespace Sorted {
 
   /**
-   * \brief Bounds-consistent sortedness propagator
+   * \brief Bounds consistent sortedness propagator
    *
    * The algorithm is taken from: Sven Thiel, Efficient Algorithms 
    * for Constraint Propagation and for Processing Tree Descriptions,
@@ -59,46 +59,47 @@ namespace Gecode { namespace Int { namespace Sorted {
    * \ingroup FuncIntProp
    */
 
-  template<class View, class Tuple, bool Perm>
+  template<class View, bool Perm>
   class Sorted : public Propagator {
   protected:
-
-    /**
-     *  \brief Views to be sorted
-     *
-     *   If Tuple is instantiated to ViewTuple<View,2>,
-     *   \f$xz_i\f$ is a pair \f$(x_i, z_i)\f$, where
-     *   \f$x_i\f$ denotes an unsorted view
-     *   and \f$z_i\f$ is the explicit
-     *   permutation view mapping \f$x_i\f$ to its unsorted counterpart
-     *   \f$y_{z_i}\f$.
-     *   If Tuple is instantiated to ViewTuple<View,1>,
-     *   \f$xz_i\f$ is the unsorted view \f$x_i\f$ lifted to a ViewTuple.
-     */
-    ViewArray<Tuple> xz;
-
+    /// Views to be sorted
+    ViewArray<View> x;
     /// Views denoting the sorted version of \a x
     ViewArray<View> y;
-    /// original y array
+    /// Permutation variables (none, if Perm is false)
+    ViewArray<View> z;
+    /// Original \a y array
     ViewArray<View> w;
     /// connection to dropped view
     int reachable;
     /// Constructor for posting
-    Sorted(Space*, ViewArray<Tuple>&, ViewArray<View>&);
+    Sorted(Space*, ViewArray<View>& x, ViewArray<View>& y, ViewArray<View>& z);
+    /// Constructor for posting from reflection
+    Sorted(Space*, ViewArray<View>& x, ViewArray<View>& y,
+           ViewArray<View>& z, ViewArray<View>& w, int reachable);
     /// Constructor for cloning
-    Sorted(Space* home, bool share, Sorted<View, Tuple, Perm>& p);
+    Sorted(Space* home, bool share, Sorted<View,Perm>& p);
 
   public:
     /// Delete propagator and return its size
     virtual size_t dispose(Space* home);
     /// Copy propagator during cloning
     virtual Actor* copy(Space* home, bool share);
+    /// Specification for this propagator
+    virtual Reflection::ActorSpec spec(const Space* home,
+                                       Reflection::VarMap& m) const;
+    /// Post propagator according to specification
+    static void post(Space* home, Reflection::VarMap& vars,
+                     const Reflection::ActorSpec& spec);
+    /// Name of this propagator
+    static Support::Symbol ati(void);
     /// Cost function returning PC_LINEAR_HI
     virtual PropCost cost(ModEventDelta med) const;
     /// Perform propagation
     virtual ExecStatus propagate(Space* home, ModEventDelta med);
-    /// Post propagator for the views \a xz and \a y
-    static  ExecStatus post(Space*, ViewArray<Tuple>&, ViewArray<View>&);
+    /// Post propagator for views \a x, \a y, and \a z
+    static  ExecStatus post(Space*, ViewArray<View>& x, ViewArray<View>& y, 
+                            ViewArray<View>& z);
   };
 
 

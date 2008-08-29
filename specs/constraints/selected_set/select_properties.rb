@@ -18,7 +18,7 @@ class SelectionSampleProblem
   end
 end
 
-describe Gecode::SelectedSet::Select, ' (union)' do
+describe Gecode::SelectedSet::Element, ' (union)' do
   include GecodeR::Specs::SetHelper
 
   before do
@@ -46,8 +46,8 @@ describe Gecode::SelectedSet::Select, ' (union)' do
     (union - [5,7,9]).should be_empty
   end
 
-  it 'should translate into a select union constraint' do
-    Gecode::Raw.should_receive(:selectUnion)
+  it 'should translate into a elements union constraint' do
+    Gecode::Raw.should_receive(:elementsUnion)
     @sets[@set].union.must_be.subset_of([5,7,9])
     @model.solve!
   end
@@ -56,7 +56,7 @@ describe Gecode::SelectedSet::Select, ' (union)' do
     'property that produces set operand by short circuiting equality')
 end
 
-describe Gecode::SetEnum::Select, ' (intersection)' do
+describe Gecode::SetEnum::Element, ' (intersection)' do
   include GecodeR::Specs::SetHelper
 
   before do
@@ -86,8 +86,8 @@ describe Gecode::SetEnum::Select, ' (intersection)' do
     (intersection - [5,7,9]).should be_empty
   end
 
-  it 'should translate into a select intersection constraint' do
-    Gecode::Raw.should_receive(:selectInter)
+  it 'should translate into a elements intersection constraint' do
+    Gecode::Raw.should_receive(:elementsInter)
     @sets[@set].intersection.must_be.subset_of([5,7,9])
     @model.solve!
   end
@@ -96,7 +96,7 @@ describe Gecode::SetEnum::Select, ' (intersection)' do
     'property that produces set operand by short circuiting equality')
 end
 
-describe Gecode::SelectedSet::Select, ' (intersection with universe)' do
+describe Gecode::SelectedSet::Element, ' (intersection with universe)' do
   include GecodeR::Specs::SetHelper
 
   before do
@@ -134,8 +134,8 @@ describe Gecode::SelectedSet::Select, ' (intersection with universe)' do
     (intersection - [1,2]).should be_empty
   end
 
-  it 'should translate into a select intersection constraint' do
-    Gecode::Raw.should_receive(:selectInterIn)
+  it 'should translate into a elements intersection constraint' do
+    Gecode::Raw.should_receive(:elementsInter)
     @sets[@set].intersection(:with => 1..2).must_be.subset_of([5,7,9])
     @model.solve!
   end

@@ -1966,7 +1966,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::BoolVar", "b"
     end
     
-    ns.add_function "selectUnion" do |func|
+    ns.add_function "elementsUnion" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MSetVarArray", "x" do |param|
         param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(x, 2)->ptr()"
@@ -1975,35 +1975,35 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       func.add_parameter "Gecode::SetVar", "z"
     end
     
-    ns.add_function "selectInter" do |func|
+    ns.add_function "elementsInter" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MSetVarArray", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(x, 2)->ptr()"
+        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(argv[1], 2)->ptr()"
       end
       func.add_parameter "Gecode::SetVar", "y"
       func.add_parameter "Gecode::SetVar", "z"
     end
     
-    ns.add_function "selectInterIn" do |func|
+    ns.add_function "elementsInter" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MSetVarArray", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(x, 2)->ptr()"
+        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(argv[1], 2)->ptr()"
       end
       func.add_parameter "Gecode::SetVar", "y"
       func.add_parameter "Gecode::SetVar", "z"
       func.add_parameter "Gecode::IntSet", "universe"
     end
     
-    ns.add_function "selectSet" do |func|
+    ns.add_function "element" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MSetVarArray", "x" do |param|
-        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(x, 2)->ptr()"
+        param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(argv[1], 2)->ptr()"
       end
       func.add_parameter "Gecode::IntVar", "y"
       func.add_parameter "Gecode::SetVar", "z"
     end
     
-    ns.add_function "selectDisjoint" do |func|
+    ns.add_function "elementsDisjoint" do |func|
       func.add_parameter "Gecode::MSpace*", "home"
       func.add_parameter "Gecode::MSetVarArray", "x" do |param|
         param.custom_conversion = "*ruby2Gecode_MSetVarArrayPtr(x, 2)->ptr()"

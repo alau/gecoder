@@ -48,7 +48,7 @@ Generated from {RDoc: SetEnumOperand}.
 
 h3. @[]@
 
-{importRDoc: {file: constraints/set_enum/select.rb, method: def []}}
+{importRDoc: {file: constraints/set_enum/element.rb, method: def []}}
 
 h3. @union@
 

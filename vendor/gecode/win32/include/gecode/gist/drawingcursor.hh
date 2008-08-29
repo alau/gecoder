@@ -6,8 +6,8 @@
  *     Guido Tack, 2006
  *
  *  Last modified:
- *     $Date: 2008-02-19 11:05:15 +0100 (Tue, 19 Feb 2008) $ by $Author: tack $
- *     $Revision: 6231 $
+ *     $Date: 2008-07-11 10:37:06 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7340 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -38,6 +38,7 @@
 #define GECODE_GIST_QT_DRAWINGCURSOR_HH
 
 #include "gecode/gist/nodecursor.hh"
+#include "gecode/gist/layoutcursor.hh"
 #include <QtGui>
 
 namespace Gecode { namespace Gist {
@@ -49,11 +50,10 @@ namespace Gecode { namespace Gist {
     QPainter& painter;
     /// The clipping area
     QRect clippingRect;
+    /// The best solution (for branch-and-bound)
+    BestNode* curBest;
     /// The current coordinates
     int x, y;
-    
-    /// Whether to draw heat view
-    bool heatView;
     
     /// Test if current node is clipped
     bool isClipped(void);
@@ -75,8 +75,8 @@ namespace Gecode { namespace Gist {
     static const QColor lightBlue;
     
     /// Constructor
-    DrawingCursor(Gist::VisualNode* root, QPainter& painter0,
-                  bool heat,
+    DrawingCursor(Gist::VisualNode* root, BestNode* curBest0,
+                  QPainter& painter0,
                   const QRect& clippingRect0);
 
     ///\name Cursor interface
@@ -95,6 +95,8 @@ namespace Gecode { namespace Gist {
   };
 
 }}
+
+#include "gecode/gist/drawingcursor.icc"
 
 #endif
 

@@ -11,8 +11,8 @@
  *     Guido Tack, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-27 17:49:28 +0100 (Wed, 27 Feb 2008) $ by $Author: tack $
- *     $Revision: 6327 $
+ *     $Date: 2008-07-11 10:14:37 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7316 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -687,7 +687,7 @@ namespace Gecode { namespace Int {
      * \brief Schedule propagator \a p with modification event \a me
      *
      * The modfication event \a me can be a modification event for
-     * integer variables, however \a me will be ignore if it is not
+     * integer variables, however \a me will be ignored if it is not
      * ME_INT_VAL (or ME_BOOL_VAL).
      */
     static void schedule(Space* home, Propagator* p, ModEvent me);

@@ -7,8 +7,8 @@
  *     Christian Schulte, 2002
  *
  *  Last modified:
- *     $Date: 2008-02-22 07:19:02 +0100 (Fri, 22 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6276 $
+ *     $Date: 2008-07-11 10:54:36 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7354 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -57,11 +57,13 @@ namespace Gecode {
     : VarBase<Int::IntVarImp>(x.var()) {}
   forceinline
   IntVar::IntVar(const Reflection::Var& x)
-    : VarBase<Int::IntVarImp>(x) {}
+    : VarBase<Int::IntVarImp>(x.var<Int::IntVarImp>()) {}
 
 
   forceinline int
   IntVar::val(void) const {
+    if (!varimp->assigned())
+      throw Int::ValOfUnassignedVar("IntVar::val");
     return varimp->val();
   }
   forceinline int

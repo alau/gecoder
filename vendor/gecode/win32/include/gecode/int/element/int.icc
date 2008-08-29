@@ -7,8 +7,8 @@
  *     Christian Schulte, 2004
  *
  *  Last modified:
- *     $Date: 2008-01-31 18:29:16 +0100 (Thu, 31 Jan 2008) $ by $Author: tack $
- *     $Revision: 6017 $
+ *     $Date: 2008-07-11 09:36:57 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7295 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -418,6 +418,7 @@ namespace Gecode { namespace Int { namespace Element {
   template <class ViewA, class ViewB>
   ExecStatus
   Int<ViewA,ViewB>::propagate(Space* home, ModEventDelta) {
+    bool assigned = x0.assigned() && x1.assigned();
     if (ivm == NULL) {
       ivm = IdxValMap::allocate(x0.size());
       ivm->init(&c[0],x0);
@@ -428,7 +429,9 @@ namespace Gecode { namespace Int { namespace Element {
 
     ExecStatus es = ivm->tell(home,x0,x1);
     if (es == ES_FAILED)
-      return ES_FAILED;
+      return es;
+    if (es == ES_NOFIX)
+      return assigned ? ES_SUBSUMED(this,home) : ES_NOFIX;
 
     return (x0.assigned() || x1.assigned()) ? 
       ES_SUBSUMED(this,home) : es;

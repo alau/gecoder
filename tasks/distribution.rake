@@ -8,6 +8,10 @@ PKG_FILE_NAME_WITH_GECODE = "#{PKG_NAME_WITH_GECODE}-#{PKG_VERSION}"
 # The location where the precompiled DLL should be placed.
 DLL_LOCATION = 'lib/gecode.dll'
 EXT_DIR = 'ext'
+GECODE_DIR = 'vendor/gecode'
+GECODE_NAME = 'gecode-2.2.0'
+GECODE_ARCHIVE_NAME = "#{GECODE_NAME}.tar.gz"
+
 
 desc 'Generate RDoc'
 rd = Rake::RDocTask.new do |rdoc|
@@ -43,6 +47,18 @@ task :prepare_rdoc_dev do
   end
 end
 
+desc 'Extracts the source of Gecode before it is packaged into a gem'
+task :extract_gecode do
+  next if File.exist? "#{EXT_DIR}/#{GECODE_NAME}"
+  cd(EXT_DIR) do
+    cp "../#{GECODE_DIR}/#{GECODE_ARCHIVE_NAME}", GECODE_ARCHIVE_NAME
+    system("tar -xvf #{GECODE_ARCHIVE_NAME}")
+    rm GECODE_ARCHIVE_NAME 
+  end
+end
+# To ensure that the Gecode files exist for the gem spec.
+Rake::Task['extract_gecode'].invoke 
+
 spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
   s.version = GecodeR::VERSION
@@ -67,7 +83,7 @@ spec = Gem::Specification.new do |s|
   ].to_a
   s.require_path = 'lib'
   s.extensions << 'ext/extconf.rb'
-  s.requirements << 'Gecode 2.1.1'
+  s.requirements << 'Gecode 2.2.0'
 
   s.has_rdoc = true
   s.rdoc_options = rd.options
@@ -79,6 +95,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = "http://gecoder.rubyforge.org"
   s.rubyforge_project = "gecoder"
 
+=begin
   # Development dependencies.
   # Not listed: rubygems >= 1.2
   [['rake'], 
@@ -90,6 +107,7 @@ spec = Gem::Specification.new do |s|
     ['rubyforge']].each do |dependency|
     s.add_development_dependency(*dependency)
   end
+=end
 end
 
 # Create a clone of the gem spec with the precompiled binaries for Windows.
@@ -101,13 +119,13 @@ spec_windows_binary_with_gecode.requirements = []
 spec_windows_binary_with_gecode.files = spec.files.dup -
   FileList['ext/**/*'].to_a + 
   FileList['vendor/gecode/win32/lib/*'].to_a << 'lib/gecode.dll'
-spec_windows_binary_with_gecode.platform = 'mswin32' #Gem::Platform::WIN32
+spec_windows_binary_with_gecode.platform = 'x86-mswin32-60' #Gem::Platform::WIN32
 
 # Create a clone of the gem spec that includes Gecode.
 spec_with_gecode = spec.dup
 spec_with_gecode.name = PKG_NAME_WITH_GECODE
 spec_with_gecode.extensions = 
-  spec_with_gecode.extensions.dup.unshift 'ext/gecode-2.1.1/configure'
+  spec_with_gecode.extensions.dup.unshift 'ext/gecode-2.2.0/configure'
 spec_with_gecode.requirements = []
 spec_with_gecode.files = spec.files.dup + FileList['ext/gecode-*/**/*'].to_a 
 
@@ -139,6 +157,8 @@ end
 desc 'Removes generated distribution files'
 task :clobber do
   rm DLL_LOCATION if File.exists? DLL_LOCATION
+  extracted_gecode = "#{EXT_DIR}/#{GECODE_NAME}"
+  rm_r extracted_gecode if File.exists? extracted_gecode
   FileList[
     "#{EXT_DIR}/*.o",
     "#{EXT_DIR}/gecode.{cc,hh}",
@@ -175,8 +195,11 @@ gecode_release_files = [
   "pkg/#{PKG_FILE_NAME_WITH_GECODE}.gem",
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.tgz",
   #"pkg/#{PKG_FILE_NAME_WITH_GECODE}.zip",
-  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-mswin32.gem"
+  "pkg/#{PKG_FILE_NAME_WITH_GECODE}-x86-mswin32.gem"
 ]
+gecode_release_files.each do |pkg|
+  file pkg => :extract_gecode
+end
 desc 'Publish Gecode/R with Gecode packages on RubyForge'
 task :publish_gecoder_with_gecode_packages => 
     [:verify_user] + gecode_release_files do

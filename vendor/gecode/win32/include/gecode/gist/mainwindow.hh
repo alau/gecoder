@@ -6,8 +6,8 @@
  *     Guido Tack, 2006
  *
  *  Last modified:
- *     $Date: 2007-12-05 11:37:37 +0100 (Wed, 05 Dec 2007) $ by $Author: tack $
- *     $Revision: 5586 $
+ *     $Date: 2008-07-11 10:15:49 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7318 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -70,7 +70,7 @@ namespace Gecode { namespace Gist {
   protected Q_SLOTS:
     void statusChanged(const Statistics& stats, bool finished);
     void about(void);
-    void preferences(void);
+    void preferences(bool setup=false);
   public:
     /// Constructor
     GistMainWindow(Space* root, Better* b, Gist::Inspector* gi);

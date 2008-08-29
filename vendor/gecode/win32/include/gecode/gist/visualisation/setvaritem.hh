@@ -6,8 +6,8 @@
  *     Niko Paltzer, 2007
  *
  *  Last modified:
- *     $Date: 2008-02-06 17:16:59 +0100 (Wed, 06 Feb 2008) $ by $Author: nikopp $
- *     $Revision: 6097 $
+ *     $Date: 2008-07-11 10:37:06 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7340 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -37,8 +37,7 @@
 #ifndef GECODE_GIST_VISUALISATION_SETVARITEM_HH
 #define GECODE_GIST_VISUALISATION_SETVARITEM_HH
 
-#include <QtCore/QStack>
-#include <QtCore/QBitArray>
+#include <QtCore>
 
 #include "gecode/gist/visualisation/varitem.hh"
 
@@ -47,7 +46,11 @@ namespace Gecode { namespace Gist { namespace Visualisation {
 class SetVarItem : public VarItem {
   
 public:
-  SetVarItem(Reflection::VarSpec* spec, QGraphicsItem *parent = 0);
+  typedef int ItemData;
+  static ItemData initData(QVector<Reflection::VarSpec*> specs);
+
+  SetVarItem(Reflection::VarSpec* spec, const ItemData& data,
+             QGraphicsItem *parent = 0);
 
   void display(Reflection::VarSpec* spec);
   void displayOld(int pit); ///< Use to show the variable at point in time \a pit
@@ -61,6 +64,7 @@ protected:
   QGraphicsTextItem* cardText;
   int initMin; ///< Initial domain minimum
   int initMax; ///< Initial domain maximum
+  int offset; ///< Offset of first item
   int arraylength;
   QStack<QBitArray> updates; ///< Collected updates
   QStack<int> bound_updates;

@@ -7,8 +7,8 @@
  *     Patrick Pekczynski, 2004/2005
  *
  *  Last modified:
- *     $Date: 2008-01-29 13:37:51 +0100 (Tue, 29 Jan 2008) $ by $Author: tack $
- *     $Revision: 5993 $
+ *     $Date: 2008-07-11 09:28:48 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7285 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -55,7 +55,7 @@
 namespace Gecode { namespace Int { namespace GCC {
 
   /**
-   * \brief Bounds-consistent global cardinality propagator
+   * \brief Bounds consistent global cardinality propagator
    * \par [Reference]
    *  The algorithm is taken from: \n
      \verbatim
@@ -179,7 +179,7 @@ namespace Gecode { namespace Int { namespace GCC {
   };
 
   /**
-   * \brief Domain-consistent global cardinality propagator
+   * \brief Domain consistent global cardinality propagator
    * \par [Reference]
    *  The algorithm is taken from: \n
    * \anchor CardVarNPCompl

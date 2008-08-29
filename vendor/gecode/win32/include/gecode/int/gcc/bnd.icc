@@ -7,8 +7,8 @@
  *     Patrick Pekczynski, 2004/2005
  *
  *  Last modified:
- *     $Date: 2008-01-31 18:29:16 +0100 (Thu, 31 Jan 2008) $ by $Author: tack $
- *     $Revision: 6017 $
+ *     $Date: 2008-07-11 09:28:48 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7285 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -592,7 +592,7 @@ namespace Gecode { namespace Int { namespace GCC {
   }
 
   /**
-   * \brief Sharing test for the bounds-consistent global cardinality
+   * \brief Sharing test for the bounds consistent global cardinality
    * propagator.
    *
    * Due to parametrization on the problem views, \a View1 and the

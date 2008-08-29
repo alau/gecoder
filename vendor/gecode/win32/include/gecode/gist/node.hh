@@ -6,8 +6,8 @@
  *     Guido Tack, 2006
  *
  *  Last modified:
- *     $Date: 2007-11-27 17:43:23 +0100 (Tue, 27 Nov 2007) $ by $Author: nikopp $
- *     $Revision: 5460 $
+ *     $Date: 2008-07-11 10:32:29 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7337 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -37,52 +37,80 @@
 #ifndef GECODE_GIST_NODE_HH
 #define GECODE_GIST_NODE_HH
 
-#include <vector>
+#include "gecode/support.hh"
 
 namespace Gecode { namespace Gist {
 
+  class VisualNode;
+
+  static const int NodeBlockSize = 10000;
+
   /// \brief Base class for nodes of the search tree
-  class Node {
-  protected:
+  class Node : public Support::BlockClient<VisualNode,NodeBlockSize> {
+  private:
     /// The parent of this node, or NULL for the root
-    Node* parent;
-    /// The children of this node
-    std::vector<Node*> children;
-    /// The number of children of this node
-    int noOfChildren;
-    /// The alternative number this node represents
-    int alternative;
+    Node* parent;    
+
+    /// Tags that are used to encode the number of children
+    enum {
+      UNDET, //< Number of children not determined
+      LEAF,  //< Leaf node
+      TWO_CHILDREN, //< Node with at most two children
+      MORE_CHILDREN //< Node with more than two children
+    };
+
+    /// The children, or in case there are at most two, the first child
+    void* childrenOrFirstChild;
+    
+    union {
+      /// The second child or NULL, in case of at most two children
+      Node* secondChild;
+      /// The number of children, in case it is greater than 2
+      unsigned int noOfChildren;
+    } c;
+
+    /// Read the tag of childrenOrFirstChild
+    unsigned int getTag(void) const;
+    /// Set the tag of childrenOrFirstChild
+    void setTag(unsigned int tag);
+    /// Return childrenOrFirstChild without tag
+    void* getPtr(void) const;
+
+  protected:
+    /// Return whether this node is undetermined
+    bool isUndetermined(void) const;
+
   public:
+    typedef Support::BlockAllocator<VisualNode,NodeBlockSize> NodeAllocator;
+    
     /// Default constructor
     Node(void);
     /// Destructor
-    virtual ~Node(void);
+    ~Node(void);
     
     /// Return the parent
     Node* getParent(void);
     /// Return child no \a n
-    Node* getChild(int n);
+    Node* getChild(unsigned int n);
     
     /// Check if this node is the root of a tree
-    bool isRoot(void);
-    /// Compute the depth of this node
-    int getDepth(void);
-    
+    bool isRoot(void) const;
+
     /// Set the number of children to \a n
-    void setNumberOfChildren(int n);
+    void setNumberOfChildren(unsigned int n);
     /// Set child number \a n to be \a child
-    void setChild(int n, Node* child);
+    void setChild(unsigned int n, Node* child);
 
     /// Add new child node
     void addChild(Node* child);
 
     /// Return the number of children
-    int getNumberOfChildren(void);
-    /// Return which alternative this node represents
-    int getAlternative(void);
+    unsigned int getNumberOfChildren(void) const;
   };
 
 }}
+
+#include "gecode/gist/node.icc"
 
 #endif
 

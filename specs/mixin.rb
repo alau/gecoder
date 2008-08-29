@@ -14,12 +14,20 @@ class MixinSampleProblem
   end
 end
 
-class ClassWithMethodMissing
+class ClassWithMethodMissingLast
   include Gecode::Mixin
 
   def method_missing(*args)
     return :foo
   end
+end
+
+class ClassWithMethodMissingFirst
+  def method_missing(*args)
+    return :foo
+  end
+  
+  include Gecode::Mixin
 end
 
 describe Gecode::Mixin, ' (mixed into a class)' do
@@ -44,14 +52,27 @@ describe Gecode::Mixin, ' (mixed into a class)' do
     end.should_not raise_error
   end
 
-  it 'should not mess with classes defining methad missing' do
-    model = ClassWithMethodMissing.new
+  it 'should not mess with classes defining method missing' do
+    model = ClassWithMethodMissingFirst.new
 
     # Should not completely overwrite #method_missing.
     model.does_not_exist.should == :foo
 
     # Should still allow *_is_a sugar .
     bool_var = model.bool_var
+    bool_var.should_not == :foo
+    model.foo_is_a(bool_var).should == bool_var
+  end
+  
+  it 'should not mess with classes defining method missing (2)' do
+    model = ClassWithMethodMissingLast.new
+
+    # Should not completely overwrite #method_missing.
+    model.does_not_exist.should == :foo
+
+    # Should still allow *_is_a sugar .
+    bool_var = model.bool_var
+    bool_var.should_not == :foo
     model.foo_is_a(bool_var).should == bool_var
   end
 end

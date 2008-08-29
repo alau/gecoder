@@ -13,8 +13,8 @@
  *     Gabor Szokoli, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-22 06:55:38 +0100 (Fri, 22 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6274 $
+ *     $Date: 2008-07-11 10:35:42 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7339 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -858,14 +858,14 @@ namespace Gecode {
   //@}
 
   /**
-   * \defgroup TaskModelSetSelection Selection constraints
+   * \defgroup TaskModelSetElement Element constraints
    * \ingroup TaskModelSet
    *
-   * A selection constraint selects zero, one or more elements out of a 
+   * An element constraint selects zero, one or more elements out of a 
    * sequence. We write \f$ \langle x_0,\dots, x_{n-1} \rangle \f$ for the
-   * sequence, and \f$ [y] \f$ for the selector variable.
+   * sequence, and \f$ [y] \f$ for the index variable.
    *
-   * Set selection constraints are closely related to the ::element constraint
+   * Set element constraints are closely related to the ::element constraint
    * on finite domain variables.
    */
 
@@ -879,7 +879,7 @@ namespace Gecode {
    * The indices for \a s start at 0.
    */
   GECODE_SET_EXPORT void
-  selectUnion(Space* home, const SetVarArgs& x, SetVar y, SetVar z);
+  elementsUnion(Space* home, const SetVarArgs& x, SetVar y, SetVar z);
 
   /**
    * \brief Post propagator for \f$ z=\bigcup\langle s_0,\dots,s_{n-1}\rangle[y] \f$
@@ -889,7 +889,7 @@ namespace Gecode {
    * The indices for \a s start at 0.
    */
   GECODE_SET_EXPORT void
-  selectUnion(Space* home, const IntSetArgs& s, SetVar y, SetVar z);
+  elementsUnion(Space* home, const IntSetArgs& s, SetVar y, SetVar z);
 
   /** 
    * \brief Post propagator for \f$ z=\bigcap\langle x_0,\dots,x_{n-1}\rangle[y] \f$ using \f$ \mathcal{U} \f$ as universe
@@ -899,7 +899,7 @@ namespace Gecode {
    * The indices for \a s start at 0.
    */
   GECODE_SET_EXPORT void
-  selectInter(Space* home, const SetVarArgs& x, SetVar y, SetVar z);
+  elementsInter(Space* home, const SetVarArgs& x, SetVar y, SetVar z);
 
   /** 
    * \brief Post propagator for \f$ z=\bigcap\langle x_0,\dots,x_{n-1}\rangle[y] \f$ using \a u as universe
@@ -909,12 +909,12 @@ namespace Gecode {
    * The indices for \a s start at 0.
    */
   GECODE_SET_EXPORT void
-  selectInterIn(Space* home, const SetVarArgs& x, SetVar y, SetVar z,
-                const IntSet& u);
+  elementsInter(Space* home, const SetVarArgs& x, SetVar y, SetVar z,
+               const IntSet& u);
 
   /// Post propagator for \f$ \parallel\langle x_0,\dots,x_{n-1}\rangle[y] \f$ 
   GECODE_SET_EXPORT void
-  selectDisjoint(Space* home, const SetVarArgs& x, SetVar y);
+  elementsDisjoint(Space* home, const SetVarArgs& x, SetVar y);
 
   /**
    * \brief Post propagator for \f$ z=\langle x_0,\dots,x_{n-1}\rangle[y] \f$ 
@@ -922,7 +922,7 @@ namespace Gecode {
    * The indices for \a s start at 0.
    */
   GECODE_SET_EXPORT void
-  selectSet(Space* home, const SetVarArgs& x, IntVar y, SetVar z);
+  element(Space* home, const SetVarArgs& x, IntVar y, SetVar z);
 
   /**
    * \brief Post propagator for \f$ z=\langle s_0,\dots,s_{n-1}\rangle[y] \f$ 
@@ -930,7 +930,7 @@ namespace Gecode {
    * The indices for \a s start at 0.
    */
   GECODE_SET_EXPORT void
-  selectSet(Space* home, const IntSetArgs& s, IntVar y, SetVar z);
+  element(Space* home, const IntSetArgs& s, IntVar y, SetVar z);
 
   //@}
 
@@ -947,13 +947,13 @@ namespace Gecode {
     SET_VAR_MIN_CARD,           ///< With smallest unknown set
     SET_VAR_MAX_CARD,           ///< With largest unknown set
     SET_VAR_MIN_UNKNOWN_ELEM,   ///< With smallest unknown element
-    SET_VAR_MAX_UNKNOWN_ELEM,   ///< With largest unknown element
+    SET_VAR_MAX_UNKNOWN_ELEM    ///< With largest unknown element
   };
   
   /// Which values to select first for branching
   enum SetValBranch {
     SET_VAL_MIN,                ///< Select smallest value in unknown set
-    SET_VAL_MAX,                ///< Select largest value in unknown set
+    SET_VAL_MAX                 ///< Select largest value in unknown set
   };
 
   /// Branch over \a x with variable selection \a vars and value selection \a vals

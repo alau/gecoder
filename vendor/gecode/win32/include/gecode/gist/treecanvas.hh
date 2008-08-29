@@ -6,8 +6,8 @@
  *     Guido Tack, 2006
  *
  *  Last modified:
- *     $Date: 2008-02-19 11:05:15 +0100 (Tue, 19 Feb 2008) $ by $Author: tack $
- *     $Revision: 6231 $
+ *     $Date: 2008-07-26 22:53:19 +0200 (Sat, 26 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7427 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -59,7 +59,7 @@ namespace Gecode {  namespace Gist {
     void search(VisualNode* n, bool all, TreeCanvasImpl* ti);
     
   Q_SIGNALS:
-    void update(int w, int h);
+    void update(int w, int h, int scale0);
     void statusChanged(bool);
     void scaleChanged(int);
     
@@ -97,8 +97,10 @@ namespace Gecode {  namespace Gist {
     void hideFailed(void);
     /// Unhide all nodes below selected node
     void unhideAll(void);
-    /// Export postscript of the tree
-    void exportPostscript(void);
+    /// Export pdf of the current subtree
+    void exportPDF(void);
+    /// Export pdf of the whole tree
+    void exportWholeTreePDF(void);
     /// Print the tree
     void print(void);
     /// Zoom the canvas so that the whole tree fits
@@ -107,13 +109,7 @@ namespace Gecode {  namespace Gist {
     void centerCurrentNode(void);
     /// Call the inspector for the currently selected node
     void inspectCurrentNode(void);
-    
-    /// Toggle the heat view display
-    void toggleHeatView(void);
-    
-    /// Run the analysis that produces the heat view
-    void analyzeTree(void);
-    
+        
     /// Stop current search
     void stopSearch(void);
     
@@ -130,6 +126,10 @@ namespace Gecode {  namespace Gist {
     void navRight(void);
     /// Move selection to the root node
     void navRoot(void);
+    /// Move selection to next solution (in DFS order)
+    void navNextSol(bool back = false);
+    /// Move selection to previous solution (in DFS order)
+    void navPrevSol(void);
     /// Recall selection of point in time \a pit
     void markCurrentNode(int pit);
     
@@ -148,6 +148,10 @@ namespace Gecode {  namespace Gist {
     bool getAutoZoom(void);
     /// Set refresh rate
     void setRefresh(int i);
+    /// Return preference wheter to use smooth scrolling and zooming
+    bool getSmoothScrollAndZoom(void);
+    /// Set preference wheter to use smooth scrolling and zooming
+    void setSmoothScrollAndZoom(bool b);
     /// Resize to the outer widget size if auto zoom is enabled
     void resizeToOuter(void);
 
@@ -164,12 +168,12 @@ namespace Gecode {  namespace Gist {
   Q_SIGNALS:
     /// The scale factor has changed
     void scaleChanged(int);
+    /// The auto-zoom state was changed
+    void autoZoomChanged(bool);
     /// Context menu triggered
     void contextMenu(QContextMenuEvent*);
     /// Status bar update
-    void statusChanged(const Statistics&, bool);
-    /// The current node has been changed to \a n
-    void currentNodeChanged(Gecode::Space*, Gecode::Gist::NodeStatus);
+    void statusChanged(VisualNode*,const Statistics&, bool);
     /// The node with space \a s is inspected at point in time \a pit
     void inspect(Gecode::Reflection::VarMap& vm, int pit);
     /// The point in time changed to \a pit
@@ -183,8 +187,12 @@ namespace Gecode {  namespace Gist {
     SearcherThread searcher;
     /// Flag signalling the search to stop
     bool stopSearchFlag;
+    /// Allocator for nodes
+    Node::NodeAllocator* na;
     /// The root node of the tree
     VisualNode* root;
+    /// The currently best solution (for branch-and-bound)
+    BestNode* curBest;
     /// The currently selected node
     VisualNode* currentNode;
     /// The head of the currently selected path
@@ -194,6 +202,9 @@ namespace Gecode {  namespace Gist {
     /// The active inspector
     Inspector* inspector;
     
+    /// The scale bar
+    QSlider* scaleBar;
+    
     /// Statistics about the search tree
     Statistics stats;
     
@@ -201,8 +212,6 @@ namespace Gecode {  namespace Gist {
     double scale;
     /// Offset on the x axis so that the tree is centered
     int xtrans;
-    /// Whether to display the heat view
-    bool heatView;
 
     /// Whether to hide failed subtrees automatically
     bool autoHideFailed;
@@ -210,6 +219,8 @@ namespace Gecode {  namespace Gist {
     bool autoZoom;
     /// Refresh rate
     int refresh;
+    /// Whether to use smooth scrolling and zooming
+    bool smoothScrollAndZoom;
 
     /// The next point in time
     int nextPit;
@@ -231,14 +242,37 @@ namespace Gecode {  namespace Gist {
     /// Log the current node as new point in time
     void saveCurrentNode(void);
 
+    /// Target zoom value for smooth zooming
+    int targetZoom;
+    /// Meta current zoom value
+    double metaZoomCurrent;
+    /// Timer id for smooth zooming
+    int zoomTimerId;
+
+    /// Target x coordinate for smooth scrolling
+    int targetScrollX;
+    /// Target y coordinate for smooth scrolling
+    int targetScrollY;
+    /// Meta current x coordinate
+    double metaScrollXCurrent;
+    /// Meta current y coordinate
+    double metaScrollYCurrent;
+    /// Timer id for smooth scrolling
+    int scrollTimerId;
+
+    /// Timer invoked for smooth zooming and scrolling
+    virtual void timerEvent(QTimerEvent* e);
+
   public Q_SLOTS:
     /// Update display
     void update(void);
     /// Layout done
-    void layoutDone(int w, int h);
+    void layoutDone(int w, int h, int scale0);
   private Q_SLOTS:
     /// Search has finished
     void statusChanged(bool);
+    /// Export PDF of the subtree of \a n
+    void exportNodePDF(VisualNode* n);
   };
   
   /// Tree canvas widget
@@ -261,6 +295,8 @@ namespace Gecode {  namespace Gist {
     QAction* navLeft;
     QAction* navRight;
     QAction* navRoot;
+    QAction* navNextSol;
+    QAction* navPrevSol;
 
     QAction* searchNext;
     QAction* searchAll;
@@ -269,15 +305,13 @@ namespace Gecode {  namespace Gist {
     QAction* unhideAll;
     QAction* zoomToFit;
     QAction* centerCN;
-    QAction* exportPostscript;
+    QAction* exportPDF;
+    QAction* exportWholeTreePDF;
     QAction* print;
 
     QAction* setPath;
     QAction* inspectPath;
     QAction* addVisualisation;
-
-    QAction* toggleHeatView;
-    QAction* analyzeTree;
 
   public:
     /// Constructor
@@ -298,6 +332,10 @@ namespace Gecode {  namespace Gist {
     bool getAutoZoom(void);
     /// Set refresh rate
     void setRefresh(int i);
+    /// Return preference wheter to use smooth scrolling and zooming
+    bool getSmoothScrollAndZoom(void);
+    /// Set preference wheter to use smooth scrolling and zooming
+    void setSmoothScrollAndZoom(bool b);
 
     /// Stop search and wait until finished
     void finish(void);
@@ -310,8 +348,7 @@ namespace Gecode {  namespace Gist {
 
   private Q_SLOTS:
     void on_canvas_contextMenu(QContextMenuEvent*);
-    void on_canvas_currentNodeChanged(Gecode::Space*, Gecode::Gist::NodeStatus);
-    void on_canvas_statusChanged(const Statistics&, bool);
+    void on_canvas_statusChanged(VisualNode*, const Statistics&, bool);
   protected:
     /// Close the widget
     void closeEvent(QCloseEvent* event);

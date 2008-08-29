@@ -9,8 +9,8 @@
  *     Guido Tack, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-29 01:09:17 +0100 (Fri, 29 Feb 2008) $ by $Author: schulte $
- *     $Revision: 6355 $
+ *     $Date: 2008-07-11 10:10:11 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7310 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -337,6 +337,13 @@ namespace Gecode {
       ReCoStack(unsigned int a_d);
       /// Push space \a c (a clone of \a s or NULL)
       const BranchingDesc* push(Space* s, Space* c);
+      /// Generate path for next node and return BranchingDesc for next node if its type is \a DescType, or NULL otherwise
+      template <class DescType>
+      const BranchingDesc* nextDesc(EngineCtrl& s, int& alt,
+                                    int& closedDescs);
+      /// Generate path for next node with BranchingDesc type DescType
+      template <class DescType, bool inclusive>
+      void closeBranch(EngineCtrl& s);
       /// Generate path for next node and return whether a next node exists
       bool next(EngineCtrl& s);
       /// Return position on stack of last copy

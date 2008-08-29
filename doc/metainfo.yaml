@@ -39,6 +39,10 @@ documentation/operands/set-operands.page:
   orderInfo: 26
 documentation/operands/set-enum-operands.page:
   orderInfo: 27
+documentation/operands/set-elements-operands.page:
+  orderInfo: 28
+documentation/operands/selected-set-operands.page:
+  orderInfo: 29
 
 documentation/modelling/index.page:
   orderInfo: 20

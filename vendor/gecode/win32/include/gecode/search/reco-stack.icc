@@ -7,8 +7,8 @@
  *     Christian Schulte, 2003
  *
  *  Last modified:
- *     $Date: 2008-01-19 13:19:23 +0100 (Sat, 19 Jan 2008) $ by $Author: schulte $
- *     $Revision: 5916 $
+ *     $Date: 2008-08-20 15:55:47 +0200 (Wed, 20 Aug 2008) $ by $Author: tack $
+ *     $Revision: 7658 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -94,6 +94,40 @@ namespace Gecode { namespace Search {
     ReCoNode sn(s,c);
     ds.push(sn);
     return sn.desc();
+  }
+
+  template <class DescType>
+  forceinline const BranchingDesc*
+  ReCoStack::nextDesc(EngineCtrl& stat, int& alt, int& closedDescs) {
+    closedDescs = 0;
+    while (!ds.empty())
+      if (ds.top().rightmost()) {
+        stat.pop(ds.top().space(),ds.top().desc());
+        if (dynamic_cast<const DescType*>(ds.top().desc()))
+          closedDescs++;
+        ds.pop().dispose();
+      } else {
+        ds.top().next();
+        alt = ds.top().alt();
+        return ds.top().desc();
+      }
+    return NULL;
+  }
+
+  template <class DescType, bool inclusive>
+  forceinline void
+  ReCoStack::closeBranch(EngineCtrl& stat) {
+    while (!ds.empty()) {
+      if (dynamic_cast<const DescType*>(ds.top().desc())) {
+        if (inclusive && !ds.empty()) {
+          stat.pop(ds.top().space(),ds.top().desc());
+          ds.pop().dispose();      
+        }
+        break;       
+      }
+      stat.pop(ds.top().space(),ds.top().desc());
+      ds.pop().dispose();
+    }
   }
 
   forceinline bool
@@ -210,8 +244,14 @@ namespace Gecode { namespace Search {
       if (i<n-1) {
         // Propagate to fixpoint
         SpaceStatus ss = s->status(stat.propagate);
-        // Again, the space might already propagate to failure
-        if (constrained &&  (ss == SS_FAILED)) {
+        /*
+         * Again, the space might already propagate to failure
+         *
+         * This can be for two reasons:
+         *  - constrain is true, so we fail
+         *  - the space has weakly monotonic propagators
+         */
+        if (ss == SS_FAILED) {
           // s must be deleted as it is not on the stack
           delete s;
           stat.commit += (i-l);

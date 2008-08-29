@@ -6,8 +6,8 @@
  *     Guido Tack, 2006
  *
  *  Last modified:
- *     $Date: 2007-11-26 15:48:52 +0100 (Mon, 26 Nov 2007) $ by $Author: tack $
- *     $Revision: 5437 $
+ *     $Date: 2008-07-11 10:30:10 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7335 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -49,11 +49,22 @@ namespace Gecode { namespace Gist {
     Node* _startNode;
     /// The current node
     Node* _node;
+    /// The current alternative
+    unsigned int _alternative;
+  protected:
+    /// Set current node to \a n
+    void node(Node* n);
+    /// Return start node
+    Node* startNode(void);
   public:
     /// Construct cursor, initially set to \a theNode
     NodeCursor(Node* theNode);
     /// Return current node
     Node* node(void);
+    /// Return current alternative
+    unsigned int alternative(void);
+    /// Set current alternative
+    void alternative(unsigned int a);
     
     /// \name Cursor interface
     //@{
@@ -69,21 +80,6 @@ namespace Gecode { namespace Gist {
     bool mayMoveSidewards(void);
     /// Move cursor to the first sibling
     void moveSidewards(void);    
-    //@}
-  };
-
-  /// \brief A cursor that computes a tree layout for VisualNodes
-  class LayoutCursor : public NodeCursor<VisualNode> {
-  public:
-    /// Constructor
-    LayoutCursor(VisualNode* theNode);
-
-    /// \name Cursor interface
-    //@{
-    /// Test if the cursor may move to the first child node
-    bool mayMoveDownwards(void);
-    /// Compute layout for current node
-    void processCurrentNode(void);
     //@}
   };
 
@@ -110,6 +106,35 @@ namespace Gecode { namespace Gist {
     //@{
     /// Process node
     void processCurrentNode(void);
+    //@}
+  };
+  
+  /// \brief A cursor that finds the next solution
+  class NextSolCursor : public NodeCursor<VisualNode> {
+  private:
+    /// The root node
+    VisualNode* root;
+    /// Whether to search backwards
+    bool back;
+    /// Whether the current node is not a solution
+    bool notOnSol(void);
+  public:
+    /// Constructor
+    NextSolCursor(VisualNode* theNode, bool backwards);
+    /// \name Cursor interface
+    //@{
+    /// Do nothing
+    void processCurrentNode(void);
+    /// Test if the cursor may move to the parent node
+    bool mayMoveUpwards(void);
+    /// Test if cursor may move to the first child node
+    bool mayMoveDownwards(void);
+    /// Move cursor to the first child node
+    void moveDownwards(void);
+    /// Test if cursor may move to the first sibling
+    bool mayMoveSidewards(void);
+    /// Move cursor to the first sibling
+    void moveSidewards(void);    
     //@}
   };
   

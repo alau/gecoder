@@ -7,8 +7,8 @@
  *     Christian Schulte, 2002
  *
  *  Last modified:
- *     $Date: 2008-02-16 10:42:26 +0100 (Sat, 16 Feb 2008) $ by $Author: tack $
- *     $Revision: 6185 $
+ *     $Date: 2008-07-11 09:39:08 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7297 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -176,7 +176,8 @@ namespace Gecode { namespace Int { namespace Branch {
     std::stringstream s;
     s << n;
     (*a0)[0] = x.spec(home, m);
-    (*a0)[1] = Reflection::Arg::newString((std::string("=")+s.str()).c_str());
+    (*a0)[1] = 
+      Reflection::Arg::newString((std::string("<=")+s.str()).c_str());
     bs[0] = a0;
     if (alt == 2) {
       Reflection::ArrayArg* a1 = Reflection::Arg::newArray(2);
@@ -226,29 +227,30 @@ namespace Gecode { namespace Int { namespace Branch {
   }
 
 
-  template<class View, template <class> class SelView>
+  template<template <class,class,class,class> class B, class View,
+           template <class> class SelView>
   void
   create(Space* home, ViewArray<View>& x, IntValBranch vals) {
     switch (vals) {
     case INT_VAL_MIN:
       (void) new (home) 
-        ViewValBranching<View,int,SelView<View>,ValMin<View> >(home,x);
+        B<View,int,SelView<View>,ValMin<View> >(home,x);
       break;
     case INT_VAL_MED:
       (void) new (home) 
-        ViewValBranching<View,int,SelView<View>,ValMed<View> >(home,x);
+        B<View,int,SelView<View>,ValMed<View> >(home,x);
       break;
     case INT_VAL_MAX:
       (void) new (home) 
-        ViewValBranching<View,int,SelView<View>,ValMax<View> >(home,x);
+        B<View,int,SelView<View>,ValMax<View> >(home,x);
       break;
     case INT_VAL_SPLIT_MIN:
       (void) new (home)
-        ViewValBranching<View,int,SelView<View>,ValSplitMin<View> >(home,x);
+        B<View,int,SelView<View>,ValSplitMin<View> >(home,x);
       break;
     case INT_VAL_SPLIT_MAX:
       (void) new (home)
-        ViewValBranching<View,int,SelView<View>,ValSplitMax<View> >(home,x);
+        B<View,int,SelView<View>,ValSplitMax<View> >(home,x);
       break;
     default:
       throw UnknownBranching("Int::branch");

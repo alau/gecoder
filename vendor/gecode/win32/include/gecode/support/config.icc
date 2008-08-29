@@ -11,8 +11,8 @@
  *     Guido Tack, 2004
  *
  *  Last modified:
- *     $Date: 2008-02-28 19:55:12 +0100 (Thu, 28 Feb 2008) $ by $Author: tack $
- *     $Revision: 6353 $
+ *     $Date: 2008-07-11 10:10:11 +0200 (Fri, 11 Jul 2008) $ by $Author: tack $
+ *     $Revision: 7310 $
  *
  *  This file is part of Gecode, the generic constraint
  *  development environment:
@@ -69,8 +69,11 @@
 /* Whether serialization support is built */
 #define GECODE_HAS_SERIALIZATION 1
 
-/* Whether to compile with boost serialization support */
-/* #undef GECODE_HAS_BOOST_SERIALIZATION */
+/* Whether dds support is built */
+/* #undef GECODE_HAS_DDS */
+
+/* Whether to compile boost dependent parts */
+/* #undef GECODE_HAS_BOOST */
 
 /* Whether Qt is available */
 /* #undef GECODE_HAS_QT */
