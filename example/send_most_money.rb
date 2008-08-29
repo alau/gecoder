@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/example_helper'
 
 # Solves the cryptarithmetic send+most=money problem while maximizing the value
 # of "money".
-class SendMoreMoney
+class SendMostMoney
   include Gecode::Mixin
 
   attr :money
@@ -41,7 +41,7 @@ class SendMoreMoney
   end
 end
 
-solution = SendMoreMoney.new.maximize! :money
+solution = SendMostMoney.new.maximize! :money
 puts 's e n d m o s t y'
 puts solution.letters.values.join(' ')
 puts "money: #{solution.money.value}"
