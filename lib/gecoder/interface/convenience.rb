@@ -1,4 +1,9 @@
 module Gecode
+  # A class that just includes Gecode::Mixin.
+  class Model
+    include Gecode::Mixin
+  end
+
   # Provides a convenient way to construct a model and then find a
   # solution. The model constructed uses the specified block as 
   # initialization method. The first solution to the model is then

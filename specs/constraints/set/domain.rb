@@ -79,8 +79,8 @@ Gecode::Util::SET_RELATION_TYPES.each_pair do |relation, type|
           (@set.value.to_a - @non_range).should be_empty
         when :complement
           val = @set.value
-          val.min.should == Gecode::Model::SET_MIN_INT
-          val.max.should == Gecode::Model::SET_MAX_INT
+          val.min.should == Gecode::Mixin::SET_MIN_INT
+          val.max.should == Gecode::Mixin::SET_MAX_INT
           @non_range.each do |element|
             @set.not_in_upper_bound?(element).should be_true
           end
@@ -100,8 +100,8 @@ Gecode::Util::SET_RELATION_TYPES.each_pair do |relation, type|
           (@set.value.to_a - @non_range).should_not be_empty
         when :complement
           val = @set.value
-          ((val.min != Gecode::Model::SET_MIN_INT) || 
-            (val.max != Gecode::Model::SET_MAX_INT) ||
+          ((val.min != Gecode::Mixin::SET_MIN_INT) || 
+            (val.max != Gecode::Mixin::SET_MAX_INT) ||
             @non_range.any?{ |element| @set.in_lower_bound?(element) }
           ).should be_true
         when :disjoint

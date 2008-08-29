@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe Gecode::Model, ' (enum wrapping)' do
+describe Gecode::Mixin, ' (enum wrapping)' do
   before do
     @model = Gecode::Model.new
     @bool = @model.bool_var

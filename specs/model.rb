@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe Gecode::Model, ' (integer creation)' do
+describe Gecode::Mixin, ' (integer creation)' do
   before do
     @model = Gecode::Model.new
   end
@@ -101,7 +101,7 @@ describe Gecode::Model, ' (integer creation)' do
   end
 end
 
-describe Gecode::Model, ' (bool creation)' do
+describe Gecode::Mixin, ' (bool creation)' do
   before do
     @model = Gecode::Model.new
   end
@@ -128,7 +128,7 @@ describe Gecode::Model, ' (bool creation)' do
   end
 end
 
-describe Gecode::Model, ' (set creation)' do
+describe Gecode::Mixin, ' (set creation)' do
   before do
     @model = Gecode::Model.new
     @glb_range = 0..3
@@ -249,7 +249,7 @@ describe Gecode::Model, ' (set creation)' do
   end
 end
 
-describe Gecode::Model, ' (space access restriction)' do
+describe Gecode::Mixin, ' (space access restriction)' do
   before do
     @model = Gecode::Model.new
   end
@@ -267,7 +267,7 @@ describe Gecode::Model, ' (space access restriction)' do
   end
 end
 
-describe Gecode::Model, ' (accessible variable creation)' do
+describe Gecode::Mixin, ' (accessible variable creation)' do
   before do
     @model = Class.new(Gecode::Model).new
   end

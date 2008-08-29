@@ -14,7 +14,7 @@ class BranchSampleProblem
   end
 end
 
-describe Gecode::Model, ' (integer branch)' do
+describe Gecode::Mixin, ' (integer branch)' do
   before do
     @model = BranchSampleProblem.new
     @vars = @model.vars
@@ -114,7 +114,7 @@ describe Gecode::Model, ' (integer branch)' do
   end
 end
 
-describe Gecode::Model, ' (set branch)' do
+describe Gecode::Mixin, ' (set branch)' do
   before do
     @model = BranchSampleProblem.new
     @sets = @model.sets

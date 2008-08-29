@@ -10,7 +10,7 @@ describe Gecode::SelectedSet::SelectedSetOperand do
   end
 
   it 'should implement #model' do
-    @operand.model.should be_kind_of(Gecode::Model)
+    @operand.model.should be_kind_of(Gecode::Mixin)
   end
 
   it 'should implement #to_selected_set' do
@@ -20,12 +20,12 @@ describe Gecode::SelectedSet::SelectedSetOperand do
     @model.solve!
     set_var = set.to_set_var
     ((set_var.lower_bound == []) && 
-     (set_var.upper_bound == Gecode::Model::LARGEST_SET_BOUND)).should_not(
+     (set_var.upper_bound == Gecode::Mixin::LARGEST_SET_BOUND)).should_not(
       be_true)
     enum.each do |element|
       set_var = element.to_set_var
       ((set_var.lower_bound == []) && 
-       (set_var.upper_bound == Gecode::Model::LARGEST_SET_BOUND)).should_not(
+       (set_var.upper_bound == Gecode::Mixin::LARGEST_SET_BOUND)).should_not(
         be_true)
     end
   end

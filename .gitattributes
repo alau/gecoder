@@ -663,10 +663,10 @@ lib/gecoder/interface/constraints/set_enum/operation.rb -text
 lib/gecoder/interface/constraints/set_enum/select.rb -text
 lib/gecoder/interface/constraints/set_enum_constraints.rb -text
 lib/gecoder/interface/constraints/set_var_constraints.rb -text
+lib/gecoder/interface/convenience.rb -text
 lib/gecoder/interface/enum_matrix.rb -text
 lib/gecoder/interface/enum_wrapper.rb -text
 lib/gecoder/interface/mixin.rb -text
-lib/gecoder/interface/model_sugar.rb -text
 lib/gecoder/interface/search.rb -text
 lib/gecoder/interface/variables.rb -text
 lib/gecoder/version.rb -text
