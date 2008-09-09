@@ -1,11 +1,11 @@
 ---
 title: Modelling
-longTitle: How to model a constraint programming problem using Gecode/R
+longTitle: How to Model a Constraint Programming Problem using Gecode/R
 inMenu: true
 description: How to use Gecode/R to model problems and solve them using constraint programming. What to watch out for and how to tweak the performance.
 ---
 
-h1. Modelling a problem
+h1. Modelling a Problem
 
 <div class="summary"> <p>Modelling can be broken down into several
 steps. The first steps aim to express the problem so that one can get a
@@ -16,19 +16,19 @@ The following points are duplicated in the modelling examples found in
 the menu. It might be helpful to read an example in parallel with this
 page to get some concrete examples of each step.
 
-h2. Understand the problem
+h2. Understand the Problem
 
 The first step is to understand the problem, more specifically to understand 
 what is required of a solution to the problem. Express the entire problem in 
 a few concise bullet points that describe exactly what is expected of a
 solution.
 
-h2. Select the view
+h2. Select the View
 
 The next step is to select how to represent the problem in terms of variables. 
 The variables will need to include the sought solutions.
 
-h3. Be economic
+h3. Be Economic
 
 Try to pick a view that cuts down on the number of constraints that 
 explicitly have to be expressed.
@@ -39,7 +39,7 @@ there may only be one queen per column. Using for instance an n-times-n matrix
 of boolean variables would have required explicitly expressing that
 constraint.
 
-h3. Be aware of multiple views
+h3. Be Aware of Multiple Views
 
 There may very well be multiple views that are equally good at representing 
 the problem. Being aware of more than one might help further down the line. 
@@ -50,7 +50,7 @@ There's no need to restrict oneself to only using one view. One can link
 multiple views using the channel constraints to get the best of both
 worlds.
 
-h2. Express the constraints
+h2. Express the Constraints
 
 Now apply your understanding of the problem. Take a look at the points
 and try to convert them into constraints (possibly multiple).  Multiple
@@ -62,7 +62,7 @@ complex rules. Reification should be thought of as a last resort as a single
 constraint will probably be more powerful than if you glue several constraints 
 together with reification.
 
-h2. Select branching strategy
+h2. Select Branching Strategy
 
 The last thing to think about is the branching. Anything that you tell Gecode
 to branch on will be required to be assigned in a solution. Do not branch on 
@@ -73,25 +73,25 @@ heuristic that fits the problem. This can either be done by reasoning
 about how the possibilities should best be explored or by simply testing
 all the strategies to find out which work and which don't.
 
-h2. Tweak the performance
+h2. Tweak the Performance
 
 By now you should be able to feed the solver a simple problem and get pack a
 correct solution. If it works fast enough for you then that's great, if not then
 you need to tweak the performance.
 
-h3. Select a better branching strategy
+h3. Select a Better Branching Strategy
 
 Branching strategies can make a large difference. Which strategy is best
 depends on the problem. Compare the available ones if you haven't
 already done so.
 
-h3. Change propagation strengths
+h3. Change Propagation Strengths
 
 Using different propagation strength can, much like branching strategies, make 
 a large difference. Much like branching strategies it's a matter of reasoning 
 or simply trying them out.
 
-h3. Add implied constraints
+h3. Add Implied Constraints
 
 Just because you have given the solver enough constraints to be able to identify
 a solution doesn't mean that you have to stop there. It might still be worth 
@@ -99,7 +99,7 @@ explicitly expressing some of the constraints that are implicitly given by the
 expressed constraints. It will not change the solutions, but it can help Gecode 
 prune the search space faster.
 
-h3. Break symmetries
+h3. Break Symmetries
 
 In many situations symmetries will appear. 
 
@@ -122,7 +122,7 @@ reflection in the y-axis of the board. Hence only removing symmetries,
 not unique solutions.
 
 
-h2. Other resources
+h2. Other Resources
 
 * "Modelling for Constraint Programming":http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf 
 from the "Constraint Programming summer 

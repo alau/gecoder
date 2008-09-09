@@ -6,7 +6,7 @@ description: A Ruby interface to the Gecode constraint programming library.
 template: frontpage.template
 ---
 
-h1. Constraint programming in Ruby
+h1. Constraint Programming in Ruby
 
 <div class="summary">
 <p>Gecode/R is a Ruby interface to "Gecode":http://www.gecode.org/, an open 
@@ -15,7 +15,7 @@ with no previous experience of constraint programming, aiming to be easy to
 pick up and use in practice.</p>
 </div>
 
-h2. Describe your problem
+h2. Describe Your Problem
 
 Constraint programming is a technique where you just *describe the problem* and 
 then let the *solver find solutions* for you.
@@ -25,29 +25,21 @@ h3. Example
 Solve the equation system @x + y = z@, @x = y - 3@, @0 <= x,y,z <= 9@.
 
 <ruby>
-class ExampleProblem 
-  include Gecode::Mixin
+solution = Gecode.solve do
+  # Set up the variables, three integers with domain 0..9.
+  variables_is_an int_var_array(3, 0..9) 
+  x,y,z = variables
 
-  attr :vars
-  def initialize
-    # Set up the variables, three integers with domain 0..9.
-    x,y,z = @vars = int_var_array(3, 0..9) 
-    
-    # Describe the problem (in this case the equations).
-    (x + y).must == z 
-    x.must == y - 3
-    
-    # Tell it what the variables of the problem are.
-    branch_on @vars
-  end
+  # Describe the problem (in this case the equations).
+  (x + y).must == z 
+  x.must == y - 3
+
+  # Tell it what the variables of the problem are.
+  branch_on variables
 end
-</ruby>
 
-To find a solution we just have to ask.
-
-<ruby>
 puts 'x y z'
-puts ExampleProblem.new.solve!.vars.values.join(' ')
+puts solution.variables.values.join(' ')
 </ruby>
 
 Output:

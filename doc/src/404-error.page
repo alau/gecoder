@@ -1,5 +1,5 @@
 ---
-title: Error page
+title: Error Page
 longTitle: 404 Not Found
 inMenu: false
 description: The page couldn't be found. 
@@ -14,5 +14,5 @@ The requested page could not be found. Common reasons include
 * A search engine that has an out-of-date listing.
 * A mis-typed address.
 
-Try using the "sitemap":/sitemap.html and search box to find what you are 
+Try using the "sitemap":/sitemap.html or the search box to find what you are 
 looking for.

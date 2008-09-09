@@ -1,11 +1,11 @@
 ---
 title: Magic Sequence
-longTitle: Solving magic sequence using constraint programming in Ruby
+longTitle: Solving Magic Sequence using Constraint Programming in Ruby
 inMenu: true
 description: An example showing how to solve the magic sequence problem using constraint programming in Ruby with Gecode/R.
 ---
 
-h1. Magic sequence
+h1. Magic Sequence
 
 h2. Problem
 

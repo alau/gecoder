@@ -1,11 +1,11 @@
 ---
 title: Installation
-longTitle: How to install Gecode/R, Ruby library for constraint programming
+longTitle: Installing Gecode/R, a Ruby Library for Constraint Programming
 inMenu: true
 description: How to install Gecode/R to gain access to constraint programming in Ruby.
 ---
 
-h1. Downloading and installing
+h1. Downloading and Installing
 
 h2. Warning
 
@@ -14,7 +14,7 @@ and *backwards compatibility will be broken* time and time again. Don't use
 Gecode/R in production-code yet, it's merely available at this point to allow 
 people to play with it and give feedback.
 
-h2. Quick install
+h2. Quick Install
 
 The following works on Windows, Linux and OS X (and probably some more).
 
@@ -45,7 +45,7 @@ need to add @/usr/local/lib@ (where the Gecode libraries are stored) to
   echo "/usr/local/lib" >> /etc/ld.so.conf
   /sbin/ldconfig
 
-h2. Detailed information
+h2. Detailed Information
 
 h3. Dependencies
 
@@ -66,11 +66,11 @@ Use the following gem if you want to install Gecode/R without Gecode.
 
  gem install gecoder
  
-h3. Direct download
+h3. Direct Download
 
 Downloads (both gems and source archives) are available at "RubyForge":http://rubyforge.org/frs/?group_id=3553
 
-h3. Building from source
+h3. Building from Source
 
 There are two ways to get a hold of the source code.
 
@@ -85,7 +85,7 @@ tested under Windows (where it will probably differ a bit).
 # Run @make@ (builds the extension)
 # Move the created library named @gecode.so@ to the lib directory.
 
-h2. Running the tests
+h2. Running the Tests
 
 To make sure that the installation was successful you can run the included 
 specs. They require "RSpec":http://rspec.rubyforge.org/download.html 1.0.5 or

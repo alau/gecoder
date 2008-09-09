@@ -1,13 +1,13 @@
 ---
 title: FAQ
-longTitle: Frequently asked questions about Gecode/R
+longTitle: Frequently Asked Questions About Gecode/R
 inMenu: true
 description: Frequently asked question about Gecode/R and constraint programming in Ruby.
 ---
 
-h1. Frequently asked questions
+h1. Frequently Asked Questions
 
-h2. What is constraint programming?
+h2. What is Constraint Programming?
 
 Constraint programming is a declarative programming paradigm, you describe what 
 kind of solution you want rather than how you want it computed. When using 
@@ -21,7 +21,7 @@ linkText: solve a sudoku with constraint programming}}  you feed the rules (all
 numbers in each row must be distinct etc) to the solver, which then searches 
 for a solution satisfying all the constraints.
 
-h2. What types of problems are suitable?
+h2. What Types of Problems are Suitable?
 
 The ideal problems to use constraint programming on are problems that are easy
 to describe but where the best one can do to solve them is an exhaustive search.
@@ -32,7 +32,7 @@ then it will have a better worst case complexity. If the algorithm is hard to
 implement and/or complexity is not that important then constraint programming 
 might still be worth testing/considering.
 
-h2. Won't it be slow?
+h2. Won't it be Slow?
 
 It will always have exponential worst case complexity. However, if the model
 is good, it can empirically scale better.

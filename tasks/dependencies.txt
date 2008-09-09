@@ -3,7 +3,8 @@ Doing the full "release" task requires a number of gems:
 # To run the Rake scripts.
 rake
 
-# To generate the website.
+# To generate the website. Note that RedCloth 4.0.3 does not work so well
+# with the website at the time of writing, so use 3.0.4 .
 webgen
 coderay
 

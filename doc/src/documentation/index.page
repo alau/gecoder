@@ -1,6 +1,6 @@
 ---
 title: Introduction
-longTitle: Documentation for Gecode/R, a Ruby interface to Gecode
+longTitle: Documentation for Gecode/R, a Ruby Interface to Gecode
 inMenu: true
 description: How to use Gecode/R to model problems and solve them using constraint programming.
 ---
@@ -14,7 +14,7 @@ constraints.</p>
 <p>You can then fetch solutions with varying strategies.</p>
 </div>
 
-h2. Creating models
+h2. Creating Models
 
 A model is a class that mixes in {RDoc: Gecode::Mixin}.
 
@@ -30,7 +30,6 @@ end
 # Fetch the solution.
 solution = MyModel.new.solve!
 </ruby>
-
 
 There are three main parts of a model:
 <dl>
@@ -69,7 +68,7 @@ The primary variables are:
       operands":operands/set-enum-operands.html.</dd>
 </dl>
 
-h4. Creating integer variables
+h4. Creating Integer Variables
 
 Use {RDoc: Mixin#int_var} to create a new integer variable. The method takes
 one argument, the domain of the integer variable. The domain represents
@@ -110,7 +109,7 @@ my_enum = wrap_enum(my_enum)
 my_enum.must_be.distinct
 </ruby>
 
-h4. Creating boolean variables
+h4. Creating Boolean Variables
 
 Use any of {RDoc: Mixin#bool_var}, {RDoc: Mixin#bool_var_array} and 
 {RDoc: Mixin#bool_var_matrix} to create boolean variables. The methods
@@ -122,7 +121,7 @@ bools = bool_var_array(3) # Creates 3 boolean variables.
 bool_matrix = bool_var_matrix(3, 4) # Creates a 3x4 matrix of boolean variables.
 </ruby>
 
-h4. Creating set variables
+h4. Creating Set Variables
 
 Use any of {RDoc: Mixin#set_var}, {RDoc: Mixin#set_var_array} and {RDoc:
 Mixin#set_var_matrix} to create set variables. The domain of a set
@@ -157,7 +156,7 @@ sets = set_var_array(3, 1..2, 1..6, 3)
 set_matrix = set_var_matrix(7, 9, 1..2, 1..6 2..5)
 </ruby>
 
-h4. Accessing variables from the outside
+h4. Accessing Variables from the Outside
 
 It is often desirable to be able to access a variable from outside the
 class in order to e.g. access the selected values of the solution. One
@@ -234,7 +233,7 @@ well is that we can quicker exhaust the remaining possibilities of a variable
 with a small domain, and hence force a fail (or a solution to be found) so that
 we can backtrack to the next possible choice.
 
-h2. Accessing solutions
+h2. Accessing Solutions
 
 If you just want any or all solutions then use depth first search. Use branch 
 and bound search if you want to fetch a specific solution, optimizing something
@@ -243,7 +242,7 @@ of you choice.
 {RDoc: Mixin#search_stats} can be used after the search to obtain
 various statistics about the search.
 
-h3. Depth first search
+h3. Depth First Search
 
 The solutions to a model can be accessed by several methods. The simplest case
 is when one just want a	single solution to the problem, in which case 
@@ -285,7 +284,7 @@ instance.each_solution{ |solution| puts solution.to_s }
 
 In both cases the model instance is unaffected after the method-call.
 
-h3. Branch and bound search
+h3. Branch and Bound Search
 
 Branch and bounds search is used when one is not just looking for _any_ 
 solution, but rather the _optimal_ solution (as defined by some criteria). For 

@@ -1,11 +1,11 @@
 ---
-title: Modelling square tiling
-longTitle: Tutorial on solving square tiling using constraint programming
+title: Modelling Square Tiling
+longTitle: Tutorial on Solving Square Tiling using Constraint Programming
 inMenu: true
 description: How to use Gecode/R to model square tiling to solve it with constraint programming. Discusses implied constraints and symmetry breaking constraints.
 ---
 
-h1. Modelling square tiling
+h1. Modelling Square Tiling
 
 <div class="summary">
 <p>The following walks through the points of "the modelling 
@@ -13,7 +13,7 @@ introduction":index.html and applies them to the {example: {name: square-tiling,
 square tiling problem}}.</p>
 </div>
 
-h2. Understand the problem
+h2. Understand the Problem
 
 Let's break it down.
 * The squares must cover the entire rectangle.
@@ -28,7 +28,7 @@ might be easier to express.
 These two should be much easier to express, and they are enough to express the 
 first point in the problem's definition.
 
-h2. Select the view
+h2. Select the View
 
 It seems intuitive to view the problem as finding the positions of the squares 
 in the rectangle. The squares must be placed at _integer positions_, so we lay
@@ -50,7 +50,7 @@ square_count = sizes.size
 
 The domains are derived from our coordinate system overlayed over the rectangle.
 
-h2. Express the constraints
+h2. Express the Constraints
 
 We need to express the following:
 
@@ -101,7 +101,7 @@ square_count.times do |i|
 end
 </ruby>
 
-h2. Select branching strategy
+h2. Select Branching Strategy
 
 We choose to place the squares along the x axis first, placing them from left 
 to right, and then place them on the y-axis top to bottom.
@@ -111,12 +111,12 @@ branch_on @xs, :variable => :smallest_min, :value => :min
 branch_on @ys, :variable => :smallest_min, :value => :min
 </ruby>
 
-h2. Tweak the performance
+h2. Tweak the Performance
 
 We can now solve small problems, but larger ones (around 50x50) are problematic.
 We need to tweak our model a bit.
 
-h3. Add implied constraints
+h3. Add Implied Constraints
 
 An implied constraint is that the sizes of the square occupying a column need
 to equal the rectangle's height. It might obvious, but it helps the solver
@@ -167,7 +167,7 @@ height.times do |i|
 end
 </ruby>
 
-h3. Break symmetries
+h3. Break Symmetries
 
 One symmetry is multiple squares of the same size, since we can then swap the 
 two squares. To remedy this we can impose the constraint that squares of the 
@@ -179,7 +179,7 @@ square_count.times do |i|
 end
 </ruby>
 
-h2. The result
+h2. The Result
 
 Combining the code from above with a small to_s method we get the following.
 
@@ -273,7 +273,7 @@ Output:
 
 The crowd goes wild!
 
-h3. Bonus round
+h3. Bonus Round
 
 Here are some additional square tiling problems of varying sizes to test with.
 Make sure to remove some of the implied and symmetry breaking constraints to 

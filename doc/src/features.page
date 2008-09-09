@@ -1,6 +1,6 @@
 ---
 title: Features
-longTitle: Constraints and features of Gecode/R
+longTitle: Constraints and Features of Gecode/R
 inMenu: true
 description: Constraints and various features of Gecode supported by the Ruby interface Gecode/R.
 ---
@@ -12,14 +12,14 @@ h1. Features
 in Gecode 2.2.0":http://www.gecode.org/gecode-doc-search-2.2.0/modules.html.</p>
 </div>
 
-h2. Supported platforms
+h2. Supported Platforms
 
 Ruby 1.8.6 on
 * Windows (tested with the "one-click Ruby installer":http://rubyinstaller.rubyforge.org/wiki/wiki.pl)
 * Linux
 * OS X
 
-h2. Supported Gecode features 
+h2. Supported Gecode Features 
 
 The following things are supported by Gecode/R.
 
@@ -49,7 +49,7 @@ The following things are supported by Gecode/R.
 * Reification, propagation strength and propagation kind
 
 
-h2. Features not supported
+h2. Features Not Supported
 
 The following are some notable features that are included in Gecode but _not_
 in Gecode/R (but might be in the future).

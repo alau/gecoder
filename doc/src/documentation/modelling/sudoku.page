@@ -1,11 +1,11 @@
 ---
-title: Modelling sudoku
-longTitle: Tutorial on solving sudoku using constraint programming
+title: Modelling Sudoku
+longTitle: Tutorial on Solving Sudoku using Constraint Programming
 inMenu: true
 description: How to use Gecode/R to model sudoku to solve it with constraint programming. Discusses multiple views.
 ---
 
-h1. Modelling sudoku
+h1. Modelling Sudoku
 
 <div class="summary">
 <p>The following walks through the points of "the modelling 
@@ -16,7 +16,7 @@ problem":http://en.wikipedia.org/wiki/Sudoku.</p>
 The tutorial will lead up to the code in the {example: {name: sudoku, linkText: 
 sudoku example}}.
 
-h2. Understand the problem
+h2. Understand the Problem
 
 In the case of sudoku we just need to know the following:
 
@@ -26,7 +26,7 @@ provides a partially completed grid. - "Wikipedia":http://en.wikipedia.org/wiki/
 
 This gives us some insight into what we need to express in our model.
 
-h2. Select the view
+h2. Select the View
 
 A sudoku seems natural to represent as a 9x9 grid where each cell can be 
 assigned a value in 1..9. In terms of code it's expressed as
@@ -35,7 +35,7 @@ assigned a value in 1..9. In terms of code it's expressed as
 @squares = int_var_matrix(9, 9, 1..9)
 </ruby>
 
-h3. Be aware of multiple views
+h3. Be Aware of Multiple Views
 
 There are however other ways to view the problem. For instance we could instead 
 choose to use 9 set variables, one for each assignable value. Each set would
@@ -45,7 +45,7 @@ second set would contain the squares to which 2 is assigned and so on. The
 squares could be represented as number ranging from 1 to 81. This view is shown 
 in the {example: {name: sudoku-set, linkText: sudoku example with sets}}.
 
-h3. Be economic
+h3. Be Economic
 
 We could also choose to use 81*9 boolean variables, i.e. a matrix of boolean
 arrays, where a matrix cell has one boolean variable for each assignable number.
@@ -53,7 +53,7 @@ While valid, the view would require us to add the constraint that only one
 boolean variable may be true in each cell. Hence it's less economic than a 
 matrix of integer variables.
 
-h2. Express the constraints
+h2. Express the Constraints
 
 We select the integer variable view. The first thing we notice is that we no 
 longer need to worry about 
@@ -105,7 +105,7 @@ end
 Where @predefined_values@ is a matrix with the partially completed grid (
 containing 0 where nothing is assigned).
 
-h2. Select branching strategy
+h2. Select Branching Strategy
 
 We select the first fail heuristic. In code it's expressed as
 
@@ -116,26 +116,26 @@ branch_on @squares, :variable => :smallest_size, :value => :min
 It works well because it tries to assign squares as quickly as possible, hence
 forcing fails earlier in the search tree.
 
-h2. Tweak the performance
+h2. Tweak the Performance
 
 There's not an awfully lot to do for sudoku.
 
-h3. Add implied constraints
+h3. Add Implied Constraints
 
 One implied constraint for sudoku is a constraint linking the squares and the 
 rows. It's not necessary, but it will make the search faster.
 
-h3. Change propagation strengths
+h3. Change Propagation Strengths
 
 Using a different propagation strength for the distinct constraints is worth 
 trying.
 
-h3. Break symmetries
+h3. Break Symmetries
 
 Part of being a sudoku is that there must be exactly one solution, hence 
 there are no symmetires.
 
-h2. The result
+h2. The Result
 
 Combining the code from above with a small to_s method we get the following 
 (without any error check or anything).

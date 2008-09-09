@@ -1,6 +1,6 @@
 ---
-title: Project details
-longTitle: The Gecode/R community, bringing constraint programming to Ruby
+title: Project Details
+longTitle: Details about the Community behind Gecode/R
 inMenu: true
 description: How to get in touch with the Gecode/R community. Ask questions about Gecode/R and constraint programming.
 ---
@@ -41,7 +41,7 @@ http":http://gecoder.rubyforge.org/svn/trunk/ and checked out using
 
  svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder
 
-h2. Issue tracker
+h2. Issue Tracker
 
 "The issue tracker":http://rubyforge.org/tracker/?group_id=3553 is available
 from the RubyForge project page. It handles bugs, feature requests and patches.

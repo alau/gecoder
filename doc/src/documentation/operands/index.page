@@ -1,6 +1,6 @@
 ---
 title: Operands
-longTitle: Operands and constraints supported by Gecode/R
+longTitle: Operands and Constraints Supported by Gecode/R
 inMenu: true
 description: An overview of the operands available in Gecode/R, as well as their constraints and properties.
 ---
@@ -101,7 +101,7 @@ expressions if wanted. The following constrains that either x must be less than
 x.must < 0 | (y.must > 5 & x.must == 0)
 </ruby>
 
-h4. Propagation strength
+h4. Propagation Strength
 
 The propagation strength basically _suggests_ how much effort the solver
 should put into trying to prune the domains of variables using the
@@ -132,7 +132,7 @@ numbers.must_be.distinct(:strength => :domain)
 The strength generally progresses as @:value@ -> @:bounds@ -> @:domain@ 
 (@:value@ being the weakest, @:domain@ being the strongest). 
 
-h4. Propagation kind
+h4. Propagation Kind
 
 The propagation kind option _suggests_ the implementation that should be 
 preferred if there are multiple implementations of a constraint. 
