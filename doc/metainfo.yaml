@@ -11,9 +11,19 @@ documentation:
   orderInfo: 5
 details:
   orderInfo: 6
+
 details/index.page:
   directoryName: Project Details
-  
+  orderInfo: 10
+details/contribute.page:
+  orderInfo: 11
+details/credits.page:
+  orderInfo: 12
+details/changes.page:
+  orderInfo: 13
+details/development.page:
+  orderInfo: 14
+
 documentation/index.page:
   orderInfo: 10
 documentation/modelling:

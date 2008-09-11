@@ -1,0 +1,12 @@
+---
+title: Credits
+longTitle: The People behind Gecode/R
+inMenu: true
+description: The people who have contributed to Gecode/R.
+---
+h1. Credits
+
+<notextile> 
+  <% credits = File.readlines('../THANKS').join %>
+  <%= @plugin_manager['ContentConverter/RDoc'].call(credits) %>
+</notextile>

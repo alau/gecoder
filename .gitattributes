@@ -26,6 +26,7 @@ doc/src/404-error.page -text
 doc/src/default.template -text
 doc/src/details/changes.page -text
 doc/src/details/contribute.page -text
+doc/src/details/credits.page -text
 doc/src/details/development.page -text
 doc/src/details/index.page -text
 doc/src/documentation/faq.page -text

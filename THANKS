@@ -1,5 +1,5 @@
-A list of people who have contributed to making Gecode/R what it is
-today.  Sorted in alphabetical order by last name.
+This is a list of people who have contributed to making Gecode/R what it
+is today. It is sorted in alphabetical order by last name.
 
 * David Cuadrado - For the initial raw bindings from Gecode to Ruby.
 * Eivind Eklund - For the idea that led to the syntax used to specify 
