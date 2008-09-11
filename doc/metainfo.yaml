@@ -12,7 +12,7 @@ documentation:
 details:
   orderInfo: 6
 details/index.page:
-  directoryName: Project details
+  directoryName: Project Details
   
 documentation/index.page:
   orderInfo: 10
