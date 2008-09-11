@@ -159,11 +159,13 @@ body {
 }
 #sidebar ul li a {
   padding: 0.5em 0;
-  dislay: block;
   text-decoration: none;
 }
 #sidebar form {
   margin-top: 3em;
+}
+#sidebar a.parent {
+  font-weight: bold;
 }
 /*Summaries*/
 div.summary {

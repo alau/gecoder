@@ -15,6 +15,8 @@ class SidbarMenuStyle < MenuStyles::DefaultMenuStyle
       menu = node.parent.inject('') do |out, child|
         next out if child.node_info[:node] == src_node
         _, link = menu_item_details(src_node, child.node_info[:node])
+        has_children = child.inject{ true }
+        link.sub!('>', 'class="parent">') if has_children
         out << "<li>#{link}</li>" 
       end
       page_menu = "<h3>#{src_node.parent['title']}</h3><ul id=\"secondNav\">#{menu}</ul>"

@@ -16,11 +16,11 @@ details/index.page:
   
 documentation/index.page:
   orderInfo: 10
-documentation/faq.page:
-  orderInfo: 11
 documentation/modelling:
-  orderInfo: 12
+  orderInfo: 11
 documentation/operands:
+  orderInfo: 12
+documentation/faq.page:
   orderInfo: 13
 
 documentation/operands/index.page:
