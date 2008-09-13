@@ -7,11 +7,9 @@ description: How to use Gecode/R to model problems and solve them using constrai
 h1. Using Gecode/R
 
 <div class="summary">
-<p>To use Gecode/R to solve a problem you first have to model the problem by
-expressing what a solution to the problem is using variables and 
-constraints.</p>
-
-<p>You can then fetch solutions with varying strategies.</p>
+<p>Constraint programming is declarative. Formulate the problem by
+creating a _model_ that describes it. The solver will then fetch the
+solutions.</p>
 </div>
 
 h2. Creating Models
@@ -32,38 +30,56 @@ solution = MyModel.new.solve!
 </ruby>
 
 There are three main parts of a model:
+
 <dl>
-  <dt>"Variables":#variables_and_operands</dt><dd>Specify how to view the problem. A solution is an assignment of the variables.</dd>
-  <dt>"Constraints":#constraints</dt><dd>Place constraints on the variables to ensure that an assignment must be a solution.</dd>
-  <dt>"Branching":#branching</dt><dd>Select how the search space should be explored.</dd>
+  <dt>"Variables":#variables_and_operands</dt><dd>Variables specify how to view the problem. A solution is an assignment of the variables.</dd>
+  <dt>"Constraints":#constraints</dt><dd>Constraints are placed on the variables to ensure that a valid assignment of the variables is a solution to the problem.</dd>
+  <dt>"Branching":#branching</dt><dd>Branching specifies how the search space should be explored and which variables that must be assigned.</dd>
 </dl>
 
 h3. Variables and Operands
 
-A solution to a problem is a valid assignment of the variables. The
-variables can take multiple values, and it's up to Gecode to prune away
-invalid assignments until a valid one is found.
+Variables represent the problem's search space. Each variable has a
+_domain_ which represents all values that the variable can take. An
+integer variable with domain {0,1,...,9} can for instance take any value
+between 0 and 9.
 
-Variables are the "most basic type of operand":operands/index.html. 
-Operands are used as arguments to constraints and it's through them that
-variables get most of their important functionality. It is common to work 
-with arrays or enumerations of variables, which are also operands.
+Gecode deduces which values that a variable can not take and removes
+them from the domain. Once a variable only has one value left in its
+domain its said to be _assigned_ that value.  A solution to a problem is
+a valid assignment of the variables.
 
-The primary variables are:
+The different types of variables are:
+
 <dl>
   <dt>Integer variables</dt>
-  <dd>Can be assigned integer values.
-      Act as "integer operands":operands/integer-operands.html. 
+  <dd>Can be assigned integer values.</dd>
+  <dt>Boolean variables</dt>
+  <dd>Can be assigned either true or false.</dd>
+  <dt>Set variables</dt>
+  <dd>Can be assigned sets of integer values.</dd>
+</dl>
+
+h4. Operands
+
+Variables are the most basic type of "operands":operands/index.html. 
+It is common to work with arrays or enumerations of variables, which 
+are also operands.
+
+The different types of variables correspond to the following types of
+operands.
+
+<dl>
+  <dt>Integer variables</dt>
+  <dd>Act as "integer operands":operands/integer-operands.html. 
       Enumerations of integer variables act as "integer enumeration
       operands":operands/integer-enum-operands.html.</dd>
   <dt>Boolean variables</dt>
-  <dd>Can be assigned either true or false. Act as 
-      "boolean operands":operands/boolean-operands.html. Enumerations of 
+  <dd>Act as "boolean operands":operands/boolean-operands.html. Enumerations of 
       boolean variables act as "boolean enumeration
       operands":operands/boolean-enum-operands.html.</dd>
   <dt>Set variables</dt>
-  <dd>Can be assigned sets of integer values.
-      Act as "set operands":operands/set-operands.html. Enumerations of 
+  <dd>Act as "set operands":operands/set-operands.html. Enumerations of 
       set variables act as "set enumeration 
       operands":operands/set-enum-operands.html.</dd>
 </dl>
@@ -111,9 +127,9 @@ my_enum.must_be.distinct
 
 h4. Creating Boolean Variables
 
-Use any of {RDoc: Mixin#bool_var}, {RDoc: Mixin#bool_var_array} and 
+Use any of {RDoc: Mixin#bool_var}, {RDoc: Mixin#bool_var_array} and
 {RDoc: Mixin#bool_var_matrix} to create boolean variables. The methods
-work just like for integer variables, except for not requiring a domain.
+work like the ones for integer variables, but do not require a domain.
 
 <ruby>
 bool = bool_var # Creates a boolean variable
@@ -129,7 +145,7 @@ variable is specified through a _greatest lower bound_ (GLB), a
 _least upper bound_ (LUB) and the allowed cardinality (which is optional). 
 
 The greatest lower bound is the largest set of elements that are certain
-to be in the set, the least upper bound is the smallest set of elements
+to be in the set. The least upper bound is the smallest set of elements
 that might be in the set (which should include the greatest lower
 bound). I.e. the greatest lower bound is a subset of the assigned set
 which is a subset of the least upper bound.
@@ -181,6 +197,7 @@ class Foo
   end
 end
 </ruby>
+
 <ruby>
 class Foo
   include Gecode::Mixin
@@ -215,59 +232,66 @@ of each operand for a complete list.
 
 h3. Branching
 
-The solver tries to prune the search space without actually exploring it, but
-sooner or later it will probably have to make a guess about a variable's value
-in order to get any further (i.e. it will have to explore the search space).
-This is called branching. Which variable and selection strategies to use is 
-specified with @Mixin#branch_on@
+Branching is when the solver has to make a guess about a variable's
+value (possibly having to backtrack later if the guess was wrong).
+Branching is used as a last resort if the variable's domain can't be
+pruned any further using pure deduction.
+
+The variables to branch over are specified using {RDoc: Mixin#branch_on}.
+
+<ruby>
+branch_on numbers
+</ruby>
+
+Variables that are branched over are guaranteed to be assigned in the
+solution. Therefore branch over all variables that represent the
+solution to the problem. Multiple calls to @branch_on@ can be used to
+branch over more than one enumeration of variables.
+
+<ruby>
+branch_on numbers
+branch_on other_numbers
+</ruby>
+
+h4. Branching Heuristic
+
+The branching heuristic decides in which order guesses should be made
+when branching. Picking a good heuristic helps cut down the search space. 
+
+A common heuristic is first fail, which makes guesses about the variable
+with the smallest domain first. This exhausts the remaining
+possibilities of variables with small domains first, which reveals
+failures early in the search.
 
 <ruby>
 branch_on numbers, :variable => :smallest_size, :value => :min
 </ruby>
 
-One can specify how these guesses should be made, possibly cutting down the
-search space by picking a good heuristic. An example of a common heuristic
-is first fail, which makes a guess about the variable with the smallest domain 
-(i.e. with lowest number of possible values). The reason why this often works
-well is that we can quicker exhaust the remaining possibilities of a variable 
-with a small domain, and hence force a fail (or a solution to be found) so that
-we can backtrack to the next possible choice.
-
 h2. Accessing Solutions
 
-If you just want any or all solutions then use depth first search. Use branch 
-and bound search if you want to fetch a specific solution, optimizing something
-of you choice.
+The most straight-forward way to find a solution is to use
+{RDoc: Mixin#solve!} and friends. It is also possible to find the
+solution that optimizes some value by using {RDoc: Mixin#optimize!}.
 
-{RDoc: Mixin#search_stats} can be used after the search to obtain
+{RDoc: Mixin#search_stats} can be used after a search to obtain
 various statistics about the search.
 
-h3. Depth First Search
+h3. Finding One Solution
 
-The solutions to a model can be accessed by several methods. The simplest case
-is when one just want a	single solution to the problem, in which case 
-{RDoc: Mixin#solve!} (which destructivly alters the instance) is 
-convenient.
+{RDoc: Mixin#solve!} is used to access _one_ solution to the problem. It
+destructively updates the model's variables.
 
 <ruby>
 instance = MyModel.new
-solution = instance.solve!
+instance.solve!
 </ruby>
 
-The model instance will reflect the found solution (i.e. all variables
-accessed through the model instance will be the solution's variables) as
-well as return it to be assigned to @solution@. If there is no solution
-then the @Gecode::NoSolutionError@ exception is raised.
+The value assigned to a variable is  then accessed using {RDoc:
+IntVar#value}. If there does not exist a solution then
+@Gecode::NoSolutionError@ is raised.
 
-It's possible to reset the instance back to the original form using 
-{RDoc: Mixin#reset!}.
-
-<ruby>
-instance.reset!
-</ruby>
-
-Note that this also resets any solutions returned earlier by 
-{RDoc: Mixin#solve!}.
+Note that a solution's variable is not necessarily assigned. Use {RDoc:
+Mixin#branch_on} to ensure that a variable is.
 
 A similar form with blocks if also available through {RDoc: Mixin#solution}.
 
@@ -275,24 +299,27 @@ A similar form with blocks if also available through {RDoc: Mixin#solution}.
 string = instance.solution{ |solution| solution.to_s }
 </ruby>
 
-It gives a solution to the block and then returns the result of the block. 
-Use {RDoc: Mixin#each_solution} to iterate over all solutions to a problem.
+It gives a solution to the block and then returns the result of the
+block (the model instance is unaffected).
+
+h3. Finding All Solutions
+
+{RDoc: Mixin#each_solution} iterates over all solutions to a problem.
 
 <ruby>
 instance.each_solution{ |solution| puts solution.to_s }
 </ruby>
 
-In both cases the model instance is unaffected after the method-call.
+h3. Finding the Optimal Solution
 
-h3. Branch and Bound Search
-
-Branch and bounds search is used when one is not just looking for _any_ 
-solution, but rather the _optimal_ solution (as defined by some criteria). For 
-instance we might want to find the solution which assigns the smallest value
-to a price variable. This is done by using the {RDoc: Mixin#optimize!} method, which
-takes a block with two arguments: the model itself and the best solution found
-so far. The block should then add a constraint that constrains the model to be
+{RDoc: Mixin#optimize!} is used to find the _optimal_ solution (where
+optimality is defined by the user). The method takes a block with two
+arguments: the model itself and the best solution found so far. The
+block should then add a constraint that constrains the model to be
 strictly better than the best solution so far.
+
+Minimizing the value of a variable @price@ is for instance done as
+follows.
 
 <ruby>
 optimal_solution = price_model_instance.optimize! do |model, best_so_far|
@@ -300,13 +327,14 @@ optimal_solution = price_model_instance.optimize! do |model, best_so_far|
 end
 </ruby>
 
-This destructively updates @price_model_instance@ to contain the returned 
-solution, just like {RDoc: Mixin#solve!}. If there is not solution then 
-the {RDoc: Gecode::NoSolutionError} exception is raised.
+This destructively updates @price_model_instance@ to contain the
+returned solution. If there is not solution then the {RDoc:
+Gecode::NoSolutionError} exception is raised.
 
-There exist convenience methods, named {RDoc: Mixin#maximize!} and {RDoc: Mixin#minimize!}, 
-for optimizing single integer variables. The above minimization of the variable
-@price@ can for instance also be done as follows.
+There exist convenience methods, named {RDoc: Mixin#maximize!} and
+{RDoc: Mixin#minimize!}, for optimizing single integer variables. The
+above minimization of the variable @price@ can for instance also be done
+as follows.
 
 <ruby>
 optimal_solution = price_model_instance.minimize! :price

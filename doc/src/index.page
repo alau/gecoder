@@ -17,8 +17,8 @@ pick up and use in practice.</p>
 
 h2. Describe Your Problem
 
-Constraint programming is a technique where you just *describe the problem* and 
-then let the *solver find solutions* for you.
+Constraint programming is _declarative_. Describe your problem to the
+solver and then let it find solutions for you. 
 
 h3. Example
 
@@ -43,12 +43,12 @@ puts solution.variables.values.join(' ')
 </ruby>
 
 Output:
+
 <pre>
 x y z
 0 3 3
 </pre>
 
-The equation system is no harder to solve than to describe. But many problems 
-are *simpler to describe than to solve*, causing constraint programming to be 
-an easy way of solving them. {example: {name: sudoku, 
+Constraint programming is an easy way to solve problems that are simpler to 
+describe than to solve. {example: {name: sudoku, 
 linkText: Sudoku}} is one of many "examples":examples/index.html.
