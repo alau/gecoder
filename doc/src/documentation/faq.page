@@ -7,7 +7,36 @@ description: Frequently asked question about Gecode/R and constraint programming
 
 h1. Frequently Asked Questions
 
-h2. What is Constraint Programming?
+h2. Gecode/R
+
+h3. Why do I keep getting "RuntimeError: No value is assigned." when accessing solution values?
+
+Because the variables have not been assigned a single value in the
+solution. Variables are not necessarily assigned in the solution unless
+you tell Gecode/R to branch over them. As an example
+
+<ruby>
+Gecode.solve do 
+  foo_is_an int_var(0..9)
+  foo.must < 5
+end.foo.domain
+</ruby>
+
+returns "0..4" (i.e. @foo@ is not assigned) while
+
+<ruby>
+Gecode.solve do 
+  foo_is_an int_var(0..9)
+  foo.must < 5
+  branch_on foo
+end.foo.value
+</ruby>
+
+returns "0" (@foo@ is assigned 0).
+
+h2. Constraint Programming
+
+h3. What is Constraint Programming?
 
 Constraint programming is a declarative programming paradigm, you describe what 
 kind of solution you want rather than how you want it computed. When using 
@@ -21,7 +50,7 @@ linkText: solve a sudoku with constraint programming}}  you feed the rules (all
 numbers in each row must be distinct etc) to the solver, which then searches 
 for a solution satisfying all the constraints.
 
-h2. What Types of Problems are Suitable?
+h3. What Types of Problems are Suitable?
 
 The ideal problems to use constraint programming on are problems that are easy
 to describe but where the best one can do to solve them is an exhaustive search.
@@ -32,7 +61,7 @@ then it will have a better worst case complexity. If the algorithm is hard to
 implement and/or complexity is not that important then constraint programming 
 might still be worth testing/considering.
 
-h2. Won't it be Slow?
+h3. Won't it be Slow?
 
 It will always have exponential worst case complexity. However, if the model
 is good, it can empirically scale better.
