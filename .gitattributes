@@ -30,6 +30,7 @@ doc/src/details/credits.page -text
 doc/src/details/development.page -text
 doc/src/details/index.page -text
 doc/src/documentation/faq.page -text
+doc/src/documentation/formulating_problems.page -text
 doc/src/documentation/index.page -text
 doc/src/documentation/modelling/index.page -text
 doc/src/documentation/modelling/square-tiling.page -text
@@ -43,6 +44,7 @@ doc/src/documentation/operands/selected-set-operands.page -text
 doc/src/documentation/operands/set-elements-operands.page -text
 doc/src/documentation/operands/set-enum-operands.page -text
 doc/src/documentation/operands/set-operands.page -text
+doc/src/documentation/searching_for_solutions.page -text
 doc/src/examples/index.page -text
 doc/src/examples/magic-sequence.page -text
 doc/src/examples/n-queens.page -text

@@ -26,12 +26,16 @@ details/development.page:
 
 documentation/index.page:
   orderInfo: 10
-documentation/modelling:
+documentation/formulating_problems.page:
   orderInfo: 11
-documentation/operands:
+documentation/searching_for_solutions.page:
   orderInfo: 12
-documentation/faq.page:
+documentation/operands:
   orderInfo: 13
+documentation/modelling:
+  orderInfo: 14
+documentation/faq.page:
+  orderInfo: 15
 
 documentation/operands/index.page:
   orderInfo: 20

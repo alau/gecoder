@@ -1,385 +1,94 @@
 ---
-title: Introduction
-longTitle: Documentation for Gecode/R, a Ruby Interface to Gecode
+title: Getting Started
+longTitle: Getting Started with Gecode/R, a Ruby Interface to Gecode
 inMenu: true
-description: How to use Gecode/R to model problems and solve them using constraint programming.
+description: How to get started with using Gecode/R to solve constraint programming problems.
 ---
-h1. Using Gecode/R
 
-<div class="summary">
-<p>Constraint programming is declarative. Formulate the problem by
-creating a _model_ that describes it. The solver will then fetch the
-solutions.</p>
+h1. Getting Started
+
+<div class="summary"> 
+<p>Constraint programming is declarative. You
+"formulate the problem":formulating_problems.html and then ask the solver
+(Gecode) to find a solution. Problems are formulated as variables that
+have to be assigned values to satisfy specified constraints.</p>
 </div>
 
-h2. Creating Models
+h2. Toy Example
 
-A model is a class that mixes in {RDoc: Gecode::Mixin}.
-
-<ruby>
-class MyModel
-  include Gecode::Mixin
-
-  def initialize
-    # Place variables, constraints and branching selection here.
-  end
-end
-
-# Fetch the solution.
-solution = MyModel.new.solve!
-</ruby>
-
-There are three main parts of a model:
-
-<dl>
-  <dt>"Variables":#variables_and_operands</dt><dd>Variables specify how to view the problem. A solution is an assignment of the variables.</dd>
-  <dt>"Constraints":#constraints</dt><dd>Constraints are placed on the variables to ensure that a valid assignment of the variables is a solution to the problem.</dd>
-  <dt>"Branching":#branching</dt><dd>Branching specifies how the search space should be explored and which variables that must be assigned.</dd>
-</dl>
-
-h3. Variables and Operands
-
-Variables represent the problem's search space. Each variable has a
-_domain_ which represents all values that the variable can take. An
-integer variable with domain {0,1,...,9} can for instance take any value
-between 0 and 9.
-
-Gecode deduces which values that a variable can not take and removes
-them from the domain. Once a variable only has one value left in its
-domain its said to be _assigned_ that value.  A solution to a problem is
-a valid assignment of the variables.
-
-The different types of variables are:
-
-<dl>
-  <dt>Integer variables</dt>
-  <dd>Can be assigned integer values.</dd>
-  <dt>Boolean variables</dt>
-  <dd>Can be assigned either true or false.</dd>
-  <dt>Set variables</dt>
-  <dd>Can be assigned sets of integer values.</dd>
-</dl>
-
-h4. Operands
-
-Variables are the most basic type of "operands":operands/index.html. 
-It is common to work with arrays or enumerations of variables, which 
-are also operands.
-
-The different types of variables correspond to the following types of
-operands.
-
-<dl>
-  <dt>Integer variables</dt>
-  <dd>Act as "integer operands":operands/integer-operands.html. 
-      Enumerations of integer variables act as "integer enumeration
-      operands":operands/integer-enum-operands.html.</dd>
-  <dt>Boolean variables</dt>
-  <dd>Act as "boolean operands":operands/boolean-operands.html. Enumerations of 
-      boolean variables act as "boolean enumeration
-      operands":operands/boolean-enum-operands.html.</dd>
-  <dt>Set variables</dt>
-  <dd>Act as "set operands":operands/set-operands.html. Enumerations of 
-      set variables act as "set enumeration 
-      operands":operands/set-enum-operands.html.</dd>
-</dl>
-
-h4. Creating Integer Variables
-
-Use {RDoc: Mixin#int_var} to create a new integer variable. The method takes
-one argument, the domain of the integer variable. The domain represents
-the values that the variable can take. A variable with domain 0..9 can
-for instance take any value in the range 0 to 9. 
+The following script formulates and solves the toy problem of finding
+the integer @x@ such that @x@ times 5 equals 25. 
 
 <ruby>
-number = int_var(0..9) # Creates an integer variable with domain 0..9.
+require 'rubygems'
+require 'gecoder'
+include Gecode::Mixin
+
+x = int_var
+(x*5).must == 25
+branch_on x
+
+solve!
+puts x.value
 </ruby>
 
-Alternatively one can also create multiple integer variables with the same 
-domain at once using {RDoc: Mixin#int_var_array} which returns an array of variables.
+h3. Setting Up
 
 <ruby>
-numbers = int_var_array(8, 0..9) # Creates 8 variables with domains 0..9.
+require 'rubygems'
+require 'gecoder'
+include Gecode::Mixin
 </ruby>
 
-The domain specified does not have to be a range, it can also be an enumeration
-of elements. The following creates an integer variable with the odd numbers in 
-0..9 as domain.
+{RDoc: Gecode::Mixin} is a mixin that provides all the methods used.
+Mixing it into a class rather than into the top level context is advised
+for serious use.
+
+h3. Formulating the Problem
 
 <ruby>
-odd_number = int_var([1,3,5,7,9])
+x = int_var
+(x*5).must == 25
 </ruby>
 
-Matrices can be created using {RDoc: Mixin#int_var_matrix} (returns an instance of
-Matrix). 
+Formulates the problem by, on the first line, "creating an integer
+variable":formulating_problems.html#creating_integer_variables @x@ and
+then, on the second line, constraining 5 times any value assigned to @x@
+to equal 25 (constraining the value assigned to @x@ to be a solution to
+the problem).
+
+There are "many types of variables and ways to create
+them":formulating_problems.html#variables_and_operands. All
+"constraints":formulating_problems.html#constraints can be recognized by
+the use of @#must@. The second line uses a property and a constraint
+belonging to "integer operands":operands/integer-operands.html.
+ 
+<ruby>
+branch_on x
+</ruby>
+
+Tells Gecode/R that @x@ should be assigned a value to solve the problem.
+In more complex examples there can be temporary variables that are only
+used to help formulate the problem and do not need to be assigned a
+specific value.
+
+Branching is also used to "specify how to explore the search
+space":formulating_problems.html#branching.
+
+h3. Finding the solution
 
 <ruby>
-number_matrix = int_var_matrix(5, 4, 0..9) # 5 rows and 4 columns.
+solve!
+puts x.value
 </ruby>
 
-Additional custom enumerations containing variables can be used, but they have
-to be wrapped using {RDoc: Mixin#wrap_enum} first.
-
-<ruby>
-my_enum = wrap_enum(my_enum)
-my_enum.must_be.distinct
-</ruby>
-
-h4. Creating Boolean Variables
-
-Use any of {RDoc: Mixin#bool_var}, {RDoc: Mixin#bool_var_array} and
-{RDoc: Mixin#bool_var_matrix} to create boolean variables. The methods
-work like the ones for integer variables, but do not require a domain.
-
-<ruby>
-bool = bool_var # Creates a boolean variable
-bools = bool_var_array(3) # Creates 3 boolean variables.
-bool_matrix = bool_var_matrix(3, 4) # Creates a 3x4 matrix of boolean variables.
-</ruby>
-
-h4. Creating Set Variables
-
-Use any of {RDoc: Mixin#set_var}, {RDoc: Mixin#set_var_array} and {RDoc:
-Mixin#set_var_matrix} to create set variables. The domain of a set
-variable is specified through a _greatest lower bound_ (GLB), a 
-_least upper bound_ (LUB) and the allowed cardinality (which is optional). 
-
-The greatest lower bound is the largest set of elements that are certain
-to be in the set. The least upper bound is the smallest set of elements
-that might be in the set (which should include the greatest lower
-bound). I.e. the greatest lower bound is a subset of the assigned set
-which is a subset of the least upper bound.
-
-The bounds are specified as constant sets. The cardinality can only be
-specified with ranges or as a single number, which is then used as the
-minimum cardinality.
-
-A constant set can be represented with instances of the following classes:
-<dl>
-  <dt>Fixnum</dt><dd>Represents a singleton set.</dd>
-  <dt>Range</dt><dd>Represents a set containing all elements in the range. This represents the set more efficiently than when another enumeration with the same elements are used.</dd>
-  <dt>Enumeration of Fixnum</dt><dd>Represents a set containing the enumeration's elements.</dd>
-</dl>
-
-<ruby>
-# Creates a set variable with glb 1..2 and lub 1..6 .
-set = set_var(1..2, 1..6) 
-# Creates an array of 3 set variables with the above bounds and a minimum 
-# cardinality of 3.
-sets = set_var_array(3, 1..2, 1..6, 3)
-# Creates a 7x9 matrix of set variables with the above bounds and a cardinality 
-# between 2 and 5
-set_matrix = set_var_matrix(7, 9, 1..2, 1..6 2..5)
-</ruby>
-
-h4. Accessing Variables from the Outside
-
-It is often desirable to be able to access a variable from outside the
-class in order to e.g. access the selected values of the solution. One
-way to do this is to assign the variable to an instance variable and
-then add an accessor, but since it's such a common operation a more
-convenient way has been added. Write @<variable_name>_is_a <variable>@
-or @<variable_name>_is_an <variable>@, replacing @<variable_name>@ with
-the variable's name and @<variable>@ with the variable, to add an
-instance variable and accessor with the specified name.
-
-To exemplify, The following two pieces of code are equivalent.
-<ruby>
-class Foo
-  include Gecode::Mixin
-
-  attr :digit
-
-  def initialize
-    @digit = int_var 0..9
-
-    branch_on @digit
-  end
-end
-</ruby>
-
-<ruby>
-class Foo
-  include Gecode::Mixin
-
-  def initialize
-    digit_is_an int_var(0..9)
-    
-    branch_on digit
-  end
-end
-</ruby>
-
-h3. Constraints
-
-Constraints specify what must hold for something to be a solution. They
-are placed on operands using using @#must@ and @#must_not@ in the
-following fashion:
-
-<ruby>
-operand.must.constraint_method(params)
-</ruby>
-
-For example, the following constrains @int_operand@ to be strictly
-greater than 5.
-
-<ruby>
-int_operand.must > 5
-</ruby>
-
-Different operands support different constraints. See the documentation
-of each operand for a complete list.
-
-h3. Branching
-
-Branching is when the solver has to make a guess about a variable's
-value (possibly having to backtrack later if the guess was wrong).
-Branching is used as a last resort if the variable's domain can't be
-pruned any further using pure deduction.
-
-The variables to branch over are specified using {RDoc: Mixin#branch_on}.
-
-<ruby>
-branch_on numbers
-</ruby>
-
-Variables that are branched over are guaranteed to be assigned in the
-solution. Therefore branch over all variables that represent the
-solution to the problem. Multiple calls to @branch_on@ can be used to
-branch over more than one enumeration of variables.
-
-<ruby>
-branch_on numbers
-branch_on other_numbers
-</ruby>
-
-h4. Branching Heuristic
-
-The branching heuristic decides in which order guesses should be made
-when branching. Picking a good heuristic helps cut down the search space. 
-
-A common heuristic is first fail, which makes guesses about the variable
-with the smallest domain first. This exhausts the remaining
-possibilities of variables with small domains first, which reveals
-failures early in the search.
-
-<ruby>
-branch_on numbers, :variable => :smallest_size, :value => :min
-</ruby>
-
-h2. Accessing Solutions
-
-The most straight-forward way to find a solution is to use
-{RDoc: Mixin#solve!} and friends. It is also possible to find the
-solution that optimizes some value by using {RDoc: Mixin#optimize!}.
-
-{RDoc: Mixin#search_stats} can be used after a search to obtain
-various statistics about the search.
-
-h3. Finding One Solution
-
-{RDoc: Mixin#solve!} is used to access _one_ solution to the problem. It
-destructively updates the model's variables.
-
-<ruby>
-instance = MyModel.new
-instance.solve!
-</ruby>
-
-The value assigned to a variable is  then accessed using {RDoc:
-IntVar#value}. If there does not exist a solution then
-@Gecode::NoSolutionError@ is raised.
-
-Note that a solution's variable is not necessarily assigned. Use {RDoc:
-Mixin#branch_on} to ensure that a variable is.
-
-A similar form with blocks if also available through {RDoc: Mixin#solution}.
-
-<ruby>
-string = instance.solution{ |solution| solution.to_s }
-</ruby>
-
-It gives a solution to the block and then returns the result of the
-block (the model instance is unaffected).
-
-h3. Finding All Solutions
-
-{RDoc: Mixin#each_solution} iterates over all solutions to a problem.
-
-<ruby>
-instance.each_solution{ |solution| puts solution.to_s }
-</ruby>
-
-h3. Finding the Optimal Solution
-
-{RDoc: Mixin#optimize!} is used to find the _optimal_ solution (where
-optimality is defined by the user). The method takes a block with two
-arguments: the model itself and the best solution found so far. The
-block should then add a constraint that constrains the model to be
-strictly better than the best solution so far.
-
-Minimizing the value of a variable @price@ is for instance done as
-follows.
-
-<ruby>
-optimal_solution = price_model_instance.optimize! do |model, best_so_far|
-  model.price.must < best_so_far.price.value
-end
-</ruby>
-
-This destructively updates @price_model_instance@ to contain the
-returned solution. If there is not solution then the {RDoc:
-Gecode::NoSolutionError} exception is raised.
-
-There exist convenience methods, named {RDoc: Mixin#maximize!} and
-{RDoc: Mixin#minimize!}, for optimizing single integer variables. The
-above minimization of the variable @price@ can for instance also be done
-as follows.
-
-<ruby>
-optimal_solution = price_model_instance.minimize! :price
-</ruby>
-
-h2. Convenience
-
-There exists handy convenience methods for common operations related to
-models.
-
-h3. Gecode.solve
-
-Use {RDoc: Gecode.solve} to create a model and search for a single
-solution without having to explicitly define a class.
-
-<ruby>
-solution = Gecode.solve do
-  # Describe the model.
-end
-</ruby>
-
-h3. Gecode.minimize and Gecode::maximize
-
-Use {RDoc: Gecode.minimize} and {RDoc: Gecode.maximize} to create a
-model and search for a solution that maximizes or minimizes a given
-variable.
-
-<ruby>
-optimal_solution = Gecode.minimize :price do 
-  # Describe the model.
-end
-</ruby>
-
-h3. Gecode::Model
-
-{RDoc: Gecode::Model} is a convenient class that only mixes in
-@Gecode::Mixin@. It is useful for creating models without mixin in
-Gecode::Mixin into the current context or creating a new class.
-
-<ruby>
-model = Gecode::Model.new
-var = model.int_var(0..9)
-var.must > 5
-model.branch_on var
-model.solve!
-
-p var.value
-</ruby>
+The first line "searches for a
+solution":searching_for_solutions.html#searching_for_one_solution.  The
+second line displays the value assigned to the variable in the solution.
+
+h2. Modelling Problems
+
+Translating a problem into variables and constraints is not trivial.
+The translation affects how fast a solution is found. The "modelling
+tutorial":modelling/index.html gives an introduction of how to perform
+the translation along with detailed examples.

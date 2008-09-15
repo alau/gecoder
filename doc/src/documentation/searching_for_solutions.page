@@ -1,0 +1,113 @@
+---
+title: Searching for Solutions
+longTitle: How to Find Solutions to Constraint Programming Problems
+inMenu: true
+description: How to find solutions to constraint programming problems that have been formulated using Gecode/R. Covers both searching for any solution as well as searching the optimal solution.
+---
+
+h1. Searching for Solutions
+
+<div class="summary">
+<p>{RDoc: Mixin#solve!} and friends are used to fetch any solution to a 
+"formulated problem":formulating_problems.html. {RDoc: Mixin#optimize!}
+and friends are used to fetch the solution that optimizes some value.</p>
+</div>
+
+h2. Searching for One Solution
+
+{RDoc: Mixin#solve!} is used to access _one_ solution to the problem. It
+destructively updates the model's variables.
+
+<ruby>
+instance = MyModel.new
+instance.solve!
+</ruby>
+
+The value assigned to a variable is  then accessed using {RDoc:
+IntVar#value}. If there does not exist a solution then
+@Gecode::NoSolutionError@ is raised.
+
+Note that a solution's variable is not necessarily assigned. Use {RDoc:
+Mixin#branch_on} to ensure that a variable is.
+
+A similar form with blocks if also available through {RDoc: Mixin#solution}.
+
+<ruby>
+string = instance.solution{ |solution| solution.to_s }
+</ruby>
+
+It gives a solution to the block and then returns the result of the
+block (the model instance is unaffected).
+
+h2. Searching for All Solutions
+
+{RDoc: Mixin#each_solution} iterates over all solutions to a problem.
+
+<ruby>
+instance.each_solution{ |solution| puts solution.to_s }
+</ruby>
+
+h2. Searching for the Optimal Solution
+
+{RDoc: Mixin#optimize!} is used to find the _optimal_ solution (where
+optimality is defined by the user). The method takes a block with two
+arguments: the model itself and the best solution found so far. The
+block should then add a constraint that constrains the model to be
+strictly better than the best solution so far.
+
+Minimizing the value of a variable @price@ is for instance done as
+follows.
+
+<ruby>
+optimal_solution = price_model_instance.optimize! do |model, best_so_far|
+  model.price.must < best_so_far.price.value
+end
+</ruby>
+
+This destructively updates @price_model_instance@ to contain the
+returned solution. If there is not solution then the {RDoc:
+Gecode::NoSolutionError} exception is raised.
+
+There exist convenience methods, named {RDoc: Mixin#maximize!} and
+{RDoc: Mixin#minimize!}, for optimizing single integer variables. The
+above minimization of the variable @price@ can for instance also be done
+as follows.
+
+<ruby>
+optimal_solution = price_model_instance.minimize! :price
+</ruby>
+
+h2. Convenience Methods
+
+There exists handy convenience methods for common operations related to
+models.
+
+h3. Gecode.solve
+
+Use {RDoc: Gecode.solve} to create a model and search for a single
+solution without having to explicitly define a class.
+
+<ruby>
+solution = Gecode.solve do
+  # Describe the model.
+end
+</ruby>
+
+h3. Gecode.minimize and Gecode::maximize
+
+Use {RDoc: Gecode.minimize} and {RDoc: Gecode.maximize} to create a
+model and search for a solution that maximizes or minimizes a given
+variable.
+
+<ruby>
+optimal_solution = Gecode.minimize :price do 
+  # Describe the model.
+end
+</ruby>
+
+h2. Search Statistics
+
+{RDoc: Mixin#search_stats} can be used after a search to obtain
+various statistics about the search. The most interesting one is
+the number of failures, which gives an idea of how much searching
+is needed.
