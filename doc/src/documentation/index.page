@@ -75,7 +75,7 @@ specific value.
 Branching is also used to "specify how to explore the search
 space":formulating_problems.html#branching.
 
-h3. Finding the solution
+h3. Finding the Solution
 
 <ruby>
 solve!
