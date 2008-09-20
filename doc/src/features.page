@@ -9,7 +9,9 @@ h1. Features
 
 <div class="summary">
 <p>Gecode/R provides access to many, but not all, of the "features 
-in Gecode 2.2.0":http://www.gecode.org/gecode-doc-search-2.2.0/modules.html.</p>
+in Gecode 2.2.0":http://www.gecode.org/gecode-doc-search-2.2.0/modules.html. 
+Gecode/R is only a modelling interface, it does not provide support for 
+e.g. creating new propagators.</p>
 </div>
 
 h2. Supported Platforms
