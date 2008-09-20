@@ -7,13 +7,6 @@ description: How to install Gecode/R to gain access to constraint programming in
 
 h1. Downloading and Installing
 
-h2. Warning
-
-Gecode/R is still in a development stage, the syntax is by no means final
-and *backwards compatibility will be broken* time and time again. Don't use 
-Gecode/R in production-code yet, it's merely available at this point to allow 
-people to play with it and give feedback.
-
 h2. Quick Install
 
 The following works on Windows, Linux and OS X (and probably some more).

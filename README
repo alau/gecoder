@@ -8,13 +8,6 @@ programming, aiming to be easy to pick up and use.
 
 See Gecode::Mixin to get started.
 
-== Warning
-
-Gecode/R is still in a development stage, the syntax is by no means final
-and backwards compatibility will be broken time and time again. Don't use 
-Gecode/R in production-code yet, it's merely available at this point to allow 
-people to play with it and give feedback.
-
 == Installation
 
 Gecode/R requires Gecode 2.2.0, which can be downloaded from 
