@@ -15,20 +15,19 @@ brevity, performance and user control. The ambition is that code using the
 interface should be readable enough to allow a new user to understand it 
 without having to look in the API documentation.
 
+The interface is currently aimed as a modelling interface. It does not
+support e.g. defining new propagators.
+
 h2. Development Status
 
-The project has working releases and currently "supports many of 
-the constraints available in Gecode":../features.html.
-
-The set of constraints currently available is considered to be complete, and 
-no further additions are likely until after version 1.0 has been released. 
-The current focus is to polish the documentation and to ensure that 
-everything is stable before releasing version 1.0 .
+The project is stable with a 1.0 release. 
 
 h2. Future Goals
 
-h3. Beyond 1.0
-
-* Add support for defining custom propagators and branching selection.
-  This should primarily be aimed at rapid prototyping since the performance 
-  will be much worse than if the e.g. propagator was implemented in C++.
+* Implement some of the missing variants of already implemented
+  constraints (e.g. div and mod).
+* Consider adding support for defining custom propagators and branching
+  selection. This should primarily be aimed at rapid prototyping since the
+  performance will be much worse than if the e.g. propagator was
+  implemented in C++.
+* Keep in sync with Gecode (prepare for Gecode 3.0).

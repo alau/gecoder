@@ -1,5 +1,5 @@
 ---
-title: Modelling
+title: Introduction to Modelling
 longTitle: How to Model a Constraint Programming Problem using Gecode/R
 inMenu: true
 description: How to use Gecode/R to model problems and solve them using constraint programming. What to watch out for and how to tweak the performance.
