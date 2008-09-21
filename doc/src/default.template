@@ -19,6 +19,8 @@
   <div id="sidebarWrapper">
     <div id="sidebar">
       {menu: {menuStyle: sidebar}}
+      <h3>Shortcuts</h3>
+      {menu: {menuStyle: sections}}
 
       <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
         onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">

@@ -8,12 +8,9 @@ class SidbarMenuStyle < MenuStyles::DefaultMenuStyle
 
   def internal_build_menu(src_node, menu_tree)
     page_menu = ''
-    if src_node.to_url.to_s =~ /index\.html/
-      node = find_menu_node(menu_tree, src_node)
-      return '' if node.parent.nil?
-
+    node = find_menu_node(menu_tree, src_node)
+    unless node.parent.nil? or src_node.parent['title'].empty?
       menu = node.parent.inject('') do |out, child|
-        next out if child.node_info[:node] == src_node
         _, link = menu_item_details(src_node, child.node_info[:node])
         has_children = child.inject{ true }
         link.sub!('>', 'class="parent">') if has_children
@@ -22,13 +19,7 @@ class SidbarMenuStyle < MenuStyles::DefaultMenuStyle
       page_menu = "<h3>#{src_node.parent['title']}</h3><ul id=\"secondNav\">#{menu}</ul>"
     end
 
-    section_menu = ''
-    sections = src_node.node_info[:pagesections]
-    unless sections.empty?
-      section_menu = '<h3>Shortcuts</h3>' + section_menu(sections, 1)
-    end
-
-    return page_menu + section_menu
+    return page_menu 
   end
   
   private
@@ -43,18 +34,5 @@ class SidbarMenuStyle < MenuStyles::DefaultMenuStyle
       end
     end
     node
-  end
-
-  # Builds a menu out of the page's sections.
-  def section_menu(sections, level)
-    return '' if sections.empty? || level > 2
-
-    sections.inject('<ul class="section_links">') do |menu, child|
-      menu << "<li><a href=\"##{child.id}\">#{child.title}</a>"
-      unless child.subsections.empty?
-        menu << section_menu(child.subsections, level + 1)
-      end
-      menu << "</li>"
-    end << "</ul>"
   end
 end

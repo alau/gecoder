@@ -14,6 +14,7 @@ doc/plugin/contentconverters/syntax.rb -text
 doc/plugin/googlesitemap.rb -text
 doc/plugin/menustyles/breadcrumbs.rb -text
 doc/plugin/menustyles/footer.rb -text
+doc/plugin/menustyles/sections.rb -text
 doc/plugin/menustyles/sidebar.rb -text
 doc/plugin/menustyles/tabs.rb -text
 doc/plugin/tags/example.rb -text
