@@ -31,7 +31,7 @@ Gecode/R and Gecode:
 === Installing from source using gem
 
   rake gem
-  gem install pkg/gecoder-0.x.x.gem
+  gem install pkg/gecoder-1.x.x.gem
 
 === Installing from source without using gem
 

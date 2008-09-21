@@ -1,3 +1,6 @@
+== Version 1.0.0
+This release represents a commitment to the current syntax.
+
 == Version 0.9.1
 This release changes the preferred way of defining a model to including Gecode::Mixin (a mixin) rather than inheriting from Gecode::Model. The backend has also been updated to fix some rare bugs.
 
