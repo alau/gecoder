@@ -12,12 +12,12 @@ GECODE_DLL_DIR = "#{WIN32_DIR}/lib"
 GECODE_INCLUDES = "#{WIN32_DIR}/include"
 
 # Find the Gecode libraries.
-find_library("gecodesupport", nil, GECODE_DLL_DIR)
-find_library("gecodekernel", nil, GECODE_DLL_DIR)
-find_library("gecodeint", nil, GECODE_DLL_DIR)
-find_library("gecodeset", nil, GECODE_DLL_DIR)
-find_library("gecodesearch", nil, GECODE_DLL_DIR)
-find_library("gecodeminimodel", nil, GECODE_DLL_DIR)
+find_library("WindowsgecodesupportWindows", nil, GECODE_DLL_DIR)
+find_library("WindowsgecodekernelWindows", nil, GECODE_DLL_DIR)
+find_library("WindowsgecodeintWindows", nil, GECODE_DLL_DIR)
+find_library("WindowsgecodesetWindows", nil, GECODE_DLL_DIR)
+find_library("WindowsgecodesearchWindows", nil, GECODE_DLL_DIR)
+find_library("WindowsgecodeminimodelWindows", nil, GECODE_DLL_DIR)
 
 find_library('stdc++', nil)
 
