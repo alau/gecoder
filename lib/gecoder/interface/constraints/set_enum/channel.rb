@@ -1,7 +1,7 @@
 module Gecode::SetEnum
   class SetEnumConstraintReceiver
     # Constrains this set enum to channel +int_enum_operand+. The i:th set 
-    # in the enumeration of set operands is constrained to includes the value 
+    # in the enumeration of set operands is constrained to include the value 
     # of the j:th integer operand. 
     #
     # Neither reification nor negation is supported.
