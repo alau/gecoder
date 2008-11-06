@@ -93,7 +93,7 @@ solution = Gecode.solve do
 end
 </ruby>
 
-h3. Gecode.minimize and Gecode::maximize
+h3. Gecode.minimize and Gecode.maximize
 
 Use {RDoc: Gecode.minimize} and {RDoc: Gecode.maximize} to create a
 model and search for a solution that maximizes or minimizes a given
