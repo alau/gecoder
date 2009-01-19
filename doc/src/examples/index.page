@@ -19,7 +19,7 @@ The following are the examples located in the example directory.
   <dt>"Square tiling":square-tiling.html</dt><dd>Uses symmetry breaking and implied constraints to speed up the search.</dd>
 </dl>
 
-Additionally, the following websites may be of use:
+Additionally, the following websites may be of interest:
 <dl>
   <dt>"hakank's Constraint Programming Blog":http://www.hakank.org/constraint_programming_blog/gecoder/<dt><dd>A blog containing "several example models":http://www.hakank.org/gecode_r/ along with the author's accounts of Gecode/R.</dd>
   <dt>"Gecode's example models":http://www.gecode.org/gecode-doc-latest/group__ExProblem.html</dt><dd>Gecode/R is a Ruby interface to Gecode. Hence Gecode's example models can typically be translated constraint by constraint into Ruby.</dd>
