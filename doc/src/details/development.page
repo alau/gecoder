@@ -9,11 +9,12 @@ h1. Development
 
 h2. Design Goals
 
-Gecode/R is designed to be readable, easy to learn and use without previous
-knowledge of constraint programming. Some times that comes at the cost of 
-brevity, performance and user control. The ambition is that code using the 
-interface should be readable enough to allow a new user to understand it 
-without having to look in the API documentation.
+Gecode/R is designed to be readable and to be easy to learn and use
+without previous knowledge of constraint programming. Sometimes that
+comes at the cost of brevity, performance and user control. The ambition
+is that code using the interface should be readable enough to allow a
+new user to understand it without having to look in the API
+documentation.
 
 The interface is currently aimed as a modelling interface. It does not
 support e.g. defining new propagators.
