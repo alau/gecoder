@@ -79,8 +79,10 @@ examples/n-queens.page:
   orderInfo: 15
 examples/magic-sequence.page:
   orderInfo: 16
-examples/square-tiling.page:
+examples/nonogram.page:
   orderInfo: 17
+examples/square-tiling.page:
+  orderInfo: 18
 ---
 details/rubyforge.html:
   title: RubyForge
