@@ -1,0 +1,51 @@
+---
+title: Nonogram (Paint by Numbers)
+longTitle: Solving Paint by Numbers using Constraint Programming in Ruby
+inMenu: true
+description: An example showing how to solve a nonogram puzzle (a.k.a. Paint by Numbers) using constraint programming in Ruby with Gecode/R.
+---
+
+h1. Nonogram (Paint by Numbers)
+
+h2. Problem
+
+bq. Nonograms or Paint by Numbers are picture logic puzzles in which
+cells in a grid have to be colored or left blank according to numbers
+given at the side of the grid to reveal a hidden picture. In this puzzle
+type, the numbers measure how many unbroken lines of filled-in squares
+there are in any given row or column. For example, a clue of "4 8 3"
+would mean there are sets of four, eight, and three filled squares, in
+that order, with at least one blank square between successive groups. -
+"Wikipedia":http://en.wikipedia.org/wiki/Nonogram
+
+h2. Code
+
+{exampleScript: nonogram.rb}
+
+h2. Output
+
+<pre>
+Solution #1
+          ###       
+         #####      
+         ### #      
+         ##  #      
+      ### ### ####  
+    ##  ##   #######
+  ###### #   #      
+ ####   ##  ##      
+        #   #       
+       ###  #       
+       ######       
+ ##   #######       
+######  ### #       
+# ##  ## #  #       
+   ####  # #  ###   
+        #### ## ##  
+        ###  ### #  
+       ###    ###   
+      ###           
+      ## #          
+
+Number of solutions: 1
+</pre>
