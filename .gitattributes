@@ -49,6 +49,7 @@ doc/src/documentation/operands/set-operands.page -text
 doc/src/documentation/searching_for_solutions.page -text
 doc/src/examples/index.page -text
 doc/src/examples/magic-sequence.page -text
+doc/src/examples/minesweeper.page -text
 doc/src/examples/n-queens.page -text
 doc/src/examples/nonogram.page -text
 doc/src/examples/send-more-money.page -text
@@ -74,6 +75,7 @@ doc/src/styles.css -text
 example/equation_system.rb -text
 example/example_helper.rb -text
 example/magic_sequence.rb -text
+example/minesweeper.rb -text
 example/nonogram.rb -text
 example/queens.rb -text
 example/send_more_money.rb -text

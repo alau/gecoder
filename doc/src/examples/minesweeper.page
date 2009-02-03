@@ -1,0 +1,37 @@
+---
+title: Minesweeper
+longTitle: Solving Minesweeper using Constraint Programming in Ruby
+inMenu: true
+description: An example showing how to solve minesweeper using constraint programming in Ruby with Gecode/R.
+---
+
+h1. Minesweeper
+
+h2. Problem
+
+Minesweeper is a logic puzzle where the goal is to deduce the location
+of mines in a minefield. The player is given a specification where each
+square is either unknown, or is known to not contain a mine and have a
+specified number of mines adjacent to it.
+
+h2. Code
+
+{exampleScript: minesweeper.rb}
+
+h2. Output
+
+<pre>
+Solution #1
+. . . . X . . . . . 
+X . . X . X . X X . 
+X X . . . X . X . . 
+. . . . . . . . X . 
+X . . . . . X . X . 
+. . X . X . . . . . 
+. X . . . . X . . . 
+X . . . X . . . X . 
+. X . X . . X . X X 
+. . X . . X . . . . 
+
+Number of solutions: 1
+</pre>
