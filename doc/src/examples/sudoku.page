@@ -15,12 +15,7 @@ provides a partially completed grid. - "Wikipedia":http://en.wikipedia.org/wiki/
 
 h2. Code
 
-<notextile> 
-  <% example_name = 'sudoku' %>
-  <% contents = File.readlines("../example/#{example_name}.rb")[1..-1].join %>
-  <% contents = "require 'rubygems'#{$/}require 'gecoder'#{$/}" + contents %>
-  <%= @plugin_manager['Misc/SyntaxHighlighter'].highlight(contents, 'ruby') %> 
-</notextile>
+{exampleScript: sudoku.rb}
 
 h2. Output
 

@@ -25,12 +25,7 @@ sought.
 
 h2. Code
 
-<notextile> 
-  <% example_name = 'send_most_money' %>
-  <% contents = File.readlines("../example/#{example_name}.rb")[1..-1].join %>
-  <% contents = "require 'rubygems'#{$/}require 'gecoder'#{$/}" + contents %>
-  <%= @plugin_manager['Misc/SyntaxHighlighter'].highlight(contents, 'ruby') %> 
-</notextile>
+{exampleScript: send_most_money.rb}
 
 h2. Output
 

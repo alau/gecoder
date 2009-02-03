@@ -17,12 +17,7 @@ since 0 occurs 6 times in it, 1 occurs twice, ... -
 
 h2. Code
 
-<notextile> 
-  <% example_name = 'magic_sequence' %>
-  <% contents = File.readlines("../example/#{example_name}.rb")[1..-1].join %>
-  <% contents = "require 'rubygems'#{$/}require 'gecoder'#{$/}" + contents %>
-  <%= @plugin_manager['Misc/SyntaxHighlighter'].highlight(contents, 'ruby') %> 
-</notextile>
+{exampleScript: magic_sequence.rb}
 
 h2. Output
 
