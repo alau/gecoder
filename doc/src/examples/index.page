@@ -16,7 +16,7 @@ The following are the examples located in the example directory.
   <dt>"Sudoku with sets":sudoku-set.html</dt><dd>The sudoku puzzle again, but this time using sets and a different viewpoint. Shows how to use set operations.</dd>
   <dt>"N-queens":n-queens.html</dt><dd>Shows how to use distinct with offsets.</dd>
   <dt>"Magic sequence":magic-sequence.html</dt><dd>Uses the count constraint and some implied constraints.</dd>
-  <dt>"Nonograms - a.k.a. Paint by Numbers":nongroam.html</dt><dd>Uses regular
+  <dt>"Nonograms - a.k.a. Paint by Numbers":nonogram.html</dt><dd>Uses regular
 expression constraints to solve the popular logic puzzle.</dd>
   <dt>"Square tiling":square-tiling.html</dt><dd>Uses symmetry breaking and implied constraints to speed up the search.</dd>
 </dl>
