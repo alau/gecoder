@@ -83,7 +83,7 @@ examples/nonogram.page:
   orderInfo: 17
 examples/square-tiling.page:
   orderInfo: 18
-examples/minsweeper.page:
+examples/minesweeper.page:
   orderInfo: 19
 ---
 details/rubyforge.html:
