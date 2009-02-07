@@ -62,6 +62,8 @@ require 'enumerator'
 # Model created by Hakan Kjellerstrand, hakank@bonetmail.com
 # See also my Gecode/R page: http://www.hakank.org/gecode_r
 #
+# Slight modifications made by Andreas Launila to keep the example in
+# line with the other example models.
 class Minesweeper
   include Gecode::Mixin
 
