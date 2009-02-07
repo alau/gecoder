@@ -20,6 +20,7 @@ The following are the examples located in the example directory.
 expression constraints to solve the popular logic puzzle.</dd>
   <dt>"Square tiling":square-tiling.html</dt><dd>Uses symmetry breaking and implied constraints to speed up the search.</dd>
   <dt>"Minesweeper":minesweeper.html</dt><dd>Minesweeper solved using constraint programming.</dd>
+  <dt>"Survo puzzle":survo.html</dt><dd>The Survo puzzle solved using constraint programming.</dd>
 </dl>
 
 Additionally, the following websites may be of interest:

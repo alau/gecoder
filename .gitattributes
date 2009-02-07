@@ -57,6 +57,7 @@ doc/src/examples/send-most-money.page -text
 doc/src/examples/square-tiling.page -text
 doc/src/examples/sudoku-set.page -text
 doc/src/examples/sudoku.page -text
+doc/src/examples/survo.page -text
 doc/src/favicon.ico -text
 doc/src/features.page -text
 doc/src/frontpage.template -text
@@ -83,6 +84,7 @@ example/send_most_money.rb -text
 example/square_tiling.rb -text
 example/sudoku-set.rb -text
 example/sudoku.rb -text
+example/survo.rb -text
 ext/extconf-win32.rb -text
 ext/extconf.rb -text
 ext/gecoder.cpp -text

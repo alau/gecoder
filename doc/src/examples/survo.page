@@ -1,0 +1,39 @@
+---
+title: Survo Puzzle
+longTitle: Solving the Survo puzzle using Constraint Programming in Ruby
+inMenu: true
+description: An example showing how to solve a survo puzzle using constraint programming in Ruby with Gecode/R.
+---
+
+h1. Survo Puzzle
+
+h2. Problem
+
+bq. Survo puzzle is a kind of logic puzzle presented (in April 2006) and
+studied by Seppo Mustonen. The name of the puzzle is associated to
+Mustonen's Survo system which is a general environment for statistical
+computing and related areas.
+
+bq. In a Survo puzzle the task is to fill an m * n table by integers
+1,2,...,m*n so that each of these numbers appears only once and their
+row and column sums are equal to integers given on the bottom and the
+right side of the table.  Often some of the integers are given readily
+in the table in order to guarantee uniqueness of the solution and/or for
+making the task easier. -
+"Wikipedia":http://en.wikipedia.org/wiki/Survo_Puzzle
+
+h2. Code
+
+{exampleScript: survo.rb}
+
+h2. Output
+
+<pre>
+Solution #1
+  3   4  10   6   8   1  =  32 
+ 12  11  18  16  17   5  =  79 
+  9   7  15  13  14   2  =  60 
+  =   =   =   =   =   = 
+ 24  22  43  35  39   8 
+Number of solutions: 1
+</pre>

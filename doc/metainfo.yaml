@@ -85,6 +85,8 @@ examples/square-tiling.page:
   orderInfo: 18
 examples/minesweeper.page:
   orderInfo: 19
+examples/survo.page:
+  orderInfo: 20
 ---
 details/rubyforge.html:
   title: RubyForge
