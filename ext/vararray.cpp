@@ -77,17 +77,17 @@ MIntVarArray::MIntVarArray(const Gecode::IntVarArray &arr) : d(new Private)
 	setArray(arr);
 }
 
-MIntVarArray::MIntVarArray (Space *home, int n) : d(new Private)
+MIntVarArray::MIntVarArray (Space &home, int n) : d(new Private)
 {
 	setArray(Gecode::IntVarArray(home, n));
 }
 
-MIntVarArray::MIntVarArray (Space *home, int n, int min, int max) : d(new Private)
+MIntVarArray::MIntVarArray (Space &home, int n, int min, int max) : d(new Private)
 {
 	setArray(Gecode::IntVarArray(home, n, min, max));
 }
 
-MIntVarArray::MIntVarArray (Space *home, int n, const IntSet &s) : d(new Private)
+MIntVarArray::MIntVarArray (Space &home, int n, const IntSet &s) : d(new Private)
 {
 	setArray(Gecode::IntVarArray(home, n, s));
 }
@@ -104,7 +104,7 @@ void MIntVarArray::setArray(const Gecode::IntVarArray &arr)
 	setSize(arr.size());
 }
 
-void MIntVarArray::enlargeArray(Gecode::Space *parent, int n)
+void MIntVarArray::enlargeArray(Gecode::Space &parent, int n)
 {
 	Gecode::IntVarArray na(parent, size()+n, 0, 0);
 	for(int i = size(); i--; )
@@ -165,7 +165,7 @@ MBoolVarArray::MBoolVarArray(const Gecode::BoolVarArray &arr) : d(new Private)
 	setArray(arr);
 }
 
-MBoolVarArray::MBoolVarArray (Space *home, int n) : d(new Private)
+MBoolVarArray::MBoolVarArray (Space &home, int n) : d(new Private)
 {
 	setArray(Gecode::BoolVarArray(home, n));
 }
@@ -181,7 +181,7 @@ void MBoolVarArray::setArray(const Gecode::BoolVarArray &arr)
 	setSize(arr.size());
 }
 
-void MBoolVarArray::enlargeArray(Gecode::Space *parent, int n)
+void MBoolVarArray::enlargeArray(Gecode::Space &parent, int n)
 {
 	Gecode::BoolVarArray na(parent, size()+n, 0, 0);
 	for(int i = size(); i--; )
@@ -241,27 +241,27 @@ MSetVarArray::MSetVarArray(const Gecode::SetVarArray &arr) : d(new Private)
 	setArray(arr);
 }
 
-MSetVarArray::MSetVarArray(Space *home, int n) : d(new Private)
+MSetVarArray::MSetVarArray(Space &home, int n) : d(new Private)
 {
 	setArray(Gecode::SetVarArray(home, n));
 }
 
-MSetVarArray::MSetVarArray(Gecode::Space *home, int n, int glbMin, int glbMax, int lubMin, int lubMax, unsigned int minCard, unsigned int maxCard) : d(new Private)
+MSetVarArray::MSetVarArray(Gecode::Space &home, int n, int glbMin, int glbMax, int lubMin, int lubMax, unsigned int minCard, unsigned int maxCard) : d(new Private)
 {
 	setArray(Gecode::SetVarArray(home, n, glbMin, glbMax, lubMin, lubMax, minCard, maxCard));
 }
 		
-MSetVarArray::MSetVarArray(Gecode::Space *home, int n, const Gecode::IntSet &glb, int lubMin, int lubMax, unsigned int minCard, unsigned int maxCard) : d(new Private)
+MSetVarArray::MSetVarArray(Gecode::Space &home, int n, const Gecode::IntSet &glb, int lubMin, int lubMax, unsigned int minCard, unsigned int maxCard) : d(new Private)
 {
 	setArray(Gecode::SetVarArray(home, n, glb, lubMin, lubMax, minCard, maxCard));
 }
 
-MSetVarArray::MSetVarArray(Gecode::Space *home, int n, int glbMin, int glbMax, const Gecode::IntSet &lub, unsigned int minCard, unsigned int maxCard) : d(new Private)
+MSetVarArray::MSetVarArray(Gecode::Space &home, int n, int glbMin, int glbMax, const Gecode::IntSet &lub, unsigned int minCard, unsigned int maxCard) : d(new Private)
 {
 	setArray(Gecode::SetVarArray(home, n, glbMin, glbMax, lub, minCard, maxCard));
 }
 
-MSetVarArray::MSetVarArray(Gecode::Space *home, int n, const Gecode::IntSet &glb, const Gecode::IntSet &lub, unsigned int minCard, unsigned int maxCard) : d(new Private)
+MSetVarArray::MSetVarArray(Gecode::Space &home, int n, const Gecode::IntSet &glb, const Gecode::IntSet &lub, unsigned int minCard, unsigned int maxCard) : d(new Private)
 {
 	setArray(Gecode::SetVarArray(home, n, glb, lub, minCard, maxCard));
 }
@@ -277,7 +277,7 @@ void MSetVarArray::setArray(const Gecode::SetVarArray &arr)
 	setSize(arr.size());
 }
 
-void MSetVarArray::enlargeArray(Gecode::Space *parent, int n)
+void MSetVarArray::enlargeArray(Gecode::Space &parent, int n)
 {
 	Gecode::SetVarArray na(parent, size()+n);
 	for (int i = size(); i--; )

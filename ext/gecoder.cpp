@@ -28,9 +28,9 @@ namespace Gecode {
   }
 
   MSpace::MSpace(bool share, MSpace& s) : Gecode::Space(share, s) {
-    int_variables.update(this, share, s.int_variables);
-    bool_variables.update(this, share, s.bool_variables);
-    set_variables.update(this, share, s.set_variables);
+    int_variables.update(*this, share, s.int_variables);
+    bool_variables.update(*this, share, s.bool_variables);
+    set_variables.update(*this, share, s.set_variables);
   }
 
   MSpace::~MSpace() {
@@ -49,14 +49,14 @@ namespace Gecode {
    */
   int MSpace::new_int_var(int min, int max) {
     int id = int_variables.size();
-    Gecode::IntVar* var = new IntVar(this, min, max);
-    int_variables.add(this, *var);
+    Gecode::IntVar* var = new IntVar(*this, min, max);
+    int_variables.add(*this, *var);
     return id;
   }
   int MSpace::new_int_var(IntSet domain) {
     int id = int_variables.size();
-    Gecode::IntVar* var = new IntVar(this, domain);
-    int_variables.add(this, *var);
+    Gecode::IntVar* var = new IntVar(*this, domain);
+    int_variables.add(*this, *var);
     return id;
   }
 
@@ -65,8 +65,8 @@ namespace Gecode {
    */
   int MSpace::new_bool_var() {
     int id = bool_variables.size();
-    Gecode::BoolVar* var = new BoolVar(this, 0, 1);
-    bool_variables.add(this, *var);
+    Gecode::BoolVar* var = new BoolVar(*this, 0, 1);
+    bool_variables.add(*this, *var);
     return id;
   }
 
@@ -76,8 +76,8 @@ namespace Gecode {
    */
   int MSpace::new_set_var(const IntSet& glb, const IntSet& lub, unsigned int card_min, unsigned int card_max) {
     int id = set_variables.size();
-    Gecode::SetVar* var = new SetVar(this, glb, lub, card_min, card_max);
-    set_variables.add(this, *var);
+    Gecode::SetVar* var = new SetVar(*this, glb, lub, card_min, card_max);
+    set_variables.add(*this, *var);
     return id;
   }
 
@@ -115,17 +115,17 @@ namespace Gecode {
   }
 
   // For BAB.
-  void MSpace::constrain(MSpace* s) {
+  void MSpace::constrain(MSpace& s) {
     // Call Ruby's constrain.
     rb_funcall(Rust_gecode::cxx2ruby(this), rb_intern("constrain"), 1,
-        Rust_gecode::cxx2ruby(s, false)); 
+        Rust_gecode::cxx2ruby(&s, false)); 
   }
 
   /* 
    * MDFS is the same as DFS but with the size of a space inferred from the
    * other arguments, since it can't be done from the Ruby side.
    */
-  MDFS::MDFS(MSpace* space, unsigned int c_d, unsigned int a_d, Search::Stop* st) : Gecode::Search::DFS(space, c_d, a_d, st, sizeof(space)) {
+  MDFS::MDFS(MSpace* space, const Search::Options &o) : Gecode::Search::DFS(space, sizeof(space), o) {
   }
 
   MDFS::~MDFS() {

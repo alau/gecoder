@@ -50,7 +50,7 @@ namespace Gecode {
 
       void gc_mark();
 
-      void constrain(MSpace* s);
+      void constrain(MSpace& s);
 
     private:
       Gecode::IntVarArray int_variables;
@@ -60,7 +60,7 @@ namespace Gecode {
   
   class MDFS : public Gecode::Search::DFS {
     public:
-      MDFS(MSpace *space, unsigned int c_d, unsigned int a_d, Search::Stop* st = 0);
+      MDFS(MSpace* space, const Search::Options &o);
       ~MDFS();
   };
 

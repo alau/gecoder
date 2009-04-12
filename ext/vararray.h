@@ -31,7 +31,7 @@ class MVarArray
 	public:
 		MVarArray();
 		virtual ~MVarArray();
-		virtual void enlargeArray(Gecode::Space *parent, int n = 1) = 0;
+		virtual void enlargeArray(Gecode::Space &parent, int n = 1) = 0;
 		
 		int count() const;
 		int size() const;
@@ -49,13 +49,13 @@ class MIntVarArray : public MVarArray
 	public:
 		MIntVarArray();
 		MIntVarArray(const Gecode::IntVarArray &arr);
-		MIntVarArray(Space *home, int n);
-		MIntVarArray(Space *home, int n, int min, int max);
-		MIntVarArray(Space *home, int n, const IntSet &s);
+		MIntVarArray(Space &home, int n);
+		MIntVarArray(Space &home, int n, int min, int max);
+		MIntVarArray(Space &home, int n, const IntSet &s);
 		
 		~MIntVarArray();
 		
-		void enlargeArray(Gecode::Space *parent, int n = 1);
+		void enlargeArray(Gecode::Space &parent, int n = 1);
 		
 		void setArray(const Gecode::IntVarArray &arr);
 		Gecode::IntVarArray *ptr() const;
@@ -79,11 +79,11 @@ class MBoolVarArray : public MVarArray
 	public:
 		MBoolVarArray();
 		MBoolVarArray(const Gecode::BoolVarArray &arr);
-		MBoolVarArray(Space *home, int n);
+		MBoolVarArray(Space &home, int n);
 
 		~MBoolVarArray();
 		
-		void enlargeArray(Gecode::Space *parent, int n = 1);
+		void enlargeArray(Gecode::Space &parent, int n = 1);
 		
 		void setArray(const Gecode::BoolVarArray &arr);
 		Gecode::BoolVarArray *ptr() const;
@@ -110,20 +110,20 @@ class MSetVarArray : public MVarArray
 		MSetVarArray();
 		MSetVarArray(const Gecode::SetVarArray &arr);
 		
-		MSetVarArray(Space *home, int n);
-		MSetVarArray(Space *home, int n, int glbMin, int glbMax, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
+		MSetVarArray(Space &home, int n);
+		MSetVarArray(Space &home, int n, int glbMin, int glbMax, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
-		MSetVarArray(Space *home, int n, const IntSet &glb, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
+		MSetVarArray(Space &home, int n, const IntSet &glb, int lubMin, int lubMax, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
-		MSetVarArray(Space *home, int n, int glbMin, int glbMax, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
+		MSetVarArray(Space &home, int n, int glbMin, int glbMax, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
-		MSetVarArray(Space *home, int n, const IntSet &glb, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
+		MSetVarArray(Space &home, int n, const IntSet &glb, const IntSet &lub, unsigned int minCard=0, unsigned int maxCard=Set::Limits::card);
 		
 		~MSetVarArray();
 		
 		
 		
-		void enlargeArray(Gecode::Space *parent, int n = 1);
+		void enlargeArray(Gecode::Space &parent, int n = 1);
 		
 		void setArray(const Gecode::SetVarArray &arr);
 		Gecode::SetVarArray *ptr() const;

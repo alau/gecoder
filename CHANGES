@@ -1,3 +1,6 @@
+== Version 1.1.0
+This release updates the backend from Gecode 2.2.0 to Gecode 3.0.2.
+
 == Version 1.0.0
 This release represents a commitment to the current syntax.
 
