@@ -216,7 +216,7 @@ tasks/rcov.rake -text
 tasks/specs.rake -text
 tasks/svn.rake -text
 tasks/website.rake -text
-vendor/gecode/gecode-2.2.0.tar.gz -text
+vendor/gecode/gecode-3.0.2.tar.gz -text
 vendor/gecode/win32/include/gecode/cpltset.hh -text
 vendor/gecode/win32/include/gecode/cpltset/array.icc -text
 vendor/gecode/win32/include/gecode/cpltset/bddmanager.icc -text
