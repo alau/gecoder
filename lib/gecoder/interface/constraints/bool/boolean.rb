@@ -182,11 +182,13 @@ module Gecode::Bool
     # Maps the names of the methods to the corresponding bool constraint in 
     # Gecode.
     OPERATION_TYPES = {
-      :|        => Gecode::Raw::MiniModel::BoolExpr::NT_OR,
-      :&        => Gecode::Raw::MiniModel::BoolExpr::NT_AND,
-      :^        => Gecode::Raw::MiniModel::BoolExpr::NT_XOR,
-      :implies  => Gecode::Raw::MiniModel::BoolExpr::NT_IMP,
-      :==       => Gecode::Raw::MiniModel::BoolExpr::NT_EQV
+      :|        => Gecode::Raw::BoolExpr::NT_OR,
+      :&        => Gecode::Raw::BoolExpr::NT_AND,
+      # TODO: the operations now have to be expressed as negations,
+      # conjunctions and disjunctions.
+#       :^        => Gecode::Raw::BoolExpr::NT_XOR,
+#       :implies  => Gecode::Raw::BoolExpr::NT_IMP,
+#       :==       => Gecode::Raw::BoolExpr::NT_EQV
     }
 
     public
@@ -199,9 +201,9 @@ module Gecode::Bool
       @right = right_tree
     end
     
-    # Returns a MiniModel boolean expression representing the tree.
+    # Returns a Gecode boolean expression representing the tree.
     def to_minimodel_bool_expr
-      Gecode::Raw::MiniModel::BoolExpr.new(
+      Gecode::Raw::BoolExpr.new(
         @left.to_minimodel_bool_expr, OPERATION_TYPES[@operation], 
         @right.to_minimodel_bool_expr)
     end
@@ -243,9 +245,9 @@ module Gecode::Bool
       @model = model
     end
     
-    # Returns a MiniModel boolean expression representing the tree.
+    # Returns a Gecode boolean expression representing the tree.
     def to_minimodel_bool_expr
-      Gecode::Raw::MiniModel::BoolExpr.new(@value.to_bool_var.bind)
+      Gecode::Raw::BoolExpr.new(@value.to_bool_var.bind)
     end
   end
 end
