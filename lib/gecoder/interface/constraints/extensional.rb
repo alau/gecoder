@@ -56,6 +56,14 @@ module Gecode
   module Util::Extensional
     module_function
 
+    # Maps the name used in options to the value used in Gecode for 
+    # extensional propagation kinds.
+    PROPAGATION_KINDS = {
+      :default  => Gecode::Raw::EPK_DEF,
+      :speed    => Gecode::Raw::EPK_SPEED,
+      :memory   => Gecode::Raw::EPK_MEMORY
+    } 
+
     # Parses a regular expression over the integer domain, returning
     # an instance of Gecode::REG .
     #

@@ -19,6 +19,10 @@ describe 'bool tuple constraint', :shared => true do
       @variables.must_be.in([@tuples.first * 2])
     end.should raise_error(ArgumentError)
   end
+
+  it 'should decode the propagation kind option' do
+    flunk # TODO
+  end
   
   it 'should raise error if the right hand side does not contain tuples of correct type' do
     lambda do 
@@ -138,6 +142,10 @@ describe 'bool regular expression constraint', :shared => true do
   it 'should translate at_least_once(reg) to repeat(reg, 1)' do
     @model.should_receive(:repeat).once.with([@value1], 1)
     @model.at_least_once [@value1]
+  end
+  
+  it 'should decode the propagation kind option' do
+    flunk # TODO
   end
 
   it 'should raise error if the right hand side is not an enumeration' do

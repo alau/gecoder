@@ -232,3 +232,9 @@ describe 'reifiable set constraint', :shared => true do
   it_should_behave_like 'set constraint'
   it_should_behave_like 'constraint with reification option'
 end
+
+describe 'tuple constraint', :shared => true do
+  it 'should decode the propagation kind option' do
+    flunk # TODO
+  end
+end

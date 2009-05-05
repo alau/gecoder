@@ -106,7 +106,7 @@ lib/gecoder/interface/constraints/bool_enum/extensional.rb -text
 lib/gecoder/interface/constraints/bool_enum/relation.rb -text
 lib/gecoder/interface/constraints/bool_enum_constraints.rb -text
 lib/gecoder/interface/constraints/bool_var_constraints.rb -text
-lib/gecoder/interface/constraints/extensional_regexp.rb -text
+lib/gecoder/interface/constraints/extensional.rb -text
 lib/gecoder/interface/constraints/fixnum_enum/element.rb -text
 lib/gecoder/interface/constraints/fixnum_enum/operation.rb -text
 lib/gecoder/interface/constraints/fixnum_enum_constraints.rb -text

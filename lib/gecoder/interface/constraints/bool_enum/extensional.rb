@@ -18,6 +18,7 @@ module Gecode::BoolEnum
         raise Gecode::MissingConstraintError, 'A negated tuple constraint is ' +
           'not implemented.'
       end
+      # TODO decode prop kind
       unless options[:reify].nil?
         raise ArgumentError, 'Reification is not supported by the tuple ' + 
           'constraint.'

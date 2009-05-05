@@ -249,15 +249,6 @@ module Gecode
       :bounds   => Gecode::Raw::ICL_BND,
       :domain   => Gecode::Raw::ICL_DOM
     }
-    
-    # Maps the name used in options to the value used in Gecode for 
-    # propagation kinds.
-    PROPAGATION_KINDS = {
-      :default  => Gecode::Raw::PK_DEF,
-      :speed    => Gecode::Raw::PK_SPEED,
-      :memory   => Gecode::Raw::PK_MEMORY,
-    } 
-    
     # Maps the names of the methods to the corresponding integer relation 
     # type in Gecode.
     RELATION_TYPES = { 

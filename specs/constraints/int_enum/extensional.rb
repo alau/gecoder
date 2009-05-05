@@ -2,12 +2,6 @@ require File.dirname(__FILE__) + '/../constraint_helper'
 
 # Assumes that @variables, @expected_array and @tuples are defined.
 describe 'int tuple constraint', :shared => true do
-  it 'should not allow negation' do
-    lambda do 
-      @variables.must_not_be.in @tuples
-    end.should raise_error(Gecode::MissingConstraintError)
-  end
-  
   it 'should not allow empty tuples' do
     lambda do 
       @variables.must_be.in []
@@ -67,8 +61,10 @@ describe Gecode::IntEnum::Extensional, ' (tuple constraint)' do
     lambda{ @digits.must_be.in [17, 4711] }.should raise_error(TypeError)
   end
   
+  it_should_behave_like 'extensional constraint'
   it_should_behave_like 'int tuple constraint'
   it_should_behave_like 'non-reifiable constraint'
+  it_should_behave_like 'non-negatable constraint'
 end
 
 # Assumes that @variables, @expected_array, @value1, @value2 (must not
@@ -173,12 +169,6 @@ describe 'int regular expression constraint', :shared => true do
       @variables.must.match @model.repeat('foo', 0, 1)
     end.should raise_error(TypeError)
   end
-
-  it 'should not allow negation' do
-    lambda do 
-      @variables.must_not.match @regexp
-    end.should raise_error(Gecode::MissingConstraintError)
-  end
 end
 
 describe Gecode::IntEnum::Extensional, ' (regexp constraint)' do
@@ -218,7 +208,9 @@ describe Gecode::IntEnum::Extensional, ' (regexp constraint)' do
     @digits.values.should == [1,2,2]
   end
 
+  it_should_behave_like 'extensional constraint'
   it_should_behave_like 'int regular expression constraint'
   it_should_behave_like 'non-reifiable constraint'
+  it_should_behave_like 'non-negatable constraint'
 end
 
