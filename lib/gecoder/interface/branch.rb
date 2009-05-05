@@ -110,10 +110,10 @@ module Gecode
       # the corresponding constant in Gecode. 
       BRANCH_SET_VAR_CONSTANTS = { #:nodoc:
         :none                 => Gecode::Raw::SET_VAR_NONE,
-        :smallest_cardinality => Gecode::Raw::SET_VAR_MIN_CARD,
-        :largest_cardinality  => Gecode::Raw::SET_VAR_MAX_CARD, 
-        :smallest_unknown     => Gecode::Raw::SET_VAR_MIN_UNKNOWN_ELEM, 
-        :largest_unknown      => Gecode::Raw::SET_VAR_MAX_UNKNOWN_ELEM
+        :smallest_cardinality => Gecode::Raw::SET_VAR_SIZE_MIN,
+        :largest_cardinality  => Gecode::Raw::SET_VAR_SIZE_MAX, 
+        :smallest_unknown     => Gecode::Raw::SET_VAR_MIN_MIN, 
+        :largest_unknown      => Gecode::Raw::SET_VAR_MAX_MAX
       }
       
       # Maps the names of the supported value branch strategies for integers and
@@ -128,8 +128,8 @@ module Gecode
       # Maps the names of the supported value branch strategies for sets to the 
       # corresponding constant in Gecode. 
       BRANCH_SET_VALUE_CONSTANTS = { #:nodoc:
-        :min  => Gecode::Raw::SET_VAL_MIN,
-        :max  => Gecode::Raw::SET_VAL_MAX
+        :min  => Gecode::Raw::SET_VAL_MIN_INC,
+        :max  => Gecode::Raw::SET_VAL_MAX_INC
       }
     end
     
