@@ -189,10 +189,11 @@ module Gecode
       perform_queued_gecode_interactions
       
       # Construct the engine.
-      Gecode::Raw::DFS.new(selected_space, 
-        Gecode::Raw::Search::Config::MINIMAL_DISTANCE,
-        Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE, 
-        nil)
+      options = Gecode::Raw::Search::Options.new
+      options.c_d = Gecode::Raw::Search::Config::MINIMAL_DISTANCE
+      options.a_d = Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE
+      options.stop = nil
+      Gecode::Raw::DFS.new(selected_space, options)
     end
   end
 end
