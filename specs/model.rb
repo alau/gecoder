@@ -136,7 +136,7 @@ describe Gecode::Mixin, ' (set creation)' do
     @glb_enum = [0, 3]
     @lub_enum = [0, 1, 2, 3, 5]
     @lower_card = 1
-    @upper_card = 3
+    @upper_card = 4
   end
   
   it 'should allow the creation of set variables without specified bounds' do
@@ -155,7 +155,7 @@ describe Gecode::Mixin, ' (set creation)' do
     @model.set_var(@glb_enum, @lub_range).should have_bounds(@glb_enum, 
       @lub_range) 
   end
-  
+
   it 'should allow the creation of set variables with glb range and lub enum' do
     @model.set_var(@glb_range, @lub_enum).should have_bounds(@glb_range, 
       @lub_enum) 
@@ -165,7 +165,7 @@ describe Gecode::Mixin, ' (set creation)' do
     @model.set_var(@glb_enum, @lub_enum).should have_bounds(@glb_enum, 
       @lub_enum) 
   end
-  
+
   it 'should allow the creation of set variables with specified lower cardinality bound' do
     @model.set_var(@glb_range, @lub_range, 
       @lower_card).cardinality.begin.should >= @lower_card
@@ -176,7 +176,7 @@ describe Gecode::Mixin, ' (set creation)' do
     var.cardinality.end.should <= @upper_card
     var.cardinality.begin.should >= @lower_card
   end
-  
+ 
   it 'should allow the creation of arrays of set variables' do
     arr = @model.set_var_array(3, @glb_enum, @lub_enum, @lower_card..@upper_card)
     arr.size.should == 3
