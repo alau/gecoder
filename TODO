@@ -1,0 +1,21 @@
+Changes to be made for 1.1.0:
+
+* Propkind is now only supported for extensional constraints.
+* LinExpr etc are now in the Gecode namespace
+* Set branchings MIN_CARD and MAX_CARD have been renamed
+    * SET_VAR_MIN_CARD -> SET_VAR_SIZE_MIN
+    * SET_VAR_MAX_CARD -> SET_VAR_SIZE_MAX
+    * SET_VAR_MIN_UNKNOWN_ELEM -> SET_VAR_MIN_MIN
+    * SET_VAR_MAX_UNKNOWN_ELEM -> SET_VAR_MAX_MAX
+    * SET_VAL_MIN -> SET_VAL_MIN_INC
+    * SET_VAL_MAX -> SET_VAL_MAX_INC
+* Random has been added to all branchings
+* A bunch of var and val branchings have been added to sets.
+* The values provided through search statistics have changed.
+* IMP and XOR have been removed from boolean expressions
+* LinRel post now has a flag for posting negated constraints
+* convexHull -> convex
+* match -> channel, and has been made stronger? Does not just say that
+  the elements must be contained, but also that they must be the only
+  elements in the set.
+* Set elements constraints have been merged into one function
