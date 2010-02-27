@@ -628,9 +628,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       klass.bindname = "DFS"
       klass.add_constructor do |method|
         method.add_parameter "Gecode::MSpace *", "s"
-        method.add_parameter "int", "c_d"
-        method.add_parameter "int", "a_d"
-        method.add_parameter "Gecode::Search::MStop *", "st"
+        method.add_parameter "Gecode::Search::Options", "o"
       end
       
       klass.add_method "next", "Gecode::MSpace *"

@@ -125,7 +125,7 @@ namespace Gecode {
    * MDFS is the same as DFS but with the size of a space inferred from the
    * other arguments, since it can't be done from the Ruby side.
    */
-  MDFS::MDFS(MSpace* space, unsigned int c_d, unsigned int a_d, Search::Stop* st) : Gecode::Search::DFS(space, c_d, a_d, st, sizeof(space)) {
+  MDFS::MDFS(MSpace* space, const Search::Options &o) : Gecode::DFS<MSpace>(space, o) {
   }
 
   MDFS::~MDFS() {
@@ -143,39 +143,35 @@ namespace Gecode {
 
   namespace Search {
     /* 
-     * MStop combines the time stop and fail stop, but for what reason?
-     * TODO: Try removing MStop, replacing it with plain Stop objects.
+     * MStop combines the time, memory and fail stop into one concrete 
+     * class. This is done because the bindings generator can't deal
+     * with virtual classes.
      */
 
     struct MStop::Private {
       Gecode::Search::TimeStop* ts;
       Gecode::Search::FailStop* fs;
+      Gecode::Search::MemoryStop* ms;
     };
 
     MStop::MStop() : d(new Private) {
       d->ts = 0;
       d->fs = 0;
+      d->ms = 0;
     }
 
-    MStop::MStop(int fails, int time) : d(new Private) {
+    MStop::MStop(int fails, int time, size_t mem) : d(new Private) {
       d->ts = new Search::TimeStop(time);
       d->fs = new Search::FailStop(fails);
+      d->ms = new Search::MemoryStop(mem);
     }
 
     MStop::~MStop() {
     }
 
     bool MStop::stop(const Gecode::Search::Statistics &s) {
-      if (!d->fs && !d->ts) return false;
-      return d->fs->stop(s) || d->ts->stop(s);
-    }
-
-    Gecode::Search::Stop* MStop::create(int fails, int time) {
-      if (fails < 0 && time < 0) return 0;
-      if (fails < 0) return new Search::TimeStop(time);
-      if (time  < 0) return new Search::FailStop(fails);
-
-      return new MStop(fails, time);
+      if (!d->fs && !d->ts && !d->ms) return false;
+      return d->fs->stop(s) || d->ts->stop(s) || d->ms->stop(s);
     }
   }
 }

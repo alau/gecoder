@@ -58,9 +58,9 @@ namespace Gecode {
       Gecode::SetVarArray set_variables;
   };
   
-  class MDFS : public Gecode::Search::DFS {
+  class MDFS : public Gecode::DFS<MSpace> {
     public:
-      MDFS(MSpace *space, unsigned int c_d, unsigned int a_d, Search::Stop* st = 0);
+      MDFS(MSpace *space, const Search::Options &o);
       ~MDFS();
   };
 
@@ -72,15 +72,12 @@ namespace Gecode {
 
   namespace Search {
     class MStop : public Gecode::Search::Stop {
-      private:
-        MStop(int fails, int time);
-
       public:
         MStop();
+        MStop(int fails, int time, size_t mem);
         ~MStop();
 
         bool stop (const Gecode::Search::Statistics &s);
-        static Gecode::Search::Stop* create(int fails, int time);
 
       private:
         struct Private;
