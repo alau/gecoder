@@ -25,7 +25,7 @@ instance.solve!
 
 The value assigned to a variable is  then accessed using {RDoc:
 IntVar#value}. If there does not exist a solution then
-@Gecode::NoSolutionError@ is raised.
+{RDoc: Gecode::NoSolutionError} is raised.
 
 Note that a solution's variable is not necessarily assigned. Use {RDoc:
 Mixin#branch_on} to ensure that a variable is.
@@ -65,8 +65,8 @@ end
 </ruby>
 
 This destructively updates @price_model_instance@ to contain the
-returned solution. If there is not solution then the {RDoc:
-Gecode::NoSolutionError} exception is raised.
+returned solution. If there is not solution then {RDoc:
+Gecode::NoSolutionError} is raised.
 
 There exist convenience methods, named {RDoc: Mixin#maximize!} and
 {RDoc: Mixin#minimize!}, for optimizing single integer variables. The
@@ -102,6 +102,22 @@ variable.
 <ruby>
 optimal_solution = Gecode.minimize :price do 
   # Describe the model.
+end
+</ruby>
+
+h2. Limiting Search Time
+
+The amount of time spent by the solver can be limited by specifying
+a number of milliseconds with the key @:time_limit@. If a solution can not
+be found withing the allotted time, then the solver stops and 
+{RDoc: Gecode::SearchAbortedError} is raised.
+
+<ruby>
+begin
+  difficultProblemModel.solve!(:time_limit => 1000)
+  puts difficultProblemModel.solution
+rescue Gecode::SearchAbortedError
+  puts "Sorry, the answer could not be computed within one second."
 end
 </ruby>
 

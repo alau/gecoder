@@ -632,6 +632,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       
       klass.add_method "next", "Gecode::MSpace *"
+      klass.add_method "stopped", "bool"
       klass.add_method "statistics", "Gecode::Search::Statistics"
     end
     
@@ -643,6 +644,7 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       end
       
       klass.add_method "next", "Gecode::MSpace *"
+      klass.add_method "stopped", "bool"
       klass.add_method "statistics", "Gecode::Search::Statistics"
     end
 
@@ -703,6 +705,11 @@ Rust::Bindings::create_bindings Rust::Bindings::LangCxx, "gecode" do |b|
       searchns.add_cxx_class "MStop" do |klass|
         klass.bindname = "Stop"
         klass.add_constructor
+        klass.add_constructor do |method|
+          method.add_parameter "int", "fails"
+          method.add_parameter "int", "time"
+          method.add_parameter "int", "mem"
+        end
       end
       
       searchns.add_cxx_class "Statistics" do |klass|

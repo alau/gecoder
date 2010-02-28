@@ -21,6 +21,23 @@ class SampleProblem
   end
 end
 
+class DifficultSampleProblem
+  include Gecode::Mixin
+
+  def initialize
+    # The magic sequence problem with a large n.
+    n = 500
+    sequence_is_an int_var_array(n, 0...n)
+    n.times{ |i| sequence.count(i).must == sequence[i] }
+    sequence.inject{ |x,y| x + y }.must == n
+    sequence.zip((-1...n).to_a).map do |element, c| 
+      element*c
+    end.inject{ |x,y| x + y }.must == 0
+
+    branch_on sequence, :variable => :smallest_degree, :value => :split_max
+  end
+end
+
 class SampleOptimizationProblem
   include Gecode::Mixin
 
@@ -387,3 +404,29 @@ describe Gecode::Mixin, '(single variable maximization)' do
   it_should_behave_like 'single variable optimization'
 end
 
+describe Gecode::Mixin, ' (with time limitations)' do
+  it 'should not time out problems that finish within the time limitation' do
+    @domain = 0..3
+    @solved_domain = [2]
+    @model = SampleProblem.new(@domain)
+    lambda do
+      @model.solve!(:time_limit => 50)
+    end.should_not raise_error(Gecode::SearchAbortedError)
+  end
+  
+  it 'should time out problems that do not finish within the time limitation' do
+    @model = DifficultSampleProblem.new
+    lambda do
+      t = Time.now
+      @model.solve!(:time_limit => 50)
+      puts Time.now - t
+    end.should raise_error(Gecode::SearchAbortedError)
+  end
+  
+  it 'should raise error if an unrecognised option is passed' do
+    @model = DifficultSampleProblem.new
+    lambda do
+      @model.solve!(:time_limit => 50, :foo => 1)
+    end.should raise_error(ArgumentError)
+  end
+end

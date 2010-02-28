@@ -1,3 +1,7 @@
+== Next version
+
+* Added the :time_limit to Gecode#solve! which can be used to limit the amount of time that the solver is allowed to search for a solution.
+
 == Version 1.0.0
 This release represents a commitment to the current syntax.
 

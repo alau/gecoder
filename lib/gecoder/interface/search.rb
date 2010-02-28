@@ -6,15 +6,32 @@ module Gecode
       super('No solution could be found.')
     end
   end
+  
+  # An exception raised when a search has been aborted due to e.g.
+  # hitting the time limit specified when initiating the search.
+  class SearchAbortedError < RuntimeError
+    def initialize #:nodoc:
+      super('The search was aborted before a solution could be found.')
+    end
+  end
 
   module Mixin
     # Finds the first solution to the modelled problem and updates the variables
     # to that solution. The found solution is also returned. Raises
     # Gecode::NoSolutionError if no solution can be found.
-    def solve!
-      dfs = dfs_engine
+    #
+    # The following options can be specified in a hash with symbols as
+    # keys when calling the method:
+    # 
+    # [:time_limit] The number of milliseconds that the solver should be
+    #               allowed to use when searching for a solution. If it can 
+    #               not find a solution fast enough, then 
+    #               Gecode::SearchAbortedError is raised.
+    def solve!(options = {})
+      dfs = dfs_engine(options)
       space = dfs.next
       @gecoder_mixin_statistics = dfs.statistics
+      raise Gecode::SearchAbortedError if dfs.stopped
       raise Gecode::NoSolutionError if space.nil?
       self.active_space = space
       return self
@@ -184,16 +201,29 @@ module Gecode
     
     # Creates a depth first search engine for search, executing any 
     # unexecuted constraints first.
-    def dfs_engine
+    def dfs_engine(options = {})
       # Execute constraints.
       perform_queued_gecode_interactions
       
+      # Begin constructing the option struct.
+      opt_struct = Gecode::Raw::Search::Options.new
+      opt_struct.c_d = Gecode::Raw::Search::Config::MINIMAL_DISTANCE
+      opt_struct.a_d = Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE
+
+      # Decode the options.
+      if options.has_key? :time_limit
+        opt_struct.stop = Gecode::Raw::Search::Stop.new(-1, options.delete(:time_limit), -1)
+      else
+        opt_struct.stop = nil
+      end
+      
+      unless options.empty?
+        raise ArgumentError, 'Unrecognized search option: ' + 
+          options.keys.first.to_s
+      end
+
       # Construct the engine.
-      options = Gecode::Raw::Search::Options.new
-      options.c_d = Gecode::Raw::Search::Config::MINIMAL_DISTANCE
-      options.a_d = Gecode::Raw::Search::Config::ADAPTIVE_DISTANCE
-      options.stop = nil
-      Gecode::Raw::DFS.new(selected_space, options)
+      Gecode::Raw::DFS.new(selected_space, opt_struct)
     end
   end
 end
