@@ -23,6 +23,8 @@ rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README', 'CHANGES', 'THANKS', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 
+# Removing this, which apparently doesn't work due to an update to RDoc.
+=begin
 TMP_DIR = 'doc/tmp/rdoc_dev'
 desc 'Generate RDoc, ignoring nodoc'
 Rake::RDocTask.new(:rdoc_dev => :prepare_rdoc_dev) do |rdoc|
@@ -46,6 +48,7 @@ task :prepare_rdoc_dev do
     destination.close
   end
 end
+=end
 
 desc 'Extracts the source of Gecode before it is packaged into a gem'
 task :extract_gecode do
