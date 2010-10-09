@@ -216,6 +216,8 @@ tasks/rcov.rake -text
 tasks/specs.rake -text
 tasks/svn.rake -text
 tasks/website.rake -text
+vendor/gecode/bool-shr.patch -text
+vendor/gecode/gecode-2.2.0-patch-notes -text
 vendor/gecode/gecode-2.2.0.tar.gz -text
 vendor/gecode/win32/include/gecode/cpltset.hh -text
 vendor/gecode/win32/include/gecode/cpltset/array.icc -text
