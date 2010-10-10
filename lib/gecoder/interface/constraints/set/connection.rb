@@ -48,8 +48,9 @@ module Gecode::Set
       end
 
       case options.keys.first
-        when :substitutions: subs = options[:substitutions]
-        when :weights:
+        when :substitutions
+          subs = options[:substitutions]
+        when :weights
           weights = options[:weights]
           subs = Hash.new do |hash, key|
             if weights[key].nil?

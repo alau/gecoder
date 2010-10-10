@@ -86,10 +86,14 @@ module Gecode
     # FalseClass or Enumerable.
     def self.internal_parse_regexp(arg)
       case arg 
-        when Gecode::Raw::REG: arg
-        when Fixnum: Gecode::Raw::REG.new(arg)
-        when TrueClass: Gecode::Raw::REG.new(1)
-        when FalseClass: Gecode::Raw::REG.new(0)
+        when Gecode::Raw::REG
+          arg
+        when Fixnum
+          Gecode::Raw::REG.new(arg)
+        when TrueClass
+          Gecode::Raw::REG.new(1)
+        when FalseClass
+          Gecode::Raw::REG.new(0)
         when Enumerable
           # Recursively convert the elements of the arg.
           arg.inject(Gecode::Raw::REG.new) do |regexp, element|
