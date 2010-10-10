@@ -132,9 +132,9 @@ module Gecode::Int #:nodoc:
       op = self
       receiver.instance_eval{ @short_circuit = op }
       class <<receiver
-        Gecode::Util::COMPARISON_ALIASES.keys.each do |comp|
+        Gecode::Util::COMPARISON_ALIASES.keys.each_with_index do |comp, i|
           eval <<-end_code
-            alias_method :alias_#{comp.to_i}_without_short_circuit, :#{comp}
+            alias_method :alias_#{i}_without_short_circuit, :#{comp}
             def #{comp}(operand, options = {})
               if operand.respond_to?(:to_int_var) or operand.kind_of? Fixnum
                 # Short circuit the constraint.
@@ -143,7 +143,7 @@ module Gecode::Int #:nodoc:
                   @short_circuit.relation_constraint(
                     :#{comp}, operand, @params))
               else
-                alias_#{comp.to_i}_without_short_circuit(operand, options)
+                alias_#{i}_without_short_circuit(operand, options)
               end
             end
           end_code

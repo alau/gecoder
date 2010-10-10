@@ -130,9 +130,9 @@ module Gecode::Set #:nodoc:
       op = self
       receiver.instance_eval{ @short_circuit = op }
       class <<receiver
-        Gecode::Util::SET_RELATION_TYPES.keys.each do |comp|
+        Gecode::Util::SET_RELATION_TYPES.keys.each_with_index do |comp, i|
           eval <<-end_code
-            alias_method :alias_#{comp.to_i}_without_short_circuit, :#{comp}
+            alias_method :alias_#{i}_without_short_circuit, :#{comp}
             def #{comp}(operand, options = {})
               if !@params[:negate] && !options.has_key?(:reify) && 
                   (operand.respond_to?(:to_set_var) or 
@@ -143,7 +143,7 @@ module Gecode::Set #:nodoc:
                   @short_circuit.relation_constraint(
                     :#{comp}, operand, @params))
               else
-                alias_#{comp.to_i}_without_short_circuit(operand, options)
+                alias_#{i}_without_short_circuit(operand, options)
               end
             end
           end_code
