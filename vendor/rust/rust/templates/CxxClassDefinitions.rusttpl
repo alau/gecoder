@@ -26,9 +26,9 @@ bool is_!class_varname!(VALUE val)
      VALUE klass = rb_funcall(rval, rb_intern("class"), 0);
      
      if( argn > 0)
-       rb_raise(rb_eArgError, "Expecting !c_class_name! given %s for argument %d", RSTRING(rb_funcall(klass, rb_intern("to_s"), 0))->ptr, argn);
+       rb_raise(rb_eArgError, "Expecting !c_class_name! given %s for argument %d", RSTRING_PTR(RSTRING(rb_funcall(klass, rb_intern("to_s"), 0))), argn);
      else
-		rb_raise(rb_eArgError, "Expecting !c_class_name! given %s", RSTRING(rb_funcall(klass, rb_intern("to_s"), 0))->ptr, argn);
+		rb_raise(rb_eArgError, "Expecting !c_class_name! given %s", RSTRING_PTR(RSTRING(rb_funcall(klass, rb_intern("to_s"), 0))), argn);
      return 0;
    }
    

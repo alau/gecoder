@@ -38,10 +38,10 @@ Gecode::IntArgs ruby2Gecode_IntArgs(VALUE arr, int argn = -1);
 Gecode::IntArgs ruby2Gecode_IntArgs(VALUE arr, int argn)
 {
   RArray *array = RARRAY(arr);
-  Gecode::IntArgs intargs(array->len);
-  for(int i = 0; i < array->len; i++)
+  Gecode::IntArgs intargs(RARRAY_LEN(array));
+  for(int i = 0; i < RARRAY_LEN(array); i++)
   {
-    intargs[i] = NUM2INT(array->ptr[i]);
+    intargs[i] = NUM2INT(RARRAY_PTR(array)[i]);
   }
   
   return intargs;

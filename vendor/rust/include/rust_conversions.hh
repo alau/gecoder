@@ -27,6 +27,25 @@
 #include <stdint.h>
 #include <ruby.h>
 
+/* Macros for 1.9 compatibility */
+#ifndef RUBY_19
+#ifndef RFLOAT_VALUE
+#define RFLOAT_VALUE(v) (RFLOAT(v)->value)
+#endif
+#ifndef RARRAY_LEN
+#define RARRAY_LEN(v) (RARRAY(v)->len)
+#endif
+#ifndef RARRAY_PTR
+#define RARRAY_PTR(v) (RARRAY(v)->ptr)
+#endif
+#ifndef RSTRING_LEN
+#define RSTRING_LEN(v) (RSTRING(v)->len)
+#endif
+#ifndef RSTRING_PTR
+#define RSTRING_PTR(v) (RSTRING(v)->ptr)
+#endif
+#endif
+
 /* Standard conversions for integer values */
 
 static inline uint32_t ruby2uint(VALUE rval, int argn = -1) {
@@ -67,10 +86,10 @@ static inline VALUE cxx2ruby(double val) {
 static inline int *ruby2intArray(VALUE rval, int argn = -1) {
   int i;
   RArray *array = RARRAY(rval);
-  int* ret = (int*)malloc(array->len*sizeof(int)); // FIXME: Leak!!!
-  for(i = 0; i < array->len; i++)
+  int* ret = (int*)malloc(RARRAY_LEN(array)*sizeof(int)); // FIXME: Leak!!!
+  for(i = 0; i < RARRAY_LEN(array); i++)
   {
-    ret[i] = NUM2INT(array->ptr[i]);
+    ret[i] = NUM2INT(RARRAY_PTR(array)[i]);
   }
   return ret;
 }
