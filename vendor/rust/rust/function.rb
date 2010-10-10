@@ -99,7 +99,7 @@ module Rust
         @value = value
       end
 
-      private :conversion, :index_conversion, :argname, :type
+      private :conversion, :index_conversion, :argname
     end
 
     attr_reader :varname, :name, :parameters, :optional_count
