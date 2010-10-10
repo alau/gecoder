@@ -120,6 +120,10 @@ module Gecode
   # See e.g. Gecode::Int::IntConstraintReceiver for 
   # concrete examples of options being specified.
   class ConstraintReceiver
+    # A list that keeps track of all constraint methods used in the
+    # program, essentially providing unique ids for each.
+    @@constraint_names_list ||= []
+
     # Constructs a new expression with the specified parameters. The 
     # parameters should at least contain the keys :lhs, and :negate.
     #
@@ -150,8 +154,12 @@ module Gecode
     # The original constraint method is assumed to take two arguments:
     # a right hand side and a hash of options.
     def self.provide_commutativity(constraint_name, &block)
-      unique_id = constraint_name.to_sym.to_i
-      pre_alias_method_name = 'pre_commutivity_' << unique_id.to_s
+      unless @@constraint_names_list.include? constraint_name
+        @@constraint_names_list << constraint_name 
+      end
+      unique_id = @@constraint_names_list.index(constraint_name)
+
+      pre_alias_method_name = "pre_commutivity_#{unique_id}"
       if method_defined? constraint_name
         alias_method pre_alias_method_name, constraint_name
       end
