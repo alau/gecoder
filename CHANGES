@@ -1,4 +1,5 @@
 == Version 1.1.0
+This release fixes a compilation error when installing the gecoder-with-gecode gem using GCC 4.4+ .
 
 * Added the :time_limit to Gecode#solve! which can be used to limit the amount of time that the solver is allowed to search for a solution.
 * [#29630] Fixed compilation errors when installing gecoder-with-gecode using GCC 4.4+ .
