@@ -1,6 +1,7 @@
-== Next version
+== Version 1.1.0
 
 * Added the :time_limit to Gecode#solve! which can be used to limit the amount of time that the solver is allowed to search for a solution.
+* [#29630] Fixed compilation errors when installing gecoder-with-gecode using GCC 4.4+ .
 
 == Version 1.0.0
 This release represents a commitment to the current syntax.
@@ -14,7 +15,7 @@ This release changes the preferred way of defining a model to including Gecode::
 * Updated the backend to Gecode 2.2.0. See http://www.gecode.org/gecode-doc-latest/PageChanges_2_2_0.html for a list of changes.
 
 == Version 0.9.0
-This release adds a generous amount of sugar designed to cut down on often 
+This release adds a generous amount of sugar designed to cut down on often
 repeated code. It also adds the ability to freely combine constraints
 without needing temporary variables.
 
@@ -28,11 +29,11 @@ without needing temporary variables.
 * [#21580] Fixed a bug that caused ranges that use three dots to not be correctly interpreted by the negated integer domain constraint.
 * [#21581] Fixed a bug that caused the abs constraint to prune away valid solutions in some cases.
 
-== Version 0.8.3 
+== Version 0.8.3
 This release adds regular expression constraints, the last channel
 constraint and various minor convenience improvements. It also fixes a
 rather serious bug that occurs when using the latest patchlevels of Ruby
-1.8.6. 
+1.8.6.
 
 * [#20888] Fixed a GC bug causing problems with Ruby 1.8.6 at patchlevels around 230.
 * Boolean constraints can no longer be specified using the form "bool.must == true". Only the "bool.must_be.true" form can now be used.
@@ -43,7 +44,7 @@ rather serious bug that occurs when using the latest patchlevels of Ruby
 * Added integer and boolean regular expression constraints. Thanks goes to Eivind Eklund for providing the idea for the syntax used to specify the regular expressions.
 
 == Version 0.8.2
-This release adds search statistics along with some new arithmetic constraints 
+This release adds search statistics along with some new arithmetic constraints
 and channel constraints between boolean and integer variables.
 
 * Wrapping an enumerable that is already wrapped is no longer allowed.
@@ -53,17 +54,17 @@ and channel constraints between boolean and integer variables.
 * Added channel constraints between enumerations of boolean variables and single integer variables.
 
 == Version 0.8.1
-This release adds tuple constraints along with a couple of minor features. It 
+This release adds tuple constraints along with a couple of minor features. It
 also fixes a bug introduced in the previous version.
 
 * [#19435] Fixed a bug causing inconsistencies during BAB-search. The bug stopped the send+more=money example from working correctly.
 * Fixed the "raw_bindings" and "sudoku-set" examples, which were broken by the 0.8.0 release.
-* Integers can now be used to specify singleton lower and upper bounds when creating set variables. 
+* Integers can now be used to specify singleton lower and upper bounds when creating set variables.
 * Added convenience methods Model#maximize! and Model#minimize! for optimizing single variables.
 * Added tuple constraints for enumerations of integer and boolean variables.
 
 == Version 0.8.0
-This release makes the jump from using Gecode 1.3.1 to using Gecode 2.1.1 . 
+This release makes the jump from using Gecode 1.3.1 to using Gecode 2.1.1 .
 The following changes have been made to the interface as a result of the jump.
 
 * Removed the distinct constraint for sets.
@@ -91,7 +92,7 @@ int variable domains are specified (breaking backward-compatibility).
 * Variables can now be created inside the optimization block.
 
 == Version 0.6.0
-This release adds most of the remaining set constraints. It also makes 
+This release adds most of the remaining set constraints. It also makes
 backward-compatibility breaking changes to the way that properties of variables
 are accessed.
 
@@ -105,7 +106,7 @@ are accessed.
 * Enumerations containing variables now provide a convenience method #values which returns an array of the enum's values.
 
 == Version 0.5.0
-This release adds set variables and some of their constraints, along with the 
+This release adds set variables and some of their constraints, along with the
 last of the boolean constraints.
 
 * Added exclusive or and implication.
@@ -129,7 +130,7 @@ This release adds most of the integer variable constraints supported by Gecode.
 * Added arithmetic constraints (min, max, abs and variable multiplication).
 
 == Version 0.3.0
-This release fleshes out the existing constraints with things such as 
+This release fleshes out the existing constraints with things such as
 reification and adds boolean variables and their basic constraints.
 
 * The constructor of Gecode::Model no longer has to be called by classes inheriting from it.
