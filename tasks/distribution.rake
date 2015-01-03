@@ -18,7 +18,7 @@ rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'doc/output/rdoc'
   rdoc.title = 'Gecode/R'
   rdoc.template = 'doc/rdoc/jamis.rb'
-  rdoc.options << '--line-numbers' << '--inline-source' << 
+  rdoc.options << '--line-numbers' << '--inline-source' <<
     '--accessor' << 'delegate' << '--main' << 'README'
   rdoc.rdoc_files.include('README', 'CHANGES', 'THANKS', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
@@ -29,9 +29,9 @@ TMP_DIR = 'doc/tmp/rdoc_dev'
 desc 'Generate RDoc, ignoring nodoc'
 Rake::RDocTask.new(:rdoc_dev => :prepare_rdoc_dev) do |rdoc|
   rdoc.rdoc_dir = 'doc/output/rdoc_dev'
-  rdoc.options << '--title' << 'Gecode/R Developers RDoc' << '--line-numbers' << 
+  rdoc.options << '--title' << 'Gecode/R Developers RDoc' << '--line-numbers' <<
     '--inline-source' << '--accessor' << 'delegate'
-  
+
   rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
 end
 
@@ -56,25 +56,25 @@ task :extract_gecode do
   cd(EXT_DIR) do
     cp "../#{GECODE_DIR}/#{GECODE_ARCHIVE_NAME}", GECODE_ARCHIVE_NAME
     system("tar -xvf #{GECODE_ARCHIVE_NAME}")
-    rm GECODE_ARCHIVE_NAME 
+    rm GECODE_ARCHIVE_NAME
   end
 end
 # To ensure that the Gecode files exist for the gem spec.
-Rake::Task['extract_gecode'].invoke 
+Rake::Task['extract_gecode'].invoke
 
 spec = Gem::Specification.new do |s|
   s.name = PKG_NAME
   s.version = GecodeR::VERSION
   s.summary = 'Ruby interface to Gecode, an environment for constraint programming.'
   s.description = <<-end_description
-    Gecode/R is a Ruby interface to the Gecode constraint programming library. 
-    Gecode/R is intended for people with no previous experience of constraint 
+    Gecode/R is a Ruby interface to the Gecode constraint programming library.
+    Gecode/R is intended for people with no previous experience of constraint
     programming, aiming to be easy to pick up and use.
   end_description
 
   s.files = FileList[
     '[A-Z]*',
-    'lib/**/*.rb', 
+    'lib/**/*.rb',
     'example/**/*.rb',
     'src/**/*',
     'vendor/rust/**/*',
@@ -101,12 +101,12 @@ spec = Gem::Specification.new do |s|
 =begin
   # Development dependencies.
   # Not listed: rubygems >= 1.2
-  [['rake'], 
-    ['webgen', '= 0.4.7'], 
-    ['coderay'], 
-    ['rspec', '>= 1.0'], 
-    ['rcov'], 
-    ['meta_project'], 
+  [['rake'],
+    ['webgen', '= 0.4.7'],
+    ['coderay'],
+    ['rspec', '>= 1.0'],
+    ['rcov'],
+    ['meta_project'],
     ['rubyforge']].each do |dependency|
     s.add_development_dependency(*dependency)
   end
@@ -120,32 +120,32 @@ spec_windows_binary_with_gecode.extensions = []
 spec_windows_binary_with_gecode.requirements = []
 # Add the precompiled Gecode DLLs and precompiled bindings.
 spec_windows_binary_with_gecode.files = spec.files.dup -
-  FileList['ext/**/*'].to_a + 
+  FileList['ext/**/*'].to_a +
   FileList['vendor/gecode/win32/lib/*'].to_a << 'lib/gecode.dll'
 spec_windows_binary_with_gecode.platform = 'x86-mswin32-60' #Gem::Platform::WIN32
 
 # Create a clone of the gem spec that includes Gecode.
 spec_with_gecode = spec.dup
 spec_with_gecode.name = PKG_NAME_WITH_GECODE
-spec_with_gecode.extensions = 
+spec_with_gecode.extensions =
   spec_with_gecode.extensions.dup.unshift 'ext/gecode-2.2.0/configure'
 spec_with_gecode.requirements = []
-spec_with_gecode.files = spec.files.dup + FileList['ext/gecode-*/**/*'].to_a 
+spec_with_gecode.files = spec.files.dup + FileList['ext/gecode-*/**/*'].to_a
 
 desc 'Generate Gecode/R Gem'
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
 end
 
 desc 'Generate Gecode/R + Gecode Gem'
-Rake::GemPackageTask.new(spec_with_gecode) do |pkg|
+Gem::PackageTask.new(spec_with_gecode) do |pkg|
   pkg.need_zip = true
   pkg.need_tar = true
 end
 
 desc 'Generate Gecode/R + Gecode Gem (windows binary)'
-Rake::GemPackageTask.new(spec_windows_binary_with_gecode) do |pkg|
+Gem::PackageTask.new(spec_windows_binary_with_gecode) do |pkg|
 end
 
 desc 'Precompiles the Gecode/R bindings for Windows platforms'
@@ -171,7 +171,7 @@ task :clobber do
 end
 
 desc 'Publish packages on RubyForge'
-task :publish_packages => [:publish_gecoder_packages, 
+task :publish_packages => [:publish_gecoder_packages,
   :publish_gecoder_with_gecode_packages]
 
 # Files included in the vanilla Gecode/R release.
@@ -204,7 +204,7 @@ gecode_release_files.each do |pkg|
   file pkg => :extract_gecode
 end
 desc 'Publish Gecode/R with Gecode packages on RubyForge'
-task :publish_gecoder_with_gecode_packages => 
+task :publish_gecoder_with_gecode_packages =>
     [:verify_user] + gecode_release_files do
   require 'meta_project'
   require 'rake/contrib/xforge'
