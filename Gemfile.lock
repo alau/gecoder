@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    json (1.8.1)
+    rake (10.4.2)
+    rdoc (4.2.0)
+      json (~> 1.4)
+    rdoc-data (4.0.1)
+      rdoc (~> 4.0)
+    rspec (1.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake
+  rdoc
+  rdoc-data
+  rspec (= 1.1.4)
