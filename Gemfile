@@ -11,4 +11,8 @@ end
 group :website do
   gem 'rdoc'
   gem 'rdoc-data'
+  gem 'rcov'
+  gem 'coderay', '0.9.1'
+  gem 'webgen', '0.4.7'
+  gem 'RedCloth', '3.0.4'
 end
