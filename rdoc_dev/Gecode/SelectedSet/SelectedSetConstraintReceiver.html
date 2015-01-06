@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::SelectedSet::SelectedSetConstraintReceiver - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../ConstraintReceiver.html">Gecode::ConstraintReceiver</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-disjoint">#disjoint</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::SelectedSet::SelectedSetConstraintReceiver">
+  <h1 id="class-Gecode::SelectedSet::SelectedSetConstraintReceiver" class="class">
+    class Gecode::SelectedSet::SelectedSetConstraintReceiver
+  </h1>
+
+  <section class="description">
+    
+<p><a
+href="SelectedSetConstraintReceiver.html">SelectedSetConstraintReceiver</a>
+contains all constraints that can be placed on a <a
+href="SelectedSetOperand.html">SelectedSetOperand</a>.</p>
+
+<p>Constraints are placed by calling <a
+href="../Operand.html#method-i-must">Gecode::Operand#must</a> (or any other
+of the variations defined in <a href="../Operand.html">Operand</a>), which
+produces a  <a
+href="SelectedSetConstraintReceiver.html">SelectedSetConstraintReceiver</a>
+from which the desired constraint can  be used.</p>
+
+<h4 id="class-Gecode::SelectedSet::SelectedSetConstraintReceiver-label-Examples+">Examples <span><a href="#class-Gecode::SelectedSet::SelectedSetConstraintReceiver-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Constrains the sets in <code>set_enum</code> that are selected by
+<code>set_operand</code> to be disjoint. This uses SetEnumOperand#[] and <a
+href="SelectedSetConstraintReceiver.html#method-i-disjoint">#disjoint</a>.</p>
+
+<pre class="ruby"><span class="ruby-identifier">set_enum</span>[<span class="ruby-identifier">set_operand</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">disjoint</span>
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-disjoint" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">disjoint</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the selected sets to be pairwise disjoint.</p>
+
+<h4 id="method-i-disjoint-label-Examples+">Examples <span><a href="#method-i-disjoint-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains all sets selected by +set_enum[set]+ to be pairwise</span>
+<span class="ruby-comment"># disjoint.</span>
+<span class="ruby-identifier">set_enum</span>[<span class="ruby-identifier">set</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">disjoint</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="disjoint-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/selected_set/select.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">disjoint</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated disjoint constraint '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'is not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value">:reify</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'The disjoint constraint does not support the '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'reification option.'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Set</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">DisjointConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

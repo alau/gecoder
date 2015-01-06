@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Tutorial on Solving Sudoku using Constraint Programming</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="How to use Gecode/R to model sudoku to solve it with constraint programming. Discusses multiple views." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <a href="index.html">Modelling</a> > <span>Modelling Sudoku</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Modelling</h3><ul id="secondNav"><li><a href="index.html">Introduction to Modelling</a></li><li><span>Modelling Sudoku</span></li><li><a href="square-tiling.html">Modelling Square Tiling</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#understand_the_problem">Understand the Problem</a></li><li><a href="#select_the_view">Select the View</a><ul class="section-links"><li><a href="#be_aware_of_multiple_views">Be Aware of Multiple Views</a></li><li><a href="#be_economic">Be Economic</a></li></ul></li><li><a href="#express_the_constraints">Express the Constraints</a></li><li><a href="#select_branching_strategy">Select Branching Strategy</a></li><li><a href="#tweak_the_performance">Tweak the Performance</a><ul class="section-links"><li><a href="#add_implied_constraints">Add Implied Constraints</a></li><li><a href="#change_propagation_strengths">Change Propagation Strengths</a></li><li><a href="#break_symmetries">Break Symmetries</a></li></ul></li><li><a href="#the_result">The Result</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Modelling Sudoku</h1>
+
+
+<div class="summary">
+<p>The following walks through the points of <a href="index.html">the modelling 
+introduction</a> and applies them to the popular <a href="http://en.wikipedia.org/wiki/Sudoku">sudoku 
+problem</a>.</p>
+</div>
+
+	<p>The tutorial will lead up to the code in the <a href="../../examples/sudoku.html">sudoku example</a>.</p>
+
+
+	<h2 id="understand_the_problem">Understand the Problem</h2>
+
+
+	<p>In the case of sudoku we just need to know the following:</p>
+
+
+	<blockquote>
+		<p>The objective is to fill a 9&#215;9 grid so that each column, each row, and each 
+of the nine 3&#215;3 boxes contains the digits from 1 to 9. The puzzle setter 
+provides a partially completed grid. &#8211; <a href="http://en.wikipedia.org/wiki/Soduko">Wikipedia</a></p>
+	</blockquote>
+
+
+	<p>This gives us some insight into what we need to express in our model.</p>
+
+
+	<h2 id="select_the_view">Select the View</h2>
+
+
+	<p>A sudoku seems natural to represent as a 9&#215;9 grid where each cell can be 
+assigned a value in 1..9. In terms of code it&#8217;s expressed as</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="iv">@squares</span> = int_var_matrix(<span class="i">9</span>, <span class="i">9</span>, <span class="i">1</span>..<span class="i">9</span>)
+</pre></div>
+</div>
+
+
+	<h3 id="be_aware_of_multiple_views">Be Aware of Multiple Views</h3>
+
+
+	<p>There are however other ways to view the problem. For instance we could instead 
+choose to use 9 set variables, one for each assignable value. Each set would
+then contain a square iff the corresponding value is assigned to the square. 
+Meaning that the first set would contain the squares to which 1 is assigned, the
+second set would contain the squares to which 2 is assigned and so on. The 
+squares could be represented as number ranging from 1 to 81. This view is shown 
+in the <a href="../../examples/sudoku-set.html">sudoku example with sets</a>.</p>
+
+
+	<h3 id="be_economic">Be Economic</h3>
+
+
+	<p>We could also choose to use 81*9 boolean variables, i.e. a matrix of boolean
+arrays, where a matrix cell has one boolean variable for each assignable number.
+While valid, the view would require us to add the constraint that only one 
+boolean variable may be true in each cell. Hence it&#8217;s less economic than a 
+matrix of integer variables.</p>
+
+
+	<h2 id="express_the_constraints">Express the Constraints</h2>
+
+
+	<p>We select the integer variable view. The first thing we notice is that we no 
+longer need to worry about</p>
+
+
+	<blockquote>
+		<p>The objective is to fill a 9&#215;9 grid &#8230; contains the digits from 1 to 9.</p>
+	</blockquote>
+
+
+	<p>because our choice of view already takes care of that.</p>
+
+
+	<p>We are left with the following constraints that still need to be expressed:</p>
+
+
+	<ol>
+	<li>Each column must contain the digits from 1 to 9.</li>
+		<li>Each row must contain the digits from 1 to 9.</li>
+		<li>Each of the nine 3&#215;3 boxes must contain the digits from 1 to 9.</li>
+		<li>The puzzle setter provides a partially completed grid.</li>
+	</ol>
+
+
+	<p>Another way to phrase the first three constraints is that the digits in each 
+row, column and 3&#215;3 boxes must be distinct.</p>
+
+
+	<p>The distinct constraint is a perfect match, so all we need to do to express the
+first three constraints is to place a distinct constraint on each row, column
+and 3&#215;3 box of our variable matrix. Expressed in code it becomes:</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="i">9</span>.times <span class="r">do</span> |i|
+  <span class="c"># All rows must contain distinct numbers.</span>
+  <span class="iv">@squares</span>.row(i).must_be.distinct
+  <span class="c"># All columns must contain distinct numbers.</span>
+  <span class="iv">@squares</span>.column(i).must_be.distinct
+  <span class="c"># All 3x3 boxes must contain distinct numbers.</span>
+  <span class="iv">@squares</span>.minor((i % <span class="i">3</span>) * <span class="i">3</span>, <span class="i">3</span>, (i / <span class="i">3</span>) * <span class="i">3</span>, <span class="i">3</span>).must_be.distinct
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<p>That leaves us with the fourth constraint. We want to constrain specific 
+squares (i.e. integer variables) to only take a specified value, hence an 
+integer domain constraint would seem ideal (or alternatively creating each 
+variable individually with modified domains). In code we express it as:</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>predefined_values.row_size.times <span class="r">do</span> |i|
+  predefined_values.column_size.times <span class="r">do</span> |j|
+    <span class="r">unless</span> predefined_values[i,j].zero?
+      <span class="iv">@squares</span>[i,j].must == predefined_values[i,j]
+    <span class="r">end</span>
+  <span class="r">end</span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<p>Where <code>predefined_values</code> is a matrix with the partially completed grid (
+containing 0 where nothing is assigned).</p>
+
+
+	<h2 id="select_branching_strategy">Select Branching Strategy</h2>
+
+
+	<p>We select the first fail heuristic. In code it&#8217;s expressed as</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>branch_on <span class="iv">@squares</span>, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_size</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+</pre></div>
+</div>
+
+
+	<p>It works well because it tries to assign squares as quickly as possible, hence
+forcing fails earlier in the search tree.</p>
+
+
+	<h2 id="tweak_the_performance">Tweak the Performance</h2>
+
+
+	<p>There&#8217;s not an awfully lot to do for sudoku.</p>
+
+
+	<h3 id="add_implied_constraints">Add Implied Constraints</h3>
+
+
+	<p>One implied constraint for sudoku is a constraint linking the squares and the 
+rows. It&#8217;s not necessary, but it will make the search faster.</p>
+
+
+	<h3 id="change_propagation_strengths">Change Propagation Strengths</h3>
+
+
+	<p>Using a different propagation strength for the distinct constraints is worth 
+trying.</p>
+
+
+	<h3 id="break_symmetries">Break Symmetries</h3>
+
+
+	<p>Part of being a sudoku is that there must be exactly one solution, hence 
+there are no symmetires.</p>
+
+
+	<h2 id="the_result">The Result</h2>
+
+
+	<p>Combining the code from above with a small to_s method we get the following 
+(without any error check or anything).</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+require <span class="s"><span class="dl">'</span><span class="k">enumerator</span><span class="dl">'</span></span>
+
+<span class="r">class</span> <span class="cl">Sudoku</span> 
+  include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+
+  <span class="r">def</span> <span class="fu">initialize</span>(predefined_values)
+          <span class="c"># Create the squares.</span>
+    <span class="iv">@squares</span> = int_var_matrix(<span class="i">9</span>, <span class="i">9</span>, <span class="i">1</span>..<span class="i">9</span>)
+
+    <span class="c"># Distinctness constraint.</span>
+    <span class="i">9</span>.times <span class="r">do</span> |i|
+      <span class="c"># All rows must contain distinct numbers.</span>
+      <span class="iv">@squares</span>.row(i).must_be.distinct
+      <span class="c"># All columns must contain distinct numbers.</span>
+      <span class="iv">@squares</span>.column(i).must_be.distinct
+      <span class="c"># All 3x3 boxes must contain distinct numbers.</span>
+      <span class="iv">@squares</span>.minor((i % <span class="i">3</span>) * <span class="i">3</span>, <span class="i">3</span>, (i / <span class="i">3</span>) * <span class="i">3</span>, <span class="i">3</span>).must_be.distinct
+    <span class="r">end</span>
+
+    <span class="c"># Place the constraints from the predefined squares on them.</span>
+    predefined_values.row_size.times <span class="r">do</span> |i|
+      predefined_values.column_size.times <span class="r">do</span> |j|
+        <span class="r">unless</span> predefined_values[i,j].zero?
+          <span class="iv">@squares</span>[i,j].must == predefined_values[i,j]
+        <span class="r">end</span>
+      <span class="r">end</span>
+    <span class="r">end</span>
+
+    branch_on <span class="iv">@squares</span>, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_size</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+  <span class="r">end</span>
+
+  <span class="c"># Display the solved sudoku in a grid.  </span>
+  <span class="r">def</span> <span class="fu">to_s</span>
+    <span class="iv">@squares</span>.values.enum_slice(<span class="i">9</span>).map{ |slice| slice.join(<span class="s"><span class="dl">'</span><span class="k"> </span><span class="dl">'</span></span>) }.join(<span class="s"><span class="dl">&quot;</span><span class="ch">\n</span><span class="dl">&quot;</span></span>)
+  <span class="r">end</span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<p>We try it out</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>given_squares = <span class="co">Matrix</span>[
+  [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">2</span>,<span class="i">0</span>,<span class="i">5</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>],
+  [<span class="i">0</span>,<span class="i">9</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">7</span>,<span class="i">3</span>,<span class="i">0</span>],
+  [<span class="i">0</span>,<span class="i">0</span>,<span class="i">2</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">9</span>, <span class="i">0</span>,<span class="i">6</span>,<span class="i">0</span>],
+
+  [<span class="i">2</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">4</span>,<span class="i">0</span>,<span class="i">9</span>],
+  [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">7</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>],
+  [<span class="i">6</span>,<span class="i">0</span>,<span class="i">9</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">1</span>],
+
+  [<span class="i">0</span>,<span class="i">8</span>,<span class="i">0</span>, <span class="i">4</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">1</span>,<span class="i">0</span>,<span class="i">0</span>],
+  [<span class="i">0</span>,<span class="i">6</span>,<span class="i">3</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">8</span>,<span class="i">0</span>],
+  [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">6</span>,<span class="i">0</span>,<span class="i">8</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>]]
+puts <span class="co">Sudoku</span>.new(given_squares).solve!.to_s
+</pre></div>
+</div>
+
+
+	<p>and get the following.</p>
+
+
+<pre>
+3 7 8 2 6 5 9 1 4
+5 9 6 8 1 4 7 3 2
+1 4 2 7 3 9 5 6 8
+2 1 7 3 8 6 4 5 9
+8 5 4 9 7 1 6 2 3
+6 3 9 5 4 2 8 7 1
+7 8 5 4 2 3 1 9 6
+4 6 3 1 9 7 2 8 5
+9 2 1 6 5 8 3 4 7
+</pre>
+
+	<p>Success!</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

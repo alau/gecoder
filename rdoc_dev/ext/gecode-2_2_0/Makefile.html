@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Makefile - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../CHANGES.html">CHANGES</a>
+  
+    <li><a href="../../COPYING.html">COPYING</a>
+  
+    <li><a href="../../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="../../LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="../../README.html">README</a>
+  
+    <li><a href="../../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../../THANKS.html">THANKS</a>
+  
+    <li><a href="../../doc/config_yaml.html">config.yaml</a>
+  
+    <li><a href="../../doc/metainfo_yaml.html">metainfo.yaml</a>
+  
+    <li><a href="../../doc/output/rspec_html.html">rspec.html</a>
+  
+    <li><a href="../../doc/src/404-error_page.html">404-error.page</a>
+  
+    <li><a href="../../doc/src/default_template.html">default.template</a>
+  
+    <li><a href="../../doc/src/details/changes_page.html">changes.page</a>
+  
+    <li><a href="../../doc/src/details/contribute_page.html">contribute.page</a>
+  
+    <li><a href="../../doc/src/details/credits_page.html">credits.page</a>
+  
+    <li><a href="../../doc/src/details/development_page.html">development.page</a>
+  
+    <li><a href="../../doc/src/details/index_page.html">index.page</a>
+  
+    <li><a href="../../doc/src/documentation/faq_page.html">faq.page</a>
+  
+    <li><a href="../../doc/src/documentation/formulating_problems_page.html">formulating_problems.page</a>
+  
+    <li><a href="../../doc/src/documentation/index_page.html">index.page</a>
+  
+    <li><a href="../../doc/src/documentation/modelling/index_page.html">index.page</a>
+  
+    <li><a href="../../doc/src/documentation/modelling/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../doc/src/documentation/modelling/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/boolean-enum-operands_page.html">boolean-enum-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/boolean-operands_page.html">boolean-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/index_page.html">index.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/integer-enum-operands_page.html">integer-enum-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/integer-operands_page.html">integer-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/selected-set-operands_page.html">selected-set-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/set-elements-operands_page.html">set-elements-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/set-enum-operands_page.html">set-enum-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/operands/set-operands_page.html">set-operands.page</a>
+  
+    <li><a href="../../doc/src/documentation/searching_for_solutions_page.html">searching_for_solutions.page</a>
+  
+    <li><a href="../../doc/src/examples/index_page.html">index.page</a>
+  
+    <li><a href="../../doc/src/examples/magic-sequence_page.html">magic-sequence.page</a>
+  
+    <li><a href="../../doc/src/examples/minesweeper_page.html">minesweeper.page</a>
+  
+    <li><a href="../../doc/src/examples/n-queens_page.html">n-queens.page</a>
+  
+    <li><a href="../../doc/src/examples/nonogram_page.html">nonogram.page</a>
+  
+    <li><a href="../../doc/src/examples/send-more-money_page.html">send-more-money.page</a>
+  
+    <li><a href="../../doc/src/examples/send-most-money_page.html">send-most-money.page</a>
+  
+    <li><a href="../../doc/src/examples/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../doc/src/examples/sudoku-set_page.html">sudoku-set.page</a>
+  
+    <li><a href="../../doc/src/examples/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../doc/src/examples/survo_page.html">survo.page</a>
+  
+    <li><a href="../../doc/src/features_page.html">features.page</a>
+  
+    <li><a href="../../doc/src/frontpage_template.html">frontpage.template</a>
+  
+    <li><a href="../../doc/src/index_page.html">index.page</a>
+  
+    <li><a href="../../doc/src/installation_page.html">installation.page</a>
+  
+    <li><a href="../../doc/src/sitemap_page.html">sitemap.page</a>
+  
+    <li><a href="../../doc/src/sitemap_sitemap.html">sitemap.sitemap</a>
+  
+    <li><a href="../../doc/src/styles_css.html">styles.css</a>
+  
+    <li><a href="../../ext/Makefile.html">Makefile</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../ext/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../ext/mkmf_log.html">mkmf.log</a>
+  
+    <li><a href="../../gecoder_log.html">gecoder.log</a>
+  
+    <li><a href="../../tasks/dependencies_txt.html">dependencies</a>
+  
+    <li><a href="../../tasks/distribution_rake.html">distribution.rake</a>
+  
+    <li><a href="../../tasks/rcov_rake.html">rcov.rake</a>
+  
+    <li><a href="../../tasks/specs_rake.html">specs.rake</a>
+  
+    <li><a href="../../tasks/svn_rake.html">svn.rake</a>
+  
+    <li><a href="../../tasks/website_rake.html">website.rake</a>
+  
+    <li><a href="../../vendor/gecode/bool-shr_patch.html">bool-shr.patch</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0-patch-notes.html">gecode-2.2.0-patch-notes</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../vendor/gecode/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../vendor/gecode/win32/include/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../vendor/rust/README.html">README</a>
+  
+    <li><a href="../../vendor/rust/test/Makefile.html">Makefile</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page ext/gecode-2.2.0/Makefile">
+
+<p># #  Main authors: #     Christian Schulte &lt;schulte@gecode.org&gt; #    
+Guido Tack &lt;tack@gecode.org&gt; # #  Copyright: #     Christian Schulte,
+2005 #     Guido Tack, 2005 # #  Last modified: #     $Date: 2008-08-25
+17:17:50 +0200 (Mon, 25 Aug 2008) $ by $Author: tack $ #     $Revision:
+7723 $ # #  This file is part of <a href="../../Gecode.html">Gecode</a>,
+the generic constraint #  development environment: #     <a
+href="http://www.gecode.org">www.gecode.org</a> # #  Permission is hereby
+granted, free of charge, to any person obtaining #  a copy of this software
+and associated documentation files (the #  “Software”), to deal in the
+Software without restriction, including #  without limitation the rights to
+use, copy, modify, merge, publish, #  distribute, sublicense, and/or sell
+copies of the Software, and to #  permit persons to whom the Software is
+furnished to do so, subject to #  the following conditions: # #  The above
+copyright notice and this permission notice shall be #  included in all
+copies or substantial portions of the Software. # #  THE SOFTWARE IS
+PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, #  EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF #  MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND #  NONINFRINGEMENT. IN NO EVENT SHALL THE <a
+href="gecode/support/buddy/AUTHORS.html">AUTHORS</a> OR COPYRIGHT HOLDERS
+BE #  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION #  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION #  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. #</p>
+
+<p># # General Settings #</p>
+
+<p>export prefix = /usr/local export exec_prefix = ${prefix} export bindir =
+${exec_prefix}/bin export libdir = ${exec_prefix}/lib export sharedlibdir =
+${exec_prefix}/lib export includedir = ${prefix}/include export
+pkgincludedir = $(includedir)/gecode export srcdir = . export datarootdir =
+${prefix}/share export datadir = ${datarootdir} export docdir=
+${datarootdir}/doc/gecode export top_srcdir = . export top_builddir = .</p>
+
+<p># Install to different root directory DESTDIR=</p>
+
+<p>export subdirs =</p>
+
+<p>export VERSION          = 2.2.0</p>
+
+<p>export CXX = g++ export CC = gcc export MOC = moc ifeq “$(top_srcdir)”
+“$(top_builddir)” CPPFLAGS=-I$(top_srcdir) else
+CPPFLAGS=-I$(top_builddir) -I$(top_srcdir) endif export CPPFLAGS export
+CXXFLAGS = $(CPPFLAGS) -DNDEBUG -fvisibility=hidden -fPIC -Wextra -Wall
+-pipe -ggdb -O3 -fno-strict-aliasing -finline-limit=3000 -ffast-math
+$(CXXUSR) export CFLAGS = $(CPPFLAGS) -DNDEBUG -fvisibility=hidden -fPIC
+-Wextra -Wall -pipe -ggdb -O3 -fno-strict-aliasing -finline-limit=3000
+-ffast-math $(CUSR) export EXAMPLES_EXTRA_CXXFLAGS =</p>
+
+<p>export QT_CPPFLAGS =</p>
+
+<p>export LINKQT =</p>
+
+<p>export BOOST_CPPFLAGS =  export BOOST_LINK =</p>
+
+<p>export GLDFLAGS =  export DLLFLAGS = -shared export DLLPATH = -L.</p>
+
+<p>export RANLIB = ranlib export TAR = tar</p>
+
+<p># # Use suffixes to get consistent treatment of dots # export OBJSUFFIX    
+= .o export SBJSUFFIX        = .s export DLLSUFFIX        = .so.13.0 export
+LIBSUFFIX        = .so.13.0 export STATICLIBSUFFIX  = .a export EXESUFFIX  
+=</p>
+
+<p>export LIBPREFIX        = libgecode export LINKPREFIX       = -lgecode
+export LINKSUFFIX       =</p>
+
+<p>export SOLINKSUFFIX     = .so export SOSUFFIX         = .so.13</p>
+
+<p># # Programs # export RMF              = rm -rf export MV               =
+mv</p>
+
+<p>ifeq “yes” “yes” export CREATELINK       = ln -fs else export
+CREATELINK       = @true endif</p>
+
+<p># # SUPPORT COMPONENTS # SUPPORTSRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">exception</span> <span class="ruby-identifier">symbol</span>
+</pre>
+
+<p>SUPPORTHDR0 = \</p>
+
+<pre>block-allocator cast dynamic-array \
+dynamic-stack exception map memory \
+macros random sentinel-stack sort \
+static-pqueue static-stack symbol \
+marked-pointer</pre>
+
+<p>BUDDYSRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">bddio</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">bddop</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">bvec</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">cppext</span>.<span class="ruby-identifier">cc</span>  <span class="ruby-identifier">fdd</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">imatrix</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">kernel</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">pairs</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">prime</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">reorder</span>.<span class="ruby-identifier">c</span>  <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">c</span>
+</pre>
+
+<p>BUDDYHDR0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">bdd</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">bddtree</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">bvec</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">fdd</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">imatrix</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">kernel</span>.<span class="ruby-identifier">h</span>  <span class="ruby-identifier">prime</span>.<span class="ruby-identifier">h</span>
+</pre>
+
+<p>BUDDYSRC = $(BUDDYSRC0:%=gecode/support/buddy/%) BUDDYHDR =
+$(BUDDYHDR0:%=gecode/support/buddy/%) BUDDYOBJ0 =
+$(BUDDYSRC:%.c=%$(OBJSUFFIX)) BUDDYOBJ = $(BUDDYOBJ0:%.cc=%$(OBJSUFFIX))</p>
+
+<p>SUPPORTSRC1 =  $(SUPPORTSRC0:%=gecode/support/%.cc) SUPPORTHDR  = 
+gecode/support.hh \</p>
+
+<pre>$(SUPPORTHDR0:%=gecode/support/%.icc) \
+$(BUDDYHDR)</pre>
+
+<p>SUPPORTOBJ  =  $(SUPPORTSRC1:%.cc=%$(OBJSUFFIX)) $(BUDDYOBJ) SUPPORTSRC  = 
+$(SUPPORTSRC1) $(BUDDYSRC)</p>
+
+<p>export SUPPORTDLL       = $(LIBPREFIX)support$(DLLSUFFIX) export SUPPORTLIB
+= $(LIBPREFIX)support$(LIBSUFFIX) ifeq “yes” “yes” export
+SUPPORTSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)support$(SOSUFFIX)</pre>
+
+<p>else export SUPPORTSONAME     =  endif export SUPPORTSTATICLIB =
+$(LIBPREFIX)support$(STATICLIBSUFFIX) export LINKSUPPORT      = \</p>
+
+<pre>$(LINKPREFIX)support$(LINKSUFFIX)</pre>
+
+<p>SUPPORTBUILDDIRS = support support/buddy</p>
+
+<p># # KERNEL COMPONENTS #</p>
+
+<p>VARIMPHDR = \</p>
+
+<pre>gecode/kernel/var-type.icc \
+gecode/kernel/var-imp.icc</pre>
+
+<p>VARIMP = $(VARIMPHDR) gecode/kernel/var-type.cc</p>
+
+<p>KERNELSRC0 = \</p>
+
+<pre>core reflection var-map var-type memory-manager</pre>
+
+<p>KERNELHDR0 = \</p>
+
+<pre>array shared-array branching core exception \
+macros memory-manager modevent \
+propagator advisor view var var-traits var-map reflection</pre>
+
+<p>KERNELSRC = $(KERNELSRC0:%=gecode/kernel/%.cc) KERNELHDR       = \</p>
+
+<pre>gecode/kernel.hh \
+$(KERNELHDR0:%=gecode/kernel/%.icc) \
+$(VARIMPHDR)</pre>
+
+<p>KERNELOBJ       = $(KERNELSRC:%.cc=%$(OBJSUFFIX))</p>
+
+<p>export KERNELDLL        = $(LIBPREFIX)kernel$(DLLSUFFIX) export KERNELLIB  
+= $(LIBPREFIX)kernel$(LIBSUFFIX) ifeq “yes” “yes” export
+KERNELSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)kernel$(SOSUFFIX)</pre>
+
+<p>else export KERNELSONAME     =  endif export KERNELSTATICLIB  =
+$(LIBPREFIX)kernel$(STATICLIBSUFFIX) export LINKKERNEL      =
+$(LINKPREFIX)kernel$(LINKSUFFIX) KERNELBUILDDIRS = kernel</p>
+
+<p>EXTRA_HEADERS   = gecode/support/config.icc</p>
+
+<p># # SEARCH COMPONENTS #</p>
+
+<p>SEARCHSRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">dfs</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">lds</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">bab</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">stop</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">cc</span>
+</pre>
+
+<p>SEARCHHDR0 = \</p>
+
+<pre>bab.icc dfs.icc lds.icc restart.icc  \
+reco-stack.icc statistics.icc \
+engine-ctrl.icc stop.icc options.icc</pre>
+
+<p>SEARCHSRC       = $(SEARCHSRC0:%=gecode/search/%) SEARCHHDR       =
+gecode/search.hh $(SEARCHHDR0:%=gecode/search/%) SEARCHOBJ       =
+$(SEARCHSRC:%.cc=%$(OBJSUFFIX))</p>
+
+<p>ifeq “yes” “yes” export SEARCHDLL        =
+$(LIBPREFIX)search$(DLLSUFFIX) export SEARCHSTATICLIB  =
+$(LIBPREFIX)search$(STATICLIBSUFFIX) export SEARCHLIB        =
+$(LIBPREFIX)search$(LIBSUFFIX) export LINKSEARCH       =
+$(LINKPREFIX)search$(LINKSUFFIX) ifeq “yes” “yes” export
+SEARCHSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)search$(SOSUFFIX)</pre>
+
+<p>else export SEARCHSONAME     =  endif else export SEARCHDLL        = export
+SEARCHSTATICLIB  = export SEARCHLIB        = export LINKSEARCH       =
+endif SEARCHBUILDDIRS = search</p>
+
+<p># # INTEGER COMPONENTS #</p>
+
+<p>INTSRC0 = \</p>
+
+<pre>int-set.cc var-imp/int.cc var-imp/bool.cc var/int.cc var/bool.cc \
+view/print.cc array.cc bool.cc \
+extensional/dfa.cc extensional/tuple-set.cc extensional.cc \
+dom.cc rel.cc element.cc count.cc arithmetic.cc \
+linear/int-post.cc linear-int.cc \
+linear/bool-post.cc linear-bool.cc \
+branch.cc \
+distinct.cc cumulatives.cc \
+sorted.cc gcc.cc \
+channel.cc channel/link-single.cc channel/link-multi.cc \
+circuit.cc unshare.cc</pre>
+
+<p>INTHDR0 = \</p>
+
+<pre>limits.icc support-values.hh support-values.icc \
+arithmetic/abs.icc arithmetic/max.icc arithmetic/mult.icc \
+arithmetic/sqr.icc arithmetic/sqrt.icc arithmetic/divmod.icc \
+bool/or.icc bool/eq.icc bool/lq.icc bool/eqv.icc bool/base.icc \
+branch/create-branch.icc branch/select-val.icc \
+branch/select-view.icc \
+count/view.icc count/int.icc count/rel.icc \
+cumulatives/val.icc \
+distinct/bilink.icc distinct/bnd.icc distinct/combptr.icc \
+distinct/dom.icc distinct/edge.icc distinct/node.icc \
+distinct/val.icc distinct/ter-dom.icc \
+dom/range.icc dom/spec.icc \
+element/int.icc element/view.icc \
+gcc/bnd.icc gcc/dom.icc gcc/gccbndsup.icc gcc/graphsup.icc \
+gcc/lbc.icc gcc/ubc.icc gcc/val.icc gcc/occur.icc \
+linear/post.icc \
+linear/int-noview.icc linear/int-bin.icc linear/int-ter.icc \
+linear/int-nary.icc linear/int-dom.icc \
+linear/bool-int.icc linear/bool-view.icc linear/bool-scale.icc \
+extensional/dfa.icc extensional/layered-graph.icc \
+extensional/tuple-set.icc extensional/base.icc \
+extensional/basic.icc extensional/incremental.icc \
+extensional/bitset.icc \
+rel/eq.icc rel/lex.icc rel/lq-le.icc rel/nq.icc \
+sorted/matching.icc sorted/narrowing.icc \
+sorted/order.icc sorted/propagate.icc sorted/sortsup.icc \
+int-set.icc var-imp/delta.icc var/bool.icc \
+var-imp/int.icc var-imp/bool.icc var/int.icc \
+view/bool.icc view/constint.icc view/zero.icc view/int.icc \
+view/minus.icc \
+view/offset.icc view/rtest.icc view/scale.icc view/iter.icc \
+arithmetic.hh array.icc bool.hh branch.hh \
+count.hh cumulatives.hh distinct.hh dom.hh \
+element.hh exception.icc  gcc.hh linear.hh \
+propagator.icc extensional.hh rel.hh \
+sorted.hh var-imp.icc view.icc \
+channel.hh channel/dom.icc channel/val.icc \
+channel/base.icc channel/link-single.icc channel/link-multi.icc \
+circuit.hh circuit/base.icc circuit/val.icc circuit/dom.icc</pre>
+
+<p>INTSRC          = $(INTSRC0:%=gecode/int/%) INTHDR          = gecode/int.hh
+$(INTHDR0:%=gecode/int/%) INTOBJ          = $(INTSRC:%.cc=%$(OBJSUFFIX))</p>
+
+<p>ifeq “yes” “yes” export INTDLL           =
+$(LIBPREFIX)int$(DLLSUFFIX) export INTSTATICLIB     =
+$(LIBPREFIX)int$(STATICLIBSUFFIX) export INTLIB           =
+$(LIBPREFIX)int$(LIBSUFFIX) export LINKINT          =
+$(LINKPREFIX)int$(LINKSUFFIX) export POSTINT          = gecode/int.hh ifeq
+“yes” “yes” export INTSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)int$(SOSUFFIX)</pre>
+
+<p>else export INTSONAME     =  endif else export INTDLL           = export
+INTSTATICLIB     = export INTLIB           = export LINKINT          =
+export POSTINT          = endif INTBUILDDIRS    = \</p>
+
+<pre>int int/var int/var-imp int/view int/extensional \
+int/channel int/linear int/bool int/branch</pre>
+
+<p># # SET COMPONENTS #</p>
+
+<p>SETSRC0 =                                                                \</p>
+
+<pre>branch.cc cardinality.cc convex.cc convex/conv.cc convex/hull.cc \
+dom.cc rel.cc rel-op.cc rel-op-const.cc                          \
+int.cc                                                           \
+element.cc element/disjoint.cc sequence.cc                       \
+distinct.cc distinct/atmostOne.cc                                \
+sequence/seq.cc sequence/seq-u.cc array.cc var-imp/set.cc        \
+var-imp/integerset.cc var/set.cc view/print.cc                   \
+projectors.cc                                                    \
+projectors/set-expr.cc projectors/projector.cc                   \
+projectors/projector-set.cc                                      \
+projectors/propagator/re-nary.cc                                 \
+projectors/compiler.cc                                           \
+projectors/formula.cc</pre>
+
+<p>SETHDR0 =                                                                  
+\</p>
+
+<pre>limits.icc \
+view.icc exception.icc int.hh element.hh var-imp.icc                 \
+int/card.icc                                                         \
+int/match.icc int/channel-int.icc int/minmax.icc int/weights.icc     \
+int/channel-bool.icc element/idxarray.hh                             \
+element/idxarray.icc element/inter.icc element/union.icc             \
+element/unionConst.icc                                               \
+element/disjoint.icc array.icc                                       \
+var-imp/set.icc var-imp/integerset.icc                               \
+var-imp/delta.icc var-imp/iter.icc                                   \
+var/set.icc                                                          \
+view/complement.icc view/const.icc view/set.icc view/singleton.icc   \
+view/offset.icc                                                      \
+rel/subset.icc rel/re-subset.icc rel/eq.icc rel/nq.icc rel/re-eq.icc \
+rel/common.icc rel/nosubset.icc sequence.hh                          \
+rel-op/union.icc rel-op/partition.icc rel-op/subofunion.icc          \
+rel-op/inter.icc rel-op/superofinter.icc                             \
+rel-op/post.icc rel-op/common.icc rel.hh                             \
+distinct.hh distinct/atmostOne.icc                                   \
+sequence/seq.icc sequence/seq-u.icc                                  \
+sequence/common.icc convex/conv.icc convex/hull.icc convex.hh        \
+propagator.icc rel-op.hh                                             \
+branch.hh branch/select-val.icc branch/select-view.icc               \
+projectors.hh projectors-compiler.hh                                 \
+projectors/projector.icc                                             \
+projectors/projector-set.icc projectors/set-expr.icc                 \
+projectors/propagator.hh projectors/propagator/nary.icc              \
+projectors/propagator/card.icc projectors/propagator/re-nary.icc     \
+projectors/formula.icc</pre>
+
+<p>SETSRC          = $(SETSRC0:%=gecode/set/%) SETHDR          = gecode/set.hh
+$(SETHDR0:%=gecode/set/%) SETOBJ          = $(SETSRC:%.cc=%$(OBJSUFFIX))</p>
+
+<p>ifeq “yes” “yes” export SETDLL           =
+$(LIBPREFIX)set$(DLLSUFFIX) export SETSTATICLIB     =
+$(LIBPREFIX)set$(STATICLIBSUFFIX) export SETLIB           =
+$(LIBPREFIX)set$(LIBSUFFIX) export LINKSET          =
+$(LINKPREFIX)set$(LINKSUFFIX) export POSTSET          = gecode/set.hh ifeq
+“yes” “yes” export SETSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)set$(SOSUFFIX)</pre>
+
+<p>else export SETSONAME     =  endif else export SETDLL           = export
+SETSTATICLIB     = export SETLIB           = export LINKSET          =
+export POSTSET          = endif SETBUILDDIRS    =                          
+\</p>
+
+<pre>set set/convex set/distinct set/int set/rel set/rel-op  \
+set/element set/sequence set/var set/var-imp set/view   \
+set/projectors set/projectors/propagator</pre>
+
+<p># # CpltSet COMPONENTS #</p>
+
+<p>CPLTSETSRC0 =   \</p>
+
+<pre>branch.cc array.cc support.cc                                     \
+bddmanager.cc                                                     \
+var-imp/cpltset.cc var/cpltset.cc  view/print.cc                  \
+constraints/singleton.cc                                          \
+constraints/dom.cc constraints/rel.cc constraints/cardinality.cc  \
+constraints/atmost.cc constraints/partition.cc                    \
+constraints/select.cc constraints/distinct.cc                     \
+constraints/rangeroots.cc</pre>
+
+<p>CPLTSETHDR0 =                           \</p>
+
+<pre>view.icc bddmanager.icc exception.icc array.icc \
+support.icc var-imp.icc \
+var-imp/cpltset.icc var/cpltset.icc view/cpltset.icc \
+propagators.hh \
+propagators/unary.icc propagators/binary.icc \
+propagators/nary.icc propagators/naryone.icc propagators/narytwo.icc \
+propagators/singleton.icc \
+branch.hh branch/select-val.icc branch/select-view.icc</pre>
+
+<p>CPLTSETSRC      = $(CPLTSETSRC0:%=gecode/cpltset/%) CPLTSETHDR             
+= gecode/cpltset.hh $(CPLTSETHDR0:%=gecode/cpltset/%) CPLTSETOBJ           
+= $(CPLTSETSRC:%.cc=%$(OBJSUFFIX))</p>
+
+<p>ifeq “yes” “yes” export CPLTSETDLL               =
+$(LIBPREFIX)cpltset$(DLLSUFFIX) export CPLTSETSTATICLIB =
+$(LIBPREFIX)cpltset$(STATICLIBSUFFIX) export CPLTSETLIB               =
+$(LIBPREFIX)cpltset$(LIBSUFFIX) ifeq “g++” “cl” export LINKCPLTSET 
+= $(LINKPREFIX)cpltset$(LINKSUFFIX)  else export LINKCPLTSET              =
+$(LINKPREFIX)cpltset$(LINKSUFFIX) $(CPLTSETFLAG) endif</p>
+
+<p>ifeq “yes” “yes” export CPLTSETSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)cpltset$(SOSUFFIX)</pre>
+
+<p>else export CPLTSETSONAME     =  endif else export CPLTSETDLL              
+= export CPLTSETSTATICLIB = export CPLTSETLIB               = export
+LINKCPLTSET              = endif CPLTSETBUILDDIRS        =                 
+\</p>
+
+<pre>cpltset cpltset/var cpltset/var-imp cpltset/view cpltset/propagators \
+cpltset/branch cpltset/constraints</pre>
+
+<p># # MINIMODEL COMPONENTS #</p>
+
+<p>MMSRC0 = \</p>
+
+<pre>bool-expr.cc reg.cc</pre>
+
+<p>MMHDR0 = \</p>
+
+<pre>lin-expr.icc lin-rel.icc exception.icc matrix.icc \
+bool-expr.icc bool-rel.icc arithmetic.icc</pre>
+
+<p>MMSRC           = $(MMSRC0:%=gecode/minimodel/%) MMHDR           =
+gecode/minimodel.hh $(MMHDR0:%=gecode/minimodel/%) MMOBJ           =
+$(MMSRC:%.cc=%$(OBJSUFFIX)) MMSBJ           = $(MMSRC:%.cc=%$(SBJSUFFIX))</p>
+
+<p>ifeq “yes” “yes” export MMDLL            =
+$(LIBPREFIX)minimodel$(DLLSUFFIX) export MMSTATICLIB      =
+$(LIBPREFIX)minimodel$(STATICLIBSUFFIX) export MMLIB            =
+$(LIBPREFIX)minimodel$(LIBSUFFIX) export LINKMM           =
+$(LINKPREFIX)minimodel$(LINKSUFFIX) ifeq “yes” “yes” export
+MMSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)minimodel$(SOSUFFIX)</pre>
+
+<p>else export MMSONAME     =  endif else export MMDLL            = export
+MMSTATICLIB      = export MMLIB            = export LINKMM           =
+endif MMBUILDDIRS     = minimodel</p>
+
+<p># # SERIALIZATION COMPONENTS #</p>
+
+<p>SERSRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">flatzinc</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">javascript</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">boost</span>.<span class="ruby-identifier">cc</span>
+</pre>
+
+<p>SERREGSRC = gecode/serialization/register.cc</p>
+
+<p>ifeq “” “yes” SERMOCSRC0 = moc_javascript.cc else SERMOCSRC0 =
+endif</p>
+
+<p>SERHDR0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">boost</span>.<span class="ruby-identifier">icc</span>
+</pre>
+
+<p>SERSRC          = $(SERSRC0:%=gecode/serialization/%)  SERMOCSRC       =
+$(SERMOCSRC0:%=gecode/serialization/%) SERHDR          =
+gecode/serialization.hh $(SERHDR0:%=gecode/serialization/%) SEROBJ         
+= \</p>
+
+<pre>$(SERSRC:%.cc=%$(OBJSUFFIX)) \
+$(SERMOCSRC:%.cc=%$(OBJSUFFIX)) \
+$(SERREGSRC:%.cc=%$(OBJSUFFIX))</pre>
+
+<p>SERSBJ          = \</p>
+
+<pre>$(SERSRC:%.cc=%$(SBJSUFFIX)) \
+$(SERMOCSRC:%.cc=%$(SBJSUFFIX)) \
+$(SERREGSRC:%.cc=%$(SBJSUFFIX))</pre>
+
+<p>ifeq “yes” “yes” export SERDLL           =
+$(LIBPREFIX)serialization$(DLLSUFFIX) export SERSTATICLIB     =
+$(LIBPREFIX)serialization$(STATICLIBSUFFIX) export SERLIB           =
+$(LIBPREFIX)serialization$(LIBSUFFIX) export LINKSER          =
+$(LINKPREFIX)serialization$(LINKSUFFIX) ifeq “yes” “yes” export
+SERSONAME     = \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)serialization$(SOSUFFIX)</pre>
+
+<p>else export SERSONAME     =  endif else export SERDLL           = export
+SERSTATICLIB     = export SERLIB           = export LINKSER          =
+endif SERBUILDDIRS    = serialization</p>
+
+<p># # ITERATOR HEADERS # ITERHDR0 =                                          
+\</p>
+
+<pre>ranges-add ranges-append ranges-array ranges-cache      \
+ranges-compl ranges-diff ranges-empty                   \
+ranges-inter ranges-minmax ranges-minus                 \
+ranges-offset ranges-operations ranges-scale            \
+ranges-singleton ranges-singleton-append                \
+ranges-size ranges-union ranges-values                  \
+ranges-negative ranges-positive ranges-map              \
+values-array values-minus values-offset values-ranges   \
+values-positive values-negative                         \
+values-singleton values-unique values-inter             \
+values-union values-map                                 \
+virtual-ranges virtual-ranges-union                     \
+virtual-ranges-inter virtual-ranges-compl</pre>
+
+<p>ITERHDR = gecode/iter.hh \</p>
+
+<pre>$(ITERHDR0:%=gecode/iter/%.icc)</pre>
+
+<p># # GIST #</p>
+
+<p>GISTHDR0 = \</p>
+
+<pre>better.hh drawingcursor.hh \
+gist.icc gecodelogo.hh node.hh node.icc \
+nodecursor.hh nodecursor.icc nodevisitor.hh \
+nodevisitor.icc layoutcursor.hh layoutcursor.icc \
+spacenode.hh spacenode.icc textoutput.hh treecanvas.hh zoomToFitIcon.icc \
+visualnode.hh visualnode.icc \
+mainwindow.hh \
+addchild.hh addvisualisationdialog.hh \
+ui_addchild.hh ui_addvisualisationdialog.hh\
+config.hh \
+visualisation/vararrayview.hh visualisation/vararrayviewt.hh \
+visualisation/vararrayitem.hh visualisation/varitem.hh \
+visualisation/intvaritem.hh \
+visualisation/setvaritem.hh</pre>
+
+<p>GISTSRC0 = \</p>
+
+<pre>drawingcursor.cc gist.cc gecodelogo.cc node.cc nodecursor.cc \
+layoutcursor.cc spacenode.cc \
+textoutput.cc treecanvas.cc visualnode.cc \
+mainwindow.cc preferences.cc \
+addchild.cc addvisualisationdialog.cc \
+config.cc \
+visualisation/vararrayview.cc \
+visualisation/varitem.cc \
+visualisation/intvaritem.cc \
+visualisation/setvaritem.cc</pre>
+
+<p>GISTMOCSRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">moc_treecanvas</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">moc_mainwindow</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">moc_preferences</span>.<span class="ruby-identifier">cc</span>  <span class="ruby-identifier">moc_addchild</span>.<span class="ruby-identifier">cc</span> <span class="ruby-identifier">moc_addvisualisationdialog</span>.<span class="ruby-identifier">cc</span>  <span class="ruby-identifier">visualisation</span><span class="ruby-operator">/</span><span class="ruby-identifier">moc_vararrayview</span>.<span class="ruby-identifier">cc</span>
+</pre>
+
+<p>GISTSRC = $(GISTSRC0:%=gecode/gist/%) GISTMOCSRC =
+$(GISTMOCSRC0:%=gecode/gist/%) GISTHDR = $(GISTHDR0:%=gecode/gist/%)
+gecode/gist.hh</p>
+
+<p>GISTOBJ = $(GISTSRC:%.cc=%$(OBJSUFFIX)) $(GISTMOCSRC:%.cc=%$(OBJSUFFIX))
+GISTSBJ = $(GISTSRC:%.cc=%$(SBJSUFFIX)) $(GISTMOCSRC:%.cc=%$(SBJSUFFIX))</p>
+
+<p>GISTBUILDDIRS = gist gist/visualisation</p>
+
+<p>ifeq “” “yes” export GISTDLL          =
+$(LIBPREFIX)gist$(DLLSUFFIX) export GISTSTATICLIB    =
+$(LIBPREFIX)gist$(STATICLIBSUFFIX) export GISTLIB          =
+$(LIBPREFIX)gist$(LIBSUFFIX) export LINKGIST         =
+$(LINKPREFIX)gist$(LINKSUFFIX) ifeq “yes” “yes” export GISTSONAME  
+= \</p>
+
+<pre>-Wl,-soname=$(LIBPREFIX)gist$(SOSUFFIX)</pre>
+
+<p>else export GISTSONAME     =  endif</p>
+
+<p>else export GISTDLL          = export GISTSTATICLIB    = export GISTLIB    
+= export LINKGIST         = export GISTSONAME       =  endif</p>
+
+<p># # EXAMPLES #</p>
+
+<p>INTEXAMPLESRC0 =                                                \</p>
+
+<pre>alpha bacp bibd donald                                  \
+eq20 golomb-ruler tsp                                   \
+graph-color grocery ind-set knights                     \
+magic-sequence magic-square                             \
+money ortho-latin perfect-square                        \
+partition photo queens                                  \
+sudoku kakuro nonogram pentominoes                      \
+crowded-chess black-hole minesweeper domino             \
+sports-league all-interval                              \
+langford-number warehouses                              \
+stress-domain stress-exec stress-search baseline        \
+stress-element stress-min stress-distinct               \
+stress-extensional stress-linear-bool</pre>
+
+<p>INTEXAMPLESRC  = $(INTEXAMPLESRC0:%=examples/%.cc) INTEXAMPLEOBJ  =
+$(INTEXAMPLESRC:%.cc=%$(OBJSUFFIX)) INTEXAMPLESBJ  =
+$(INTEXAMPLESRC:%.cc=%$(SBJSUFFIX)) ifeq “yes” “yes” INTEXAMPLEEXE 
+= $(INTEXAMPLESRC:%.cc=%$(EXESUFFIX)) else INTEXAMPLEEXE  = endif</p>
+
+<p>SETEXAMPLESRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">crew</span> <span class="ruby-identifier">golf</span> <span class="ruby-identifier">hamming</span> <span class="ruby-identifier">steiner</span> <span class="ruby-identifier">queen</span><span class="ruby-operator">-</span><span class="ruby-identifier">armies</span>
+</pre>
+
+<p>SETEXAMPLESRC  = $(SETEXAMPLESRC0:%=examples/%.cc) SETEXAMPLEOBJ  =
+$(SETEXAMPLESRC:%.cc=%$(OBJSUFFIX)) SETEXAMPLESBJ  =
+$(SETEXAMPLESRC:%.cc=%$(SBJSUFFIX)) ifeq “yes” “yes” SETEXAMPLEEXE 
+= $(SETEXAMPLESRC:%.cc=%$(EXESUFFIX)) else SETEXAMPLEEXE  =  endif</p>
+
+<p>CPLTSETEXAMPLESRC0 = \ CPLTSETEXAMPLESRC  =
+$(CPLTSETEXAMPLESRC0:%=examples/%.cc) CPLTSETEXAMPLEOBJ  =
+$(CPLTSETEXAMPLESRC:%.cc=%$(OBJSUFFIX)) CPLTSETEXAMPLESBJ  =
+$(CPLTSETEXAMPLESRC:%.cc=%$(SBJSUFFIX)) ifeq “yes” “yes”
+CPLTSETEXAMPLEEXE  = $(CPLTSETEXAMPLESRC:%.cc=%$(EXESUFFIX)) else
+CPLTSETEXAMPLEEXE  = endif</p>
+
+<p>JSEXAMPLESRC0 = javascript JSEXAMPLESRC  = $(JSEXAMPLESRC0:%=examples/%.cc)
+JSEXAMPLEOBJ  = $(JSEXAMPLESRC:%.cc=%$(OBJSUFFIX)) JSEXAMPLESBJ  =
+$(JSEXAMPLESRC:%.cc=%$(SBJSUFFIX)) ifeq “” “yes” JSEXAMPLEEXE  =
+$(JSEXAMPLESRC:%.cc=%$(EXESUFFIX)) else JSEXAMPLESRC  = endif</p>
+
+<p>EXAMPLEBUILDDIRS = examples examples/support</p>
+
+<p>EXAMPLEEXE = \</p>
+
+<pre>$(INTEXAMPLEEXE) $(SETEXAMPLEEXE) $(CPLTSETEXAMPLEEXE) $(JSEXAMPLEEXE)</pre>
+
+<p>EXSUPPORTSRC0 = \</p>
+
+<pre>support/options support/example</pre>
+
+<p>EXSUPPORTHDR0 = \</p>
+
+<pre>support.hh support/options.icc support/example.icc</pre>
+
+<p>EXSUPPORTSRC =  $(EXSUPPORTSRC0:%=examples/%.cc) EXSUPPORTHDR  =
+$(EXSUPPORTHDR0:%=examples/%) export EXSUPPORTOBJ =
+$(EXSUPPORTSRC:%.cc=%$(OBJSUFFIX)) EXSUPPORTSBJ =
+$(EXSUPPORTSRC:%.cc=%$(SBJSUFFIX))</p>
+
+<p># # COLLECTING ALL #</p>
+
+<p>ALLSRC = \</p>
+
+<pre>$(SUPPORTSRC) $(BUDDYSRC) $(KERNELSRC) $(SEARCHSRC) \
+$(INTSRC) $(SETSRC) $(CPLTSETSRC) $(MMSRC) $(SERSRC) \
+$(INTEXAMPLESRC) $(SETEXAMPLESRC) $(CPLTSETEXAMPLESRC) \
+$(JSEXAMPLESRC) $(EXSUPPORTSRC) $(GISTSRC)</pre>
+
+<p>ALLHDR = \</p>
+
+<pre>$(SUPPORTHDR) $(KERNELHDR) $(SEARCHHDR) \
+$(INTHDR) $(SETHDR) $(CPLTSETHDR) $(MMHDR) $(SERHDR) \
+$(ITERHDR) $(GISTHDR)</pre>
+
+<p>ALLOBJ0 = $(ALLSRC:%.cc=%$(OBJSUFFIX)) \</p>
+
+<pre>$(GISTMOCSRC:%.cc=%$(OBJSUFFIX)) \
+$(SERMOCSRC:%.cc=%$(OBJSUFFIX))</pre>
+
+<p>ALLOBJ  = $(ALLOBJ0:%.c=%$(OBJSUFFIX)) ALLSBJ0 =
+$(ALLSRC:%.cc=%$(SBJSUFFIX)) ALLSBJ  = $(ALLSBJ0:%.c=%$(SBJSUFFIX))</p>
+
+<p>export LINKALL = \</p>
+
+<pre>$(LINKGIST) $(LINKSEARCH) $(LINKMM) $(LINKSER) \
+$(LINKCPLTSET) $(LINKSET) $(LINKINT) \
+$(LINKKERNEL) $(LINKSUPPORT)</pre>
+
+<p>ifeq “yes” “yes” DLLTARGETS= \</p>
+
+<pre>$(SUPPORTDLL) $(KERNELDLL) $(SEARCHDLL) $(INTDLL) $(SETDLL) \
+$(CPLTSETDLL) $(MMDLL) $(SERDLL) $(GISTDLL)</pre>
+
+<p>export ALLLIB = \</p>
+
+<pre>$(SUPPORTLIB) $(KERNELLIB) $(SEARCHLIB) $(INTLIB) $(SETLIB) \
+$(CPLTSETLIB) $(MMLIB) $(SERLIB) $(GISTLIB)</pre>
+
+<p>else DLLTARGETS= export ALLLIB = \</p>
+
+<pre>$(SUPPORTSTATICLIB) $(KERNELSTATICLIB) $(SEARCHSTATICLIB) \
+$(INTSTATICLIB) $(SETSTATICLIB) $(CPLTSETSTATICLIB) \
+$(MMSTATICLIB) $(SERSTATICLIB) $(GISTSTATICLIB)</pre>
+
+<p>endif</p>
+
+<p>ifeq “no” “yes” STATICTARGETS = \</p>
+
+<pre>$(SUPPORTSTATICLIB) $(KERNELSTATICLIB) $(SEARCHSTATICLIB) \
+$(INTSTATICLIB) $(SETSTATICLIB) $(CPLTSETSTATICLIB) \
+$(MMSTATICLIB) $(SERSTATICLIB) $(GISTSTATICLIB)</pre>
+
+<p>else STATICTARGETS= endif</p>
+
+<p>export LIBTARGETS = $(DLLTARGETS) $(STATICTARGETS)</p>
+
+<p>ifeq “yes” “yes” export LIBLINKTARGETS = \</p>
+
+<pre>$(DLLTARGETS:%$(DLLSUFFIX)=%$(SOSUFFIX)) \
+$(DLLTARGETS:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))</pre>
+
+<p>else export LIBLINKTARGETS = endif</p>
+
+<p>ifeq “no” “yes” LIBLIBTARGETS = \</p>
+
+<pre>$(ALLLIB) \
+$(ALLLIB:%$(LIBSUFFIX)=%.pdb)</pre>
+
+<p>else LIBLIBTARGETS = endif</p>
+
+<p># # Testing #</p>
+
+<p>INTTESTSRC00 = \</p>
+
+<pre>channel arithmetic basic bool count dom distinct element extensional \
+rel linear scheduling gcc sorted circuit unshare \
+mm-arithmetic mm-bool mm-lin mm-count mm-rel</pre>
+
+<p>INTTESTSRC0 = test/int.cc $(INTTESTSRC00:%=test/int/%.cc) SETTESTSRC00 = \</p>
+
+<pre>dom rel rel-op rel-op-const convex sequence int select distinct projection</pre>
+
+<p>SETTESTSRC0 = test/set.cc $(SETTESTSRC00:%=test/set/%.cc) CPLTSETTESTSRC00
+= \</p>
+
+<pre class="ruby"><span class="ruby-identifier">dom</span> <span class="ruby-identifier">rel</span> <span class="ruby-identifier">atmost</span> <span class="ruby-identifier">partition</span> <span class="ruby-identifier">cardinality</span> <span class="ruby-identifier">select</span>
+</pre>
+
+<p>CPLTSETTESTSRC0 = test/cpltset.cc $(CPLTSETTESTSRC00:%=test/cpltset/%.cc)</p>
+
+<p>ifeq “yes” “yes” SETTESTSRC=$(SETTESTSRC0) else SETTESTSRC= endif
+ifeq “yes” “yes” CPLTSETTESTSRC = $(CPLTSETTESTSRC0) else
+CPLTSETTESTSRC = endif</p>
+
+<p>BRANCHTESTSRC0 = \</p>
+
+<pre>test/branch.cc test/branch/int.cc test/branch/bool.cc \
+test/branch/set.cc test/branch/cpltset.cc \
+test/assign.cc test/assign/int.cc test/assign/bool.cc</pre>
+
+<p>SEARCHTESTSRC0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">test</span><span class="ruby-operator">/</span><span class="ruby-identifier">search</span>.<span class="ruby-identifier">cc</span>
+</pre>
+
+<p>TESTSRC0 = test/test.cc</p>
+
+<p>TESTSRC = \</p>
+
+<pre>$(TESTSRC0) $(INTTESTSRC0) \
+$(SETTESTSRC) $(CPLTSETTESTSRC) \
+$(BRANCHTESTSRC0) $(SEARCHTESTSRC0)</pre>
+
+<p>TESTHDR0 = \</p>
+
+<pre class="ruby"><span class="ruby-identifier">test</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">test</span>.<span class="ruby-identifier">icc</span> <span class="ruby-identifier">int</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">int</span>.<span class="ruby-identifier">icc</span> <span class="ruby-identifier">set</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">cpltset</span>.<span class="ruby-identifier">hh</span>  <span class="ruby-identifier">branch</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">assign</span>.<span class="ruby-identifier">hh</span>
+</pre>
+
+<p>TESTHDR = $(TESTHDR0:%=test/%) TESTOBJ = $(TESTSRC:%.cc=%$(OBJSUFFIX))
+TESTSBJ = $(TESTSRC:%.cc=%$(SBJSUFFIX)) TESTEXE = test/test$(EXESUFFIX)
+TESTBUILDDIRS = test test/int test/set test/branch test/cpltset test/assign</p>
+
+<p>BUILDDIRS = \</p>
+
+<pre>$(SUPPORTBUILDDIRS:%=gecode/%) \
+$(KERNELBUILDDIRS:%=gecode/%) $(SEARCHBUILDDIRS:%=gecode/%) \
+$(INTBUILDDIRS:%=gecode/%) $(SETBUILDDIRS:%=gecode/%) \
+$(CPLTSETBUILDDIRS:%=gecode/%) \
+$(SERBUILDDIRS:%=gecode/%) \
+$(MMBUILDDIRS:%=gecode/%) $(EXAMPLEBUILDDIRS) $(TESTBUILDDIRS) \
+$(GISTBUILDDIRS:%=gecode/%)</pre>
+
+<p>ifeq “yes” “yes” all: compilelib</p>
+
+<pre>@$(MAKE) compileexamples
+@$(MAKE) makecompletedmessage</pre>
+
+<p>else all: compilelib</p>
+
+<pre>@$(MAKE) makecompletedmessage</pre>
+
+<p>endif compilelib: mkcompiledirs</p>
+
+<pre>@$(MAKE) $(VARIMP:%=$(top_srcdir)/%) $(LIBTARGETS)
+@$(MAKE) compilesubdirs
+@$(MAKE) framework</pre>
+
+<p>compileexamples: $(EXAMPLEEXE)</p>
+
+<p>test: mkcompiledirs</p>
+
+<pre>@$(MAKE) $(VARIMP:%=$(top_srcdir)/%) $(TESTEXE)</pre>
+
+<p># A basic integrity test check: test</p>
+
+<pre>$(TESTEXE) -iter 2 -test Branch::Int::Dense::3 \
+                   -test Int::Linear::Int::Int::Eq::Bnd::12::4 \
+                   -test Int::Distinct::Random \
+                   -test Int::Arithmetic::Mult::XYZ::Bnd::C \
+                   -test Int::Arithmetic::Mult::XYZ::Dom::A \
+                   -test Search::BAB::Sol::BalGr::Binary::Binary::Binary::1::1</pre>
+
+<p>ifeq “.” “.” mkcompiledirs: else mkcompiledirs:</p>
+
+<pre>for_builddirs=&quot;$(BUILDDIRS)&quot;; for f in $$for_builddirs; do \
+  (test -z &quot;$(top_builddir)&quot;/$$f || mkdir -p &quot;$(top_builddir)&quot;/$$f); \
+done</pre>
+
+<p>endif</p>
+
+<p>makecompletedmessage:</p>
+
+<pre>@echo
+@echo Compilation of Gecode finished successfully. To use Gecode, either add
+@echo $(PWD)
+@echo to your search path for libraries, or install Gecode using
+@echo make install
+@echo</pre>
+
+<p># ugly hack by Gr�goire Dooms to call a target on a contribs after
+evaluating all the variables in this <a
+href="../../vendor/gecode/gecode-2_2_0/Makefile.html">Makefile</a>. # used
+as make contribs:cpgraph:doc or make contribs:cpgraph:Makefile.in .PHONY:
+contribs:% contribs:%:</p>
+
+<pre>$(MAKE) -C $(shell echo $@ | sed 's/\(contribs:[^:]*\):.*/\1/;s+:+/+') $(shell echo $@ | sed 's/contribs:[^:]*:\(.*\)/\1/;s+:+/+')</pre>
+
+<p># less ugly hack by Guido Tack to call a target # Just give ICD
+(in-contrib-dir) and ICT (in-contrib-target) as arguments # to make
+incontrib ICT= ICD= .PHONY: incontrib incontrib:</p>
+
+<pre>$(MAKE) -C contribs/$(ICD) $(ICT)</pre>
+
+<p>compilesubdirs:</p>
+
+<pre>@for_subdirs=&quot;$(subdirs)&quot;; for i in $$for_subdirs; do \
+  if test -f $$i/Makefile; then \
+    echo &quot;Making in directory $$i&quot;; \
+    $(MAKE) -C $$i; \
+  fi; \
+done</pre>
+
+<p># # Generated variable implementations #</p>
+
+<p>ALLVIS0 = \</p>
+
+<pre>gecode/int/var-imp/int \
+gecode/int/var-imp/bool \
+gecode/set/var-imp/set \
+gecode/cpltset/var-imp/cpltset</pre>
+
+<p>ALLVIS = \</p>
+
+<pre>$(ALLVIS0:%=$(top_srcdir)/%.vis) \
+$(top_srcdir)/misc/genvariables.perl</pre>
+
+<p>$(top_srcdir)/gecode/kernel/var-type.icc: $(top_srcdir)/variables.vsl
+$(ALLVIS)</p>
+
+<pre>perl $(top_srcdir)/misc/genvariables.perl -typeicc $&lt; &gt; $@</pre>
+
+<p>$(top_srcdir)/gecode/kernel/var-type.cc: $(top_srcdir)/variables.vsl
+$(ALLVIS)</p>
+
+<pre>perl $(top_srcdir)/misc/genvariables.perl -typecc $&lt; &gt; $@</pre>
+
+<p>$(top_srcdir)/gecode/kernel/var-imp.icc: $(top_srcdir)/variables.vsl
+$(ALLVIS)</p>
+
+<pre>perl $(top_srcdir)/misc/genvariables.perl -header $&lt; &gt; $@</pre>
+
+<p># # Registry of post functions #</p>
+
+<p>POSTHDR = $(POSTINT) $(POSTSET)</p>
+
+<p>$(top_srcdir)/gecode/serialization/register.cc: \</p>
+
+<pre>$(top_srcdir)/gecode/int.hh $(top_srcdir)/gecode/set.hh \
+$(top_srcdir)/gecode/minimodel.hh $(top_srcdir)/misc/genregistry.perl
+(cd $(top_srcdir) &amp;&amp; \
+ perl misc/genregistry.perl \
+  gecode/int.hh gecode/set.hh gecode/minimodel.hh \
+  &gt; gecode/serialization/register.cc 2&gt;/dev/null)</pre>
+
+<p># # <a href="../../Object.html">Object</a> targets #</p>
+
+<p>gecode/support/%$(OBJSUFFIX): $(top_srcdir)/gecode/support/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/support/%$(SBJSUFFIX): $(top_srcdir)/gecode/support/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/support/%$(OBJSUFFIX): $(top_srcdir)/gecode/support/%.c</p>
+
+<pre>$(CC) $(CFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/support/%$(SBJSUFFIX): $(top_srcdir)/gecode/support/%.c</p>
+
+<pre>$(CC) $(CFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/kernel/%$(OBJSUFFIX): $(top_srcdir)/gecode/kernel/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(BOOST_CPPFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/kernel/%$(SBJSUFFIX): $(top_srcdir)/gecode/kernel/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(BOOST_CPPFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/search/%$(OBJSUFFIX): $(top_srcdir)/gecode/search/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/search/%$(SBJSUFFIX): $(top_srcdir)/gecode/search/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/int/%$(OBJSUFFIX): $(top_srcdir)/gecode/int/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/int/%$(SBJSUFFIX): $(top_srcdir)/gecode/int/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/set/%$(OBJSUFFIX): $(top_srcdir)/gecode/set/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/set/%$(SBJSUFFIX): $(top_srcdir)/gecode/set/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/cpltset/%$(OBJSUFFIX): $(top_srcdir)/gecode/cpltset/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/cpltset/%$(SBJSUFFIX): $(top_srcdir)/gecode/cpltset/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/minimodel/%$(OBJSUFFIX): $(top_srcdir)/gecode/minimodel/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/minimodel/%$(SBJSUFFIX): $(top_srcdir)/gecode/minimodel/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS)  \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/serialization/%$(OBJSUFFIX): $(top_srcdir)/gecode/serialization/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(BOOST_CPPFLAGS) $(QT_CPPFLAGS) \
+ \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/serialization/%$(SBJSUFFIX): $(top_srcdir)/gecode/serialization/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(BOOST_CPPFLAGS) $(QT_CPPFLAGS) \
+ \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/serialization/moc_%$(OBJSUFFIX): gecode/serialization/moc_%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(BOOST_CPPFLAGS) $(QT_CPPFLAGS) \
+ \
+-c -o $@  $&lt;</pre>
+
+<p>.PRECIOUS: gecode/serialization/moc_%.cc gecode/serialization/moc_%.cc:
+$(top_srcdir)/gecode/serialization/%.hh</p>
+
+<pre>$(MOC) $(CPPFLAGS) -pgecode/serialization $&lt; -o $@</pre>
+
+<p>examples/%$(OBJSUFFIX): $(top_srcdir)/examples/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(EXAMPLES_EXTRA_CXXFLAGS) $(BOOST_CPPFLAGS) \
+-c -o $@  $&lt;</pre>
+
+<p>examples/%$(SBJSUFFIX): $(top_srcdir)/examples/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(EXAMPLES_EXTRA_CXXFLAGS) \
+-S -o $@  $&lt;</pre>
+
+<p>test/%$(OBJSUFFIX): $(top_srcdir)/test/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(EXAMPLES_EXTRA_CXXFLAGS) \
+        -c -o $@  $&lt;</pre>
+
+<p>test/%$(SBJSUFFIX): $(top_srcdir)/test/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(EXAMPLES_EXTRA_CXXFLAGS) \
+        -S -o $@  $&lt;</pre>
+
+<p>gecode/gist/%$(OBJSUFFIX): $(top_srcdir)/gecode/gist/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(QT_CPPFLAGS) \
+ \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/gist/%$(SBJSUFFIX): $(top_srcdir)/gecode/gist/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(QT_CPPFLAGS) \
+ \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/gist/moc_%$(OBJSUFFIX): gecode/gist/moc_%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(QT_CPPFLAGS) \
+ \
+-c -o $@  $&lt;</pre>
+
+<p>.PRECIOUS: gecode/gist/moc_%.cc gecode/gist/moc_%.cc:
+$(top_srcdir)/gecode/gist/%.hh</p>
+
+<pre>$(MOC) $(CPPFLAGS) -pgecode/gist $&lt; -o $@</pre>
+
+<p>gecode/gist/visualisation/%$(OBJSUFFIX):
+$(top_srcdir)/gecode/gist/visualisation/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(QT_CPPFLAGS) \
+ \
+-c -o $@  $&lt;</pre>
+
+<p>gecode/gist/visualisation/%$(SBJSUFFIX):
+$(top_srcdir)/gecode/gist/visualisation/%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(QT_CPPFLAGS) \
+ \
+-S -o $@  $&lt;</pre>
+
+<p>gecode/gist/visualisation/moc_%$(OBJSUFFIX):
+gecode/gist/visualisation/moc_%.cc</p>
+
+<pre>$(CXX) $(CXXFLAGS) $(QT_CPPFLAGS) \
+ \
+-c -o $@  $&lt;</pre>
+
+<p>.PRECIOUS: gecode/gist/visualisation/moc_%.cc
+gecode/gist/visualisation/moc_%.cc:
+$(top_srcdir)/gecode/gist/visualisation/%.hh</p>
+
+<pre>$(MOC) $(CPPFLAGS) -pgecode/gist/visualisation $&lt; -o $@</pre>
+
+<p># # DLL Targets #</p>
+
+<p>ifeq “$(DLLSUFFIX)” “$(LIBSUFFIX)” $(SUPPORTDLL): $(SUPPORTOBJ)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SUPPORTOBJ) $(SUPPORTSONAME) \
+        -o $(SUPPORTDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(KERNELDLL): $(KERNELOBJ) $(SUPPORTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(KERNELOBJ) $(KERNELSONAME) \
+        -L. $(LINKSUPPORT) \
+        -o $(KERNELDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(SEARCHDLL): $(SEARCHOBJ) $(SUPPORTDLL) $(KERNELDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SEARCHOBJ) $(SEARCHSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) \
+        -o $(SEARCHDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(INTDLL): $(INTOBJ) $(SUPPORTDLL) $(KERNELDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(INTOBJ) $(INTSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) \
+        -o $(INTDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(SETDLL): $(SETOBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SETOBJ) $(SETSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) \
+        -o $(SETDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(CPLTSETDLL): $(CPLTSETOBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL) $(SETDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(CPLTSETOBJ) $(CPLTSETSONAME)  \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) \
+        $(LINKSET)\
+        -o $(CPLTSETDLL) 
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(MMDLL): $(MMOBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(MMOBJ) $(MMSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) \
+        -o $(MMDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(SERDLL): $(SEROBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL) $(SETDLL)
+$(CPLTSETDLL) $(MMDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SEROBJ) $(SERSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) \
+        $(LINKSET) $(LINKMM) $(BOOST_LINK) $(LINKQT) \
+        -o $(SERDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>$(GISTDLL): $(GISTOBJ) $(SUPPORTDLL) $(KERNELDLL) $(SEARCHDLL) $(INTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(GISTOBJ) $(GISTSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKSEARCH) $(LINKINT) $(LINKQT) \
+        -o $(GISTDLL)
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOLINKSUFFIX))
+$(CREATELINK) $@ $(@:%$(DLLSUFFIX)=%$(SOSUFFIX))</pre>
+
+<p>else $(SUPPORTDLL) $(SUPPORTLIB): $(SUPPORTOBJ)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SUPPORTOBJ) \
+        -o $(SUPPORTDLL) $(GLDFLAGS)</pre>
+
+<p>$(KERNELDLL) $(KERNELLIB): $(KERNELOBJ) $(SUPPORTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(KERNELOBJ) \
+        -L. $(LINKSUPPORT) \
+        -o $(KERNELDLL) $(GLDFLAGS)</pre>
+
+<p>$(SEARCHDLL) $(SEARCHLIB): $(SEARCHOBJ) $(SUPPORTDLL) $(KERNELDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SEARCHOBJ) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) \
+        -o $(SEARCHDLL) $(GLDFLAGS)</pre>
+
+<p>$(INTDLL) $(INTLIB): $(INTOBJ) $(SUPPORTDLL) $(KERNELDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(INTOBJ) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) \
+        -o $(INTDLL) $(GLDFLAGS)</pre>
+
+<p>$(SETDLL) $(SETLIB): $(SETOBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SETOBJ) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) \
+        -o $(SETDLL) $(GLDFLAGS)</pre>
+
+<p>$(CPLTSETDLL) $(CPLTSETLIB): $(CPLTSETOBJ) $(SUPPORTDLL) $(KERNELDLL)
+$(INTDLL) $(SETDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(CPLTSETOBJ) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) $(LINKSET) \
+        -o $(CPLTSETDLL) $(GLDFLAGS)</pre>
+
+<p>$(MMDLL) $(MMLIB): $(MMOBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(MMOBJ) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) \
+        -o $(MMDLL) $(GLDFLAGS)</pre>
+
+<p>$(SERDLL) $(SERLIB): $(SEROBJ) $(SUPPORTDLL) $(KERNELDLL) $(INTDLL)
+$(SETDLL) $(CPLTSETDLL) $(MMDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(SEROBJ) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKINT) $(LINKSET) $(LINKCPLTSET) $(LINKMM) \
+        $(BOOST_LINK) $(LINKQT) -o $(SERDLL) $(GLDFLAGS)</pre>
+
+<p>$(GISTDLL) $(GISTLIB): $(GISTOBJ) $(SUPPORTDLL) $(KERNELDLL) $(SEARCHDLL)
+$(INTDLL)</p>
+
+<pre>$(CXX) $(DLLFLAGS) $(GISTOBJ) $(GISTSONAME) \
+        -L. $(LINKSUPPORT) $(LINKKERNEL) $(LINKSEARCH) $(LINKINT) $(LINKQT) \
+        -o $(GISTDLL) $(GLDFLAGS)</pre>
+
+<p>endif</p>
+
+<p># # Static libraries #</p>
+
+<p>$(SUPPORTSTATICLIB): $(SUPPORTOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(SUPPORTOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(KERNELSTATICLIB): $(KERNELOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(KERNELOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(SEARCHSTATICLIB): $(SEARCHOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(SEARCHOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(INTSTATICLIB): $(INTOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(INTOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(SETSTATICLIB): $(SETOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(SETOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(CPLTSETSTATICLIB): $(CPLTSETOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(CPLTSETOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(MMSTATICLIB): $(MMOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(MMOBJ)
+$(RANLIB) $@</pre>
+
+<p>$(SERSTATICLIB): $(SEROBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(SEROBJ)
+$(RANLIB) $@</pre>
+
+<p>$(GISTSTATICLIB): $(GISTOBJ)</p>
+
+<pre>$(AR) $(ARFLAGS) $@ $(GISTOBJ)
+$(RANLIB) $@</pre>
+
+<p># # Mac OS X Framework #</p>
+
+<p>.PHONY: framework ifeq “” “yes” framework: $(STATICTARGETS)</p>
+
+<pre>$(RMF) gecode.framework
+mkdir -p gecode.framework/Versions/13
+$(CXX) -all_load -compatibility_version 13.0 \
+  -current_version 13.0 \
+  -install_name /Library/Frameworks/gecode.framework/Versions/13/gecode \
+  $(DLLFLAGS) $(LINKQT) \
+  -o gecode.framework/Versions/13/gecode $^
+$(MAKE) doinstallheaders \
+  prefix=gecode.framework/Versions/13 DESTDIR=
+mv gecode.framework/Versions/13/include/gecode/* \
+  gecode.framework/Versions/13/include/
+rmdir gecode.framework/Versions/13/include/gecode
+cd gecode.framework/Versions &amp;&amp; ln -s 13 Current
+ln -s Versions/Current/include \
+  gecode.framework/Headers
+ln -s Versions/Current/gecode \
+  gecode.framework/gecode</pre>
+
+<p>else framework: endif</p>
+
+<p># # EXE Targets #</p>
+
+<p>.PRECIOUS: examples/%$(OBJSUFFIX) examples/%$(EXESUFFIX):
+examples/%$(OBJSUFFIX) $(EXSUPPORTOBJ) $(ALLLIB)</p>
+
+<pre>$(CXX) -o $@ $&lt; $(EXSUPPORTOBJ) $(DLLPATH) $(CXXFLAGS) \
+$(LINKALL) $(GLDFLAGS)</pre>
+
+<p>$(TESTEXE): $(TESTOBJ) $(ALLLIB)</p>
+
+<pre>$(CXX) -o $@ $(TESTOBJ) $(DLLPATH) $(CXXFLAGS) \
+$(LINKALL) $(GLDFLAGS)</pre>
+
+<p># # Autoconf #</p>
+
+<p>$(top_srcdir)/configure: $(top_srcdir)/configure.ac</p>
+
+<pre>(cd $(top_srcdir) &amp;&amp; autoconf)</pre>
+
+<p>config.status: $(top_srcdir)/configure</p>
+
+<pre>./config.status --recheck</pre>
+
+<p>Makefile: $(top_srcdir)/Makefile.in config.status</p>
+
+<pre>./config.status --file $@:$&lt;</pre>
+
+<p>doxygen.hh: $(top_srcdir)/doxygen/doxygen.hh.in config.status</p>
+
+<pre>./config.status --file $@:$&lt;</pre>
+
+<p># # Source distribution #</p>
+
+<p>DIST_FILES= \</p>
+
+<pre>configure.ac configure Makefile.in gecode.m4 \
+changelog.in LICENSE \
+doxygen.conf.in doxygen.hh.in install-sh misc/gecode.pc.in \
+misc/gecode-search.pc.in  misc/gecode-minimodel.pc.in \
+misc/gecode-serialization.pc.in misc/gecode-gist.pc.in \
+gecode/support/config.icc.in \
+gecode/int/var-imp/int.vis \
+gecode/int/var-imp/bool.vis \
+gecode/set/var-imp.vis \
+gecode/cpltset/var-imp.vis \
+gecode/support/buddy/AUTHORS \
+gecode/support/buddy/ChangeLog \
+gecode/support/buddy/NEWS \
+gecode/support/buddy/README \
+examples/support.hh \
+examples/support/example.icc \
+examples/support/options.icc \
+misc/doxygen/back.png misc/doxygen/gecode-logo-100.png \
+misc/doxygen/stylesheet.css misc/doxygen/footer.html \
+misc/doxygen/header.html misc/genlicense.perl \
+misc/genstatistics.perl misc/getrevision.perl \
+misc/genchangelog.perl misc/genvariables.perl \
+misc/gentxtchangelog.perl misc/makedepend.perl \
+misc/AppleHelpbookInfo.plist</pre>
+
+<p>distdir:</p>
+
+<pre>rm -rf gecode-$(VERSION) &amp;&amp; \
+mkdir -p gecode-$(VERSION) &amp;&amp; \
+(cd $(top_srcdir) &amp;&amp; tar cf - $(ALLHDR) $(ALLSRC)) | \
+  (cd gecode-$(VERSION) &amp;&amp; tar xf -) &amp;&amp; \
+(cd $(top_srcdir) &amp;&amp; tar cf - $(TESTSRC0) $(INTTESTSRC0) \
+  $(SETTESTSRC0) $(CPLTSETTESTSRC0) $(BRANCHTESTSRC0) $(TESTHDR) $(DIST_FILES)) | \
+  (cd gecode-$(VERSION) &amp;&amp; tar xf -)</pre>
+
+<p>dist: distdir</p>
+
+<pre>tar chof - gecode-$(VERSION) | gzip -c &gt;gecode-$(VERSION).tar.gz
+rm -rf gecode-$(VERSION)</pre>
+
+<p># # Documentation #</p>
+
+<p>export ENABLEDOCCHM     = no ENABLEDOCSEARCH = no</p>
+
+<p>.PHONY: doc</p>
+
+<p>DOCSRC_NOTGENERATED = \</p>
+
+<pre>misc/doxygen/back.png misc/doxygen/footer.html \
+misc/doxygen/gecode-logo-100.png \
+misc/doxygen/stylesheet.css \
+misc/genlicense.perl misc/genstatistics.perl misc/getrevision.perl \
+misc/genchangelog.perl</pre>
+
+<p>DOCSRC = $(DOCSRC_NOTGENERATED:%=$(top_srcdir)/%) \</p>
+
+<pre class="ruby"><span class="ruby-identifier">doxygen</span>.<span class="ruby-identifier">conf</span>.<span class="ruby-identifier">use</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">html</span>  <span class="ruby-identifier">doxygen</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">license</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">stat</span>.<span class="ruby-identifier">hh</span> <span class="ruby-identifier">changelog</span>.<span class="ruby-identifier">hh</span>
+</pre>
+
+<p>changelog.hh: $(top_srcdir)/changelog.in</p>
+
+<pre>perl $(top_srcdir)/misc/genchangelog.perl &lt; $^ &gt; changelog.hh</pre>
+
+<p>ChangeLog: $(top_srcdir)/changelog.in</p>
+
+<pre>perl $(top_srcdir)/misc/gentxtchangelog.perl &lt; $^ &gt; ChangeLog</pre>
+
+<p>license.hh: $(ALLHDR:%=$(top_srcdir)/%) $(ALLSRC:%=$(top_srcdir)/%)</p>
+
+<pre>perl $(top_srcdir)/misc/genlicense.perl $^ &gt; license.hh</pre>
+
+<p>stat.hh: $(ALLHDR:%=$(top_srcdir)/%) $(ALLSRC:%=$(top_srcdir)/%) \</p>
+
+<pre>$(TESTHDR:%=$(top_srcdir)/%) $(TESTSRC:%=$(top_srcdir)/%)
+perl $(top_srcdir)/misc/genstatistics.perl $^ &gt; stat.hh</pre>
+
+<p>ifeq “no” “yes”</p>
+
+<p>DOCTARGET=GecodeReference.chm</p>
+
+<p>header.html: $(top_srcdir)/misc/doxygen/header.html</p>
+
+<pre>grep -v '&lt;form.*form&gt;' &lt; $&lt; &gt; $@</pre>
+
+<p>doxygen.conf.use: doxygen.conf</p>
+
+<pre>(echo &quot;GENERATE_HTMLHELP = YES&quot;; \
+ echo &quot;SEARCHENGINE = NO&quot;;\
+ echo &quot;HAVE_DOT = NO&quot;) | \
+        cat $&lt; - &gt; $@</pre>
+
+<p>doc: $(ALLHDR:%=$(top_srcdir)/%) $(ALLSRC:%=$(top_srcdir)/%) $(DOCSRC)</p>
+
+<pre>mkdir -p doc/html
+cp -f $(top_srcdir)/misc/doxygen/back.png \
+$(top_srcdir)/misc/doxygen/gecode-logo-100.png doc/html
+doxygen doxygen.conf.use
+mv doc/html/GecodeReference.chm GecodeReference.chm</pre>
+
+<p>else</p>
+
+<p>DOCTARGET=doc/html</p>
+
+<p>ifeq “no” “yes”</p>
+
+<p>header.html: $(top_srcdir)/misc/doxygen/header.html</p>
+
+<pre class="ruby"><span class="ruby-identifier">cat</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">$&lt;</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">$@</span>
+</pre>
+
+<p>doxygen.conf.use: doxygen.conf</p>
+
+<pre>(echo &quot;GENERATE_HTMLHELP = NO&quot;; \
+ echo &quot;SEARCHENGINE = YES&quot;; \
+ echo &quot;HAVE_DOT = NO&quot;) | \
+        cat $&lt; - &gt; $@</pre>
+
+<p>else</p>
+
+<p>header.html: $(top_srcdir)/misc/doxygen/header.html</p>
+
+<pre>grep -v '&lt;form.*form&gt;' &lt; $&lt; &gt; $@</pre>
+
+<p>doxygen.conf.use: doxygen.conf</p>
+
+<pre>(echo &quot;GENERATE_HTMLHELP = NO&quot;; \
+ echo &quot;SEARCHENGINE = NO&quot;; \
+ echo &quot;HAVE_DOT = NO&quot;) | \
+        cat $&lt; - &gt; $@</pre>
+
+<p>endif</p>
+
+<p>doc: $(ALLHDR:%=$(top_srcdir)/%) $(ALLSRC:%=$(top_srcdir)/%) $(DOCSRC)</p>
+
+<pre>mkdir -p doc/html
+cp -f $(top_srcdir)/misc/doxygen/back.png \
+$(top_srcdir)/misc/doxygen/gecode-logo-100.png doc/html
+doxygen doxygen.conf.use</pre>
+
+<p>endif</p>
+
+<p># Generate an indexed Apple HelpBook # The generated book must then be
+copied to # /Library/Documentation/Help doc-apple: doc</p>
+
+<pre>mkdir -p doc/Gecode.help/Contents/Resources
+rm -rf doc/Gecode.help/Contents/Resources/English.lproj
+cp -r doc/html doc/Gecode.help/Contents/Resources/English.lproj
+cp misc/AppleHelpbookInfo.plist \
+  doc/Gecode.help/Contents/Info.plist
+sed -i -e \
+  's|&lt;/title&gt;|&lt;/title&gt;&lt;META NAME=&quot;AppleTitle&quot; CONTENT=&quot;Gecode Help&quot;&gt;|g' \
+  doc/Gecode.help/Contents/Resources/English.lproj/index.html
+/Developer/Applications/Utilities/Help\ Indexer.app/Contents/MacOS/Help\ Indexer \
+  doc/Gecode.help/Contents/Resources/English.lproj</pre>
+
+<p># # Installation #</p>
+
+<p>ifeq “” “yes” GIST_PKGCONFIGFILE = gecode-gist.pc else
+GIST_PKGCONFIGFILE =  endif</p>
+
+<p>ifeq “yes” “yes” PKGCONFIGFILES = \</p>
+
+<pre>gecode.pc gecode-search.pc gecode-minimodel.pc \
+gecode-serialization.pc $(GIST_PKGCONFIGFILE)</pre>
+
+<p>else PKGCONFIGFILES = endif</p>
+
+<p>.PHONY: install</p>
+
+<p>ifeq “” “yes” install: installframework else</p>
+
+<p>ifeq “yes” “yes” install: installlib installexamples else install:
+installlib endif</p>
+
+<p>endif</p>
+
+<p>doinstallheaders: $(ALLHDR:%=$(top_srcdir)/%) $(EXTRA_HEADERS)</p>
+
+<pre>mkdir -p $(DESTDIR)$(includedir) &amp;&amp; \
+(cd $(top_srcdir) &amp;&amp; tar cf - $(ALLHDR)) | \
+  (cd $(DESTDIR)$(includedir) &amp;&amp; tar xf -) &amp;&amp; \
+for_extraheaders=&quot;$(EXTRA_HEADERS)&quot; &amp;&amp; \
+  for f in $$for_extraheaders; do \
+    cp $$f $(DESTDIR)$(pkgincludedir)/support; done &amp;&amp; \
+for_pkgconfigfiles=&quot;$(PKGCONFIGFILES)&quot; &amp;&amp; \
+  for f in $$for_pkgconfigfiles; do \
+    mkdir -p $(DESTDIR)$(libdir)/pkgconfig; \
+    cp misc/$$f $(DESTDIR)$(libdir)/pkgconfig; \
+  done</pre>
+
+<p>doinstalllib:</p>
+
+<pre>mkdir -p $(DESTDIR)$(sharedlibdir) &amp;&amp; \
+mkdir -p $(DESTDIR)$(libdir) &amp;&amp; \
+for_libtargets=&quot;$(LIBTARGETS)&quot; &amp;&amp; \
+  for f in $$for_libtargets; do \
+    cp $$f $(DESTDIR)$(sharedlibdir); done &amp;&amp; \
+for_liblinktargets=&quot;$(LIBLINKTARGETS)&quot; &amp;&amp; \
+  for f in $$for_liblinktargets; do \
+    cp -pR $$f $(DESTDIR)$(sharedlibdir); done &amp;&amp;\
+for_liblibtargets=&quot;$(LIBLIBTARGETS)&quot; &amp;&amp; \
+  for f in $$for_liblibtargets; do \
+    cp $$f $(DESTDIR)$(libdir); done</pre>
+
+<p>ifeq “no” “yes” ranliblib:</p>
+
+<pre>for_static=&quot;$(STATICTARGETS)&quot; ; \
+  for f in $$for_static; do \
+    $(RANLIB) $(DESTDIR)$(sharedlibdir)/$$f; done</pre>
+
+<p>else ranliblib: endif</p>
+
+<p>installlib: compilelib</p>
+
+<pre>$(MAKE) doinstalllib
+$(MAKE) doinstallheaders
+$(MAKE) ranliblib
+$(MAKE) installsubdirs</pre>
+
+<p>installexamples: compileexamples</p>
+
+<pre>mkdir -p $(DESTDIR)$(bindir); \
+for_exampleexe=&quot;$(EXAMPLEEXE)&quot; ; \
+for f in $$for_exampleexe; do cp $$f $(DESTDIR)$(bindir); done \</pre>
+
+<p>installframework: framework</p>
+
+<pre>mkdir -p $(DESTDIR)/Library/Frameworks/gecode.framework &amp;&amp; \
+(cd gecode.framework &amp;&amp; tar cf - *) | \
+(cd $(DESTDIR)/Library/Frameworks/gecode.framework &amp;&amp; tar xf -)</pre>
+
+<p>installdoc: doc</p>
+
+<pre>mkdir -p $(DESTDIR)$(docdir); \
+cp -r $(DOCTARGET) $(DESTDIR)$(docdir)</pre>
+
+<p>installsubdirs:</p>
+
+<pre>@for_subdirs=&quot;$(subdirs)&quot; ; for i in $$for_subdirs; do \
+  cd $$i &amp;&amp; if test -f Makefile; then \
+    echo &quot;Making install in directory $$i&quot;; \
+    $(MAKE) install; \
+  fi; \
+done</pre>
+
+<p># # Source Distribution #</p>
+
+<p>.PHONY: distdoc</p>
+
+<p>ifeq “no” “yes” DOCSUFFIX = search-$(VERSION) else DOCSUFFIX =
+$(VERSION) endif</p>
+
+<p>distdoc: doc</p>
+
+<pre>rm -rf gecode-doc-$(DOCSUFFIX) &amp;&amp; \
+cp -r doc/html . &amp;&amp; mv html gecode-doc-$(DOCSUFFIX) &amp;&amp; \
+$(TAR) cf - gecode-doc-$(DOCSUFFIX) | \
+        gzip -9 &gt; gecode-doc-$(DOCSUFFIX).tar.gz &amp;&amp; \
+zip -q -9 -r gecode-doc-$(DOCSUFFIX).zip gecode-doc-$(DOCSUFFIX) &amp;&amp; \
+$(RMF) gecode-doc-$(DOCSUFFIX) &amp;&amp; \
+if test -f doc/gecode-doc.tag; then \
+        mv doc/gecode-doc.tag gecode-doc-$(DOCSUFFIX).tag &amp;&amp; \
+        gzip -9 gecode-doc-$(DOCSUFFIX).tag; \
+fi</pre>
+
+<p># # Binary Distribution #</p>
+
+<p>.PHONY: distzip</p>
+
+<p>BINPKG = gecode-$(VERSION)-bin</p>
+
+<p>disttodir:</p>
+
+<pre>$(RMF) $(BINPKG) &amp;&amp; \
+$(MAKE) install \
+prefix=$(BINPKG) execprefix=$(BINPKG) bindir=$(BINPKG)/bin \
+libdir=$(BINPKG)/lib sharedlibdir=$(BINPKG)/lib \
+includedir=$(BINPKG)/include &amp;&amp; \
+$(MAKE) ChangeLog &amp;&amp; \
+cp $(top_srcdir)/LICENSE ChangeLog $(BINPKG)/</pre>
+
+<p>distzip: disttodir</p>
+
+<pre>zip -q -9 -r $(BINPKG).zip $(BINPKG) &amp;&amp; \
+$(RMF) $(BINPKG)</pre>
+
+<p>disttgz: disttodir</p>
+
+<pre>$(TAR) cf - $(BINPKG) | \
+  gzip -9 &gt; $(BINPKG).tar.gz &amp;&amp; \
+$(RMF) $(BINPKG)</pre>
+
+<p># # Maintenance targets #</p>
+
+<p>clean:</p>
+
+<pre>$(RMF) *.stackdump core gmon.out vc70.pdb vc80.pdb vc90.pdb
+$(RMF) doxygen.log doxygen.hh doxygen.conf.use stat.hh license.hh header.html
+$(RMF) $(ALLOBJ) $(ALLSBJ) $(ALLOBJ:%$(OBJSUFFIX)=%.pdb)
+$(RMF) $(TESTOBJ) $(TESTSBJ) $(TESTOBJ:%$(OBJSUFFIX)=%.pdb)
+$(RMF) $(GISTMOCSRC) $(SERMOCSRC)
+$(RMF) $(SERREGSRC:%.cc=%$(OBJSUFFIX))</pre>
+
+<p>veryclean: clean</p>
+
+<pre>$(RMF) $(LIBTARGETS) \
+        $(LIBTARGETS:%$(DLLSUFFIX)=%.exp) \
+        $(LIBTARGETS:%$(DLLSUFFIX)=%.lib) \
+        $(LIBTARGETS:%$(DLLSUFFIX)=%.ilk) \
+        $(LIBTARGETS:%$(DLLSUFFIX)=%.pdb)
+$(RMF) $(LIBTARGETS:%$(DLLSUFFIX)=%$(SOLINKSUFFIX)) \
+        $(LIBTARGETS:%$(DLLSUFFIX)=%$(SOSUFFIX))
+$(RMF) $(EXAMPLEEXE) $(EXAMPLEEXE:%.exe=%.pdb) \
+        $(EXAMPLEEXE:%.exe=%.ilk)
+$(RMF) $(TESTEXE) $(TESTEXE:%.exe=%.pdb) $(TESTEXE:%.exe=%.ilk)
+$(RMF) doc GecodeReference.chm ChangeLog changelog.hh doxygen.conf doxygen.hh
+$(RMF) $(ALLOBJ:%$(OBJSUFFIX)=%.gcno) $(TESTOBJ:%$(OBJSUFFIX)=%.gcno)
+$(RMF) $(ALLOBJ:%$(OBJSUFFIX)=%.gcda) $(TESTOBJ:%$(OBJSUFFIX)=%.gcda)
+$(RMF) $(SERREGSRC:%.cc=%.gcda) $(SERREGSRC:%.cc=%.gcno)</pre>
+
+<p>distclean: veryclean</p>
+
+<pre>$(RMF) $(VARIMP:%=$(top_srcdir)/%)
+$(RMF) misc/gecode.pc misc/gecode-search.pc \
+        misc/gecode-minimodel.pc misc/gecode-serialization.pc
+$(RMF) Makefile
+$(RMF) $(EXTRA_HEADERS)
+$(RMF) config.log config.status Makefile.dep
+$(RMF) $(SERREGSRC)</pre>
+
+<p>depend: $(VARIMP:%=$(top_srcdir)/%) $(SERREGSRC:%=$(top_srcdir)/%)</p>
+
+<pre>perl $(top_srcdir)/misc/makedepend.perl \
+$(top_srcdir) \
+$(ALLSRC) \
+$(SERREGSRC) \
+$(TESTSRC) &gt; Makefile.dep</pre>
+
+<p>-include Makefile.dep</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

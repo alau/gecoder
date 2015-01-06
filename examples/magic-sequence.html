@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Solving Magic Sequence using Constraint Programming in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="An example showing how to solve the magic sequence problem using constraint programming in Ruby with Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Examples</a> > <span>Magic Sequence</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Examples</h3><ul id="secondNav"><li><a href="index.html">Overview</a></li><li><a href="send-more-money.html">send+more=money</a></li><li><a href="send-most-money.html">send+most=money</a></li><li><a href="sudoku.html">Sudoku</a></li><li><a href="sudoku-set.html">Sudoku with sets</a></li><li><a href="n-queens.html">N-queens</a></li><li><span>Magic Sequence</span></li><li><a href="nonogram.html">Nonogram (Paint by Numbers)</a></li><li><a href="square-tiling.html">Square tiling</a></li><li><a href="minesweeper.html">Minesweeper</a></li><li><a href="survo.html">Survo Puzzle</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#problem">Problem</a></li><li><a href="#code">Code</a></li><li><a href="#output">Output</a></li><li><a href="#notes">Notes</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Magic Sequence</h1>
+
+
+	<h2 id="problem">Problem</h2>
+
+
+	<blockquote>
+		<p>A magic sequence of length n is a sequence of integers x0 . . xn-1 between 
+0 and n-1, such that for all i in 0 to n-1, the number i occurs exactly xi 
+times in the sequence. For instance, 6,2,1,0,0,0,1,0,0,0 is a magic sequence 
+since 0 occurs 6 times in it, 1 occurs twice, ... &#8211; 
+<a href="http://www.dcs.st-and.ac.uk/~ianm/CSPLib/prob/prob019/spec.html">CSPLib</a></p>
+	</blockquote>
+
+
+	<h2 id="code">Code</h2>
+
+
+	<p><div class="CodeRay">
+  <div class="code"><pre><span class="no"> 1</span> require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+<span class="no"> 2</span> require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+<span class="no"> 3</span> 
+<span class="no"> 4</span> <span class="c"># Solves the magic sequence problem.</span>
+<span class="no"> 5</span> <span class="r">class</span> <span class="cl">MagicSequence</span>
+<span class="no"> 6</span>   include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+<span class="no"> 7</span> 
+<span class="no"> 8</span>   <span class="c"># n is the length of the sequence.</span>
+<span class="no"> 9</span>   <span class="r">def</span> <span class="fu">initialize</span>(n)
+<span class="no"><strong>10</strong></span>     <span class="c"># The i:th variable represents the value of the i:th element in the </span>
+<span class="no">11</span>     <span class="c"># sequence.</span>
+<span class="no">12</span>     sequence_is_an int_var_array(n, <span class="i">0</span>...n)
+<span class="no">13</span>     
+<span class="no">14</span>     <span class="c"># The basic requirement to qualify as a magic sequence.</span>
+<span class="no">15</span>     n.times{ |i| sequence.count(i).must == sequence[i] }
+<span class="no">16</span>   
+<span class="no">17</span>     <span class="c"># The following are implied constraints. They do not affect which </span>
+<span class="no">18</span>     <span class="c"># assignments are solutions, but they do help prune the search space </span>
+<span class="no">19</span>     <span class="c"># quicker.</span>
+<span class="no"><strong>20</strong></span>     
+<span class="no">21</span>     <span class="c"># The sum must be n. This follows from that there are exactly n elements and</span>
+<span class="no">22</span>     <span class="c"># that the sum of all elements are the number of occurrences in total, i.e. </span>
+<span class="no">23</span>     <span class="c"># the number of elements.</span>
+<span class="no">24</span>     sequence.sum.must == n
+<span class="no">25</span>     
+<span class="no">26</span>     <span class="c"># sum(seq[i] * (i-1)) must equal 0 because sum(seq[i]) = n as seen above</span>
+<span class="no">27</span>     <span class="c"># and sum(i*seq[i]) is just another way to compute sum(seq[i]). So we get </span>
+<span class="no">28</span>     <span class="c"># sum(seq[i] * (i-1)) = sum(seq[i]) - sum(i*seq[i]) = n - n = 0</span>
+<span class="no">29</span>     sequence.zip((<span class="i">-1</span>...n).to_a).map{ |element, c| element*c }.sum.must == <span class="i">0</span>
+<span class="no"><strong>30</strong></span>     
+<span class="no">31</span>     branch_on sequence, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_degree</span>, <span class="sy">:value</span> =&gt; <span class="sy">:split_max</span>
+<span class="no">32</span>   <span class="r">end</span>
+<span class="no">33</span>   
+<span class="no">34</span>   <span class="r">def</span> <span class="fu">to_s</span>
+<span class="no">35</span>     sequence.values.join(<span class="s"><span class="dl">'</span><span class="k">, </span><span class="dl">'</span></span>)
+<span class="no">36</span>   <span class="r">end</span>
+<span class="no">37</span> <span class="r">end</span>
+<span class="no">38</span> 
+<span class="no">39</span> <span class="r">class</span> <span class="cl">Array</span>
+<span class="no"><strong>40</strong></span>   <span class="c"># Sums all the elements in the array using #+ .</span>
+<span class="no">41</span>   <span class="r">def</span> <span class="fu">sum</span>
+<span class="no">42</span>     inject{ |sum, element| sum + element }
+<span class="no">43</span>   <span class="r">end</span>
+<span class="no">44</span> <span class="r">end</span>
+<span class="no">45</span> 
+<span class="no">46</span> puts <span class="co">MagicSequence</span>.new(<span class="i">500</span>).solve!.to_s
+</pre></div>
+</div>
+</p>
+
+
+	<h2 id="output">Output</h2>
+
+
+<pre>
+496, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
+</pre>
+
+	<h2 id="notes">Notes</h2>
+
+
+	<p>This might be a bit boring problem to use constraint programming on as the 
+pattern for sequences is obvious for n &gt;= 7, making it trivial to construct an
+efficient algorithm.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

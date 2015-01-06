@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Getting Started with Gecode/R, a Ruby Interface to Gecode</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="How to get started with using Gecode/R to solve constraint programming problems." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <span>Documentation</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Documentation</h3><ul id="secondNav"><li><span>Getting Started</span></li><li><a href="formulating_problems.html">Formulating Problems</a></li><li><a href="searching_for_solutions.html">Searching for Solutions</a></li><li><a href="operands/index.html"class="parent">Operands</a></li><li><a href="modelling/index.html"class="parent">Modelling</a></li><li><a href="faq.html">FAQ</a></li><li><a href="../rdoc/index.html">RDoc (users)</a></li><li><a href="../rdoc_dev/index.html">RDoc (developers)</a></li><li><a href="../coverage/index.html">rcov Report</a></li><li><a href="../rspec.html">RSpec Report</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#toy_example">Toy Example</a><ul class="section-links"><li><a href="#setting_up">Setting Up</a></li><li><a href="#formulating_the_problem">Formulating the Problem</a></li><li><a href="#finding_the_solution">Finding the Solution</a></li></ul></li><li><a href="#modelling_problems">Modelling Problems</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Getting Started</h1>
+
+
+<div class="summary"> 
+<p>Constraint programming is declarative. You
+<a href="formulating_problems.html">formulate the problem</a> and then ask the solver
+(Gecode) to find a solution. Problems are formulated as variables that
+have to be assigned values to satisfy specified constraints.</p>
+</div>
+
+	<h2 id="toy_example">Toy Example</h2>
+
+
+	<p>The following script formulates and solves the toy problem of finding
+the integer <code>x</code> such that <code>x</code> times 5 equals 25.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+
+x = int_var
+(x*<span class="i">5</span>).must == <span class="i">25</span>
+branch_on x
+
+solve!
+puts x.value
+</pre></div>
+</div>
+
+
+	<h3 id="setting_up">Setting Up</h3>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+</pre></div>
+</div>
+
+
+	<p><a href="../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin</code></a> is a mixin that provides all the methods used.
+Mixing it into a class rather than into the top level context is advised
+for serious use.</p>
+
+
+	<h3 id="formulating_the_problem">Formulating the Problem</h3>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>x = int_var
+(x*<span class="i">5</span>).must == <span class="i">25</span>
+</pre></div>
+</div>
+
+
+	<p>Formulates the problem by, on the first line, <a href="formulating_problems.html#creating_integer_variables">creating an integer
+variable</a> <code>x</code> and
+then, on the second line, constraining 5 times any value assigned to <code>x</code>
+to equal 25 (constraining the value assigned to <code>x</code> to be a solution to
+the problem).</p>
+
+
+	<p>There are <a href="formulating_problems.html#variables_and_operands">many types of variables and ways to create
+them</a>. All
+<a href="formulating_problems.html#constraints">constraints</a> can be recognized by
+the use of <code>#must</code>. The second line uses a property and a constraint
+belonging to <a href="operands/integer-operands.html">integer operands</a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>branch_on x
+</pre></div>
+</div>
+
+
+	<p>Tells Gecode/R that <code>x</code> should be assigned a value to solve the problem.
+In more complex examples there can be temporary variables that are only
+used to help formulate the problem and do not need to be assigned a
+specific value.</p>
+
+
+	<p>Branching is also used to <a href="formulating_problems.html#branching">specify how to explore the search
+space</a>.</p>
+
+
+	<h3 id="finding_the_solution">Finding the Solution</h3>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>solve!
+puts x.value
+</pre></div>
+</div>
+
+
+	<p>The first line <a href="searching_for_solutions.html#searching_for_one_solution">searches for a
+solution</a>.  The
+second line displays the value assigned to the variable in the solution.</p>
+
+
+	<h2 id="modelling_problems">Modelling Problems</h2>
+
+
+	<p>Translating a problem into variables and constraints is not trivial.
+The translation affects how fast a solution is found. The <a href="modelling/index.html">modelling
+tutorial</a> gives an introduction of how to perform
+the translation along with detailed examples.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><span>Documentation</span></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><span>Documentation</span></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

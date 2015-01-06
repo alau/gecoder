@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class SudokuSet - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Gecode/Mixin.html">Gecode::Mixin</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-SudokuSet">
+  <h1 id="class-SudokuSet" class="class">
+    class SudokuSet
+  </h1>
+
+  <section class="description">
+    
+<p>Solves the sudoku problem using sets. The model used is a fairly direct 
+translation of the corresponding <a href="Gecode.html">Gecode</a> example: 
+<a
+href="http://www.gecode.org/gecode-doc-latest/sudoku-set_8cc-source.html">www.gecode.org/gecode-doc-latest/sudoku-set_8cc-source.html</a>
+.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Outputs the assigned numbers in a grid.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File example/sudoku-set.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">squares</span> = []
+  <span class="ruby-identifier">sets</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">positions</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">positions</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">square_position</span><span class="ruby-operator">|</span> <span class="ruby-identifier">squares</span>[<span class="ruby-identifier">square_position</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>] = <span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> }
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">squares</span>.<span class="ruby-identifier">enum_slice</span>(<span class="ruby-ivar">@size</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">slice</span><span class="ruby-operator">|</span> <span class="ruby-identifier">slice</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(predefined_values)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Takes a 9x9 matrix of values in the initial sudoku, 0 if the square is 
+empty.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File example/sudoku-set.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">predefined_values</span>)
+  <span class="ruby-comment"># Verify that the input is of a valid size.</span>
+  <span class="ruby-ivar">@size</span> = <span class="ruby-identifier">n</span> = <span class="ruby-identifier">predefined_values</span>.<span class="ruby-identifier">row_size</span>
+  <span class="ruby-identifier">block_size</span> = <span class="ruby-constant">Math</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">n</span>).<span class="ruby-identifier">round</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">predefined_values</span>.<span class="ruby-identifier">square?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">block_size</span><span class="ruby-operator">**</span><span class="ruby-value">2</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">n</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Incorrect value matrix size.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">sub_count</span> = <span class="ruby-identifier">block_size</span>
+  
+  <span class="ruby-comment"># Create one set per assignable number (i.e. 1..9). Each set contains the </span>
+  <span class="ruby-comment"># position of all squares that the number is located in. The squares are </span>
+  <span class="ruby-comment"># given numbers from 1 to 81. Each set therefore has an empty lower bound </span>
+  <span class="ruby-comment"># (since we have no guarantees where a number will end up) and 1..81 as </span>
+  <span class="ruby-comment"># upper bound (as it may potentially occurr in any square). We know that</span>
+  <span class="ruby-comment"># each assignable number must occurr 9 times in a solved sudoku, so we </span>
+  <span class="ruby-comment"># set the cardinality to 9..9 .</span>
+  <span class="ruby-identifier">sets_is_an</span> <span class="ruby-identifier">set_var_array</span>(<span class="ruby-identifier">n</span>, [], <span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">n</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span>, <span class="ruby-identifier">n</span><span class="ruby-operator">..</span><span class="ruby-identifier">n</span>)
+  <span class="ruby-identifier">predefined_values</span>.<span class="ruby-identifier">row_size</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">predefined_values</span>.<span class="ruby-identifier">column_size</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">predefined_values</span>[<span class="ruby-identifier">i</span>,<span class="ruby-identifier">j</span>].<span class="ruby-identifier">zero?</span>
+        <span class="ruby-comment"># We add the constraint that the square position must occurr in the </span>
+        <span class="ruby-comment"># set corresponding to the predefined value.</span>
+        <span class="ruby-identifier">sets</span>[<span class="ruby-identifier">predefined_values</span>[<span class="ruby-identifier">i</span>,<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-value">1</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">superset_of</span> [<span class="ruby-identifier">i</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">j</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Build arrays containing the square positions of each row and column.</span>
+  <span class="ruby-identifier">rows</span> = []
+  <span class="ruby-identifier">columns</span> = []
+  <span class="ruby-identifier">n</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">rows</span> <span class="ruby-operator">&lt;&lt;</span> ((<span class="ruby-identifier">i</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span>(<span class="ruby-identifier">i</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">n</span>))
+    <span class="ruby-identifier">columns</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">n</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">i</span> }
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># Build arrays containing the square positions of each block.</span>
+  <span class="ruby-identifier">blocks</span> = []
+  <span class="ruby-comment"># The square numbers of the first block.</span>
+  <span class="ruby-identifier">first_block</span> = (<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">block_size</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> 
+    ((<span class="ruby-identifier">n</span><span class="ruby-operator">*</span><span class="ruby-identifier">e</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>)<span class="ruby-operator">..</span>(<span class="ruby-identifier">n</span><span class="ruby-operator">*</span><span class="ruby-identifier">e</span><span class="ruby-operator">+</span><span class="ruby-identifier">block_size</span>)).<span class="ruby-identifier">to_a</span> 
+  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">flatten</span>
+  <span class="ruby-identifier">block_size</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">block_size</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span> 
+      <span class="ruby-identifier">blocks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">first_block</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">j</span><span class="ruby-operator">*</span><span class="ruby-identifier">n</span><span class="ruby-operator">*</span><span class="ruby-identifier">block_size</span>)<span class="ruby-operator">+</span>(<span class="ruby-identifier">i</span><span class="ruby-operator">*</span><span class="ruby-identifier">block_size</span>) }
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># All sets must be pairwise disjoint since two numbers can't be assigned to</span>
+  <span class="ruby-comment"># the same square.</span>
+  <span class="ruby-identifier">n</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    (<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">n</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">sets</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">disjoint_with</span> <span class="ruby-identifier">sets</span>[<span class="ruby-identifier">j</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># The sets must intersect in exactly one element with each row column and</span>
+  <span class="ruby-comment"># block. I.e. an assignable number must be assigned exactly once in each</span>
+  <span class="ruby-comment"># row, column and block. </span>
+  <span class="ruby-identifier">sets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">set</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">rows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">row</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">set</span>.<span class="ruby-identifier">intersection</span>(<span class="ruby-identifier">row</span>).<span class="ruby-identifier">size</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">columns</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">column</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">set</span>.<span class="ruby-identifier">intersection</span>(<span class="ruby-identifier">column</span>).<span class="ruby-identifier">size</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">set</span>.<span class="ruby-identifier">intersection</span>(<span class="ruby-identifier">block</span>).<span class="ruby-identifier">size</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Branching.</span>
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-identifier">sets</span>, <span class="ruby-value">:variable</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:none</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:min</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

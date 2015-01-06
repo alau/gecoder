@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>CHANGES - Gecode/R</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-Version+1.1.0">Version 1.1.0</a>
+    <li><a href="#label-Version+1.0.0">Version 1.0.0</a>
+    <li><a href="#label-Version+0.9.1">Version 0.9.1</a>
+    <li><a href="#label-Version+0.9.0">Version 0.9.0</a>
+    <li><a href="#label-Version+0.8.3">Version 0.8.3</a>
+    <li><a href="#label-Version+0.8.2">Version 0.8.2</a>
+    <li><a href="#label-Version+0.8.1">Version 0.8.1</a>
+    <li><a href="#label-Version+0.8.0">Version 0.8.0</a>
+    <li><a href="#label-Version+0.7.1">Version 0.7.1</a>
+    <li><a href="#label-Version+0.7.0">Version 0.7.0</a>
+    <li><a href="#label-Version+0.6.1">Version 0.6.1</a>
+    <li><a href="#label-Version+0.6.0">Version 0.6.0</a>
+    <li><a href="#label-Version+0.5.0">Version 0.5.0</a>
+    <li><a href="#label-Version+0.4.0">Version 0.4.0</a>
+    <li><a href="#label-Version+0.3.0">Version 0.3.0</a>
+    <li><a href="#label-Version+0.2.0">Version 0.2.0</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./CHANGES.html">CHANGES</a>
+  
+    <li><a href="./LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="./README.html">README</a>
+  
+    <li><a href="./THANKS.html">THANKS</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page CHANGES">
+
+<h2 id="label-Version+1.1.0">Version 1.1.0<span><a href="#label-Version+1.1.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release fixes a compilation error when installing the
+gecoder-with-gecode gem using GCC 4.4+ .</p>
+<ul><li>
+<p>Added the :time_limit to <a
+href="Gecode/Mixin.html#method-i-solve-21">Gecode::Mixin#solve!</a> which
+can be used to limit the amount of time that the solver is allowed to
+search for a solution.</p>
+</li><li><dl class="rdoc-list label-list"><dt>#29630
+<dd>
+<p>Fixed compilation errors when installing gecoder-with-gecode using GCC 4.4+
+.</p>
+</dd></dl>
+</li></ul>
+
+<h2 id="label-Version+1.0.0">Version 1.0.0<span><a href="#label-Version+1.0.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release represents a commitment to the current syntax.</p>
+<ul><li>
+<p>No changes apart from improving documentation.</p>
+</li></ul>
+
+<h2 id="label-Version+0.9.1">Version 0.9.1<span><a href="#label-Version+0.9.1">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release changes the preferred way of defining a model to including <a
+href="Gecode/Mixin.html">Gecode::Mixin</a> (a mixin) rather than inheriting
+from <a href="Gecode/Model.html">Gecode::Model</a>. The backend has also
+been updated to fix some rare bugs.</p>
+<ul><li>
+<p>Added <a href="Gecode/Mixin.html">Gecode::Mixin</a> which can be mixed in
+rather than inheriting from <a href="Gecode/Model.html">Gecode::Model</a>.
+Thanks to Adam Rose for the suggestion.</p>
+</li><li>
+<p>Updated the backend to <a href="Gecode.html">Gecode</a> 2.2.0. See <a
+href="http://www.gecode.org/gecode-doc-latest/PageChanges_2_2_0.html">www.gecode.org/gecode-doc-latest/PageChanges_2_2_0.html</a>
+for a list of changes.</p>
+</li></ul>
+
+<h2 id="label-Version+0.9.0">Version 0.9.0<span><a href="#label-Version+0.9.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds a generous amount of sugar designed to cut down on often
+repeated code. It also adds the ability to freely combine constraints
+without needing temporary variables.</p>
+<ul><li>
+<p>Variables that should be accessible from outside the model can now easily
+be created by calling “&lt;variable_name&gt;_is_a &lt;variable&gt;”
+where “&lt;variable_name&gt;” is the desired name of the variable and
+“&lt;variable&gt;” is the variable (e.g. “int_var(17)”). Take a
+look at the examples to see it in action.</p>
+</li><li>
+<p><a href="Gecode.html#method-c-solve">Gecode.solve</a>, <a
+href="Gecode.html#method-c-maximize">Gecode.maximize</a> and <a
+href="Gecode.html#method-c-minimize">Gecode.minimize</a> can now be used to
+solve a problem without first having to explicitly create a class for the
+model.</p>
+</li><li>
+<p>An exception (Gecode::NoSolutionError) is now thrown if a solution can not
+be found when using Model#solve!, Model#minimize!, Model#maximize! and
+Model#optimize! (rather than returning nil). This change breaks backwards
+compatibility. If you feel that this is a bad change then please tell the
+mailing list.</p>
+</li><li>
+<p>The offset option to the distinct constraint is now given as
+“int_enum.must_be.distinct(:offset =&gt; offsets)” rather than the
+previous “int_enum.with_offsets(offsets).must_be.distinct”.</p>
+</li><li>
+<p>Complex combinations of several constraints such as “(set1.size +
+set2.size).must &gt; int.abs - 3” can now be used. The underlying code
+has been changed quite a bit, but it should remain backwards compatible
+except for above mentioned exception. The change also brings about some
+changed terminology, which mostly aims to remove the concept of
+“composite constraints” and replace them with the more general
+“operands” (see the documentation for further details).</p>
+</li><li><dl class="rdoc-list label-list"><dt>#21578
+<dd>
+<p>Fixed a bug that caused options given to the boolean “false” domain
+constraint to not be processed.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list label-list"><dt>#21579
+<dd>
+<p>Fixed a bug that caused the integer enumeration equality constraint to not
+work at all (threw an exception).</p>
+</dd></dl>
+</li><li><dl class="rdoc-list label-list"><dt>#21580
+<dd>
+<p>Fixed a bug that caused ranges that use three dots to not be correctly
+interpreted by the negated integer domain constraint.</p>
+</dd></dl>
+</li><li><dl class="rdoc-list label-list"><dt>#21581
+<dd>
+<p>Fixed a bug that caused the abs constraint to prune away valid solutions in
+some cases.</p>
+</dd></dl>
+</li></ul>
+
+<h2 id="label-Version+0.8.3">Version 0.8.3<span><a href="#label-Version+0.8.3">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds regular expression constraints, the last channel
+constraint and various minor convenience improvements. It also fixes a
+rather serious bug that occurs when using the latest patchlevels of Ruby
+1.8.6.</p>
+<ul><li><dl class="rdoc-list label-list"><dt>#20888
+<dd>
+<p>Fixed a GC bug causing problems with Ruby 1.8.6 at patchlevels around 230.</p>
+</dd></dl>
+</li><li>
+<p>Boolean constraints can no longer be specified using the form “bool.must
+== true”. Only the “bool.must_be.true” form can now be used.</p>
+</li><li>
+<p>Added constants in Model that contain the limits of the variables’
+domains.</p>
+</li><li>
+<p>The domain when construction arrays and matrices of int variables now
+default to the same as when creating single variables (the largest possible
+domain).</p>
+</li><li>
+<p>Model#branch_on now accepts single variables as well as enums.</p>
+</li><li>
+<p>Added channel constraints between single set variables and enumerations of
+boolean variables.</p>
+</li><li>
+<p>Added integer and boolean regular expression constraints. Thanks goes to
+Eivind Eklund for providing the idea for the syntax used to specify the
+regular expressions.</p>
+</li></ul>
+
+<h2 id="label-Version+0.8.2">Version 0.8.2<span><a href="#label-Version+0.8.2">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds search statistics along with some new arithmetic
+constraints and channel constraints between boolean and integer variables.</p>
+<ul><li>
+<p>Wrapping an enumerable that is already wrapped is no longer allowed.</p>
+</li><li>
+<p>Added search statistics.</p>
+</li><li>
+<p>Added squared value and square root constraints.</p>
+</li><li>
+<p>Added channel constraints between single integer variables and boolean
+variables.</p>
+</li><li>
+<p>Added channel constraints between enumerations of boolean variables and
+single integer variables.</p>
+</li></ul>
+
+<h2 id="label-Version+0.8.1">Version 0.8.1<span><a href="#label-Version+0.8.1">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds tuple constraints along with a couple of minor features.
+It also fixes a bug introduced in the previous version.</p>
+<ul><li><dl class="rdoc-list label-list"><dt>#19435
+<dd>
+<p>Fixed a bug causing inconsistencies during BAB-search. The bug stopped the
+send+more=money example from working correctly.</p>
+</dd></dl>
+</li><li>
+<p>Fixed the “raw_bindings” and “sudoku-set” examples, which were
+broken by the 0.8.0 release.</p>
+</li><li>
+<p>Integers can now be used to specify singleton lower and upper bounds when
+creating set variables.</p>
+</li><li>
+<p>Added convenience methods Model#maximize! and Model#minimize! for
+optimizing single variables.</p>
+</li><li>
+<p>Added tuple constraints for enumerations of integer and boolean variables.</p>
+</li></ul>
+
+<h2 id="label-Version+0.8.0">Version 0.8.0<span><a href="#label-Version+0.8.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release makes the jump from using <a href="Gecode.html">Gecode</a>
+1.3.1 to using <a href="Gecode.html">Gecode</a> 2.1.1 . The following
+changes have been made to the interface as a result of the jump.</p>
+<ul><li>
+<p>Removed the distinct constraint for sets.</p>
+</li><li>
+<p>Added the propagation kind option to the non-set constraints.</p>
+</li></ul>
+
+<h2 id="label-Version+0.7.1">Version 0.7.1<span><a href="#label-Version+0.7.1">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds boolean linear constraints.</p>
+<ul><li>
+<p>Set domain constraints now checks illegal parameters when it’s added
+(rather than when the search begins).</p>
+</li><li>
+<p>Added boolean linear constraint.</p>
+</li></ul>
+
+<h2 id="label-Version+0.7.0">Version 0.7.0<span><a href="#label-Version+0.7.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds the set selection and operation constraints.</p>
+<ul><li>
+<p>Added set selection constraints (set array access, select union, select
+intersection (optionally with specified universe) and select disjoint).</p>
+</li><li>
+<p>Added set operation constraints (union, minus, disjoint_union and
+intersection) on pairs of set variables or set constants with variable or
+constant right hand side.</p>
+</li><li>
+<p>Added set operation constraints on enumerations of sets.</p>
+</li></ul>
+
+<h2 id="label-Version+0.6.1">Version 0.6.1<span><a href="#label-Version+0.6.1">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release fixes various bugs introduced in 0.6.0 and changes the way
+that int variable domains are specified (breaking backward-compatibility).</p>
+<ul><li>
+<p>The domain for int variables can no longer be specified as several
+individual elements, it has to be specified as either a single element, a
+range or another enumeration.</p>
+</li><li>
+<p>Fixed a bug with set cardinality, min and max constraints using composite
+sugar.</p>
+</li><li>
+<p>Variables can now be created inside the optimization block.</p>
+</li></ul>
+
+<h2 id="label-Version+0.6.0">Version 0.6.0<span><a href="#label-Version+0.6.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds most of the remaining set constraints. It also makes
+backward-compatibility breaking changes to the way that properties of
+variables are accessed.</p>
+<ul><li>
+<p>Added channel constraints involving set variables.</p>
+</li><li>
+<p>Added set min and max constraints.</p>
+</li><li>
+<p>Added set sum constraints (optionally weighted or substituted).</p>
+</li><li>
+<p>Added include (match) constraint for sets.</p>
+</li><li>
+<p>Added distinct constraints (distinct and at most one) for sets.</p>
+</li><li>
+<p>Added branch and bound search (optimization search). It’s quite shaky at
+the moment though.</p>
+</li><li>
+<p>Assigned values of variables are now always accessed using value instead of
+the various previous methods. The methods for extracting information from
+set variables have been changed and renamed.</p>
+</li><li>
+<p>Enumerations containing variables now provide a convenience method values
+which returns an array of the enum’s values.</p>
+</li></ul>
+
+<h2 id="label-Version+0.5.0">Version 0.5.0<span><a href="#label-Version+0.5.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds set variables and some of their constraints, along with
+the last of the boolean constraints.</p>
+<ul><li>
+<p>Added exclusive or and implication.</p>
+</li><li>
+<p>Added conjunction and disjunction for boolean enumerations.</p>
+</li><li>
+<p>Added set variables. They are created using Model{#set_var, set_var_array,
+set_var_matrix}.</p>
+</li><li>
+<p>Added domain constraints for set variables.</p>
+</li><li>
+<p>Added relation constraints for set variables.</p>
+</li><li>
+<p>Added set cardinality constraints.</p>
+</li></ul>
+
+<h2 id="label-Version+0.4.0">Version 0.4.0<span><a href="#label-Version+0.4.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release adds most of the integer variable constraints supported by <a
+href="Gecode.html">Gecode</a>.</p>
+<ul><li><dl class="rdoc-list label-list"><dt>#11861
+<dd>
+<p>Fixed a bug stopping the creation of int variables with non-range domains.</p>
+</dd></dl>
+</li><li>
+<p>Added domain constraints for int variables.</p>
+</li><li>
+<p>Added equality constraint for int enums.</p>
+</li><li>
+<p>Matrices of integer and boolean variables can now be created using
+Model#int_var_matrix Model#bool_var_matrix.</p>
+</li><li>
+<p>Added channel constraint for int enums.</p>
+</li><li>
+<p>Added element constraints (variable array access).</p>
+</li><li>
+<p>Added count constraints.</p>
+</li><li>
+<p>Added sortedness constraints.</p>
+</li><li>
+<p>Added arithmetic constraints (min, max, abs and variable multiplication).</p>
+</li></ul>
+
+<h2 id="label-Version+0.3.0">Version 0.3.0<span><a href="#label-Version+0.3.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This release fleshes out the existing constraints with things such as
+reification and adds boolean variables and their basic constraints.</p>
+<ul><li>
+<p>The constructor of <a href="Gecode/Model.html">Gecode::Model</a> no longer
+has to be called by classes inheriting from it.</p>
+</li><li>
+<p>Added Model#reset! which resets a model after search.</p>
+</li><li>
+<p>Added Model#solution which passes the first solution to a block and returns
+the result of that block.</p>
+</li><li>
+<p>Added Model#each_solution which iterates over each solution.</p>
+</li><li>
+<p>Added boolean variables. They are created using Model#bool_var and
+Model#bool_var_array .</p>
+</li><li>
+<p>Added two options to constraints: propagation strength and reification
+variable.</p>
+</li><li>
+<p>Linear and simple relation constraints can now also be specified using
+equal, equal_to, greater, greater_than,… in addition to comparison
+operators.</p>
+</li><li>
+<p>Added distinct with offsets.</p>
+</li><li>
+<p>Simple relation constraints can now be used to specify relations between
+two variables.</p>
+</li><li>
+<p>Added basic boolean domain constraints along with conjunction and
+disjunction.</p>
+</li><li>
+<p>Added syntactic sugar for combining reifiable constraints with | and &amp;.</p>
+</li></ul>
+
+<h2 id="label-Version+0.2.0">Version 0.2.0<span><a href="#label-Version+0.2.0">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>This is the first release of Gecode/R, a Ruby interface to <a
+href="Gecode.html">Gecode</a>.</p>
+<ul><li>
+<p>Added support for finite domain integers.</p>
+</li><li>
+<p>Added some basic relation, linear and distinct constraints.</p>
+</li><li>
+<p>Added the basis needed to model problems and find the first solution.</p>
+</li></ul>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

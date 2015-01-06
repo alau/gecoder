@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::SetVar - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Set/SetOperand.html">Gecode::Set::SetOperand</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-cardinality">#cardinality</a>
+    
+    <li ><a href="#method-i-lower_bound">#lower_bound</a>
+    
+    <li ><a href="#method-i-to_set_var">#to_set_var</a>
+    
+    <li ><a href="#method-i-upper_bound">#upper_bound</a>
+    
+    <li ><a href="#method-i-value">#value</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::SetVar">
+  <h1 id="class-Gecode::SetVar" class="class">
+    class Gecode::SetVar
+  </h1>
+
+  <section class="description">
+    
+<p>Describes a set variable.</p>
+
+<p>A set variable’s domain, i.e. possible values that it can take, are
+represented with a greatest lower bound (GLB) and a least upper bound
+(LUB).  The set variable may then take any set value S such that S is a
+subset of the least upper bound and the greatest lower bound is a subset of
+S.</p>
+
+<p>If for instance the set has a greatest lower bound {1} and least upper
+bound {1,3,5} then the assigned set may be any of the following four sets:
+{1}, {1,3}, {1,5}, {1,3,5}.</p>
+
+<p>The domain of a set variable may also specify the cardinality of the set,
+i.e. the number of elements that the set may contains.</p>
+
+<p><a href="Set.html">Set</a> variables are set operands and hence respond to
+everything that <a href="Set/SetOperand.html">Gecode::Set::SetOperand</a>
+responds to.  Any constraint found in <a
+href="Set/SetConstraintReceiver.html">Gecode::Set::SetConstraintReceiver</a>
+can thereby be placed on set variables.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-model" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">model</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-cardinality" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cardinality</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a range containing the allowed values for the set’s cardinality.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="cardinality-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 241</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">cardinality</span>
+  <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:cardMin</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:cardMax</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lower_bound" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lower_bound</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets all the elements located in the greatest lower bound of the set (an 
+Enumerable).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="lower_bound-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">lower_bound</span>
+  <span class="ruby-identifier">min</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:glbMin</span>)
+  <span class="ruby-identifier">max</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:glbMax</span>)
+  <span class="ruby-constant">EnumerableView</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">min</span>, <span class="ruby-identifier">max</span>, <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:glbSize</span>)) <span class="ruby-keyword">do</span>
+    (<span class="ruby-identifier">min</span><span class="ruby-operator">..</span><span class="ruby-identifier">max</span>).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:contains</span>, <span class="ruby-identifier">e</span>) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_set_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_set_var</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the receiver.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_set_var-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 246</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_set_var</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-upper_bound" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">upper_bound</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets all the elements located in the least upper bound of the set (an 
+Enumerable).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="upper_bound-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 226</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">upper_bound</span>
+  <span class="ruby-identifier">min</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:lubMin</span>)
+  <span class="ruby-identifier">max</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:lubMax</span>)
+  <span class="ruby-constant">EnumerableView</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">min</span>, <span class="ruby-identifier">max</span>, <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:lubSize</span>)) <span class="ruby-keyword">do</span>
+    (<span class="ruby-identifier">min</span><span class="ruby-operator">..</span><span class="ruby-identifier">max</span>).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">delete_if</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:notContains</span>, <span class="ruby-identifier">e</span>) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">value</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets the values in the assigned set variable (an enumerable).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="value-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">value</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">'No value is assigned.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">assigned?</span>
+  <span class="ruby-identifier">lower_bound</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Gecode/R: Constraint Programming in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/webgen.css" media="screen" />
+  <style type="text/css">
+	<!--
+    h1 {
+      white-space: nowrap;
+      text-align: center;
+    }
+    #body {
+      width: 520px;
+      margin: 0 auto;
+    }
+  -->
+  </style>
+  <meta name="description" content="A Ruby interface to the Gecode constraint programming library." />
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="index.html" title="Gecode/R - constraint programming in Ruby">
+  	<span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><span>Home</span></div>
+  <div id="body">
+    <h1>Constraint Programming in Ruby</h1>
+
+
+<div class="summary">
+<p>Gecode/R is a Ruby interface to <a href="http://www.gecode.org/">Gecode</a>, an open 
+source library for constraint programming. The interface is intended for people 
+with no previous experience of constraint programming, aiming to be easy to 
+pick up and use in practice.</p>
+</div>
+
+	<h2 id="describe_your_problem">Describe Your Problem</h2>
+
+
+	<p>Constraint programming is <em>declarative</em>. Describe your problem to the
+solver and then let it find solutions for you.</p>
+
+
+	<h3 id="example">Example</h3>
+
+
+	<p>Solve the equation system <code>x + y = z</code>, <code>x = y - 3</code>, <code>0 &lt;= x,y,z &lt;= 9</code>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>solution = <span class="co">Gecode</span>.solve <span class="r">do</span>
+  <span class="c"># Set up the variables, three integers with domain 0..9.</span>
+  variables_is_an int_var_array(<span class="i">3</span>, <span class="i">0</span>..<span class="i">9</span>) 
+  x,y,z = variables
+
+  <span class="c"># Describe the problem (in this case the equations).</span>
+  (x + y).must == z 
+  x.must == y - <span class="i">3</span>
+
+  <span class="c"># Tell it what the variables of the problem are.</span>
+  branch_on variables
+<span class="r">end</span>
+
+puts <span class="s"><span class="dl">'</span><span class="k">x y z</span><span class="dl">'</span></span>
+puts solution.variables.values.join(<span class="s"><span class="dl">'</span><span class="k"> </span><span class="dl">'</span></span>)
+</pre></div>
+</div>
+
+
+	<p>Output:</p>
+
+
+<pre>
+x y z
+0 3 3
+</pre>
+
+	<p>Constraint programming is an easy way to solve problems that are simpler to 
+describe than to solve. <a href="./examples/sudoku.html">Sudoku</a> is one of many <a href="examples/index.html">examples</a>.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="features.html">Features</a></li><li><a href="installation.html">Installation</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="documentation/index.html">Documentation</a></li><li><a href="details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="features.html">Features</a></li><li><a href="installation.html">Installation</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="documentation/index.html">Documentation</a></li><li><a href="details/index.html">Project Details</a></li><li><a class="sitemap" href="sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

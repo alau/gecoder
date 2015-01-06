@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>README - Gecode/R</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-Gecode-2FR">Gecode/R</a>
+    <li><a href="#label-Installation">Installation</a>
+    <li><a href="#label-Installing+from+gem">Installing from gem</a>
+    <li><a href="#label-Installing+from+source+using+gem">Installing from source using gem</a>
+    <li><a href="#label-Installing+from+source+without+using+gem">Installing from source without using gem</a>
+    <li><a href="#label-Running+the+tests">Running the tests</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./CHANGES.html">CHANGES</a>
+  
+    <li><a href="./LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="./README.html">README</a>
+  
+    <li><a href="./THANKS.html">THANKS</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page README">
+
+<h1 id="label-Gecode-2FR">Gecode/R<span><a href="#label-Gecode-2FR">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<p>Website: <a href="http://gecoder.org">gecoder.org</a></p>
+
+<p>Gecode/R is a Ruby interface to the <a href="Gecode.html">Gecode</a>
+constraint programming library.  Gecode/R is intended for people with no
+previous experience of constraint  programming, aiming to be easy to pick
+up and use.</p>
+
+<p>See <a href="Gecode/Mixin.html">Gecode::Mixin</a> to get started.</p>
+
+<h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Gecode/R requires <a href="Gecode.html">Gecode</a> 2.2.0, which can be
+downloaded from  <a
+href="http://www.gecode.org/download.html">www.gecode.org/download.html</a>
+. See  <a
+href="http://www.gecode.org/gecode-doc-latest/PageComp.html">www.gecode.org/gecode-doc-latest/PageComp.html</a>
+for the installation instructions.</p>
+
+<h3 id="label-Installing+from+gem">Installing from gem<span><a href="#label-Installing+from+gem">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>There are two gems. The first includes only Gecode/R, and assumes that you
+have installed <a href="Gecode.html">Gecode</a> yourself. The second
+includes both Gecode/R and <a href="Gecode.html">Gecode</a>. If you  use
+Windows then you’re recommended to use the second one, even though you 
+already have <a href="Gecode.html">Gecode</a>, as the other one does not
+come in a pre-compiled variant.</p>
+
+<p>Gecode/R only:</p>
+
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-identifier">install</span> <span class="ruby-identifier">gecoder</span>
+</pre>
+
+<p>Gecode/R and Gecode:</p>
+
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-identifier">install</span> <span class="ruby-identifier">gecoder</span><span class="ruby-operator">-</span><span class="ruby-identifier">with</span><span class="ruby-operator">-</span><span class="ruby-identifier">gecode</span>
+</pre>
+
+<h3 id="label-Installing+from+source+using+gem">Installing from source using gem<span><a href="#label-Installing+from+source+using+gem">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">rake</span> <span class="ruby-identifier">gem</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-identifier">install</span> <span class="ruby-identifier">pkg</span><span class="ruby-operator">/</span><span class="ruby-identifier">gecoder</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>.<span class="ruby-identifier">x</span>.<span class="ruby-identifier">x</span>.<span class="ruby-identifier">gem</span>
+</pre>
+
+<h3 id="label-Installing+from+source+without+using+gem">Installing from source without using gem<span><a href="#label-Installing+from+source+without+using+gem">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>“gecode.so” might have another extension depending on which platform
+it’s  generated on (replace the extension in the following commands with
+whatever  extension it’s given).</p>
+
+<pre class="ruby"><span class="ruby-identifier">cd</span> <span class="ruby-identifier">ext</span>
+<span class="ruby-identifier">ruby</span> <span class="ruby-identifier">extconf</span>.<span class="ruby-identifier">rb</span>
+<span class="ruby-identifier">make</span>
+<span class="ruby-identifier">mv</span> <span class="ruby-identifier">gecode</span>.<span class="ruby-identifier">so</span> <span class="ruby-operator">..</span><span class="ruby-regexp">/lib/</span>
+</pre>
+
+<h3 id="label-Running+the+tests">Running the tests<span><a href="#label-Running+the+tests">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<pre class="ruby"><span class="ruby-identifier">rake</span> <span class="ruby-identifier">specs</span>
+</pre>
+
+<p>Requires RSpec (1.0.5, but other version should hopefully work).</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

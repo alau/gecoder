@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class GecodeRaw::SetVar - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-assigned">#assigned</a>
+    
+    <li ><a href="#method-i-cardMax">#cardMax</a>
+    
+    <li ><a href="#method-i-cardMin">#cardMin</a>
+    
+    <li ><a href="#method-i-card_max">#card_max</a>
+    
+    <li ><a href="#method-i-card_min">#card_min</a>
+    
+    <li ><a href="#method-i-contains">#contains</a>
+    
+    <li ><a href="#method-i-glbMax">#glbMax</a>
+    
+    <li ><a href="#method-i-glbMin">#glbMin</a>
+    
+    <li ><a href="#method-i-glbSize">#glbSize</a>
+    
+    <li ><a href="#method-i-glb_max">#glb_max</a>
+    
+    <li ><a href="#method-i-glb_min">#glb_min</a>
+    
+    <li ><a href="#method-i-glb_size">#glb_size</a>
+    
+    <li ><a href="#method-i-lubMax">#lubMax</a>
+    
+    <li ><a href="#method-i-lubMin">#lubMin</a>
+    
+    <li ><a href="#method-i-lubSize">#lubSize</a>
+    
+    <li ><a href="#method-i-lub_max">#lub_max</a>
+    
+    <li ><a href="#method-i-lub_min">#lub_min</a>
+    
+    <li ><a href="#method-i-lub_size">#lub_size</a>
+    
+    <li ><a href="#method-i-notContains">#notContains</a>
+    
+    <li ><a href="#method-i-not_contains">#not_contains</a>
+    
+    <li ><a href="#method-i-unknownSize">#unknownSize</a>
+    
+    <li ><a href="#method-i-unknown_size">#unknown_size</a>
+    
+    <li ><a href="#method-i-update">#update</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-GecodeRaw::SetVar">
+  <h1 id="class-GecodeRaw::SetVar" class="class">
+    class GecodeRaw::SetVar
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-assigned" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assigned</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assigned-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_assigned ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;bool&gt;(tmp-&gt;assigned()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-cardMax" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cardMax</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="cardMax-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_cardMax ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;cardMax()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-card_max">card_max</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-cardMin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cardMin</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="cardMin-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_cardMin ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;cardMin()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-card_min">card_min</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-card_max" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">card_max</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-cardMax">cardMax</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-card_min" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">card_min</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-cardMin">cardMin</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-contains" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">contains</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="contains-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_contains ( VALUE self , VALUE i ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;bool&gt;(tmp-&gt;contains(ruby2int(i, 1))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-glbMax" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">glbMax</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="glbMax-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_glbMax ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;glbMax()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-glb_max">glb_max</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-glbMin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">glbMin</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="glbMin-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_glbMin ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;glbMin()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-glb_min">glb_min</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-glbSize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">glbSize</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="glbSize-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_glbSize ( int argc, VALUE *argv, VALUE self ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+    bool ok = false;
+  
+  switch(argc) {
+     case 0: {
+// Case 0
+           return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;glbSize()) );
+           ok = true;
+
+// Case 1
+           return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;glbSize()) );
+           ok = true;
+
+     } break;
+
+  default: ok = false; break;
+  }
+  
+  if ( !ok )
+  {
+        rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);
+        return Qnil;
+  }
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-glb_size">glb_size</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-glb_max" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">glb_max</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-glbMax">glbMax</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-glb_min" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">glb_min</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-glbMin">glbMin</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-glb_size" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">glb_size</span><span
+            class="method-args">(*args)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-glbSize">glbSize</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-lubMax" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lubMax</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lubMax-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_lubMax ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;lubMax()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-lub_max">lub_max</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lubMin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lubMin</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lubMin-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_lubMin ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;lubMin()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-lub_min">lub_min</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lubSize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lubSize</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lubSize-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_lubSize ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;lubSize()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-lub_size">lub_size</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-lub_max" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">lub_max</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-lubMax">lubMax</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-lub_min" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">lub_min</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-lubMin">lubMin</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-lub_size" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">lub_size</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-lubSize">lubSize</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-notContains" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">notContains</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="notContains-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_notContains ( VALUE self , VALUE i ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;bool&gt;(tmp-&gt;notContains(ruby2int(i, 1))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-not_contains">not_contains</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-not_contains" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">not_contains</span><span
+            class="method-args">(p1)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-notContains">notContains</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-unknownSize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unknownSize</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unknownSize-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_unknownSize ( VALUE self  ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;unknownSize()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="SetVar.html#method-i-unknown_size">unknown_size</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unknown_size" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">unknown_size</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="SetVar.html#method-i-unknownSize">unknownSize</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre>VALUE fGecodeRaw_Gecode_SetVar_update ( VALUE self , VALUE home, VALUE shared, VALUE x ) {
+  Gecode::SetVar* tmp = ruby2Gecode_SetVarPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  tmp-&gt;update(ruby2Gecode_MSpacePtr(home, 1),ruby2bool(shared, 2),ruby2Gecode_SetVar(x, 3)); return Qnil;
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre>VALUE fGecode_SetVarSetVar ( int argc, VALUE *argv, VALUE self ) {
+  Gecode::SetVar* tmp;
+  Data_Get_Struct(self, Gecode::SetVar, tmp);
+
+  /* The exception is thrown already by ruby2* if not found */
+
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_IntSet(argv[1]) ) {
+      if( is_Gecode_IntSet(argv[2]) ) {
+      if( is_int(argv[3]) ) {
+      if( is_int(argv[4]) ) {
+           tmp = new Gecode::SetVar(ruby2Gecode_MSpacePtr(argv[0], 1),ruby2Gecode_IntSet(argv[1], 2),ruby2Gecode_IntSet(argv[2], 3),ruby2int(argv[3], 4),ruby2int(argv[4], 5));
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

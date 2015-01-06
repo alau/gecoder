@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::IntEnum::IntEnumConstraintReceiver - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../ConstraintReceiver.html">Gecode::ConstraintReceiver</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-channel">#channel</a>
+    
+    <li ><a href="#method-i-distinct">#distinct</a>
+    
+    <li ><a href="#method-i-equal">#equal</a>
+    
+    <li ><a href="#method-i-in">#in</a>
+    
+    <li ><a href="#method-i-match">#match</a>
+    
+    <li ><a href="#method-i-sorted">#sorted</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::IntEnum::IntEnumConstraintReceiver">
+  <h1 id="class-Gecode::IntEnum::IntEnumConstraintReceiver" class="class">
+    class Gecode::IntEnum::IntEnumConstraintReceiver
+  </h1>
+
+  <section class="description">
+    
+<p><a href="IntEnumConstraintReceiver.html">IntEnumConstraintReceiver</a>
+contains all constraints that can be placed on a <a
+href="IntEnumOperand.html">IntEnumOperand</a>.</p>
+
+<p>Constraints are placed by calling <a
+href="../Operand.html#method-i-must">Gecode::Operand#must</a> (or any other
+of the variations defined in <a href="../Operand.html">Operand</a>), which
+produces a  <a
+href="IntEnumConstraintReceiver.html">IntEnumConstraintReceiver</a> from
+which the desired constraint can be used.</p>
+
+<p>Some constraint accepts a number of options. See <a
+href="../ConstraintReceiver.html">ConstraintReceiver</a> for more
+information.</p>
+
+<h4 id="class-Gecode::IntEnum::IntEnumConstraintReceiver-label-Examples+">Examples <span><a href="#class-Gecode::IntEnum::IntEnumConstraintReceiver-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Constrains the integer operands in <code>int_enum</code> to take on
+different values by using <a
+href="IntEnumConstraintReceiver.html#method-i-distinct">#distinct</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>
+</pre>
+
+<p>Constrains <code>int_enum2</code> to have the same elements as
+<code>int_enum</code>, but sorted in ascending order. Uses <a
+href="IntEnumConstraintReceiver.html#method-i-sorted">#sorted</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>(:<span class="ruby-identifier">as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">int_enum2</span>)
+</pre>
+
+<p>The same as above, but specifying that strength :domain should be  used and
+that the constraint should be reified with <code>bool_operand</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>(:<span class="ruby-identifier">as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">int_enum2</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool_operand</span>)
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-channel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">channel</span><span
+            class="method-args">(int_enum, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains this enumeration to “channel” <code>int_enum</code>. 
+Channel constraints are used to give access to multiple viewpoints when
+modelling.</p>
+
+<p>The channel constraint can be thought of as constraining the arrays to  be
+each other’s inverses. I.e. if the i:th value in the first enumeration is
+j, then the j:th value in the second enumeration is constrained to be  i.</p>
+
+<p>Neither reification nor negation is supported.</p>
+
+<h4 id="method-i-channel-label-Examples+">Examples <span><a href="#method-i-channel-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Lets say that we’re modelling a sequence of numbers that must be distinct
+and that we want access to the following two view simultaneously.</p>
+
+<h3 id="method-i-channel-label-First+view">First view<span><a href="#method-i-channel-label-First+view">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>The sequence is modelled as an array of integer variables where the first 
+variable holds the value of the first position in the sequence, the  second
+the value of the second position and so on.</p>
+
+<pre class="ruby"><span class="ruby-comment"># n variables with values from 0 to n-1.</span>
+<span class="ruby-identifier">elements</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-identifier">n</span>, <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">n</span>)
+<span class="ruby-identifier">elements</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>
+</pre>
+
+<p>That way <code>elements</code> will contain the actual sequence when the
+problem has  been solved.</p>
+
+<h3 id="method-i-channel-label-Second+view">Second view<span><a href="#method-i-channel-label-Second+view">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>The sequence is modelled as the positions of each value in 0..(n-1) in  the
+sequence. That way the first variable would hold the positions of 0  in the
+sequence, the second variable would hold the positions of 1 in the 
+sequence and so on.</p>
+
+<pre class="ruby"><span class="ruby-identifier">positions</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-identifier">n</span>, <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">n</span>)
+<span class="ruby-identifier">positions</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>
+</pre>
+
+<h3 id="method-i-channel-label-Connecting+the+views">Connecting the views<span><a href="#method-i-channel-label-Connecting+the+views">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>In essence the relationship between the two arrays <code>elements</code>
+and  <code>positions</code> is that</p>
+
+<pre class="ruby"><span class="ruby-identifier">elements</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">val</span> }[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">positions</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">val</span> }.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">i</span>)
+</pre>
+
+<p>for all i in 0..(n-1). This relationship is enforced by the channel 
+constraint as follows.</p>
+
+<pre class="ruby"><span class="ruby-identifier">elements</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">channel</span> <span class="ruby-identifier">positions</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="channel-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/channel.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>(<span class="ruby-identifier">int_enum</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated channel constraint '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'is not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected int enum, got #{int_enum.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value">:reify</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'The channel constraints does not support the '</span> <span class="ruby-operator">+</span>
+      <span class="ruby-string">'reification option.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:rhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">int_enum</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Channel</span><span class="ruby-operator">::</span><span class="ruby-constant">ChannelConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-distinct" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">distinct</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains all integer operands in the enumeration to be distinct
+(different). The constraint can also be used with constant offsets, so that
+the operands, with specified offsets added, must be distinct.</p>
+
+<p>The constraint does not support negation nor reification.</p>
+
+<h4 id="method-i-distinct-label-Examples+">Examples <span><a href="#method-i-distinct-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains all operands in +int_enum+ to be assigned different </span>
+<span class="ruby-comment"># values.</span>
+<span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>
+
+<span class="ruby-comment"># The same as above, but also selects that the strength +domain+ should</span>
+<span class="ruby-comment"># be used.</span>
+<span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>(:<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+
+<span class="ruby-comment"># Uses the offset to constrain that no number may be the previous number</span>
+<span class="ruby-comment"># incremented by one.</span>
+<span class="ruby-identifier">numbers</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-value">8</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>)
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>(:<span class="ruby-identifier">offsets</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">size</span>).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">reverse</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="distinct-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/distinct.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">distinct</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-comment"># The best we could implement it as from here would be a bunch of </span>
+    <span class="ruby-comment"># reified pairwise equality constraints. </span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated distinct is not '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the distinct '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value">:offsets</span>
+    <span class="ruby-identifier">offsets</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:offsets</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">offsets</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Enumerable</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Expected Enumerable as offsets, got '</span> <span class="ruby-operator">+</span> 
+        <span class="ruby-node">&quot;#{offsets.class}.&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@params</span>[<span class="ruby-value">:offsets</span>] = <span class="ruby-identifier">offsets</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Distinct</span><span class="ruby-operator">::</span><span class="ruby-constant">DistinctConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+    <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-equal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">equal</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains all operands in the enumeration to be equal.  Neither negation
+nor reification is supported.</p>
+
+<h4 id="method-i-equal-label-Examples+">Examples <span><a href="#method-i-equal-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains all operands in +int_enum+ to be equal.</span>
+<span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">equal</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="equal-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/equality.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">equal</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-comment"># The best we could implement it as from here would be a bunch of </span>
+    <span class="ruby-comment"># reified pairwise inequality constraints.</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated equality is not '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the equality '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Equality</span><span class="ruby-operator">::</span><span class="ruby-constant">EqualityConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+    <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-in" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in</span><span
+            class="method-args">(tuples, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains all the operands in this enumeration to be equal to one of the
+specified tuples. Neither negation nor reification is supported.</p>
+
+<h4 id="method-i-in-label-Examples+">Examples <span><a href="#method-i-in-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains the two integer operands in +numbers+ to either have </span>
+<span class="ruby-comment"># values 1 and 7, or values 47 and 11.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span> [[<span class="ruby-value">1</span>,<span class="ruby-value">7</span>], [<span class="ruby-value">47</span>,<span class="ruby-value">11</span>]]
+
+<span class="ruby-comment"># The same as above, but preferring speed over low memory usage.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>([[<span class="ruby-value">1</span>,<span class="ruby-value">7</span>], [<span class="ruby-value">47</span>,<span class="ruby-value">11</span>]], :<span class="ruby-identifier">kind</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">speed</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="in-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/extensional.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated tuple constraint is '</span> <span class="ruby-operator">+</span>
+      <span class="ruby-string">'not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the tuple '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">util</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>
+  
+  <span class="ruby-comment"># Check that the tuples are correct.</span>
+  <span class="ruby-identifier">expected_size</span> = <span class="ruby-ivar">@params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">perform_tuple_checks</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">expected_size</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tuple</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tuple</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span> }
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'All tuples must contain Fixnum.'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:tuples</span>] = <span class="ruby-identifier">tuples</span>
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Extensional</span><span class="ruby-operator">::</span><span class="ruby-constant">TupleConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+    <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-match" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">match</span><span
+            class="method-args">(regexp, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the sequence of operands in this enumeration to match a
+specified regexp in the integer domain. Neither negation nor reification is
+supported.</p>
+
+<h2 id="method-i-match-label-Regexp+syntax">Regexp syntax<span><a href="#method-i-match-label-Regexp+syntax">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>The regular expressions are specified using arrays, integers and a few
+methods provided by <a href="../Mixin.html">Mixin</a>. Arrays are used to
+group the integers in sequences that must be matched. The following array
+describes a regular expression matching a 1 followed by a 7.</p>
+
+<pre class="ruby">[<span class="ruby-value">1</span>, <span class="ruby-value">7</span>]
+</pre>
+
+<p>Arrays can be nested or left out when not needed. I.e. the above is
+semantically equal to</p>
+
+<pre class="ruby">[[[<span class="ruby-value">1</span>], <span class="ruby-value">7</span>]]
+</pre>
+
+<p>A couple of methods provided by <a href="../Mixin.html">Mixin</a> are used
+to express patterns  beyond mere sequences:</p>
+<dl class="rdoc-list label-list"><dt><a href="../Mixin.html#method-i-repeat">Gecode::Mixin#repeat</a>
+<dd>
+<p>Used for specifying patterns that include patterns that may be repeated a
+given number of times. The  number of times to repeat a pattern can be
+specified  using a lower and upper bound, but the bounds can be  omitted to
+for instance allow an expression to be  repeated any number of times.</p>
+</dd><dt><a href="../Mixin.html#method-i-any">Gecode::Mixin#any</a>
+<dd>
+<p>Used for specifying alternatives.</p>
+</dd></dl>
+
+<p>Additionally <a
+href="../Mixin.html#method-i-at_least_once">Gecode::Mixin#at_least_once</a>
+and <a
+href="../Mixin.html#method-i-at_most_once">Gecode::Mixin#at_most_once</a>
+are provided as convenience methods.</p>
+
+<h4 id="method-i-match-label-Examples+">Examples <span><a href="#method-i-match-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre># Matches 1 followed by any number of 2s.
+[1, repeat(2)]
+
+# Semantically the same as above. It just has a bunch of
+# needless brackets thrown in.
+[[1], [repeat([2])]]
+
+# Matches 1 followed by [a 2 followed by a 3] at least two times.
+# Matches e.g. 1, 2, 3, 2, 3
+[1, repeat([2, 3], 2)]
+
+# Matches between one and two [2 followed by [at least three 1]] 
+# followed by between three and four 3. Matches e.g. 
+# 2, 1, 1, 1, 2, 1, 1, 1, 3, 3, 3
+[repeat([2, repeat(1, 3], 1, 2), repeat(3, 3, 4)]
+
+# Matches [1, 2 or 3] followed by 4. Matches e.g. 2, 4
+[any(1, 2, 3), 4]
+
+# Matches 0 followed by [[1 followed by 2] or [3 followed by 5]]. 
+# Matches e.g. 0, 1, 2 as well as 0, 3, 5
+[0, any([1, 2], [3, 5])]
+
+# Matches 0 followed by [[[1 followed by 7] at least two times] 
+# or [[8, 9], at most two times]. Matches e.g. 
+# 0, 1, 7, 1, 7, 1, 7 as well as 0, 8, 9
+[0, any(repeat([1, 7], 2), repeat([8, 9], 0, 2)]
+
+# Matches 0 followed by at least one 1.
+[0, at_least_once(1)]
+
+# Exactly the same as the above.
+[0, repeat(1, 1)]
+
+# Matches 0 followed by at least one [[1 followed by 7] or [3
+# followed by 2]]. Matches e.g. 0, 1, 7, 3, 2, 1, 7
+[0, at_least_once(any([1, 7], [3, 2]]
+
+# Matches 0 followed by at either [[1 followed by 7] at least once] 
+# or [[3 followed by 2] at least once]. Matches e.g. 
+# 0, 1, 7, 1, 7 but does _not_ match 0, 1, 7, 3, 2, 1, 7
+[0, any(at_least_once([1, 7]), at_least_once([3, 2])]
+
+# Matches 0, followed by at most one 1. Matches 0 as well as 
+# 0, 1
+[0, at_most_once(1)]
+
+# Exactly the same as the above.
+[0, repeat(1, 0, 1)]</pre>
+
+<h4 id="method-i-match-label-Examples+">Examples <span><a href="#method-i-match-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains the two integer operands in +numbers+ to have</span>
+<span class="ruby-comment"># values 1 and 7.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">match</span> [<span class="ruby-value">1</span>, <span class="ruby-value">7</span>]
+
+<span class="ruby-comment"># Constrains the integer operands in +numbers+ to contain the</span>
+<span class="ruby-comment"># value 47 followed by 11, with all other values set to -1.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">match</span> [<span class="ruby-identifier">repeat</span>(<span class="ruby-value">-1</span>), <span class="ruby-value">47</span>, <span class="ruby-value">11</span>, <span class="ruby-identifier">repeat</span>(<span class="ruby-value">-1</span>)]
+
+<span class="ruby-comment"># Constrains exactly three of the integer operands in +numbers+ to </span>
+<span class="ruby-comment"># contain 47 or 11, each followed by at least two</span>
+<span class="ruby-comment"># operands set to -1. All other operands are constrained to</span>
+<span class="ruby-comment"># equal -1.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">repeat</span>([<span class="ruby-identifier">repeat</span>(<span class="ruby-value">-1</span>), <span class="ruby-identifier">any</span>(<span class="ruby-value">11</span>, <span class="ruby-value">47</span>), 
+                           <span class="ruby-identifier">repeat</span>(<span class="ruby-value">-1</span>, <span class="ruby-value">2</span>)], <span class="ruby-value">3</span>, <span class="ruby-value">3</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="match-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/extensional.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated regexp constraint '</span> <span class="ruby-operator">+</span>
+      <span class="ruby-string">'is not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the regexp '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:regexp</span>] = 
+    <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">parse_regexp</span> <span class="ruby-identifier">regexp</span>
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Extensional</span><span class="ruby-operator">::</span><span class="ruby-constant">RegexpConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-sorted" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sorted</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the elements in this enumeration to be sorted in ascending 
+order. The following options can be given in addition to the common
+constraint options:</p>
+<dl class="rdoc-list label-list"><dt>:as
+<dd>
+<p>Defines a target (must be an <a href="../IntEnum.html">IntEnum</a>) that
+will hold the sorted version of the original enumerable. The original
+enumerable will not be affected (i.e. will not necessarily be  sorted)</p>
+</dd><dt>:order
+<dd>
+<p>Sets an <a href="../IntEnum.html">IntEnum</a> that should be used to store
+the order of the original enum’s operands when sorted. The original
+enumerable will not be affected (i.e. will not necessarily be  sorted)</p>
+</dd></dl>
+
+<p>If neither of those options are specified then the original enumerable will
+be constrained to be sorted (otherwise not). Sort constraints with options
+do not allow negation.</p>
+
+<h4 id="method-i-sorted-label-Examples+">Examples <span><a href="#method-i-sorted-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrain +numbers+ to be sorted.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>
+
+<span class="ruby-comment"># Constrain +numbers+ to not be sorted.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_not_be</span>.<span class="ruby-identifier">sorted</span>
+
+<span class="ruby-comment"># Constrain +sorted_numbers+ to be a sorted version of +numbers+. </span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>(:<span class="ruby-identifier">as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sorted_numbers</span>)
+
+<span class="ruby-comment"># Constrain +order+ to be the order in which +numbers+ has to be</span>
+<span class="ruby-comment"># ordered to be sorted.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>(:<span class="ruby-identifier">order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order</span>)
+
+<span class="ruby-comment"># Constrain +sorted_numbers+ to be +numbers+ sorted in the order </span>
+<span class="ruby-comment"># described by the IntEnum +order+. </span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>(:<span class="ruby-identifier">as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sorted_numbers</span>, :<span class="ruby-identifier">order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order</span>)
+
+<span class="ruby-comment"># Constrains +numbers+ to be sorted, reifying with the boolean </span>
+<span class="ruby-comment"># operand +is_sorted+, while selecting +domain+ as strength.</span>
+<span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">sorted</span>(:<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">is_sorted</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="sorted-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/sort.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sorted</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-comment"># Extract and check options.</span>
+  <span class="ruby-identifier">target</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:as</span>)
+  <span class="ruby-identifier">order</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:order</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Expected int var enum as :as, got '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-node">&quot;#{target.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">order</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">order</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Expected int var enum as :order, got '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-node">&quot;#{order.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># Extract standard options and convert to constraint.</span>
+  <span class="ruby-identifier">reified</span> = <span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">order</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Sort</span><span class="ruby-operator">::</span><span class="ruby-constant">SortConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Do not allow negation.</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated sort with options '</span> <span class="ruby-operator">+</span>
+        <span class="ruby-string">'is not implemented.'</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">reified</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the sorted '</span> <span class="ruby-operator">+</span> 
+        <span class="ruby-string">'constraint.'</span>
+    <span class="ruby-keyword">end</span>
+  
+    <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:target</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order</span>)
+    <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Sort</span><span class="ruby-operator">::</span><span class="ruby-constant">SortConstraintWithOptions</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+      <span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

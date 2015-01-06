@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Development of Gecode/R, a Ruby Interface to Gecode</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="The current developments of Gecode/R, a Ruby interface to the Gecode constraint programming library." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Project Details</a> > <span>Development</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Details</h3><ul id="secondNav"><li><a href="index.html">Project Details</a></li><li><a href="contribute.html">Contribute</a></li><li><a href="credits.html">Credits</a></li><li><a href="changes.html">Changes</a></li><li><span>Development</span></li><li><a href="http://rubyforge.org/projects/gecoder">RubyForge</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#design_goals">Design Goals</a></li><li><a href="#development_status">Development Status</a></li><li><a href="#future_goals">Future Goals</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Development</h1>
+
+
+	<h2 id="design_goals">Design Goals</h2>
+
+
+	<p>Gecode/R is designed to be readable and to be easy to learn and use
+without previous knowledge of constraint programming. Sometimes that
+comes at the cost of brevity, performance and user control. The ambition
+is that code using the interface should be readable enough to allow a
+new user to understand it without having to look in the <span class="caps">API</span>
+documentation.</p>
+
+
+	<p>The interface is currently aimed as a modelling interface. It does not
+support e.g. defining new propagators.</p>
+
+
+	<h2 id="development_status">Development Status</h2>
+
+
+	<p>The project is stable with a 1.0 release.</p>
+
+
+	<h2 id="future_goals">Future Goals</h2>
+
+
+	<ul>
+	<li>Implement some of the missing variants of already implemented
+  constraints (e.g. div and mod).</li>
+		<li>Consider adding support for defining custom propagators and branching
+  selection. This should primarily be aimed at rapid prototyping since the
+  performance will be much worse than if the e.g. propagator was
+  implemented in C++.</li>
+		<li>Keep in sync with Gecode (prepare for Gecode 3.0).</li>
+	</ul>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li class="selected"><a href="index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li class="selected"><a href="index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

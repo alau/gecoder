@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Minesweeper - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Gecode/Mixin.html">Gecode::Mixin</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Minesweeper">
+  <h1 id="class-Minesweeper" class="class">
+    class Minesweeper
+  </h1>
+
+  <section class="description">
+    
+<p><a href="Minesweeper.html">Minesweeper</a> in Gecode/R</p>
+
+<p>From gecode/examples/minesweeper.cc: “”“ A specification is a square
+matrix of characters. Alphanumeric  characters represent the number of
+mines adjacent to that field.  Dots represent fields with an unknown number
+of mines adjacent to  it (or an actual mine). ”“”</p>
+
+<p>E.g.</p>
+
+<pre class="ruby"><span class="ruby-string">&quot;..2.3.&quot;</span>
+<span class="ruby-string">&quot;2.....&quot;</span>
+<span class="ruby-string">&quot;..24.3&quot;</span>
+<span class="ruby-string">&quot;1.34..&quot;</span>
+<span class="ruby-string">&quot;.....3&quot;</span>
+<span class="ruby-string">&quot;.3.3..&quot;</span>
+</pre>
+
+<p>“”“</p>
+
+<p>Also see</p>
+
+<p><a
+href="http://www.janko.at/Raetsel/Minesweeper/index.htm">www.janko.at/Raetsel/Minesweeper/index.htm</a></p>
+
+<p><a
+href="http://en.wikipedia.org/wiki/Minesweeper_(computer_game">en.wikipedia.org/wiki/Minesweeper_(computer_game</a>)</p>
+
+<p>Ian Stewart on Minesweeper: <a
+href="http://www.claymath.org/Popular_Lectures/Minesweeper">www.claymath.org/Popular_Lectures/Minesweeper</a>/</p>
+
+<p>Richard Kaye’s <a href="Minesweeper.html">Minesweeper</a> Pages <a
+href="http://web.mat.bham.ac.uk/R.W.Kaye/minesw/minesw.htm">web.mat.bham.ac.uk/R.W.Kaye/minesw/minesw.htm</a>
+Some <a href="Minesweeper.html">Minesweeper</a> Configurations <a
+href="http://web.mat.bham.ac.uk/R.W.Kaye/minesw/minesw.pdf">web.mat.bham.ac.uk/R.W.Kaye/minesw/minesw.pdf</a></p>
+
+<p>Compare with my other <a href="Minesweeper.html">Minesweeper</a> models:</p>
+<ul><li>
+<p>MiniZinc: <a
+href="http://www.hakank.org/minizinc/minesweeper.mzn">www.hakank.org/minizinc/minesweeper.mzn</a></p>
+</li><li>
+<p>Choco: <a
+href="http://www.hakank.org/choco/MineSweeper.java">www.hakank.org/choco/MineSweeper.java</a></p>
+</li><li>
+<p>JaCoP: <a
+href="http://www.hakank.org/JaCoP/MineSweeper.java">www.hakank.org/JaCoP/MineSweeper.java</a></p>
+</li></ul>
+
+<p>Model created by Hakan Kjellerstrand, hakank@bonetmail.com See also my
+Gecode/R page: <a
+href="http://www.hakank.org/gecode_r">www.hakank.org/gecode_r</a></p>
+
+<p>Slight modifications made by Andreas Launila to keep the example in line
+with the other example models.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(game)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The provided <code>game</code> should be a matrix encoding the problem in
+the following way:</p>
+
+<pre> -1 for the unknowns, 
+&gt;= 0 for number of mines in the neighbourhood</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File example/minesweeper.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">game</span>)
+  <span class="ruby-comment"># Boolean variables representing whether each square has a mine or</span>
+  <span class="ruby-comment"># not.</span>
+  <span class="ruby-identifier">mines_is_an</span> <span class="ruby-identifier">bool_var_matrix</span>(<span class="ruby-identifier">game</span>.<span class="ruby-identifier">row_size</span>, <span class="ruby-identifier">game</span>.<span class="ruby-identifier">column_size</span>)
+
+  <span class="ruby-comment"># Place the constraints.</span>
+  <span class="ruby-identifier">game</span>.<span class="ruby-identifier">row_size</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">game</span>.<span class="ruby-identifier">column_size</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># The sum of all the number of mines in the neighbourhood of this cell</span>
+      <span class="ruby-comment"># must agree with the problem specification.</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">game</span>[<span class="ruby-identifier">i</span>,<span class="ruby-identifier">j</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">neighbourhood</span> = <span class="ruby-identifier">mines</span>.<span class="ruby-identifier">minor</span>([<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">max</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>), [<span class="ruby-identifier">j</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>,<span class="ruby-value">0</span>].<span class="ruby-identifier">max</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">j</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>))
+        <span class="ruby-identifier">neighbourhood</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">sum</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">game</span>[<span class="ruby-identifier">i</span>,<span class="ruby-identifier">j</span>]
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-comment"># A square can not contain a mine if the number of neighbouring</span>
+      <span class="ruby-comment"># mines is known.</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">game</span>[<span class="ruby-identifier">i</span>,<span class="ruby-identifier">j</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">mines</span>[<span class="ruby-identifier">i</span>,<span class="ruby-identifier">j</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">false</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-identifier">mines</span>, <span class="ruby-value">:variable</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:largest_degree</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:max</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

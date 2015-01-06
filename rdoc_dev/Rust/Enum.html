@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Rust::Enum - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Element.html">Rust::Element</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-add_value">#add_value</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Rust::Enum">
+  <h1 id="class-Rust::Enum" class="class">
+    class Rust::Enum
+  </h1>
+
+  <section class="description">
+    
+<p>This class represent an enumeration type. The only reason to bind an
+enumeration in Ruby with something more than than an integer conversion is
+so that you can actually validate the parameter passed so that an exception
+is thrown if the value is out of scope.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_value</span><span
+            class="method-args">(name, value="</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="add_value-source">
+            <pre><span class="ruby-comment"># File vendor/rust/rust/enum.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_value</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>=<span class="ruby-node">&quot;#{@cprefix}#{name}&quot;</span>)
+  <span class="ruby-ivar">@values</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(name, parent, ctype = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="Element.html#method-c-new">Rust::Element.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File vendor/rust/rust/enum.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">parent</span>, <span class="ruby-identifier">ctype</span> = <span class="ruby-keyword">nil</span>) <span class="ruby-comment"># :notnew</span>
+  <span class="ruby-keyword">super</span>()
+
+  <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
+  <span class="ruby-ivar">@parent</span> = <span class="ruby-identifier">parent</span>
+
+  <span class="ruby-ivar">@cprefix</span> = <span class="ruby-node">&quot;#{@parent.cname}::&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parent</span>
+  <span class="ruby-ivar">@cname</span> = <span class="ruby-node">&quot;#{@cprefix}#{@name}&quot;</span>
+  
+  <span class="ruby-ivar">@varname</span> = <span class="ruby-node">&quot;#{@cname.gsub(&quot;::&quot;, &quot;_&quot;)}&quot;</span>
+  <span class="ruby-ivar">@cname</span> = <span class="ruby-identifier">ctype</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ctype</span>
+  
+  <span class="ruby-ivar">@values</span> = []
+
+  <span class="ruby-ivar">@declaration_template</span> = <span class="ruby-constant">Templates</span>[<span class="ruby-string">&quot;EnumDeclarations&quot;</span>]
+  <span class="ruby-ivar">@definition_template</span> = <span class="ruby-constant">Templates</span>[<span class="ruby-string">&quot;EnumDefinitions&quot;</span>]
+  <span class="ruby-ivar">@initialization_template</span> = <span class="ruby-string">&quot;!enum_values_init!&quot;</span>
+
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'enum_values_init'</span>,
+    <span class="ruby-string">'@values.collect { |name, value| &quot;rb_define_const(!parent_varname!, \&quot;#{name}\&quot;, cxx2ruby(#{value}));&quot; }.join(&quot;\n&quot;)'</span>
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'enum_cases'</span>,
+    <span class="ruby-string">'@values.collect { |name, value| &quot;case #{value}:&quot; }.join(&quot;\n&quot;)'</span>
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'enum_name'</span>, <span class="ruby-string">'@name'</span>
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'enum_cname'</span>, <span class="ruby-string">'@cname'</span>
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'enum_cprefix'</span>, <span class="ruby-string">'@cprefix'</span>
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'enum_varname'</span>, <span class="ruby-string">'@varname'</span>
+  <span class="ruby-identifier">add_expansion</span> <span class="ruby-string">'parent_varname'</span>, <span class="ruby-string">'&quot;r#{@parent.varname}&quot;'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Integer Enumeration Operands - Constraints Supported by Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="The constraints and properties of the integer enumeration operand available in Gecode/R for Constraint Programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <a href="index.html">Operands</a> > <span>Integer Enumeration Operands</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Operands</h3><ul id="secondNav"><li><a href="index.html">Operands</a></li><li><a href="integer-operands.html">Integer Operands</a></li><li><span>Integer Enumeration Operands</span></li><li><a href="boolean-operands.html">Boolean Operands</a></li><li><a href="boolean-enum-operands.html">Boolean Enumeration Operands</a></li><li><a href="set-operands.html">Set Operands</a></li><li><a href="set-enum-operands.html">Set Enumeration Operands</a></li><li><a href="set-elements-operands.html">Set Elements Operands</a></li><li><a href="selected-set-operands.html">Selected Set Operands</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#examples_of_integer_enumeration_operands">Examples of Integer Enumeration Operands</a></li><li><a href="#constraints">Constraints</a><ul class="section-links"><li><a href="#_distinct_"><code>distinct</code></a></li><li><a href="#_channel_"><code>channel</code></a></li><li><a href="#_in_"><code>in</code></a></li><li><a href="#_match_"><code>match</code></a></li><li><a href="#_sorted_"><code>sorted</code></a></li><li><a href="#_equal_"><code>equal</code></a></li></ul></li><li><a href="#properties">Properties</a><ul class="section-links"><li><a href="#____"><code>[]</code></a></li><li><a href="#_count_"><code>count</code></a></li><li><a href="#_max_"><code>max</code></a></li><li><a href="#_min_"><code>min</code></a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Integer Enumeration Operands</h1>
+
+
+<div class="summary">
+<p>An integer enumeration operand is an enumeration of integer
+operands.</p></div>
+
+	<h4 id="examples_of_integer_enumeration_operands">Examples of Integer Enumeration Operands</h4>
+
+
+	<p>Enumerations of integer operands are commonly created using <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#int_var_array</code></a> and <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#int_var_matrix</code></a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Creates an array of five integer operands with domain 0..9 .</span>
+int_enum = int_var_array(<span class="i">5</span>, <span class="i">0</span>..<span class="i">9</span>) 
+</pre></div>
+</div>
+
+
+	<p>A less common way to create the operands is by using <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#wrap_enum</code></a> to wrap an existing enumeration that contains
+integer operands.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>int_enum = wrap_enum([int_operand1, int_operand2])
+</pre></div>
+</div>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/IntEnum/IntEnumConstraintReceiver.html"><code>IntEnumConstraintReceiver</code></a>.</p>
+
+
+	<h3 id="_distinct_"><code>distinct</code></h3>
+
+
+	<p><code>distinct(options = {})</code><p>
+Constrains all integer operands in the enumeration to be distinct
+(different). The constraint can also be used with constant offsets, so that
+the operands, with specified offsets added, must be distinct.
+</p>
+<p>
+The constraint does not support negation nor reification.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains all operands in +int_enum+ to be assigned different</span>
+<span class="c"># values.</span>
+int_enum.must_be.distinct
+
+<span class="c"># The same as above, but also selects that the strength +domain+ should</span>
+<span class="c"># be used.</span>
+int_enum.must_be.distinct(<span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+
+<span class="c"># Uses the offset to constrain that no number may be the previous number</span>
+<span class="c"># incremented by one.</span>
+numbers = int_var_array(<span class="i">8</span>, <span class="i">0</span>..<span class="i">9</span>)
+numbers.must_be.distinct(<span class="sy">:offsets</span> =&gt; (<span class="i">1</span>..numbers.size).to_a.reverse)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_channel_"><code>channel</code></h3>
+
+
+	<p><code>channel(int_enum, options = {})</code><p>
+Constrains this enumeration to &#8220;channel&#8221; <code>int_enum</code>. Channel
+constraints are used to give access to multiple viewpoints when modelling.
+</p>
+<p>
+The channel constraint can be thought of as constraining the arrays to be
+each other&#8217;s inverses. I.e. if the i:th value in the first
+enumeration is j, then the j:th value in the second enumeration is
+constrained to be i.
+</p>
+<p>
+Neither reification nor negation is supported.
+</p>
+<h5>Examples</h5>
+<p>
+Lets say that we&#8217;re modelling a sequence of numbers that must be
+distinct and that we want access to the following two view simultaneously.
+</p>
+<h3>First view</h3>
+<p>
+The sequence is modelled as an array of integer variables where the first
+variable holds the value of the first position in the sequence, the second
+the value of the second position and so on.
+</p>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># n variables with values from 0 to n-1.</span>
+elements = int_var_array(n, <span class="i">0</span>...n)
+elements.must_be.distinct
+</pre></div>
+</div>
+
+<p>
+That way <code>elements</code> will contain the actual sequence when the problem has
+been solved.
+</p>
+<h3>Second view</h3>
+<p>
+The sequence is modelled as the positions of each value in 0..(n-1) in the
+sequence. That way the first variable would hold the positions of 0 in the
+sequence, the second variable would hold the positions of 1 in the sequence
+and so on.
+</p>
+<div class="CodeRay">
+  <div class="code"><pre>positions = int_var_array(n, <span class="i">0</span>...n)
+positions.must_be.distinct
+</pre></div>
+</div>
+
+<h3>Connecting the views</h3>
+<p>
+In essence the relationship between the two arrays <code>elements</code> and
+<code>positions</code> is that
+</p>
+<div class="CodeRay">
+  <div class="code"><pre>elements.map{ |e| e.val }[i] == positions.map{ |p| p.val }.index(i)
+</pre></div>
+</div>
+
+<p>
+for all i in 0..(n-1). This relationship is enforced by the channel
+constraint as follows.
+</p>
+<div class="CodeRay">
+  <div class="code"><pre>elements.must.channel positions
+</pre></div>
+</div></p>
+
+
+	<h3 id="_in_"><code>in</code></h3>
+
+
+	<p><code>in(tuples, options = {})</code><p>
+Constrains all the operands in this enumeration to be equal to one of the
+specified tuples. Neither negation nor reification is supported.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains the two integer operands in +numbers+ to either have</span>
+<span class="c"># values 1 and 7, or values 47 and 11.</span>
+numbers.must_be.in [[<span class="i">1</span>,<span class="i">7</span>], [<span class="i">47</span>,<span class="i">11</span>]]
+
+<span class="c"># The same as above, but preferring speed over low memory usage.</span>
+numbers.must_be.in([[<span class="i">1</span>,<span class="i">7</span>], [<span class="i">47</span>,<span class="i">11</span>]], <span class="sy">:kind</span> =&gt; <span class="sy">:speed</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_match_"><code>match</code></h3>
+
+
+	<p><code>match(regexp, options = {})</code><p>
+Constrains the sequence of operands in this enumeration to match a
+specified regexp in the integer domain. Neither negation nor reification is
+supported.
+</p>
+<h2>Regexp syntax</h2>
+<p>
+The regular expressions are specified using arrays, integers and a few
+methods provided by Mixin. Arrays are used to group the integers in
+sequences that must be matched. The following array describes a regular
+expression matching a 1 followed by a 7.
+</p>
+<div class="CodeRay">
+  <div class="code"><pre>[<span class="i">1</span>, <span class="i">7</span>]
+</pre></div>
+</div>
+
+<p>
+Arrays can be nested or left out when not needed. I.e. the above is
+semantically equal to
+</p>
+<div class="CodeRay">
+  <div class="code"><pre>[[[<span class="i">1</span>], <span class="i">7</span>]]
+</pre></div>
+</div>
+
+<p>
+A couple of methods provided by Mixin are used to express patterns beyond
+mere sequences:
+</p>
+<dl>
+<dt>Mixin#repeat</dt><dd>Used for specifying patterns that include patterns that may be repeated a
+given number of times. The number of times to repeat a pattern can be
+specified using a lower and upper bound, but the bounds can be omitted to
+for instance allow an expression to be repeated any number of times.
+
+</dd>
+<dt>Mixin#any</dt><dd>Used for specifying alternatives.
+
+</dd>
+</dl>
+<p>
+Additionally Mixin#at_least_once and Mixin#at_most_once are provided as
+convenience methods.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Matches 1 followed by any number of 2s.</span>
+[<span class="i">1</span>, repeat(<span class="i">2</span>)]
+
+<span class="c"># Semantically the same as above. It just has a bunch of</span>
+<span class="c"># needless brackets thrown in.</span>
+[[<span class="i">1</span>], [repeat([<span class="i">2</span>])]]
+
+<span class="c"># Matches 1 followed by [a 2 followed by a 3] at least two times.</span>
+<span class="c"># Matches e.g. 1, 2, 3, 2, 3</span>
+[<span class="i">1</span>, repeat([<span class="i">2</span>, <span class="i">3</span>], <span class="i">2</span>)]
+
+<span class="c"># Matches between one and two [2 followed by [at least three 1]]</span>
+<span class="c"># followed by between three and four 3. Matches e.g.</span>
+<span class="c"># 2, 1, 1, 1, 2, 1, 1, 1, 3, 3, 3</span>
+[repeat([<span class="i">2</span>, repeat(<span class="i">1</span>, <span class="i">3</span>], <span class="i">1</span>, <span class="i">2</span>), repeat(<span class="i">3</span>, <span class="i">3</span>, <span class="i">4</span>)]
+
+<span class="c"># Matches [1, 2 or 3] followed by 4. Matches e.g. 2, 4</span>
+[any(<span class="i">1</span>, <span class="i">2</span>, <span class="i">3</span>), <span class="i">4</span>]
+
+<span class="c"># Matches 0 followed by [[1 followed by 2] or [3 followed by 5]].</span>
+<span class="c"># Matches e.g. 0, 1, 2 as well as 0, 3, 5</span>
+[<span class="i">0</span>, any([<span class="i">1</span>, <span class="i">2</span>], [<span class="i">3</span>, <span class="i">5</span>])]
+
+<span class="c"># Matches 0 followed by [[[1 followed by 7] at least two times]</span>
+<span class="c"># or [[8, 9], at most two times]. Matches e.g.</span>
+<span class="c"># 0, 1, 7, 1, 7, 1, 7 as well as 0, 8, 9</span>
+[<span class="i">0</span>, any(repeat([<span class="i">1</span>, <span class="i">7</span>], <span class="i">2</span>), repeat([<span class="i">8</span>, <span class="i">9</span>], <span class="i">0</span>, <span class="i">2</span>)]
+
+<span class="c"># Matches 0 followed by at least one 1.</span>
+[<span class="i">0</span>, at_least_once(<span class="i">1</span>)]
+
+<span class="c"># Exactly the same as the above.</span>
+[<span class="i">0</span>, repeat(<span class="i">1</span>, <span class="i">1</span>)]
+
+<span class="c"># Matches 0 followed by at least one [[1 followed by 7] or [3</span>
+<span class="c"># followed by 2]]. Matches e.g. 0, 1, 7, 3, 2, 1, 7</span>
+[<span class="i">0</span>, at_least_once(any([<span class="i">1</span>, <span class="i">7</span>], [<span class="i">3</span>, <span class="i">2</span>]]
+
+<span class="c"># Matches 0 followed by at either [[1 followed by 7] at least once]</span>
+<span class="c"># or [[3 followed by 2] at least once]. Matches e.g.</span>
+<span class="c"># 0, 1, 7, 1, 7 but does _not_ match 0, 1, 7, 3, 2, 1, 7</span>
+[<span class="i">0</span>, any(at_least_once([<span class="i">1</span>, <span class="i">7</span>]), at_least_once([<span class="i">3</span>, <span class="i">2</span>])]
+
+<span class="c"># Matches 0, followed by at most one 1. Matches 0 as well as</span>
+<span class="c"># 0, 1</span>
+[<span class="i">0</span>, at_most_once(<span class="i">1</span>)]
+
+<span class="c"># Exactly the same as the above.</span>
+[<span class="i">0</span>, repeat(<span class="i">1</span>, <span class="i">0</span>, <span class="i">1</span>)]
+</pre></div>
+</div>
+
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains the two integer operands in +numbers+ to have</span>
+<span class="c"># values 1 and 7.</span>
+numbers.must.match [<span class="i">1</span>, <span class="i">7</span>]
+
+<span class="c"># Constrains the integer operands in +numbers+ to contain the</span>
+<span class="c"># value 47 followed by 11, with all other values set to -1.</span>
+numbers.must.match [repeat(<span class="i">-1</span>), <span class="i">47</span>, <span class="i">11</span>, repeat(<span class="i">-1</span>)]
+
+<span class="c"># Constrains exactly three of the integer operands in +numbers+ to</span>
+<span class="c"># contain 47 or 11, each followed by at least two</span>
+<span class="c"># operands set to -1. All other operands are constrained to</span>
+<span class="c"># equal -1.</span>
+numbers.must.match repeat([repeat(<span class="i">-1</span>), any(<span class="i">11</span>, <span class="i">47</span>),
+                           repeat(<span class="i">-1</span>, <span class="i">2</span>)], <span class="i">3</span>, <span class="i">3</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_sorted_"><code>sorted</code></h3>
+
+
+	<p><code>sorted(options = {})</code><p>
+Constrains the elements in this enumeration to be sorted in ascending
+order. The following options can be given in addition to the common
+constraint options:
+</p>
+<dl>
+<dt>:as</dt><dd>Defines a target (must be an IntEnum) that will hold the sorted version of
+the original enumerable. The original enumerable will not be affected (i.e.
+will not necessarily be sorted)
+
+</dd>
+<dt>:order</dt><dd>Sets an IntEnum that should be used to store the order of the original
+enum&#8217;s operands when sorted. The original enumerable will not be
+affected (i.e. will not necessarily be sorted)
+
+</dd>
+</dl>
+<p>
+If neither of those options are specified then the original enumerable will
+be constrained to be sorted (otherwise not). Sort constraints with options
+do not allow negation.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrain +numbers+ to be sorted.</span>
+numbers.must_be.sorted
+
+<span class="c"># Constrain +numbers+ to not be sorted.</span>
+numbers.must_not_be.sorted
+
+<span class="c"># Constrain +sorted_numbers+ to be a sorted version of +numbers+.</span>
+numbers.must_be.sorted(<span class="sy">:as</span> =&gt; sorted_numbers)
+
+<span class="c"># Constrain +order+ to be the order in which +numbers+ has to be</span>
+<span class="c"># ordered to be sorted.</span>
+numbers.must_be.sorted(<span class="sy">:order</span> =&gt; order)
+
+<span class="c"># Constrain +sorted_numbers+ to be +numbers+ sorted in the order</span>
+<span class="c"># described by the IntEnum +order+.</span>
+numbers.must_be.sorted(<span class="sy">:as</span> =&gt; sorted_numbers, <span class="sy">:order</span> =&gt; order)
+
+<span class="c"># Constrains +numbers+ to be sorted, reifying with the boolean</span>
+<span class="c"># operand +is_sorted+, while selecting +domain+ as strength.</span>
+numbers.must_be.sorted(<span class="sy">:reify</span> =&gt; <span class="sy">:is_sorted</span>, <span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_equal_"><code>equal</code></h3>
+
+
+	<p><code>equal(options = {})</code><p>
+Constrains all operands in the enumeration to be equal. Neither negation
+nor reification is supported.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains all operands in +int_enum+ to be equal.</span>
+int_enum.must_be.equal
+</pre></div>
+</div></p>
+
+
+	<h2 id="properties">Properties</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/IntEnum/IntEnumOperand.html"><code>IntEnumOperand</code></a>.</p>
+
+
+	<h3 id="____"><code>[]</code></h3>
+
+
+	<p><code>[](*vars)</code><p>
+Produces an IntOperand representing the i:th integer operand in the
+enumeration, where i is the value of the integer operand used as index.
+Think of it as array access in the world of constraint programming.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The operand at the +x+:th position in +int_enum+,</span>
+<span class="c"># where +x+ is an integer operand.</span>
+int_enum[x]
+</pre></div>
+</div></p>
+
+
+	<h3 id="_count_"><code>count</code></h3>
+
+
+	<p><code>count(int_operand_or_fixnum)</code><p>
+Produces a new IntOperand representing the number of times
+<code>int_operand_or_fixnum</code> is present in this enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The number of times 17 occurs in +int_enum+.</span>
+int_enum.count(<span class="i">17</span>)
+
+<span class="c"># The number of times +int_operand+ occurs in +int_enum+.</span>
+int_enum.count(int_operand)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_max_"><code>max</code></h3>
+
+
+	<p><code>max()</code><p>
+Produces an IntOperand representing the maximum value of the integer
+operands in this enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The maximum of +int_enum+.</span>
+int_enum.max
+</pre></div>
+</div></p>
+
+
+	<h3 id="_min_"><code>min</code></h3>
+
+
+	<p><code>min()</code><p>
+Produces an IntOperand representing the minimum value of the integer
+operands in this enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The minimum of +int_enum+.</span>
+int_enum.min
+</pre></div>
+</div></p>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

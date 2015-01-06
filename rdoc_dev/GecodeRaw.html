@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module GecodeRaw - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-abs">::abs</a>
+    
+    <li ><a href="#method-c-assign">::assign</a>
+    
+    <li ><a href="#method-c-atleast">::atleast</a>
+    
+    <li ><a href="#method-c-atmost">::atmost</a>
+    
+    <li ><a href="#method-c-atmostOne">::atmostOne</a>
+    
+    <li ><a href="#method-c-bab">::bab</a>
+    
+    <li ><a href="#method-c-branch">::branch</a>
+    
+    <li ><a href="#method-c-cardinality">::cardinality</a>
+    
+    <li ><a href="#method-c-channel">::channel</a>
+    
+    <li ><a href="#method-c-convex">::convex</a>
+    
+    <li ><a href="#method-c-convexHull">::convexHull</a>
+    
+    <li ><a href="#method-c-count">::count</a>
+    
+    <li ><a href="#method-c-distinct">::distinct</a>
+    
+    <li ><a href="#method-c-dom">::dom</a>
+    
+    <li ><a href="#method-c-element">::element</a>
+    
+    <li ><a href="#method-c-elementsDisjoint">::elementsDisjoint</a>
+    
+    <li ><a href="#method-c-elementsInter">::elementsInter</a>
+    
+    <li ><a href="#method-c-elementsUnion">::elementsUnion</a>
+    
+    <li ><a href="#method-c-exactly">::exactly</a>
+    
+    <li ><a href="#method-c-extensional">::extensional</a>
+    
+    <li ><a href="#method-c-lex">::lex</a>
+    
+    <li ><a href="#method-c-linear">::linear</a>
+    
+    <li ><a href="#method-c-match">::match</a>
+    
+    <li ><a href="#method-c-max">::max</a>
+    
+    <li ><a href="#method-c-min">::min</a>
+    
+    <li ><a href="#method-c-mult">::mult</a>
+    
+    <li ><a href="#method-c-post">::post</a>
+    
+    <li ><a href="#method-c-rel">::rel</a>
+    
+    <li ><a href="#method-c-sequence">::sequence</a>
+    
+    <li ><a href="#method-c-sequentialUnion">::sequentialUnion</a>
+    
+    <li ><a href="#method-c-sorted">::sorted</a>
+    
+    <li ><a href="#method-c-sqr">::sqr</a>
+    
+    <li ><a href="#method-c-sqrt">::sqrt</a>
+    
+    <li ><a href="#method-c-weights">::weights</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-GecodeRaw">
+  <h1 id="module-GecodeRaw" class="module">
+    module GecodeRaw
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="BOT_AND">BOT_AND
+        
+        <dd>
+        
+      
+        <dt id="BOT_EQV">BOT_EQV
+        
+        <dd>
+        
+      
+        <dt id="BOT_IMP">BOT_IMP
+        
+        <dd>
+        
+      
+        <dt id="BOT_OR">BOT_OR
+        
+        <dd>
+        
+      
+        <dt id="BOT_XOR">BOT_XOR
+        
+        <dd>
+        
+      
+        <dt id="ICL_BND">ICL_BND
+        
+        <dd>
+        
+      
+        <dt id="ICL_DEF">ICL_DEF
+        
+        <dd>
+        
+      
+        <dt id="ICL_DOM">ICL_DOM
+        
+        <dd>
+        
+      
+        <dt id="ICL_VAL">ICL_VAL
+        
+        <dd>
+        
+      
+        <dt id="INT_ASSIGN_MAX">INT_ASSIGN_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_ASSIGN_MED">INT_ASSIGN_MED
+        
+        <dd>
+        
+      
+        <dt id="INT_ASSIGN_MIN">INT_ASSIGN_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAL_MAX">INT_VAL_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAL_MED">INT_VAL_MED
+        
+        <dd>
+        
+      
+        <dt id="INT_VAL_MIN">INT_VAL_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAL_SPLIT_MAX">INT_VAL_SPLIT_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAL_SPLIT_MIN">INT_VAL_SPLIT_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_DEGREE_MAX">INT_VAR_DEGREE_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_DEGREE_MIN">INT_VAR_DEGREE_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_MAX_MAX">INT_VAR_MAX_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_MAX_MIN">INT_VAR_MAX_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_MIN_MAX">INT_VAR_MIN_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_MIN_MIN">INT_VAR_MIN_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_NONE">INT_VAR_NONE
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_REGRET_MAX_MAX">INT_VAR_REGRET_MAX_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_REGRET_MAX_MIN">INT_VAR_REGRET_MAX_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_REGRET_MIN_MAX">INT_VAR_REGRET_MIN_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_REGRET_MIN_MIN">INT_VAR_REGRET_MIN_MIN
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_SIZE_MAX">INT_VAR_SIZE_MAX
+        
+        <dd>
+        
+      
+        <dt id="INT_VAR_SIZE_MIN">INT_VAR_SIZE_MIN
+        
+        <dd>
+        
+      
+        <dt id="IRT_EQ">IRT_EQ
+        
+        <dd>
+        
+      
+        <dt id="IRT_GQ">IRT_GQ
+        
+        <dd>
+        
+      
+        <dt id="IRT_GR">IRT_GR
+        
+        <dd>
+        
+      
+        <dt id="IRT_LE">IRT_LE
+        
+        <dd>
+        
+      
+        <dt id="IRT_LQ">IRT_LQ
+        
+        <dd>
+        
+      
+        <dt id="IRT_NQ">IRT_NQ
+        
+        <dd>
+        
+      
+        <dt id="PK_DEF">PK_DEF
+        
+        <dd>
+        
+      
+        <dt id="PK_MEMORY">PK_MEMORY
+        
+        <dd>
+        
+      
+        <dt id="PK_SPEED">PK_SPEED
+        
+        <dd>
+        
+      
+        <dt id="SET_VAL_MAX">SET_VAL_MAX
+        
+        <dd>
+        
+      
+        <dt id="SET_VAL_MIN">SET_VAL_MIN
+        
+        <dd>
+        
+      
+        <dt id="SET_VAR_MAX_CARD">SET_VAR_MAX_CARD
+        
+        <dd>
+        
+      
+        <dt id="SET_VAR_MAX_UNKNOWN_ELEM">SET_VAR_MAX_UNKNOWN_ELEM
+        
+        <dd>
+        
+      
+        <dt id="SET_VAR_MIN_CARD">SET_VAR_MIN_CARD
+        
+        <dd>
+        
+      
+        <dt id="SET_VAR_MIN_UNKNOWN_ELEM">SET_VAR_MIN_UNKNOWN_ELEM
+        
+        <dd>
+        
+      
+        <dt id="SET_VAR_NONE">SET_VAR_NONE
+        
+        <dd>
+        
+      
+        <dt id="SOT_DUNION">SOT_DUNION
+        
+        <dd>
+        
+      
+        <dt id="SOT_INTER">SOT_INTER
+        
+        <dd>
+        
+      
+        <dt id="SOT_MINUS">SOT_MINUS
+        
+        <dd>
+        
+      
+        <dt id="SOT_UNION">SOT_UNION
+        
+        <dd>
+        
+      
+        <dt id="SRT_CMPL">SRT_CMPL
+        
+        <dd>
+        
+      
+        <dt id="SRT_DISJ">SRT_DISJ
+        
+        <dd>
+        
+      
+        <dt id="SRT_EQ">SRT_EQ
+        
+        <dd>
+        
+      
+        <dt id="SRT_NQ">SRT_NQ
+        
+        <dd>
+        
+      
+        <dt id="SRT_SUB">SRT_SUB
+        
+        <dd>
+        
+      
+        <dt id="SRT_SUP">SRT_SUP
+        
+        <dd>
+        
+      
+        <dt id="SS_BRANCH">SS_BRANCH
+        
+        <dd>
+        
+      
+        <dt id="SS_FAILED">SS_FAILED
+        
+        <dd>
+        
+      
+        <dt id="SS_SOLVED">SS_SOLVED
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-abs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">abs</span><span
+            class="method-args">(p1, p2, p3, p4, p5)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="abs-source">
+            <pre>VALUE fGecodeRawabs ( VALUE self , VALUE home, VALUE x0, VALUE x1, VALUE icl, VALUE pk ) {
+  Gecode::abs(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_IntVar(x0, 2),ruby2Gecode_IntVar(x1, 3),ruby2Gecode_IntConLevel(icl, 4),ruby2Gecode_PropKind(pk, 5)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-assign" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">assign</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="assign-source">
+            <pre>VALUE fGecodeRawassign ( VALUE self , VALUE home, VALUE iva, VALUE vals ) {
+  Gecode::assign(ruby2Gecode_MSpacePtr(home, 1),*ruby2Gecode_MIntVarArrayPtr(iva, 1)-&gt;ptr(),ruby2Gecode_IntAssign(vals, 3)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-atleast" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">atleast</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="atleast-source">
+            <pre>VALUE fGecodeRawatleast ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 6: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_int(argv[3]) ) {
+      if( is_Gecode_IntConLevel(argv[4]) ) {
+      if( is_Gecode_PropKind(argv[5]) ) {
+           Gecode::atleast(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2int(argv[3], 4),ruby2Gecode_IntConLevel(argv[4], 5),ruby2Gecode_PropKind(argv[5], 6)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-atmost" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">atmost</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="atmost-source">
+            <pre>VALUE fGecodeRawatmost ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 6: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_int(argv[3]) ) {
+      if( is_Gecode_IntConLevel(argv[4]) ) {
+      if( is_Gecode_PropKind(argv[5]) ) {
+           Gecode::atmost(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2int(argv[3], 4),ruby2Gecode_IntConLevel(argv[4], 5),ruby2Gecode_PropKind(argv[5], 6)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-atmostOne" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">atmostOne</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="atmostOne-source">
+            <pre>VALUE fGecodeRawatmostOne ( VALUE self , VALUE home, VALUE x, VALUE c ) {
+  Gecode::atmostOne(ruby2Gecode_MSpacePtr(home, 1),*ruby2Gecode_MSetVarArrayPtr(x, 2)-&gt;ptr(),ruby2int(c, 3)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-bab" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bab</span><span
+            class="method-args">(p1, p2)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bab-source">
+            <pre>VALUE fGecodeRawbab ( VALUE self , VALUE home, VALUE o ) {
+  return cxx2ruby( static_cast&lt;Gecode::MSpace*&gt;(Gecode::bab(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_Search_Options(o, 2))) );
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-branch" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">branch</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="branch-source">
+            <pre>VALUE fGecodeRawbranch ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 4: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MBoolVarArray(argv[1]) ) {
+      if( is_Gecode_IntVarBranch(argv[2]) ) {
+      if( is_Gecode_IntValBranch(argv[3]) ) {
+           Gecode::branch(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntVarBranch(argv[2], 3),ruby2Gecode_IntValBranch(argv[3], 4)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-cardinality" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">cardinality</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="cardinality-source">
+            <pre>VALUE fGecodeRawcardinality ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 3: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_SetVar(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+           Gecode::cardinality(ruby2Gecode_MSpacePtr(argv[0], 1),ruby2Gecode_SetVar(argv[1], 2),ruby2Gecode_IntVar(argv[2], 3)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-channel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">channel</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="channel-source">
+            <pre>VALUE fGecodeRawchannel ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_IntVar(argv[1]) ) {
+      if( is_Gecode_BoolVar(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::channel(ruby2Gecode_MSpacePtr(argv[0], 1),ruby2Gecode_IntVar(argv[1], 2),ruby2Gecode_BoolVar(argv[2], 3),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-convex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">convex</span><span
+            class="method-args">(p1, p2)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="convex-source">
+            <pre>VALUE fGecodeRawconvex ( VALUE self , VALUE home, VALUE s ) {
+  Gecode::convex(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_SetVar(s, 2)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-convexHull" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">convexHull</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="convexHull-source">
+            <pre>VALUE fGecodeRawconvexHull ( VALUE self , VALUE home, VALUE x, VALUE y ) {
+  Gecode::convexHull(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_SetVar(x, 2),ruby2Gecode_SetVar(y, 3)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">count</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="count-source">
+            <pre>VALUE fGecodeRawcount ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 7: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_Gecode_IntRelType(argv[3]) ) {
+      if( is_int(argv[4]) ) {
+      if( is_Gecode_IntConLevel(argv[5]) ) {
+      if( is_Gecode_PropKind(argv[6]) ) {
+           Gecode::count(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2Gecode_IntRelType(argv[3], 4),ruby2int(argv[4], 5),ruby2Gecode_IntConLevel(argv[5], 6),ruby2Gecode_PropKind(argv[6], 7)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-distinct" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">distinct</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="distinct-source">
+            <pre>VALUE fGecodeRawdistinct ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_IntArgs(argv[1]) ) {
+      if( is_Gecode_MIntVarArray(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::distinct(ruby2Gecode_MSpacePtr(argv[0], 1),ruby2Gecode_IntArgs(argv[1], 2),*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)-&gt;ptr(),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-dom" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dom</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="dom-source">
+            <pre>VALUE fGecodeRawdom ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_IntVar(argv[1]) ) {
+      if( is_Gecode_IntSet(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::dom(ruby2Gecode_MSpacePtr(argv[0], 1),ruby2Gecode_IntVar(argv[1], 2),ruby2Gecode_IntSet(argv[2], 3),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-element" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">element</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="element-source">
+            <pre>VALUE fGecodeRawelement ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 6: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_Gecode_IntVar(argv[3]) ) {
+      if( is_Gecode_IntConLevel(argv[4]) ) {
+      if( is_Gecode_PropKind(argv[5]) ) {
+           Gecode::element(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2Gecode_IntVar(argv[3], 4),ruby2Gecode_IntConLevel(argv[4], 5),ruby2Gecode_PropKind(argv[5], 6)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-elementsDisjoint" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">elementsDisjoint</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="elementsDisjoint-source">
+            <pre>VALUE fGecodeRawelementsDisjoint ( VALUE self , VALUE home, VALUE x, VALUE y ) {
+  Gecode::elementsDisjoint(ruby2Gecode_MSpacePtr(home, 1),*ruby2Gecode_MSetVarArrayPtr(x, 2)-&gt;ptr(),ruby2Gecode_SetVar(y, 3)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-elementsInter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">elementsInter</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="elementsInter-source">
+            <pre>VALUE fGecodeRawelementsInter ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MSetVarArray(argv[1]) ) {
+      if( is_Gecode_SetVar(argv[2]) ) {
+      if( is_Gecode_SetVar(argv[3]) ) {
+      if( is_Gecode_IntSet(argv[4]) ) {
+           Gecode::elementsInter(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MSetVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_SetVar(argv[2], 3),ruby2Gecode_SetVar(argv[3], 4),ruby2Gecode_IntSet(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-elementsUnion" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">elementsUnion</span><span
+            class="method-args">(p1, p2, p3, p4)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="elementsUnion-source">
+            <pre>VALUE fGecodeRawelementsUnion ( VALUE self , VALUE home, VALUE x, VALUE y, VALUE z ) {
+  Gecode::elementsUnion(ruby2Gecode_MSpacePtr(home, 1),*ruby2Gecode_MSetVarArrayPtr(x, 2)-&gt;ptr(),ruby2Gecode_SetVar(y, 3),ruby2Gecode_SetVar(z, 4)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-exactly" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exactly</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="exactly-source">
+            <pre>VALUE fGecodeRawexactly ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 6: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_int(argv[3]) ) {
+      if( is_Gecode_IntConLevel(argv[4]) ) {
+      if( is_Gecode_PropKind(argv[5]) ) {
+           Gecode::exactly(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2int(argv[3], 4),ruby2Gecode_IntConLevel(argv[4], 5),ruby2Gecode_PropKind(argv[5], 6)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-extensional" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extensional</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="extensional-source">
+            <pre>VALUE fGecodeRawextensional ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MBoolVarArray(argv[1]) ) {
+      if( is_Gecode_TupleSet(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::extensional(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MBoolVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_TupleSet(argv[2], 3),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-lex" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">lex</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="lex-source">
+            <pre>VALUE fGecodeRawlex ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntRelType(argv[2]) ) {
+      if( is_Gecode_MIntVarArray(argv[3]) ) {
+      if( is_Gecode_IntConLevel(argv[4]) ) {
+           Gecode::lex(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntRelType(argv[2], 3),*ruby2Gecode_MIntVarArrayPtr(argv[3], 4)-&gt;ptr(),ruby2Gecode_IntConLevel(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-linear" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">linear</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="linear-source">
+            <pre>VALUE fGecodeRawlinear ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 6: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntRelType(argv[2]) ) {
+      if( is_Gecode_IntVar(argv[3]) ) {
+      if( is_Gecode_IntConLevel(argv[4]) ) {
+      if( is_Gecode_PropKind(argv[5]) ) {
+           Gecode::linear(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntRelType(argv[2], 3),ruby2Gecode_IntVar(argv[3], 4),ruby2Gecode_IntConLevel(argv[4], 5),ruby2Gecode_PropKind(argv[5], 6)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-match" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">match</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="match-source">
+            <pre>VALUE fGecodeRawmatch ( VALUE self , VALUE home, VALUE s, VALUE x ) {
+  Gecode::match(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_SetVar(s, 2),*ruby2Gecode_MIntVarArrayPtr(x, 3)-&gt;ptr()); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-max" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">max</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="max-source">
+            <pre>VALUE fGecodeRawmax ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::max(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 1)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-min" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">min</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="min-source">
+            <pre>VALUE fGecodeRawmin ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntVar(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::min(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 1)-&gt;ptr(),ruby2Gecode_IntVar(argv[2], 3),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-mult" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mult</span><span
+            class="method-args">(p1, p2, p3, p4, p5, p6)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mult-source">
+            <pre>VALUE fGecodeRawmult ( VALUE self , VALUE home, VALUE x0, VALUE x1, VALUE x2, VALUE icl, VALUE pk ) {
+  Gecode::mult(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_IntVar(x0, 2),ruby2Gecode_IntVar(x1, 3),ruby2Gecode_IntVar(x2, 4),ruby2Gecode_IntConLevel(icl, 5),ruby2Gecode_PropKind(pk, 6)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-post" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">post</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="post-source">
+            <pre>VALUE fGecodeRawpost ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 4: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_BoolVar(argv[1]) ) {
+      if( is_Gecode_IntConLevel(argv[2]) ) {
+      if( is_Gecode_PropKind(argv[3]) ) {
+           return cxx2ruby( new Gecode::BoolVar(Gecode::post(ruby2Gecode_MSpacePtr(argv[0], 1),ruby2Gecode_BoolVar(argv[1], 2),ruby2Gecode_IntConLevel(argv[2], 3),ruby2Gecode_PropKind(argv[3], 4))), true );
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-rel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rel</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="rel-source">
+            <pre>VALUE fGecodeRawrel ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_IntRelType(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::rel(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),ruby2Gecode_IntRelType(argv[2], 3),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-sequence" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sequence</span><span
+            class="method-args">(p1, p2)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sequence-source">
+            <pre>VALUE fGecodeRawsequence ( VALUE self , VALUE home, VALUE x ) {
+  Gecode::sequence(ruby2Gecode_MSpacePtr(home, 1),*ruby2Gecode_MSetVarArrayPtr(x, 2)-&gt;ptr()); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-sequentialUnion" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sequentialUnion</span><span
+            class="method-args">(p1, p2, p3)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sequentialUnion-source">
+            <pre>VALUE fGecodeRawsequentialUnion ( VALUE self , VALUE home, VALUE y, VALUE x ) {
+  Gecode::sequentialUnion(ruby2Gecode_MSpacePtr(home, 1),*ruby2Gecode_MSetVarArrayPtr(y, 2)-&gt;ptr(),ruby2Gecode_SetVar(x, 3)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-sorted" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sorted</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sorted-source">
+            <pre>VALUE fGecodeRawsorted ( int argc, VALUE *argv, VALUE self ) {
+    bool ok = false;
+  
+  switch(argc) {
+     case 5: {
+// Case 0
+      if( is_Gecode_MSpace(argv[0]) ) {
+      if( is_Gecode_MIntVarArray(argv[1]) ) {
+      if( is_Gecode_MIntVarArray(argv[2]) ) {
+      if( is_Gecode_IntConLevel(argv[3]) ) {
+      if( is_Gecode_PropKind(argv[4]) ) {
+           Gecode::sorted(ruby2Gecode_MSpacePtr(argv[0], 1),*ruby2Gecode_MIntVarArrayPtr(argv[1], 2)-&gt;ptr(),*ruby2Gecode_MIntVarArrayPtr(argv[2], 3)-&gt;ptr(),ruby2Gecode_IntConLevel(argv[3], 4),ruby2Gecode_PropKind(argv[4], 5)); return Qnil;
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-sqr" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sqr</span><span
+            class="method-args">(p1, p2, p3, p4, p5)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sqr-source">
+            <pre>VALUE fGecodeRawsqr ( VALUE self , VALUE home, VALUE x0, VALUE x1, VALUE icl, VALUE pk ) {
+  Gecode::sqr(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_IntVar(x0, 2),ruby2Gecode_IntVar(x1, 3),ruby2Gecode_IntConLevel(icl, 4),ruby2Gecode_PropKind(pk, 5)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-sqrt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sqrt</span><span
+            class="method-args">(p1, p2, p3, p4, p5)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sqrt-source">
+            <pre>VALUE fGecodeRawsqrt ( VALUE self , VALUE home, VALUE x0, VALUE x1, VALUE icl, VALUE pk ) {
+  Gecode::sqrt(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_IntVar(x0, 2),ruby2Gecode_IntVar(x1, 3),ruby2Gecode_IntConLevel(icl, 4),ruby2Gecode_PropKind(pk, 5)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-weights" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">weights</span><span
+            class="method-args">(p1, p2, p3, p4, p5)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="weights-source">
+            <pre>VALUE fGecodeRawweights ( VALUE self , VALUE home, VALUE elements, VALUE weights, VALUE x, VALUE y ) {
+  Gecode::weights(ruby2Gecode_MSpacePtr(home, 1),ruby2Gecode_IntArgs(elements, 2),ruby2Gecode_IntArgs(weights, 3),ruby2Gecode_SetVar(x, 4),ruby2Gecode_IntVar(y, 5)); return Qnil;
+
+  
+  rb_raise(rb_eArgError, &quot;Mandatory parameters missing&quot;);   return Qnil; 
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

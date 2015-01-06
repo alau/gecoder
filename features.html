@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Constraints and Features of Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/webgen.css" media="screen" />
+  <meta name="description" content="Constraints and various features of Gecode supported by the Ruby interface Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="index.html">Home</a> > <span>Features</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#supported_platforms">Supported Platforms</a></li><li><a href="#supported_gecode_features_">Supported Gecode Features</a></li><li><a href="#features_not_supported">Features Not Supported</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Features</h1>
+
+
+<div class="summary">
+<p>Gecode/R provides access to many, but not all, of the <a href="http://www.gecode.org/doc/2.2.0/reference/modules.html">features 
+in Gecode 2.2.0</a>. 
+Gecode/R is only a modelling interface, it does not provide support for 
+e.g. creating new propagators.</p>
+</div>
+
+	<h2 id="supported_platforms">Supported Platforms</h2>
+
+
+Ruby 1.8.6 on
+	<ul>
+	<li>Windows (tested with the <a href="http://rubyinstaller.rubyforge.org/wiki/wiki.pl">one-click Ruby installer</a>)</li>
+		<li>Linux</li>
+		<li><span class="caps">OS X</span></li>
+	</ul>
+
+
+	<h2 id="supported_gecode_features_">Supported Gecode Features</h2>
+
+
+	<p>The following things are supported by Gecode/R.</p>
+
+
+	<ul>
+	<li>Boolean variables with the following constraints
+	<ul>
+	<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntRelBool.html">Simple relation</a> except the ones involving arrays of variables</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntLinearBool.html">Linear</a></li>
+	</ul>
+	</li>
+		<li>Finite domain integer variables with the following constraints
+	<ul>
+	<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntArith.html">Arithmetic</a> except for div, mod and divmod</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntCard.html">Cardinality</a> except for the ones involving more than one variable array</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntChannel.html">Channel</a> </li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntDistinct.html">Distinct</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntDomain.html">Domain</a> except for the ones that constrain the domain of an array of integer variables</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntElement.html">Element</a> except for the ones involving an array of boolean variables</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntLinearInt.html">Linear</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntRelInt.html">Simple relation</a> except for the ones involving an array of integer variables</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntSorted.html">Sorted</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntExt.html">Extensional</a> but the <span class="caps">DFA</span> can not be specified directly, only via an interface to <span class="caps">REG</span></li>
+	</ul>
+	</li>
+		<li>Finite integer sets with the following constraints
+	<ul>
+	<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetDistinct.html">Distinct</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetDom.html">Domain</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetConnect.html">Connection constraints to finite domain variables</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetRel.html">Relation</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetElement.html">Element</a> except for union and element with arrays of constant sets</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetRelOp.html">Set operation</a></li>
+	</ul>
+	</li>
+		<li>Branching selection</li>
+		<li>Branch and bound, and depth first search</li>
+		<li>Reification, propagation strength and propagation kind</li>
+	</ul>
+
+
+	<h2 id="features_not_supported">Features Not Supported</h2>
+
+
+	<p>The following are some notable features that are included in Gecode but <em>not</em>
+in Gecode/R (but might be in the future).</p>
+
+
+	<ul>
+	<li>Finite integer sets with complete domain representation and all their constraints</li>
+		<li>Unsupported integer constraints
+	<ul>
+	<li>The exceptions noted in the list of supported constraints</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntScheduling.html">Scheduling</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelIntGraph.html">Graph</a></li>
+	</ul>
+	</li>
+		<li>Unsupported set constraints
+	<ul>
+	<li>The exceptions noted in the list of supported constraints</li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetConvex.html">Convexity</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetSequence.html">Sequence</a></li>
+		<li><a href="http://www.gecode.org/doc/2.2.0/reference/group__TaskModelSetProjector.html">Projector</a></li>
+	</ul>
+	</li>
+		<li>Limited discrepancy search</li>
+		<li>Custom propagators and branching strategies</li>
+		<li>Reflection</li>
+	</ul>
+  </div>
+  <div id="tabs"><ul><li class="selected"><span>Features</span></li><li><a href="installation.html">Installation</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="documentation/index.html">Documentation</a></li><li><a href="details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li class="selected"><span>Features</span></li><li><a href="installation.html">Installation</a></li><li><a href="examples/index.html">Examples</a></li><li><a href="documentation/index.html">Documentation</a></li><li><a href="details/index.html">Project Details</a></li><li><a class="sitemap" href="sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

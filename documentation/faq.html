@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Frequently Asked Questions About Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="Frequently asked question about Gecode/R and constraint programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Documentation</a> > <span>FAQ</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Documentation</h3><ul id="secondNav"><li><a href="index.html">Getting Started</a></li><li><a href="formulating_problems.html">Formulating Problems</a></li><li><a href="searching_for_solutions.html">Searching for Solutions</a></li><li><a href="operands/index.html"class="parent">Operands</a></li><li><a href="modelling/index.html"class="parent">Modelling</a></li><li><span>FAQ</span></li><li><a href="../rdoc/index.html">RDoc (users)</a></li><li><a href="../rdoc_dev/index.html">RDoc (developers)</a></li><li><a href="../coverage/index.html">rcov Report</a></li><li><a href="../rspec.html">RSpec Report</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#gecode_r">Gecode/R</a><ul class="section-links"><li><a href="#why_do_i_keep_getting__runtimeerror__no_value_is_assigned___when_accessing_solution_values_">Why do I keep getting &#8220;RuntimeError: No value is assigned.&#8221; when accessing solution values?</a></li></ul></li><li><a href="#constraint_programming">Constraint Programming</a><ul class="section-links"><li><a href="#what_is_constraint_programming_">What is Constraint Programming?</a></li><li><a href="#what_types_of_problems_are_suitable_">What Types of Problems are Suitable?</a></li><li><a href="#won_t_it_be_slow_">Won&#8217;t it be Slow?</a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Frequently Asked Questions</h1>
+
+
+	<h2 id="gecode_r">Gecode/R</h2>
+
+
+	<h3 id="why_do_i_keep_getting__runtimeerror__no_value_is_assigned___when_accessing_solution_values_">Why do I keep getting &#8220;RuntimeError: No value is assigned.&#8221; when accessing solution values?</h3>
+
+
+	<p>Because the variables have not been assigned a single value in the
+solution. Variables are not necessarily assigned in the solution unless
+you tell Gecode/R to branch over them. As an example</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="co">Gecode</span>.solve <span class="r">do</span> 
+  foo_is_an int_var(<span class="i">0</span>..<span class="i">9</span>)
+  foo.must &lt; <span class="i">5</span>
+<span class="r">end</span>.foo.domain
+</pre></div>
+</div>
+
+
+	<p>returns &#8220;0..4&#8221; (i.e. <code>foo</code> is not assigned) while</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="co">Gecode</span>.solve <span class="r">do</span> 
+  foo_is_an int_var(<span class="i">0</span>..<span class="i">9</span>)
+  foo.must &lt; <span class="i">5</span>
+  branch_on foo
+<span class="r">end</span>.foo.value
+</pre></div>
+</div>
+
+
+	<p>returns &#8220;0&#8221; (<code>foo</code> is assigned 0).</p>
+
+
+	<h2 id="constraint_programming">Constraint Programming</h2>
+
+
+	<h3 id="what_is_constraint_programming_">What is Constraint Programming?</h3>
+
+
+	<p>Constraint programming is a declarative programming paradigm, you describe what 
+kind of solution you want rather than how you want it computed. When using 
+constraint programming you model the problem and then feed that model to the 
+solver. The solver then searches for a solution by exploring the space of all 
+possible assignments while using the constraints in the model to prune parts 
+without having to visit them.</p>
+
+
+	<p>A popular example is sudoku, to <a href="../examples/sudoku.html">solve a sudoku with constraint programming</a>  you feed the rules (all 
+numbers in each row must be distinct etc) to the solver, which then searches 
+for a solution satisfying all the constraints.</p>
+
+
+	<h3 id="what_types_of_problems_are_suitable_">What Types of Problems are Suitable?</h3>
+
+
+	<p>The ideal problems to use constraint programming on are problems that are easy
+to describe but where the best one can do to solve them is an exhaustive search.
+Typically NP-hard combinatorial problems.</p>
+
+
+	<p>If there exists an algorithm with polynomial time complexity for the problem 
+then it will have a better worst case complexity. If the algorithm is hard to 
+implement and/or complexity is not that important then constraint programming 
+might still be worth testing/considering.</p>
+
+
+	<h3 id="won_t_it_be_slow_">Won&#8217;t it be Slow?</h3>
+
+
+	<p>It will always have exponential worst case complexity. However, if the model
+is good, it can empirically scale better.</p>
+
+
+	<p>The reason is that Gecode is smart when it comes to pruning the search space 
+and will often not have to visit most of it due to taking advantage of the 
+placed constraints.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><a href="index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><a href="index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

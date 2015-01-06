@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class SquareTiling - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Gecode/Mixin.html">Gecode::Mixin</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-occupied_length_must_equal_total_length">#occupied_length_must_equal_total_length</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-SquareTiling">
+  <h1 id="class-SquareTiling" class="class">
+    class SquareTiling
+  </h1>
+
+  <section class="description">
+    
+<p>Solves the square tiling problem. The objective is to pack supplied squares
+into a bigger rectangle so that there is no overlap.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-occupied_length_must_equal_total_length" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">occupied_length_must_equal_total_length</span><span
+            class="method-args">(total_length, axis_length, coords)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the combined length of the squares in the same row or column to
+equal <code>total_length</code> in the axis of the specified coordinates
+<code>coords</code>,  which is <code>axist_length</code> long.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="occupied_length_must_equal_total_length-source">
+            <pre><span class="ruby-comment"># File example/square_tiling.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">occupied_length_must_equal_total_length</span>(<span class="ruby-identifier">total_length</span>, <span class="ruby-identifier">axis_length</span>, <span class="ruby-identifier">coords</span>)
+  <span class="ruby-identifier">axis_length</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># We create an array of boolean variables and constrain it so that element</span>
+    <span class="ruby-comment"># +j+ is true iff square +j+ occupies +i+ (+i+ being a row or column).</span>
+    <span class="ruby-identifier">occupied</span> = <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-ivar">@square_count</span>)
+    <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">is_occupying</span>, <span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">coords</span>[<span class="ruby-identifier">j</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>((<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">i</span>, <span class="ruby-value">:reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">is_occupying</span>)
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-comment"># Constrain the combined length of squares that are occupying +i+ to equal</span>
+    <span class="ruby-comment"># the total length. We multiply the sizes with the boolean variables </span>
+    <span class="ruby-comment"># since a boolean in linear equation is 0 if assigned false and 1 if </span>
+    <span class="ruby-comment"># assigned true. Hence we will mask out the sizes of any squares not in </span>
+    <span class="ruby-comment"># +i+.</span>
+    <span class="ruby-identifier">occupied_sizes</span> = <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-ivar">@sizes</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">bool</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">|</span> <span class="ruby-identifier">bool</span><span class="ruby-operator">*</span><span class="ruby-identifier">size</span> }
+    <span class="ruby-identifier">occupied_sizes</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sum</span> }.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">equal</span>(<span class="ruby-identifier">total_length</span>, 
+      <span class="ruby-value">:strength</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:domain</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Displays the coordinates of the squares. TODO: Something more impressive.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File example/square_tiling.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@xs</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-ivar">@ys</span>.<span class="ruby-identifier">values</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;(#{x}, #{y})&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-string">', '</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(width, height, square_sizes)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Takes the width and height of the rectangle to pack the squares into. Then
+the sizes of the squares that should be packed into the rectangle. The
+sizes must be sorted.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File example/square_tiling.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-identifier">square_sizes</span>)
+  <span class="ruby-ivar">@sizes</span> = <span class="ruby-identifier">square_sizes</span>
+  <span class="ruby-ivar">@square_count</span> = <span class="ruby-ivar">@sizes</span>.<span class="ruby-identifier">size</span>
+  
+  <span class="ruby-comment"># The coordinates of the placed squares.</span>
+  <span class="ruby-ivar">@xs</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-ivar">@square_count</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">width</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@sizes</span>.<span class="ruby-identifier">min</span>))
+  <span class="ruby-ivar">@ys</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-ivar">@square_count</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">height</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@sizes</span>.<span class="ruby-identifier">min</span>))
+  
+  <span class="ruby-comment"># The essential constraints of the problem.</span>
+  <span class="ruby-ivar">@square_count</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># Each square must be placed within the bounds</span>
+    <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">width</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">i</span>]
+    <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">height</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">i</span>]
+    
+    <span class="ruby-comment"># Pairwise conditions, no pair of squares may overlap.</span>
+    <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># That the two squares don't overlap means that i is left of j, </span>
+      <span class="ruby-comment"># or j is left of i, or i is above j, or j is above i.</span>
+      ((<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">|</span> 
+        ((<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">j</span>]) <span class="ruby-operator">|</span> 
+        ((<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">|</span> 
+        ((<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">j</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># A couple of implied constraints that only serve to make the solving </span>
+  <span class="ruby-comment"># faster:</span>
+
+  <span class="ruby-comment"># The combined size of all squares occupying a column must be equal to the </span>
+  <span class="ruby-comment"># total height.</span>
+  <span class="ruby-identifier">occupied_length_must_equal_total_length</span>(<span class="ruby-identifier">height</span>, <span class="ruby-identifier">width</span>, <span class="ruby-ivar">@xs</span>)
+  <span class="ruby-comment"># The combined size of all squares occupying a row must be equal to the </span>
+  <span class="ruby-comment"># total width.</span>
+  <span class="ruby-identifier">occupied_length_must_equal_total_length</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-ivar">@ys</span>)
+
+  <span class="ruby-comment"># Symmetry-breaking constraint: Order squares of the same size.</span>
+  <span class="ruby-ivar">@square_count</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-ivar">@sizes</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Place the squares left to right on the x-axis first, then the y-axis.</span>
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-ivar">@xs</span>, <span class="ruby-value">:variable</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:smallest_min</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:min</span>
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-ivar">@ys</span>, <span class="ruby-value">:variable</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:smallest_min</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:min</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

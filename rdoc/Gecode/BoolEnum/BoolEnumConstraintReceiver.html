@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::BoolEnum::BoolEnumConstraintReceiver - Gecode/R</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../ConstraintReceiver.html">Gecode::ConstraintReceiver</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-channel">#channel</a>
+    
+    <li ><a href="#method-i-in">#in</a>
+    
+    <li ><a href="#method-i-match">#match</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::BoolEnum::BoolEnumConstraintReceiver">
+  <h1 id="class-Gecode::BoolEnum::BoolEnumConstraintReceiver" class="class">
+    class Gecode::BoolEnum::BoolEnumConstraintReceiver
+  </h1>
+
+  <section class="description">
+    
+<p><a href="BoolEnumConstraintReceiver.html">BoolEnumConstraintReceiver</a>
+contains all constraints that can be placed on a <a
+href="BoolEnumOperand.html">BoolEnumOperand</a>.</p>
+
+<p>Constraints are placed by calling <a
+href="../Operand.html#method-i-must">Gecode::Operand#must</a> (or any other
+of the variations defined in <a href="../Operand.html">Operand</a>), which
+produces a <a
+href="BoolEnumConstraintReceiver.html">BoolEnumConstraintReceiver</a> from
+which the desired constraint can be used.</p>
+
+<h4 id="class-Gecode::BoolEnum::BoolEnumConstraintReceiver-label-Examples+">Examples <span><a href="#class-Gecode::BoolEnum::BoolEnumConstraintReceiver-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Constrains <code>bool_enum</code>, with three boolean operands, to take the
+value of the tuples [false, true, false] or [true, false, true]  using <a
+href="BoolEnumConstraintReceiver.html#method-i-in">#in</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">bool_enum</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span> [[<span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>, <span class="ruby-keyword">false</span>], [<span class="ruby-keyword">true</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>]]
+</pre>
+
+<p>Constrains <code>bool_enum</code> to channel <code>int_operand</code> using
+<a href="BoolEnumConstraintReceiver.html#method-i-channel">#channel</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">bool_enum</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">channel</span> <span class="ruby-identifier">int_operand</span>
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-channel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">channel</span><span
+            class="method-args">(integer_operand, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains this enumeration to “channel” <code>integer_operand</code>.
+This  constrains the integer operand to take value i exactly when the 
+operand at index i in the boolean enumeration is true and the others  are
+false.</p>
+
+<p>Beyond the common options the channel constraint can also take the
+following option:</p>
+<dl class="rdoc-list label-list"><dt>:offset
+<dd>
+<p>Specifies an offset for the integer operand. If the offset is set to k then
+the integer operand takes value i+k exactly  when the operand at index i in
+the boolean enumeration is  true and the rest are false.</p>
+</dd></dl>
+
+<p>Neither reification nor negation is supported. The int operand and the
+enumeration can be interchanged.</p>
+
+<h4 id="method-i-channel-label-Examples+">Examples <span><a href="#method-i-channel-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains the enumeration called +option_is_selected+ to be false </span>
+<span class="ruby-comment"># in the first four positions and have exactly one true operand in </span>
+<span class="ruby-comment"># the other. </span>
+<span class="ruby-identifier">option_is_selected</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">channel</span> <span class="ruby-identifier">selected_option_index</span> 
+<span class="ruby-identifier">selected_option_index</span>.<span class="ruby-identifier">must_be</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span>
+
+<span class="ruby-comment"># Constrains the enumeration called +option_is_selected+ to be false </span>
+<span class="ruby-comment"># in the first five positions and have exactly one true operand in </span>
+<span class="ruby-comment"># the other. </span>
+<span class="ruby-identifier">selected_option_index</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">channel</span>(<span class="ruby-identifier">option_is_selected</span>, :<span class="ruby-identifier">offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>) 
+<span class="ruby-identifier">selected_option_index</span>.<span class="ruby-identifier">must_be</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">3</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="channel-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/channel.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>(<span class="ruby-identifier">integer_operand</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated channel constraint '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'is not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value">:reify</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'The channel constraint does not support the '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'reification option.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">integer_operand</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Expected an integer operand, got '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-node">&quot;#{integer_operand.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:rhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">integer_operand</span>, 
+    <span class="ruby-value">:offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:offset</span>) <span class="ruby-operator">||</span> <span class="ruby-value">0</span>)
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Channel</span><span class="ruby-operator">::</span><span class="ruby-constant">ChannelConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-in" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in</span><span
+            class="method-args">(tuples, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains all the operands in this enumeration to be equal to one of the
+specified tuples. Neither negation nor reification is supported.</p>
+
+<h4 id="method-i-in-label-Examples+">Examples <span><a href="#method-i-in-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Constrains the three boolean operands in +bools+ to either</span>
+<span class="ruby-comment"># be true, false, true, or false, false, true.</span>
+<span class="ruby-identifier">bools</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span> [[<span class="ruby-keyword">true</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>], [<span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>]]
+
+<span class="ruby-comment"># The same as above, but preferring speed over low memory usage.</span>
+<span class="ruby-identifier">bools</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>([[<span class="ruby-keyword">true</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>], [<span class="ruby-keyword">false</span>, <span class="ruby-keyword">false</span>, <span class="ruby-keyword">true</span>]], 
+  :<span class="ruby-identifier">kind</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">speed</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="in-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/extensional.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated tuple constraint is '</span> <span class="ruby-operator">+</span>
+      <span class="ruby-string">'not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the tuple '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">util</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>
+  
+  <span class="ruby-comment"># Check that the tuples are correct.</span>
+  <span class="ruby-identifier">expected_size</span> = <span class="ruby-ivar">@params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">size</span>
+  <span class="ruby-identifier">util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">perform_tuple_checks</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">expected_size</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tuple</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tuple</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">TrueClass</span>) <span class="ruby-keyword">or</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">FalseClass</span>) }
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'All tuples must contain booleans.'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:tuples</span>] = <span class="ruby-identifier">tuples</span>
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Extensional</span><span class="ruby-operator">::</span><span class="ruby-constant">TupleConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+    <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-match" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">match</span><span
+            class="method-args">(regexp, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the sequence of operands in this enumeration to match a
+specified regexp in the boolean domain. Neither negation nor reification is
+supported.</p>
+
+<p>The regular expressions are specified as described in 
+IntEnumConstraintReceiver#match but true and false can be used instead of
+integers.</p>
+
+<h4 id="method-i-match-label-Examples+">Examples <span><a href="#method-i-match-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre># Constrains the two boolean operands in +bools+ to be false
+# and true respectively.
+bools.must.match [false, true]
+
+# Constrains the boolean operands in +bools+ to be false,
+# except for three consecutive operands which should be true
+# followed by false followed by true.
+bools.must.match [repeat(false), true, false, true, repeat(false)]]</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="match-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/extensional.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated regexp constraint '</span> <span class="ruby-operator">+</span>
+      <span class="ruby-string">'is not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the regexp '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:regexp</span>] = 
+    <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">parse_regexp</span> <span class="ruby-identifier">regexp</span>
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Extensional</span><span class="ruby-operator">::</span><span class="ruby-constant">RegexpConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

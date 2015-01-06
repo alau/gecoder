@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class SendMostMoney - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="Gecode/Mixin.html">Gecode::Mixin</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-SendMostMoney">
+  <h1 id="class-SendMostMoney" class="class">
+    class SendMostMoney
+  </h1>
+
+  <section class="description">
+    
+<p>Solves the cryptarithmetic send+most=money problem while maximizing the
+value of “money”.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-money" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">money</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File example/send_most_money.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-comment"># Set up the variables, 9 letters with domain 0..9.</span>
+  <span class="ruby-identifier">s</span>,<span class="ruby-identifier">e</span>,<span class="ruby-identifier">n</span>,<span class="ruby-identifier">d</span>,<span class="ruby-identifier">m</span>,<span class="ruby-identifier">o</span>,<span class="ruby-identifier">s</span>,<span class="ruby-identifier">t</span>,<span class="ruby-identifier">y</span> = <span class="ruby-identifier">letters_is_an</span> <span class="ruby-identifier">int_var_array</span>(<span class="ruby-value">9</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>)
+  <span class="ruby-comment"># Express the quantity we are optimizing, in this case money.</span>
+  <span class="ruby-comment"># This utilises that any operand can be converted into a variable.</span>
+  <span class="ruby-ivar">@money</span> = <span class="ruby-identifier">equation_row</span>(<span class="ruby-identifier">m</span>,<span class="ruby-identifier">o</span>,<span class="ruby-identifier">n</span>,<span class="ruby-identifier">e</span>,<span class="ruby-identifier">y</span>).<span class="ruby-identifier">to_int_var</span>
+  
+  <span class="ruby-comment"># Set up the constraints.</span>
+  <span class="ruby-comment"># The equation must hold.</span>
+  (<span class="ruby-identifier">equation_row</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">e</span>, <span class="ruby-identifier">n</span>, <span class="ruby-identifier">d</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">equation_row</span>(<span class="ruby-identifier">m</span>, <span class="ruby-identifier">o</span>, <span class="ruby-identifier">s</span>, <span class="ruby-identifier">t</span>)).<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> 
+    <span class="ruby-identifier">equation_row</span>(<span class="ruby-identifier">m</span>, <span class="ruby-identifier">o</span>, <span class="ruby-identifier">n</span>, <span class="ruby-identifier">e</span>, <span class="ruby-identifier">y</span>) 
+  
+  <span class="ruby-comment"># The initial letters may not be 0.</span>
+  <span class="ruby-identifier">s</span>.<span class="ruby-identifier">must_not</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  <span class="ruby-identifier">m</span>.<span class="ruby-identifier">must_not</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  
+  <span class="ruby-comment"># All letters must be assigned different digits.</span>
+  <span class="ruby-identifier">letters</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">distinct</span>
+
+  <span class="ruby-comment"># Set the branching.</span>
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-identifier">letters</span>, <span class="ruby-value">:variable</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:smallest_size</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:min</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

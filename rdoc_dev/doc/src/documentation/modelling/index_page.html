@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>index.page - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../../";
+</script>
+
+<script src="../../../../js/jquery.js"></script>
+<script src="../../../../js/darkfish.js"></script>
+
+<link href="../../../../css/fonts.css" rel="stylesheet">
+<link href="../../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../../CHANGES.html">CHANGES</a>
+  
+    <li><a href="../../../../COPYING.html">COPYING</a>
+  
+    <li><a href="../../../../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../../../Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="../../../../LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="../../../../README.html">README</a>
+  
+    <li><a href="../../../../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../../../../THANKS.html">THANKS</a>
+  
+    <li><a href="../../../../doc/config_yaml.html">config.yaml</a>
+  
+    <li><a href="../../../../doc/metainfo_yaml.html">metainfo.yaml</a>
+  
+    <li><a href="../../../../doc/output/rspec_html.html">rspec.html</a>
+  
+    <li><a href="../../../../doc/src/404-error_page.html">404-error.page</a>
+  
+    <li><a href="../../../../doc/src/default_template.html">default.template</a>
+  
+    <li><a href="../../../../doc/src/details/changes_page.html">changes.page</a>
+  
+    <li><a href="../../../../doc/src/details/contribute_page.html">contribute.page</a>
+  
+    <li><a href="../../../../doc/src/details/credits_page.html">credits.page</a>
+  
+    <li><a href="../../../../doc/src/details/development_page.html">development.page</a>
+  
+    <li><a href="../../../../doc/src/details/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/faq_page.html">faq.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/formulating_problems_page.html">formulating_problems.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/modelling/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/modelling/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/modelling/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/boolean-enum-operands_page.html">boolean-enum-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/boolean-operands_page.html">boolean-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/integer-enum-operands_page.html">integer-enum-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/integer-operands_page.html">integer-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/selected-set-operands_page.html">selected-set-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/set-elements-operands_page.html">set-elements-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/set-enum-operands_page.html">set-enum-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/set-operands_page.html">set-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/searching_for_solutions_page.html">searching_for_solutions.page</a>
+  
+    <li><a href="../../../../doc/src/examples/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/examples/magic-sequence_page.html">magic-sequence.page</a>
+  
+    <li><a href="../../../../doc/src/examples/minesweeper_page.html">minesweeper.page</a>
+  
+    <li><a href="../../../../doc/src/examples/n-queens_page.html">n-queens.page</a>
+  
+    <li><a href="../../../../doc/src/examples/nonogram_page.html">nonogram.page</a>
+  
+    <li><a href="../../../../doc/src/examples/send-more-money_page.html">send-more-money.page</a>
+  
+    <li><a href="../../../../doc/src/examples/send-most-money_page.html">send-most-money.page</a>
+  
+    <li><a href="../../../../doc/src/examples/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../../../doc/src/examples/sudoku-set_page.html">sudoku-set.page</a>
+  
+    <li><a href="../../../../doc/src/examples/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../../../doc/src/examples/survo_page.html">survo.page</a>
+  
+    <li><a href="../../../../doc/src/features_page.html">features.page</a>
+  
+    <li><a href="../../../../doc/src/frontpage_template.html">frontpage.template</a>
+  
+    <li><a href="../../../../doc/src/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/installation_page.html">installation.page</a>
+  
+    <li><a href="../../../../doc/src/sitemap_page.html">sitemap.page</a>
+  
+    <li><a href="../../../../doc/src/sitemap_sitemap.html">sitemap.sitemap</a>
+  
+    <li><a href="../../../../doc/src/styles_css.html">styles.css</a>
+  
+    <li><a href="../../../../ext/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../../../ext/mkmf_log.html">mkmf.log</a>
+  
+    <li><a href="../../../../gecoder_log.html">gecoder.log</a>
+  
+    <li><a href="../../../../tasks/dependencies_txt.html">dependencies</a>
+  
+    <li><a href="../../../../tasks/distribution_rake.html">distribution.rake</a>
+  
+    <li><a href="../../../../tasks/rcov_rake.html">rcov.rake</a>
+  
+    <li><a href="../../../../tasks/specs_rake.html">specs.rake</a>
+  
+    <li><a href="../../../../tasks/svn_rake.html">svn.rake</a>
+  
+    <li><a href="../../../../tasks/website_rake.html">website.rake</a>
+  
+    <li><a href="../../../../vendor/gecode/bool-shr_patch.html">bool-shr.patch</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0-patch-notes.html">gecode-2.2.0-patch-notes</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../../vendor/rust/README.html">README</a>
+  
+    <li><a href="../../../../vendor/rust/test/Makefile.html">Makefile</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page doc/src/documentation/modelling/index.page">
+<hr>
+
+<p>title: Introduction to Modelling longTitle: How to Model a Constraint
+Programming Problem using Gecode/R inMenu: true description: How to use
+Gecode/R to model problems and solve them using constraint programming.
+What to watch out for and how to tweak the performance.</p>
+<hr>
+
+<p>h1. Modelling a Problem</p>
+
+<p>&lt;div class=“summary”&gt; &lt;p&gt;Modelling can be broken down into
+several steps. The first steps aim to express the problem so that one can
+get a solution. The rest of the steps aim to look for ways to improve the
+pruning so that one can get a solution quicker.&lt;/p&gt; &lt;/div&gt;</p>
+
+<p>The following points are duplicated in the modelling examples found in the
+menu. It might be helpful to read an example in parallel with this page to
+get some concrete examples of each step.</p>
+
+<p>h2. Understand the Problem</p>
+
+<p>The first step is to understand the problem, more specifically to
+understand  what is required of a solution to the problem. Express the
+entire problem in  a few concise bullet points that describe exactly what
+is expected of a solution.</p>
+
+<p>h2. Select the View</p>
+
+<p>The next step is to select how to represent the problem in terms of
+variables.  The variables will need to include the sought solutions.</p>
+
+<p>h3. Be Economic</p>
+
+<p>Try to pick a view that cuts down on the number of constraints that 
+explicitly have to be expressed.</p>
+
+<p>An example is the {example: {name: n-queens, linkText: n-queens problem}} 
+where the choice of view takes care of the constraint that there may only
+be one queen per column. Using for instance an n-times-n matrix of boolean
+variables would have required explicitly expressing that constraint.</p>
+
+<p>h3. Be Aware of Multiple Views</p>
+
+<p>There may very well be multiple views that are equally good at representing
+the problem. Being aware of more than one might help further down the line.
+Constraints might end up being hard to describe in one view, but trivial in
+another.</p>
+
+<p>There’s no need to restrict oneself to only using one view. One can link
+multiple views using the channel constraints to get the best of both
+worlds.</p>
+
+<p>h2. Express the Constraints</p>
+
+<p>Now apply your understanding of the problem. Take a look at the points and
+try to convert them into constraints (possibly multiple).  Multiple views
+can help here since it might be easier to find corresponding constraints
+when looking at a different view of the problem.</p>
+
+<p>Remember that reification can be used to combine constraints and thereby
+express complex rules. Reification should be thought of as a last resort as
+a single constraint will probably be more powerful than if you glue several
+constraints  together with reification.</p>
+
+<p>h2. Select Branching Strategy</p>
+
+<p>The last thing to think about is the branching. Anything that you tell <a
+href="../../../../Gecode.html">Gecode</a> to branch on will be required to
+be assigned in a solution. Do not branch on  variables that you do not need
+the values of from a solution.</p>
+
+<p>Selecting branching strategy is mostly a question about coming up with a
+heuristic that fits the problem. This can either be done by reasoning about
+how the possibilities should best be explored or by simply testing all the
+strategies to find out which work and which don’t.</p>
+
+<p>h2. Tweak the Performance</p>
+
+<p>By now you should be able to feed the solver a simple problem and get pack
+a correct solution. If it works fast enough for you then that’s great, if
+not then you need to tweak the performance.</p>
+
+<p>h3. Select a Better Branching Strategy</p>
+
+<p>Branching strategies can make a large difference. Which strategy is best
+depends on the problem. Compare the available ones if you haven’t already
+done so.</p>
+
+<p>h3. Change Propagation Strengths</p>
+
+<p>Using different propagation strength can, much like branching strategies,
+make  a large difference. Much like branching strategies it’s a matter of
+reasoning  or simply trying them out.</p>
+
+<p>h3. Add Implied Constraints</p>
+
+<p>Just because you have given the solver enough constraints to be able to
+identify a solution doesn’t mean that you have to stop there. It might
+still be worth  explicitly expressing some of the constraints that are
+implicitly given by the  expressed constraints. It will not change the
+solutions, but it can help <a href="../../../../Gecode.html">Gecode</a> 
+prune the search space faster.</p>
+
+<p>h3. Break Symmetries</p>
+
+<p>In many situations symmetries will appear.</p>
+
+<p>In the {example: {name: n-queens, linkText: n-queens example}} there are
+several  rotational and reflection symmetries. The chessboard can for
+instance be rotated  without changing whether an assignment is a solution.
+Nothing is done to counter  the symmetries in the example. There are in
+total only 12 unique solutions, but  the example will return 92.</p>
+
+<p>Symmetries are unnecessary since they add nothing. Removing them means that
+you get a smaller search space, which means that you can find a  solution
+faster.</p>
+
+<p>The way to remove symmetries is to impose additional constraints that do
+not remove any unique solutions, only symmetries. In the n-queens case you
+can for instance constrain the queen in the first column to be above the
+queen in the last column. Any solution that the additional constraint
+invalidates can be turned into a valid solution through reflection in the
+y-axis of the board. Hence only removing symmetries, not unique solutions.</p>
+
+<p>h2. Other Resources</p>
+<ul><li>
+<p>“Modelling for Constraint Programming”:<a
+href="http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf">www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf</a></p>
+</li></ul>
+
+<p>from the “Constraint Programming summer  school”:<a
+href="http://www.math.unipd.it/~frossi/cp-school">www.math.unipd.it/~frossi/cp-school</a>/.</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

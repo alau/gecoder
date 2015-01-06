@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./CHANGES.html">CHANGES</a>
+  
+    <li><a href="./COPYING.html">COPYING</a>
+  
+    <li><a href="./Gemfile.html">Gemfile</a>
+  
+    <li><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="./LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="./README.html">README</a>
+  
+    <li><a href="./Rakefile.html">Rakefile</a>
+  
+    <li><a href="./THANKS.html">THANKS</a>
+  
+    <li><a href="./doc/config_yaml.html">config.yaml</a>
+  
+    <li><a href="./doc/metainfo_yaml.html">metainfo.yaml</a>
+  
+    <li><a href="./doc/output/rspec_html.html">rspec.html</a>
+  
+    <li><a href="./doc/src/404-error_page.html">404-error.page</a>
+  
+    <li><a href="./doc/src/default_template.html">default.template</a>
+  
+    <li><a href="./doc/src/details/changes_page.html">changes.page</a>
+  
+    <li><a href="./doc/src/details/contribute_page.html">contribute.page</a>
+  
+    <li><a href="./doc/src/details/credits_page.html">credits.page</a>
+  
+    <li><a href="./doc/src/details/development_page.html">development.page</a>
+  
+    <li><a href="./doc/src/details/index_page.html">index.page</a>
+  
+    <li><a href="./doc/src/documentation/faq_page.html">faq.page</a>
+  
+    <li><a href="./doc/src/documentation/formulating_problems_page.html">formulating_problems.page</a>
+  
+    <li><a href="./doc/src/documentation/index_page.html">index.page</a>
+  
+    <li><a href="./doc/src/documentation/modelling/index_page.html">index.page</a>
+  
+    <li><a href="./doc/src/documentation/modelling/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="./doc/src/documentation/modelling/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/boolean-enum-operands_page.html">boolean-enum-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/boolean-operands_page.html">boolean-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/index_page.html">index.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/integer-enum-operands_page.html">integer-enum-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/integer-operands_page.html">integer-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/selected-set-operands_page.html">selected-set-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/set-elements-operands_page.html">set-elements-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/set-enum-operands_page.html">set-enum-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/operands/set-operands_page.html">set-operands.page</a>
+  
+    <li><a href="./doc/src/documentation/searching_for_solutions_page.html">searching_for_solutions.page</a>
+  
+    <li><a href="./doc/src/examples/index_page.html">index.page</a>
+  
+    <li><a href="./doc/src/examples/magic-sequence_page.html">magic-sequence.page</a>
+  
+    <li><a href="./doc/src/examples/minesweeper_page.html">minesweeper.page</a>
+  
+    <li><a href="./doc/src/examples/n-queens_page.html">n-queens.page</a>
+  
+    <li><a href="./doc/src/examples/nonogram_page.html">nonogram.page</a>
+  
+    <li><a href="./doc/src/examples/send-more-money_page.html">send-more-money.page</a>
+  
+    <li><a href="./doc/src/examples/send-most-money_page.html">send-most-money.page</a>
+  
+    <li><a href="./doc/src/examples/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="./doc/src/examples/sudoku-set_page.html">sudoku-set.page</a>
+  
+    <li><a href="./doc/src/examples/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="./doc/src/examples/survo_page.html">survo.page</a>
+  
+    <li><a href="./doc/src/features_page.html">features.page</a>
+  
+    <li><a href="./doc/src/frontpage_template.html">frontpage.template</a>
+  
+    <li><a href="./doc/src/index_page.html">index.page</a>
+  
+    <li><a href="./doc/src/installation_page.html">installation.page</a>
+  
+    <li><a href="./doc/src/sitemap_page.html">sitemap.page</a>
+  
+    <li><a href="./doc/src/sitemap_sitemap.html">sitemap.sitemap</a>
+  
+    <li><a href="./doc/src/styles_css.html">styles.css</a>
+  
+    <li><a href="./ext/Makefile.html">Makefile</a>
+  
+    <li><a href="./ext/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="./ext/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="./ext/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="./ext/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="./ext/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="./ext/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="./ext/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="./ext/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="./ext/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="./ext/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="./ext/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="./ext/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="./ext/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="./ext/mkmf_log.html">mkmf.log</a>
+  
+    <li><a href="./gecoder_log.html">gecoder.log</a>
+  
+    <li><a href="./tasks/dependencies_txt.html">dependencies</a>
+  
+    <li><a href="./tasks/distribution_rake.html">distribution.rake</a>
+  
+    <li><a href="./tasks/rcov_rake.html">rcov.rake</a>
+  
+    <li><a href="./tasks/specs_rake.html">specs.rake</a>
+  
+    <li><a href="./tasks/svn_rake.html">svn.rake</a>
+  
+    <li><a href="./tasks/website_rake.html">website.rake</a>
+  
+    <li><a href="./vendor/gecode/bool-shr_patch.html">bool-shr.patch</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0-patch-notes.html">gecode-2.2.0-patch-notes</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="./vendor/gecode/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="./vendor/gecode/win32/include/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="./vendor/rust/README.html">README</a>
+  
+    <li><a href="./vendor/rust/test/Makefile.html">Makefile</a>
+  
+  </ul>
+</div>
+
+    <div id="classindex-section" class="nav-section">
+  <h3>Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./AddHeaderIdsContentConverter.html">AddHeaderIdsContentConverter</a>
+  
+    <li><a href="./ArithmeticSampleProblem.html">ArithmeticSampleProblem</a>
+  
+    <li><a href="./Array.html">Array</a>
+  
+    <li><a href="./BoolChannelSampleProblem.html">BoolChannelSampleProblem</a>
+  
+    <li><a href="./BoolEnumSampleProblem.html">BoolEnumSampleProblem</a>
+  
+    <li><a href="./BoolLinearSampleProblem.html">BoolLinearSampleProblem</a>
+  
+    <li><a href="./BoolSampleProblem.html">BoolSampleProblem</a>
+  
+    <li><a href="./BranchSampleProblem.html">BranchSampleProblem</a>
+  
+    <li><a href="./BreadcrumbsMenuStyle.html">BreadcrumbsMenuStyle</a>
+  
+    <li><a href="./ChannelSampleProblem.html">ChannelSampleProblem</a>
+  
+    <li><a href="./ClassWithMethodMissingFirst.html">ClassWithMethodMissingFirst</a>
+  
+    <li><a href="./ClassWithMethodMissingLast.html">ClassWithMethodMissingLast</a>
+  
+    <li><a href="./CountSampleProblem.html">CountSampleProblem</a>
+  
+    <li><a href="./CustomVarMatchers.html">CustomVarMatchers</a>
+  
+    <li><a href="./CustomVarMatchers/HaveBounds.html">CustomVarMatchers::HaveBounds</a>
+  
+    <li><a href="./CustomVarMatchers/HaveDomain.html">CustomVarMatchers::HaveDomain</a>
+  
+    <li><a href="./DifficultSampleProblem.html">DifficultSampleProblem</a>
+  
+    <li><a href="./DisjointSelectSampleProblem.html">DisjointSelectSampleProblem</a>
+  
+    <li><a href="./DistinctSampleProblem.html">DistinctSampleProblem</a>
+  
+    <li><a href="./ElementSampleProblem.html">ElementSampleProblem</a>
+  
+    <li><a href="./EquationProblem.html">EquationProblem</a>
+  
+    <li><a href="./ExampleScript.html">ExampleScript</a>
+  
+    <li><a href="./ExampleTag.html">ExampleTag</a>
+  
+    <li><a href="./FalseClass.html">FalseClass</a>
+  
+    <li><a href="./FixnumElementSampleProblem.html">FixnumElementSampleProblem</a>
+  
+    <li><a href="./FooterMenuStyle.html">FooterMenuStyle</a>
+  
+    <li><a href="./Gecode.html">Gecode</a>
+  
+    <li><a href="./Gecode/Bool.html">Gecode::Bool</a>
+  
+    <li><a href="./Gecode/Bool/BoolConstraintReceiver.html">Gecode::Bool::BoolConstraintReceiver</a>
+  
+    <li><a href="./Gecode/Bool/BoolOperand.html">Gecode::Bool::BoolOperand</a>
+  
+    <li><a href="./Gecode/BoolEnum.html">Gecode::BoolEnum</a>
+  
+    <li><a href="./Gecode/BoolEnum/BoolEnumConstraintReceiver.html">Gecode::BoolEnum::BoolEnumConstraintReceiver</a>
+  
+    <li><a href="./Gecode/BoolEnum/BoolEnumOperand.html">Gecode::BoolEnum::BoolEnumOperand</a>
+  
+    <li><a href="./Gecode/BoolVar.html">Gecode::BoolVar</a>
+  
+    <li><a href="./Gecode/ConstraintReceiver.html">Gecode::ConstraintReceiver</a>
+  
+    <li><a href="./Gecode/FixnumEnum.html">Gecode::FixnumEnum</a>
+  
+    <li><a href="./Gecode/FixnumEnum/FixnumEnumOperand.html">Gecode::FixnumEnum::FixnumEnumOperand</a>
+  
+    <li><a href="./Gecode/Int.html">Gecode::Int</a>
+  
+    <li><a href="./Gecode/Int/IntConstraintReceiver.html">Gecode::Int::IntConstraintReceiver</a>
+  
+    <li><a href="./Gecode/Int/IntOperand.html">Gecode::Int::IntOperand</a>
+  
+    <li><a href="./Gecode/IntEnum.html">Gecode::IntEnum</a>
+  
+    <li><a href="./Gecode/IntEnum/IntEnumConstraintReceiver.html">Gecode::IntEnum::IntEnumConstraintReceiver</a>
+  
+    <li><a href="./Gecode/IntEnum/IntEnumOperand.html">Gecode::IntEnum::IntEnumOperand</a>
+  
+    <li><a href="./Gecode/IntVar.html">Gecode::IntVar</a>
+  
+    <li><a href="./Gecode/MissingConstraintError.html">Gecode::MissingConstraintError</a>
+  
+    <li><a href="./Gecode/Mixin.html">Gecode::Mixin</a>
+  
+    <li><a href="./Gecode/Model.html">Gecode::Model</a>
+  
+    <li><a href="./Gecode/NoSolutionError.html">Gecode::NoSolutionError</a>
+  
+    <li><a href="./Gecode/Operand.html">Gecode::Operand</a>
+  
+    <li><a href="./Gecode/SearchAbortedError.html">Gecode::SearchAbortedError</a>
+  
+    <li><a href="./Gecode/SelectedSet.html">Gecode::SelectedSet</a>
+  
+    <li><a href="./Gecode/SelectedSet/SelectedSetConstraintReceiver.html">Gecode::SelectedSet::SelectedSetConstraintReceiver</a>
+  
+    <li><a href="./Gecode/SelectedSet/SelectedSetOperand.html">Gecode::SelectedSet::SelectedSetOperand</a>
+  
+    <li><a href="./Gecode/Set.html">Gecode::Set</a>
+  
+    <li><a href="./Gecode/Set/SetConstraintReceiver.html">Gecode::Set::SetConstraintReceiver</a>
+  
+    <li><a href="./Gecode/Set/SetOperand.html">Gecode::Set::SetOperand</a>
+  
+    <li><a href="./Gecode/SetElements.html">Gecode::SetElements</a>
+  
+    <li><a href="./Gecode/SetElements/SetElementsConstraintReceiver.html">Gecode::SetElements::SetElementsConstraintReceiver</a>
+  
+    <li><a href="./Gecode/SetElements/SetElementsOperand.html">Gecode::SetElements::SetElementsOperand</a>
+  
+    <li><a href="./Gecode/SetEnum.html">Gecode::SetEnum</a>
+  
+    <li><a href="./Gecode/SetEnum/SetEnumConstraintReceiver.html">Gecode::SetEnum::SetEnumConstraintReceiver</a>
+  
+    <li><a href="./Gecode/SetEnum/SetEnumOperand.html">Gecode::SetEnum::SetEnumOperand</a>
+  
+    <li><a href="./Gecode/SetVar.html">Gecode::SetVar</a>
+  
+    <li><a href="./Gecode/Util.html">Gecode::Util</a>
+  
+    <li><a href="./Gecode/Util/Extensional.html">Gecode::Util::Extensional</a>
+  
+    <li><a href="./GecodeR.html">GecodeR</a>
+  
+    <li><a href="./GecodeR/Specs.html">GecodeR::Specs</a>
+  
+    <li><a href="./GecodeR/Specs/GeneralHelper.html">GecodeR::Specs::GeneralHelper</a>
+  
+    <li><a href="./GecodeR/Specs/SetHelper.html">GecodeR::Specs::SetHelper</a>
+  
+    <li><a href="./GecodeRContentConverter.html">GecodeRContentConverter</a>
+  
+    <li><a href="./GecodeRaw.html">GecodeRaw</a>
+  
+    <li><a href="./GecodeRaw/BAB.html">GecodeRaw::BAB</a>
+  
+    <li><a href="./GecodeRaw/BoolVar.html">GecodeRaw::BoolVar</a>
+  
+    <li><a href="./GecodeRaw/BoolVarArray.html">GecodeRaw::BoolVarArray</a>
+  
+    <li><a href="./GecodeRaw/DFA.html">GecodeRaw::DFA</a>
+  
+    <li><a href="./GecodeRaw/DFS.html">GecodeRaw::DFS</a>
+  
+    <li><a href="./GecodeRaw/IntLimits.html">GecodeRaw::IntLimits</a>
+  
+    <li><a href="./GecodeRaw/IntSet.html">GecodeRaw::IntSet</a>
+  
+    <li><a href="./GecodeRaw/IntVar.html">GecodeRaw::IntVar</a>
+  
+    <li><a href="./GecodeRaw/IntVarArray.html">GecodeRaw::IntVarArray</a>
+  
+    <li><a href="./GecodeRaw/MiniModel.html">GecodeRaw::MiniModel</a>
+  
+    <li><a href="./GecodeRaw/MiniModel/BoolExpr.html">GecodeRaw::MiniModel::BoolExpr</a>
+  
+    <li><a href="./GecodeRaw/MiniModel/BoolRel.html">GecodeRaw::MiniModel::BoolRel</a>
+  
+    <li><a href="./GecodeRaw/REG.html">GecodeRaw::REG</a>
+  
+    <li><a href="./GecodeRaw/Search.html">GecodeRaw::Search</a>
+  
+    <li><a href="./GecodeRaw/Search/Config.html">GecodeRaw::Search::Config</a>
+  
+    <li><a href="./GecodeRaw/Search/Options.html">GecodeRaw::Search::Options</a>
+  
+    <li><a href="./GecodeRaw/Search/Statistics.html">GecodeRaw::Search::Statistics</a>
+  
+    <li><a href="./GecodeRaw/Search/Stop.html">GecodeRaw::Search::Stop</a>
+  
+    <li><a href="./GecodeRaw/SetLimits.html">GecodeRaw::SetLimits</a>
+  
+    <li><a href="./GecodeRaw/SetVar.html">GecodeRaw::SetVar</a>
+  
+    <li><a href="./GecodeRaw/SetVarArray.html">GecodeRaw::SetVarArray</a>
+  
+    <li><a href="./GecodeRaw/TupleSet.html">GecodeRaw::TupleSet</a>
+  
+    <li><a href="./GoogleSiteMapHandler.html">GoogleSiteMapHandler</a>
+  
+    <li><a href="./ImportRDocTag.html">ImportRDocTag</a>
+  
+    <li><a href="./IntEnumArithmeticSampleProblem.html">IntEnumArithmeticSampleProblem</a>
+  
+    <li><a href="./LinearPropertySampleProblem.html">LinearPropertySampleProblem</a>
+  
+    <li><a href="./LinearSampleProblem.html">LinearSampleProblem</a>
+  
+    <li><a href="./MagicSequence.html">MagicSequence</a>
+  
+    <li><a href="./Minesweeper.html">Minesweeper</a>
+  
+    <li><a href="./MixinSampleProblem.html">MixinSampleProblem</a>
+  
+    <li><a href="./NQueens.html">NQueens</a>
+  
+    <li><a href="./Nonogram.html">Nonogram</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./QuickRefTag.html">QuickRefTag</a>
+  
+    <li><a href="./RDoc.html">RDoc</a>
+  
+    <li><a href="./RDoc/Page.html">RDoc::Page</a>
+  
+    <li><a href="./RDocTag.html">RDocTag</a>
+  
+    <li><a href="./RSpec.html">RSpec</a>
+  
+    <li><a href="./RSpec/SyntaxConverter.html">RSpec::SyntaxConverter</a>
+  
+    <li><a href="./RSpec/SyntaxConverter/RSpecContent.html">RSpec::SyntaxConverter::RSpecContent</a>
+  
+    <li><a href="./RSpec/SyntaxConverter/RubyHtml.html">RSpec::SyntaxConverter::RubyHtml</a>
+  
+    <li><a href="./RSpec/SyntaxConverter/RubyHtmlFile.html">RSpec::SyntaxConverter::RubyHtmlFile</a>
+  
+    <li><a href="./RSpecContentConverter.html">RSpecContentConverter</a>
+  
+    <li><a href="./Raw.html">Raw</a>
+  
+    <li><a href="./ReifSugarSampleProblem.html">ReifSugarSampleProblem</a>
+  
+    <li><a href="./Rust.html">Rust</a>
+  
+    <li><a href="./Rust/Attribute.html">Rust::Attribute</a>
+  
+    <li><a href="./Rust/Bindings.html">Rust::Bindings</a>
+  
+    <li><a href="./Rust/Class.html">Rust::Class</a>
+  
+    <li><a href="./Rust/Class/Constructor.html">Rust::Class::Constructor</a>
+  
+    <li><a href="./Rust/Class/Method.html">Rust::Class::Method</a>
+  
+    <li><a href="./Rust/Class/Operator.html">Rust::Class::Operator</a>
+  
+    <li><a href="./Rust/ClassWrapper.html">Rust::ClassWrapper</a>
+  
+    <li><a href="./Rust/ClassWrapper/Constructor.html">Rust::ClassWrapper::Constructor</a>
+  
+    <li><a href="./Rust/ClassWrapper/Method.html">Rust::ClassWrapper::Method</a>
+  
+    <li><a href="./Rust/Constant.html">Rust::Constant</a>
+  
+    <li><a href="./Rust/Container.html">Rust::Container</a>
+  
+    <li><a href="./Rust/Cpp.html">Rust::Cpp</a>
+  
+    <li><a href="./Rust/Cpp/IfaceParser.html">Rust::Cpp::IfaceParser</a>
+  
+    <li><a href="./Rust/CxxClass.html">Rust::CxxClass</a>
+  
+    <li><a href="./Rust/CxxClass/Constructor.html">Rust::CxxClass::Constructor</a>
+  
+    <li><a href="./Rust/CxxClass/Method.html">Rust::CxxClass::Method</a>
+  
+    <li><a href="./Rust/Element.html">Rust::Element</a>
+  
+    <li><a href="./Rust/Enum.html">Rust::Enum</a>
+  
+    <li><a href="./Rust/Function.html">Rust::Function</a>
+  
+    <li><a href="./Rust/Function/DefaultParameter.html">Rust::Function::DefaultParameter</a>
+  
+    <li><a href="./Rust/Function/Parameter.html">Rust::Function::Parameter</a>
+  
+    <li><a href="./Rust/Function/StaticParameter.html">Rust::Function::StaticParameter</a>
+  
+    <li><a href="./Rust/Namespace.html">Rust::Namespace</a>
+  
+    <li><a href="./Rust/Templates.html">Rust::Templates</a>
+  
+    <li><a href="./Rust/Test.html">Rust::Test</a>
+  
+    <li><a href="./Rust/Test/CWrapperTest.html">Rust::Test::CWrapperTest</a>
+  
+    <li><a href="./Rust/Test/ConstantsTest.html">Rust::Test::ConstantsTest</a>
+  
+    <li><a href="./Rust/Test/CppClassTest.html">Rust::Test::CppClassTest</a>
+  
+    <li><a href="./Rust/Test/ExtensionTest.html">Rust::Test::ExtensionTest</a>
+  
+    <li><a href="./Rust/Type.html">Rust::Type</a>
+  
+    <li><a href="./SampleOptimizationProblem.html">SampleOptimizationProblem</a>
+  
+    <li><a href="./SampleOptimizationProblem2.html">SampleOptimizationProblem2</a>
+  
+    <li><a href="./SampleProblem.html">SampleProblem</a>
+  
+    <li><a href="./SectionsMenuStyle.html">SectionsMenuStyle</a>
+  
+    <li><a href="./SelectionSampleProblem.html">SelectionSampleProblem</a>
+  
+    <li><a href="./SendMostMoney.html">SendMostMoney</a>
+  
+    <li><a href="./SetChannelSampleProblem.html">SetChannelSampleProblem</a>
+  
+    <li><a href="./SetElementSampleProblem.html">SetElementSampleProblem</a>
+  
+    <li><a href="./SetEnumDistinctSampleProblem.html">SetEnumDistinctSampleProblem</a>
+  
+    <li><a href="./SidbarMenuStyle.html">SidbarMenuStyle</a>
+  
+    <li><a href="./SortSampleProblem.html">SortSampleProblem</a>
+  
+    <li><a href="./Spec.html">Spec</a>
+  
+    <li><a href="./SquareTiling.html">SquareTiling</a>
+  
+    <li><a href="./SudokuSet.html">SudokuSet</a>
+  
+    <li><a href="./SurvoPuzzle.html">SurvoPuzzle</a>
+  
+    <li><a href="./TabMenuStyle.html">TabMenuStyle</a>
+  
+    <li><a href="./TrueClass.html">TrueClass</a>
+  
+    <li><a href="./Vector.html">Vector</a>
+  
+    <li><a href="./unknown.html">unknown</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main">
+<p>This is the API documentation for Gecode/R Developers RDoc.
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

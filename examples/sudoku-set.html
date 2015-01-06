@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Solving Sudoku using Constraint Programming with Sets in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="An example showing how to solve a sudoku puzzle using constraint programming with sets in Ruby with Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Examples</a> > <span>Sudoku with sets</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Examples</h3><ul id="secondNav"><li><a href="index.html">Overview</a></li><li><a href="send-more-money.html">send+more=money</a></li><li><a href="send-most-money.html">send+most=money</a></li><li><a href="sudoku.html">Sudoku</a></li><li><span>Sudoku with sets</span></li><li><a href="n-queens.html">N-queens</a></li><li><a href="magic-sequence.html">Magic Sequence</a></li><li><a href="nonogram.html">Nonogram (Paint by Numbers)</a></li><li><a href="square-tiling.html">Square tiling</a></li><li><a href="minesweeper.html">Minesweeper</a></li><li><a href="survo.html">Survo Puzzle</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#problem">Problem</a></li><li><a href="#code">Code</a></li><li><a href="#output">Output</a><ul class="section-links"><li><a href="#notes">Notes</a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Sudoku with Sets</h1>
+
+
+	<h2 id="problem">Problem</h2>
+
+
+	<blockquote>
+		<p>The objective is to fill a 9&#215;9 grid so that each column, each row, and each 
+of the nine 3&#215;3 boxes contains the digits from 1 to 9. The puzzle setter 
+provides a partially completed grid. &#8211; <a href="http://en.wikipedia.org/wiki/Soduko">Wikipedia</a></p>
+	</blockquote>
+
+
+	<h2 id="code">Code</h2>
+
+
+	<p><div class="CodeRay">
+  <div class="code"><pre><span class="no">  1</span> require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+<span class="no">  2</span> require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+<span class="no">  3</span> require <span class="s"><span class="dl">'</span><span class="k">enumerator</span><span class="dl">'</span></span>
+<span class="no">  4</span> 
+<span class="no">  5</span> <span class="c"># Solves the sudoku problem using sets. The model used is a fairly direct </span>
+<span class="no">  6</span> <span class="c"># translation of the corresponding Gecode example: </span>
+<span class="no">  7</span> <span class="c"># http://www.gecode.org/gecode-doc-latest/sudoku-set_8cc-source.html .</span>
+<span class="no">  8</span> <span class="r">class</span> <span class="cl">SudokuSet</span>
+<span class="no">  9</span>   include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+<span class="no"> <strong>10</strong></span> 
+<span class="no"> 11</span>   <span class="c"># Takes a 9x9 matrix of values in the initial sudoku, 0 if the square is </span>
+<span class="no"> 12</span>   <span class="c"># empty. </span>
+<span class="no"> 13</span>   <span class="r">def</span> <span class="fu">initialize</span>(predefined_values)
+<span class="no"> 14</span>     <span class="c"># Verify that the input is of a valid size.</span>
+<span class="no"> 15</span>     <span class="iv">@size</span> = n = predefined_values.row_size
+<span class="no"> 16</span>     block_size = <span class="co">Math</span>.sqrt(n).round
+<span class="no"> 17</span>     <span class="r">unless</span> predefined_values.square? <span class="r">and</span> block_size**<span class="i">2</span> == n
+<span class="no"> 18</span>       raise <span class="co">ArgumentError</span>, <span class="s"><span class="dl">'</span><span class="k">Incorrect value matrix size.</span><span class="dl">'</span></span>
+<span class="no"> 19</span>     <span class="r">end</span>
+<span class="no"> <strong>20</strong></span>     sub_count = block_size
+<span class="no"> 21</span>     
+<span class="no"> 22</span>     <span class="c"># Create one set per assignable number (i.e. 1..9). Each set contains the </span>
+<span class="no"> 23</span>     <span class="c"># position of all squares that the number is located in. The squares are </span>
+<span class="no"> 24</span>     <span class="c"># given numbers from 1 to 81. Each set therefore has an empty lower bound </span>
+<span class="no"> 25</span>     <span class="c"># (since we have no guarantees where a number will end up) and 1..81 as </span>
+<span class="no"> 26</span>     <span class="c"># upper bound (as it may potentially occurr in any square). We know that</span>
+<span class="no"> 27</span>     <span class="c"># each assignable number must occurr 9 times in a solved sudoku, so we </span>
+<span class="no"> 28</span>     <span class="c"># set the cardinality to 9..9 .</span>
+<span class="no"> 29</span>     sets_is_an set_var_array(n, [], <span class="i">1</span>..n*n, n..n)
+<span class="no"> <strong>30</strong></span>     predefined_values.row_size.times <span class="r">do</span> |i|
+<span class="no"> 31</span>       predefined_values.column_size.times <span class="r">do</span> |j|
+<span class="no"> 32</span>         <span class="r">unless</span> predefined_values[i,j].zero?
+<span class="no"> 33</span>           <span class="c"># We add the constraint that the square position must occurr in the </span>
+<span class="no"> 34</span>           <span class="c"># set corresponding to the predefined value.</span>
+<span class="no"> 35</span>           sets[predefined_values[i,j] - <span class="i">1</span>].must_be.superset_of [i*n + j+<span class="i">1</span>]
+<span class="no"> 36</span>         <span class="r">end</span>
+<span class="no"> 37</span>       <span class="r">end</span>
+<span class="no"> 38</span>     <span class="r">end</span>
+<span class="no"> 39</span> 
+<span class="no"> <strong>40</strong></span>     <span class="c"># Build arrays containing the square positions of each row and column.</span>
+<span class="no"> 41</span>     rows = []
+<span class="no"> 42</span>     columns = []
+<span class="no"> 43</span>     n.times <span class="r">do</span> |i|
+<span class="no"> 44</span>       rows &lt;&lt; ((i*n + <span class="i">1</span>)..(i*n + n))
+<span class="no"> 45</span>       columns &lt;&lt; (<span class="i">0</span>...n).map{ |e| e*n + <span class="i">1</span> + i }
+<span class="no"> 46</span>     <span class="r">end</span>
+<span class="no"> 47</span>     
+<span class="no"> 48</span>     <span class="c"># Build arrays containing the square positions of each block.</span>
+<span class="no"> 49</span>     blocks = []
+<span class="no"> <strong>50</strong></span>     <span class="c"># The square numbers of the first block.</span>
+<span class="no"> 51</span>     first_block = (<span class="i">0</span>...block_size).map <span class="r">do</span> |e| 
+<span class="no"> 52</span>       ((n*e+<span class="i">1</span>)..(n*e+block_size)).to_a 
+<span class="no"> 53</span>     <span class="r">end</span>.flatten
+<span class="no"> 54</span>     block_size.times <span class="r">do</span> |i|
+<span class="no"> 55</span>       block_size.times <span class="r">do</span> |j| 
+<span class="no"> 56</span>         blocks &lt;&lt; first_block.map{ |e| e + (j*n*block_size)+(i*block_size) }
+<span class="no"> 57</span>       <span class="r">end</span>
+<span class="no"> 58</span>     <span class="r">end</span>
+<span class="no"> 59</span> 
+<span class="no"> <strong>60</strong></span>     <span class="c"># All sets must be pairwise disjoint since two numbers can't be assigned to</span>
+<span class="no"> 61</span>     <span class="c"># the same square.</span>
+<span class="no"> 62</span>     n.times <span class="r">do</span> |i|
+<span class="no"> 63</span>       (i + <span class="i">1</span>).upto(n - <span class="i">1</span>) <span class="r">do</span> |j|
+<span class="no"> 64</span>         sets[i].must_be.disjoint_with sets[j]
+<span class="no"> 65</span>       <span class="r">end</span>
+<span class="no"> 66</span>     <span class="r">end</span>
+<span class="no"> 67</span> 
+<span class="no"> 68</span>     <span class="c"># The sets must intersect in exactly one element with each row column and</span>
+<span class="no"> 69</span>     <span class="c"># block. I.e. an assignable number must be assigned exactly once in each</span>
+<span class="no"> <strong>70</strong></span>     <span class="c"># row, column and block. </span>
+<span class="no"> 71</span>     sets.each <span class="r">do</span> |set|
+<span class="no"> 72</span>       rows.each <span class="r">do</span> |row|
+<span class="no"> 73</span>         set.intersection(row).size.must == <span class="i">1</span>
+<span class="no"> 74</span>       <span class="r">end</span>
+<span class="no"> 75</span>       columns.each <span class="r">do</span> |column|
+<span class="no"> 76</span>         set.intersection(column).size.must == <span class="i">1</span>
+<span class="no"> 77</span>       <span class="r">end</span>
+<span class="no"> 78</span>       blocks.each <span class="r">do</span> |block|
+<span class="no"> 79</span>         set.intersection(block).size.must == <span class="i">1</span>
+<span class="no"> <strong>80</strong></span>       <span class="r">end</span>
+<span class="no"> 81</span>     <span class="r">end</span>
+<span class="no"> 82</span> 
+<span class="no"> 83</span>     <span class="c"># Branching.</span>
+<span class="no"> 84</span>     branch_on sets, <span class="sy">:variable</span> =&gt; <span class="sy">:none</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+<span class="no"> 85</span>   <span class="r">end</span>
+<span class="no"> 86</span>   
+<span class="no"> 87</span>   <span class="c"># Outputs the assigned numbers in a grid.</span>
+<span class="no"> 88</span>   <span class="r">def</span> <span class="fu">to_s</span>
+<span class="no"> 89</span>     squares = []
+<span class="no"> <strong>90</strong></span>     sets.values.each_with_index <span class="r">do</span> |positions, i|
+<span class="no"> 91</span>       positions.each{ |square_position| squares[square_position - <span class="i">1</span>] = i + <span class="i">1</span> }
+<span class="no"> 92</span>     <span class="r">end</span>
+<span class="no"> 93</span>     squares.enum_slice(<span class="iv">@size</span>).map{ |slice| slice.join(<span class="s"><span class="dl">'</span><span class="k"> </span><span class="dl">'</span></span>) }.join(<span class="s"><span class="dl">&quot;</span><span class="ch">\n</span><span class="dl">&quot;</span></span>)
+<span class="no"> 94</span>   <span class="r">end</span>
+<span class="no"> 95</span> <span class="r">end</span>
+<span class="no"> 96</span> 
+<span class="no"> 97</span> predefined_squares = <span class="co">Matrix</span>[
+<span class="no"> 98</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">2</span>,<span class="i">0</span>,<span class="i">5</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>],
+<span class="no"> 99</span>   [<span class="i">0</span>,<span class="i">9</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">7</span>,<span class="i">3</span>,<span class="i">0</span>],
+<span class="no"><strong>100</strong></span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">2</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">9</span>, <span class="i">0</span>,<span class="i">6</span>,<span class="i">0</span>],
+<span class="no">101</span>     
+<span class="no">102</span>   [<span class="i">2</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">4</span>,<span class="i">0</span>,<span class="i">9</span>],
+<span class="no">103</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">7</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>],
+<span class="no">104</span>   [<span class="i">6</span>,<span class="i">0</span>,<span class="i">9</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">1</span>],
+<span class="no">105</span>       
+<span class="no">106</span>   [<span class="i">0</span>,<span class="i">8</span>,<span class="i">0</span>, <span class="i">4</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">1</span>,<span class="i">0</span>,<span class="i">0</span>],
+<span class="no">107</span>   [<span class="i">0</span>,<span class="i">6</span>,<span class="i">3</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">8</span>,<span class="i">0</span>],
+<span class="no">108</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">6</span>,<span class="i">0</span>,<span class="i">8</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>]]
+<span class="no">109</span> puts <span class="co">SudokuSet</span>.new(predefined_squares).solve!.to_s
+</pre></div>
+</div>
+</p>
+
+
+	<h2 id="output">Output</h2>
+
+
+<pre>
+3 7 8 2 6 5 9 1 4
+5 9 6 8 1 4 7 3 2
+1 4 2 7 3 9 5 6 8
+2 1 7 3 8 6 4 5 9
+8 5 4 9 7 1 6 2 3
+6 3 9 5 4 2 8 7 1
+7 8 5 4 2 3 1 9 6
+4 6 3 1 9 7 2 8 5
+9 2 1 6 5 8 3 4 7
+</pre>
+
+	<h3 id="notes">Notes</h3>
+
+
+	<p>We use a somewhat different viewpoint than when <a href="sudoku.html">using integer variables to 
+solve sudokus</a>. Here we view the problem as a number of values that 
+have to be assigned squares rather than as a number of squares that have to be 
+assigned values. This is an example of two viewpoints can be linked using <a href="../documentation/set-constraints.html">the 
+channel constraint</a>.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

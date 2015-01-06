@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::Bool::BoolConstraintReceiver - Gecode/R</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../ConstraintReceiver.html">Gecode::ConstraintReceiver</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-3D-3D">#==</a>
+    
+    <li ><a href="#method-i-false">#false</a>
+    
+    <li ><a href="#method-i-imply">#imply</a>
+    
+    <li ><a href="#method-i-true">#true</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::Bool::BoolConstraintReceiver">
+  <h1 id="class-Gecode::Bool::BoolConstraintReceiver" class="class">
+    class Gecode::Bool::BoolConstraintReceiver
+  </h1>
+
+  <section class="description">
+    
+<p><a href="BoolConstraintReceiver.html">BoolConstraintReceiver</a> contains
+all constraints that can be placed on a <a
+href="BoolOperand.html">BoolOperand</a>.</p>
+
+<p>Constraints are placed by calling <a
+href="../Operand.html#method-i-must">Gecode::Operand#must</a> (or any other
+of the variations defined in <a href="../Operand.html">Operand</a>), which
+produces a  <a
+href="BoolConstraintReceiver.html">BoolConstraintReceiver</a> from which
+the desired constraint can be used.</p>
+
+<p>Each constraint accepts a number of options. See <a
+href="../ConstraintReceiver.html">ConstraintReceiver</a> for more
+information.</p>
+
+<h4 id="class-Gecode::Bool::BoolConstraintReceiver-label-Examples+">Examples <span><a href="#class-Gecode::Bool::BoolConstraintReceiver-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Constrains <code>bool_operand</code> to be true using <a
+href="BoolConstraintReceiver.html#method-i-true">#true</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">bool_operand</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">true</span>
+</pre>
+
+<p>Constrains <code>bool_operand1</code> AND <code>bool_operand2</code> to be
+true using  the BoolOperand#&amp; property and <a
+href="BoolConstraintReceiver.html#method-i-true">#true</a>:</p>
+
+<pre class="ruby">(<span class="ruby-identifier">bool_operand1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">bool_operand2</span>).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">true</span>
+</pre>
+
+<p>Constrains the conjunction of all boolean operands in
+<code>bool_enum</code> to <em>not</em> imply <code>bool_operand</code>
+using the  BoolEnumOperand#conjunction property and <a
+href="BoolConstraintReceiver.html#method-i-imply">#imply</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">bool_enum</span>.<span class="ruby-identifier">conjunction</span>.<span class="ruby-identifier">must_not</span>.<span class="ruby-identifier">imply</span> <span class="ruby-identifier">bool_operand</span>
+</pre>
+
+<p>The same as above, but specifying that strength :domain should be  used and
+that the constraint should be reified with <code>bool_operand2</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">bool_enum</span>.<span class="ruby-identifier">conjunction</span>.<span class="ruby-identifier">must_not</span>.<span class="ruby-identifier">imply</span>(<span class="ruby-identifier">bool_operand</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool_operand2</span>)
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-3D-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">==</span><span
+            class="method-args">(bool_op, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the boolean operand to be equal to <code>bool_op</code>.  Any of
+<code>==</code>, <code>equal</code> and <code>equal_to</code> may be used
+for equality.</p>
+
+<h4 id="method-i-3D-3D-label-Examples+">Examples <span><a href="#method-i-3D-3D-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +b1+ and +b2+ must equal +b1+ or +b2+.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> (<span class="ruby-identifier">b1</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">b2</span>)
+
+<span class="ruby-comment"># +b1+ and +b2+ must not equal +b3+. We reify it with +bool+ and select </span>
+<span class="ruby-comment"># the strength +domain+.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must_not</span>.<span class="ruby-identifier">equal</span>(<span class="ruby-identifier">b3</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">select</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="3D-3D-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">bool_op</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">bool_op</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_minimodel_bool_expr</span>
+    <span class="ruby-identifier">bool_op</span> = <span class="ruby-constant">ExpressionNode</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">bool_op</span>, <span class="ruby-ivar">@model</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:lhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:lhs</span>], <span class="ruby-value">:rhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool_op</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">BooleanConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-false" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">false</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the boolean operand to be false.</p>
+
+<h4 id="method-i-false-label-Examples+">Examples <span><a href="#method-i-false-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +b1+ and +b2+ must be false.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">false</span>
+
+<span class="ruby-comment"># (+b1+ implies +b2+) and (+b3+ implies +b2+) must be false.</span>
+((<span class="ruby-identifier">b1</span>.<span class="ruby-identifier">implies</span> <span class="ruby-identifier">b2</span>) <span class="ruby-operator">&amp;</span> (<span class="ruby-identifier">b3</span>.<span class="ruby-identifier">implies</span> <span class="ruby-identifier">b2</span>)).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">false</span>
+
+<span class="ruby-comment"># +b1+ and +b2+ must be false. We reify it with +bool+ and select the</span>
+<span class="ruby-comment"># strength +domain+.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">false</span>(:<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="false-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">false</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>] = <span class="ruby-operator">!</span><span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">true</span>(<span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-imply" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">imply</span><span
+            class="method-args">(bool_op, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the boolean operand to imply <code>bool_op</code>.</p>
+
+<h4 id="method-i-imply-label-Examples+">Examples <span><a href="#method-i-imply-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +b1+ must imply +b2+</span>
+<span class="ruby-identifier">b1</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">imply</span> <span class="ruby-identifier">b2</span>
+
+<span class="ruby-comment"># +b1+ and +b2+ must not imply +b3+. We reify it with +bool+ and select</span>
+<span class="ruby-comment"># +domain+ as strength.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must_not</span>.<span class="ruby-identifier">imply</span>(<span class="ruby-identifier">b3</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="imply-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">imply</span>(<span class="ruby-identifier">bool_op</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:lhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">implies</span>(<span class="ruby-identifier">bool_op</span>), <span class="ruby-value">:rhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">BooleanConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-true" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">true</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the boolean operand to be true.</p>
+
+<h4 id="method-i-true-label-Examples+">Examples <span><a href="#method-i-true-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +b1+ and +b2+ must be true.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">true</span>
+
+<span class="ruby-comment"># (+b1+ implies +b2+) and (+b3+ implies +b2+) must be true.</span>
+((<span class="ruby-identifier">b1</span>.<span class="ruby-identifier">implies</span> <span class="ruby-identifier">b2</span>) <span class="ruby-operator">&amp;</span> (<span class="ruby-identifier">b3</span>.<span class="ruby-identifier">implies</span> <span class="ruby-identifier">b2</span>)).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">true</span>
+
+<span class="ruby-comment"># +b1+ and +b2+ must be true. We reify it with +bool+ and select the</span>
+<span class="ruby-comment"># strength +domain+.</span>
+(<span class="ruby-identifier">b1</span> <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">b2</span>).<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">true</span>(:<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="true-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 111</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">true</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">BooleanConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+    <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:rhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

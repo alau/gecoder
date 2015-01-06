@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Set Enumeration Operands - Constraints Supported by Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="The constraints and properties of the set enumeration operand available in Gecode/R for Constraint Programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <a href="index.html">Operands</a> > <span>Set Enumeration Operands</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Operands</h3><ul id="secondNav"><li><a href="index.html">Operands</a></li><li><a href="integer-operands.html">Integer Operands</a></li><li><a href="integer-enum-operands.html">Integer Enumeration Operands</a></li><li><a href="boolean-operands.html">Boolean Operands</a></li><li><a href="boolean-enum-operands.html">Boolean Enumeration Operands</a></li><li><a href="set-operands.html">Set Operands</a></li><li><span>Set Enumeration Operands</span></li><li><a href="set-elements-operands.html">Set Elements Operands</a></li><li><a href="selected-set-operands.html">Selected Set Operands</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#examples_of_set_enumeration_operands">Examples of Set Enumeration Operands</a></li><li><a href="#constraints">Constraints</a><ul class="section-links"><li><a href="#_channel_"><code>channel</code></a></li><li><a href="#_at_most_share_one_element_"><code>at_most_share_one_element</code></a></li></ul></li><li><a href="#properties">Properties</a><ul class="section-links"><li><a href="#____"><code>[]</code></a></li><li><a href="#_union_"><code>union</code></a></li><li><a href="#_intersection_"><code>intersection</code></a></li><li><a href="#_disjoint_union_"><code>disjoint_union</code></a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Set Enumeration Operands</h1>
+
+
+<div class="summary">
+<p>An set enumeration operand is an enumeration of set
+operands.</p></div>
+
+	<h4 id="examples_of_set_enumeration_operands">Examples of Set Enumeration Operands</h4>
+
+
+	<p>Enumerations of set operands are commonly created using <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#set_var_array</code></a> and <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#set_var_matrix</code></a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Creates an array of five set operands, with greatest lower bound</span>
+<span class="c"># {0} and least upper bound {0, 1, 2}.</span>
+set_enum = set_var_array(<span class="i">5</span>, <span class="i">0</span>, <span class="i">1</span>..<span class="i">2</span>)
+</pre></div>
+</div>
+
+
+	<p>A less common way to create the operands is by using <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#wrap_enum</code></a> to wrap an existing enumeration that contains
+set operands.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>set_enum = wrap_enum([set_operand1, set_operand2])
+</pre></div>
+</div>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/SetEnum/SetEnumConstraintReceiver.html"><code>SetEnumConstraintReceiver</code></a>.</p>
+
+
+	<h3 id="_channel_"><code>channel</code></h3>
+
+
+	<p><code>channel(enum, options = {})</code><p>
+Constrains this set enum to channel <code>int_enum_operand</code>. The i:th set in the
+enumeration of set operands is constrained to include the value of the j:th
+integer operand.
+</p>
+<p>
+Neither reification nor negation is supported.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +set_enum+ is constrained to channel +int_enum+.</span>
+int_enum.must.channel set_enum
+
+<span class="c"># This is another way of writing the above.</span>
+set_enum.must.channel int_enum
+</pre></div>
+</div></p>
+
+
+	<h3 id="_at_most_share_one_element_"><code>at_most_share_one_element</code></h3>
+
+
+	<p><code>at_most_share_one_element(options = {})</code><p>
+Constrains all pairs of set operands in the enumeration to at most have one
+element in common and be of a specified size. Providing a size is not
+optional.
+</p>
+<p>
+Neither negation nor reification is supported.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># All set operands in +sets+ must have cardinality 17 and no pair may</span>
+<span class="c"># have more than one element in common.</span>
+sets.must.at_most_share_one_element(<span class="sy">:size</span> =&gt; <span class="i">17</span>)
+</pre></div>
+</div></p>
+
+
+	<h2 id="properties">Properties</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/SetEnum/SetEnumOperand.html"><code>SetEnumOperand</code></a>.</p>
+
+
+	<h3 id="____"><code>[]</code></h3>
+
+
+	<p><code>[](*vars)</code><p>
+Produces a SetOperand representing the i:th set operand in the enumeration,
+where i is the value of the int operand used as index.
+</p>
+<p>
+A set can also be used as index, in which case a SelectedSetOperand is
+produced.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The set operand at the +x+:th position in +set_enum+,</span>
+<span class="c"># where +x+ is a int operand.</span>
+set_enum[x]
+
+<span class="c"># The SelectedSetOperand representing sets at positions</span>
+<span class="c"># included in the value of +set+ in +set_enum+,</span>
+set_enum[set]
+</pre></div>
+</div></p>
+
+
+	<h3 id="_union_"><code>union</code></h3>
+
+
+	<p><code>union()</code><p>
+Produces a SetOperand representing the union of all sets in this
+enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The union of all sets in +set_enum+.</span>
+set_enum.union
+</pre></div>
+</div></p>
+
+
+	<h3 id="_intersection_"><code>intersection</code></h3>
+
+
+	<p><code>intersection()</code><p>
+Produces a SetOperand representing the intersection of all sets in this
+enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The intersection of all sets in +set_enum+.</span>
+set_enum.intersection
+</pre></div>
+</div></p>
+
+
+	<h3 id="_disjoint_union_"><code>disjoint_union</code></h3>
+
+
+	<p><code>disjoint_union()</code><p>
+Produces a SetOperand representing the disjoint union of all sets in this
+enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The disjoint union of all sets in +set_enum+.</span>
+set_enum.disjoint_union
+</pre></div>
+</div></p>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

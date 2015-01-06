@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>square-tiling.page - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../../";
+</script>
+
+<script src="../../../../js/jquery.js"></script>
+<script src="../../../../js/darkfish.js"></script>
+
+<link href="../../../../css/fonts.css" rel="stylesheet">
+<link href="../../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../../CHANGES.html">CHANGES</a>
+  
+    <li><a href="../../../../COPYING.html">COPYING</a>
+  
+    <li><a href="../../../../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../../../Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="../../../../LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="../../../../README.html">README</a>
+  
+    <li><a href="../../../../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../../../../THANKS.html">THANKS</a>
+  
+    <li><a href="../../../../doc/config_yaml.html">config.yaml</a>
+  
+    <li><a href="../../../../doc/metainfo_yaml.html">metainfo.yaml</a>
+  
+    <li><a href="../../../../doc/output/rspec_html.html">rspec.html</a>
+  
+    <li><a href="../../../../doc/src/404-error_page.html">404-error.page</a>
+  
+    <li><a href="../../../../doc/src/default_template.html">default.template</a>
+  
+    <li><a href="../../../../doc/src/details/changes_page.html">changes.page</a>
+  
+    <li><a href="../../../../doc/src/details/contribute_page.html">contribute.page</a>
+  
+    <li><a href="../../../../doc/src/details/credits_page.html">credits.page</a>
+  
+    <li><a href="../../../../doc/src/details/development_page.html">development.page</a>
+  
+    <li><a href="../../../../doc/src/details/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/faq_page.html">faq.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/formulating_problems_page.html">formulating_problems.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/modelling/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/modelling/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/modelling/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/boolean-enum-operands_page.html">boolean-enum-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/boolean-operands_page.html">boolean-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/integer-enum-operands_page.html">integer-enum-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/integer-operands_page.html">integer-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/selected-set-operands_page.html">selected-set-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/set-elements-operands_page.html">set-elements-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/set-enum-operands_page.html">set-enum-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/operands/set-operands_page.html">set-operands.page</a>
+  
+    <li><a href="../../../../doc/src/documentation/searching_for_solutions_page.html">searching_for_solutions.page</a>
+  
+    <li><a href="../../../../doc/src/examples/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/examples/magic-sequence_page.html">magic-sequence.page</a>
+  
+    <li><a href="../../../../doc/src/examples/minesweeper_page.html">minesweeper.page</a>
+  
+    <li><a href="../../../../doc/src/examples/n-queens_page.html">n-queens.page</a>
+  
+    <li><a href="../../../../doc/src/examples/nonogram_page.html">nonogram.page</a>
+  
+    <li><a href="../../../../doc/src/examples/send-more-money_page.html">send-more-money.page</a>
+  
+    <li><a href="../../../../doc/src/examples/send-most-money_page.html">send-most-money.page</a>
+  
+    <li><a href="../../../../doc/src/examples/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../../../doc/src/examples/sudoku-set_page.html">sudoku-set.page</a>
+  
+    <li><a href="../../../../doc/src/examples/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../../../doc/src/examples/survo_page.html">survo.page</a>
+  
+    <li><a href="../../../../doc/src/features_page.html">features.page</a>
+  
+    <li><a href="../../../../doc/src/frontpage_template.html">frontpage.template</a>
+  
+    <li><a href="../../../../doc/src/index_page.html">index.page</a>
+  
+    <li><a href="../../../../doc/src/installation_page.html">installation.page</a>
+  
+    <li><a href="../../../../doc/src/sitemap_page.html">sitemap.page</a>
+  
+    <li><a href="../../../../doc/src/sitemap_sitemap.html">sitemap.sitemap</a>
+  
+    <li><a href="../../../../doc/src/styles_css.html">styles.css</a>
+  
+    <li><a href="../../../../ext/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../../../ext/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../../../ext/mkmf_log.html">mkmf.log</a>
+  
+    <li><a href="../../../../gecoder_log.html">gecoder.log</a>
+  
+    <li><a href="../../../../tasks/dependencies_txt.html">dependencies</a>
+  
+    <li><a href="../../../../tasks/distribution_rake.html">distribution.rake</a>
+  
+    <li><a href="../../../../tasks/rcov_rake.html">rcov.rake</a>
+  
+    <li><a href="../../../../tasks/specs_rake.html">specs.rake</a>
+  
+    <li><a href="../../../../tasks/svn_rake.html">svn.rake</a>
+  
+    <li><a href="../../../../tasks/website_rake.html">website.rake</a>
+  
+    <li><a href="../../../../vendor/gecode/bool-shr_patch.html">bool-shr.patch</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0-patch-notes.html">gecode-2.2.0-patch-notes</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../../../vendor/gecode/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../../vendor/gecode/win32/include/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../../vendor/rust/README.html">README</a>
+  
+    <li><a href="../../../../vendor/rust/test/Makefile.html">Makefile</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page doc/src/documentation/modelling/square-tiling.page">
+<hr>
+
+<p>title: Modelling Square Tiling longTitle: Tutorial on Solving Square Tiling
+using Constraint Programming inMenu: true description: How to use Gecode/R
+to model square tiling to solve it with constraint programming. Discusses
+implied constraints and symmetry breaking constraints.</p>
+<hr>
+
+<p>h1. Modelling Square Tiling</p>
+
+<p>&lt;div class=“summary”&gt; &lt;p&gt;The following walks through the
+points of “the modelling  introduction”:index.html and applies them to
+the {example: {name: square-tiling, linkText:  square tiling
+problem}}.&lt;/p&gt; &lt;/div&gt;</p>
+
+<p>h2. Understand the Problem</p>
+
+<p>Let’s break it down.</p>
+<ul><li>
+<p>The squares must cover the entire rectangle.</p>
+</li></ul>
+
+<p>Since we know that all the surface area of the squares must be used we
+could stop here. There are however some notable implied conditions that
+might be easier to express.</p>
+<ul><li>
+<p>No two squares may overlap.</p>
+</li><li>
+<p>All squares must be placed within the rectangle.</p>
+</li></ul>
+
+<p>These two should be much easier to express, and they are enough to express
+the  first point in the problem’s definition.</p>
+
+<p>h2. Select the View</p>
+
+<p>It seems intuitive to view the problem as finding the positions of the
+squares  in the rectangle. The squares must be placed at _integer
+positions_, so we lay a grid on the rectangle and represent positions as
+integer coordinates.</p>
+
+<p>Additionally we are placing squares, so we can fully express the placement
+of  a square using a single coordinate. For simplicity we choose to
+represent the coordinate occupied by the upper left corner of the square.</p>
+
+<p>We assume that the sizes of the squares are held in a variable @sizes@ and
+that the dimensions of the rectangle are stored in @width@ and @height@. We
+then express the view as the following code.</p>
+
+<p>&lt;ruby&gt; square_count = sizes.size @xs = int_var_array(square_count,
+0…width) @ys = int_var_array(square_count, 0…height) &lt;/ruby&gt;</p>
+
+<p>The domains are derived from our coordinate system overlayed over the
+rectangle.</p>
+
+<p>h2. Express the Constraints</p>
+
+<p>We need to express the following:</p>
+
+<p># No two squares may overlap. # All squares must be placed within the
+rectangle.</p>
+
+<p>The second one is easy, we just place domain constraints on each coordinate
+making sure that the coordinate can never be large enough to cause any part
+of the square to leave the rectangle.</p>
+
+<p>&lt;ruby&gt; square_count.times do |i|</p>
+
+<pre class="ruby"><span class="ruby-comment"># Each square must be placed within the bounds</span>
+<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">width</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]
+<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">height</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>The first one is trickier. There does not appear to be a single constraint
+that matches it, so we have to break it down into something that we can
+express. We need to find a way to express that two squares do not overlap,
+then we can  place that constraint on all pairs of squares.</p>
+
+<p>One way to say that two squares, A and B, must not overlap is that one of
+the following conditions must hold.</p>
+<ul><li>
+<p>A is left of B</p>
+</li><li>
+<p>A is above B</p>
+</li><li>
+<p>B is left of A</p>
+</li><li>
+<p>B is above A</p>
+</li></ul>
+
+<p>We can express each of those using linear constraints on the coordinates
+and sizes. In other words we just need to glue them together, which is what
+reification is for. The following code expresses that, it uses the
+syntactic  sugar @|@ between constraints instead of defining a bunch of
+boolean variables.</p>
+
+<p>&lt;ruby&gt; square_count.times do |i|</p>
+
+<pre class="ruby"><span class="ruby-comment"># Pairwise conditions, no pair of squares may overlap.</span>
+<span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+  <span class="ruby-comment"># That the two squares don't overlap means that i is left of j, </span>
+  <span class="ruby-comment"># or j is left of i, or i is above j, or j is above i.</span>
+  ((<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">|</span> 
+    ((<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>]) <span class="ruby-operator">|</span> 
+    ((<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">|</span> 
+    ((<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>])
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>h2. Select Branching Strategy</p>
+
+<p>We choose to place the squares along the x axis first, placing them from
+left  to right, and then place them on the y-axis top to bottom.</p>
+
+<p>&lt;ruby&gt; branch_on @xs, :variable =&gt; :smallest_min, :value =&gt;
+:min branch_on @ys, :variable =&gt; :smallest_min, :value =&gt; :min
+&lt;/ruby&gt;</p>
+
+<p>h2. Tweak the Performance</p>
+
+<p>We can now solve small problems, but larger ones (around 50x50) are
+problematic. We need to tweak our model a bit.</p>
+
+<p>h3. Add Implied Constraints</p>
+
+<p>An implied constraint is that the sizes of the square occupying a column
+need to equal the rectangle’s height. It might obvious, but it helps the
+solver eliminate assignments that are never going to fit.</p>
+
+<p>The same is of course also true for rows and the rectangle’s width.</p>
+
+<p>How are we going to express it though? We need to somehow find out which 
+squares occupy which columns and then sum their sizes. It sounds like we
+need something conditional, so boolean variables hopefully spring to mind.</p>
+
+<p>The idea is to create one boolean variable per square and column
+combination  and then reify it with a constraint stating that the square
+must be in the  column. As a result the variable will be true exactly when
+the square is in the  column.</p>
+
+<p>We then take advantage of linear constraints to produce the sum. We
+basically weight the boolean variables with their respective sizes. A
+variable assigned true becomes 1 and a variable assigned false becomes 0,
+so the sum will equal the combined size of all squares that occupy the
+column.</p>
+
+<p>Expressed in code: &lt;ruby&gt; # Columns and height. width.times do |i|</p>
+
+<pre class="ruby"><span class="ruby-comment"># Place the reified constraints.</span>
+<span class="ruby-identifier">occupied</span> = <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-identifier">square_count</span>)
+<span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">is_occupying</span>, <span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+  <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>((<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">i</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">is_occupying</span>)
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># Place the constraint on the weighted sum.</span>
+<span class="ruby-identifier">occupied_sizes</span> = <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">sizes</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">bool</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">|</span> <span class="ruby-identifier">bool</span><span class="ruby-operator">*</span><span class="ruby-identifier">size</span> }
+<span class="ruby-identifier">occupied_sizes</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sum</span> }.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">height</span>
+</pre>
+
+<p>end</p>
+
+<p># Rows and width. height.times do |i|</p>
+
+<pre class="ruby"><span class="ruby-comment"># Place the reified constraints.</span>
+<span class="ruby-identifier">occupied</span> = <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-identifier">square_count</span>)
+<span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">is_occupying</span>, <span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+  <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>((<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">i</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">is_occupying</span>)
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># Place the constraint on the weighted sum.</span>
+<span class="ruby-identifier">occupied_sizes</span> = <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">sizes</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">bool</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">|</span> <span class="ruby-identifier">bool</span><span class="ruby-operator">*</span><span class="ruby-identifier">size</span> }
+<span class="ruby-identifier">occupied_sizes</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sum</span> }.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">width</span>
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>h3. Break Symmetries</p>
+
+<p>One symmetry is multiple squares of the same size, since we can then swap
+the  two squares. To remedy this we can impose the constraint that squares
+of the  same size must be sorted.</p>
+
+<p>&lt;ruby&gt; square_count.times do |i|</p>
+
+<pre class="ruby"><span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>h2. The Result</p>
+
+<p>Combining the code from above with a small to_s method we get the
+following.</p>
+
+<p>&lt;ruby&gt; require ‘rubygems’ require ‘gecoder’</p>
+
+<p>class <a href="../../../../SquareTiling.html">SquareTiling</a></p>
+
+<pre class="ruby"><span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Mixin</span>
+
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">width</span>, <span class="ruby-identifier">height</span>, <span class="ruby-identifier">sizes</span>)
+  <span class="ruby-identifier">square_count</span> = <span class="ruby-identifier">sizes</span>.<span class="ruby-identifier">size</span>
+
+      <span class="ruby-comment"># Coordinate variables.</span>
+  <span class="ruby-ivar">@xs</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-identifier">square_count</span>, <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">width</span>)
+  <span class="ruby-ivar">@ys</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-identifier">square_count</span>, <span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">height</span>)
+
+  <span class="ruby-comment"># All squares must be placed within the rectangle.</span>
+  <span class="ruby-identifier">square_count</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">width</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]
+    <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">height</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># No pair of squares may overlap.</span>
+  <span class="ruby-identifier">square_count</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># Pairwise conditions, no pair of squares may overlap.</span>
+    <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment"># That the two squares don't overlap means that i is left of j, </span>
+      <span class="ruby-comment"># or j is left of i, or i is above j, or j is above i.</span>
+      ((<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">|</span> 
+        ((<span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>]) <span class="ruby-operator">|</span> 
+        ((<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">|</span> 
+        ((<span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>]).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Implied constraint for columns and height.</span>
+  <span class="ruby-identifier">width</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># Place the reified constraints.</span>
+    <span class="ruby-identifier">occupied</span> = <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-identifier">square_count</span>)
+    <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">is_occupying</span>, <span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">j</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>((<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">i</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">is_occupying</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># Place the constraint on the weighted sum.</span>
+    <span class="ruby-identifier">occupied_sizes</span> = <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">sizes</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">bool</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">|</span> <span class="ruby-identifier">bool</span><span class="ruby-operator">*</span><span class="ruby-identifier">size</span> }
+    <span class="ruby-identifier">occupied_sizes</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sum</span> }.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">height</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Implied constraint for rows and width.</span>
+  <span class="ruby-identifier">height</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># Place the reified constraints.</span>
+    <span class="ruby-identifier">occupied</span> = <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-identifier">square_count</span>)
+    <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">is_occupying</span>, <span class="ruby-identifier">j</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@ys</span>[<span class="ruby-identifier">j</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span>((<span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">j</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">i</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">is_occupying</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># Place the constraint on the weighted sum.</span>
+    <span class="ruby-identifier">occupied_sizes</span> = <span class="ruby-identifier">occupied</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-identifier">sizes</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">bool</span>, <span class="ruby-identifier">size</span><span class="ruby-operator">|</span> <span class="ruby-identifier">bool</span><span class="ruby-operator">*</span><span class="ruby-identifier">size</span> }
+    <span class="ruby-identifier">occupied_sizes</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sum</span> }.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">width</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Symmetry breaking constraint.</span>
+  <span class="ruby-identifier">square_count</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-ivar">@xs</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">sizes</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-ivar">@xs</span>, :<span class="ruby-identifier">variable</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">smallest_min</span>, :<span class="ruby-identifier">value</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">min</span>
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-ivar">@ys</span>, :<span class="ruby-identifier">variable</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">smallest_min</span>, :<span class="ruby-identifier">value</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">min</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-comment"># Displays the corrdinates of the squares.</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@xs</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">zip</span>(<span class="ruby-ivar">@ys</span>.<span class="ruby-identifier">values</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;(#{x}, #{y})&quot;</span>}.<span class="ruby-identifier">join</span>(<span class="ruby-string">', '</span>)
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>Lets give it a try.</p>
+
+<p>&lt;ruby&gt; puts(SquareTiling.new(65, 47,</p>
+
+<pre>[25, 24, 23, 22, 19, 17, 11, 6, 5, 3]).solve! || 'Failed').to_s</pre>
+
+<p>&lt;/ruby&gt;</p>
+
+<p>Output:</p>
+
+<p>&lt;pre&gt; (0, 0), (41, 23), (42, 0), (0, 25), (22, 28), (25, 0), (25,
+17), (36, 17), (36, 23), (22, 25) &lt;/pre&gt;</p>
+
+<p>The crowd goes wild!</p>
+
+<p>h3. Bonus Round</p>
+
+<p>Here are some additional square tiling problems of varying sizes to test
+with. Make sure to remove some of the implied and symmetry breaking
+constraints to  see the difference.</p>
+
+<p>&lt;ruby&gt; <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(1,
+2, [1,1]) <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(5,
+4, [3, 2, 2, 1, 1, 1]) <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(4,
+4, [2,2,2,2]) <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(20,
+20, [9, 8, 8, 7, 5, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 1, 1]) <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(32,
+33, [18, 15, 14, 10, 9, 8, 7, 4, 1]) <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(65,
+47, [25, 24, 23, 22, 19, 17, 11, 6, 5, 3]) <a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(112,
+112, [50, 42, 37, 35, 33, 29, 27, 25, 24, 19, 18, 17,</p>
+
+<pre>16, 15, 11, 9, 8, 7, 6, 4, 2])</pre>
+
+<p><a
+href="../../../../SquareTiling.html#method-c-new">SquareTiling.new</a>(175,
+175, [81, 64, 56, 55, 51, 43, 39, 38, 35, 33, 31, 30, 29,</p>
+
+<pre>20, 18, 16, 14, 9, 8, 5, 4, 3, 2, 1])</pre>
+
+<p>&lt;/ruby&gt;</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

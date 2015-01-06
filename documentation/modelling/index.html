@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>How to Model a Constraint Programming Problem using Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="How to use Gecode/R to model problems and solve them using constraint programming. What to watch out for and how to tweak the performance." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <span>Modelling</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Modelling</h3><ul id="secondNav"><li><span>Introduction to Modelling</span></li><li><a href="sudoku.html">Modelling Sudoku</a></li><li><a href="square-tiling.html">Modelling Square Tiling</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#understand_the_problem">Understand the Problem</a></li><li><a href="#select_the_view">Select the View</a><ul class="section-links"><li><a href="#be_economic">Be Economic</a></li><li><a href="#be_aware_of_multiple_views">Be Aware of Multiple Views</a></li></ul></li><li><a href="#express_the_constraints">Express the Constraints</a></li><li><a href="#select_branching_strategy">Select Branching Strategy</a></li><li><a href="#tweak_the_performance">Tweak the Performance</a><ul class="section-links"><li><a href="#select_a_better_branching_strategy">Select a Better Branching Strategy</a></li><li><a href="#change_propagation_strengths">Change Propagation Strengths</a></li><li><a href="#add_implied_constraints">Add Implied Constraints</a></li><li><a href="#break_symmetries">Break Symmetries</a></li></ul></li><li><a href="#other_resources">Other Resources</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Modelling a Problem</h1>
+
+
+<div class="summary"> <p>Modelling can be broken down into several
+steps. The first steps aim to express the problem so that one can get a
+solution. The rest of the steps aim to look for ways to improve the
+pruning so that one can get a solution quicker.</p> </div>
+
+	<p>The following points are duplicated in the modelling examples found in
+the menu. It might be helpful to read an example in parallel with this
+page to get some concrete examples of each step.</p>
+
+
+	<h2 id="understand_the_problem">Understand the Problem</h2>
+
+
+	<p>The first step is to understand the problem, more specifically to understand 
+what is required of a solution to the problem. Express the entire problem in 
+a few concise bullet points that describe exactly what is expected of a
+solution.</p>
+
+
+	<h2 id="select_the_view">Select the View</h2>
+
+
+	<p>The next step is to select how to represent the problem in terms of variables. 
+The variables will need to include the sought solutions.</p>
+
+
+	<h3 id="be_economic">Be Economic</h3>
+
+
+	<p>Try to pick a view that cuts down on the number of constraints that 
+explicitly have to be expressed.</p>
+
+
+	<p>An example is the <a href="../../examples/n-queens.html">n-queens problem</a> 
+where the choice of view takes care of the constraint that
+there may only be one queen per column. Using for instance an n-times-n matrix
+of boolean variables would have required explicitly expressing that
+constraint.</p>
+
+
+	<h3 id="be_aware_of_multiple_views">Be Aware of Multiple Views</h3>
+
+
+	<p>There may very well be multiple views that are equally good at representing 
+the problem. Being aware of more than one might help further down the line. 
+Constraints might end up being hard to describe in one view, but trivial in 
+another.</p>
+
+
+	<p>There&#8217;s no need to restrict oneself to only using one view. One can link
+multiple views using the channel constraints to get the best of both
+worlds.</p>
+
+
+	<h2 id="express_the_constraints">Express the Constraints</h2>
+
+
+	<p>Now apply your understanding of the problem. Take a look at the points
+and try to convert them into constraints (possibly multiple).  Multiple
+views can help here since it might be easier to find corresponding
+constraints when looking at a different view of the problem.</p>
+
+
+	<p>Remember that reification can be used to combine constraints and thereby express
+complex rules. Reification should be thought of as a last resort as a single
+constraint will probably be more powerful than if you glue several constraints 
+together with reification.</p>
+
+
+	<h2 id="select_branching_strategy">Select Branching Strategy</h2>
+
+
+	<p>The last thing to think about is the branching. Anything that you tell Gecode
+to branch on will be required to be assigned in a solution. Do not branch on 
+variables that you do not need the values of from a solution.</p>
+
+
+	<p>Selecting branching strategy is mostly a question about coming up with a
+heuristic that fits the problem. This can either be done by reasoning
+about how the possibilities should best be explored or by simply testing
+all the strategies to find out which work and which don&#8217;t.</p>
+
+
+	<h2 id="tweak_the_performance">Tweak the Performance</h2>
+
+
+	<p>By now you should be able to feed the solver a simple problem and get pack a
+correct solution. If it works fast enough for you then that&#8217;s great, if not then
+you need to tweak the performance.</p>
+
+
+	<h3 id="select_a_better_branching_strategy">Select a Better Branching Strategy</h3>
+
+
+	<p>Branching strategies can make a large difference. Which strategy is best
+depends on the problem. Compare the available ones if you haven&#8217;t
+already done so.</p>
+
+
+	<h3 id="change_propagation_strengths">Change Propagation Strengths</h3>
+
+
+	<p>Using different propagation strength can, much like branching strategies, make 
+a large difference. Much like branching strategies it&#8217;s a matter of reasoning 
+or simply trying them out.</p>
+
+
+	<h3 id="add_implied_constraints">Add Implied Constraints</h3>
+
+
+	<p>Just because you have given the solver enough constraints to be able to identify
+a solution doesn&#8217;t mean that you have to stop there. It might still be worth 
+explicitly expressing some of the constraints that are implicitly given by the 
+expressed constraints. It will not change the solutions, but it can help Gecode 
+prune the search space faster.</p>
+
+
+	<h3 id="break_symmetries">Break Symmetries</h3>
+
+
+	<p>In many situations symmetries will appear.</p>
+
+
+	<p>In the <a href="../../examples/n-queens.html">n-queens example</a> there are several 
+rotational and reflection symmetries. The chessboard can for instance be rotated 
+without changing whether an assignment is a solution. Nothing is done to counter 
+the symmetries in the example. There are in total only 12 unique solutions, but 
+the example will return 92.</p>
+
+
+	<p>Symmetries are unnecessary since they add nothing. Removing them
+means that you get a smaller search space, which means that you can find a 
+solution faster.</p>
+
+
+	<p>The way to remove symmetries is to impose additional constraints that do
+not remove any unique solutions, only symmetries. In the n-queens case
+you can for instance constrain the queen in the first column to be above
+the queen in the last column. Any solution that the additional
+constraint invalidates can be turned into a valid solution through
+reflection in the y-axis of the board. Hence only removing symmetries,
+not unique solutions.</p>
+
+
+	<h2 id="other_resources">Other Resources</h2>
+
+
+	<ul>
+	<li><a href="http://www.math.unipd.it/~frossi/cp-school/new-barbara-tutorial.pdf">Modelling for Constraint Programming</a> 
+from the <a href="http://www.math.unipd.it/~frossi/cp-school/">Constraint Programming summer 
+school</a>.</li>
+	</ul>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

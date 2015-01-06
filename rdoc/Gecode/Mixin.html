@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module Gecode::Mixin - Gecode/R</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#module-Gecode::Mixin-label-Formulating+problems">Formulating problems</a>
+    <li><a href="#module-Gecode::Mixin-label-Finding+solutions">Finding solutions</a>
+    <li><a href="#module-Gecode::Mixin-label-Shorter+ways+of+formulating+problems">Shorter ways of formulating problems</a>
+  </ul>
+</div>
+
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-included">::included</a>
+    
+    <li ><a href="#method-c-method_added">::method_added</a>
+    
+    <li ><a href="#method-i-any">#any</a>
+    
+    <li ><a href="#method-i-at_least_once">#at_least_once</a>
+    
+    <li ><a href="#method-i-at_most_once">#at_most_once</a>
+    
+    <li ><a href="#method-i-bool_var">#bool_var</a>
+    
+    <li ><a href="#method-i-bool_var_array">#bool_var_array</a>
+    
+    <li ><a href="#method-i-bool_var_matrix">#bool_var_matrix</a>
+    
+    <li ><a href="#method-i-branch_on">#branch_on</a>
+    
+    <li ><a href="#method-i-combined_method_missing">#combined_method_missing</a>
+    
+    <li ><a href="#method-i-each_solution">#each_solution</a>
+    
+    <li ><a href="#method-i-int_var">#int_var</a>
+    
+    <li ><a href="#method-i-int_var_array">#int_var_array</a>
+    
+    <li ><a href="#method-i-int_var_matrix">#int_var_matrix</a>
+    
+    <li ><a href="#method-i-maximize-21">#maximize!</a>
+    
+    <li ><a href="#method-i-method_missing">#method_missing</a>
+    
+    <li ><a href="#method-i-minimize-21">#minimize!</a>
+    
+    <li ><a href="#method-i-optimize-21">#optimize!</a>
+    
+    <li ><a href="#method-i-repeat">#repeat</a>
+    
+    <li ><a href="#method-i-reset-21">#reset!</a>
+    
+    <li ><a href="#method-i-search_stats">#search_stats</a>
+    
+    <li ><a href="#method-i-set_var">#set_var</a>
+    
+    <li ><a href="#method-i-set_var_array">#set_var_array</a>
+    
+    <li ><a href="#method-i-set_var_matrix">#set_var_matrix</a>
+    
+    <li ><a href="#method-i-solution">#solution</a>
+    
+    <li ><a href="#method-i-solve-21">#solve!</a>
+    
+    <li ><a href="#method-i-wrap_enum">#wrap_enum</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-Gecode::Mixin">
+  <h1 id="module-Gecode::Mixin" class="module">
+    module Gecode::Mixin
+  </h1>
+
+  <section class="description">
+    
+<p><a href="Mixin.html">Mixin</a> contains the base functionality needed to
+formulate problems.</p>
+
+<h2 id="module-Gecode::Mixin-label-Formulating+problems">Formulating problems<span><a href="#module-Gecode::Mixin-label-Formulating+problems">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Problems are formulated by building a model that represents the problem. A
+model is a class that mixes in <a href="Mixin.html">Mixin</a> and uses its
+functionality to define variables and constraints that describe the
+problem. Below is an example of a model that formulates the problem of
+finding a solution to the following equation system.</p>
+
+<p>Equation system:</p>
+
+<pre>x + y = z
+x = y - 3
+0 &lt;= x,y,z &lt;= 9</pre>
+
+<p>Model:</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">EquationProblem</span> 
+  <span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Mixin</span>
+
+  <span class="ruby-identifier">attr</span> :<span class="ruby-identifier">vars</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+    <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">z</span> = <span class="ruby-ivar">@vars</span> = <span class="ruby-identifier">int_var_array</span>(<span class="ruby-value">3</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>)
+
+    (<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">y</span>).<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">z</span>
+    <span class="ruby-identifier">x</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>
+
+    <span class="ruby-identifier">branch_on</span> <span class="ruby-ivar">@vars</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>A model typically consists of three main parts:</p>
+<dl class="rdoc-list label-list"><dt>Variables
+<dd>
+<p>Variables specify how to view the problem. A solution is an  assignment of
+the variables. In the example above we created  an array of three integer
+variables with domains 0..9 and gave  it the name <code>variables</code>.</p>
+
+<p>There are three types of variables: integer variables (Gecode::IntVar, can
+be assigned one of many possible integer values), boolean variables
+(Gecode::BoolVar, can be assigned either true or false) and set variables
+(Gecode::SetVar, can be assigned a set of integers).  Variables of the
+different types are constructed using <a
+href="Mixin.html#method-i-int_var">int_var</a>, <a
+href="Mixin.html#method-i-int_var_array">int_var_array</a>, <a
+href="Mixin.html#method-i-int_var_matrix">int_var_matrix</a>, <a
+href="Mixin.html#method-i-bool_var">bool_var</a>, <a
+href="Mixin.html#method-i-bool_var_array">bool_var_array</a>, <a
+href="Mixin.html#method-i-bool_var_matrix">bool_var_matrix</a>, <a
+href="Mixin.html#method-i-set_var">set_var</a>, <a
+href="Mixin.html#method-i-set_var_array">set_var_array</a> and <a
+href="Mixin.html#method-i-set_var_matrix">set_var_matrix</a> .</p>
+
+<p>The various variables all have the functionality of <a
+href="Operand.html">Operand</a>  and have many properties depending on
+their type. For  instance integer variables have the properties defined in
+<a href="Int/IntOperand.html">Gecode::Int::IntOperand</a> and enumerations
+of integer variables (such as the array <code>variables</code> we used)
+have the properties defined in</p>
+
+<p><a href="IntEnum/IntEnumOperand.html">Gecode::IntEnum::IntEnumOperand</a> .</p>
+</dd><dt>Constraints
+<dd>
+<p>Constraints are placed on the variables to ensure that a  valid assignment
+of the variables must also be a solution. In the example above we
+constrained the variables so that all equations were satisfied (which is
+exactly when we have found a solution).</p>
+
+<p>The various constraints that can be placed on the various kinds of operands
+are found in the respective constraint receivers. For instance, the
+constraints that can be placed on integer operands are found in  <a
+href="Int/IntConstraintReceiver.html">Gecode::Int::IntConstraintReceiver</a>
+and the constraints that can be placed on enumerations of integer operands
+are found in  <a
+href="IntEnum/IntEnumConstraintReceiver.html">Gecode::IntEnum::IntEnumConstraintReceiver</a>
+.</p>
+</dd><dt>Branching
+<dd>
+<p>“branch_on variables” in the example tells <a
+href="../Gecode.html">Gecode</a> that it should explore the search space
+until it has assigned <code>variables</code> (or exhausted the search
+space). It also tells <a href="../Gecode.html">Gecode</a> in what order the
+search space should be explore, which can have a big effect on the search
+performance. See <a href="Mixin.html#method-i-branch_on">branch_on</a> for
+details.</p>
+</dd></dl>
+
+<h2 id="module-Gecode::Mixin-label-Finding+solutions">Finding solutions<span><a href="#module-Gecode::Mixin-label-Finding+solutions">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Solutions to a formulated problem are found are found by using methods such
+as <a href="Mixin.html#method-i-solve-21">solve!</a>, <a
+href="Mixin.html#method-i-solution">solution</a>, <a
+href="Mixin.html#method-i-each_solution">each_solution</a> . If one wants
+to find a solution that optimizes a certain quantity (i.e. maximizes a
+certain variable) then one should have a look at <a
+href="Mixin.html#method-i-maximize-21">maximize!</a>, <a
+href="Mixin.html#method-i-minimize-21">minimize!</a> and <a
+href="Mixin.html#method-i-optimize-21">optimize!</a> .</p>
+
+<p>The first solution to the example above could for instance be found using</p>
+
+<pre class="ruby"><span class="ruby-identifier">puts</span> <span class="ruby-constant">EquationProblem</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">solve!</span>.<span class="ruby-identifier">vars</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">', '</span>)
+</pre>
+
+<p>which would find the first solution to the problem, access the assigned
+values of <code>variables</code> and print them (in order x, y, z).</p>
+
+<h2 id="module-Gecode::Mixin-label-Shorter+ways+of+formulating+problems">Shorter ways of formulating problems<span><a href="#module-Gecode::Mixin-label-Shorter+ways+of+formulating+problems">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Problems can also be formulated without defining a new class by using
+Gecode#solve et al.</p>
+
+<p>Additionally one can use “foo_is_an …” to create an accessor of  name
+foo, without having to use instance variables. The above problem becomes</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">EquationProblem</span> 
+  <span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Mixin</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+    <span class="ruby-identifier">x</span>, <span class="ruby-identifier">y</span>, <span class="ruby-identifier">z</span> = <span class="ruby-identifier">vars_is_an</span> <span class="ruby-identifier">int_var_array</span>(<span class="ruby-value">3</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>)
+
+    (<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">y</span>).<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">z</span>
+    <span class="ruby-identifier">x</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">y</span> <span class="ruby-operator">-</span> <span class="ruby-value">3</span>
+
+    <span class="ruby-identifier">branch_on</span> <span class="ruby-identifier">vars</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="LARGEST_INT_DOMAIN">LARGEST_INT_DOMAIN
+        
+        <dd><p>The largest possible domain for an integer variable.</p>
+        
+      
+        <dt id="LARGEST_SET_BOUND">LARGEST_SET_BOUND
+        
+        <dd><p>The largest possible bound for a set variable.</p>
+        
+      
+        <dt id="MAX_INT">MAX_INT
+        
+        <dd><p>The largest integer allowed in the domain of an integer variable.</p>
+        
+      
+        <dt id="MIN_INT">MIN_INT
+        
+        <dd><p>The smallest integer allowed in the domain of an integer variable.</p>
+        
+      
+        <dt id="NON_NEGATIVE_INT_DOMAIN">NON_NEGATIVE_INT_DOMAIN
+        
+        <dd><p>The largest possible domain, without negative integers, for an integer
+variable.</p>
+        
+      
+        <dt id="SET_MAX_INT">SET_MAX_INT
+        
+        <dd><p>The largest integer allowed in the domain of a set variable.</p>
+        
+      
+        <dt id="SET_MIN_INT">SET_MIN_INT
+        
+        <dd><p>The smallest integer allowed in the domain of a set variable.</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-any" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">any</span><span
+            class="method-args">(*regexps)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches any of the specified <code>regexps</code>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="any-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/extensional_regexp.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">any</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">regexps</span>)
+  <span class="ruby-identifier">regexps</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">REG</span>.<span class="ruby-identifier">new</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">result</span>, <span class="ruby-identifier">regexp</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">result</span> <span class="ruby-operator">|</span> <span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">parse_regexp</span>(<span class="ruby-identifier">regexp</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-at_least_once" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">at_least_once</span><span
+            class="method-args">(regexp)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches <code>regexp</code> repeated at least one time (i.e. like ‘+’
+in normal  regexps). Produces the same result as calling</p>
+
+<pre class="ruby"><span class="ruby-identifier">repeat</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-value">1</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="at_least_once-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/extensional_regexp.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">at_least_once</span>(<span class="ruby-identifier">regexp</span>)
+  <span class="ruby-identifier">repeat</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-value">1</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-at_most_once" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">at_most_once</span><span
+            class="method-args">(regexp)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Matches <code>regexp</code> repeated zero or one time (i.e. like ‘?’ in
+normal  regexps). Produces the same result as calling</p>
+
+<pre class="ruby"><span class="ruby-identifier">repeat</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-value">0</span>, <span class="ruby-value">1</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="at_most_once-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/extensional_regexp.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">at_most_once</span>(<span class="ruby-identifier">regexp</span>)
+  <span class="ruby-identifier">repeat</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-value">0</span>, <span class="ruby-value">1</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bool_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bool_var</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a new boolean variable.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bool_var-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bool_var</span>
+  <span class="ruby-constant">BoolVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_bool_var</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bool_var_array" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bool_var_array</span><span
+            class="method-args">(count)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates an array containing the specified number of boolean variables.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bool_var_array-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-identifier">count</span>)
+  <span class="ruby-identifier">build_var_array</span>(<span class="ruby-identifier">count</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-constant">BoolVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_bool_var</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-bool_var_matrix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bool_var_matrix</span><span
+            class="method-args">(row_count, col_count)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a matrix containing the specified number rows and columns of 
+boolean variables.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="bool_var_matrix-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bool_var_matrix</span>(<span class="ruby-identifier">row_count</span>, <span class="ruby-identifier">col_count</span>)
+  <span class="ruby-identifier">build_var_matrix</span>(<span class="ruby-identifier">row_count</span>, <span class="ruby-identifier">col_count</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-constant">BoolVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_bool_var</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-branch_on" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">branch_on</span><span
+            class="method-args">(variables, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Specifies which variables that should be branched on (given as an enum of
+operands or as a single operand). One can optionally also select which of
+the variables that should be used first with the :variable option and which
+value in that variable’s domain that should be used with the :value
+option. If nothing is specified then :variable uses :none and value uses
+:min.</p>
+
+<p>The following values can be used with :variable for integer and boolean
+enums:</p>
+<dl class="rdoc-list label-list"><dt>:none
+<dd>
+<p>The first unassigned variable.</p>
+</dd><dt>:smallest_min
+<dd>
+<p>The one with the smallest minimum.</p>
+</dd><dt>:largest_min
+<dd>
+<p>The one with the largest minimum.</p>
+</dd><dt>:smallest_max
+<dd>
+<p>The one with the smallest maximum.</p>
+</dd><dt>:largest_max
+<dd>
+<p>The one with the largest maximum.</p>
+</dd><dt>:smallest_size
+<dd>
+<p>The one with the smallest size.</p>
+</dd><dt>:largest_size
+<dd>
+<p>The one with the larges size.</p>
+</dd><dt>:smallest_degree
+<dd>
+<p>The one with the smallest degree. The degree of a  variable is defined as
+the number of dependant  propagators. In case of ties, choose the variable 
+with smallest domain.</p>
+</dd><dt>:largest_degree
+<dd>
+<p>The one with the largest degree. The degree of a  variable is defined as
+the number of dependant  propagators. In case of ties, choose the variable 
+with smallest domain.</p>
+</dd><dt>:smallest_min_regret
+<dd>
+<p>The one with the smallest min-regret. The  min-regret of a variable is the
+difference between the smallest and second-smallest value still in  the
+domain.</p>
+</dd><dt>:largest_min_regret
+<dd>
+<p>The one with the largest min-regret. The  min-regret of a variable is the
+difference between the smallest and second-smallest value still in  the
+domain.</p>
+</dd><dt>:smallest_max_regret
+<dd>
+<p>The one with the smallest max-regret The  max-regret of a variable is the
+difference between the largest and second-largest value still in  the
+domain.</p>
+</dd><dt>:largest_max_regret
+<dd>
+<p>The one with the largest max-regret. The  max-regret of a variable is the
+difference between the largest and second-largest value still in  the
+domain.</p>
+</dd></dl>
+
+<p>The following values can be used with :value for integer and boolean 
+enums:</p>
+<dl class="rdoc-list label-list"><dt>:min
+<dd>
+<p>Selects the smallest value.</p>
+</dd><dt>:med
+<dd>
+<p>Select the median value.</p>
+</dd><dt>:max
+<dd>
+<p>Selects the largest vale</p>
+</dd><dt>:split_min
+<dd>
+<p>Selects the lower half of the domain.</p>
+</dd><dt>:split_max
+<dd>
+<p>Selects the upper half of the domain.</p>
+</dd></dl>
+
+<p>The following values can be used with :variable for set enums:</p>
+<dl class="rdoc-list label-list"><dt>:none
+<dd>
+<p>The first unassigned set.</p>
+</dd><dt>:smallest_cardinality
+<dd>
+<p>The one with the smallest cardinality.</p>
+</dd><dt>:largest_cardinality
+<dd>
+<p>The one with the largest cardinality.</p>
+</dd><dt>:smallest_unknown
+<dd>
+<p>The one with the smallest number of unknown  elements</p>
+</dd><dt>:largest_unknown
+<dd>
+<p>The one with the largest number of unknown  elements</p>
+</dd></dl>
+
+<p>The following values can be used with :value set enums:</p>
+<dl class="rdoc-list label-list"><dt>:min
+<dd>
+<p>Selects the smallest value in the unknown part of the set.</p>
+</dd><dt>:max
+<dd>
+<p>Selects the largest value in the unknown part of the set.</p>
+</dd></dl>
+          
+          
+
+          
+          <div class="method-source-code" id="branch_on-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/branch.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">branch_on</span>(<span class="ruby-identifier">variables</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_int_var</span>) <span class="ruby-keyword">or</span> 
+      <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_bool_var</span>) <span class="ruby-keyword">or</span> 
+      <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_set_var</span>)
+    <span class="ruby-identifier">variables</span> = <span class="ruby-identifier">wrap_enum</span> [<span class="ruby-identifier">variables</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_enum</span> 
+    <span class="ruby-identifier">add_branch</span>(<span class="ruby-identifier">variables</span>.<span class="ruby-identifier">to_int_enum</span>, <span class="ruby-identifier">options</span>,
+      <span class="ruby-constant">Constants</span><span class="ruby-operator">::</span><span class="ruby-constant">BRANCH_INT_VAR_CONSTANTS</span>, 
+      <span class="ruby-constant">Constants</span><span class="ruby-operator">::</span><span class="ruby-constant">BRANCH_INT_VALUE_CONSTANTS</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_bool_enum</span>
+    <span class="ruby-identifier">add_branch</span>(<span class="ruby-identifier">variables</span>.<span class="ruby-identifier">to_bool_enum</span>, <span class="ruby-identifier">options</span>, 
+      <span class="ruby-constant">Constants</span><span class="ruby-operator">::</span><span class="ruby-constant">BRANCH_INT_VAR_CONSTANTS</span>, 
+      <span class="ruby-constant">Constants</span><span class="ruby-operator">::</span><span class="ruby-constant">BRANCH_INT_VALUE_CONSTANTS</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_enum</span>
+    <span class="ruby-identifier">add_branch</span>(<span class="ruby-identifier">variables</span>.<span class="ruby-identifier">to_set_enum</span>, <span class="ruby-identifier">options</span>, 
+      <span class="ruby-constant">Constants</span><span class="ruby-operator">::</span><span class="ruby-constant">BRANCH_SET_VAR_CONSTANTS</span>, 
+      <span class="ruby-constant">Constants</span><span class="ruby-operator">::</span><span class="ruby-constant">BRANCH_SET_VALUE_CONSTANTS</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Unknown type of variable enum #{variables.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-combined_method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">combined_method_missing</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="combined_method_missing-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-each_solution" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">each_solution</span><span
+            class="method-args">() { |self| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Yields each solution that the model has.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="each_solution-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">each_solution</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">dfs</span> = <span class="ruby-identifier">dfs_engine</span>
+  <span class="ruby-identifier">next_solution</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">while</span> <span class="ruby-keyword">not</span> (<span class="ruby-identifier">next_solution</span> = <span class="ruby-identifier">dfs</span>.<span class="ruby-identifier">next</span>).<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">active_space</span> = <span class="ruby-identifier">next_solution</span>
+    <span class="ruby-ivar">@gecoder_mixin_statistics</span> = <span class="ruby-identifier">dfs</span>.<span class="ruby-identifier">statistics</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">reset!</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-int_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">int_var</span><span
+            class="method-args">(domain = LARGEST_INT_DOMAIN)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a new integer variable with the specified domain. The domain can
+either be a range, a single element, or an enumeration of elements. If no
+domain is specified then the largest possible domain is used.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="int_var-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">int_var</span>(<span class="ruby-identifier">domain</span> = <span class="ruby-constant">LARGEST_INT_DOMAIN</span>)
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">domain_arguments</span>(<span class="ruby-identifier">domain</span>)
+  <span class="ruby-constant">IntVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_int_var</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-int_var_array" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">int_var_array</span><span
+            class="method-args">(count, domain = LARGEST_INT_DOMAIN)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates an array containing the specified number of integer variables  with
+the specified domain. The domain can either be a range, a single  element,
+or an enumeration of elements. If no domain is specified then  the largest
+possible domain is used.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="int_var_array-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 149</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">int_var_array</span>(<span class="ruby-identifier">count</span>, <span class="ruby-identifier">domain</span> = <span class="ruby-constant">LARGEST_INT_DOMAIN</span>)
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">domain_arguments</span>(<span class="ruby-identifier">domain</span>)
+  <span class="ruby-identifier">build_var_array</span>(<span class="ruby-identifier">count</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-constant">IntVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_int_var</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-int_var_matrix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">int_var_matrix</span><span
+            class="method-args">(row_count, col_count, domain = LARGEST_INT_DOMAIN)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a matrix containing the specified number rows and columns of 
+integer variables with the specified domain. The domain can either be a 
+range, a single element, or an enumeration of elements. If no domain  is
+specified then the largest possible domain is used.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="int_var_matrix-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 160</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">int_var_matrix</span>(<span class="ruby-identifier">row_count</span>, <span class="ruby-identifier">col_count</span>, <span class="ruby-identifier">domain</span> = <span class="ruby-constant">LARGEST_INT_DOMAIN</span>)
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">domain_arguments</span>(<span class="ruby-identifier">domain</span>)
+  <span class="ruby-identifier">build_var_matrix</span>(<span class="ruby-identifier">row_count</span>, <span class="ruby-identifier">col_count</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-constant">IntVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_int_var</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-maximize-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">maximize!</span><span
+            class="method-args">(var)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds the solution that maximizes a given integer variable. The name of 
+the method that accesses the variable from the model should be given. To 
+for instance maximize a variable named “profit”, that’s accessible 
+through the model, one would use the following.</p>
+
+<pre class="ruby"><span class="ruby-identifier">model</span>.<span class="ruby-identifier">maximize!</span> :<span class="ruby-identifier">profit</span>
+</pre>
+
+<p>Raises <a href="NoSolutionError.html">Gecode::NoSolutionError</a> if no
+solution can be found.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="maximize-21-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 154</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">maximize!</span>(<span class="ruby-identifier">var</span>)
+  <span class="ruby-identifier">variable</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">var</span>).<span class="ruby-identifier">call</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">variable</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">IntVar</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Expected integer variable, got #{variable.class}.&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">optimize!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">best_so_far</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">model</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">var</span>).<span class="ruby-identifier">call</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">best_so_far</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">var</span>).<span class="ruby-identifier">call</span>.<span class="ruby-identifier">value</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(method, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wraps method missing to handle foo_is_a and foo_is_an .</p>
+
+<p>“&lt;variable_name&gt;_is_a &lt;variable&gt;” or
+“&lt;variable_name&gt;_is_an &lt;variable&gt;”, # replacing
+“&lt;variable_name&gt;” with the variable’s name and
+“&lt;variable&gt;” with the variable, adds an instance variable and
+accessor with the specified name.</p>
+
+<p>The method also returns the variable given.</p>
+
+<h4 id="method-i-method_missing-label-Example">Example<span><a href="#method-i-method_missing-label-Example">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># Add an instance variable and accessor named &quot;foo&quot; that return</span>
+<span class="ruby-comment"># the integer variable.</span>
+<span class="ruby-identifier">foo_is_an</span> <span class="ruby-identifier">int_var</span>(<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>)
+
+<span class="ruby-comment"># Add an instance variable and accessor named &quot;bar&quot; that return</span>
+<span class="ruby-comment"># the boolean variable array.</span>
+<span class="ruby-identifier">bar_is_a</span> <span class="ruby-identifier">bool_var_array</span>(<span class="ruby-value">2</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 296</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/._is_an?$/</span>
+    <span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">/_is_an?$/</span>, <span class="ruby-string">''</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
+        <span class="ruby-node">&quot;Wrong number of argmuments (#{args.size} for 1).&quot;</span>
+    <span class="ruby-keyword">end</span> 
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">name</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Method with name #{name} already exists.&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">instance_variable_defined?</span> <span class="ruby-node">&quot;@#{name}&quot;</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
+        <span class="ruby-node">&quot;Instance variable with name @#{name} already exists.&quot;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># We use the meta class to avoid defining the variable in all</span>
+    <span class="ruby-comment"># other instances of the class.</span>
+    <span class="ruby-identifier">eval</span> <span class="ruby-value">&lt;&lt;-&quot;end_eval&quot;
+      @#{name} = args.first
+      class &lt;&lt;self
+        attr :#{name}
+      end
+    end_eval</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">pre_gecoder_method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-minimize-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">minimize!</span><span
+            class="method-args">(var)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds the solution that minimizes a given integer variable. The name of 
+the method that accesses the variable from the model should be given. To 
+for instance minimize a variable named “cost”, that’s accessible
+through  the model, one would use the following.</p>
+
+<pre class="ruby"><span class="ruby-identifier">model</span>.<span class="ruby-identifier">minimize!</span> :<span class="ruby-identifier">cost</span>
+</pre>
+
+<p>Raises <a href="NoSolutionError.html">Gecode::NoSolutionError</a> if no
+solution can be found.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="minimize-21-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">minimize!</span>(<span class="ruby-identifier">var</span>)
+  <span class="ruby-identifier">variable</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">var</span>).<span class="ruby-identifier">call</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">variable</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">IntVar</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Expected integer variable, got #{variable.class}.&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">optimize!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">best_so_far</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">model</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">var</span>).<span class="ruby-identifier">call</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">best_so_far</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">var</span>).<span class="ruby-identifier">call</span>.<span class="ruby-identifier">value</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-optimize-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">optimize!</span><span
+            class="method-args">() { |self, self| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds the optimal solution. Optimality is defined by the provided block
+which is given two parameters, the model and the best solution found so far
+to the problem. The block should constrain the model so that that only
+“better” solutions can be new solutions. For instance if one wants to
+optimize a variable named price (accessible from the model) to be as low as
+possible then one should write the following.</p>
+
+<pre class="ruby"><span class="ruby-identifier">model</span>.<span class="ruby-identifier">optimize!</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">model</span>, <span class="ruby-identifier">best_so_far</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">model</span>.<span class="ruby-identifier">price</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">best_so_far</span>.<span class="ruby-identifier">price</span>.<span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>Raises <a href="NoSolutionError.html">Gecode::NoSolutionError</a> if no
+solution can be found.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="optimize-21-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">optimize!</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-comment"># Execute constraints.</span>
+  <span class="ruby-identifier">perform_queued_gecode_interactions</span>
+
+  <span class="ruby-comment"># Set the method used for constrain calls by the BAB-search.</span>
+  <span class="ruby-constant">Mixin</span>.<span class="ruby-identifier">constrain_proc</span> = <span class="ruby-identifier">lambda</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">home_space</span>, <span class="ruby-identifier">best_space</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">active_space</span> = <span class="ruby-identifier">best_space</span>
+    <span class="ruby-ivar">@gecoder_mixin_variable_creation_space</span> = <span class="ruby-identifier">home_space</span>
+    <span class="ruby-keyword">yield</span>(<span class="ruby-keyword">self</span>, <span class="ruby-keyword">self</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">active_space</span> = <span class="ruby-identifier">home_space</span>
+    <span class="ruby-ivar">@gecoder_mixin_variable_creation_space</span> = <span class="ruby-keyword">nil</span>
+    
+    <span class="ruby-identifier">perform_queued_gecode_interactions</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Perform the search.</span>
+  <span class="ruby-identifier">options</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span><span class="ruby-operator">::</span><span class="ruby-constant">Options</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">c_d</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">MINIMAL_DISTANCE</span>
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">a_d</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">Search</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">ADAPTIVE_DISTANCE</span>
+  <span class="ruby-identifier">options</span>.<span class="ruby-identifier">stop</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">bab</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">BAB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">selected_space</span>, <span class="ruby-identifier">options</span>)
+  
+  <span class="ruby-identifier">result</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">previous_solution</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">until</span> (<span class="ruby-identifier">previous_solution</span> = <span class="ruby-identifier">bab</span>.<span class="ruby-identifier">next</span>).<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">previous_solution</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@gecoder_mixin_statistics</span> = <span class="ruby-identifier">bab</span>.<span class="ruby-identifier">statistics</span>
+  
+  <span class="ruby-comment"># Reset the method used constrain calls and return the result.</span>
+  <span class="ruby-constant">Mixin</span>.<span class="ruby-identifier">constrain_proc</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">NoSolutionError</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">nil?</span>
+  
+  <span class="ruby-comment"># Switch to the result.</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">active_space</span> = <span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-repeat" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">repeat</span><span
+            class="method-args">(regexp, at_least = nil, at_most = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Specifies an integer regexp that matches <code>regexp</code> repeated
+between <code>at_least</code> and <code>at_most</code> times (inclusive).
+If <code>at_most</code> is omitted then no upper bound is placed. If both
+<code>at_least</code> and <code>at_most</code> are omitted then no bounds
+are placed.</p>
+
+<p>See IntEnum::Extensional::RegexpConstraint for the allowed syntax of
+<code>regexp</code>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="repeat-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/extensional_regexp.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">repeat</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">at_least</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">at_most</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">at_least</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">at_least</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, 
+      <span class="ruby-node">&quot;Expected the at_least argument to be a Fixnum, got #{at_least.class}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">at_most</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">at_most</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fixnum</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, 
+      <span class="ruby-node">&quot;Expected the at_most argument to be a Fixnum, got #{at_most.class}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">reg</span> = <span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">parse_regexp</span> <span class="ruby-identifier">regexp</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">at_most</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">at_least</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">reg</span>.<span class="ruby-identifier">send</span> <span class="ruby-string">'*'</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">reg</span>.<span class="ruby-identifier">send</span>(<span class="ruby-string">'()'</span>, <span class="ruby-identifier">at_least</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">reg</span>.<span class="ruby-identifier">send</span>(<span class="ruby-string">'()'</span>, <span class="ruby-identifier">at_least</span>, <span class="ruby-identifier">at_most</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-reset-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reset!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns to the original state, before any search was made (but  propagation
+might have been performed). Returns the reset model.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reset-21-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset!</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">active_space</span> = <span class="ruby-identifier">base_space</span>
+  <span class="ruby-ivar">@gecoder_mixin_statistics</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-search_stats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">search_stats</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns search statistics providing various information from <a
+href="../Gecode.html">Gecode</a> about the search that resulted in the
+model’s current variable state. If the  model’s variables have not
+undergone any search then nil is returned. The  statistics is a hash with
+the following keys:</p>
+<dl class="rdoc-list label-list"><dt>:propagations
+<dd>
+<p>The number of propagation steps performed.</p>
+</dd><dt>:failures
+<dd>
+<p>The number of failed nodes in the search tree.</p>
+</dd><dt>:clones
+<dd>
+<p>The number of clones created.</p>
+</dd><dt>:commits
+<dd>
+<p>The number of commit operations performed.</p>
+</dd><dt>:memory
+<dd>
+<p>The peak memory allocated to <a href="../Gecode.html">Gecode</a>.</p>
+</dd></dl>
+          
+          
+
+          
+          <div class="method-source-code" id="search_stats-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">search_stats</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@gecoder_mixin_statistics</span>.<span class="ruby-identifier">nil?</span>
+  
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:propagations</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@gecoder_mixin_statistics</span>.<span class="ruby-identifier">propagate</span>,
+    <span class="ruby-value">:failures</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@gecoder_mixin_statistics</span>.<span class="ruby-identifier">fail</span>,
+    <span class="ruby-value">:clones</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@gecoder_mixin_statistics</span>.<span class="ruby-identifier">clone</span>,
+    <span class="ruby-value">:commits</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@gecoder_mixin_statistics</span>.<span class="ruby-identifier">commit</span>,
+    <span class="ruby-value">:memory</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@gecoder_mixin_statistics</span>.<span class="ruby-identifier">memory</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_var</span><span
+            class="method-args">(glb_domain = [], lub_domain = LARGEST_SET_BOUND, cardinality_range = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a set variable with the specified domain for greatest lower bound
+and least upper bound (specified as either a fixnum, range or enum). If  no
+bounds are specified then the empty set is used as greatest lower  bound
+and the largest possible set as least upper bound.</p>
+
+<p>A range for the allowed cardinality of the set can also be specified, if
+none is specified, or nil is given, then the default range (anything) will
+be used. If only a single Fixnum is specified as cardinality_range then
+it’s used as lower bound.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="set_var-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 196</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_var</span>(<span class="ruby-identifier">glb_domain</span> = [], <span class="ruby-identifier">lub_domain</span> = <span class="ruby-constant">LARGEST_SET_BOUND</span>,
+    <span class="ruby-identifier">cardinality_range</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">set_bounds_to_parameters</span>(<span class="ruby-identifier">glb_domain</span>, <span class="ruby-identifier">lub_domain</span>, <span class="ruby-identifier">cardinality_range</span>)
+  <span class="ruby-constant">SetVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_set_var</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_var_array" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_var_array</span><span
+            class="method-args">(count, glb_domain = [], lub_domain = LARGEST_SET_BOUND, cardinality_range = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates an array containing the specified number of set variables. The
+parameters beyond count are the same as for <a
+href="Mixin.html#method-i-set_var">set_var</a> .</p>
+          
+          
+
+          
+          <div class="method-source-code" id="set_var_array-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 204</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_var_array</span>(<span class="ruby-identifier">count</span>, <span class="ruby-identifier">glb_domain</span> = [], <span class="ruby-identifier">lub_domain</span> = <span class="ruby-constant">LARGEST_SET_BOUND</span>, 
+    <span class="ruby-identifier">cardinality_range</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">set_bounds_to_parameters</span>(<span class="ruby-identifier">glb_domain</span>, <span class="ruby-identifier">lub_domain</span>, <span class="ruby-identifier">cardinality_range</span>)
+  <span class="ruby-identifier">build_var_array</span>(<span class="ruby-identifier">count</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-constant">SetVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_set_var</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_var_matrix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_var_matrix</span><span
+            class="method-args">(row_count, col_count, glb_domain = [], lub_domain = LARGEST_SET_BOUND, cardinality_range = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a matrix containing the specified number of rows and columns 
+filled with set variables. The parameters beyond row and column counts are
+the same as for <a href="Mixin.html#method-i-set_var">set_var</a> .</p>
+          
+          
+
+          
+          <div class="method-source-code" id="set_var_matrix-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 215</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_var_matrix</span>(<span class="ruby-identifier">row_count</span>, <span class="ruby-identifier">col_count</span>, <span class="ruby-identifier">glb_domain</span> = [], 
+    <span class="ruby-identifier">lub_domain</span> = <span class="ruby-constant">LARGEST_SET_BOUND</span>, <span class="ruby-identifier">cardinality_range</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">set_bounds_to_parameters</span>(<span class="ruby-identifier">glb_domain</span>, <span class="ruby-identifier">lub_domain</span>, <span class="ruby-identifier">cardinality_range</span>)
+  <span class="ruby-identifier">build_var_matrix</span>(<span class="ruby-identifier">row_count</span>, <span class="ruby-identifier">col_count</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-constant">SetVar</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">variable_creation_space</span>.<span class="ruby-identifier">new_set_var</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-solution" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">solution</span><span
+            class="method-args">() { |solution| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Yields the first solution (if any) to the block. If no solution is found
+then the block is not used. Returns the result of the block (nil in case
+the block wasn’t run).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="solution-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">solution</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">solution</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">solve!</span>
+    <span class="ruby-identifier">res</span> = <span class="ruby-keyword">yield</span> <span class="ruby-identifier">solution</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">reset!</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">res</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">NoSolutionError</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-solve-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">solve!</span><span
+            class="method-args">(options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds the first solution to the modelled problem and updates the variables
+to that solution. The found solution is also returned. Raises <a
+href="NoSolutionError.html">Gecode::NoSolutionError</a> if no solution can
+be found.</p>
+
+<p>The following options can be specified in a hash with symbols as keys when
+calling the method:</p>
+<dl class="rdoc-list label-list"><dt>:time_limit
+<dd>
+<p>The number of milliseconds that the solver should be allowed to use when
+searching for a solution. If it can  not find a solution fast enough, then 
+<a href="SearchAbortedError.html">Gecode::SearchAbortedError</a> is raised.</p>
+</dd></dl>
+          
+          
+
+          
+          <div class="method-source-code" id="solve-21-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/search.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">solve!</span>(<span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">dfs</span> = <span class="ruby-identifier">dfs_engine</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">space</span> = <span class="ruby-identifier">dfs</span>.<span class="ruby-identifier">next</span>
+  <span class="ruby-ivar">@gecoder_mixin_statistics</span> = <span class="ruby-identifier">dfs</span>.<span class="ruby-identifier">statistics</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">SearchAbortedError</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">dfs</span>.<span class="ruby-identifier">stopped</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">NoSolutionError</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">space</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">active_space</span> = <span class="ruby-identifier">space</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-wrap_enum" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">wrap_enum</span><span
+            class="method-args">(enum)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wraps a custom enumerable so that constraints can be specified using it.
+The argument is altered and returned.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="wrap_enum-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/enum_wrapper.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">wrap_enum</span>(<span class="ruby-identifier">enum</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">enum</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Enumerable</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Only enumerables can be wrapped.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">enum</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">EnumMethods</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'The enumration is already wrapped.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">elements</span> = <span class="ruby-identifier">enum</span>.<span class="ruby-identifier">to_a</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Enumerable must not be empty.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span> }
+    <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">map!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">to_int_var</span> }
+    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">enum</span>
+      <span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">IntEnumMethods</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_bool_var</span> }
+    <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">map!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">to_bool_var</span> }
+    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">enum</span>
+      <span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">BoolEnumMethods</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_var</span> }
+    <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">map!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">to_set_var</span> }
+    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">enum</span>
+      <span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">SetEnumMethods</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span> }
+    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">enum</span>
+      <span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">FixnumEnumMethods</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Enumerable doesn't contain operands #{enum.inspect}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">enum</span>.<span class="ruby-identifier">model</span> = <span class="ruby-keyword">self</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">enum</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(mod)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">mod</span>)
+  <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:pre_gecoder_method_missing</span>, <span class="ruby-value">:method_missing</span>
+    <span class="ruby-comment"># Wraps method missing to handle #foo_is_a and #foo_is_an . </span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># &quot;&lt;variable_name&gt;_is_a &lt;variable&gt;&quot; or &quot;&lt;variable_name&gt;_is_an</span>
+    <span class="ruby-comment"># &lt;variable&gt;&quot;, # replacing &quot;&lt;variable_name&gt;&quot; with the variable's</span>
+    <span class="ruby-comment"># name and &quot;&lt;variable&gt;&quot; with the variable, adds an instance</span>
+    <span class="ruby-comment"># variable and accessor with the specified name.</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># The method also returns the variable given.</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># ==== Example</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment">#   # Add an instance variable and accessor named &quot;foo&quot; that return</span>
+    <span class="ruby-comment">#   # the integer variable.</span>
+    <span class="ruby-comment">#   foo_is_an int_var(0..9)</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment">#   # Add an instance variable and accessor named &quot;bar&quot; that return</span>
+    <span class="ruby-comment">#   # the boolean variable array.</span>
+    <span class="ruby-comment">#   bar_is_a bool_var_array(2)</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+      <span class="ruby-identifier">name</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/._is_an?$/</span>
+        <span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">/_is_an?$/</span>, <span class="ruby-string">''</span>)
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
+            <span class="ruby-node">&quot;Wrong number of argmuments (#{args.size} for 1).&quot;</span>
+        <span class="ruby-keyword">end</span> 
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">name</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Method with name #{name} already exists.&quot;</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">instance_variable_defined?</span> <span class="ruby-node">&quot;@#{name}&quot;</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
+            <span class="ruby-node">&quot;Instance variable with name @#{name} already exists.&quot;</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-comment"># We use the meta class to avoid defining the variable in all</span>
+        <span class="ruby-comment"># other instances of the class.</span>
+        <span class="ruby-identifier">eval</span> <span class="ruby-value">&lt;&lt;-&quot;end_eval&quot;
+          @#{name} = args.first
+          class &lt;&lt;self
+            attr :#{name}
+          end
+        end_eval</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">pre_gecoder_method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixin_method_missing</span>, <span class="ruby-value">:method_missing</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:method_missing</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@redefining_method_missing</span>
+        <span class="ruby-comment"># The class that is mixing in the mixin redefined method</span>
+        <span class="ruby-comment"># missing. Redefine method missing again to combine the two</span>
+        <span class="ruby-comment"># definitions.</span>
+        <span class="ruby-ivar">@redefining_method_missing</span> = <span class="ruby-keyword">true</span>
+        <span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span> 
+          <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixee_method_missing</span>, <span class="ruby-value">:method_missing</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+            <span class="ruby-keyword">begin</span>
+              <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+            <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+              <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:method_missing</span>, <span class="ruby-value">:combined_method_missing</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-method_added" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_added</span><span
+            class="method-args">(method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="method_added-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 327</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:method_missing</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@redefining_method_missing</span>
+    <span class="ruby-comment"># The class that is mixing in the mixin redefined method</span>
+    <span class="ruby-comment"># missing. Redefine method missing again to combine the two</span>
+    <span class="ruby-comment"># definitions.</span>
+    <span class="ruby-ivar">@redefining_method_missing</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span> 
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixee_method_missing</span>, <span class="ruby-value">:method_missing</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword">begin</span>
+          <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+          <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:method_missing</span>, <span class="ruby-value">:combined_method_missing</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

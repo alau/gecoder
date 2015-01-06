@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>formulating_problems.page - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../CHANGES.html">CHANGES</a>
+  
+    <li><a href="../../../COPYING.html">COPYING</a>
+  
+    <li><a href="../../../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../../Gemfile_lock.html">Gemfile.lock</a>
+  
+    <li><a href="../../../LGPL-LICENSE.html">LGPL-LICENSE</a>
+  
+    <li><a href="../../../README.html">README</a>
+  
+    <li><a href="../../../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../../../THANKS.html">THANKS</a>
+  
+    <li><a href="../../../doc/config_yaml.html">config.yaml</a>
+  
+    <li><a href="../../../doc/metainfo_yaml.html">metainfo.yaml</a>
+  
+    <li><a href="../../../doc/output/rspec_html.html">rspec.html</a>
+  
+    <li><a href="../../../doc/src/404-error_page.html">404-error.page</a>
+  
+    <li><a href="../../../doc/src/default_template.html">default.template</a>
+  
+    <li><a href="../../../doc/src/details/changes_page.html">changes.page</a>
+  
+    <li><a href="../../../doc/src/details/contribute_page.html">contribute.page</a>
+  
+    <li><a href="../../../doc/src/details/credits_page.html">credits.page</a>
+  
+    <li><a href="../../../doc/src/details/development_page.html">development.page</a>
+  
+    <li><a href="../../../doc/src/details/index_page.html">index.page</a>
+  
+    <li><a href="../../../doc/src/documentation/faq_page.html">faq.page</a>
+  
+    <li><a href="../../../doc/src/documentation/formulating_problems_page.html">formulating_problems.page</a>
+  
+    <li><a href="../../../doc/src/documentation/index_page.html">index.page</a>
+  
+    <li><a href="../../../doc/src/documentation/modelling/index_page.html">index.page</a>
+  
+    <li><a href="../../../doc/src/documentation/modelling/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../../doc/src/documentation/modelling/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/boolean-enum-operands_page.html">boolean-enum-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/boolean-operands_page.html">boolean-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/index_page.html">index.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/integer-enum-operands_page.html">integer-enum-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/integer-operands_page.html">integer-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/selected-set-operands_page.html">selected-set-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/set-elements-operands_page.html">set-elements-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/set-enum-operands_page.html">set-enum-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/operands/set-operands_page.html">set-operands.page</a>
+  
+    <li><a href="../../../doc/src/documentation/searching_for_solutions_page.html">searching_for_solutions.page</a>
+  
+    <li><a href="../../../doc/src/examples/index_page.html">index.page</a>
+  
+    <li><a href="../../../doc/src/examples/magic-sequence_page.html">magic-sequence.page</a>
+  
+    <li><a href="../../../doc/src/examples/minesweeper_page.html">minesweeper.page</a>
+  
+    <li><a href="../../../doc/src/examples/n-queens_page.html">n-queens.page</a>
+  
+    <li><a href="../../../doc/src/examples/nonogram_page.html">nonogram.page</a>
+  
+    <li><a href="../../../doc/src/examples/send-more-money_page.html">send-more-money.page</a>
+  
+    <li><a href="../../../doc/src/examples/send-most-money_page.html">send-most-money.page</a>
+  
+    <li><a href="../../../doc/src/examples/square-tiling_page.html">square-tiling.page</a>
+  
+    <li><a href="../../../doc/src/examples/sudoku-set_page.html">sudoku-set.page</a>
+  
+    <li><a href="../../../doc/src/examples/sudoku_page.html">sudoku.page</a>
+  
+    <li><a href="../../../doc/src/examples/survo_page.html">survo.page</a>
+  
+    <li><a href="../../../doc/src/features_page.html">features.page</a>
+  
+    <li><a href="../../../doc/src/frontpage_template.html">frontpage.template</a>
+  
+    <li><a href="../../../doc/src/index_page.html">index.page</a>
+  
+    <li><a href="../../../doc/src/installation_page.html">installation.page</a>
+  
+    <li><a href="../../../doc/src/sitemap_page.html">sitemap.page</a>
+  
+    <li><a href="../../../doc/src/sitemap_sitemap.html">sitemap.sitemap</a>
+  
+    <li><a href="../../../doc/src/styles_css.html">styles.css</a>
+  
+    <li><a href="../../../ext/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../../ext/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../../ext/mkmf_log.html">mkmf.log</a>
+  
+    <li><a href="../../../gecoder_log.html">gecoder.log</a>
+  
+    <li><a href="../../../tasks/dependencies_txt.html">dependencies</a>
+  
+    <li><a href="../../../tasks/distribution_rake.html">distribution.rake</a>
+  
+    <li><a href="../../../tasks/rcov_rake.html">rcov.rake</a>
+  
+    <li><a href="../../../tasks/specs_rake.html">specs.rake</a>
+  
+    <li><a href="../../../tasks/svn_rake.html">svn.rake</a>
+  
+    <li><a href="../../../tasks/website_rake.html">website.rake</a>
+  
+    <li><a href="../../../vendor/gecode/bool-shr_patch.html">bool-shr.patch</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0-patch-notes.html">gecode-2.2.0-patch-notes</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/LICENSE.html">LICENSE</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/Makefile.html">Makefile</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/Makefile_dep.html">Makefile.dep</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/changelog_in.html">changelog.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/config_log.html">config.log</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/config_status.html">config.status</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/configure.html">configure</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/configure_ac_in.html">configure.ac.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/README.html">README</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/Doxyfile.html">Doxyfile</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/Makefile_in_in.html">Makefile.in.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/output_0.html">output.0</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/requests.html">requests</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/autom4te_cache/traces_0.html">traces.0</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_log.html">config.log</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/config_status.html">config.status</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure.html">configure</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/configure_ac.html">configure.ac</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/examples/COMPILING.html">COMPILING</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/contribs/qecode/shortdesc_ac.html">shortdesc.ac</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/doxygen_conf.html">doxygen.conf</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_conf_in.html">doxygen.conf.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/doxygen/doxygen_hh_in.html">doxygen.hh.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode_m4.html">gecode.m4</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/cpltset/var-imp/cpltset_vis.html">cpltset.vis</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/drawingcursor_icc.html">drawingcursor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/bool_vis.html">bool.vis</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/int/var-imp/int_vis.html">int.vis</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/set/var-imp/set_vis.html">set.vis</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/AUTHORS.html">AUTHORS</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/ChangeLog.html">ChangeLog</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/NEWS.html">NEWS</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/support/buddy/README.html">README</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/gecode/support/config_icc_in.html">config.icc.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/install-sh.html">install-sh</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/AppleHelpbookInfo_plist.html">AppleHelpbookInfo.plist</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/allexamples_perl.html">allexamples.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/Makefile_am.html">Makefile.am</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/changelog.html">changelog</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/control.html">control</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/copyright.html">copyright</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_info.html">gecode.info</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_install.html">gecode.install</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/gecode_spec.html">gecode.spec</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/debian/rules.html">rules</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/doxygen/footer_html.html">footer.html</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/doxygen/header_html.html">header.html</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/doxygen/stylesheet_css.html">stylesheet.css</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/fixproperties_sh.html">fixproperties.sh</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc.html">gecode-gist.pc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-gist_pc_in.html">gecode-gist.pc.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc.html">gecode-minimodel.pc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-minimodel_pc_in.html">gecode-minimodel.pc.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc.html">gecode-search.pc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-search_pc_in.html">gecode-search.pc.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc.html">gecode-serialization.pc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode-serialization_pc_in.html">gecode-serialization.pc.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode_pc.html">gecode.pc</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gecode_pc_in.html">gecode.pc.in</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/genchangelog_perl.html">genchangelog.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/genlcovmakefile_perl.html">genlcovmakefile.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/genlicense_perl.html">genlicense.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/genregistry_perl.html">genregistry.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/genstatistics_perl.html">genstatistics.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/gentxtchangelog_perl.html">gentxtchangelog.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/genvariables_perl.html">genvariables.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/getrevision_perl.html">getrevision.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/makedepend_perl.html">makedepend.perl</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/misc/svn-ignore_txt.html">svn-ignore</a>
+  
+    <li><a href="../../../vendor/gecode/gecode-2_2_0/variables_vsl.html">variables.vsl</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/cpltset/bddmanager_icc.html">bddmanager.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/gist_icc.html">gist.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/layoutcursor_icc.html">layoutcursor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/node_icc.html">node.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/nodecursor_icc.html">nodecursor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/nodevisitor_icc.html">nodevisitor.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/spacenode_icc.html">spacenode.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/visualnode_icc.html">visualnode.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/gist/zoomToFitIcon_icc.html">zoomToFitIcon.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/kernel/var-imp_icc.html">var-imp.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/kernel/var-type_icc.html">var-type.icc</a>
+  
+    <li><a href="../../../vendor/gecode/win32/include/gecode/support/config_icc.html">config.icc</a>
+  
+    <li><a href="../../../vendor/rust/README.html">README</a>
+  
+    <li><a href="../../../vendor/rust/test/Makefile.html">Makefile</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page doc/src/documentation/formulating_problems.page">
+<hr>
+
+<p>title: Formulating Problems longTitle: How to Formulate Constraint
+Programming Problems in Gecode/R inMenu: true description: How to formulate
+constraint programming problems in Gecode/R. Formulated problems are then
+solved by the solver.</p>
+<hr>
+
+<p>h1. Formulating Problems</p>
+
+<p>&lt;div class=“summary”&gt; &lt;p&gt;Problems are formulated by using
+{RDoc: Gecode::Mixin} to create  variables and constraints such that the
+problem is solved by finding an assignment of the variables that satisfy
+all constraints.&lt;/p&gt; &lt;/div&gt;</p>
+
+<p>Three things should always be specified:</p>
+
+<p>&lt;dl&gt;</p>
+
+<pre>&lt;dt&gt;&quot;Variables&quot;:#variables_and_operands&lt;/dt&gt;&lt;dd&gt;Variables specify how to view the problem. A solution is an assignment of the variables.&lt;/dd&gt;
+&lt;dt&gt;&quot;Constraints&quot;:#constraints&lt;/dt&gt;&lt;dd&gt;Constraints are placed on the variables to ensure that a valid assignment of the variables is a solution to the problem.&lt;/dd&gt;
+&lt;dt&gt;&quot;Branching&quot;:#branching&lt;/dt&gt;&lt;dd&gt;Branching specifies how the search space should be explored and which variables that must be assigned.&lt;/dd&gt;</pre>
+
+<p>&lt;/dl&gt;</p>
+
+<p>h2. Variables and Operands</p>
+
+<p>Variables represent the problem’s search space. Each variable has a
+<em>domain</em> which represents all values that the variable can take. An
+integer variable with domain {0,1,…,9} can for instance take any value
+between 0 and 9.</p>
+
+<p><a href="../../../Gecode.html">Gecode</a> deduces which values that a
+variable can not take and removes them from the domain. Once a variable
+only has one value left in its domain its said to be <em>assigned</em> that
+value.  A solution to a problem is a valid assignment of the variables.</p>
+
+<p>The different types of variables are:</p>
+
+<p>&lt;dl&gt;</p>
+
+<pre>&lt;dt&gt;Integer variables&lt;/dt&gt;
+&lt;dd&gt;Can be assigned integer values.&lt;/dd&gt;
+&lt;dt&gt;Boolean variables&lt;/dt&gt;
+&lt;dd&gt;Can be assigned either true or false.&lt;/dd&gt;
+&lt;dt&gt;Set variables&lt;/dt&gt;
+&lt;dd&gt;Can be assigned sets of integer values.&lt;/dd&gt;</pre>
+
+<p>&lt;/dl&gt;</p>
+
+<p>h3. Operands</p>
+
+<p>Variables are the most basic type of “operands”:operands/index.html. 
+It is common to work with arrays or enumerations of variables, which  are
+also operands.</p>
+
+<p>The different types of variables correspond to the following types of
+operands.</p>
+
+<p>&lt;dl&gt;</p>
+
+<pre>&lt;dt&gt;Integer variables&lt;/dt&gt;
+&lt;dd&gt;Act as &quot;integer operands&quot;:operands/integer-operands.html. 
+    Enumerations of integer variables act as &quot;integer enumeration
+    operands&quot;:operands/integer-enum-operands.html.&lt;/dd&gt;
+&lt;dt&gt;Boolean variables&lt;/dt&gt;
+&lt;dd&gt;Act as &quot;boolean operands&quot;:operands/boolean-operands.html. Enumerations of 
+    boolean variables act as &quot;boolean enumeration
+    operands&quot;:operands/boolean-enum-operands.html.&lt;/dd&gt;
+&lt;dt&gt;Set variables&lt;/dt&gt;
+&lt;dd&gt;Act as &quot;set operands&quot;:operands/set-operands.html. Enumerations of 
+    set variables act as &quot;set enumeration 
+    operands&quot;:operands/set-enum-operands.html.&lt;/dd&gt;</pre>
+
+<p>&lt;/dl&gt;</p>
+
+<p>h3. Creating Integer Variables</p>
+
+<p>Use {RDoc: Mixin#int_var} to create a new integer variable. The method
+takes one argument, the domain of the integer variable. The domain
+represents the values that the variable can take. A variable with domain
+0..9 can for instance take any value in the range 0 to 9.</p>
+
+<p>&lt;ruby&gt; digit = int_var(0..9) # Creates an integer variable with
+domain 0..9. &lt;/ruby&gt;</p>
+
+<p>The domain can be omitted, in which case the largest possible domain
+(Gecode::Mixin::MIN_INT to Gecode::Mixin::MAX_INT) is used.</p>
+
+<p>&lt;ruby&gt; number = int_var # An integer variable with the largest
+possible domain. &lt;/ruby&gt;</p>
+
+<p>Alternatively one can also create multiple integer variables with the same 
+domain at once using {RDoc: Mixin#int_var_array} which returns an array of
+variables.</p>
+
+<p>&lt;ruby&gt; numbers = int_var_array(8, 0..9) # Creates 8 variables with
+domains 0..9. &lt;/ruby&gt;</p>
+
+<p>The domain specified does not have to be a range, it can also be an
+enumeration of elements. The following creates an integer variable with the
+odd numbers in  0..9 as domain.</p>
+
+<p>&lt;ruby&gt; odd_number = <a href="1,3,5,7,9">int_var(</a>) &lt;/ruby&gt;</p>
+
+<p>Matrices can be created using {RDoc: Mixin#int_var_matrix} (returns an
+instance of Matrix).</p>
+
+<p>&lt;ruby&gt; number_matrix = int_var_matrix(5, 4, 0..9) # 5 rows and 4
+columns. &lt;/ruby&gt;</p>
+
+<p>Additional custom enumerations containing variables can be used, but they
+have to be wrapped using {RDoc: Mixin#wrap_enum} first.</p>
+
+<p>&lt;ruby&gt; my_enum = wrap_enum(my_enum) my_enum.must_be.distinct
+&lt;/ruby&gt;</p>
+
+<p>h3. Creating Boolean Variables</p>
+
+<p>Use any of {RDoc: Mixin#bool_var}, {RDoc: Mixin#bool_var_array} and {RDoc:
+Mixin#bool_var_matrix} to create boolean variables. The methods work like
+the ones for integer variables, but do not require a domain.</p>
+
+<p>&lt;ruby&gt; bool = bool_var # Creates a boolean variable bools =
+bool_var_array(3) # Creates 3 boolean variables. bool_matrix =
+bool_var_matrix(3, 4) # Creates a 3x4 matrix of boolean variables.
+&lt;/ruby&gt;</p>
+
+<p>h3. Creating Set Variables</p>
+
+<p>Use any of {RDoc: Mixin#set_var}, {RDoc: Mixin#set_var_array} and {RDoc:
+Mixin#set_var_matrix} to create set variables. The domain of a set variable
+is specified through a _greatest lower bound_ (GLB), a  _least upper bound_
+(LUB) and the allowed cardinality (which is optional).</p>
+
+<p>The greatest lower bound is the largest set of elements that are certain to
+be in the set. The least upper bound is the smallest set of elements that
+might be in the set (which should include the greatest lower bound). I.e.
+the greatest lower bound is a subset of the assigned set which is a subset
+of the least upper bound.</p>
+
+<p>The bounds are specified as constant sets. The cardinality can only be
+specified with ranges or as a single number, which is then used as the
+minimum cardinality.</p>
+
+<p>If no bounds are specified then the empty set is used as lower bound and
+the largest possible set as upper bound.</p>
+
+<p>A constant set can be represented with instances of the following classes:
+&lt;dl&gt;</p>
+
+<pre>&lt;dt&gt;Fixnum&lt;/dt&gt;&lt;dd&gt;Represents a singleton set.&lt;/dd&gt;
+&lt;dt&gt;Range&lt;/dt&gt;&lt;dd&gt;Represents a set containing all elements in the range. This represents the set more efficiently than when another enumeration with the same elements are used.&lt;/dd&gt;
+&lt;dt&gt;Enumeration of Fixnum&lt;/dt&gt;&lt;dd&gt;Represents a set containing the enumeration's elements.&lt;/dd&gt;</pre>
+
+<p>&lt;/dl&gt;</p>
+
+<p>&lt;ruby&gt; # Creates a set variable with glb 1..2 and lub 1..6 . set =
+set_var(1..2, 1..6)  # Creates an array of 3 set variables with the above
+bounds and a minimum  # cardinality of 3. sets = set_var_array(3, 1..2,
+1..6, 3) # Creates a 7x9 matrix of set variables with the above bounds and
+a cardinality  # between 2 and 5 set_matrix = set_var_matrix(7, 9, 1..2,
+1..6 2..5) &lt;/ruby&gt;</p>
+
+<p>h3. Accessing Variables from the Outside</p>
+
+<p>It is often desirable to be able to access a variable from outside the
+class in order to e.g. access the selected values of the solution. One way
+to do this is to assign the variable to an instance variable and then add
+an accessor, but since it’s such a common operation a more convenient way
+has been added. Write @&lt;variable_name&gt;_is_a &lt;variable&gt;@ or
+@&lt;variable_name&gt;_is_an &lt;variable&gt;@, replacing
+@&lt;variable_name&gt;@ with the variable’s name and @&lt;variable&gt;@
+with the variable, to add an instance variable and accessor with the
+specified name.</p>
+
+<p>To exemplify, The following two pieces of code are equivalent. &lt;ruby&gt;
+class Foo</p>
+
+<pre class="ruby"><span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Mixin</span>
+
+<span class="ruby-identifier">attr</span> :<span class="ruby-identifier">digit</span>
+
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-ivar">@digit</span> = <span class="ruby-identifier">int_var</span> <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>
+
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-ivar">@digit</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>&lt;ruby&gt; class Foo</p>
+
+<pre class="ruby"><span class="ruby-identifier">include</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Mixin</span>
+
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-identifier">digit_is_an</span> <span class="ruby-identifier">int_var</span>(<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>)
+
+  <span class="ruby-identifier">branch_on</span> <span class="ruby-identifier">digit</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end &lt;/ruby&gt;</p>
+
+<p>h2. Constraints</p>
+
+<p>Constraints specify what must hold for something to be a solution. They are
+placed on operands using using @#must@ and @#must_not@ in the following
+fashion:</p>
+
+<p>&lt;ruby&gt; operand.must.constraint_method(params) &lt;/ruby&gt;</p>
+
+<p>For example, the following constrains @int_operand@ to be strictly greater
+than 5.</p>
+
+<p>&lt;ruby&gt; int_operand.must &gt; 5 &lt;/ruby&gt;</p>
+
+<p>Different operands support different constraints. See the documentation of
+each operand for a complete list.</p>
+
+<p>h2. Branching</p>
+
+<p>Branching is when the solver has to make a guess about a variable’s value
+(possibly having to backtrack later if the guess was wrong). Branching is
+used as a last resort if the variable’s domain can’t be pruned any
+further using pure deduction.</p>
+
+<p>The variables to branch over are specified using {RDoc: Mixin#branch_on}.</p>
+
+<p>&lt;ruby&gt; branch_on numbers &lt;/ruby&gt;</p>
+
+<p>Variables that are branched over are guaranteed to be assigned in the
+solution. Therefore branch over all variables that represent the solution
+to the problem. Multiple calls to @branch_on@ can be used to branch over
+more than one enumeration of variables.</p>
+
+<p>&lt;ruby&gt; branch_on numbers branch_on other_numbers &lt;/ruby&gt;</p>
+
+<p>h3. Branching Heuristics</p>
+
+<p>The branching heuristic decides in which order guesses should be made when
+branching. Picking a good heuristic helps cut down the search space.</p>
+
+<p>A common heuristic is first fail, which makes guesses about the variable
+with the smallest domain first. This exhausts the remaining possibilities
+of variables with small domains first, which reveals failures early in the
+search.</p>
+
+<p>&lt;ruby&gt; branch_on numbers, :variable =&gt; :smallest_size, :value
+=&gt; :min &lt;/ruby&gt;</p>
+
+<p>h2. <a href="../../../Gecode/Model.html">Gecode::Model</a></p>
+
+<p>{RDoc: Gecode::Model} is a convenient class that only mixes in
+@Gecode::Mixin@. It is useful for creating models without mixin in <a
+href="../../../Gecode/Mixin.html">Gecode::Mixin</a> into the current
+context or creating a new class.</p>
+
+<p>&lt;ruby&gt; model = Gecode::Model.new var = model.int_var(0..9) var.must
+&gt; 5 model.branch_on var model.solve!</p>
+
+<p>p var.value &lt;/ruby&gt;</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

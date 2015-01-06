@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Selected Set Operands - Constraints Supported by Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="The constraints and properties of the selected set operand available in Gecode/R for Constraint Programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <a href="index.html">Operands</a> > <span>Selected Set Operands</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Operands</h3><ul id="secondNav"><li><a href="index.html">Operands</a></li><li><a href="integer-operands.html">Integer Operands</a></li><li><a href="integer-enum-operands.html">Integer Enumeration Operands</a></li><li><a href="boolean-operands.html">Boolean Operands</a></li><li><a href="boolean-enum-operands.html">Boolean Enumeration Operands</a></li><li><a href="set-operands.html">Set Operands</a></li><li><a href="set-enum-operands.html">Set Enumeration Operands</a></li><li><a href="set-elements-operands.html">Set Elements Operands</a></li><li><span>Selected Set Operands</span></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#examples_of_selected_set_operands">Examples of Selected Set Operands</a></li><li><a href="#constraints">Constraints</a><ul class="section-links"><li><a href="#_disjoint_"><code>disjoint</code></a></li></ul></li><li><a href="#properties">Properties</a><ul class="section-links"><li><a href="#_union_"><code>union</code></a></li><li><a href="#_intersection_"><code>intersection</code></a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Selected Set Operands</h1>
+
+
+<div class="summary">
+<p>The set elements operand is a relatively uncommon type of
+operand created by using array access (the <code>#[]</code> property) on set enumeration 
+operands with a set operand as index. The operand represents all sets
+with indices present in the set operand index.</p></div>
+
+	<h4 id="examples_of_selected_set_operands">Examples of Selected Set Operands</h4>
+
+
+	<p>All selected set operands are created by using <a href="../../rdoc/Gecode/SetEnum/SetEnumOperand.html"><code>SetEnumOperand#[]</code></a> 
+property.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Creates a selected set operand from set_enum_operand and set_operand.</span>
+selected_set_operand = set_enum_operand[set_operand]
+</pre></div>
+</div>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/SelectedSet/SelectedSetConstraintReceiver.html"><code>SelectedSetConstraintReceiver</code></a>.</p>
+
+
+	<h3 id="_disjoint_"><code>disjoint</code></h3>
+
+
+	<p><code>disjoint(options = {})</code><p>
+Constrains the selected sets to be pairwise disjoint.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains all sets selected by +set_enum[set]+ to be pairwise</span>
+<span class="c"># disjoint.</span>
+set_enum[set].must_be.disjoint
+</pre></div>
+</div></p>
+
+
+	<h2 id="properties">Properties</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/SelectedSet/SelectedSetOperand.html"><code>SelectedSetOperand</code></a>.</p>
+
+
+	<h3 id="_union_"><code>union</code></h3>
+
+
+	<p><code>union()</code><p>
+Produces a SetOperand representing the selected sets&#8217; union.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The union of all sets selected by +set_enum[set]+.</span>
+set_enum[set].union
+</pre></div>
+</div></p>
+
+
+	<h3 id="_intersection_"><code>intersection</code></h3>
+
+
+	<p><code>intersection(options = {})</code><p>
+Produces a SetOperand representing the selected sets&#8217; intersection.
+The option :with can be used to enumerate the elements in the universe.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># The intersection of all sets selected by +set_enum[set]+.</span>
+set_enum[set].intersection
+
+<span class="c"># The same intersection as above, but with [3,5,7] as universe.</span>
+set_enum[set].intersection(<span class="sy">:with</span> =&gt; [<span class="i">3</span>,<span class="i">5</span>,<span class="i">7</span>])
+</pre></div>
+</div></p>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

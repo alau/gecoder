@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Boolean Enumeration Operands - Constraints Supported by Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="The constraints and properties of the boolean enumeration operand available in Gecode/R for Constraint Programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <a href="index.html">Operands</a> > <span>Boolean Enumeration Operands</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Operands</h3><ul id="secondNav"><li><a href="index.html">Operands</a></li><li><a href="integer-operands.html">Integer Operands</a></li><li><a href="integer-enum-operands.html">Integer Enumeration Operands</a></li><li><a href="boolean-operands.html">Boolean Operands</a></li><li><span>Boolean Enumeration Operands</span></li><li><a href="set-operands.html">Set Operands</a></li><li><a href="set-enum-operands.html">Set Enumeration Operands</a></li><li><a href="set-elements-operands.html">Set Elements Operands</a></li><li><a href="selected-set-operands.html">Selected Set Operands</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#examples_of_boolean_enumeration_operands">Examples of Boolean Enumeration Operands</a></li><li><a href="#constraints">Constraints</a><ul class="section-links"><li><a href="#_channel_"><code>channel</code></a></li><li><a href="#_in_"><code>in</code></a></li><li><a href="#_match_"><code>match</code></a></li></ul></li><li><a href="#properties">Properties</a><ul class="section-links"><li><a href="#_conjunction_"><code>conjunction</code></a></li><li><a href="#_disjunction_"><code>disjunction</code></a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Boolean Enumeration Operands</h1>
+
+
+<div class="summary">
+<p>A boolean enumeration operand is an enumeration of boolean
+operands.</p></div>
+
+	<h4 id="examples_of_boolean_enumeration_operands">Examples of Boolean Enumeration Operands</h4>
+
+
+	<p>Enumerations of boolean operands are commonly created using <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#bool_var_array</code></a> and <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#bool_var_matrix</code></a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Creates an array of five boolean operands.</span>
+bool_enum = bool_var_array(<span class="i">5</span>)
+</pre></div>
+</div>
+
+
+	<p>A less common way to create the operands is by using <a href="../../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin#wrap_enum</code></a> to wrap an existing enumeration that contains
+boolean operands.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>bool_enum = wrap_enum([bool_operand1, bool_operand2])
+</pre></div>
+</div>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/BoolEnum/BoolEnumConstraintReceiver.html"><code>BoolEnumConstraintReceiver</code></a>.</p>
+
+
+	<h3 id="_channel_"><code>channel</code></h3>
+
+
+	<p><code>channel(integer_operand, options = {})</code><p>
+Constrains this enumeration to &#8220;channel&#8221; <code>integer_operand</code>. This
+constrains the integer operand to take value i exactly when the operand at
+index i in the boolean enumeration is true and the others are false.
+</p>
+<p>
+Beyond the common options the channel constraint can also take the
+following option:
+</p>
+<dl>
+<dt>:offset</dt><dd>Specifies an offset for the integer operand. If the offset is set to k then
+the integer operand takes value i+k exactly when the operand at index i in
+the boolean enumeration is true and the rest are false.
+
+</dd>
+</dl>
+<p>
+Neither reification nor negation is supported. The int operand and the
+enumeration can be interchanged.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains the enumeration called +option_is_selected+ to be false</span>
+<span class="c"># in the first four positions and have exactly one true operand in</span>
+<span class="c"># the other.</span>
+option_is_selected.must.channel selected_option_index
+selected_option_index.must_be &gt; <span class="i">3</span>
+
+<span class="c"># Constrains the enumeration called +option_is_selected+ to be false</span>
+<span class="c"># in the first five positions and have exactly one true operand in</span>
+<span class="c"># the other.</span>
+selected_option_index.must.channel(option_is_selected, <span class="sy">:offset</span> =&gt; <span class="i">1</span>)
+selected_option_index.must_be &gt; <span class="i">3</span>
+</pre></div>
+</div></p>
+
+
+	<h3 id="_in_"><code>in</code></h3>
+
+
+	<p><code>in(tuples, options = {})</code><p>
+Constrains all the operands in this enumeration to be equal to one of the
+specified tuples. Neither negation nor reification is supported.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains the three boolean operands in +bools+ to either</span>
+<span class="c"># be true, false, true, or false, false, true.</span>
+bools.must_be.in [[<span class="pc">true</span>, <span class="pc">false</span>, <span class="pc">true</span>], [<span class="pc">false</span>, <span class="pc">false</span>, <span class="pc">true</span>]]
+
+<span class="c"># The same as above, but preferring speed over low memory usage.</span>
+bools.must_be.in([[<span class="pc">true</span>, <span class="pc">false</span>, <span class="pc">true</span>], [<span class="pc">false</span>, <span class="pc">false</span>, <span class="pc">true</span>]],
+  <span class="sy">:kind</span> =&gt; <span class="sy">:speed</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_match_"><code>match</code></h3>
+
+
+	<p><code>match(regexp, options = {})</code><p>
+Constrains the sequence of operands in this enumeration to match a
+specified regexp in the boolean domain. Neither negation nor reification is
+supported.
+</p>
+<p>
+The regular expressions are specified as described in
+IntEnumConstraintReceiver#match but true and false can be used instead of
+integers.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Constrains the two boolean operands in +bools+ to be false</span>
+<span class="c"># and true respectively.</span>
+bools.must.match [<span class="pc">false</span>, <span class="pc">true</span>]
+
+<span class="c"># Constrains the boolean operands in +bools+ to be false,</span>
+<span class="c"># except for three consecutive operands which should be true</span>
+<span class="c"># followed by false followed by true.</span>
+bools.must.match [repeat(<span class="pc">false</span>), <span class="pc">true</span>, <span class="pc">false</span>, <span class="pc">true</span>, repeat(<span class="pc">false</span>)]]
+</pre></div>
+</div></p>
+
+
+	<h2 id="properties">Properties</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/BoolEnum/BoolEnumOperand.html"><code>BoolEnumOperand</code></a>.</p>
+
+
+	<h3 id="_conjunction_"><code>conjunction</code></h3>
+
+
+	<p><code>conjunction()</code><p>
+Produces a BoolOperand that represents the conjunction (AND) of all boolean
+operands in this enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Conjunction of all elements in +bool_enum+.</span>
+bool_enum.conjunction
+</pre></div>
+</div></p>
+
+
+	<h3 id="_disjunction_"><code>disjunction</code></h3>
+
+
+	<p><code>disjunction()</code><p>
+Produces a BoolOperand that represents the disjunction (OR) of all boolean
+operands in this enumeration.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Disjunction of all elements in +bool_enum+.</span>
+bool_enum.disjunction
+</pre></div>
+</div></p>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

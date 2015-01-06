@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Solving Sudoku using Constraint Programming in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="An example showing how to solve a sudoku puzzle using constraint programming in Ruby with Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Examples</a> > <span>Sudoku</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Examples</h3><ul id="secondNav"><li><a href="index.html">Overview</a></li><li><a href="send-more-money.html">send+more=money</a></li><li><a href="send-most-money.html">send+most=money</a></li><li><span>Sudoku</span></li><li><a href="sudoku-set.html">Sudoku with sets</a></li><li><a href="n-queens.html">N-queens</a></li><li><a href="magic-sequence.html">Magic Sequence</a></li><li><a href="nonogram.html">Nonogram (Paint by Numbers)</a></li><li><a href="square-tiling.html">Square tiling</a></li><li><a href="minesweeper.html">Minesweeper</a></li><li><a href="survo.html">Survo Puzzle</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#problem">Problem</a></li><li><a href="#code">Code</a></li><li><a href="#output">Output</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Sudoku</h1>
+
+
+	<h2 id="problem">Problem</h2>
+
+
+	<blockquote>
+		<p>The objective is to fill a 9&#215;9 grid so that each column, each row, and each 
+of the nine 3&#215;3 boxes contains the digits from 1 to 9. The puzzle setter 
+provides a partially completed grid. &#8211; <a href="http://en.wikipedia.org/wiki/Soduko">Wikipedia</a></p>
+	</blockquote>
+
+
+	<h2 id="code">Code</h2>
+
+
+	<p><div class="CodeRay">
+  <div class="code"><pre><span class="no"> 1</span> require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+<span class="no"> 2</span> require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+<span class="no"> 3</span> require <span class="s"><span class="dl">'</span><span class="k">enumerator</span><span class="dl">'</span></span>
+<span class="no"> 4</span> 
+<span class="no"> 5</span> <span class="c"># Solves the sudoku problem: http://en.wikipedia.org/wiki/Soduko</span>
+<span class="no"> 6</span> 
+<span class="no"> 7</span> <span class="c"># The sudoku we want to solve (0 represents that the square is empty).</span>
+<span class="no"> 8</span> sudoku = <span class="co">Matrix</span>[
+<span class="no"> 9</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">2</span>,<span class="i">0</span>,<span class="i">5</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>],
+<span class="no"><strong>10</strong></span>   [<span class="i">0</span>,<span class="i">9</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">7</span>,<span class="i">3</span>,<span class="i">0</span>],
+<span class="no">11</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">2</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">9</span>, <span class="i">0</span>,<span class="i">6</span>,<span class="i">0</span>],
+<span class="no">12</span>     
+<span class="no">13</span>   [<span class="i">2</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">4</span>,<span class="i">0</span>,<span class="i">9</span>],
+<span class="no">14</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">7</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>],
+<span class="no">15</span>   [<span class="i">6</span>,<span class="i">0</span>,<span class="i">9</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">1</span>],
+<span class="no">16</span>       
+<span class="no">17</span>   [<span class="i">0</span>,<span class="i">8</span>,<span class="i">0</span>, <span class="i">4</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">1</span>,<span class="i">0</span>,<span class="i">0</span>],
+<span class="no">18</span>   [<span class="i">0</span>,<span class="i">6</span>,<span class="i">3</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">0</span>,<span class="i">8</span>,<span class="i">0</span>],
+<span class="no">19</span>   [<span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>, <span class="i">6</span>,<span class="i">0</span>,<span class="i">8</span>, <span class="i">0</span>,<span class="i">0</span>,<span class="i">0</span>]]
+<span class="no"><strong>20</strong></span> 
+<span class="no">21</span> solution = <span class="co">Gecode</span>.solve <span class="r">do</span>
+<span class="no">22</span>   <span class="c"># Verify that the input is of a valid size.</span>
+<span class="no">23</span>   n = sudoku.row_size
+<span class="no">24</span>   sub_matrix_size = <span class="co">Math</span>.sqrt(n).round
+<span class="no">25</span>   <span class="r">unless</span> sudoku.square? <span class="r">and</span> sub_matrix_size**<span class="i">2</span> == n
+<span class="no">26</span>     raise <span class="co">ArgumentError</span>, <span class="s"><span class="dl">'</span><span class="k">Incorrect value matrix size.</span><span class="dl">'</span></span>
+<span class="no">27</span>   <span class="r">end</span>
+<span class="no">28</span>   sub_count = sub_matrix_size
+<span class="no">29</span>     
+<span class="no"><strong>30</strong></span>   <span class="c"># Create the squares and initialize them.</span>
+<span class="no">31</span>   squares_is_an int_var_matrix(n, n, <span class="i">1</span>..n)
+<span class="no">32</span>   sudoku.row_size.times <span class="r">do</span> |i|
+<span class="no">33</span>     sudoku.column_size.times <span class="r">do</span> |j|
+<span class="no">34</span>       squares[i,j].must == sudoku[i,j] <span class="r">unless</span> sudoku[i,j] == <span class="i">0</span>
+<span class="no">35</span>     <span class="r">end</span>
+<span class="no">36</span>   <span class="r">end</span>
+<span class="no">37</span>   
+<span class="no">38</span>   <span class="c"># Constraints.</span>
+<span class="no">39</span>   n.times <span class="r">do</span> |i|
+<span class="no"><strong>40</strong></span>     <span class="c"># All rows must contain distinct numbers.</span>
+<span class="no">41</span>     squares.row(i).must_be.distinct(<span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+<span class="no">42</span>     <span class="c"># All columns must contain distinct numbers.</span>
+<span class="no">43</span>     squares.column(i).must_be.distinct(<span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+<span class="no">44</span>     <span class="c"># All sub-matrices must contain distinct numbers.</span>
+<span class="no">45</span>     squares.minor(
+<span class="no">46</span>       (i % sub_count) * sub_matrix_size, 
+<span class="no">47</span>       sub_matrix_size, 
+<span class="no">48</span>       (i / sub_count) * sub_matrix_size, 
+<span class="no">49</span>       sub_matrix_size).must_be.distinct(<span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+<span class="no"><strong>50</strong></span>   <span class="r">end</span>
+<span class="no">51</span>   
+<span class="no">52</span>   <span class="c"># Branching, we use first-fail heuristic.</span>
+<span class="no">53</span>   branch_on squares, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_size</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+<span class="no">54</span> <span class="r">end</span>.squares.values
+<span class="no">55</span> 
+<span class="no">56</span> <span class="c"># Output the solved sudoku in a grid.</span>
+<span class="no">57</span> puts solution.enum_slice(sudoku.row_size).map{ |slice| slice.join(<span class="s"><span class="dl">'</span><span class="k"> </span><span class="dl">'</span></span>) }.join(<span class="gv">$/</span>)
+</pre></div>
+</div>
+</p>
+
+
+	<h2 id="output">Output</h2>
+
+
+<pre>
+3 7 8 2 6 5 9 1 4
+5 9 6 8 1 4 7 3 2
+1 4 2 7 3 9 5 6 8
+2 1 7 3 8 6 4 5 9
+8 5 4 9 7 1 6 2 3
+6 3 9 5 4 2 8 7 1
+7 8 5 4 2 3 1 9 6
+4 6 3 1 9 7 2 8 5
+9 2 1 6 5 8 3 4 7
+</pre>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Solving n-queens using Constraint Programming in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="An example showing how to solve the n-queens problem using constraint programming in Ruby with Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Examples</a> > <span>N-queens</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Examples</h3><ul id="secondNav"><li><a href="index.html">Overview</a></li><li><a href="send-more-money.html">send+more=money</a></li><li><a href="send-most-money.html">send+most=money</a></li><li><a href="sudoku.html">Sudoku</a></li><li><a href="sudoku-set.html">Sudoku with sets</a></li><li><span>N-queens</span></li><li><a href="magic-sequence.html">Magic Sequence</a></li><li><a href="nonogram.html">Nonogram (Paint by Numbers)</a></li><li><a href="square-tiling.html">Square tiling</a></li><li><a href="minesweeper.html">Minesweeper</a></li><li><a href="survo.html">Survo Puzzle</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#problem">Problem</a></li><li><a href="#code">Code</a><ul class="section-links"><li><a href="#output">Output</a></li></ul></li><li><a href="#notes">Notes</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>N-queens</h1>
+
+
+	<h2 id="problem">Problem</h2>
+
+
+	<blockquote>
+		<p>The eight queens puzzle is the problem of putting eight chess queens on an 
+8&#215;8 chessboard such that none of them is able to capture any other using the 
+standard chess queen&#8217;s moves. &#8211; <a href="http://en.wikipedia.org/wiki/Nqueens">Wikipedia</a></p>
+	</blockquote>
+
+
+	<p>Replace &#8220;8&#8221; with &#8220;n&#8221; to get the n-queens puzzle.</p>
+
+
+	<h2 id="code">Code</h2>
+
+
+	<p><div class="CodeRay">
+  <div class="code"><pre><span class="no"> 1</span> require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+<span class="no"> 2</span> require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+<span class="no"> 3</span> 
+<span class="no"> 4</span> <span class="c"># Solves the n-queens problem: http://en.wikipedia.org/wiki/Nqueens . No attempt</span>
+<span class="no"> 5</span> <span class="c"># to break the involved symmetries is made.</span>
+<span class="no"> 6</span> <span class="r">class</span> <span class="cl">NQueens</span>
+<span class="no"> 7</span>   include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+<span class="no"> 8</span> 
+<span class="no"> 9</span>   <span class="r">def</span> <span class="fu">initialize</span>(n)
+<span class="no"><strong>10</strong></span>     <span class="iv">@size</span> = n
+<span class="no">11</span>   
+<span class="no">12</span>     <span class="c"># The row number that the queen in the i:th column has. By using this as</span>
+<span class="no">13</span>     <span class="c"># our variables we already make sure that no two queens are in the same</span>
+<span class="no">14</span>     <span class="c"># column.</span>
+<span class="no">15</span>     queen_rows_is_an int_var_array(n, <span class="i">0</span>...n)
+<span class="no">16</span>     
+<span class="no">17</span>     <span class="c"># Set up the constraints</span>
+<span class="no">18</span>     <span class="c"># Queens must not be in the same diagonal (negative slope).</span>
+<span class="no">19</span>     queen_rows.must_be.distinct(<span class="sy">:offsets</span> =&gt; (<span class="i">0</span>...n).to_a)
+<span class="no"><strong>20</strong></span>     <span class="c"># Queens must not be in the same diagonal (positive slope).</span>
+<span class="no">21</span>     queen_rows.must_be.distinct(<span class="sy">:offsets</span> =&gt; (<span class="i">0</span>...n).to_a.reverse)
+<span class="no">22</span>     <span class="c"># Queens must not be in the same row.</span>
+<span class="no">23</span>     queen_rows.must_be.distinct
+<span class="no">24</span>     
+<span class="no">25</span>     <span class="c"># Branching, we use first-fail heuristic.</span>
+<span class="no">26</span>     branch_on queen_rows, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_size</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+<span class="no">27</span>   <span class="r">end</span>
+<span class="no">28</span>   
+<span class="no">29</span>   <span class="c"># Displays the assignment as a chessboard with queens denoted by 'x'.</span>
+<span class="no"><strong>30</strong></span>   <span class="r">def</span> <span class="fu">to_s</span>
+<span class="no">31</span>     rows = queen_rows.values
+<span class="no">32</span>   
+<span class="no">33</span>     separator = <span class="s"><span class="dl">'</span><span class="k">+</span><span class="dl">'</span></span> &lt;&lt; <span class="s"><span class="dl">'</span><span class="k">-</span><span class="dl">'</span></span> * (<span class="i">3</span> * <span class="iv">@size</span> + (<span class="iv">@size</span> - <span class="i">1</span>)) &lt;&lt; <span class="s"><span class="dl">&quot;</span><span class="k">+</span><span class="ch">\n</span><span class="dl">&quot;</span></span>
+<span class="no">34</span>     res = (<span class="i">0</span>...<span class="iv">@size</span>).inject(separator) <span class="r">do</span> |s, i|
+<span class="no">35</span>       (<span class="i">0</span>...<span class="iv">@size</span>).inject(s + <span class="s"><span class="dl">'</span><span class="k">|</span><span class="dl">'</span></span>) <span class="r">do</span> |s, j|
+<span class="no">36</span>         s &lt;&lt; <span class="s"><span class="dl">&quot;</span><span class="k"> </span><span class="il"><span class="idl">#{</span>rows[j] == i ? <span class="s"><span class="dl">'</span><span class="k">x</span><span class="dl">'</span></span> : <span class="s"><span class="dl">'</span><span class="k"> </span><span class="dl">'</span></span><span class="idl">}</span></span><span class="k"> |</span><span class="dl">&quot;</span></span>
+<span class="no">37</span>       <span class="r">end</span> &lt;&lt; <span class="s"><span class="dl">&quot;</span><span class="ch">\n</span><span class="dl">&quot;</span></span> &lt;&lt; separator
+<span class="no">38</span>     <span class="r">end</span>
+<span class="no">39</span>   <span class="r">end</span>
+<span class="no"><strong>40</strong></span> <span class="r">end</span>
+<span class="no">41</span> 
+<span class="no">42</span> <span class="c"># Print the first solution. Note that there are 92 solutions, but only 12 </span>
+<span class="no">43</span> <span class="c"># are rotationally distinct. For any serious use one should place additional</span>
+<span class="no">44</span> <span class="c"># constraints to eliminate those symmetries.</span>
+<span class="no">45</span> puts <span class="co">NQueens</span>.new((<span class="pc">ARGV</span>[<span class="i">0</span>] || <span class="i">8</span>).to_i).solve!.to_s
+</pre></div>
+</div>
+</p>
+
+
+	<h3 id="output">Output</h3>
+
+
+<pre>
++-------------------------------+
+| x |   |   |   |   |   |   |   |
++-------------------------------+
+|   |   |   |   |   |   | x |   |
++-------------------------------+
+|   |   |   |   | x |   |   |   |
++-------------------------------+
+|   |   |   |   |   |   |   | x |
++-------------------------------+
+|   | x |   |   |   |   |   |   |
++-------------------------------+
+|   |   |   | x |   |   |   |   |
++-------------------------------+
+|   |   |   |   |   | x |   |   |
++-------------------------------+
+|   |   | x |   |   |   |   |   |
++-------------------------------+
+</pre>
+
+	<h2 id="notes">Notes</h2>
+
+
+	<p>No attempt to break the involved symmetries is made here.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

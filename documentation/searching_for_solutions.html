@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>How to Find Solutions to Constraint Programming Problems</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="How to find solutions to constraint programming problems that have been formulated using Gecode/R. Covers both searching for any solution as well as searching the optimal solution." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Documentation</a> > <span>Searching for Solutions</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Documentation</h3><ul id="secondNav"><li><a href="index.html">Getting Started</a></li><li><a href="formulating_problems.html">Formulating Problems</a></li><li><span>Searching for Solutions</span></li><li><a href="operands/index.html"class="parent">Operands</a></li><li><a href="modelling/index.html"class="parent">Modelling</a></li><li><a href="faq.html">FAQ</a></li><li><a href="../rdoc/index.html">RDoc (users)</a></li><li><a href="../rdoc_dev/index.html">RDoc (developers)</a></li><li><a href="../coverage/index.html">rcov Report</a></li><li><a href="../rspec.html">RSpec Report</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#searching_for_one_solution">Searching for One Solution</a></li><li><a href="#searching_for_all_solutions">Searching for All Solutions</a></li><li><a href="#searching_for_the_optimal_solution">Searching for the Optimal Solution</a></li><li><a href="#convenience_methods">Convenience Methods</a><ul class="section-links"><li><a href="#gecode_solve">Gecode.solve</a></li><li><a href="#gecode_minimize_and_gecode_maximize">Gecode.minimize and Gecode.maximize</a></li></ul></li><li><a href="#limiting_search_time">Limiting Search Time</a></li><li><a href="#search_statistics">Search Statistics</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Searching for Solutions</h1>
+
+
+<div class="summary">
+<p><a href="../rdoc/Gecode/Mixin.html"><code>Mixin#solve!</code></a> and friends are used to fetch any solution to a 
+<a href="formulating_problems.html">formulated problem</a>. <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#optimize!</code></a>
+and friends are used to fetch the solution that optimizes some value.</p>
+</div>
+
+	<h2 id="searching_for_one_solution">Searching for One Solution</h2>
+
+
+	<p><a href="../rdoc/Gecode/Mixin.html"><code>Mixin#solve!</code></a> is used to access <em>one</em> solution to the problem. It
+destructively updates the model&#8217;s variables.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>instance = <span class="co">MyModel</span>.new
+instance.solve!
+</pre></div>
+</div>
+
+
+	<p>The value assigned to a variable is  then accessed using <a href="../rdoc/Gecode/IntVar.html"><code>IntVar#value</code></a>. If there does not exist a solution then
+<a href="../rdoc/Gecode/NoSolutionError.html"><code>Gecode::NoSolutionError</code></a> is raised.</p>
+
+
+	<p>Note that a solution&#8217;s variable is not necessarily assigned. Use <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#branch_on</code></a> to ensure that a variable is.</p>
+
+
+	<p>A similar form with blocks if also available through <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#solution</code></a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>string = instance.solution{ |solution| solution.to_s }
+</pre></div>
+</div>
+
+
+	<p>It gives a solution to the block and then returns the result of the
+block (the model instance is unaffected).</p>
+
+
+	<h2 id="searching_for_all_solutions">Searching for All Solutions</h2>
+
+
+	<p><a href="../rdoc/Gecode/Mixin.html"><code>Mixin#each_solution</code></a> iterates over all solutions to a problem.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>instance.each_solution{ |solution| puts solution.to_s }
+</pre></div>
+</div>
+
+
+	<h2 id="searching_for_the_optimal_solution">Searching for the Optimal Solution</h2>
+
+
+	<p><a href="../rdoc/Gecode/Mixin.html"><code>Mixin#optimize!</code></a> is used to find the <em>optimal</em> solution (where
+optimality is defined by the user). The method takes a block with two
+arguments: the model itself and the best solution found so far. The
+block should then add a constraint that constrains the model to be
+strictly better than the best solution so far.</p>
+
+
+	<p>Minimizing the value of a variable <code>price</code> is for instance done as
+follows.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>optimal_solution = price_model_instance.optimize! <span class="r">do</span> |model, best_so_far|
+  model.price.must &lt; best_so_far.price.value
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<p>This destructively updates <code>price_model_instance</code> to contain the
+returned solution. If there is not solution then <a href="../rdoc/Gecode/NoSolutionError.html"><code>Gecode::NoSolutionError</code></a> is raised.</p>
+
+
+	<p>There exist convenience methods, named <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#maximize!</code></a> and
+<a href="../rdoc/Gecode/Mixin.html"><code>Mixin#minimize!</code></a>, for optimizing single integer variables. The
+above minimization of the variable <code>price</code> can for instance also be done
+as follows.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>optimal_solution = price_model_instance.minimize! <span class="sy">:price</span>
+</pre></div>
+</div>
+
+
+	<h2 id="convenience_methods">Convenience Methods</h2>
+
+
+	<p>There exists handy convenience methods for common operations related to
+models.</p>
+
+
+	<h3 id="gecode_solve">Gecode.solve</h3>
+
+
+	<p>Use <a href="../rdoc/Gecode.html"><code>Gecode.solve</code></a> to create a model and search for a single
+solution without having to explicitly define a class.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>solution = <span class="co">Gecode</span>.solve <span class="r">do</span>
+  <span class="c"># Describe the model.</span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<h3 id="gecode_minimize_and_gecode_maximize">Gecode.minimize and Gecode.maximize</h3>
+
+
+	<p>Use <a href="../rdoc/Gecode.html"><code>Gecode.minimize</code></a> and <a href="../rdoc/Gecode.html"><code>Gecode.maximize</code></a> to create a
+model and search for a solution that maximizes or minimizes a given
+variable.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>optimal_solution = <span class="co">Gecode</span>.minimize <span class="sy">:price</span> <span class="r">do</span> 
+  <span class="c"># Describe the model.</span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<h2 id="limiting_search_time">Limiting Search Time</h2>
+
+
+	<p>The amount of time spent by the solver can be limited by specifying
+a number of milliseconds with the key <code>:time_limit</code>. If a solution can not
+be found withing the allotted time, then the solver stops and 
+<a href="../rdoc/Gecode/SearchAbortedError.html"><code>Gecode::SearchAbortedError</code></a> is raised.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="r">begin</span>
+  difficultProblemModel.solve!(<span class="sy">:time_limit</span> =&gt; <span class="i">1000</span>)
+  puts difficultProblemModel.solution
+<span class="r">rescue</span> <span class="co">Gecode</span>::<span class="co">SearchAbortedError</span>
+  puts <span class="s"><span class="dl">&quot;</span><span class="k">Sorry, the answer could not be computed within one second.</span><span class="dl">&quot;</span></span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<h2 id="search_statistics">Search Statistics</h2>
+
+
+	<p><a href="../rdoc/Gecode/Mixin.html"><code>Mixin#search_stats</code></a> can be used after a search to obtain
+various statistics about the search. The most interesting one is
+the number of failures, which gives an idea of how much searching
+is needed.</p>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><a href="index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><a href="index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

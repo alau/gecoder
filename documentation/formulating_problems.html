@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>How to Formulate Constraint Programming Problems in Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="How to formulate constraint programming problems in Gecode/R. Formulated problems are then solved by the solver." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Documentation</a> > <span>Formulating Problems</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Documentation</h3><ul id="secondNav"><li><a href="index.html">Getting Started</a></li><li><span>Formulating Problems</span></li><li><a href="searching_for_solutions.html">Searching for Solutions</a></li><li><a href="operands/index.html"class="parent">Operands</a></li><li><a href="modelling/index.html"class="parent">Modelling</a></li><li><a href="faq.html">FAQ</a></li><li><a href="../rdoc/index.html">RDoc (users)</a></li><li><a href="../rdoc_dev/index.html">RDoc (developers)</a></li><li><a href="../coverage/index.html">rcov Report</a></li><li><a href="../rspec.html">RSpec Report</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#variables_and_operands">Variables and Operands</a><ul class="section-links"><li><a href="#operands">Operands</a></li><li><a href="#creating_integer_variables">Creating Integer Variables</a></li><li><a href="#creating_boolean_variables">Creating Boolean Variables</a></li><li><a href="#creating_set_variables">Creating Set Variables</a></li><li><a href="#accessing_variables_from_the_outside">Accessing Variables from the Outside</a></li></ul></li><li><a href="#constraints">Constraints</a></li><li><a href="#branching">Branching</a><ul class="section-links"><li><a href="#branching_heuristics">Branching Heuristics</a></li></ul></li><li><a href="#gecode__model">Gecode::Model</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Formulating Problems</h1>
+
+
+<div class="summary">
+<p>Problems are formulated by using <a href="../rdoc/Gecode/Mixin.html"><code>Gecode::Mixin</code></a> to create 
+variables and constraints such that the problem is solved by finding an
+assignment of the variables that satisfy all constraints.</p>
+</div>
+
+	<p>Three things should always be specified:</p>
+
+
+<dl>
+  <dt><a href="#variables_and_operands">Variables</a></dt><dd>Variables specify how to view the problem. A solution is an assignment of the variables.</dd>
+  <dt><a href="#constraints">Constraints</a></dt><dd>Constraints are placed on the variables to ensure that a valid assignment of the variables is a solution to the problem.</dd>
+  <dt><a href="#branching">Branching</a></dt><dd>Branching specifies how the search space should be explored and which variables that must be assigned.</dd>
+</dl>
+
+	<h2 id="variables_and_operands">Variables and Operands</h2>
+
+
+	<p>Variables represent the problem&#8217;s search space. Each variable has a
+<em>domain</em> which represents all values that the variable can take. An
+integer variable with domain {0,1,...,9} can for instance take any value
+between 0 and 9.</p>
+
+
+	<p>Gecode deduces which values that a variable can not take and removes
+them from the domain. Once a variable only has one value left in its
+domain its said to be <em>assigned</em> that value.  A solution to a problem is
+a valid assignment of the variables.</p>
+
+
+	<p>The different types of variables are:</p>
+
+
+<dl>
+  <dt>Integer variables</dt>
+  <dd>Can be assigned integer values.</dd>
+  <dt>Boolean variables</dt>
+  <dd>Can be assigned either true or false.</dd>
+  <dt>Set variables</dt>
+  <dd>Can be assigned sets of integer values.</dd>
+</dl>
+
+	<h3 id="operands">Operands</h3>
+
+
+	<p>Variables are the most basic type of <a href="operands/index.html">operands</a>. 
+It is common to work with arrays or enumerations of variables, which 
+are also operands.</p>
+
+
+	<p>The different types of variables correspond to the following types of
+operands.</p>
+
+
+<dl>
+  <dt>Integer variables</dt>
+  <dd>Act as <a href="operands/integer-operands.html">integer operands</a>. 
+      Enumerations of integer variables act as <a href="operands/integer-enum-operands.html">integer enumeration
+      operands</a>.</dd>
+  <dt>Boolean variables</dt>
+  <dd>Act as <a href="operands/boolean-operands.html">boolean operands</a>. Enumerations of 
+      boolean variables act as <a href="operands/boolean-enum-operands.html">boolean enumeration
+      operands</a>.</dd>
+  <dt>Set variables</dt>
+  <dd>Act as <a href="operands/set-operands.html">set operands</a>. Enumerations of 
+      set variables act as <a href="operands/set-enum-operands.html">set enumeration 
+      operands</a>.</dd>
+</dl>
+
+	<h3 id="creating_integer_variables">Creating Integer Variables</h3>
+
+
+	<p>Use <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#int_var</code></a> to create a new integer variable. The method takes
+one argument, the domain of the integer variable. The domain represents
+the values that the variable can take. A variable with domain 0..9 can
+for instance take any value in the range 0 to 9.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>digit = int_var(<span class="i">0</span>..<span class="i">9</span>) <span class="c"># Creates an integer variable with domain 0..9.</span>
+</pre></div>
+</div>
+
+
+	<p>The domain can be omitted, in which case the largest possible domain
+(Gecode::Mixin::MIN_INT to Gecode::Mixin::MAX_INT) is used.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>number = int_var <span class="c"># An integer variable with the largest possible domain.</span>
+</pre></div>
+</div>
+
+
+	<p>Alternatively one can also create multiple integer variables with the same 
+domain at once using <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#int_var_array</code></a> which returns an array of variables.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>numbers = int_var_array(<span class="i">8</span>, <span class="i">0</span>..<span class="i">9</span>) <span class="c"># Creates 8 variables with domains 0..9.</span>
+</pre></div>
+</div>
+
+
+	<p>The domain specified does not have to be a range, it can also be an enumeration
+of elements. The following creates an integer variable with the odd numbers in 
+0..9 as domain.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>odd_number = int_var([<span class="i">1</span>,<span class="i">3</span>,<span class="i">5</span>,<span class="i">7</span>,<span class="i">9</span>])
+</pre></div>
+</div>
+
+
+	<p>Matrices can be created using <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#int_var_matrix</code></a> (returns an instance of
+Matrix).</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>number_matrix = int_var_matrix(<span class="i">5</span>, <span class="i">4</span>, <span class="i">0</span>..<span class="i">9</span>) <span class="c"># 5 rows and 4 columns.</span>
+</pre></div>
+</div>
+
+
+	<p>Additional custom enumerations containing variables can be used, but they have
+to be wrapped using <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#wrap_enum</code></a> first.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>my_enum = wrap_enum(my_enum)
+my_enum.must_be.distinct
+</pre></div>
+</div>
+
+
+	<h3 id="creating_boolean_variables">Creating Boolean Variables</h3>
+
+
+	<p>Use any of <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#bool_var</code></a>, <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#bool_var_array</code></a> and
+<a href="../rdoc/Gecode/Mixin.html"><code>Mixin#bool_var_matrix</code></a> to create boolean variables. The methods
+work like the ones for integer variables, but do not require a domain.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>bool = bool_var <span class="c"># Creates a boolean variable</span>
+bools = bool_var_array(<span class="i">3</span>) <span class="c"># Creates 3 boolean variables.</span>
+bool_matrix = bool_var_matrix(<span class="i">3</span>, <span class="i">4</span>) <span class="c"># Creates a 3x4 matrix of boolean variables.</span>
+</pre></div>
+</div>
+
+
+	<h3 id="creating_set_variables">Creating Set Variables</h3>
+
+
+	<p>Use any of <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#set_var</code></a>, <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#set_var_array</code></a> and <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#set_var_matrix</code></a> to create set variables. The domain of a set
+variable is specified through a <em>greatest lower bound</em> (GLB), a 
+<em>least upper bound</em> (LUB) and the allowed cardinality (which is optional).</p>
+
+
+	<p>The greatest lower bound is the largest set of elements that are certain
+to be in the set. The least upper bound is the smallest set of elements
+that might be in the set (which should include the greatest lower
+bound). I.e. the greatest lower bound is a subset of the assigned set
+which is a subset of the least upper bound.</p>
+
+
+	<p>The bounds are specified as constant sets. The cardinality can only be
+specified with ranges or as a single number, which is then used as the
+minimum cardinality.</p>
+
+
+	<p>If no bounds are specified then the empty set is used as lower bound and
+the largest possible set as upper bound.</p>
+
+
+A constant set can be represented with instances of the following classes:
+<dl>
+  <dt>Fixnum</dt><dd>Represents a singleton set.</dd>
+  <dt>Range</dt><dd>Represents a set containing all elements in the range. This represents the set more efficiently than when another enumeration with the same elements are used.</dd>
+  <dt>Enumeration of Fixnum</dt><dd>Represents a set containing the enumeration&#8217;s elements.</dd>
+</dl>
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># Creates a set variable with glb 1..2 and lub 1..6 .</span>
+set = set_var(<span class="i">1</span>..<span class="i">2</span>, <span class="i">1</span>..<span class="i">6</span>) 
+<span class="c"># Creates an array of 3 set variables with the above bounds and a minimum </span>
+<span class="c"># cardinality of 3.</span>
+sets = set_var_array(<span class="i">3</span>, <span class="i">1</span>..<span class="i">2</span>, <span class="i">1</span>..<span class="i">6</span>, <span class="i">3</span>)
+<span class="c"># Creates a 7x9 matrix of set variables with the above bounds and a cardinality </span>
+<span class="c"># between 2 and 5</span>
+set_matrix = set_var_matrix(<span class="i">7</span>, <span class="i">9</span>, <span class="i">1</span>..<span class="i">2</span>, <span class="i">1</span>..<span class="i">6</span> <span class="i">2</span>..<span class="i">5</span>)
+</pre></div>
+</div>
+
+
+	<h3 id="accessing_variables_from_the_outside">Accessing Variables from the Outside</h3>
+
+
+	<p>It is often desirable to be able to access a variable from outside the
+class in order to e.g. access the selected values of the solution. One
+way to do this is to assign the variable to an instance variable and
+then add an accessor, but since it&#8217;s such a common operation a more
+convenient way has been added. Write <code>&lt;variable_name&gt;_is_a &lt;variable&gt;</code>
+or <code>&lt;variable_name&gt;_is_an &lt;variable&gt;</code>, replacing <code>&lt;variable_name&gt;</code> with
+the variable&#8217;s name and <code>&lt;variable&gt;</code> with the variable, to add an
+instance variable and accessor with the specified name.</p>
+
+
+To exemplify, The following two pieces of code are equivalent.
+<div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Foo</span>
+  include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+
+  attr <span class="sy">:digit</span>
+
+  <span class="r">def</span> <span class="fu">initialize</span>
+    <span class="iv">@digit</span> = int_var <span class="i">0</span>..<span class="i">9</span>
+
+    branch_on <span class="iv">@digit</span>
+  <span class="r">end</span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+<div class="CodeRay">
+  <div class="code"><pre><span class="r">class</span> <span class="cl">Foo</span>
+  include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+
+  <span class="r">def</span> <span class="fu">initialize</span>
+    digit_is_an int_var(<span class="i">0</span>..<span class="i">9</span>)
+
+    branch_on digit
+  <span class="r">end</span>
+<span class="r">end</span>
+</pre></div>
+</div>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Constraints specify what must hold for something to be a solution. They
+are placed on operands using using <code>#must</code> and <code>#must_not</code> in the
+following fashion:</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>operand.must.constraint_method(params)
+</pre></div>
+</div>
+
+
+	<p>For example, the following constrains <code>int_operand</code> to be strictly
+greater than 5.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>int_operand.must &gt; <span class="i">5</span>
+</pre></div>
+</div>
+
+
+	<p>Different operands support different constraints. See the documentation
+of each operand for a complete list.</p>
+
+
+	<h2 id="branching">Branching</h2>
+
+
+	<p>Branching is when the solver has to make a guess about a variable&#8217;s
+value (possibly having to backtrack later if the guess was wrong).
+Branching is used as a last resort if the variable&#8217;s domain can&#8217;t be
+pruned any further using pure deduction.</p>
+
+
+	<p>The variables to branch over are specified using <a href="../rdoc/Gecode/Mixin.html"><code>Mixin#branch_on</code></a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>branch_on numbers
+</pre></div>
+</div>
+
+
+	<p>Variables that are branched over are guaranteed to be assigned in the
+solution. Therefore branch over all variables that represent the
+solution to the problem. Multiple calls to <code>branch_on</code> can be used to
+branch over more than one enumeration of variables.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>branch_on numbers
+branch_on other_numbers
+</pre></div>
+</div>
+
+
+	<h3 id="branching_heuristics">Branching Heuristics</h3>
+
+
+	<p>The branching heuristic decides in which order guesses should be made
+when branching. Picking a good heuristic helps cut down the search space.</p>
+
+
+	<p>A common heuristic is first fail, which makes guesses about the variable
+with the smallest domain first. This exhausts the remaining
+possibilities of variables with small domains first, which reveals
+failures early in the search.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>branch_on numbers, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_size</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+</pre></div>
+</div>
+
+
+	<h2 id="gecode__model">Gecode::Model</h2>
+
+
+	<p><a href="../rdoc/Gecode/Model.html"><code>Gecode::Model</code></a> is a convenient class that only mixes in
+<code>Gecode::Mixin</code>. It is useful for creating models without mixin in
+Gecode::Mixin into the current context or creating a new class.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>model = <span class="co">Gecode</span>::<span class="co">Model</span>.new
+var = model.int_var(<span class="i">0</span>..<span class="i">9</span>)
+var.must &gt; <span class="i">5</span>
+model.branch_on var
+model.solve!
+
+p var.value
+</pre></div>
+</div>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><a href="index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li class="selected"><a href="index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

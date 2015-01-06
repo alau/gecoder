@@ -1,0 +1,288 @@
+/* Layout */
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: verdana, sans-serif;
+  font-size: 85%;
+  text-align: center;
+  min-width: 800px;
+}
+#header {
+  width: 100%;
+  height: 170px;
+}
+#contents {
+  width: 800px;
+  margin: 0 auto;
+  min-height: 300px;
+  text-align: left;
+}
+#sidebar {
+  margin-top: 2em;
+  width: 190px;
+  float: right;
+  margin: 0 0 0 -190px;
+}
+#sidebarWrapper {
+  margin: 0 0 0 190px;
+  position: relative;
+  z-index: 2;
+  margin-top: 2em;
+}
+#body {
+  margin-top: 2em;
+  margin-right: 280px;
+  float: none;
+}
+#breadcrumbs {
+  margin-top: 1em;
+  font-align: left;
+  clear: both;
+}
+#tabs {
+  position: absolute;
+  top: 140px;
+}
+
+/* Styling */
+body {
+  background: #FFF url(images/background.png) 0 170px repeat-x;
+}
+#header {
+  background: #31363E url(images/caption.png) no-repeat 50% 40%;
+}
+#header span {
+  display: none;
+  visibility: hidden;
+}
+#header a.logoLink {
+  display: block;
+  width: 800px;
+  height: 80%;
+  top: 0;
+  margin: 0 auto;
+}
+/* Tabs */
+#tabs {
+  font-size: 1.2em;
+}
+#tabs ul {
+  width: 800px;
+  clear: both;
+  list-style: none;
+  margin-left: 12.5px;
+  float: left;
+}
+#tabs li {
+  float: left;
+  text-align: center;
+  width: 155px;
+  height: 30px;
+  overflow: hidden;
+}
+#tabs li a, #tabs li span {
+  height: 30px;
+  display: block;
+  line-height: 28px;
+}
+#tabs li a {
+  color: #01D0D0;
+  text-decoration: none;
+}
+#tabs a:hover {
+  background: #4F5764 url(images/tab-hover.png) top right no-repeat;
+}
+#tabs li.selected {
+  background: #F3F1E9 url(images/tab-left.png) top left no-repeat;
+}
+#tabs li.selected span, #tabs li.selected a {
+  color: #000;
+  background: transparent url(images/tab-right.png) top right no-repeat;
+  font-weight: bold;
+}
+/* Footer */
+#footerWrapper {
+  padding: 0 auto;
+  text-align:center;
+  background: #ACBEDA;
+}
+#footer {
+  font-size: 0.8em;
+  height: 3em;
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 4em;
+}
+#footer ul {
+  clear: both;
+  list-style: none;
+}
+#footer a, #footer a:link, #footer a:visited {
+  color: #000;
+}
+#footer a:hover, #footer a:active {
+  color:red;
+  text-decoration:underline;
+}
+#footer li {
+  float: left;
+  text-align: center;
+  width: 114px;
+  overflow: hidden;
+}
+#footer li a, #footer li span {
+  display: block;
+  line-height: 3em;
+}
+#footer li.selected span {
+  color: #000;
+  font-weight: bold;
+}
+/* Breadcrumbs */
+#breadcrumbs a {
+  text-decoration: none;
+}
+/* Sidebar */
+#sidebar ul {
+  margin-left: 1em;
+  list-style: none;
+  margin-bottom: 2em;
+}
+#sidebar ul li {
+  margin: 1em;
+  margin-left: 0.6em;
+}
+#sidebar ul li li {
+  margin: 0.6em;
+}
+#sidebar ul li a {
+  padding: 0.5em 0;
+  text-decoration: none;
+}
+#sidebar form {
+  margin-top: 3em;
+}
+#sidebar a.parent {
+  font-weight: bold;
+}
+/*Summaries*/
+div.summary {
+  font-size: 110%;
+}
+
+/* Common styles */
+a, a:link {
+  color: #00E;
+}
+a:visited {
+  color:#909;
+}
+a:hover, a:active {
+  color:red;
+  text-decoration:underline;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: trebuchet ms, arial, tahoma, verdana, sans-serif;
+  font-weight: normal;
+  letter-spacing: .005em;
+  color: #555;
+}
+h1 {
+  font-size: 2.7em;
+  height: 110px;
+  font-weight: normal;
+  margin: 0 0 10px 0;
+  letter-spacing: -.015em;
+  border-bottom: 1px solid #f0f0f0;
+  line-height: 2em;
+}
+h1, h2, h3, h4, p {
+  padding-left: 3px;
+}
+h2 {
+  font-size: 1.85em;
+  padding: .5em 0 .2em 0;
+  margin: .5em 0 .5em 0;
+  color: #e60;
+  border-bottom: 2px solid #fc9;
+}
+h3 {
+  font-size: 1.55em;
+  margin: 1em 0 0 0;
+  padding-bottom: .2em;
+  border-bottom: 1px solid #fec;
+  color: #b52;
+}
+h4 {
+  font-size: 1.3em;
+  margin: 1.2em 0 .3em 0;
+  color: #952;
+}
+h5 {
+  font-size: 1em;
+  font-weight: bold;
+  margin: 1em 0 .3em .5em;
+}
+p {
+  margin: .7em 0;
+}
+blockquote {
+  color: #444;
+  font-family: georgia, serif;
+  font-style: italic;
+  padding: 0 5em 0 0;
+}
+dt {
+  clear:left;
+}
+dd {
+  padding: .1em 0 .2em 2em;
+  margin-bottom: .5em;
+}
+pre {
+  white-space: pre;
+  background-color: #F8F8F8;
+  border: 1px dashed #CCC;
+  margin: 1em 0;
+  overflow: auto;
+  padding: 0.5em;
+  width: 508px; /*IE/Win fix*/
+  font-size: 8pt;
+}
+table {
+  border-collapse: collapse;
+  margin: 0.5em;
+}
+table td, table th {
+  padding: 2px;
+}
+table th {
+  background: #ACBEDA;
+}
+table tr {
+  border-bottom: 1px solid #CCC;
+}
+fieldset {
+  border: 0;
+}
+legend {
+  font-weight: bold;
+}
+#body ul, #body ol, dl { 
+  margin: 1em 1em 1em 2em;
+}
+#body li {
+  margin: 0.5em 0;
+}
+
+/* Override webgen CodeRay highlight */
+div.CodeRay {
+  font-family: verdana, sans-serif;
+  border: 0;
+}
+div.CodeRay .c {
+  color: #383;
+}

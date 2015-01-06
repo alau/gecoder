@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Solving Paint by Numbers using Constraint Programming in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="An example showing how to solve a nonogram puzzle (a.k.a. Paint by Numbers) using constraint programming in Ruby with Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Examples</a> > <span>Nonogram (Paint by Numbers)</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Examples</h3><ul id="secondNav"><li><a href="index.html">Overview</a></li><li><a href="send-more-money.html">send+more=money</a></li><li><a href="send-most-money.html">send+most=money</a></li><li><a href="sudoku.html">Sudoku</a></li><li><a href="sudoku-set.html">Sudoku with sets</a></li><li><a href="n-queens.html">N-queens</a></li><li><a href="magic-sequence.html">Magic Sequence</a></li><li><span>Nonogram (Paint by Numbers)</span></li><li><a href="square-tiling.html">Square tiling</a></li><li><a href="minesweeper.html">Minesweeper</a></li><li><a href="survo.html">Survo Puzzle</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#problem">Problem</a></li><li><a href="#code">Code</a></li><li><a href="#output">Output</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Nonogram (Paint by Numbers)</h1>
+
+
+	<h2 id="problem">Problem</h2>
+
+
+	<blockquote>
+		<p>Nonograms or Paint by Numbers are picture logic puzzles in which
+cells in a grid have to be colored or left blank according to numbers
+given at the side of the grid to reveal a hidden picture. In this puzzle
+type, the numbers measure how many unbroken lines of filled-in squares
+there are in any given row or column. For example, a clue of &#8220;4 8 3&#8221; 
+would mean there are sets of four, eight, and three filled squares, in
+that order, with at least one blank square between successive groups. -
+<a href="http://en.wikipedia.org/wiki/Nonogram">Wikipedia</a></p>
+	</blockquote>
+
+
+	<h2 id="code">Code</h2>
+
+
+	<p><div class="CodeRay">
+  <div class="code"><pre><span class="no">  1</span> require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+<span class="no">  2</span> require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+<span class="no">  3</span> require <span class="s"><span class="dl">'</span><span class="k">enumerator</span><span class="dl">'</span></span>
+<span class="no">  4</span> 
+<span class="no">  5</span> <span class="c">#</span>
+<span class="no">  6</span> <span class="c"># Nonogram (a.k.a. Painting by Numbers) in Gecode/R</span>
+<span class="no">  7</span> <span class="c"># </span>
+<span class="no">  8</span> <span class="c"># http://en.wikipedia.org/wiki/Nonogram</span>
+<span class="no">  9</span> <span class="c"># &quot;&quot;&quot;</span>
+<span class="no"> <strong>10</strong></span> <span class="c"># Nonograms or Paint by Numbers are picture logic puzzles in which cells</span>
+<span class="no"> 11</span> <span class="c"># in a grid have to be colored or left blank according to numbers given</span>
+<span class="no"> 12</span> <span class="c"># at the side of the grid to reveal a hidden picture. In this puzzle</span>
+<span class="no"> 13</span> <span class="c"># type, the numbers measure how many unbroken lines of filled-in squares</span>
+<span class="no"> 14</span> <span class="c"># there are in any given row or column. For example, a clue of &quot;4 8 3&quot;</span>
+<span class="no"> 15</span> <span class="c"># would mean there are sets of four, eight, and three filled squares, in</span>
+<span class="no"> 16</span> <span class="c"># that order, with at least one blank square between successive groups.</span>
+<span class="no"> 17</span> <span class="c"># &quot;&quot;&quot;</span>
+<span class="no"> 18</span> <span class="c">#</span>
+<span class="no"> 19</span> <span class="c"># Also see</span>
+<span class="no"> <strong>20</strong></span> <span class="c">#   * Brunetti, Sara &amp; Daurat, Alain (2003)</span>
+<span class="no"> 21</span> <span class="c">#     &quot;An algorithm reconstructing convex lattice sets&quot;</span>
+<span class="no"> 22</span> <span class="c">#     http://geodisi.u-strasbg.fr/~daurat/papiers/tomoqconv.pdf</span>
+<span class="no"> 23</span> <span class="c">#</span>
+<span class="no"> 24</span> <span class="c">#   * CSPLib problem 12 at http://www.csplib.org/</span>
+<span class="no"> 25</span> <span class="c">#</span>
+<span class="no"> 26</span> <span class="c">#   * http://www.puzzlemuseum.com/nonogram.htm</span>
+<span class="no"> 27</span> <span class="c">#</span>
+<span class="no"> 28</span> <span class="c">#   * Haskell solution:</span>
+<span class="no"> 29</span> <span class="c">#     http://twan.home.fmf.nl/blog/haskell/Nonograms.details</span>
+<span class="no"> <strong>30</strong></span> <span class="c">#</span>
+<span class="no"> 31</span> <span class="c">#   * My MiniZinc model http://www.hakank.org/minizinc/nonogram.mzn</span>
+<span class="no"> 32</span> <span class="c">#</span>
+<span class="no"> 33</span> <span class="c">#</span>
+<span class="no"> 34</span> <span class="c"># Model created by Hakan Kjellerstrand, hakank@bonetmail.com</span>
+<span class="no"> 35</span> <span class="c"># See also my Gecode/R page: http://www.hakank.org/gecode_r</span>
+<span class="no"> 36</span> <span class="c">#</span>
+<span class="no"> 37</span> <span class="c"># Slight modifications made by Andreas Launila to keep the example in</span>
+<span class="no"> 38</span> <span class="c"># line with the other example models.</span>
+<span class="no"> 39</span> <span class="r">class</span> <span class="cl">Nonogram</span> 
+<span class="no"> <strong>40</strong></span>   include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+<span class="no"> 41</span> 
+<span class="no"> 42</span>   <span class="r">def</span> <span class="fu">initialize</span>(row_rules, col_rules)
+<span class="no"> 43</span>     <span class="c"># A matrix of variables where each variable represents whether the </span>
+<span class="no"> 44</span>     <span class="c"># square has been filled in or not.</span>
+<span class="no"> 45</span>     filled_is_an bool_var_matrix(row_rules.size, col_rules.size)
+<span class="no"> 46</span> 
+<span class="no"> 47</span>     <span class="c"># Place the constraints on the rows.</span>
+<span class="no"> 48</span>     row_rules.each_with_index <span class="r">do</span> |row_rule, i| 
+<span class="no"> 49</span>       filled.row(i).must.match parse_regex(row_rule)
+<span class="no"> <strong>50</strong></span>     <span class="r">end</span>
+<span class="no"> 51</span>     <span class="c"># Place the constraints on the columns.</span>
+<span class="no"> 52</span>     col_rules.each_with_index <span class="r">do</span> |col_rule, i|
+<span class="no"> 53</span>       filled.column(i).must.match parse_regex(col_rule)
+<span class="no"> 54</span>     <span class="r">end</span>
+<span class="no"> 55</span> 
+<span class="no"> 56</span>     branch_on filled, <span class="sy">:variable</span> =&gt; <span class="sy">:none</span>, <span class="sy">:value</span> =&gt; <span class="sy">:max</span>
+<span class="no"> 57</span>   <span class="r">end</span>
+<span class="no"> 58</span> 
+<span class="no"> 59</span>   <span class="c"># Parses a nonogram segment and converts it to a &quot;regexp&quot;</span>
+<span class="no"> <strong>60</strong></span>   <span class="c"># e.g. [3,2] -&gt; [repeat(false), repeat(true,3,3), at_least_once(false),</span>
+<span class="no"> 61</span>   <span class="c">#                repeat(true,2,2),repeat(false)]</span>
+<span class="no"> 62</span>   <span class="r">def</span> <span class="fu">parse_regex</span>(a)
+<span class="no"> 63</span>     r = [repeat(<span class="pc">false</span>)]
+<span class="no"> 64</span>     a.each_with_index <span class="r">do</span> |e,i| 
+<span class="no"> 65</span>       r &lt;&lt; repeat(<span class="pc">true</span>,e,e)
+<span class="no"> 66</span>       <span class="r">if</span> i &lt; a.length-<span class="i">1</span> <span class="r">then</span>
+<span class="no"> 67</span>         r &lt;&lt; at_least_once(<span class="pc">false</span>) 
+<span class="no"> 68</span>       <span class="r">end</span>
+<span class="no"> 69</span>     <span class="r">end</span>
+<span class="no"> <strong>70</strong></span>     r &lt;&lt; repeat(<span class="pc">false</span>)
+<span class="no"> 71</span>     <span class="r">return</span> r
+<span class="no"> 72</span>   <span class="r">end</span>
+<span class="no"> 73</span> <span class="r">end</span>
+<span class="no"> 74</span> 
+<span class="no"> 75</span> <span class="c"># A nonogram problem taken from Wikipedia </span>
+<span class="no"> 76</span> <span class="c"># http://en.wikipedia.org/wiki/Nonogram</span>
+<span class="no"> 77</span> <span class="c"># Animation:</span>
+<span class="no"> 78</span> <span class="c"># http://en.wikipedia.org/wiki/File:Paint_by_numbers_Animation.gif</span>
+<span class="no"> 79</span> <span class="c">#</span>
+<span class="no"> <strong>80</strong></span> row_rules = 
+<span class="no"> 81</span> [
+<span class="no"> 82</span>   [<span class="i">3</span>],
+<span class="no"> 83</span>   [<span class="i">5</span>],
+<span class="no"> 84</span>   [<span class="i">3</span>,<span class="i">1</span>],
+<span class="no"> 85</span>   [<span class="i">2</span>,<span class="i">1</span>],
+<span class="no"> 86</span>   [<span class="i">3</span>,<span class="i">3</span>,<span class="i">4</span>],
+<span class="no"> 87</span>   [<span class="i">2</span>,<span class="i">2</span>,<span class="i">7</span>],
+<span class="no"> 88</span>   [<span class="i">6</span>,<span class="i">1</span>,<span class="i">1</span>],
+<span class="no"> 89</span>   [<span class="i">4</span>,<span class="i">2</span>,<span class="i">2</span>],
+<span class="no"> <strong>90</strong></span>   [<span class="i">1</span>,<span class="i">1</span>],
+<span class="no"> 91</span>   [<span class="i">3</span>,<span class="i">1</span>],
+<span class="no"> 92</span>   [<span class="i">6</span>],
+<span class="no"> 93</span>   [<span class="i">2</span>,<span class="i">7</span>],
+<span class="no"> 94</span>   [<span class="i">6</span>,<span class="i">3</span>,<span class="i">1</span>],
+<span class="no"> 95</span>   [<span class="i">1</span>,<span class="i">2</span>,<span class="i">2</span>,<span class="i">1</span>,<span class="i">1</span>],
+<span class="no"> 96</span>   [<span class="i">4</span>,<span class="i">1</span>,<span class="i">1</span>,<span class="i">3</span>],
+<span class="no"> 97</span>   [<span class="i">4</span>,<span class="i">2</span>,<span class="i">2</span>],
+<span class="no"> 98</span>   [<span class="i">3</span>,<span class="i">3</span>,<span class="i">1</span>],
+<span class="no"> 99</span>   [<span class="i">3</span>,<span class="i">3</span>],
+<span class="no"><strong>100</strong></span>   [<span class="i">3</span>],
+<span class="no">101</span>   [<span class="i">2</span>,<span class="i">1</span>]
+<span class="no">102</span> ]
+<span class="no">103</span>   
+<span class="no">104</span> col_rules = 
+<span class="no">105</span>  [
+<span class="no">106</span>   [<span class="i">2</span>],
+<span class="no">107</span>   [<span class="i">1</span>,<span class="i">2</span>],
+<span class="no">108</span>   [<span class="i">2</span>,<span class="i">3</span>],
+<span class="no">109</span>   [<span class="i">2</span>,<span class="i">3</span>],
+<span class="no"><strong>110</strong></span>   [<span class="i">3</span>,<span class="i">1</span>,<span class="i">1</span>],
+<span class="no">111</span>   [<span class="i">2</span>,<span class="i">1</span>,<span class="i">1</span>],
+<span class="no">112</span>   [<span class="i">1</span>,<span class="i">1</span>,<span class="i">1</span>,<span class="i">2</span>,<span class="i">2</span>],
+<span class="no">113</span>   [<span class="i">1</span>,<span class="i">1</span>,<span class="i">3</span>,<span class="i">1</span>,<span class="i">3</span>],
+<span class="no">114</span>   [<span class="i">2</span>,<span class="i">6</span>,<span class="i">4</span>],
+<span class="no">115</span>   [<span class="i">3</span>,<span class="i">3</span>,<span class="i">9</span>,<span class="i">1</span>],
+<span class="no">116</span>   [<span class="i">5</span>,<span class="i">3</span>,<span class="i">2</span>],
+<span class="no">117</span>   [<span class="i">3</span>,<span class="i">1</span>,<span class="i">2</span>,<span class="i">2</span>],
+<span class="no">118</span>   [<span class="i">2</span>,<span class="i">1</span>,<span class="i">7</span>],
+<span class="no">119</span>   [<span class="i">3</span>,<span class="i">3</span>,<span class="i">2</span>],
+<span class="no"><strong>120</strong></span>   [<span class="i">2</span>,<span class="i">4</span>],
+<span class="no">121</span>   [<span class="i">2</span>,<span class="i">1</span>,<span class="i">2</span>],
+<span class="no">122</span>   [<span class="i">2</span>,<span class="i">2</span>,<span class="i">1</span>],
+<span class="no">123</span>   [<span class="i">2</span>,<span class="i">2</span>],
+<span class="no">124</span>   [<span class="i">1</span>],
+<span class="no">125</span>   [<span class="i">1</span>]
+<span class="no">126</span> ]
+<span class="no">127</span> 
+<span class="no">128</span> nonogram = <span class="co">Nonogram</span>.new(row_rules, col_rules)
+<span class="no">129</span> <span class="c"># Find all of the solutions.</span>
+<span class="no"><strong>130</strong></span> num_solutions = <span class="i">0</span>
+<span class="no">131</span> nonogram.each_solution <span class="r">do</span> |s| 
+<span class="no">132</span>   num_solutions += <span class="i">1</span>
+<span class="no">133</span>   puts <span class="s"><span class="dl">&quot;</span><span class="ch">\n</span><span class="k">Solution #</span><span class="il"><span class="idl">#{</span>num_solutions<span class="idl">}</span></span><span class="ch">\n</span><span class="dl">&quot;</span></span>
+<span class="no">134</span>   <span class="c"># Output the solution.</span>
+<span class="no">135</span>   s.filled.values.enum_slice(s.filled.column_size).each <span class="r">do</span> |row|
+<span class="no">136</span>     puts row.map{ |filled| filled ? <span class="s"><span class="dl">&quot;</span><span class="k">#</span><span class="dl">&quot;</span></span> : <span class="s"><span class="dl">&quot;</span><span class="k"> </span><span class="dl">&quot;</span></span> }.join
+<span class="no">137</span>   <span class="r">end</span>
+<span class="no">138</span> <span class="r">end</span>
+<span class="no">139</span> 
+<span class="no"><strong>140</strong></span> puts <span class="s"><span class="dl">&quot;</span><span class="ch">\n</span><span class="k">Number of solutions: </span><span class="il"><span class="idl">#{</span>num_solutions<span class="idl">}</span></span><span class="dl">&quot;</span></span>
+</pre></div>
+</div>
+</p>
+
+
+	<h2 id="output">Output</h2>
+
+
+<pre>
+Solution #1
+          ###       
+         #####      
+         ### #      
+         ##  #      
+      ### ### ####  
+    ##  ##   #######
+  ###### #   #      
+ ####   ##  ##      
+        #   #       
+       ###  #       
+       ######       
+ ##   #######       
+######  ### #       
+# ##  ## #  #       
+   ####  # #  ###   
+        #### ## ##  
+        ###  ### #  
+       ###    ###   
+      ###           
+      ## #          
+
+Number of solutions: 1
+</pre>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

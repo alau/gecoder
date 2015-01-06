@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Operands and Constraints Supported by Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="An overview of the operands available in Gecode/R, as well as their constraints and properties." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <span>Operands</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Operands</h3><ul id="secondNav"><li><span>Operands</span></li><li><a href="integer-operands.html">Integer Operands</a></li><li><a href="integer-enum-operands.html">Integer Enumeration Operands</a></li><li><a href="boolean-operands.html">Boolean Operands</a></li><li><a href="boolean-enum-operands.html">Boolean Enumeration Operands</a></li><li><a href="set-operands.html">Set Operands</a></li><li><a href="set-enum-operands.html">Set Enumeration Operands</a></li><li><a href="set-elements-operands.html">Set Elements Operands</a></li><li><a href="selected-set-operands.html">Selected Set Operands</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#properties">Properties</a></li><li><a href="#constraints">Constraints</a><ul class="section-links"><li><a href="#options">Options</a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Operands</h1>
+
+
+<div class="summary">
+<p>Operands are the basic building blocks in Gecode/R. An operand is
+anything you can place a <strong>constraint</strong> on. The most basic operands
+are the various types of variables, but operand can also be
+built upon to produced new operands, using <strong>properties</strong> defined by
+operands.</p>
+</div>
+
+	<p>All types of operands, their properties and constraints are found in the
+menu.</p>
+
+
+	<h2 id="properties">Properties</h2>
+
+
+	<p>Properties are methods, defined by operands, that produce new operands.
+An example is the <code>+</code> method of <a href="integer-operands.html">integer operands</a>
+that takes another integer operand and produces a third integer operand
+that represents the sum of the two operands.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>new_integer_operand = int_operand1 + int_operand2
+</pre></div>
+</div>
+
+
+	<p>Another example is the <code>size</code> method of <a href="set-operands.html">set operands</a>
+that produces an integer operand representing the size of the set.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>new_integer_operand = set_operand.size
+</pre></div>
+</div>
+
+
+	<p>Use properties to produce the operands that you want to place
+constraints on.</p>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Constraints are used used to constrain the value of operands. All
+constraints are placed using the <code>must</code> or <code>must_not</code> methods defined 
+by operands.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>operand.must.constraint_method(params)
+</pre></div>
+</div>
+
+
+	<p>The following constraints <code>int_operand</code> to be strictly greater than 5.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>int_operand.must &gt; <span class="i">5</span>
+</pre></div>
+</div>
+
+
+	<p>Use operand properties to constrain e.g. the sum of two integer operands.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>(int_operand1 + int_operand2).must &gt; <span class="i">5</span>
+</pre></div>
+</div>
+
+
+	<p>Using <code>must_not</code> instead of <code>must</code> negates a constraint. Not all constraints
+support being negated.</p>
+
+
+	<h3 id="options">Options</h3>
+
+
+	<p>Many constraints accept a <strong>reification</strong> option, which allows one to combine
+constraints. All integer and boolean constraints (but not set constraints) also 
+accept a <strong>propagation strength</strong> option which suggests how much effort the solver
+should put into pruning the search space based on a constraint.</p>
+
+
+	<h4 id="reification">Reification</h4>
+
+
+	<p>Reification is used to link a constraint to a boolean variable in such a way
+that the variable is true if and only if the constraint is satisfied. The 
+propagation goes both ways, so if the variable is constrained to be false then
+the constraint is not allowed to be satisfied.</p>
+
+
+	<p>Reification can be thought of as a last resort glue which can be used to combine
+constraints so that e.g. exactly 3 out of 17 constraints must be satisfied.</p>
+
+
+	<p>The variable to use for reification is specified with the key <code>:reify</code>. The
+following connects the boolean variable <code>is_large</code> with a relation constraint.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>number.must_be.greater_than(<span class="i">17</span>, <span class="sy">:reify</span> =&gt; is_large)
+</pre></div>
+</div>
+
+
+	<p>This constraint does not force <code>number</code> to be greater than 17 (which would be 
+the case if no reification has been used).</p>
+
+
+	<p>There exist some syntactic sugar for combining reifiable constraints, which can
+be used with all reifiable constraints. To express a conjunction of two 
+constraints simply place <code>|</code> between them, analogically for conjunctions and 
+<code>&#38;</code>. The new expression is also a reifiable constraint, so one can nest the
+expressions if wanted. The following constrains that either x must be less than 
+0 or y must be greater than 5 and x must be 0.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>x.must &lt; <span class="i">0</span> | (y.must &gt; <span class="i">5</span> &amp; x.must == <span class="i">0</span>)
+</pre></div>
+</div>
+
+
+	<h4 id="propagation_strength">Propagation Strength</h4>
+
+
+	<p>The propagation strength basically <em>suggests</em> how much effort the solver
+should put into trying to prune the domains of variables using the
+constraint. A higher strength can reduce the search space quicker, but
+at the cost of making each propagation more costly.</p>
+
+
+	<p>Note that no set constraint accepts the propagation strength option.</p>
+
+
+	<p>It&#8217;s usually worth testing a few different strength to see how well they work, 
+a good choice of strengths can cut down the search time depending on the 
+problem.</p>
+
+
+The different strengths are:
+<dl>
+  <dt><code>:value</code></dt><dd>Value consistency (naive).</dd>
+  <dt><code>:bounds</code></dt><dd>Bounds consistency.</dd>
+  <dt><code>:domain</code></dt><dd>Domain consistency.</dd>
+  <dt><code>:default</code></dt><dd>Uses the default consistency of the constraint.</dd>
+</dl>
+
+	<p>The option is specified with the key <code>:strength</code>. The following places a domain 
+consistent distinct constraint on <code>numbers</code>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>numbers.must_be.distinct(<span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+</pre></div>
+</div>
+
+
+	<p>The strength generally progresses as <code>:value</code> -&gt; <code>:bounds</code> -&gt; <code>:domain</code> 
+(<code>:value</code> being the weakest, <code>:domain</code> being the strongest).</p>
+
+
+	<h4 id="propagation_kind">Propagation Kind</h4>
+
+
+	<p>The propagation kind option <em>suggests</em> the implementation that should be 
+preferred if there are multiple implementations of a constraint.</p>
+
+
+The different kinds are:
+<dl>
+  <dt><code>:speed</code></dt><dd>Prefer speed over memory consumption.</dd>
+  <dt><code>:memory</code></dt><dd>Prefer low memory consumption over speed.</dd>
+  <dt><code>:default</code></dt><dd>Uses the constraint&#8217;s default propagation kind.</dd>
+</dl>
+
+	<p>The option is specified with the key <code>:kind</code>. The following tells the tuple
+constraint, placed on <code>numbers</code>, to favor speed over low memory consumption.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>numbers.must_be.in(tuples, <span class="sy">:kind</span> =&gt; <span class="sy">:speed</span>)
+</pre></div>
+</div>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

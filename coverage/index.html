@@ -1,0 +1,1022 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <title>Gecoder C0 Coverage Information - RCov</title>
+    <link href="screen.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="print.css" media="print" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="rcov.js"></script>
+  </head>
+  <body>
+    <h1>Gecoder C0 Coverage Information - RCov</h1>
+    
+
+    <noscript><style type="text/css">.if_js { display:none; }</style></noscript>
+
+    <div class="filters if_js">
+      <fieldset>
+        <label>File Filter:</label>
+        <select id="file_filter" class="filter">
+          <option value="all_files">Show All</option>
+          <option value="bool">bool/</option><option value="bool_enum">bool_enum/</option><option value="constraints">constraints/</option><option value="fixnum_enum">fixnum_enum/</option><option value="gecoder">gecoder/</option><option value="int">int/</option><option value="int_enum">int_enum/</option><option value="interface">interface/</option><option value="lib">lib/</option><option value="selected_set">selected_set/</option><option value="set">set/</option><option value="set_elements">set_elements/</option><option value="set_enum">set_enum/</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <label>Code Coverage Threshold:</label>
+        <select id="coverage_filter" class="filter">
+          <option value="all_coverage">Show All</option>
+          <option value="_10">&lt; 10% Coverage</option><option value="_20">&lt; 20% Coverage</option><option value="_30">&lt; 30% Coverage</option><option value="_40">&lt; 40% Coverage</option><option value="_50">&lt; 50% Coverage</option><option value="_60">&lt; 60% Coverage</option><option value="_70">&lt; 70% Coverage</option><option value="_80">&lt; 80% Coverage</option><option value="_90">&lt; 90% Coverage</option><option value="_100">&lt; 100% Coverage</option>
+          <option value="_110">= 100% Coverage</option>
+        </select>
+      </fieldset>
+    </div>
+
+    <div class="report_table_wrapper">
+      <table class='report' id='report_table'>
+        <thead>
+          <tr>
+            <th class="left_align">Name</th>
+            <th class="right_align">Total Lines</th>
+            <th class="right_align">Lines of Code</th>
+            <th class="left_align">Total Coverage</th>
+            <th class="left_align">Code Coverage</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td class="left_align">TOTAL</td>
+            <td class='right_align'><tt>6712</tt></td>
+            <td class='right_align'><tt>3594</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>99.94%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class='coverage_total'>99.89%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+          </tr>
+        </tfoot>
+        <tbody>
+          
+            <tr class="all_files all_coverage _110 lib even">
+              <td class="left_align"><a href="lib-gecoder_rb.html">lib/gecoder.rb</a></td>
+              <td class='right_align'><tt>5</tt></td>
+              <td class='right_align'><tt>4</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder odd">
+              <td class="left_align"><a href="lib-gecoder-bindings_rb.html">lib/gecoder/bindings.rb</a></td>
+              <td class='right_align'><tt>98</tt></td>
+              <td class='right_align'><tt>32</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder even">
+              <td class="left_align"><a href="lib-gecoder-interface_rb.html">lib/gecoder/interface.rb</a></td>
+              <td class='right_align'><tt>11</tt></td>
+              <td class='right_align'><tt>11</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface odd">
+              <td class="left_align"><a href="lib-gecoder-interface-binding_changes_rb.html">lib/gecoder/interface/binding_changes.rb</a></td>
+              <td class='right_align'><tt>9</tt></td>
+              <td class='right_align'><tt>7</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface even">
+              <td class="left_align"><a href="lib-gecoder-interface-branch_rb.html">lib/gecoder/interface/branch.rb</a></td>
+              <td class='right_align'><tt>163</tt></td>
+              <td class='right_align'><tt>80</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints_rb.html">lib/gecoder/interface/constraints.rb</a></td>
+              <td class='right_align'><tt>479</tt></td>
+              <td class='right_align'><tt>259</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints bool even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool-boolean_rb.html">lib/gecoder/interface/constraints/bool/boolean.rb</a></td>
+              <td class='right_align'><tt>251</tt></td>
+              <td class='right_align'><tt>140</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints bool odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool-channel_rb.html">lib/gecoder/interface/constraints/bool/channel.rb</a></td>
+              <td class='right_align'><tt>7</tt></td>
+              <td class='right_align'><tt>6</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _100 lib gecoder interface constraints bool even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool-linear_rb.html">lib/gecoder/interface/constraints/bool/linear.rb</a></td>
+              <td class='right_align'><tt>200</tt></td>
+              <td class='right_align'><tt>126</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>98.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:98px"></div>
+            <div class="uncovered" style="width:2px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>96.83%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:97px"></div>
+            <div class="uncovered" style="width:3px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints bool_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool_enum-channel_rb.html">lib/gecoder/interface/constraints/bool_enum/channel.rb</a></td>
+              <td class='right_align'><tt>68</tt></td>
+              <td class='right_align'><tt>33</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints bool_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool_enum-extensional_rb.html">lib/gecoder/interface/constraints/bool_enum/extensional.rb</a></td>
+              <td class='right_align'><tt>106</tt></td>
+              <td class='right_align'><tt>59</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints bool_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool_enum-relation_rb.html">lib/gecoder/interface/constraints/bool_enum/relation.rb</a></td>
+              <td class='right_align'><tt>55</tt></td>
+              <td class='right_align'><tt>34</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool_enum_constraints_rb.html">lib/gecoder/interface/constraints/bool_enum_constraints.rb</a></td>
+              <td class='right_align'><tt>84</tt></td>
+              <td class='right_align'><tt>27</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-bool_var_constraints_rb.html">lib/gecoder/interface/constraints/bool_var_constraints.rb</a></td>
+              <td class='right_align'><tt>155</tt></td>
+              <td class='right_align'><tt>71</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-extensional_regexp_rb.html">lib/gecoder/interface/constraints/extensional_regexp.rb</a></td>
+              <td class='right_align'><tt>105</tt></td>
+              <td class='right_align'><tt>68</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints fixnum_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-fixnum_enum-element_rb.html">lib/gecoder/interface/constraints/fixnum_enum/element.rb</a></td>
+              <td class='right_align'><tt>63</tt></td>
+              <td class='right_align'><tt>44</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints fixnum_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-fixnum_enum-operation_rb.html">lib/gecoder/interface/constraints/fixnum_enum/operation.rb</a></td>
+              <td class='right_align'><tt>65</tt></td>
+              <td class='right_align'><tt>26</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-fixnum_enum_constraints_rb.html">lib/gecoder/interface/constraints/fixnum_enum_constraints.rb</a></td>
+              <td class='right_align'><tt>42</tt></td>
+              <td class='right_align'><tt>18</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int-arithmetic_rb.html">lib/gecoder/interface/constraints/int/arithmetic.rb</a></td>
+              <td class='right_align'><tt>150</tt></td>
+              <td class='right_align'><tt>101</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int-channel_rb.html">lib/gecoder/interface/constraints/int/channel.rb</a></td>
+              <td class='right_align'><tt>51</tt></td>
+              <td class='right_align'><tt>33</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int-domain_rb.html">lib/gecoder/interface/constraints/int/domain.rb</a></td>
+              <td class='right_align'><tt>80</tt></td>
+              <td class='right_align'><tt>42</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int-linear_rb.html">lib/gecoder/interface/constraints/int/linear.rb</a></td>
+              <td class='right_align'><tt>143</tt></td>
+              <td class='right_align'><tt>91</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int-relation_rb.html">lib/gecoder/interface/constraints/int/relation.rb</a></td>
+              <td class='right_align'><tt>141</tt></td>
+              <td class='right_align'><tt>53</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-arithmetic_rb.html">lib/gecoder/interface/constraints/int_enum/arithmetic.rb</a></td>
+              <td class='right_align'><tt>63</tt></td>
+              <td class='right_align'><tt>40</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-channel_rb.html">lib/gecoder/interface/constraints/int_enum/channel.rb</a></td>
+              <td class='right_align'><tt>86</tt></td>
+              <td class='right_align'><tt>30</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-count_rb.html">lib/gecoder/interface/constraints/int_enum/count.rb</a></td>
+              <td class='right_align'><tt>66</tt></td>
+              <td class='right_align'><tt>47</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-distinct_rb.html">lib/gecoder/interface/constraints/int_enum/distinct.rb</a></td>
+              <td class='right_align'><tt>64</tt></td>
+              <td class='right_align'><tt>35</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-element_rb.html">lib/gecoder/interface/constraints/int_enum/element.rb</a></td>
+              <td class='right_align'><tt>64</tt></td>
+              <td class='right_align'><tt>45</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-equality_rb.html">lib/gecoder/interface/constraints/int_enum/equality.rb</a></td>
+              <td class='right_align'><tt>37</tt></td>
+              <td class='right_align'><tt>25</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-extensional_rb.html">lib/gecoder/interface/constraints/int_enum/extensional.rb</a></td>
+              <td class='right_align'><tt>187</tt></td>
+              <td class='right_align'><tt>59</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints int_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum-sort_rb.html">lib/gecoder/interface/constraints/int_enum/sort.rb</a></td>
+              <td class='right_align'><tt>135</tt></td>
+              <td class='right_align'><tt>80</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_enum_constraints_rb.html">lib/gecoder/interface/constraints/int_enum_constraints.rb</a></td>
+              <td class='right_align'><tt>95</tt></td>
+              <td class='right_align'><tt>32</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-int_var_constraints_rb.html">lib/gecoder/interface/constraints/int_var_constraints.rb</a></td>
+              <td class='right_align'><tt>230</tt></td>
+              <td class='right_align'><tt>114</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-reifiable_constraints_rb.html">lib/gecoder/interface/constraints/reifiable_constraints.rb</a></td>
+              <td class='right_align'><tt>78</tt></td>
+              <td class='right_align'><tt>49</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints selected_set even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-selected_set-select_rb.html">lib/gecoder/interface/constraints/selected_set/select.rb</a></td>
+              <td class='right_align'><tt>120</tt></td>
+              <td class='right_align'><tt>82</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-selected_set_constraints_rb.html">lib/gecoder/interface/constraints/selected_set_constraints.rb</a></td>
+              <td class='right_align'><tt>75</tt></td>
+              <td class='right_align'><tt>34</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-cardinality_rb.html">lib/gecoder/interface/constraints/set/cardinality.rb</a></td>
+              <td class='right_align'><tt>65</tt></td>
+              <td class='right_align'><tt>49</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-channel_rb.html">lib/gecoder/interface/constraints/set/channel.rb</a></td>
+              <td class='right_align'><tt>51</tt></td>
+              <td class='right_align'><tt>30</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-connection_rb.html">lib/gecoder/interface/constraints/set/connection.rb</a></td>
+              <td class='right_align'><tt>131</tt></td>
+              <td class='right_align'><tt>81</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-domain_rb.html">lib/gecoder/interface/constraints/set/domain.rb</a></td>
+              <td class='right_align'><tt>156</tt></td>
+              <td class='right_align'><tt>65</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-include_rb.html">lib/gecoder/interface/constraints/set/include.rb</a></td>
+              <td class='right_align'><tt>36</tt></td>
+              <td class='right_align'><tt>24</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-operation_rb.html">lib/gecoder/interface/constraints/set/operation.rb</a></td>
+              <td class='right_align'><tt>118</tt></td>
+              <td class='right_align'><tt>60</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set-relation_rb.html">lib/gecoder/interface/constraints/set/relation.rb</a></td>
+              <td class='right_align'><tt>155</tt></td>
+              <td class='right_align'><tt>91</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set_elements odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_elements-relation_rb.html">lib/gecoder/interface/constraints/set_elements/relation.rb</a></td>
+              <td class='right_align'><tt>116</tt></td>
+              <td class='right_align'><tt>53</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_elements_constraints_rb.html">lib/gecoder/interface/constraints/set_elements_constraints.rb</a></td>
+              <td class='right_align'><tt>97</tt></td>
+              <td class='right_align'><tt>37</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_enum-channel_rb.html">lib/gecoder/interface/constraints/set_enum/channel.rb</a></td>
+              <td class='right_align'><tt>45</tt></td>
+              <td class='right_align'><tt>29</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_enum-distinct_rb.html">lib/gecoder/interface/constraints/set_enum/distinct.rb</a></td>
+              <td class='right_align'><tt>43</tt></td>
+              <td class='right_align'><tt>28</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set_enum odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_enum-element_rb.html">lib/gecoder/interface/constraints/set_enum/element.rb</a></td>
+              <td class='right_align'><tt>79</tt></td>
+              <td class='right_align'><tt>50</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints set_enum even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_enum-operation_rb.html">lib/gecoder/interface/constraints/set_enum/operation.rb</a></td>
+              <td class='right_align'><tt>69</tt></td>
+              <td class='right_align'><tt>38</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints odd">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_enum_constraints_rb.html">lib/gecoder/interface/constraints/set_enum_constraints.rb</a></td>
+              <td class='right_align'><tt>84</tt></td>
+              <td class='right_align'><tt>28</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface constraints even">
+              <td class="left_align"><a href="lib-gecoder-interface-constraints-set_var_constraints_rb.html">lib/gecoder/interface/constraints/set_var_constraints.rb</a></td>
+              <td class='right_align'><tt>243</tt></td>
+              <td class='right_align'><tt>134</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface odd">
+              <td class="left_align"><a href="lib-gecoder-interface-convenience_rb.html">lib/gecoder/interface/convenience.rb</a></td>
+              <td class='right_align'><tt>99</tt></td>
+              <td class='right_align'><tt>25</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface even">
+              <td class="left_align"><a href="lib-gecoder-interface-enum_matrix_rb.html">lib/gecoder/interface/enum_matrix.rb</a></td>
+              <td class='right_align'><tt>64</tt></td>
+              <td class='right_align'><tt>48</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface odd">
+              <td class="left_align"><a href="lib-gecoder-interface-enum_wrapper_rb.html">lib/gecoder/interface/enum_wrapper.rb</a></td>
+              <td class='right_align'><tt>205</tt></td>
+              <td class='right_align'><tt>150</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface even">
+              <td class="left_align"><a href="lib-gecoder-interface-mixin_rb.html">lib/gecoder/interface/mixin.rb</a></td>
+              <td class='right_align'><tt>486</tt></td>
+              <td class='right_align'><tt>227</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface odd">
+              <td class="left_align"><a href="lib-gecoder-interface-search_rb.html">lib/gecoder/interface/search.rb</a></td>
+              <td class='right_align'><tt>229</tt></td>
+              <td class='right_align'><tt>131</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder interface even">
+              <td class="left_align"><a href="lib-gecoder-interface-variables_rb.html">lib/gecoder/interface/variables.rb</a></td>
+              <td class='right_align'><tt>306</tt></td>
+              <td class='right_align'><tt>176</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage _110 lib gecoder odd">
+              <td class="left_align"><a href="lib-gecoder-version_rb.html">lib/gecoder/version.rb</a></td>
+              <td class='right_align'><tt>4</tt></td>
+              <td class='right_align'><tt>3</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:100px"></div>
+            <div class="uncovered" style="width:0px"></div>
+          </div></td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <p>Generated on Tue Jan 06 23:56:04 +0100 2015 with <a href="http://github.com/relevance/rcov">rcov 1.0.0</a></p>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $("#report_table").tablesorter({widgets: ['zebra'], textExtraction: 'complex'});
+        }
+      );
+      $('.filter').change(function(){
+        ff = '.' + $('#file_filter').val();
+        cf = '.' + $('#coverage_filter').val();
+        rows = 'table#report_table tbody tr';
+        // Hide all rows that don't match the filters
+        $(rows).not(cf).map(function() { $(this).hide(); });
+        $(rows).not(ff).map(function() { $(this).hide(); });
+        // Show and restripe all rows that match both filters
+        $(rows).filter(cf).filter(ff).each(function() {
+          $(this).show();
+          restripe();
+        });
+      })
+    </script>
+
+  </body>
+</html>

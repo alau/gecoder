@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Installing Gecode/R, a Ruby Library for Constraint Programming</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="css/webgen.css" media="screen" />
+  <meta name="description" content="How to install Gecode/R to gain access to constraint programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="index.html">Home</a> > <span>Installation</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#quick_install">Quick Install</a><ul class="section-links"><li><a href="#troubleshooting">Troubleshooting</a></li></ul></li><li><a href="#detailed_information">Detailed Information</a><ul class="section-links"><li><a href="#dependencies">Dependencies</a></li><li><a href="#rubygems">RubyGems</a></li><li><a href="#direct_download">Direct Download</a></li><li><a href="#building_from_source">Building from Source</a></li></ul></li><li><a href="#running_the_tests">Running the Tests</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Downloading and Installing</h1>
+
+
+	<h2 id="quick_install">Quick Install</h2>
+
+
+	<p>The following works on Windows, Linux and <span class="caps">OS X</span> (and probably some more).</p>
+
+
+	<pre><code>gem install gecoder-with-gecode</code></pre>
+
+
+	<h3 id="troubleshooting">Troubleshooting</h3>
+
+
+	<p>If you encounter an error that is not listed here then please let us know via 
+the <a href="http://rubyforge.org/mailman/listinfo/gecoder-users">gecode-users mailing list</a>.</p>
+
+
+	<h5 id="windows">Windows</h5>
+
+
+	<pre><code>ERROR: error installing gem [...]: buffer error</code></pre>
+
+
+	<p>The above error message means that you need to upgrade RubyGems (it works with
+1.2.0). Run the following command.</p>
+
+
+	<pre><code>gem update --system</code></pre>
+
+
+	<h5 id="linux">Linux</h5>
+
+
+	<pre><code>libgecodeset.so.8: cannot open shared object file: No such file or directory</code></pre>
+
+
+	<p>If you get the above error message when requiring the Gecode/R gem then you 
+need to add <code>/usr/local/lib</code> (where the Gecode libraries are stored) to 
+<code>ld.so.conf</code> by doing the following as root.</p>
+
+
+	<pre><code>echo "/usr/local/lib" &gt;&gt; /etc/ld.so.conf
+/sbin/ldconfig</code></pre>
+
+
+	<h2 id="detailed_information">Detailed Information</h2>
+
+
+	<h3 id="dependencies">Dependencies</h3>
+
+
+	<p>Gecode/R requires Gecode 2.2.0. You can either manually install it or use the 
+gem that includes Gecode.</p>
+
+
+	<ul>
+	<li><a href="http://www.gecode.org/download.html">Gecode download link</a></li>
+		<li><a href="http://www.gecode.org/gecode-doc-latest/PageComp.html">Gecode installation instructions</a></li>
+	</ul>
+
+
+	<h3 id="rubygems">RubyGems</h3>
+
+
+	<p>Use the following gem if you don&#8217;t have Gecode installed, or are using Windows. 
+It includes both Gecode/R and Gecode 2.2.0.</p>
+
+
+	<pre><code>gem install gecoder-with-gecode</code></pre>
+
+
+	<p>Use the following gem if you want to install Gecode/R without Gecode.</p>
+
+
+	<pre><code>gem install gecoder</code></pre>
+
+
+	<h3 id="direct_download">Direct Download</h3>
+
+
+	<p>Downloads (both gems and source archives) are available at <a href="http://rubyforge.org/frs/?group_id=3553">RubyForge</a></p>
+
+
+	<h3 id="building_from_source">Building from Source</h3>
+
+
+	<p>There are two ways to get a hold of the source code.</p>
+
+
+	<ul>
+	<li>Download the source of a release from <a href="http://rubyforge.org/frs/?group_id=3553">RubyForge</a></li>
+		<li>Check out the most recent code from subversion using <pre>svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder</pre></li>
+	</ul>
+
+
+	<p>The interface is installed as follows once the source is obtained. This is not
+tested under Windows (where it will probably differ a bit).</p>
+
+
+	<ol>
+	<li>Enter the ext directory.</li>
+		<li>Run <code>ruby extconf.rb</code> </li>
+		<li>Run <code>make</code> (builds the extension)</li>
+		<li>Move the created library named <code>gecode.so</code> to the lib directory.</li>
+	</ol>
+
+
+	<h2 id="running_the_tests">Running the Tests</h2>
+
+
+	<p>To make sure that the installation was successful you can run the included 
+specs. They require <a href="http://rspec.rubyforge.org/download.html">RSpec</a> 1.0.5 or
+something similar. Run the specs by issuing the following command from the 
+directory where Gecode/R was installed.</p>
+
+
+	<pre><code>rake specs</code></pre>
+  </div>
+  <div id="tabs"><ul><li><a href="features.html">Features</a></li><li class="selected"><span>Installation</span></li><li><a href="examples/index.html">Examples</a></li><li><a href="documentation/index.html">Documentation</a></li><li><a href="details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="features.html">Features</a></li><li class="selected"><span>Installation</span></li><li><a href="examples/index.html">Examples</a></li><li><a href="documentation/index.html">Documentation</a></li><li><a href="details/index.html">Project Details</a></li><li><a class="sitemap" href="sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class GecodeRaw::Space - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-bool_var">#bool_var</a>
+    
+    <li ><a href="#method-i-branchings">#branchings</a>
+    
+    <li ><a href="#method-i-clone">#clone</a>
+    
+    <li ><a href="#method-i-constrain">#constrain</a>
+    
+    <li ><a href="#method-i-failed">#failed</a>
+    
+    <li ><a href="#method-i-int_var">#int_var</a>
+    
+    <li ><a href="#method-i-new_bool_var">#new_bool_var</a>
+    
+    <li ><a href="#method-i-new_int_var">#new_int_var</a>
+    
+    <li ><a href="#method-i-new_set_var">#new_set_var</a>
+    
+    <li ><a href="#method-i-propagators">#propagators</a>
+    
+    <li ><a href="#method-i-set_var">#set_var</a>
+    
+    <li ><a href="#method-i-status">#status</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-GecodeRaw::Space">
+  <h1 id="class-GecodeRaw::Space" class="class">
+    class GecodeRaw::Space
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-bool_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bool_var</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bool_var-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_bool_var ( VALUE self , VALUE id ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;Gecode::BoolVar*&gt;(tmp-&gt;bool_var(ruby2int(id, 1))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-branchings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">branchings</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="branchings-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_branchings ( VALUE self  ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;branchings()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-clone" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clone</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="clone-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_clone ( VALUE self , VALUE shared ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;Gecode::MSpace *&gt;(tmp-&gt;clone(ruby2bool(shared, 1))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-constrain" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">constrain</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="constrain-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_constrain ( VALUE self , VALUE s ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  tmp-&gt;constrain(ruby2Gecode_MSpacePtr(s, 1)); return Qnil;
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-failed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">failed</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="failed-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_failed ( VALUE self  ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;bool&gt;(tmp-&gt;failed()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-int_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">int_var</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="int_var-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_int_var ( VALUE self , VALUE id ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;Gecode::IntVar*&gt;(tmp-&gt;int_var(ruby2int(id, 1))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new_bool_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_bool_var</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new_bool_var-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_new_bool_var ( VALUE self  ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;new_bool_var()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new_int_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_int_var</span><span
+            class="method-args">(*args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new_int_var-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_new_int_var ( int argc, VALUE *argv, VALUE self ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+    bool ok = false;
+  
+  switch(argc) {
+     case 1: {
+// Case 0
+      if( is_Gecode_IntSet(argv[0]) ) {
+           return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;new_int_var(ruby2Gecode_IntSet(argv[0], 1))) );
+           ok = true;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-new_set_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new_set_var</span><span
+            class="method-args">(p1, p2, p3, p4)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new_set_var-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_new_set_var ( VALUE self , VALUE glb, VALUE lub, VALUE cardMin, VALUE cardMax ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;new_set_var(ruby2Gecode_IntSet(glb, 1),ruby2Gecode_IntSet(lub, 2),ruby2int(cardMin, 3),ruby2int(cardMax, 4))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-propagators" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">propagators</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="propagators-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_propagators ( VALUE self  ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;propagators()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_var" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_var</span><span
+            class="method-args">(p1)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_var-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_set_var ( VALUE self , VALUE id ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;Gecode::SetVar*&gt;(tmp-&gt;set_var(ruby2int(id, 1))) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-status" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">status</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="status-source">
+            <pre>VALUE fGecodeRaw_Gecode_MSpace_status ( VALUE self  ) {
+  Gecode::MSpace* tmp = ruby2Gecode_MSpacePtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;int&gt;(tmp-&gt;status()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre>VALUE fGecode_MSpaceMSpace ( VALUE self  ) {
+  Gecode::MSpace* tmp;
+  Data_Get_Struct(self, Gecode::MSpace, tmp);
+
+  /* The exception is thrown already by ruby2* if not found */
+
+  tmp = new Gecode::MSpace();
+;
+
+  DATA_PTR(self) = tmp;
+  Gecode_MSpaceMap[self] = tmp;
+
+#ifdef DEBUG
+  fprintf(stderr, &quot;rust: creating new instance of Gecode::MSpace (%p) with value %x\n&quot;, tmp, self);
+#endif
+
+  return self;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

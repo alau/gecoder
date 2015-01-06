@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class GecodeRaw::BAB - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-next">#next</a>
+    
+    <li ><a href="#method-i-statistics">#statistics</a>
+    
+    <li ><a href="#method-i-stopped">#stopped</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-GecodeRaw::BAB">
+  <h1 id="class-GecodeRaw::BAB" class="class">
+    class GecodeRaw::BAB
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-next" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">next</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="next-source">
+            <pre>VALUE fGecodeRaw_Gecode_MBAB_next ( VALUE self  ) {
+  Gecode::MBAB* tmp = ruby2Gecode_MBABPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;Gecode::MSpace *&gt;(tmp-&gt;next()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-statistics" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">statistics</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="statistics-source">
+            <pre>VALUE fGecodeRaw_Gecode_MBAB_statistics ( VALUE self  ) {
+  Gecode::MBAB* tmp = ruby2Gecode_MBABPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( new Gecode::Search::Statistics(tmp-&gt;statistics()), true );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stopped" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stopped</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stopped-source">
+            <pre>VALUE fGecodeRaw_Gecode_MBAB_stopped ( VALUE self  ) {
+  Gecode::MBAB* tmp = ruby2Gecode_MBABPtr(self);
+  if ( ! tmp ) return Qnil;
+
+  
+  return cxx2ruby( static_cast&lt;bool&gt;(tmp-&gt;stopped()) );
+
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(p1, p2)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre>VALUE fGecode_MBABMBAB ( VALUE self , VALUE s, VALUE o ) {
+  Gecode::MBAB* tmp;
+  Data_Get_Struct(self, Gecode::MBAB, tmp);
+
+  /* The exception is thrown already by ruby2* if not found */
+
+  tmp = new Gecode::MBAB(ruby2Gecode_MSpacePtr(s, 1),ruby2Gecode_Search_Options(o, 2));
+;
+
+  DATA_PTR(self) = tmp;
+  Gecode_MBABMap[self] = tmp;
+
+#ifdef DEBUG
+  fprintf(stderr, &quot;rust: creating new instance of Gecode::MBAB (%p) with value %x\n&quot;, tmp, self);
+#endif
+
+  return self;
+}</pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

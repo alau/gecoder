@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Boolean Operands - Constraints Supported by Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../../css/webgen.css" media="screen" />
+  <meta name="description" content="The constraints and properties of the boolean operand available in Gecode/R for Constraint Programming in Ruby." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../../index.html">Home</a> > <a href="../index.html">Documentation</a> > <a href="index.html">Operands</a> > <span>Boolean Operands</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Operands</h3><ul id="secondNav"><li><a href="index.html">Operands</a></li><li><a href="integer-operands.html">Integer Operands</a></li><li><a href="integer-enum-operands.html">Integer Enumeration Operands</a></li><li><span>Boolean Operands</span></li><li><a href="boolean-enum-operands.html">Boolean Enumeration Operands</a></li><li><a href="set-operands.html">Set Operands</a></li><li><a href="set-enum-operands.html">Set Enumeration Operands</a></li><li><a href="set-elements-operands.html">Set Elements Operands</a></li><li><a href="selected-set-operands.html">Selected Set Operands</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#examples_of_boolean_operands">Examples of Boolean Operands</a></li><li><a href="#constraints">Constraints</a><ul class="section-links"><li><a href="#_true_"><code>true</code></a></li><li><a href="#_false_"><code>false</code></a></li><li><a href="#_ee_"><code>==</code></a></li><li><a href="#_imply_"><code>imply</code></a></li></ul></li><li><a href="#properties">Properties</a><ul class="section-links"><li><a href="#_a_"><code>&#38;</code></a></li><li><a href="#_i_"><code>|</code></a></li><li><a href="#_c_"><code>^</code></a></li><li><a href="#_implies_"><code>implies</code></a></li><li><a href="#_p_"><code>+</code></a></li><li><a href="#_m_"><code>-</code></a></li><li><a href="#_u_"><code>*</code></a></li></ul></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Boolean Operands</h1>
+
+
+<div class="summary">
+<p>Boolean operands are created either by creating boolean variables (which
+are the simplest boolean operands) or by using operand properties that
+produce boolean operands.</p></div>
+
+	<h4 id="examples_of_boolean_operands">Examples of Boolean Operands</h4>
+
+
+	<p>The simplest boolean operands, boolean variables, can be created using
+<a href="../../rdoc/Gecode/Mixin.html"><code>Mixin#bool_var</code></a>.</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>bool_operand = bool_var
+</pre></div>
+</div>
+
+
+	<p>A couple of examples of properties that produce boolean operands include
+the <a href="../../rdoc/Gecode/Bool/BoolOperand.html"><code>BoolOperand#&</code></a> property, which produces a new boolean operand
+representing the <span class="caps">AND</span> operation applied to two boolean operands:</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>new_bool_operand = bool_operand1 + bool_operand2
+</pre></div>
+</div>
+
+
+	<p>The <a href="../../rdoc/Gecode/BoolEnum/BoolEnumOperand.html"><code>BoolEnumOperand#conjunction</code></a> property produces a new boolean 
+operand representing the conjunction of all boolean operands in an
+enumeration:</p>
+
+
+<div class="CodeRay">
+  <div class="code"><pre>new_bool_operand = bool_enum.conjunction
+</pre></div>
+</div>
+
+
+	<h2 id="constraints">Constraints</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/Bool/BoolConstraintReceiver.html"><code>BoolConstraintReceiver</code></a>.</p>
+
+
+	<h3 id="_true_"><code>true</code></h3>
+
+
+	<p><code>true(options = {})</code><p>
+Constrains the boolean operand to be true.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +b1+ and +b2+ must be true.</span>
+(b1 &amp; b2).must_be.true
+
+<span class="c"># (+b1+ implies +b2+) and (+b3+ implies +b2+) must be true.</span>
+((b1.implies b2) &amp; (b3.implies b2)).must_be.true
+
+<span class="c"># +b1+ and +b2+ must be true. We reify it with +bool+ and select the</span>
+<span class="c"># strength +domain+.</span>
+(b1 &amp; b2).must_be.true(<span class="sy">:reify</span> =&gt; bool, <span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_false_"><code>false</code></h3>
+
+
+	<p><code>false(options = {})</code><p>
+Constrains the boolean operand to be false.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +b1+ and +b2+ must be false.</span>
+(b1 &amp; b2).must_be.false
+
+<span class="c"># (+b1+ implies +b2+) and (+b3+ implies +b2+) must be false.</span>
+((b1.implies b2) &amp; (b3.implies b2)).must_be.false
+
+<span class="c"># +b1+ and +b2+ must be false. We reify it with +bool+ and select the</span>
+<span class="c"># strength +domain+.</span>
+(b1 &amp; b2).must_be.false(<span class="sy">:reify</span> =&gt; bool, <span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_ee_"><code>==</code></h3>
+
+
+	<p><code>==(bool_op, options = {})</code><p>
+Constrains the boolean operand to be equal to <code>bool_op</code>. Any of
+<tt>==</tt>, <code>equal</code> and <code>equal_to</code> may be used for equality.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +b1+ and +b2+ must equal +b1+ or +b2+.</span>
+(b1 &amp; b2).must == (b1 | b2)
+
+<span class="c"># +b1+ and +b2+ must not equal +b3+. We reify it with +bool+ and select</span>
+<span class="c"># the strength +domain+.</span>
+(b1 &amp; b2).must_not.equal(b3, <span class="sy">:reify</span> =&gt; bool, <span class="sy">:select</span> =&gt; <span class="sy">:domain</span>)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_imply_"><code>imply</code></h3>
+
+
+	<p><code>imply(bool_op, options = {})</code><p>
+Constrains the boolean operand to imply <code>bool_op</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +b1+ must imply +b2+</span>
+b1.must.imply b2
+
+<span class="c"># +b1+ and +b2+ must not imply +b3+. We reify it with +bool+ and select</span>
+<span class="c"># +domain+ as strength.</span>
+(b1 &amp; b2).must_not.imply(b3, <span class="sy">:reify</span> =&gt; bool, <span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+</pre></div>
+</div></p>
+
+
+	<h2 id="properties">Properties</h2>
+
+
+	<p>Generated from <a href="../../rdoc/Gecode/Bool/BoolOperand.html"><code>BoolOperand</code></a>.</p>
+
+
+	<h3 id="_a_"><code>&#38;</code></h3>
+
+
+	<p><code>&(bool_op)</code><p>
+Produces a new BoolOperand representing this operand <span class="caps">AND</span> <code>bool_op</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># (+b1+ and +b2+) or +b3+</span>
+(b1 &amp; b1) | b3
+</pre></div>
+</div></p>
+
+
+	<h3 id="_i_"><code>|</code></h3>
+
+
+	<p><code>|(bool_op)</code><p>
+Produces a new BoolOperand representing this operand OR <code>bool_op</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +b1+ and +b2+</span>
+ b1 &amp; b2
+</pre></div>
+</div></p>
+
+
+	<h3 id="_c_"><code>^</code></h3>
+
+
+	<p><code>^(bool_op)</code><p>
+Produces a new BoolOperand representing this operand <span class="caps">XOR</span> <code>bool_op</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># (+b1+ and +b2+) or (+b3+ exclusive or +b1+)</span>
+(b1 &amp; b2) | (b3 ^ b1)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_implies_"><code>implies</code></h3>
+
+
+	<p><code>implies(bool_op)</code><p>
+Produces a new BoolOperand representing that this operand implies
+<code>bool_op</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># (+b1+ implies +b2+) and (+b3+ implies +b2+)</span>
+(b1.implies b2) &amp; (b3.implies b2)
+</pre></div>
+</div></p>
+
+
+	<h3 id="_p_"><code>+</code></h3>
+
+
+	<p><code>+(op2)</code><p>
+Produces an IntOperand representing the value of this boolean operand (0 or
+1) plus <code>op2</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +bool1+ plus +bool2+</span>
+bool1 + bool2
+</pre></div>
+</div></p>
+
+
+	<h3 id="_m_"><code>-</code></h3>
+
+
+	<p><code>-(op2)</code><p>
+Produces an IntOperand representing the value of this boolean operand (0 or
+1) minus <code>op2</code>.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +bool1+ minus +bool2+</span>
+bool1 - bool2
+</pre></div>
+</div></p>
+
+
+	<h3 id="_u_"><code>*</code></h3>
+
+
+	<p><code>*(fixnum)</code><p>
+Produces an IntOperand representing the value of this boolean operand (0 or
+1) times a constant.
+</p>
+<h5>Examples</h5>
+<div class="CodeRay">
+  <div class="code"><pre><span class="c"># +bool+ times 17</span>
+bool * <span class="i">17</span>
+</pre></div>
+</div></p>
+  </div>
+  <div id="tabs"><ul><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../../features.html">Features</a></li><li><a href="../../installation.html">Installation</a></li><li><a href="../../examples/index.html">Examples</a></li><li class="selected"><a href="../index.html">Documentation</a></li><li><a href="../../details/index.html">Project Details</a></li><li><a class="sitemap" href="../../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

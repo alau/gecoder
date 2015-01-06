@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Rust::Test::CppClassTest - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Rust::Test::Unit::TestCase
+  
+</div>
+
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="ExtensionTest.html">Rust::Test::ExtensionTest</a>
+  
+  
+  </ul>
+</div>
+
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-setup">#setup</a>
+    
+    <li ><a href="#method-i-test_at">#test_at</a>
+    
+    <li ><a href="#method-i-test_camelcase">#test_camelcase</a>
+    
+    <li ><a href="#method-i-test_enum_invalid">#test_enum_invalid</a>
+    
+    <li ><a href="#method-i-test_enum_value">#test_enum_value</a>
+    
+    <li ><a href="#method-i-test_integers">#test_integers</a>
+    
+    <li ><a href="#method-i-test_strings">#test_strings</a>
+    
+    <li ><a href="#method-i-test_variable">#test_variable</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Rust::Test::CppClassTest">
+  <h1 id="class-Rust::Test::CppClassTest" class="class">
+    class Rust::Test::CppClassTest
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-setup" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>
+  <span class="ruby-identifier">extension_setup</span>(<span class="ruby-string">&quot;cppclass&quot;</span>, <span class="ruby-string">&quot;cc&quot;</span>)
+
+  <span class="ruby-ivar">@instance</span> = <span class="ruby-constant">RustTestCppClass</span><span class="ruby-operator">::</span><span class="ruby-constant">TestClass</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_at" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_at</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_at-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-operators.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_at</span>
+  <span class="ruby-identifier">v</span> = <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value">3</span>)
+  <span class="ruby-identifier">assert</span>(<span class="ruby-identifier">v</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>, <span class="ruby-string">&quot;must be 3&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_camelcase" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_camelcase</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_camelcase-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_camelcase</span>
+  <span class="ruby-identifier">assert</span>( <span class="ruby-constant">RustTestCppClass</span><span class="ruby-operator">::</span><span class="ruby-constant">TestClass</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;integer_value&quot;</span>),
+        <span class="ruby-string">&quot;The converted CamelCase to ruby_convention is missing.&quot;</span> )
+  <span class="ruby-identifier">assert</span>( <span class="ruby-constant">RustTestCppClass</span><span class="ruby-operator">::</span><span class="ruby-constant">TestClass</span>.<span class="ruby-identifier">instance_method</span>(<span class="ruby-string">&quot;integer_value&quot;</span>) <span class="ruby-operator">==</span> <span class="ruby-constant">RustTestCppClass</span><span class="ruby-operator">::</span><span class="ruby-constant">TestClass</span>.<span class="ruby-identifier">instance_method</span>(<span class="ruby-string">&quot;integerValue&quot;</span>),
+          <span class="ruby-string">&quot;The converted CamelCase to ruby_conversion is not an alias of the original method&quot;</span> )
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_enum_invalid" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_enum_invalid</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_enum_invalid-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_enum_invalid</span>
+  <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">test_enum</span> <span class="ruby-constant">RustTestCppClass</span><span class="ruby-operator">::</span><span class="ruby-constant">TestClass</span><span class="ruby-operator">::</span><span class="ruby-constant">Foo1</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">test_enum</span> <span class="ruby-value">4</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">test_enum</span> <span class="ruby-value">255</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_enum_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_enum_value</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_enum_value-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_enum_value</span>
+  <span class="ruby-identifier">assert</span>( <span class="ruby-constant">RustTestCppClass</span><span class="ruby-operator">::</span><span class="ruby-constant">TestClass</span><span class="ruby-operator">::</span><span class="ruby-constant">Foo1</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>,
+          <span class="ruby-string">&quot;Foo1 value is not the expected one.&quot;</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_integers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_integers</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_integers-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_integers</span>
+  <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">action1</span> <span class="ruby-value">1234</span>
+  <span class="ruby-identifier">assert</span> <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">integerValue</span> <span class="ruby-operator">==</span> <span class="ruby-value">1234</span>, <span class="ruby-string">&quot;The integer value does not correspond&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_strings" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_strings</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_strings-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_strings</span>
+  <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">action2</span> <span class="ruby-string">&quot;a test&quot;</span>
+  <span class="ruby-identifier">assert</span> <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">stringValue</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;a test&quot;</span>, <span class="ruby-string">&quot;The string value does not correspond&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-test_variable" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">test_variable</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="test_variable-source">
+            <pre><span class="ruby-comment"># File vendor/rust/test/test-cppclass.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">test_variable</span>
+  <span class="ruby-identifier">random_value</span> = <span class="ruby-identifier">rand</span>(<span class="ruby-value">655360</span>)
+  
+  <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">variable</span> = <span class="ruby-identifier">random_value</span>
+
+  <span class="ruby-identifier">assert</span>( <span class="ruby-ivar">@instance</span>.<span class="ruby-identifier">variable</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">random_value</span>,
+           <span class="ruby-string">&quot;The set/get of variable doe snot work.&quot;</span> )
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Solving Square Tiling using Constraint Programming in Ruby</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="An example showing how to solve the square tiling problem using constraint programming in Ruby with Gecode/R." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Examples</a> > <span>Square tiling</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Examples</h3><ul id="secondNav"><li><a href="index.html">Overview</a></li><li><a href="send-more-money.html">send+more=money</a></li><li><a href="send-most-money.html">send+most=money</a></li><li><a href="sudoku.html">Sudoku</a></li><li><a href="sudoku-set.html">Sudoku with sets</a></li><li><a href="n-queens.html">N-queens</a></li><li><a href="magic-sequence.html">Magic Sequence</a></li><li><a href="nonogram.html">Nonogram (Paint by Numbers)</a></li><li><span>Square tiling</span></li><li><a href="minesweeper.html">Minesweeper</a></li><li><a href="survo.html">Survo Puzzle</a></li></ul>
+      <h3>Shortcuts</h3>
+      <ul class="section-links"><li><a href="#problem">Problem</a></li><li><a href="#code">Code</a><ul class="section-links"><li><a href="#output">Output</a></li></ul></li><li><a href="#notes">Notes</a></li></ul>
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Square tiling</h1>
+
+
+	<h2 id="problem">Problem</h2>
+
+
+	<p>The problem is to pack a set of squares into a larger rectangle so that no 
+squares overlap. Each square has an integer size and must be placed so that the
+square&#8217;s borders are parallel to the rectangle&#8217;s. The total surface area of 
+the squares equal the surface area of the rectangle, so all have to be used.</p>
+
+
+	<h2 id="code">Code</h2>
+
+
+	<p><div class="CodeRay">
+  <div class="code"><pre><span class="no"> 1</span> require <span class="s"><span class="dl">'</span><span class="k">rubygems</span><span class="dl">'</span></span>
+<span class="no"> 2</span> require <span class="s"><span class="dl">'</span><span class="k">gecoder</span><span class="dl">'</span></span>
+<span class="no"> 3</span> 
+<span class="no"> 4</span> <span class="c"># Solves the square tiling problem. The objective is to pack supplied squares </span>
+<span class="no"> 5</span> <span class="c"># into a bigger rectangle so that there is no overlap.</span>
+<span class="no"> 6</span> <span class="r">class</span> <span class="cl">SquareTiling</span>
+<span class="no"> 7</span>   include <span class="co">Gecode</span>::<span class="co">Mixin</span>
+<span class="no"> 8</span> 
+<span class="no"> 9</span>   <span class="c"># Takes the width and height of the rectangle to pack the squares into. Then</span>
+<span class="no"><strong>10</strong></span>   <span class="c"># the sizes of the squares that should be packed into the rectangle. The sizes</span>
+<span class="no">11</span>   <span class="c"># must be sorted.</span>
+<span class="no">12</span>   <span class="r">def</span> <span class="fu">initialize</span>(width, height, square_sizes)
+<span class="no">13</span>     <span class="iv">@sizes</span> = square_sizes
+<span class="no">14</span>     <span class="iv">@square_count</span> = <span class="iv">@sizes</span>.size
+<span class="no">15</span>     
+<span class="no">16</span>     <span class="c"># The coordinates of the placed squares.</span>
+<span class="no">17</span>     <span class="iv">@xs</span> = int_var_array(<span class="iv">@square_count</span>, <span class="i">0</span>..(width - <span class="iv">@sizes</span>.min))
+<span class="no">18</span>     <span class="iv">@ys</span> = int_var_array(<span class="iv">@square_count</span>, <span class="i">0</span>..(height - <span class="iv">@sizes</span>.min))
+<span class="no">19</span>     
+<span class="no"><strong>20</strong></span>     <span class="c"># The essential constraints of the problem.</span>
+<span class="no">21</span>     <span class="iv">@square_count</span>.times <span class="r">do</span> |i|
+<span class="no">22</span>       <span class="c"># Each square must be placed within the bounds</span>
+<span class="no">23</span>       <span class="iv">@xs</span>[i].must &lt;= width - <span class="iv">@sizes</span>[i]
+<span class="no">24</span>       <span class="iv">@ys</span>[i].must &lt;= height - <span class="iv">@sizes</span>[i]
+<span class="no">25</span>       
+<span class="no">26</span>       <span class="c"># Pairwise conditions, no pair of squares may overlap.</span>
+<span class="no">27</span>       <span class="i">0</span>.upto(i - <span class="i">1</span>) <span class="r">do</span> |j|
+<span class="no">28</span>         <span class="c"># That the two squares don't overlap means that i is left of j, </span>
+<span class="no">29</span>         <span class="c"># or j is left of i, or i is above j, or j is above i.</span>
+<span class="no"><strong>30</strong></span>         ((<span class="iv">@xs</span>[j] - <span class="iv">@xs</span>[i]).must &gt;= <span class="iv">@sizes</span>[i]) | 
+<span class="no">31</span>           ((<span class="iv">@xs</span>[i] - <span class="iv">@xs</span>[j]).must &gt;= <span class="iv">@sizes</span>[j]) | 
+<span class="no">32</span>           ((<span class="iv">@ys</span>[j] - <span class="iv">@ys</span>[i]).must &gt;= <span class="iv">@sizes</span>[i]) | 
+<span class="no">33</span>           ((<span class="iv">@ys</span>[i] - <span class="iv">@ys</span>[j]).must &gt;= <span class="iv">@sizes</span>[j])
+<span class="no">34</span>       <span class="r">end</span>
+<span class="no">35</span>     <span class="r">end</span>
+<span class="no">36</span>     
+<span class="no">37</span>     <span class="c"># A couple of implied constraints that only serve to make the solving </span>
+<span class="no">38</span>     <span class="c"># faster:</span>
+<span class="no">39</span> 
+<span class="no"><strong>40</strong></span>     <span class="c"># The combined size of all squares occupying a column must be equal to the </span>
+<span class="no">41</span>     <span class="c"># total height.</span>
+<span class="no">42</span>     occupied_length_must_equal_total_length(height, width, <span class="iv">@xs</span>)
+<span class="no">43</span>     <span class="c"># The combined size of all squares occupying a row must be equal to the </span>
+<span class="no">44</span>     <span class="c"># total width.</span>
+<span class="no">45</span>     occupied_length_must_equal_total_length(width, height, <span class="iv">@ys</span>)
+<span class="no">46</span> 
+<span class="no">47</span>     <span class="c"># Symmetry-breaking constraint: Order squares of the same size.</span>
+<span class="no">48</span>     <span class="iv">@square_count</span>.times <span class="r">do</span> |i|
+<span class="no">49</span>       <span class="iv">@xs</span>[i].must &lt;= <span class="iv">@xs</span>[i+<span class="i">1</span>] <span class="r">if</span> <span class="iv">@sizes</span>[i] == <span class="iv">@sizes</span>[i+<span class="i">1</span>]
+<span class="no"><strong>50</strong></span>     <span class="r">end</span>
+<span class="no">51</span> 
+<span class="no">52</span>     <span class="c"># Place the squares left to right on the x-axis first, then the y-axis.</span>
+<span class="no">53</span>     branch_on <span class="iv">@xs</span>, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_min</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+<span class="no">54</span>     branch_on <span class="iv">@ys</span>, <span class="sy">:variable</span> =&gt; <span class="sy">:smallest_min</span>, <span class="sy">:value</span> =&gt; <span class="sy">:min</span>
+<span class="no">55</span>   <span class="r">end</span>
+<span class="no">56</span>   
+<span class="no">57</span>   <span class="c"># Constrains the combined length of the squares in the same row or column to</span>
+<span class="no">58</span>   <span class="c"># equal +total_length+ in the axis of the specified coordinates +coords+, </span>
+<span class="no">59</span>   <span class="c"># which is +axist_length+ long.</span>
+<span class="no"><strong>60</strong></span>   <span class="r">def</span> <span class="fu">occupied_length_must_equal_total_length</span>(total_length, axis_length, coords)
+<span class="no">61</span>     axis_length.times <span class="r">do</span> |i|
+<span class="no">62</span>       <span class="c"># We create an array of boolean variables and constrain it so that element</span>
+<span class="no">63</span>       <span class="c"># +j+ is true iff square +j+ occupies +i+ (+i+ being a row or column).</span>
+<span class="no">64</span>       occupied = bool_var_array(<span class="iv">@square_count</span>)
+<span class="no">65</span>       occupied.each_with_index <span class="r">do</span> |is_occupying, j|
+<span class="no">66</span>         coords[j].must_be.in((i - <span class="iv">@sizes</span>[j] + <span class="i">1</span>)..i, <span class="sy">:reify</span> =&gt; is_occupying)
+<span class="no">67</span>       <span class="r">end</span>
+<span class="no">68</span>       
+<span class="no">69</span>       <span class="c"># Constrain the combined length of squares that are occupying +i+ to equal</span>
+<span class="no"><strong>70</strong></span>       <span class="c"># the total length. We multiply the sizes with the boolean variables </span>
+<span class="no">71</span>       <span class="c"># since a boolean in linear equation is 0 if assigned false and 1 if </span>
+<span class="no">72</span>       <span class="c"># assigned true. Hence we will mask out the sizes of any squares not in </span>
+<span class="no">73</span>       <span class="c"># +i+.</span>
+<span class="no">74</span>       occupied_sizes = occupied.zip(<span class="iv">@sizes</span>).map{ |bool, size| bool*size }
+<span class="no">75</span>       occupied_sizes.inject(<span class="i">0</span>){ |sum, x| x + sum }.must.equal(total_length, 
+<span class="no">76</span>         <span class="sy">:strength</span> =&gt; <span class="sy">:domain</span>)
+<span class="no">77</span>     <span class="r">end</span>
+<span class="no">78</span>   <span class="r">end</span>
+<span class="no">79</span>   
+<span class="no"><strong>80</strong></span>   <span class="c"># Displays the coordinates of the squares.</span>
+<span class="no">81</span>   <span class="c"># TODO: Something more impressive. </span>
+<span class="no">82</span>   <span class="r">def</span> <span class="fu">to_s</span>
+<span class="no">83</span>     <span class="iv">@xs</span>.values.zip(<span class="iv">@ys</span>.values).map{ |x,y| <span class="s"><span class="dl">&quot;</span><span class="k">(</span><span class="il"><span class="idl">#{</span>x<span class="idl">}</span></span><span class="k">, </span><span class="il"><span class="idl">#{</span>y<span class="idl">}</span></span><span class="k">)</span><span class="dl">&quot;</span></span>}.join(<span class="s"><span class="dl">'</span><span class="k">, </span><span class="dl">'</span></span>)
+<span class="no">84</span>   <span class="r">end</span>
+<span class="no">85</span> <span class="r">end</span>
+<span class="no">86</span> 
+<span class="no">87</span> puts <span class="co">SquareTiling</span>.new(<span class="i">65</span>, <span class="i">47</span>, [<span class="i">25</span>, <span class="i">24</span>, <span class="i">23</span>, <span class="i">22</span>, <span class="i">19</span>, <span class="i">17</span>, <span class="i">11</span>, <span class="i">6</span>, <span class="i">5</span>, <span class="i">3</span>]).solve!.to_s
+</pre></div>
+</div>
+</p>
+
+
+	<h3 id="output">Output</h3>
+
+
+<pre>
+(0, 0), (41, 23), (42, 0), (0, 25), (22, 28), (25, 0), (25, 17), (36, 17), (36, 23), (22, 25)
+</pre>
+
+	<h2 id="notes">Notes</h2>
+
+
+It can also handle larger problems. The following one takes about a minute.
+<div class="CodeRay">
+  <div class="code"><pre>puts(<span class="co">SquareTiling</span>.new(<span class="i">112</span>, <span class="i">112</span>, [<span class="i">50</span>, <span class="i">42</span>, <span class="i">37</span>, <span class="i">35</span>, <span class="i">33</span>, <span class="i">29</span>, <span class="i">27</span>, <span class="i">25</span>, <span class="i">24</span>, <span class="i">19</span>, <span class="i">18</span>, 
+  <span class="i">17</span>, <span class="i">16</span>, <span class="i">15</span>, <span class="i">11</span>, <span class="i">9</span>, <span class="i">8</span>, <span class="i">7</span>, <span class="i">6</span>, <span class="i">4</span>, <span class="i">2</span>]).solve! || <span class="s"><span class="dl">'</span><span class="k">Failed</span><span class="dl">'</span></span>).to_s
+</pre></div>
+</div>
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li class="selected"><a href="index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li><a href="../details/index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

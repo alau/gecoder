@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <title>Changes Made to Gecode/R</title>
+  <link rel="stylesheet" type="text/css" href="../styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="../css/webgen.css" media="screen" />
+  <meta name="description" content="A changelog of changes made to Gecode/R. Shows when support for various constraints were added." />
+  
+</head>
+<body>
+<div id="header">
+  <a class="logoLink" href="../index.html" title="Gecode/R - constraint programming in Ruby">
+  <span>Gecode/R - constraint programming in Ruby</span>
+  </a>
+  <a name="top"></a>
+</div>
+<div id="contents">
+  <div id="breadcrumbs"><a href="../index.html">Home</a> > <a href="index.html">Project Details</a> > <span>Changes</span></div>
+  <div id="sidebarWrapper">
+    <div id="sidebar">
+      <h3>Details</h3><ul id="secondNav"><li><a href="index.html">Project Details</a></li><li><a href="contribute.html">Contribute</a></li><li><a href="credits.html">Credits</a></li><li><span>Changes</span></li><li><a href="development.html">Development</a></li><li><a href="http://rubyforge.org/projects/gecoder">RubyForge</a></li></ul>
+      <h3>Shortcuts</h3>
+      
+
+      <form id="searchbox_000699377096513254569:zhhnzsrbzfu" action="http://www.google.com/cse" 
+        onsubmit="pageTracker._trackPageview('/search/' + document.getElementById('q').value);">
+        <fieldset>
+          <legend>Search the site</legend>
+          <input type="hidden" name="cx" value="000699377096513254569:zhhnzsrbzfu" />
+          <input type="hidden" name="cof" value="FORID:0" />
+          <input id="q" name="q" type="text" size="15" />
+          <input type="submit" name="sa" value="Search" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div id="body">
+    <h1>Changes</h1>
+
+
+ 
+  
+  <h2>Version 1.1.0</h2>
+<p>
+This release fixes a compilation error when installing the
+gecoder-with-gecode gem using GCC 4.4+ .
+</p>
+<ul>
+<li>Added the :time_limit to Gecode#solve! which can be used to limit the
+amount of time that the solver is allowed to search for a solution.
+
+</li>
+<li>[#29630] Fixed compilation errors when installing gecoder-with-gecode using
+GCC 4.4+ .
+
+</li>
+</ul>
+<h2>Version 1.0.0</h2>
+<p>
+This release represents a commitment to the current syntax.
+</p>
+<ul>
+<li>No changes apart from improving documentation.
+
+</li>
+</ul>
+<h2>Version 0.9.1</h2>
+<p>
+This release changes the preferred way of defining a model to including
+Gecode::Mixin (a mixin) rather than inheriting from Gecode::Model. The
+backend has also been updated to fix some rare bugs.
+</p>
+<ul>
+<li>Added Gecode::Mixin which can be mixed in rather than inheriting from
+Gecode::Model. Thanks to Adam Rose for the suggestion.
+
+</li>
+<li>Updated the backend to Gecode 2.2.0. See
+http://www.gecode.org/gecode-doc-latest/PageChanges_2_2_0.html for a list
+of changes.
+
+</li>
+</ul>
+<h2>Version 0.9.0</h2>
+<p>
+This release adds a generous amount of sugar designed to cut down on often
+repeated code. It also adds the ability to freely combine constraints
+without needing temporary variables.
+</p>
+<ul>
+<li>Variables that should be accessible from outside the model can now easily
+be created by calling &quot;&lt;variable_name&gt;_is_a
+&lt;variable&gt;&quot; where &quot;&lt;variable_name&gt;&quot; is the
+desired name of the variable and &quot;&lt;variable&gt;&quot; is the
+variable (e.g. &quot;int_var(17)&quot;). Take a look at the examples to see
+it in action.
+
+</li>
+<li>Gecode.solve, Gecode.maximize and Gecode.minimize can now be used to solve
+a problem without first having to explicitly create a class for the model.
+
+</li>
+<li>An exception (Gecode::NoSolutionError) is now thrown if a solution can not
+be found when using Model#solve!, Model#minimize!, Model#maximize! and
+Model#optimize! (rather than returning nil). This change breaks backwards
+compatibility. If you feel that this is a bad change then please tell the
+mailing list.
+
+</li>
+<li>The offset option to the distinct constraint is now given as
+&quot;int_enum.must_be.distinct(:offset =&gt; offsets)&quot; rather than
+the previous &quot;int_enum.with_offsets(offsets).must_be.distinct&quot;.
+
+</li>
+<li>Complex combinations of several constraints such as &quot;(set1.size +
+set2.size).must &gt; int.abs - 3&quot; can now be used. The underlying code
+has been changed quite a bit, but it should remain backwards compatible
+except for above mentioned exception. The change also brings about some
+changed terminology, which mostly aims to remove the concept of
+&quot;composite constraints&quot; and replace them with the more general
+&quot;operands&quot; (see the documentation for further details).
+
+</li>
+<li>[#21578] Fixed a bug that caused options given to the boolean
+&quot;false&quot; domain constraint to not be processed.
+
+</li>
+<li>[#21579] Fixed a bug that caused the integer enumeration equality
+constraint to not work at all (threw an exception).
+
+</li>
+<li>[#21580] Fixed a bug that caused ranges that use three dots to not be
+correctly interpreted by the negated integer domain constraint.
+
+</li>
+<li>[#21581] Fixed a bug that caused the abs constraint to prune away valid
+solutions in some cases.
+
+</li>
+</ul>
+<h2>Version 0.8.3</h2>
+<p>
+This release adds regular expression constraints, the last channel
+constraint and various minor convenience improvements. It also fixes a
+rather serious bug that occurs when using the latest patchlevels of Ruby
+1.8.6.
+</p>
+<ul>
+<li>[#20888] Fixed a GC bug causing problems with Ruby 1.8.6 at patchlevels
+around 230.
+
+</li>
+<li>Boolean constraints can no longer be specified using the form
+&quot;bool.must == true&quot;. Only the &quot;bool.must_be.true&quot; form
+can now be used.
+
+</li>
+<li>Added constants in Model that contain the limits of the variables&#8217;
+domains.
+
+</li>
+<li>The domain when construction arrays and matrices of int variables now
+default to the same as when creating single variables (the largest possible
+domain).
+
+</li>
+<li>Model#branch_on now accepts single variables as well as enums.
+
+</li>
+<li>Added channel constraints between single set variables and enumerations of
+boolean variables.
+
+</li>
+<li>Added integer and boolean regular expression constraints. Thanks goes to
+Eivind Eklund for providing the idea for the syntax used to specify the
+regular expressions.
+
+</li>
+</ul>
+<h2>Version 0.8.2</h2>
+<p>
+This release adds search statistics along with some new arithmetic
+constraints and channel constraints between boolean and integer variables.
+</p>
+<ul>
+<li>Wrapping an enumerable that is already wrapped is no longer allowed.
+
+</li>
+<li>Added search statistics.
+
+</li>
+<li>Added squared value and square root constraints.
+
+</li>
+<li>Added channel constraints between single integer variables and boolean
+variables.
+
+</li>
+<li>Added channel constraints between enumerations of boolean variables and
+single integer variables.
+
+</li>
+</ul>
+<h2>Version 0.8.1</h2>
+<p>
+This release adds tuple constraints along with a couple of minor features.
+It also fixes a bug introduced in the previous version.
+</p>
+<ul>
+<li>[#19435] Fixed a bug causing inconsistencies during BAB-search. The bug
+stopped the send+more=money example from working correctly.
+
+</li>
+<li>Fixed the &quot;raw_bindings&quot; and &quot;sudoku-set&quot; examples,
+which were broken by the 0.8.0 release.
+
+</li>
+<li>Integers can now be used to specify singleton lower and upper bounds when
+creating set variables.
+
+</li>
+<li>Added convenience methods Model#maximize! and Model#minimize! for
+optimizing single variables.
+
+</li>
+<li>Added tuple constraints for enumerations of integer and boolean variables.
+
+</li>
+</ul>
+<h2>Version 0.8.0</h2>
+<p>
+This release makes the jump from using Gecode 1.3.1 to using Gecode 2.1.1 .
+The following changes have been made to the interface as a result of the
+jump.
+</p>
+<ul>
+<li>Removed the distinct constraint for sets.
+
+</li>
+<li>Added the propagation kind option to the non-set constraints.
+
+</li>
+</ul>
+<h2>Version 0.7.1</h2>
+<p>
+This release adds boolean linear constraints.
+</p>
+<ul>
+<li>Set domain constraints now checks illegal parameters when it&#8217;s added
+(rather than when the search begins).
+
+</li>
+<li>Added boolean linear constraint.
+
+</li>
+</ul>
+<h2>Version 0.7.0</h2>
+<p>
+This release adds the set selection and operation constraints.
+</p>
+<ul>
+<li>Added set selection constraints (set array access, select union, select
+intersection (optionally with specified universe) and select disjoint).
+
+</li>
+<li>Added set operation constraints (union, minus, disjoint_union and
+intersection) on pairs of set variables or set constants with variable or
+constant right hand side.
+
+</li>
+<li>Added set operation constraints on enumerations of sets.
+
+</li>
+</ul>
+<h2>Version 0.6.1</h2>
+<p>
+This release fixes various bugs introduced in 0.6.0 and changes the way
+that int variable domains are specified (breaking backward-compatibility).
+</p>
+<ul>
+<li>The domain for int variables can no longer be specified as several
+individual elements, it has to be specified as either a single element, a
+range or another enumeration.
+
+</li>
+<li>Fixed a bug with set cardinality, min and max constraints using composite
+sugar.
+
+</li>
+<li>Variables can now be created inside the optimization block.
+
+</li>
+</ul>
+<h2>Version 0.6.0</h2>
+<p>
+This release adds most of the remaining set constraints. It also makes
+backward-compatibility breaking changes to the way that properties of
+variables are accessed.
+</p>
+<ul>
+<li>Added channel constraints involving set variables.
+
+</li>
+<li>Added set min and max constraints.
+
+</li>
+<li>Added set sum constraints (optionally weighted or substituted).
+
+</li>
+<li>Added include (match) constraint for sets.
+
+</li>
+<li>Added distinct constraints (distinct and at most one) for sets.
+
+</li>
+<li>Added branch and bound search (optimization search). It&#8217;s quite shaky
+at the moment though.
+
+</li>
+<li>Assigned values of variables are now always accessed using #value instead
+of the various previous methods. The methods for extracting information
+from set variables have been changed and renamed.
+
+</li>
+<li>Enumerations containing variables now provide a convenience method #values
+which returns an array of the enum&#8217;s values.
+
+</li>
+</ul>
+<h2>Version 0.5.0</h2>
+<p>
+This release adds set variables and some of their constraints, along with
+the last of the boolean constraints.
+</p>
+<ul>
+<li>Added exclusive or and implication.
+
+</li>
+<li>Added conjunction and disjunction for boolean enumerations.
+
+</li>
+<li>Added set variables. They are created using Model{#set_var, #set_var_array,
+#set_var_matrix}.
+
+</li>
+<li>Added domain constraints for set variables.
+
+</li>
+<li>Added relation constraints for set variables.
+
+</li>
+<li>Added set cardinality constraints.
+
+</li>
+</ul>
+<h2>Version 0.4.0</h2>
+<p>
+This release adds most of the integer variable constraints supported by
+Gecode.
+</p>
+<ul>
+<li>[#11861] Fixed a bug stopping the creation of int variables with non-range
+domains.
+
+</li>
+<li>Added domain constraints for int variables.
+
+</li>
+<li>Added equality constraint for int enums.
+
+</li>
+<li>Matrices of integer and boolean variables can now be created using
+Model#int_var_matrix Model#bool_var_matrix.
+
+</li>
+<li>Added channel constraint for int enums.
+
+</li>
+<li>Added element constraints (variable array access).
+
+</li>
+<li>Added count constraints.
+
+</li>
+<li>Added sortedness constraints.
+
+</li>
+<li>Added arithmetic constraints (min, max, abs and variable multiplication).
+
+</li>
+</ul>
+<h2>Version 0.3.0</h2>
+<p>
+This release fleshes out the existing constraints with things such as
+reification and adds boolean variables and their basic constraints.
+</p>
+<ul>
+<li>The constructor of Gecode::Model no longer has to be called by classes
+inheriting from it.
+
+</li>
+<li>Added Model#reset! which resets a model after search.
+
+</li>
+<li>Added Model#solution which passes the first solution to a block and returns
+the result of that block.
+
+</li>
+<li>Added Model#each_solution which iterates over each solution.
+
+</li>
+<li>Added boolean variables. They are created using Model#bool_var and
+Model#bool_var_array .
+
+</li>
+<li>Added two options to constraints: propagation strength and reification
+variable.
+
+</li>
+<li>Linear and simple relation constraints can now also be specified using
+#equal, #equal_to, #greater, #greater_than,&#8230; in addition to
+comparison operators.
+
+</li>
+<li>Added distinct with offsets.
+
+</li>
+<li>Simple relation constraints can now be used to specify relations between
+two variables.
+
+</li>
+<li>Added basic boolean domain constraints along with conjunction and
+disjunction.
+
+</li>
+<li>Added syntactic sugar for combining reifiable constraints with | and &amp;.
+
+</li>
+</ul>
+<h2>Version 0.2.0</h2>
+<p>
+This is the first release of Gecode/R, a Ruby interface to Gecode.
+</p>
+<ul>
+<li>Added support for finite domain integers.
+
+</li>
+<li>Added some basic relation, linear and distinct constraints.
+
+</li>
+<li>Added the basis needed to model problems and find the first solution.
+
+</li>
+</ul>
+
+  </div>
+  <div id="tabs"><ul><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li class="selected"><a href="index.html">Project Details</a></li></ul></div>
+</div>
+<div id="footerWrapper">
+  <div id="footer"><ul><li><a href="#top">Top</a></li><li><a href="../features.html">Features</a></li><li><a href="../installation.html">Installation</a></li><li><a href="../examples/index.html">Examples</a></li><li><a href="../documentation/index.html">Documentation</a></li><li class="selected"><a href="index.html">Project Details</a></li><li><a class="sitemap" href="../sitemap.html">Sitemap</a></li></ul></div>
+</div>
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ?
+  "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost +
+  "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+   var pageTracker = _gat._getTracker("UA-546645-2");
+   pageTracker._initData();
+   pageTracker._trackPageview();
+</script>
+</body>
+</html>

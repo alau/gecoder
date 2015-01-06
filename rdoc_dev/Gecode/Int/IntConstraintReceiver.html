@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::Int::IntConstraintReceiver - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../ConstraintReceiver.html">Gecode::ConstraintReceiver</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-3C">#&lt;</a>
+    
+    <li ><a href="#method-i-3C-3D">#&lt;=</a>
+    
+    <li ><a href="#method-i-3D-3D">#==</a>
+    
+    <li ><a href="#method-i-3E">#&gt;</a>
+    
+    <li ><a href="#method-i-3E-3D">#&gt;=</a>
+    
+    <li ><a href="#method-i-in">#in</a>
+    
+    <li ><a href="#method-i-pre_channel_equals">#pre_channel_equals</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::Int::IntConstraintReceiver">
+  <h1 id="class-Gecode::Int::IntConstraintReceiver" class="class">
+    class Gecode::Int::IntConstraintReceiver
+  </h1>
+
+  <section class="description">
+    
+<p><a href="IntConstraintReceiver.html">IntConstraintReceiver</a> contains all
+constraints that can be placed on an <a
+href="IntOperand.html">IntOperand</a>.</p>
+
+<p>Constraints are placed by calling <a
+href="../Operand.html#method-i-must">Gecode::Operand#must</a> (or any other
+of the variations defined in <a href="../Operand.html">Operand</a>), which
+produces a  <a href="IntConstraintReceiver.html">IntConstraintReceiver</a>
+from which the desired constraint can be used.</p>
+
+<p>Each constraint accepts a number of options. See <a
+href="../ConstraintReceiver.html">ConstraintReceiver</a> for more
+information.</p>
+
+<h4 id="class-Gecode::Int::IntConstraintReceiver-label-Examples+">Examples <span><a href="#class-Gecode::Int::IntConstraintReceiver-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>Constrains <code>int_operand</code> to be strictly greater than 5 using
+IntConstraintReceiver#&gt;:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_operand</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
+</pre>
+
+<p>Constrains <code>int_operand1</code> plus <code>int_operand2</code> to be
+strictly  greater than 5 using the IntOperand#+ property and 
+IntConstraintReceiver#&gt;:</p>
+
+<pre class="ruby">(<span class="ruby-identifier">int_operand1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">int_operand2</span>).<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>
+</pre>
+
+<p>Constrains the maximum value of the integer operands in
+<code>int_enum</code> to <em>not</em> be in the range 3..7 using the
+IntEnumOperand#max property and  <a
+href="IntConstraintReceiver.html#method-i-in">#in</a>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_enum</span>.<span class="ruby-identifier">max</span>.<span class="ruby-identifier">must_not_be</span>.<span class="ruby-identifier">in</span> <span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">7</span>
+</pre>
+
+<p>Constrains the integer operand at position <code>int_operand</code> in
+<code>int_enum</code>, an enumeration of integer operands, to be greater
+than or equal to <code>int_operand2</code>. This uses the IntEnumOperand#[]
+property  and IntConstraintReceiver#&gt;=:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_enum</span>[<span class="ruby-identifier">int_operand</span>].<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">int_operand2</span>
+</pre>
+
+<p>The same as above, but specifying that strength :domain should be  used and
+that the constraint should be reified with <code>bool_operand</code>:</p>
+
+<pre class="ruby"><span class="ruby-identifier">int_enum</span>[<span class="ruby-identifier">int_operand</span>].<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">greater_or_equal</span>(<span class="ruby-identifier">int_operand2</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool_operand</span>)
+</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-3C" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">&lt;</span><span
+            class="method-args">(int_operand_or_fixnum, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the integer operand to be strictly less than
+<code>int_operand_or_fixnum</code>. lesser and lesser_than are  aliases of
+this method.</p>
+
+<h4 id="method-i-3C-label-Examples+">Examples <span><a href="#method-i-3C-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +int1+ must be strictly less than +int2+</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">int2</span>
+
+<span class="ruby-comment"># +int+ must be strictly less than 17</span>
+<span class="ruby-identifier">int</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">17</span>
+
+<span class="ruby-comment"># +int1+ must be strictly less than +int2+. We reify the</span>
+<span class="ruby-comment"># constraint with +bool+ and select +domain+ as strength.</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">less_than</span>(<span class="ruby-identifier">int2</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="3C-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&lt;</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-3C-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">&lt;=</span><span
+            class="method-args">(int_operand_or_fixnum, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the integer operand to be less than or equal to
+<code>int_operand_or_fixnum</code>. less_or_equal and 
+less_than_or_equal_to are aliases of this method.</p>
+
+<h4 id="method-i-3C-3D-label-Examples+">Examples <span><a href="#method-i-3C-3D-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +int1+ must be less than or equal to +int2+</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">int2</span>
+
+<span class="ruby-comment"># +int+ must be less than or equal to 17</span>
+<span class="ruby-identifier">int</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">17</span>
+
+<span class="ruby-comment"># +int1+ must be less than or equal to +int2+. We reify the</span>
+<span class="ruby-comment"># constraint with +bool+ and select +domain+ as strength.</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">less_or_equal</span>(<span class="ruby-identifier">int2</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="3C-3D-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;=</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&lt;=</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-3D-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">==</span><span
+            class="method-args">(bool, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the integer operand to be equal to the specified boolean 
+operand. I.e. constrains the integer operand to be 1 when the boolean
+operand is true and 0 if the boolean operand is false.</p>
+
+<h4 id="method-i-3D-3D-label-Examples+">Examples <span><a href="#method-i-3D-3D-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># The integer operand +int+ must be one exactly when the boolean </span>
+<span class="ruby-comment"># operand +bool+ is true.</span>
+<span class="ruby-identifier">int</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">bool</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="3D-3D-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/channel.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">bool</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span> <span class="ruby-keyword">and</span> 
+      <span class="ruby-identifier">bool</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_bool_var</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">pre_channel_equals</span>(<span class="ruby-identifier">bool</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated channel constraint '</span> <span class="ruby-operator">+</span>
+      <span class="ruby-string">'is not implemented.'</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:reify</span>].<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Reification is not supported by the channel '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-string">'constraint.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:rhs</span>] = <span class="ruby-identifier">bool</span>
+  <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Channel</span><span class="ruby-operator">::</span><span class="ruby-constant">ChannelConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="IntConstraintReceiver.html#method-i-pre_channel_equals">pre_channel_equals</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-3E" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">&gt;</span><span
+            class="method-args">(int_operand_or_fixnum, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the integer operand to be strictly greater than
+<code>int_operand_or_fixnum</code>. greater and greater_than are  aliases
+of this method.</p>
+
+<h4 id="method-i-3E-label-Examples+">Examples <span><a href="#method-i-3E-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +int1+ must be strictly greater than +int2+</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">int2</span>
+
+<span class="ruby-comment"># +int+ must be strictly greater than 17</span>
+<span class="ruby-identifier">int</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">17</span>
+
+<span class="ruby-comment"># +int1+ must be strictly greater than +int2+. We reify the</span>
+<span class="ruby-comment"># constraint with +bool+ and select +domain+ as strength.</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">greater_than</span>(<span class="ruby-identifier">int2</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="3E-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&gt;</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&gt;</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-3E-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">&gt;=</span><span
+            class="method-args">(int_operand_or_fixnum, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constrains the integer operand to be greater than or equal to
+<code>int_operand_or_fixnum</code>. greater_or_equal and 
+greater_than_or_equal_to are aliases of this method.</p>
+
+<h4 id="method-i-3E-3D-label-Examples+">Examples <span><a href="#method-i-3E-3D-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +int1+ must be greater than or equal to +int2+</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">int2</span>
+
+<span class="ruby-comment"># +int+ must be greater than or equal to 17</span>
+<span class="ruby-identifier">int</span>.<span class="ruby-identifier">must</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">17</span>
+
+<span class="ruby-comment"># +int1+ must be greater than or equal to +int2+. We reify the</span>
+<span class="ruby-comment"># constraint with +bool+ and select +domain+ as strength.</span>
+<span class="ruby-identifier">int1</span>.<span class="ruby-identifier">must</span>.<span class="ruby-identifier">greater_or_equal</span>(<span class="ruby-identifier">int2</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">domain</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="3E-3D-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">&gt;=</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&gt;=</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-in" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in</span><span
+            class="method-args">(domain, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a domain constraint using the specified domain, specified as an
+enumeration of integers. The integer operand is constrained to take a value
+in the domain.  Domains should be specified as ranges if possible.</p>
+
+<h4 id="method-i-in-label-Examples+">Examples <span><a href="#method-i-in-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># +x+ must be in the range 1..10</span>
+<span class="ruby-identifier">x</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span> <span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">10</span>
+
+<span class="ruby-comment"># +x+ must not be in the range -5...5</span>
+<span class="ruby-identifier">x</span>.<span class="ruby-identifier">must_not_be</span>.<span class="ruby-identifier">in</span> <span class="ruby-value">-5</span><span class="ruby-operator">...</span><span class="ruby-value">5</span>
+
+<span class="ruby-comment"># Specifies the above, but reifies the constraint with the boolean </span>
+<span class="ruby-comment"># operand +bool+ and specified +value+ as strength.</span>
+<span class="ruby-identifier">x</span>.<span class="ruby-identifier">must_not_be</span>.<span class="ruby-identifier">in</span>(<span class="ruby-value">-5</span><span class="ruby-operator">...</span><span class="ruby-value">5</span>, :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">value</span>)
+
+<span class="ruby-comment"># +x+ must be in the enumeration [3,5,7].</span>
+<span class="ruby-identifier">x</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">in</span> [<span class="ruby-value">3</span>,<span class="ruby-value">5</span>,<span class="ruby-value">7</span>]
+
+<span class="ruby-comment"># +x+ must not be in the enumeration [5,6,7,17].</span>
+<span class="ruby-identifier">x</span>.<span class="ruby-identifier">must_not_be</span>.<span class="ruby-identifier">in</span> [<span class="ruby-value">5</span>,<span class="ruby-value">6</span>,<span class="ruby-value">7</span>,<span class="ruby-value">17</span>]
+
+<span class="ruby-comment"># Specifies the above, but reifies the constraint with the boolean </span>
+<span class="ruby-comment"># operand +bool+ and specified +value+ as strength.</span>
+<span class="ruby-identifier">x</span>.<span class="ruby-identifier">must_not_be</span>.<span class="ruby-identifier">in</span>([<span class="ruby-value">5</span>,<span class="ruby-value">6</span>,<span class="ruby-value">7</span>,<span class="ruby-value">17</span>], :<span class="ruby-identifier">reify</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">bool</span>, :<span class="ruby-identifier">strength</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">value</span>)
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="in-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/domain.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">domain</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
+  <span class="ruby-ivar">@params</span>[<span class="ruby-value">:domain</span>] = <span class="ruby-identifier">domain</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">domain</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Range</span>
+    <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Domain</span><span class="ruby-operator">::</span><span class="ruby-constant">RangeDomainConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">domain</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Enumerable</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">domain</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span> }
+    <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Domain</span><span class="ruby-operator">::</span><span class="ruby-constant">EnumDomainConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
+      <span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected integer enumerable, got #{domain.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-pre_channel_equals" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">pre_channel_equals</span><span
+            class="method-args">(bool, options = {})</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="IntConstraintReceiver.html#method-i-3D-3D">==</a>
+        </div>
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
