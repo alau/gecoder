@@ -14,7 +14,7 @@ GECODE_ARCHIVE_NAME = "#{GECODE_NAME}.tar.gz"
 
 
 desc 'Generate RDoc'
-rd = Rake::RDocTask.new do |rdoc|
+rd = RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'doc/output/rdoc'
   rdoc.title = 'Gecode/R'
   rdoc.template = 'doc/rdoc/jamis.rb'
@@ -23,16 +23,16 @@ rd = Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README', 'CHANGES', 'THANKS', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 
-# Removing this, which apparently doesn't work due to an update to RDoc.
-=begin
 TMP_DIR = 'doc/tmp/rdoc_dev'
 desc 'Generate RDoc, ignoring nodoc'
-Rake::RDocTask.new(:rdoc_dev => :prepare_rdoc_dev) do |rdoc|
+RDoc::Task.new(:rdoc_dev) do |rdoc|
+  rdoc.before_running_rdoc do |rdoc|
+    Rake::Task['prepare_rdoc_dev'].invoke
+    rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
+  end
   rdoc.rdoc_dir = 'doc/output/rdoc_dev'
   rdoc.options << '--title' << 'Gecode/R Developers RDoc' << '--line-numbers' <<
     '--inline-source' << '--accessor' << 'delegate'
-
-  rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
 end
 
 desc 'Copies the files that RDoc should parse, removing #:nodoc:'
@@ -48,7 +48,6 @@ task :prepare_rdoc_dev do
     destination.close
   end
 end
-=end
 
 desc 'Extracts the source of Gecode before it is packaged into a gem'
 task :extract_gecode do
@@ -105,7 +104,7 @@ spec = Gem::Specification.new do |s|
     ['webgen', '= 0.4.7'],
     ['coderay'],
     ['rspec', '>= 1.0'],
-    ['rcov'],
+    ['cov'],
     ['meta_project'],
     ['rubyforge']].each do |dependency|
     s.add_development_dependency(*dependency)
