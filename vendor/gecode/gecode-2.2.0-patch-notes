@@ -1,5 +1,7 @@
-The gecode-2.2.0 release located here is not the official version. It is
-the official version with a patch applied to it that resolves an issue
-with Gecode 2.2.0 and newer gcc versions:
+The gecode-2.2.0 release located here is not the official version. It is the
+official version with a couple of patches (bool-shr.patch and
+unqualified-lookup.patch) applied to resolve issues with Gecode 2.2.0 and newer
+gcc versions:
 
 http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=526675
+https://gcc.gnu.org/gcc-4.7/porting_to.html
