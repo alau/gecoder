@@ -1,6 +1,8 @@
 Gecode/R
 ========
 
+**Outdated** Gecode/R has been quite inactive since 2008. Beware of outdated code.
+
 Website: http://gecoder.org
 
 Gecode/R is a Ruby interface to the Gecode constraint programming library.
