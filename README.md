@@ -1,8 +1,8 @@
 Gecode/R
 ========
 
-*_Outdated_ Gecode/R has been quite inactive since 2008. Most of the code is
-old and depends on old versions of e.g. Ruby and Gecode.*
+_**Warning - this is old stuff:** Gecode/R has been quite inactive since 2008.
+Most of the code is old and depends on old versions of e.g. Ruby and Gecode._
 
 Website: http://gecoder.org
 
