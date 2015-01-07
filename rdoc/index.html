@@ -61,7 +61,7 @@
   
     <li><a href="./LGPL-LICENSE.html">LGPL-LICENSE</a>
   
-    <li><a href="./README.html">README</a>
+    <li><a href="./README_md.html">README</a>
   
     <li><a href="./THANKS.html">THANKS</a>
   
@@ -170,30 +170,34 @@
 
 <h1 id="label-Gecode-2FR">Gecode/R<span><a href="#label-Gecode-2FR">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
+<p><strong><em>Warning - this is old stuff:</strong> Gecode/R has been quite
+inactive since 2008. Most of the code is old and depends on old versions of
+e.g. Ruby and <a href="Gecode.html">Gecode</a>.</em></p>
+
 <p>Website: <a href="http://gecoder.org">gecoder.org</a></p>
 
 <p>Gecode/R is a Ruby interface to the <a href="Gecode.html">Gecode</a>
-constraint programming library.  Gecode/R is intended for people with no
-previous experience of constraint  programming, aiming to be easy to pick
-up and use.</p>
+constraint programming library. Gecode/R is intended for people with no
+previous experience of constraint programming, aiming to be easy to pick up
+and use.</p>
 
-<p>See <a href="Gecode/Mixin.html">Gecode::Mixin</a> to get started.</p>
+<p>See <code>Gecode::Mixin</code> to get started.</p>
 
 <h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
 <p>Gecode/R requires <a href="Gecode.html">Gecode</a> 2.2.0, which can be
-downloaded from  <a
+downloaded from <a
 href="http://www.gecode.org/download.html">www.gecode.org/download.html</a>
-. See  <a
+. See <a
 href="http://www.gecode.org/gecode-doc-latest/PageComp.html">www.gecode.org/gecode-doc-latest/PageComp.html</a>
 for the installation instructions.</p>
 
-<h3 id="label-Installing+from+gem">Installing from gem<span><a href="#label-Installing+from+gem">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<h2 id="label-Installing+from+gem">Installing from gem<span><a href="#label-Installing+from+gem">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
 <p>There are two gems. The first includes only Gecode/R, and assumes that you
 have installed <a href="Gecode.html">Gecode</a> yourself. The second
-includes both Gecode/R and <a href="Gecode.html">Gecode</a>. If you  use
-Windows then you’re recommended to use the second one, even though you 
+includes both Gecode/R and <a href="Gecode.html">Gecode</a>. If you use
+Windows then you’re recommended to use the second one, even though you
 already have <a href="Gecode.html">Gecode</a>, as the other one does not
 come in a pre-compiled variant.</p>
 
@@ -215,9 +219,9 @@ come in a pre-compiled variant.</p>
 
 <h3 id="label-Installing+from+source+without+using+gem">Installing from source without using gem<span><a href="#label-Installing+from+source+without+using+gem">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
-<p>“gecode.so” might have another extension depending on which platform
-it’s  generated on (replace the extension in the following commands with
-whatever  extension it’s given).</p>
+<p><code>gecode.so</code> might have another extension depending on which
+platform it’s generated on (replace the extension in the following
+commands with whatever extension it’s given).</p>
 
 <pre class="ruby"><span class="ruby-identifier">cd</span> <span class="ruby-identifier">ext</span>
 <span class="ruby-identifier">ruby</span> <span class="ruby-identifier">extconf</span>.<span class="ruby-identifier">rb</span>
@@ -229,8 +233,6 @@ whatever  extension it’s given).</p>
 
 <pre class="ruby"><span class="ruby-identifier">rake</span> <span class="ruby-identifier">specs</span>
 </pre>
-
-<p>Requires RSpec (1.0.5, but other version should hopefully work).</p>
 </main>
 
 

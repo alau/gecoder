@@ -50,7 +50,7 @@
 	<h3 id="troubleshooting">Troubleshooting</h3>
 
 
-	<p>If you encounter an error that is not listed here then please let us know via 
+	<p>If you encounter an error that is not listed here then please let us know via
 the <a href="http://rubyforge.org/mailman/listinfo/gecoder-users">gecode-users mailing list</a>.</p>
 
 
@@ -73,8 +73,8 @@ the <a href="http://rubyforge.org/mailman/listinfo/gecoder-users">gecode-users m
 	<pre><code>libgecodeset.so.8: cannot open shared object file: No such file or directory</code></pre>
 
 
-	<p>If you get the above error message when requiring the Gecode/R gem then you 
-need to add <code>/usr/local/lib</code> (where the Gecode libraries are stored) to 
+	<p>If you get the above error message when requiring the Gecode/R gem then you
+need to add <code>/usr/local/lib</code> (where the Gecode libraries are stored) to
 <code>ld.so.conf</code> by doing the following as root.</p>
 
 
@@ -88,7 +88,7 @@ need to add <code>/usr/local/lib</code> (where the Gecode libraries are stored) 
 	<h3 id="dependencies">Dependencies</h3>
 
 
-	<p>Gecode/R requires Gecode 2.2.0. You can either manually install it or use the 
+	<p>Gecode/R requires Gecode 2.2.0. You can either manually install it or use the
 gem that includes Gecode.</p>
 
 
@@ -101,7 +101,7 @@ gem that includes Gecode.</p>
 	<h3 id="rubygems">RubyGems</h3>
 
 
-	<p>Use the following gem if you don&#8217;t have Gecode installed, or are using Windows. 
+	<p>Use the following gem if you don&#8217;t have Gecode installed, or are using Windows.
 It includes both Gecode/R and Gecode 2.2.0.</p>
 
 
@@ -117,7 +117,7 @@ It includes both Gecode/R and Gecode 2.2.0.</p>
 	<h3 id="direct_download">Direct Download</h3>
 
 
-	<p>Downloads (both gems and source archives) are available at <a href="http://rubyforge.org/frs/?group_id=3553">RubyForge</a></p>
+	<p>Gems are available from <a href="https://rubygems.org/gems/gecoder">RubyGems</a> . Source archives are available from <a href="https://github.com/alau/gecoder/releases">GitHub</a> .</p>
 
 
 	<h3 id="building_from_source">Building from Source</h3>
@@ -127,8 +127,8 @@ It includes both Gecode/R and Gecode 2.2.0.</p>
 
 
 	<ul>
-	<li>Download the source of a release from <a href="http://rubyforge.org/frs/?group_id=3553">RubyForge</a></li>
-		<li>Check out the most recent code from subversion using <pre>svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder</pre></li>
+	<li>Download the source of a release from <a href="https://github.com/alau/gecoder/releases">GitHub</a></li>
+		<li>Clone the repository from GitHub using <pre>git clone https://github.com/alau/gecoder.git</pre></li>
 	</ul>
 
 
@@ -138,7 +138,7 @@ tested under Windows (where it will probably differ a bit).</p>
 
 	<ol>
 	<li>Enter the ext directory.</li>
-		<li>Run <code>ruby extconf.rb</code> </li>
+		<li>Run <code>ruby extconf.rb</code></li>
 		<li>Run <code>make</code> (builds the extension)</li>
 		<li>Move the created library named <code>gecode.so</code> to the lib directory.</li>
 	</ol>
@@ -147,9 +147,9 @@ tested under Windows (where it will probably differ a bit).</p>
 	<h2 id="running_the_tests">Running the Tests</h2>
 
 
-	<p>To make sure that the installation was successful you can run the included 
+	<p>To make sure that the installation was successful you can run the included
 specs. They require <a href="http://rspec.rubyforge.org/download.html">RSpec</a> 1.0.5 or
-something similar. Run the specs by issuing the following command from the 
+something similar. Run the specs by issuing the following command from the
 directory where Gecode/R was installed.</p>
 
 

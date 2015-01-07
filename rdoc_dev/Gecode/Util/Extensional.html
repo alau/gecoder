@@ -65,6 +65,8 @@
     
     <li ><a href="#method-i-parse_regexp">#parse_regexp</a>
     
+    <li ><a href="#method-i-perform_tuple_checks">#perform_tuple_checks</a>
+    
   </ul>
 </div>
 
@@ -78,6 +80,8 @@
 
   <section class="description">
     
+<p>A module that contains utility-methods for extensional constraints.</p>
+
   </section>
 
   
@@ -124,7 +128,7 @@ of Gecode::REG .</p>
 
           
           <div class="method-source-code" id="parse_regexp-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/extensional_regexp.rb, line 65</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/extensional_regexp.rb, line 65</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_regexp</span>(<span class="ruby-identifier">regexp</span>)
   <span class="ruby-comment"># Check the involved types.</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">regexp</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Enumerable</span>
@@ -140,6 +144,63 @@ of Gecode::REG .</p>
 
   <span class="ruby-comment"># Convert it into a regexp.</span>
   <span class="ruby-identifier">internal_parse_regexp</span>(<span class="ruby-identifier">regexp</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-perform_tuple_checks" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">perform_tuple_checks</span><span
+            class="method-args">(tuples, expected_size) { |tuple| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks that the specified enumeration is an enumeration containing  one or
+more tuples of the specified size. It also allows the caller to define
+additional tests by providing a block, which is given each tuple. If a test
+fails then an appropriate error is raised.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="perform_tuple_checks-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 442</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">perform_tuple_checks</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">expected_size</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">additional_test</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tuples</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:each</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Expected an enumeration with tuples, got '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-node">&quot;#{tuples.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">tuples</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'One or more tuples must be specified.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">tuples</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tuple</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tuple</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:each</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Expected an enumeration containing enumeraions, '</span> <span class="ruby-operator">+</span>
+        <span class="ruby-node">&quot;got #{tuple.class}.&quot;</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tuple</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">expected_size</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'All tuples must be of the same size as the '</span> <span class="ruby-operator">+</span> 
+        <span class="ruby-string">'number of operands in the array.'</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">tuple</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

@@ -81,7 +81,13 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-new">::new</a>
+    
     <li ><a href="#method-i-intersection">#intersection</a>
+    
+    <li ><a href="#method-i-model">#model</a>
+    
+    <li ><a href="#method-i-to_selected_set">#to_selected_set</a>
     
     <li ><a href="#method-i-union">#union</a>
     
@@ -161,7 +167,7 @@ option :with can be used to enumerate the elements in the universe.</p>
 
           
           <div class="method-source-code" id="intersection-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/selected_set/select.rb, line 24</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/selected_set/select.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">intersection</span>(<span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">universe</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">empty?</span> 
@@ -178,6 +184,72 @@ option :with can be used to enumerate the elements in the universe.</p>
   <span class="ruby-keyword">end</span>
   
   <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">SelectedSetIntersectionOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">model</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">universe</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">model</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="model-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/selected_set_constraints.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">model</span> 
+  <span class="ruby-ivar">@set_enum</span>.<span class="ruby-identifier">model</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_selected_set" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_selected_set</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the set enum and set that make up the selected set operand.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_selected_set-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/selected_set_constraints.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_selected_set</span> 
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@set_enum</span>, <span class="ruby-ivar">@set</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -214,9 +286,59 @@ option :with can be used to enumerate the elements in the universe.</p>
 
           
           <div class="method-source-code" id="union-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/selected_set/select.rb, line 9</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/selected_set/select.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">union</span>
   <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">SelectedSetUnionOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">model</span>, <span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(set_enum, set)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructs a new selected set operand from <code>set_enum</code> and
+<code>set</code>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/selected_set_constraints.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">set_enum</span>, <span class="ruby-identifier">set</span>) 
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">set_enum</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected set enum operand, got #{set_enum.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">set</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_var</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected set operand, got #{set.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@set_enum</span> = <span class="ruby-identifier">set_enum</span>
+  <span class="ruby-ivar">@set</span> = <span class="ruby-identifier">set</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

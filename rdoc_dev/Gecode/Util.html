@@ -57,7 +57,25 @@
     
     
     
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
     
+    <li ><a href="#method-i-constant_set-3F">#constant_set?</a>
+    
+    <li ><a href="#method-i-constant_set_to_int_set">#constant_set_to_int_set</a>
+    
+    <li ><a href="#method-i-constant_set_to_params">#constant_set_to_params</a>
+    
+    <li ><a href="#method-i-decode_options">#decode_options</a>
+    
+    <li ><a href="#method-i-extract_propagation_options">#extract_propagation_options</a>
+    
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -68,6 +86,8 @@
 
   <section class="description">
     
+<p>A module that provides some utility-methods for constraints.</p>
+
   </section>
 
   
@@ -79,10 +99,331 @@
     
 
     
-
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="COMPARISON_ALIASES">COMPARISON_ALIASES
+        
+        <dd><p>Various method aliases for comparison methods. Maps the original  (symbol)
+name to an array of aliases.</p>
+        
+      
+        <dt id="NEGATED_RELATION_TYPES">NEGATED_RELATION_TYPES
+        
+        <dd><p>The same as above, but negated.</p>
+        
+      
+        <dt id="NEGATED_SET_RELATION_TYPES">NEGATED_SET_RELATION_TYPES
+        
+        <dd><p>The same as above, but negated.</p>
+        
+      
+        <dt id="PROPAGATION_KINDS">PROPAGATION_KINDS
+        
+        <dd><p>Maps the name used in options to the value used in <a
+href="../Gecode.html">Gecode</a> for  propagation kinds.</p>
+        
+      
+        <dt id="PROPAGATION_STRENGTHS">PROPAGATION_STRENGTHS
+        
+        <dd><p>Maps the name used in options to the value used in <a
+href="../Gecode.html">Gecode</a> for  propagation strengths.</p>
+        
+      
+        <dt id="RELATION_TYPES">RELATION_TYPES
+        
+        <dd><p>Maps the names of the methods to the corresponding integer relation  type
+in <a href="../Gecode.html">Gecode</a>.</p>
+        
+      
+        <dt id="SET_ALIASES">SET_ALIASES
+        
+        <dd>
+        
+      
+        <dt id="SET_OPERATION_TYPES">SET_OPERATION_TYPES
+        
+        <dd><p>Maps the names of the methods to the corresponding set operation type in 
+<a href="../Gecode.html">Gecode</a>.</p>
+        
+      
+        <dt id="SET_RELATION_TYPES">SET_RELATION_TYPES
+        
+        <dd><p>Maps the names of the methods to the corresponding set relation type in  <a
+href="../Gecode.html">Gecode</a>.</p>
+        
+      
+      </dl>
+    </section>
     
 
     
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-constant_set-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">constant_set?</span><span
+            class="method-args">(expression)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks whether the specified expression is regarded as a constant set.
+Returns true if it is, false otherwise.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="constant_set-3F-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 415</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">constant_set?</span>(<span class="ruby-identifier">expression</span>)
+  <span class="ruby-keyword">return</span> (
+     <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Range</span>) <span class="ruby-operator">&amp;&amp;</span>        <span class="ruby-comment"># It's a range.</span>
+     <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fixnum</span>) <span class="ruby-operator">&amp;&amp;</span>
+     <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fixnum</span>)) <span class="ruby-operator">||</span>
+    <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Fixnum</span>) <span class="ruby-operator">||</span>        <span class="ruby-comment"># It's a single fixnum.</span>
+    (<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Enumerable</span>) <span class="ruby-operator">&amp;&amp;</span>   <span class="ruby-comment"># It's an enum of fixnums.</span>
+     <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">all?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span> })
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-constant_set_to_int_set" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">constant_set_to_int_set</span><span
+            class="method-args">(constant_set)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts the different ways to specify constant sets in the interface to an
+instance of Gecode::Raw::IntSet. The different forms accepted are:</p>
+<ul><li>
+<p>Single instance of Fixnum (singleton set).</p>
+</li><li>
+<p>Range (set containing all numbers in range), treated differently from other
+enumerations.</p>
+</li><li>
+<p>Enumeration of integers (set contaning all numbers in set).</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="constant_set_to_int_set-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 398</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">constant_set_to_int_set</span>(<span class="ruby-identifier">constant_set</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">constant_set?</span>(<span class="ruby-identifier">constant_set</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected a constant set, got: #{constant_set}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Range</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">IntSet</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">last</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">IntSet</span>.<span class="ruby-identifier">new</span>([<span class="ruby-identifier">constant_set</span>], <span class="ruby-value">1</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">constant_set</span> = <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">to_a</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">IntSet</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constant_set</span>, <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">size</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-constant_set_to_params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">constant_set_to_params</span><span
+            class="method-args">(constant_set)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts the different ways to specify constant sets in the interface to
+the form that the set should be represented in <a
+href="../Gecode.html">Gecode</a> (possibly  multiple paramters. The
+different forms accepted are:</p>
+<ul><li>
+<p>Single instance of Fixnum (singleton set).</p>
+</li><li>
+<p>Range (set containing all numbers in range), treated differently from other
+enumerations.</p>
+</li><li>
+<p>Enumeration of integers (set contaning all numbers in set).</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="constant_set_to_params-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 377</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">constant_set_to_params</span>(<span class="ruby-identifier">constant_set</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">constant_set?</span>(<span class="ruby-identifier">constant_set</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected a constant set, got: #{constant_set}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Range</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">last</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">constant_set</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">constant_set</span> = <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">to_a</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">IntSet</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">constant_set</span>, <span class="ruby-identifier">constant_set</span>.<span class="ruby-identifier">size</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-decode_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">decode_options</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Decodes the common options to constraints: strength, kind and  reification.
+Returns a hash with up to three values. :strength is the  strength that
+should be used for the constraint, :kind is the  propagation kind that
+should be used, and :reif is the (bound) boolean  operand that should be
+used for reification. The decoded options are  removed from the hash (so in
+general the hash will be consumed in the  process).</p>
+
+<p>Raises ArgumentError if an unrecognized option is found in the specified
+hash. Or if an unrecognized strength is given. Raises TypeError if the
+reification operand is not a boolean operand.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="decode_options-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 339</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-comment"># Propagation strength.</span>
+  <span class="ruby-identifier">strength</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:strength</span>) <span class="ruby-operator">||</span> <span class="ruby-value">:default</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">PROPAGATION_STRENGTHS</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">strength</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unrecognized propagation strength #{strength}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># Propagation kind.</span>
+  <span class="ruby-identifier">kind</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:kind</span>) <span class="ruby-operator">||</span> <span class="ruby-value">:default</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">PROPAGATION_KINDS</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">kind</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unrecognized propagation kind #{kind}.&quot;</span>
+  <span class="ruby-keyword">end</span>  
+                
+  <span class="ruby-comment"># Reification.</span>
+  <span class="ruby-identifier">reif_var</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:reify</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">reif_var</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">reif_var</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_bool_var</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Only boolean operands may be used for reification.'</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-comment"># Check for unrecognized options.</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Unrecognized constraint option: '</span> <span class="ruby-operator">+</span> 
+      <span class="ruby-identifier">options</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> {
+    <span class="ruby-value">:strength</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PROPAGATION_STRENGTHS</span>[<span class="ruby-identifier">strength</span>], 
+    <span class="ruby-value">:kind</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PROPAGATION_KINDS</span>[<span class="ruby-identifier">kind</span>],
+    <span class="ruby-value">:reif</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reif_var</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-extract_propagation_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">extract_propagation_options</span><span
+            class="method-args">(params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Extracts an array of the values selected for the standard propagation 
+options (propagation strength and propagation kind) from the hash of
+parameters given. The options are returned in the order that they are 
+given when posting constraints to <a href="../Gecode.html">Gecode</a>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="extract_propagation_options-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 429</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">extract_propagation_options</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">params</span>.<span class="ruby-identifier">values_at</span>(<span class="ruby-value">:strength</span>, <span class="ruby-value">:kind</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
   </section>
 </main>
 

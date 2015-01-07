@@ -86,9 +86,10 @@
   <section class="description">
     
 <p>Describes a constraint receiver, something that receives and  places
-constraints on various <a href="Operand.html">Operand</a>. Constraint
-receivers  are created by calling must or must_not (the latter negates  the
-constraint) on something that mixes in <a href="Operand.html">Operand</a>.</p>
+constraints on various <a href="Operand.html">Operand</a>. <a
+href="Constraint.html">Constraint</a> receivers  are created by calling
+must or must_not (the latter negates  the constraint) on something that
+mixes in <a href="Operand.html">Operand</a>.</p>
 
 <p>A constraint is placed on an <a href="Operand.html">Operand</a>
 <code>operand</code> as follows:</p>
@@ -211,7 +212,7 @@ operand.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints.rb, line 132</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">params</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:lhs</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:negate</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Expression requires at least :lhs, '</span> <span class="ruby-operator">+</span> 

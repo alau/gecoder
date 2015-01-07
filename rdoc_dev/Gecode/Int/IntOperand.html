@@ -82,6 +82,8 @@
     
     <li ><a href="#method-i-abs">#abs</a>
     
+    <li class="calls-super" ><a href="#method-i-method_missing">#method_missing</a>
+    
     <li ><a href="#method-i-pre_arith_mult">#pre_arith_mult</a>
     
     <li ><a href="#method-i-sqrt">#sqrt</a>
@@ -197,7 +199,7 @@ operand times <code>int_operand</code>.</p>
 
           
           <div class="method-source-code" id="2A-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/arithmetic.rb, line 46</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/arithmetic.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">int_operand</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">int_operand</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
     <span class="ruby-constant">Arithmetic</span><span class="ruby-operator">::</span><span class="ruby-constant">IntMultOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">int_operand</span>)
@@ -248,7 +250,7 @@ operand plus  <code>int_operand_or_fixnum</code>.</p>
 
           
           <div class="method-source-code" id="2B-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/linear.rb, line 13</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/linear.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>)
   <span class="ruby-identifier">int_linear_expression_operation</span>(<span class="ruby-value">:+</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -291,7 +293,7 @@ operand minus  <code>int_operand_or_fixnum</code>.</p>
 
           
           <div class="method-source-code" id="2D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/linear.rb, line 27</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/linear.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>)
   <span class="ruby-identifier">int_linear_expression_operation</span>(<span class="ruby-value">:-</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -331,9 +333,52 @@ absolute value of this  operand.</p>
 
           
           <div class="method-source-code" id="abs-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/arithmetic.rb, line 10</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/arithmetic.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">abs</span>
   <span class="ruby-constant">Arithmetic</span><span class="ruby-operator">::</span><span class="ruby-constant">IntAbsOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(method, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_var_constraints.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) 
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">IntVar</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-comment"># Delegate to the int var.</span>
+    <span class="ruby-identifier">to_int_var</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -427,7 +472,7 @@ square root of this  operand rounded down.</p>
 
           
           <div class="method-source-code" id="square_root-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/arithmetic.rb, line 31</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/arithmetic.rb, line 31</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">square_root</span>
   <span class="ruby-constant">Arithmetic</span><span class="ruby-operator">::</span><span class="ruby-constant">IntSquareRootOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -471,7 +516,7 @@ operand squared.</p>
 
           
           <div class="method-source-code" id="squared-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/arithmetic.rb, line 20</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/arithmetic.rb, line 20</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">squared</span>
   <span class="ruby-constant">Arithmetic</span><span class="ruby-operator">::</span><span class="ruby-constant">IntSquaredOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>

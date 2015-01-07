@@ -84,9 +84,15 @@
 
   <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-FreeVar">::FreeVar</a>
+    
+    <li ><a href="#method-c-load_bindings_lib">::load_bindings_lib</a>
+    
     <li ><a href="#method-c-maximize">::maximize</a>
     
     <li ><a href="#method-c-minimize">::minimize</a>
+    
+    <li ><a href="#method-c-new">::new</a>
     
     <li ><a href="#method-c-solve">::solve</a>
     
@@ -181,8 +187,7 @@ x = y - 3
       
         <dt id="Raw">Raw
         
-        <dd><p>We just make <a href="Raw.html">Gecode::Raw</a> an alias of the real
-module.</p>
+        <dd><p>We just make Gecode::Raw an alias of the real module.</p>
         
       
         <dt id="SetVar">SetVar
@@ -201,6 +206,109 @@ module.</p>
        <header>
          <h3>Public Class Methods</h3>
        </header>
+
+    
+      <div id="method-c-FreeVar" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">FreeVar</span><span
+            class="method-args">(bound_class, space_bind_method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a class for a free variable that can be bound into the specified
+class using the specified method in a space.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="FreeVar-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 39</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">FreeVar</span>(<span class="ruby-identifier">bound_class</span>, <span class="ruby-identifier">space_bind_method</span>) 
+    <span class="ruby-identifier">clazz</span> = <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">FreeVarBase</span>)
+    <span class="ruby-identifier">clazz</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-string">&quot;      # Binds the variable to the currently active space of the model, 
+      # returning the bound variable.
+      def bind
+        active_space.method(:#{space_bind_method}).call(@index)
+      end
+      
+      private
+      
+      # Delegates the method with the specified name to a method with the 
+      # specified name when the variable is bound. If the bound method's name
+      # is nil then the same name as the new method's name is assumed.
+      def self.delegate(method_name, bound_method_name = nil)
+        bound_method_name = method_name if bound_method_name.nil?
+        module_eval &lt;&lt;-&quot;end_code&quot;
+          def \#{method_name}(*args)
+            @model.allow_space_access do
+              bind.method(:\#{bound_method_name}).call(*args)
+            end
+          end
+        end_code
+      end
+&quot;</span>      
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">clazz</span>
+  <span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-load_bindings_lib" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_bindings_lib</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loads the binding libraries. This is done as a method in order to be easier
+to test.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="load_bindings_lib-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/bindings.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_bindings_lib</span> 
+  <span class="ruby-comment"># Workaround to get the precompiled DLLs into the DLL search path on </span>
+  <span class="ruby-comment"># Windows.</span>
+  <span class="ruby-identifier">dll_dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-string">'/../../vendor/gecode/win32/lib'</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_PLATFORM</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/mswin/</span> <span class="ruby-keyword">and</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">dll_dir</span>
+    <span class="ruby-comment"># Switch directory while loading libraries so that the DLLs are in the </span>
+    <span class="ruby-comment"># work directory.</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">'fileutils'</span>
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cd</span> <span class="ruby-identifier">dll_dir</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-string">'gecode'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">'gecode'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-c-maximize" class="method-detail ">
@@ -244,7 +352,7 @@ variable is then returned.</p>
 
           
           <div class="method-source-code" id="maximize-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/convenience.rb, line 55</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/convenience.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">maximize</span>(<span class="ruby-identifier">variable_to_maximize</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">create_model</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">maximize!</span> <span class="ruby-identifier">variable_to_maximize</span>
 <span class="ruby-keyword">end</span></pre>
@@ -299,9 +407,42 @@ variable is then returned.</p>
 
           
           <div class="method-source-code" id="minimize-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/convenience.rb, line 80</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/convenience.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">minimize</span>(<span class="ruby-identifier">variable_to_minimize</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">create_model</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">minimize!</span> <span class="ruby-identifier">variable_to_minimize</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(&init_block)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/convenience.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">init_block</span>) 
+  <span class="ruby-identifier">instance_eval</span> <span class="ruby-operator">&amp;</span><span class="ruby-identifier">init_block</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -353,7 +494,7 @@ The first solution to the model is then returned.</p>
 
           
           <div class="method-source-code" id="solve-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/convenience.rb, line 30</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/convenience.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">solve</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">create_model</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>).<span class="ruby-identifier">solve!</span>
 <span class="ruby-keyword">end</span></pre>

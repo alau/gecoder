@@ -186,7 +186,7 @@ can thereby be placed on set variables.</p>
 
           
           <div class="method-source-code" id="cardinality-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 241</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 241</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">cardinality</span>
   <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:cardMin</span>)<span class="ruby-operator">..</span><span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:cardMax</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -220,7 +220,7 @@ Enumerable).</p>
 
           
           <div class="method-source-code" id="lower_bound-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 216</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 216</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">lower_bound</span>
   <span class="ruby-identifier">min</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:glbMin</span>)
   <span class="ruby-identifier">max</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:glbMax</span>)
@@ -257,7 +257,7 @@ Enumerable).</p>
 
           
           <div class="method-source-code" id="to_set_var-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 246</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 246</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_set_var</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -291,7 +291,7 @@ Enumerable).</p>
 
           
           <div class="method-source-code" id="upper_bound-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 226</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 226</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">upper_bound</span>
   <span class="ruby-identifier">min</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:lubMin</span>)
   <span class="ruby-identifier">max</span> = <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:lubMax</span>)
@@ -328,7 +328,7 @@ Enumerable).</p>
 
           
           <div class="method-source-code" id="value-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 235</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 235</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">value</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-string">'No value is assigned.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">assigned?</span>
   <span class="ruby-identifier">lower_bound</span>

@@ -61,6 +61,10 @@
   <ul class="link-list">
   
   
+    <li><a class="include" href="BoolLinearOperations.html">Gecode::Bool::BoolLinearOperations</a>
+  
+  
+  
     <li><a class="include" href="../Operand.html">Gecode::Operand</a>
   
   
@@ -85,6 +89,8 @@
     <li ><a href="#method-i-5E">#^</a>
     
     <li ><a href="#method-i-implies">#implies</a>
+    
+    <li class="calls-super" ><a href="#method-i-method_missing">#method_missing</a>
     
     <li ><a href="#method-i-7C">#|</a>
     
@@ -181,7 +187,7 @@ operand AND <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="26-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 19</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/boolean.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">&amp;</span>(<span class="ruby-identifier">bool_op</span>)
   <span class="ruby-identifier">bool_expression_operation</span>(<span class="ruby-value">:&amp;</span>, <span class="ruby-identifier">bool_op</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -221,7 +227,7 @@ operand AND <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="2A-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/linear.rb, line 80</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/linear.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">*</span>(<span class="ruby-identifier">fixnum</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">fixnum</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Fixnum</span>
     <span class="ruby-identifier">bool_linear_expression_operation</span>(<span class="ruby-value">:*</span>, <span class="ruby-identifier">fixnum</span>)
@@ -265,7 +271,7 @@ operand AND <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="2B-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/linear.rb, line 69</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/linear.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">op2</span>)
   <span class="ruby-identifier">bool_linear_expression_operation</span>(<span class="ruby-value">:+</span>, <span class="ruby-identifier">op2</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -305,7 +311,7 @@ operand AND <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="2D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/linear.rb, line 95</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/linear.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">op2</span>)
   <span class="ruby-identifier">bool_linear_expression_operation</span>(<span class="ruby-value">:-</span>, <span class="ruby-identifier">op2</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -345,7 +351,7 @@ operand XOR <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="5E-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 29</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/boolean.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">^</span>(<span class="ruby-identifier">bool_op</span>)
   <span class="ruby-identifier">bool_expression_operation</span>(<span class="ruby-value">:^</span>, <span class="ruby-identifier">bool_op</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -385,9 +391,52 @@ this operand implies <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="implies-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 40</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/boolean.rb, line 40</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">implies</span>(<span class="ruby-identifier">bool_op</span>)
   <span class="ruby-identifier">bool_expression_operation</span>(<span class="ruby-value">:implies</span>, <span class="ruby-identifier">bool_op</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(method, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_var_constraints.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) 
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">BoolVar</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-comment"># Delegate to the bool var.</span>
+    <span class="ruby-identifier">to_bool_var</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -425,7 +474,7 @@ operand OR <code>bool_op</code>.</p>
 
           
           <div class="method-source-code" id="7C-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool/boolean.rb, line 9</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool/boolean.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">bool_op</span>)
   <span class="ruby-identifier">bool_expression_operation</span>(<span class="ruby-value">:|</span>, <span class="ruby-identifier">bool_op</span>)
 <span class="ruby-keyword">end</span></pre>

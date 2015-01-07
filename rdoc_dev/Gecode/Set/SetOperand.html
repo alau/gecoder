@@ -82,6 +82,8 @@
     
     <li ><a href="#method-i-max">#max</a>
     
+    <li class="calls-super" ><a href="#method-i-method_missing">#method_missing</a>
+    
     <li ><a href="#method-i-min">#min</a>
     
     <li ><a href="#method-i-minus">#minus</a>
@@ -199,7 +201,7 @@ of the disjoint parts of the sets.</p>
 
           
           <div class="method-source-code" id="disjoint_union-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/operation.rb, line 28</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/operation.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">disjoint_union</span>(<span class="ruby-identifier">set_operand_or_constant_set</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:disjoint_union</span>, <span class="ruby-identifier">set_operand_or_constant_set</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -239,7 +241,7 @@ that constrain all elements in the set.</p>
 
           
           <div class="method-source-code" id="elements-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set_elements_constraints.rb, line 91</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_elements_constraints.rb, line 91</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">elements</span>
   <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">SetElements</span><span class="ruby-operator">::</span><span class="ruby-constant">SetElementsOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -283,7 +285,7 @@ intersection between this operand and
 
           
           <div class="method-source-code" id="intersection-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/operation.rb, line 42</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/operation.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">intersection</span>(<span class="ruby-identifier">set_operand_or_constant_set</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:intersection</span>, <span class="ruby-identifier">set_operand_or_constant_set</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -322,9 +324,52 @@ intersection between this operand and
 
           
           <div class="method-source-code" id="max-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/connection.rb, line 19</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/connection.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">max</span>
   <span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">SetMaxOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(method, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_var_constraints.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) 
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">SetVar</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-comment"># Delegate to the set var.</span>
+    <span class="ruby-identifier">to_set_var</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -361,7 +406,7 @@ intersection between this operand and
 
           
           <div class="method-source-code" id="min-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/connection.rb, line 9</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/connection.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">min</span>
   <span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">SetMinOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -404,7 +449,7 @@ operand minus  <code>set_operand_or_constant_set</code>.</p>
 
           
           <div class="method-source-code" id="minus-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/operation.rb, line 56</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/operation.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">minus</span>(<span class="ruby-identifier">set_operand_or_constant_set</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:minus</span>, <span class="ruby-identifier">set_operand_or_constant_set</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -443,7 +488,7 @@ operand minus  <code>set_operand_or_constant_set</code>.</p>
 
           
           <div class="method-source-code" id="size-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/cardinality.rb, line 9</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/cardinality.rb, line 9</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">size</span>
   <span class="ruby-constant">Cardinality</span><span class="ruby-operator">::</span><span class="ruby-constant">SetSizeOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -501,7 +546,7 @@ from the upper bound of the set.</p>
 
           
           <div class="method-source-code" id="sum-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/connection.rb, line 44</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/connection.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sum</span>(<span class="ruby-identifier">options</span> = {<span class="ruby-value">:weights</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">weights</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">1</span>)})
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'At most one of the options :weights and '</span> <span class="ruby-operator">+</span>
@@ -563,7 +608,7 @@ union between this operand  and <code>set_operand_or_constant_set</code>.</p>
 
           
           <div class="method-source-code" id="union-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set/operation.rb, line 13</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set/operation.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">union</span>(<span class="ruby-identifier">set_operand_or_constant_set</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:union</span>, <span class="ruby-identifier">set_operand_or_constant_set</span>)
 <span class="ruby-keyword">end</span></pre>

@@ -176,7 +176,7 @@ can thereby be  placed on integer variables.</p>
 
           
           <div class="method-source-code" id="domain-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 120</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 120</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">domain</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">range?</span>
     <span class="ruby-identifier">min</span><span class="ruby-operator">..</span><span class="ruby-identifier">max</span>
@@ -215,7 +215,7 @@ can thereby be  placed on integer variables.</p>
 
           
           <div class="method-source-code" id="to_int_var-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 115</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_int_var</span>
   <span class="ruby-keyword">self</span>
 <span class="ruby-keyword">end</span></pre>
@@ -249,7 +249,7 @@ must be assigned, if it isn’t then a RuntimeError is raised.</p>
 
           
           <div class="method-source-code" id="value-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/variables.rb, line 109</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/variables.rb, line 109</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">value</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-string">'No value is assigned.'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">assigned?</span>
   <span class="ruby-identifier">send_bound</span>(<span class="ruby-value">:val</span>)

@@ -70,6 +70,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
     <li ><a href="#method-i-at_most_share_one_element">#at_most_share_one_element</a>
     
     <li ><a href="#method-i-channel">#channel</a>
@@ -164,7 +166,7 @@ optional.</p>
 
           
           <div class="method-source-code" id="at_most_share_one_element-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set_enum/distinct.rb, line 14</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_enum/distinct.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">at_most_share_one_element</span>(<span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-value">:size</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'Option :size has to be specified.'</span>
@@ -224,7 +226,7 @@ of the j:th integer operand.</p>
 
           
           <div class="method-source-code" id="channel-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set_enum/channel.rb, line 16</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_enum/channel.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>(<span class="ruby-identifier">enum</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">enum</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_enum</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected integer enum, for #{enum.class}.&quot;</span>
@@ -241,6 +243,56 @@ of the j:th integer operand.</p>
   <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Set</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
   <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:rhs</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">enum</span>)
   <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Channel</span><span class="ruby-operator">::</span><span class="ruby-constant">IntEnumChannelConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(model, params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Raises TypeError unless the left hand side is a set enum operand.</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../ConstraintReceiver.html#method-c-new">Gecode::ConstraintReceiver.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_enum_constraints.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">params</span>) 
+  <span class="ruby-keyword">super</span>
+  
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Must have set enum operand as left hand side.'</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

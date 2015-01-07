@@ -78,6 +78,8 @@
     
     <li ><a href="#method-i-disjunction">#disjunction</a>
     
+    <li class="calls-super" ><a href="#method-i-method_missing">#method_missing</a>
+    
   </ul>
 </div>
 
@@ -170,7 +172,7 @@ operands in this enumeration.</p>
 
           
           <div class="method-source-code" id="conjunction-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/relation.rb, line 10</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum/relation.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">conjunction</span>
   <span class="ruby-constant">Relation</span><span class="ruby-operator">::</span><span class="ruby-constant">BoolEnumConjunctionOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -210,9 +212,52 @@ operands in this enumeration.</p>
 
           
           <div class="method-source-code" id="disjunction-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/relation.rb, line 21</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum/relation.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">disjunction</span>
   <span class="ruby-constant">Relation</span><span class="ruby-operator">::</span><span class="ruby-constant">BoolEnumDisjunctionOperand</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(method, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum_constraints.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) 
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">BoolEnum</span><span class="ruby-operator">::</span><span class="ruby-constant">Dummy</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-comment"># Delegate to the bool enum.</span>
+    <span class="ruby-identifier">to_bool_enum</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

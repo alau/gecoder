@@ -70,6 +70,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
     <li ><a href="#method-i-channel">#channel</a>
     
     <li ><a href="#method-i-distinct">#distinct</a>
@@ -166,9 +168,9 @@ that the constraint should be reified with <code>bool_operand</code>:</p>
 
         <div class="method-description">
           
-          <p>Constrains this enumeration to “channel” <code>int_enum</code>. 
-Channel constraints are used to give access to multiple viewpoints when
-modelling.</p>
+          <p>Constrains this enumeration to “channel” <code>int_enum</code>.  <a
+href="Channel.html">Channel</a> constraints are used to give access to
+multiple viewpoints when modelling.</p>
 
 <p>The channel constraint can be thought of as constraining the arrays to  be
 each other’s inverses. I.e. if the i:th value in the first enumeration is
@@ -224,7 +226,7 @@ constraint as follows.</p>
 
           
           <div class="method-source-code" id="channel-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/channel.rb, line 54</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum/channel.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>(<span class="ruby-identifier">int_enum</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated channel constraint '</span> <span class="ruby-operator">+</span> 
@@ -291,7 +293,7 @@ the operands, with specified offsets added, must be distinct.</p>
 
           
           <div class="method-source-code" id="distinct-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/distinct.rb, line 24</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum/distinct.rb, line 24</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">distinct</span>(<span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-comment"># The best we could implement it as from here would be a bunch of </span>
@@ -351,7 +353,7 @@ nor reification is supported.</p>
 
           
           <div class="method-source-code" id="equal-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/equality.rb, line 10</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum/equality.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">equal</span>(<span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-comment"># The best we could implement it as from here would be a bunch of </span>
@@ -407,7 +409,7 @@ specified tuples. Neither negation nor reification is supported.</p>
 
           
           <div class="method-source-code" id="in-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/extensional.rb, line 15</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum/extensional.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated tuple constraint is '</span> <span class="ruby-operator">+</span>
@@ -568,7 +570,7 @@ are provided as convenience methods.</p>
 
           
           <div class="method-source-code" id="match-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/extensional.rb, line 141</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum/extensional.rb, line 141</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated regexp constraint '</span> <span class="ruby-operator">+</span>
@@ -623,8 +625,8 @@ enumerable will not be affected (i.e. will not necessarily be  sorted)</p>
 </dd></dl>
 
 <p>If neither of those options are specified then the original enumerable will
-be constrained to be sorted (otherwise not). Sort constraints with options
-do not allow negation.</p>
+be constrained to be sorted (otherwise not). <a href="Sort.html">Sort</a>
+constraints with options do not allow negation.</p>
 
 <h4 id="method-i-sorted-label-Examples+">Examples <span><a href="#method-i-sorted-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
 
@@ -654,7 +656,7 @@ do not allow negation.</p>
 
           
           <div class="method-source-code" id="sorted-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int_enum/sort.rb, line 42</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum/sort.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sorted</span>(<span class="ruby-identifier">options</span> = {})
   <span class="ruby-comment"># Extract and check options.</span>
   <span class="ruby-identifier">target</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:as</span>)
@@ -687,6 +689,56 @@ do not allow negation.</p>
     <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-value">:target</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order</span>)
     <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Sort</span><span class="ruby-operator">::</span><span class="ruby-constant">SortConstraintWithOptions</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, 
       <span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(model, params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Raises TypeError unless the left hand side is an int enum operand.</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../ConstraintReceiver.html#method-c-new">Gecode::ConstraintReceiver.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_enum_constraints.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">params</span>) 
+  <span class="ruby-keyword">super</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Must have int enum operand as left hand side.'</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

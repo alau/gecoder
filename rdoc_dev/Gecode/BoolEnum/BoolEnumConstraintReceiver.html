@@ -70,6 +70,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
     <li ><a href="#method-i-channel">#channel</a>
     
     <li ><a href="#method-i-in">#in</a>
@@ -185,7 +187,7 @@ enumeration can be interchanged.</p>
 
           
           <div class="method-source-code" id="channel-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/channel.rb, line 32</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum/channel.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">channel</span>(<span class="ruby-identifier">integer_operand</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated channel constraint '</span> <span class="ruby-operator">+</span> 
@@ -246,7 +248,7 @@ specified tuples. Neither negation nor reification is supported.</p>
 
           
           <div class="method-source-code" id="in-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/extensional.rb, line 16</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum/extensional.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">tuples</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated tuple constraint is '</span> <span class="ruby-operator">+</span>
@@ -317,7 +319,7 @@ bools.must.match [repeat(false), true, false, true, repeat(false)]]</pre>
 
           
           <div class="method-source-code" id="match-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/bool_enum/extensional.rb, line 60</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum/extensional.rb, line 60</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">match</span>(<span class="ruby-identifier">regexp</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:negate</span>]
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">MissingConstraintError</span>, <span class="ruby-string">'A negated regexp constraint '</span> <span class="ruby-operator">+</span>
@@ -332,6 +334,56 @@ bools.must.match [repeat(false), true, false, true, repeat(false)]]</pre>
     <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">Extensional</span>.<span class="ruby-identifier">parse_regexp</span> <span class="ruby-identifier">regexp</span>
   <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">add_constraint</span> <span class="ruby-constant">Extensional</span><span class="ruby-operator">::</span><span class="ruby-constant">RegexpConstraint</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@model</span>, <span class="ruby-ivar">@params</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(model, params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Raises TypeError unless the left hand side is an bool enum operand.</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../ConstraintReceiver.html#method-c-new">Gecode::ConstraintReceiver.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/bool_enum_constraints.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">params</span>) 
+  <span class="ruby-keyword">super</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_bool_enum</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Must have bool enum operand as left hand side.'</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

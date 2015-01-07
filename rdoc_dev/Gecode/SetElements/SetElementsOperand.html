@@ -75,7 +75,21 @@
 </div>
 
     
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
     
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-model">#model</a>
+    
+    <li ><a href="#method-i-to_set_elements">#to_set_elements</a>
+    
+  </ul>
+</div>
+
   </div>
 </nav>
 
@@ -114,6 +128,125 @@ href="SetElementsConstraintReceiver.html">SetElementsConstraintReceiver</a></p>
     
 
     
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-model" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">model</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="model-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_elements_constraints.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">model</span> 
+  <span class="ruby-ivar">@set</span>.<span class="ruby-identifier">model</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_set_elements" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_set_elements</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the set operand that makes up the set elements operand.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_set_elements-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_elements_constraints.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_set_elements</span> 
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@set</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(set)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Constructs a new set elements operand <code>set</code>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_elements_constraints.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">set</span>) 
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">set</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_var</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;Expected set operand, got #{set.class}.&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@set</span> = <span class="ruby-identifier">set</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
   </section>
 </main>
 

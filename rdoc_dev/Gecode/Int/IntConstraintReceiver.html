@@ -70,6 +70,8 @@
 
   <ul class="link-list" role="directory">
     
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
     <li ><a href="#method-i-3C">#&lt;</a>
     
     <li ><a href="#method-i-3C-3D">#&lt;=</a>
@@ -203,7 +205,7 @@ this method.</p>
 
           
           <div class="method-source-code" id="3C-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 74</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/relation.rb, line 74</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&lt;</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -251,7 +253,7 @@ less_than_or_equal_to are aliases of this method.</p>
 
           
           <div class="method-source-code" id="3C-3D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 93</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/relation.rb, line 93</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">&lt;=</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&lt;=</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -293,7 +295,7 @@ operand is true and 0 if the boolean operand is false.</p>
 
           
           <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/channel.rb, line 14</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/channel.rb, line 14</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">bool</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span> <span class="ruby-keyword">and</span> 
       <span class="ruby-identifier">bool</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_bool_var</span>
@@ -361,7 +363,7 @@ of this method.</p>
 
           
           <div class="method-source-code" id="3E-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 36</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/relation.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">&gt;</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&gt;</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -409,7 +411,7 @@ greater_than_or_equal_to are aliases of this method.</p>
 
           
           <div class="method-source-code" id="3E-3D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/relation.rb, line 55</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/relation.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">&gt;=</span>(<span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">comparison</span>(<span class="ruby-value">:&gt;=</span>, <span class="ruby-identifier">int_operand_or_fixnum</span>, <span class="ruby-identifier">options</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -467,7 +469,7 @@ in the domain.  Domains should be specified as ranges if possible.</p>
 
           
           <div class="method-source-code" id="in-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/int/domain.rb, line 30</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int/domain.rb, line 30</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">in</span>(<span class="ruby-identifier">domain</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-ivar">@params</span>.<span class="ruby-identifier">update</span>(<span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">decode_options</span>(<span class="ruby-identifier">options</span>))
   <span class="ruby-ivar">@params</span>[<span class="ruby-value">:domain</span>] = <span class="ruby-identifier">domain</span>
@@ -514,6 +516,56 @@ in the domain.  Domains should be specified as ranges if possible.</p>
         <div class="aliases">
           Alias for: <a href="IntConstraintReceiver.html#method-i-3D-3D">==</a>
         </div>
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(model, params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Raises TypeError unless the left hand side is an int operand.</p>
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../ConstraintReceiver.html#method-c-new">Gecode::ConstraintReceiver.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/int_var_constraints.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">params</span>) 
+  <span class="ruby-keyword">super</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:lhs</span>].<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-string">'Must have int operand as left hand side.'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
         
       </div>
 

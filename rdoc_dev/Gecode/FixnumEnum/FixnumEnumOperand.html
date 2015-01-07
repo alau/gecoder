@@ -76,9 +76,15 @@
     
     <li ><a href="#method-c-5B-5D">::[]</a>
     
+    <li ><a href="#method-c-included">::included</a>
+    
+    <li ><a href="#method-c-pre_element_included">::pre_element_included</a>
+    
     <li ><a href="#method-i-disjoint_union">#disjoint_union</a>
     
     <li ><a href="#method-i-intersection">#intersection</a>
+    
+    <li class="calls-super" ><a href="#method-i-method_missing">#method_missing</a>
     
     <li ><a href="#method-i-minus">#minus</a>
     
@@ -165,7 +171,7 @@ disjoint union is the union of the disjoint parts of the sets.</p>
 
           
           <div class="method-source-code" id="disjoint_union-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/fixnum_enum/operation.rb, line 23</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum/operation.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">disjoint_union</span>(<span class="ruby-identifier">set_operand</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:disjoint_union</span>, <span class="ruby-identifier">set_operand</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -205,9 +211,52 @@ operand, interpreted as a constant set, and <code>set_operand</code>.</p>
 
           
           <div class="method-source-code" id="intersection-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/fixnum_enum/operation.rb, line 35</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum/operation.rb, line 35</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">intersection</span>(<span class="ruby-identifier">set_operand</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:intersection</span>, <span class="ruby-identifier">set_operand</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-method_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_missing</span><span
+            class="method-args">(method, *args)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="method_missing-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum_constraints.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>) 
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">FixnumEnum</span><span class="ruby-operator">::</span><span class="ruby-constant">Dummy</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-comment"># Delegate to the fixnum enum.</span>
+    <span class="ruby-identifier">to_fixnum_enum</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">super</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -245,7 +294,7 @@ constant set, minus <code>set_operand</code>.</p>
 
           
           <div class="method-source-code" id="minus-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/fixnum_enum/operation.rb, line 46</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum/operation.rb, line 46</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">minus</span>(<span class="ruby-identifier">set_operand</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:minus</span>, <span class="ruby-identifier">set_operand</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -285,7 +334,7 @@ interpreted as a constant set, and <code>set_operand</code>.</p>
 
           
           <div class="method-source-code" id="union-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/fixnum_enum/operation.rb, line 10</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum/operation.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">union</span>(<span class="ruby-identifier">set_operand</span>)
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:union</span>, <span class="ruby-identifier">set_operand</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -335,7 +384,7 @@ Think of it as array access in the world of constraint programming.</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/fixnum_enum/element.rb, line 28</span>
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum/element.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
     <span class="ruby-keyword">return</span> <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementIntOperand</span>.<span class="ruby-identifier">new</span>(
@@ -350,6 +399,106 @@ Think of it as array access in the world of constraint programming.</p>
 
         
 
+        
+      </div>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(enum_mod)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>This adds the adder for the methods in the modules including it. The 
+reason for doing it so indirect is that the first [] won’t be defined 
+before the module that this is mixed into is mixed into an enum.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/fixnum_enum/element.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">enum_mod</span>) 
+  <span class="ruby-identifier">enum_mod</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-comment"># Now we enter the module FixnumEnumOperands is mixed into.</span>
+    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:pre_element_included</span>, <span class="ruby-value">:included</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">included</span>(<span class="ruby-identifier">mod</span>) 
+        <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-string">'[]'</span>
+            <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:pre_element_access</span>, <span class="ruby-value">:[]</span>
+          <span class="ruby-keyword">end</span>
+      
+          <span class="ruby-comment"># Produces an IntOperand representing the</span>
+          <span class="ruby-comment"># i:th constant integer in the enumeration, where i is the</span>
+          <span class="ruby-comment"># value of the integer operand used as index. Think of it</span>
+          <span class="ruby-comment"># as array access in the world of constraint programming.</span>
+          <span class="ruby-comment"># </span>
+          <span class="ruby-comment"># ==== Examples </span>
+          <span class="ruby-comment"># </span>
+          <span class="ruby-comment">#   # The price of +selected_item+ as described by +prices+ .</span>
+          <span class="ruby-comment">#   prices = wrap_enum([500, 24, 4711, 412, 24])</span>
+          <span class="ruby-comment">#   prices[selected_item]</span>
+          <span class="ruby-comment"># </span>
+          <span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>)
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
+              <span class="ruby-keyword">return</span> <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementIntOperand</span>.<span class="ruby-identifier">new</span>(
+                <span class="ruby-keyword">self</span>, <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">model</span>)
+            <span class="ruby-keyword">else</span>
+              <span class="ruby-identifier">pre_element_access</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:pre_element_access</span>
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">pre_element_included</span>(<span class="ruby-identifier">mod</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="FixnumEnumOperand.html#method-c-pre_element_included">pre_element_included</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-pre_element_included" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">pre_element_included</span><span
+            class="method-args">(enum_mod)</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="FixnumEnumOperand.html#method-c-included">included</a>
+        </div>
         
       </div>
 
