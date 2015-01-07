@@ -26,7 +26,7 @@ end
 TMP_DIR = 'doc/tmp/rdoc_dev'
 desc 'Generate RDoc, ignoring nodoc'
 RDoc::Task.new(:rdoc_dev) do |rdoc|
-  rdoc.before_running_rdoc do |rdoc|
+  rdoc.before_running_rdoc do
     Rake::Task['prepare_rdoc_dev'].invoke
     rdoc.rdoc_files.include("#{TMP_DIR}/**/*.rb")
   end
