@@ -1,3 +1,7 @@
+== Next
+
+* Fixed a compilation error when installing gecoder-with-gecode using GCC 4.7+ .
+
 == Version 1.1.0
 This release fixes a compilation error when installing the gecoder-with-gecode gem using GCC 4.4+ .
 
