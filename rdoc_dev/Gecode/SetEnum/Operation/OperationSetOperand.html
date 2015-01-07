@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Gecode::SetEnum::Operation::OperationSetOperand - Gecode/R Developers RDoc</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../Set/ShortCircuitEqualityOperand.html">Gecode::Set::ShortCircuitEqualityOperand</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li class="calls-super" ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-constrain_equal">#constrain_equal</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Gecode::SetEnum::Operation::OperationSetOperand">
+  <h1 id="class-Gecode::SetEnum::Operation::OperationSetOperand" class="class">
+    class Gecode::SetEnum::Operation::OperationSetOperand
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-constrain_equal" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">constrain_equal</span><span
+            class="method-args">(set_operand, constrain_domain, propagation_options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="constrain_equal-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_enum/operation.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">constrain_equal</span>(<span class="ruby-identifier">set_operand</span>, <span class="ruby-identifier">constrain_domain</span>, <span class="ruby-identifier">propagation_options</span>)
+  <span class="ruby-identifier">operation</span> = <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">SET_OPERATION_TYPES</span>[<span class="ruby-ivar">@operator</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">constrain_domain</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">operation</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-constant">SOT_INTER</span>
+      <span class="ruby-identifier">set_operand</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">subset_of</span> <span class="ruby-ivar">@enum</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">upper_bound</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">set_operand</span>.<span class="ruby-identifier">must_be</span>.<span class="ruby-identifier">subset_of</span> <span class="ruby-ivar">@enum</span>.<span class="ruby-identifier">upper_bound_range</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">Raw</span><span class="ruby-operator">::</span><span class="ruby-identifier">rel</span>(<span class="ruby-ivar">@model</span>.<span class="ruby-identifier">active_space</span>, <span class="ruby-identifier">operation</span>, 
+    <span class="ruby-ivar">@enum</span>.<span class="ruby-identifier">to_set_enum</span>.<span class="ruby-identifier">bind_array</span>, <span class="ruby-identifier">set_operand</span>.<span class="ruby-identifier">to_set_var</span>.<span class="ruby-identifier">bind</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(model, enum, operator)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              <a href="../../Set/ShortCircuitEqualityOperand.html#method-c-new">Gecode::Set::ShortCircuitEqualityOperand.new</a>
+            </div>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File doc/tmp/rdoc_dev/gecoder/interface/constraints/set_enum/operation.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">model</span>, <span class="ruby-identifier">enum</span>, <span class="ruby-identifier">operator</span>)
+  <span class="ruby-keyword">super</span> <span class="ruby-identifier">model</span>
+  <span class="ruby-ivar">@enum</span> = <span class="ruby-identifier">enum</span>
+  <span class="ruby-ivar">@operator</span> = <span class="ruby-identifier">operator</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
