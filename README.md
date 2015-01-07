@@ -27,16 +27,16 @@ already have Gecode, as the other one does not come in a pre-compiled variant.
 
 Gecode/R only:
 
-  gem install gecoder
+    gem install gecoder
 
 Gecode/R and Gecode:
 
-  gem install gecoder-with-gecode
+    gem install gecoder-with-gecode
 
 ### Installing from source using gem
 
-  rake gem
-  gem install pkg/gecoder-1.x.x.gem
+    rake gem
+    gem install pkg/gecoder-1.x.x.gem
 
 ### Installing from source without using gem
 
@@ -44,12 +44,12 @@ Gecode/R and Gecode:
 generated on (replace the extension in the following commands with whatever
 extension it's given).
 
-  cd ext
-  ruby extconf.rb
-  make
-  mv gecode.so ../lib/
+    cd ext
+    ruby extconf.rb
+    make
+    mv gecode.so ../lib/
 
 ### Running the tests
 
-  rake specs
+    rake specs
 
