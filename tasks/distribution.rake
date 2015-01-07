@@ -19,8 +19,8 @@ rd = RDoc::Task.new do |rdoc|
   rdoc.title = 'Gecode/R'
   rdoc.template = 'doc/rdoc/jamis.rb'
   rdoc.options << '--line-numbers' << '--inline-source' <<
-    '--accessor' << 'delegate' << '--main' << 'README'
-  rdoc.rdoc_files.include('README', 'CHANGES', 'THANKS', 'LGPL-LICENSE', 'lib/**/*.rb')
+    '--accessor' << 'delegate' << '--main' << 'README.md'
+  rdoc.rdoc_files.include('README.md', 'CHANGES', 'THANKS', 'LGPL-LICENSE', 'lib/**/*.rb')
 end
 
 TMP_DIR = 'doc/tmp/rdoc_dev'
