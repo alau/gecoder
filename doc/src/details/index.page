@@ -8,41 +8,36 @@ description: How to get in touch with the Gecode/R community. Ask questions abou
 h1. Details
 
 <div class="summary">
-<p>The project is hosted on "RubyForge":http://rubyforge.org/projects/gecoder, 
-which also hosts the project's mailing lists, version control and issue tracker.
-</p>
+<p>The project is hosted on "GitHub":https://github.com/alau/gecoder .</p>
 </div>
 
 h2. Communication
 
-The following mailing lists are used for communication.
+The following are archives of the mailing lists that used to be hosted on
+RubyForge (which has since shut down):
 
 <dl>
-  <dt>"gecoder-users":http://rubyforge.org/mailman/listinfo/gecoder-users</dt>
+  <dt>"gecoder-users":http://blog.gmane.org/gmane.comp.lib.gecode.ruby.user</dt>
   <dd>Usage questions and general Gecode/R discussion belongs here. Basically
   	anything about Gecode/R that doesn't belong in gecoder-devel goes here.</dd>
-  <dt>"gecoder-devel":http://rubyforge.org/mailman/listinfo/gecoder-devel</dt>
+  <dt>"gecoder-devel":http://blog.gmane.org/gmane.comp.lib.gecode.ruby.devel</dt>
   <dd>Discussion about the development of Gecode/R goes here.</dd>
-  <dt>"gecoder-commits":http://rubyforge.org/mailman/listinfo/gecoder-commits</dt>
-  <dd>Diffs of all commits to the subversion repository are sent here. Reviewing
-    the code changes and sending feedback to gecoder-devel is encouraged.</dd>
 </dl>
 
 h2. License
 
-Gecode/R is licensed under the "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html. 
+Gecode/R is licensed under the "GNU LGPL":http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html.
 Gecode is licensed under the "MIT license":http://www.gecode.org/license.html.
 
-h2. Subversion
+h2. Git
 
-Gecode/R uses "subversion":http://subversion.tigris.org/ for revision control. 
-The repository can be "read anonymously via 
-http":http://gecoder.rubyforge.org/svn/trunk/ and checked out using
-
- svn checkout svn://rubyforge.org/var/svn/gecoder/trunk gecoder
+Gecode/R uses "git":http://git-scm.com/ for revision control.
+"The repository":https://github.com/alau/gecoder is hosted at
+"github":https://github.com .
 
 h2. Issue Tracker
 
-"The issue tracker":http://rubyforge.org/tracker/?group_id=3553 is available
-from the RubyForge project page. It handles bugs, feature requests and patches.
+"The issue tracker":https://github.com/alau/gecoder/issues can be used for
+bugs and feature requests. Please "fork and use pull
+requests":https://help.github.com/articles/using-pull-requests/ for patches.
 
