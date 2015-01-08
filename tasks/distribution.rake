@@ -86,6 +86,7 @@ spec = Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.extensions << 'ext/extconf.rb'
   s.requirements << 'Gecode 2.2.0'
+  s.required_ruby_version = "< 1.9"
 
   s.has_rdoc = true
   s.rdoc_options = rd.options
