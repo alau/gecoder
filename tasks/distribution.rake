@@ -93,23 +93,7 @@ spec = Gem::Specification.new do |s|
   s.test_files = FileList['specs/**/*.rb']
 
   s.authors = ["Gecode/R Development Team"]
-  s.email = "gecoder-users@rubyforge.org"
-  s.homepage = "http://gecoder.rubyforge.org"
-  s.rubyforge_project = "gecoder"
-
-=begin
-  # Development dependencies.
-  # Not listed: rubygems >= 1.2
-  [['rake'],
-    ['webgen', '= 0.4.7'],
-    ['coderay'],
-    ['rspec', '>= 1.0'],
-    ['cov'],
-    ['meta_project'],
-    ['rubyforge']].each do |dependency|
-    s.add_development_dependency(*dependency)
-  end
-=end
+  s.homepage = "http://gecoder.org"
 end
 
 # Create a clone of the gem spec with the precompiled binaries for Windows.
