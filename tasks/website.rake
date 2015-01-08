@@ -18,8 +18,8 @@ module WebsiteRakeHelpers
 
   # Remove generated documentation.
   def clobber
-    rm_rf 'doc/output'
-    rm_rf 'doc/tmp'
+    FileUtils.rm_rf 'doc/output'
+    FileUtils.rm_rf 'doc/tmp'
   end
 
   # Generates the website with webgen.
