@@ -21,14 +21,12 @@ support e.g. defining new propagators.
 
 h2. Development Status
 
-The project is stable with a 1.0 release. 
+The project is stable with the current version being 1.1.1 . The project has
+however been quite inactive since 2008. This leads to it, at the time of
+writing, being a couple of major versions behind Gecode (uses 2.x at the
+moment, latest is 4.x) and not being compatible with Ruby >= 1.9.
 
-h2. Future Goals
-
-* Implement some of the missing variants of already implemented
-  constraints (e.g. div and mod).
-* Consider adding support for defining custom propagators and branching
-  selection. This should primarily be aimed at rapid prototyping since the
-  performance will be much worse than if the e.g. propagator was
-  implemented in C++.
-* Keep in sync with Gecode (prepare for Gecode 3.0).
+There are a couple of old branches aiming to bring Gecode/R up to speed with
+Gecode and Ruby (called gecode-3.0 and ruby-1.9.1 respectively). No one is
+currently working on those. As with everything, anyone is free to fork and
+continue with those if desired and/or express interest in having them done.
