@@ -20,8 +20,7 @@ http://www.gecode.org/download.html . See [the installation instructions](
 http://www.gecode.org/doc/2.2.0/reference/PageComp.html)
 for details on how to compile it.
 
-Installing from gem
--------------------
+### Installing from gem
 
 There are two gems. The first includes only Gecode/R, and assumes that you have
 installed Gecode yourself. The second includes both Gecode/R and Gecode. If you
@@ -52,7 +51,8 @@ extension it's given).
     make
     mv gecode.so ../lib/
 
-### Running the tests
+Running the tests
+-----------------
 
     rake specs
 
