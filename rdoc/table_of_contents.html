@@ -56,6 +56,7 @@
     <ul>
       <li><a href="README_md.html#label-Gecode-2FR">Gecode/R</a>
       <li><a href="README_md.html#label-Installation">Installation</a>
+      <li><a href="README_md.html#label-Dependencies">Dependencies</a>
       <li><a href="README_md.html#label-Installing+from+gem">Installing from gem</a>
       <li><a href="README_md.html#label-Installing+from+source+using+gem">Installing from source using gem</a>
       <li><a href="README_md.html#label-Installing+from+source+without+using+gem">Installing from source without using gem</a>
@@ -335,19 +336,14 @@
     <span class="container">Gecode::Bool::BoolOperand</span>
 
   <li class="method">
-    <a href="Gecode/Int/IntOperand.html#method-i-2A">#*</a>
-    &mdash;
-    <span class="container">Gecode::Int::IntOperand</span>
-
-  <li class="method">
     <a href="Gecode/Bool/BoolOperand.html#method-i-2A">#*</a>
     &mdash;
     <span class="container">Gecode::Bool::BoolOperand</span>
 
   <li class="method">
-    <a href="Gecode/Bool/BoolOperand.html#method-i-2B">#+</a>
+    <a href="Gecode/Int/IntOperand.html#method-i-2A">#*</a>
     &mdash;
-    <span class="container">Gecode::Bool::BoolOperand</span>
+    <span class="container">Gecode::Int::IntOperand</span>
 
   <li class="method">
     <a href="Gecode/Int/IntOperand.html#method-i-2B">#+</a>
@@ -355,7 +351,7 @@
     <span class="container">Gecode::Int::IntOperand</span>
 
   <li class="method">
-    <a href="Gecode/Bool/BoolOperand.html#method-i-2D">#-</a>
+    <a href="Gecode/Bool/BoolOperand.html#method-i-2B">#+</a>
     &mdash;
     <span class="container">Gecode::Bool::BoolOperand</span>
 
@@ -365,14 +361,19 @@
     <span class="container">Gecode::Int::IntOperand</span>
 
   <li class="method">
-    <a href="Gecode/Int/IntConstraintReceiver.html#method-i-3C">#&lt;</a>
+    <a href="Gecode/Bool/BoolOperand.html#method-i-2D">#-</a>
     &mdash;
-    <span class="container">Gecode::Int::IntConstraintReceiver</span>
+    <span class="container">Gecode::Bool::BoolOperand</span>
 
   <li class="method">
     <a href="Gecode/SetElements/SetElementsConstraintReceiver.html#method-i-3C">#&lt;</a>
     &mdash;
     <span class="container">Gecode::SetElements::SetElementsConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/Int/IntConstraintReceiver.html#method-i-3C">#&lt;</a>
+    &mdash;
+    <span class="container">Gecode::Int::IntConstraintReceiver</span>
 
   <li class="method">
     <a href="Gecode/Int/IntConstraintReceiver.html#method-i-3C-3D">#&lt;=</a>
@@ -385,11 +386,6 @@
     <span class="container">Gecode::SetElements::SetElementsConstraintReceiver</span>
 
   <li class="method">
-    <a href="Gecode/Set/SetConstraintReceiver.html#method-i-3D-3D">#==</a>
-    &mdash;
-    <span class="container">Gecode::Set::SetConstraintReceiver</span>
-
-  <li class="method">
     <a href="Gecode/SetElements/SetElementsConstraintReceiver.html#method-i-3D-3D">#==</a>
     &mdash;
     <span class="container">Gecode::SetElements::SetElementsConstraintReceiver</span>
@@ -398,6 +394,11 @@
     <a href="Gecode/Bool/BoolConstraintReceiver.html#method-i-3D-3D">#==</a>
     &mdash;
     <span class="container">Gecode::Bool::BoolConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/Set/SetConstraintReceiver.html#method-i-3D-3D">#==</a>
+    &mdash;
+    <span class="container">Gecode::Set::SetConstraintReceiver</span>
 
   <li class="method">
     <a href="Gecode/Int/IntConstraintReceiver.html#method-i-3D-3D">#==</a>
@@ -415,14 +416,14 @@
     <span class="container">Gecode::SetElements::SetElementsConstraintReceiver</span>
 
   <li class="method">
-    <a href="Gecode/Int/IntConstraintReceiver.html#method-i-3E-3D">#&gt;=</a>
-    &mdash;
-    <span class="container">Gecode::Int::IntConstraintReceiver</span>
-
-  <li class="method">
     <a href="Gecode/SetElements/SetElementsConstraintReceiver.html#method-i-3E-3D">#&gt;=</a>
     &mdash;
     <span class="container">Gecode::SetElements::SetElementsConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/Int/IntConstraintReceiver.html#method-i-3E-3D">#&gt;=</a>
+    &mdash;
+    <span class="container">Gecode::Int::IntConstraintReceiver</span>
 
   <li class="method">
     <a href="Gecode/Bool/BoolOperand.html#method-i-5E">#^</a>
@@ -480,16 +481,6 @@
     <span class="container">Gecode::SetVar</span>
 
   <li class="method">
-    <a href="Gecode/IntEnum/IntEnumConstraintReceiver.html#method-i-channel">#channel</a>
-    &mdash;
-    <span class="container">Gecode::IntEnum::IntEnumConstraintReceiver</span>
-
-  <li class="method">
-    <a href="Gecode/SetEnum/SetEnumConstraintReceiver.html#method-i-channel">#channel</a>
-    &mdash;
-    <span class="container">Gecode::SetEnum::SetEnumConstraintReceiver</span>
-
-  <li class="method">
     <a href="Gecode/Set/SetConstraintReceiver.html#method-i-channel">#channel</a>
     &mdash;
     <span class="container">Gecode::Set::SetConstraintReceiver</span>
@@ -498,6 +489,16 @@
     <a href="Gecode/BoolEnum/BoolEnumConstraintReceiver.html#method-i-channel">#channel</a>
     &mdash;
     <span class="container">Gecode::BoolEnum::BoolEnumConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/SetEnum/SetEnumConstraintReceiver.html#method-i-channel">#channel</a>
+    &mdash;
+    <span class="container">Gecode::SetEnum::SetEnumConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/IntEnum/IntEnumConstraintReceiver.html#method-i-channel">#channel</a>
+    &mdash;
+    <span class="container">Gecode::IntEnum::IntEnumConstraintReceiver</span>
 
   <li class="method">
     <a href="Gecode/Mixin.html#method-i-combined_method_missing">#combined_method_missing</a>
@@ -590,14 +591,14 @@
     <span class="container">Gecode::Bool::BoolConstraintReceiver</span>
 
   <li class="method">
-    <a href="Gecode/BoolEnum/BoolEnumConstraintReceiver.html#method-i-in">#in</a>
-    &mdash;
-    <span class="container">Gecode::BoolEnum::BoolEnumConstraintReceiver</span>
-
-  <li class="method">
     <a href="Gecode/Int/IntConstraintReceiver.html#method-i-in">#in</a>
     &mdash;
     <span class="container">Gecode::Int::IntConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/BoolEnum/BoolEnumConstraintReceiver.html#method-i-in">#in</a>
+    &mdash;
+    <span class="container">Gecode::BoolEnum::BoolEnumConstraintReceiver</span>
 
   <li class="method">
     <a href="Gecode/IntEnum/IntEnumConstraintReceiver.html#method-i-in">#in</a>
@@ -625,6 +626,11 @@
     <span class="container">Gecode::Mixin</span>
 
   <li class="method">
+    <a href="Gecode/SetEnum/SetEnumOperand.html#method-i-intersection">#intersection</a>
+    &mdash;
+    <span class="container">Gecode::SetEnum::SetEnumOperand</span>
+
+  <li class="method">
     <a href="Gecode/FixnumEnum/FixnumEnumOperand.html#method-i-intersection">#intersection</a>
     &mdash;
     <span class="container">Gecode::FixnumEnum::FixnumEnumOperand</span>
@@ -640,24 +646,19 @@
     <span class="container">Gecode::SelectedSet::SelectedSetOperand</span>
 
   <li class="method">
-    <a href="Gecode/SetEnum/SetEnumOperand.html#method-i-intersection">#intersection</a>
-    &mdash;
-    <span class="container">Gecode::SetEnum::SetEnumOperand</span>
-
-  <li class="method">
     <a href="Gecode/SetVar.html#method-i-lower_bound">#lower_bound</a>
     &mdash;
     <span class="container">Gecode::SetVar</span>
 
   <li class="method">
-    <a href="Gecode/BoolEnum/BoolEnumConstraintReceiver.html#method-i-match">#match</a>
-    &mdash;
-    <span class="container">Gecode::BoolEnum::BoolEnumConstraintReceiver</span>
-
-  <li class="method">
     <a href="Gecode/IntEnum/IntEnumConstraintReceiver.html#method-i-match">#match</a>
     &mdash;
     <span class="container">Gecode::IntEnum::IntEnumConstraintReceiver</span>
+
+  <li class="method">
+    <a href="Gecode/BoolEnum/BoolEnumConstraintReceiver.html#method-i-match">#match</a>
+    &mdash;
+    <span class="container">Gecode::BoolEnum::BoolEnumConstraintReceiver</span>
 
   <li class="method">
     <a href="Gecode/IntEnum/IntEnumOperand.html#method-i-max">#max</a>
@@ -875,16 +876,6 @@
     <span class="container">Gecode::Bool::BoolConstraintReceiver</span>
 
   <li class="method">
-    <a href="Gecode/SelectedSet/SelectedSetOperand.html#method-i-union">#union</a>
-    &mdash;
-    <span class="container">Gecode::SelectedSet::SelectedSetOperand</span>
-
-  <li class="method">
-    <a href="Gecode/SetEnum/SetEnumOperand.html#method-i-union">#union</a>
-    &mdash;
-    <span class="container">Gecode::SetEnum::SetEnumOperand</span>
-
-  <li class="method">
     <a href="Gecode/FixnumEnum/FixnumEnumOperand.html#method-i-union">#union</a>
     &mdash;
     <span class="container">Gecode::FixnumEnum::FixnumEnumOperand</span>
@@ -893,6 +884,16 @@
     <a href="Gecode/Set/SetOperand.html#method-i-union">#union</a>
     &mdash;
     <span class="container">Gecode::Set::SetOperand</span>
+
+  <li class="method">
+    <a href="Gecode/SelectedSet/SelectedSetOperand.html#method-i-union">#union</a>
+    &mdash;
+    <span class="container">Gecode::SelectedSet::SelectedSetOperand</span>
+
+  <li class="method">
+    <a href="Gecode/SetEnum/SetEnumOperand.html#method-i-union">#union</a>
+    &mdash;
+    <span class="container">Gecode::SetEnum::SetEnumOperand</span>
 
   <li class="method">
     <a href="Gecode/SetVar.html#method-i-upper_bound">#upper_bound</a>

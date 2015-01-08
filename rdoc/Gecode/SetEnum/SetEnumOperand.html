@@ -142,74 +142,6 @@ containing the set operands <code>set_operand1</code> and
     
 
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Class Methods</h3>
-       </header>
-
-    
-      <div id="method-c-5B-5D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">[]</span><span
-            class="method-args">(*vars)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Produces a SetOperand representing the i:th set operand in the enumeration,
-where i is the value of the int operand used as index.</p>
-
-<p>A set can also be used as index, in which case a SelectedSetOperand is
-produced.</p>
-
-<h4 id="method-c-5B-5D-label-Examples+">Examples <span><a href="#method-c-5B-5D-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
-
-<pre class="ruby"><span class="ruby-comment"># The set operand at the +x+:th position in +set_enum+,</span>
-<span class="ruby-comment"># where +x+ is a int operand.  </span>
-<span class="ruby-identifier">set_enum</span>[<span class="ruby-identifier">x</span>]
-
-<span class="ruby-comment"># The SelectedSetOperand representing sets at positions</span>
-<span class="ruby-comment"># included in the value of +set+ in +set_enum+,</span>
-<span class="ruby-identifier">set_enum</span>[<span class="ruby-identifier">set</span>]
-</pre>
-          
-          
-
-          
-          <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set_enum/element.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>)
-  <span class="ruby-comment"># Hook in an element constraint if a operand is used for array </span>
-  <span class="ruby-comment"># access.</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
-    <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementSetOperand</span>.<span class="ruby-identifier">new</span>(
-      <span class="ruby-identifier">model</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>)
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_var</span>
-    <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">SelectedSet</span><span class="ruby-operator">::</span><span class="ruby-constant">SelectedSetOperand</span>.<span class="ruby-identifier">new</span>(
-      <span class="ruby-keyword">self</span>, <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:pre_set_element_access</span>
-      <span class="ruby-identifier">pre_set_element_access</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>) 
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
@@ -325,6 +257,74 @@ enumeration.</p>
             <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set_enum/operation.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">union</span>
   <span class="ruby-identifier">set_operation</span>(<span class="ruby-value">:union</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-5B-5D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">[]</span><span
+            class="method-args">(*vars)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Produces a SetOperand representing the i:th set operand in the enumeration,
+where i is the value of the int operand used as index.</p>
+
+<p>A set can also be used as index, in which case a SelectedSetOperand is
+produced.</p>
+
+<h4 id="method-c-5B-5D-label-Examples+">Examples <span><a href="#method-c-5B-5D-label-Examples+">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<pre class="ruby"><span class="ruby-comment"># The set operand at the +x+:th position in +set_enum+,</span>
+<span class="ruby-comment"># where +x+ is a int operand.  </span>
+<span class="ruby-identifier">set_enum</span>[<span class="ruby-identifier">x</span>]
+
+<span class="ruby-comment"># The SelectedSetOperand representing sets at positions</span>
+<span class="ruby-comment"># included in the value of +set+ in +set_enum+,</span>
+<span class="ruby-identifier">set_enum</span>[<span class="ruby-identifier">set</span>]
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="5B-5D-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/constraints/set_enum/element.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>)
+  <span class="ruby-comment"># Hook in an element constraint if a operand is used for array </span>
+  <span class="ruby-comment"># access.</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_int_var</span>
+    <span class="ruby-constant">Element</span><span class="ruby-operator">::</span><span class="ruby-constant">ElementSetOperand</span>.<span class="ruby-identifier">new</span>(
+      <span class="ruby-identifier">model</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:to_set_var</span>
+    <span class="ruby-constant">Gecode</span><span class="ruby-operator">::</span><span class="ruby-constant">SelectedSet</span><span class="ruby-operator">::</span><span class="ruby-constant">SelectedSetOperand</span>.<span class="ruby-identifier">new</span>(
+      <span class="ruby-keyword">self</span>, <span class="ruby-identifier">vars</span>.<span class="ruby-identifier">first</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:pre_set_element_access</span>
+      <span class="ruby-identifier">pre_set_element_access</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">vars</span>) 
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

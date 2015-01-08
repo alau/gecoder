@@ -7,13 +7,37 @@
   <priority>0.5</priority>
 </url>
 <url>
+  <loc>http://gecoder.org/documentation/modelling/index.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
   <loc>http://gecoder.org/documentation/modelling/sudoku.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/documentation/modelling/index.html</loc>
+  <loc>http://gecoder.org/documentation/operands/index.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/documentation/operands/set-elements-operands.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/documentation/operands/set-operands.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/documentation/operands/boolean-enum-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -25,19 +49,13 @@
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/documentation/operands/integer-operands.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
   <loc>http://gecoder.org/documentation/operands/selected-set-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/documentation/operands/set-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/integer-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -50,30 +68,6 @@
 </url>
 <url>
   <loc>http://gecoder.org/documentation/operands/boolean-operands.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/documentation/operands/set-elements-operands.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/documentation/operands/boolean-enum-operands.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/documentation/operands/index.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/documentation/faq.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -97,13 +91,49 @@
   <priority>0.5</priority>
 </url>
 <url>
+  <loc>http://gecoder.org/documentation/faq.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/contribute.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/credits.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/changes.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/development.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/index.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
   <loc>http://gecoder.org/examples/square-tiling.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/examples/sudoku-set.html</loc>
+  <loc>http://gecoder.org/examples/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -115,13 +145,19 @@
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/examples/send-more-money.html</loc>
+  <loc>http://gecoder.org/examples/survo.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/examples/index.html</loc>
+  <loc>http://gecoder.org/examples/minesweeper.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/examples/send-more-money.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -145,13 +181,7 @@
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/examples/survo.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/examples/minesweeper.html</loc>
+  <loc>http://gecoder.org/examples/sudoku-set.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -163,43 +193,7 @@
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.org/details/credits.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/details/development.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/details/contribute.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/details/changes.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/details/index.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/404-error.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/sitemap.html</loc>
+  <loc>http://gecoder.org/features.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
@@ -211,676 +205,22 @@
   <priority>0.5</priority>
 </url>
 <url>
+  <loc>http://gecoder.org/sitemap.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/404-error.html</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
   <loc>http://gecoder.org/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/features.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Rust.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/search_index.js.gz</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/jquery.js</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/navigation.js</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/searcher.js.gz</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/darkfish.js</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/navigation.js.gz</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/search_index.js</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/search.js</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/js/searcher.js</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/README_md.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/CHANGES.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/page_white_text.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/wrench_orange.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/tag_blue.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/macFFBgHack.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/zoom.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/bullet_toggle_plus.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/bullet_toggle_minus.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/find.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/brick_link.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/bug.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/arrow_up.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/transparent.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/tag_green.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/page_green.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/bullet_black.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/wrench.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/delete.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/loadingAnimation.gif</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/date.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/package.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/add.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/page_white_width.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/brick.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/plugin.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/images/ruby.png</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Rust</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Rust/Bindings.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/GecodeRaw</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/GecodeRaw/Space.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Object.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Model.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Set</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Set/SetConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Set/SetOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/NoSolutionError.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SearchAbortedError.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetVar.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Util</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Util/Extensional.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/MissingConstraintError.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum/FixnumEnumOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetEnum</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetEnum/SetEnumConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetEnum/SetEnumOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Int</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Int/IntConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Int/IntOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetElements</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetElements/SetElementsConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetElements/SetElementsOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetElements.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Operand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/ConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/IntVar.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/IntEnum.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Bool</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Bool/BoolOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Bool/BoolConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Int.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Set.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum/BoolEnumConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum/BoolEnumOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Bool.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SetEnum.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet/SelectedSetConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet/SelectedSetOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/IntEnum</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/IntEnum/IntEnumOperand.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/IntEnum/IntEnumConstraintReceiver.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Mixin.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/Util.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/Gecode/BoolVar.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/created.rid</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/table_of_contents.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts/Lato-Light.ttf</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts/SourceCodePro-Bold.ttf</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts/Lato-Regular.ttf</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts/SourceCodePro-Regular.ttf</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts/Lato-RegularItalic.ttf</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/fonts/Lato-LightItalic.ttf</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/GecodeRaw.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/css</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/css/rdoc.css</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/css/fonts.css</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/THANKS.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/LGPL-LICENSE.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
-</url>
-<url>
-  <loc>http://gecoder.org/rdoc/index.html</loc>
-  <lastmod>2015-01-08</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.2</priority>
 </url>
 <url>
   <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-channel_rb.html</loc>
@@ -1262,6 +602,666 @@
 </url>
 <url>
   <loc>http://gecoder.org/coverage/index.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Rust.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/search_index.js.gz</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/jquery.js</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/navigation.js</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/searcher.js.gz</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/darkfish.js</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/navigation.js.gz</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/search_index.js</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/search.js</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/js/searcher.js</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/README_md.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/CHANGES.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/page_white_text.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/wrench_orange.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/tag_blue.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/macFFBgHack.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/zoom.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/bullet_toggle_plus.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/bullet_toggle_minus.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/find.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/brick_link.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/bug.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/arrow_up.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/transparent.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/tag_green.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/page_green.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/bullet_black.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/wrench.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/delete.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/loadingAnimation.gif</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/date.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/package.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/add.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/page_white_width.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/brick.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/plugin.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/images/ruby.png</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Rust</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Rust/Bindings.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/GecodeRaw</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/GecodeRaw/Space.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Object.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Model.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Set</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Set/SetConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Set/SetOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/NoSolutionError.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SearchAbortedError.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetVar.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Util</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Util/Extensional.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/MissingConstraintError.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum/FixnumEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum/SetEnumConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum/SetEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Int</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Int/IntConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Int/IntOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements/SetElementsConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements/SetElementsOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Operand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/ConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/IntVar.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool/BoolOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool/BoolConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Int.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Set.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum/BoolEnumConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum/BoolEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet/SelectedSetConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet/SelectedSetOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum/IntEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum/IntEnumConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Mixin.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/Util.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolVar.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/created.rid</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/table_of_contents.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-Light.ttf</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts/SourceCodePro-Bold.ttf</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-Regular.ttf</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts/SourceCodePro-Regular.ttf</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-RegularItalic.ttf</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-LightItalic.ttf</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/GecodeRaw.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/css</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/css/rdoc.css</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/css/fonts.css</loc>
+  <lastmod>2015-01-07</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/THANKS.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/LGPL-LICENSE.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.2</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/rdoc/index.html</loc>
   <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>

@@ -57,6 +57,7 @@
   <ul class="link-list" role="directory">
     <li><a href="#label-Gecode-2FR">Gecode/R</a>
     <li><a href="#label-Installation">Installation</a>
+    <li><a href="#label-Dependencies">Dependencies</a>
     <li><a href="#label-Installing+from+gem">Installing from gem</a>
     <li><a href="#label-Installing+from+source+using+gem">Installing from source using gem</a>
     <li><a href="#label-Installing+from+source+without+using+gem">Installing from source without using gem</a>
@@ -104,14 +105,15 @@ and use.</p>
 
 <h2 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
+<h3 id="label-Dependencies">Dependencies<span><a href="#label-Dependencies">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
 <p>Gecode/R requires <a href="Gecode.html">Gecode</a> 2.2.0, which can be
 downloaded from <a
-href="http://www.gecode.org/download.html">www.gecode.org/download.html</a>
-. See <a
-href="http://www.gecode.org/gecode-doc-latest/PageComp.html">www.gecode.org/gecode-doc-latest/PageComp.html</a>
-for the installation instructions.</p>
+href="http://www.gecode.org/download.html">www.gecode.org/download.html</a>.
+You can either install it yourself, or install a gem that installs it for
+you.</p>
 
-<h2 id="label-Installing+from+gem">Installing from gem<span><a href="#label-Installing+from+gem">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<h3 id="label-Installing+from+gem">Installing from gem<span><a href="#label-Installing+from+gem">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
 <p>There are two gems. The first includes only Gecode/R, and assumes that you
 have installed <a href="Gecode.html">Gecode</a> yourself. The second
@@ -148,7 +150,7 @@ commands with whatever extension it’s given).</p>
 <span class="ruby-identifier">mv</span> <span class="ruby-identifier">gecode</span>.<span class="ruby-identifier">so</span> <span class="ruby-operator">..</span><span class="ruby-regexp">/lib/</span>
 </pre>
 
-<h3 id="label-Running+the+tests">Running the tests<span><a href="#label-Running+the+tests">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<h2 id="label-Running+the+tests">Running the tests<span><a href="#label-Running+the+tests">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
 <pre class="ruby"><span class="ruby-identifier">rake</span> <span class="ruby-identifier">specs</span>
 </pre>
