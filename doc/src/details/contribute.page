@@ -8,7 +8,7 @@ description: How to contribute to the development of Gecode/R, a Ruby interface 
 h1. Contribute
 
 <div class="summary">
-<p>Anyone can contribute to Gecode/R by for instance pointing out flaws in the 
+<p>Anyone can contribute to Gecode/R by for instance pointing out flaws in the
 documentation, requesting features, giving feedback, sending patches, reporting
 bugs and being active on the mailing lists.</p>
 </div>
@@ -17,29 +17,16 @@ h2. Interact
 
 Tell us what you think of Gecode/R. Tell us what could be better, what should
 be changed, what is hard to understand. We want to know so that we can fix it.
-
-Use "gecoder-users":http://rubyforge.org/mailman/listinfo/gecoder-users for such
-feedback (just send a mail there if you want to, there's no need to sign up). 
-Subscribe to that mailing list and be helpful to contribute even more.
+Use the "issue tracker":https://github.com/alau/gecoder/issues for such
+feedback.
 
 h2. Report Bugs
 
-Report bugs to "the bug 
-tracker":http://rubyforge.org/tracker/?atid=13720&group_id=3553&func=browse.
+Report bugs to "the issue tracker":https://github.com/alau/gecoder/issues.
 Make sure that you include enough information for others to be able to reproduce
 the bug.
 
 h2. Submit Patches
 
-Send your patches to "the patch 
-tracker":http://rubyforge.org/tracker/?atid=13722&group_id=3553&func=browse, 
-preferably as diffs against the current trunk. If you make a habit of sending
-good patches then we will just save us the hassle and give you direct commit 
-access.
-
-h2. Add Feature Requests
-
-If you have an idea for a feature, but can't implement it yourself, then send
-it to "the feature request 
-tracker":http://rubyforge.org/tracker/?atid=13723&group_id=3553&func=browse to
-let someone else have a go at it.
+Patches are best supplied in the form of "forking the repository and submitting
+the changes as a pull request":https://guides.github.com/activities/forking/.

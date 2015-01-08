@@ -1,6 +1,6 @@
 ---
 baseUrl:
-  http://gecoder.rubyforge.org
+  http://gecoder.org
 defaultFrequency:
   weekly
 staticPriority: 0.2

@@ -64,7 +64,7 @@ documentation/modelling/sudoku.page:
   orderInfo: 21
 documentation/modelling/square-tiling.page:
   orderInfo: 22
-  
+
 examples/index.page:
   orderInfo: 10
 examples/send-more-money.page:
@@ -88,9 +88,9 @@ examples/minesweeper.page:
 examples/survo.page:
   orderInfo: 20
 ---
-details/rubyforge.html:
-  title: RubyForge
-  url: http://rubyforge.org/projects/gecoder
+details/github.html:
+  title: GitHub
+  url: https://github.com/alau/gecoder
   orderInfo: 21
   inMenu: true
 documentation/rdoc.html:

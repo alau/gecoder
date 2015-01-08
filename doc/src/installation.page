@@ -16,7 +16,7 @@ The following works on Windows, Linux and OS X (and probably some more).
 h3. Troubleshooting
 
 If you encounter an error that is not listed here then please let us know via
-the "gecode-users mailing list":http://rubyforge.org/mailman/listinfo/gecoder-users.
+the "issue tracker":https://github.com/alau/gecoder/issues.
 
 h5. Windows
 
@@ -81,8 +81,8 @@ tested under Windows (where it will probably differ a bit).
 h2. Running the Tests
 
 To make sure that the installation was successful you can run the included
-specs. They require "RSpec":http://rspec.rubyforge.org/download.html 1.0.5 or
-something similar. Run the specs by issuing the following command from the
-directory where Gecode/R was installed.
+specs. Install the dependencies using "Bundler":http://bundler.io and then run
+the specs by issuing the following command from the directory where Gecode/R
+was installed.
 
   rake specs

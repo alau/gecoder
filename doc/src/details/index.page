@@ -8,7 +8,7 @@ description: How to get in touch with the Gecode/R community. Ask questions abou
 h1. Details
 
 <div class="summary">
-<p>The project is hosted on "GitHub":https://github.com/alau/gecoder .</p>
+<p>The project is hosted on "GitHub":https://github.com/alau/gecoder.</p>
 </div>
 
 h2. Communication
@@ -33,11 +33,11 @@ h2. Git
 
 Gecode/R uses "git":http://git-scm.com/ for revision control.
 "The repository":https://github.com/alau/gecoder is hosted at
-"github":https://github.com .
+"github":https://github.com.
 
 h2. Issue Tracker
 
 "The issue tracker":https://github.com/alau/gecoder/issues can be used for
 bugs and feature requests. Please "fork and use pull
-requests":https://help.github.com/articles/using-pull-requests/ for patches.
+requests":https://guides.github.com/activities/forking/ for patches.
 
