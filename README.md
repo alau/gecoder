@@ -16,9 +16,9 @@ Installation
 ------------
 
 Gecode/R requires Gecode 2.2.0, which can be downloaded from
-http://www.gecode.org/download.html . See
-http://www.gecode.org/gecode-doc-latest/PageComp.html for the installation
-instructions.
+http://www.gecode.org/download.html . See [the installation instructions](
+http://www.gecode.org/doc/2.2.0/reference/PageComp.html)
+for details on how to compile it.
 
 Installing from gem
 -------------------
