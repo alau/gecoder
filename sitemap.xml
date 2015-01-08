@@ -1,1274 +1,1274 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/modelling/square-tiling.html</loc>
+  <loc>http://gecoder.org/documentation/modelling/square-tiling.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/modelling/sudoku.html</loc>
+  <loc>http://gecoder.org/documentation/modelling/sudoku.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/modelling/index.html</loc>
+  <loc>http://gecoder.org/documentation/modelling/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/selected-set-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/set-enum-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/set-elements-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/integer-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/boolean-enum-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/selected-set-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/set-enum-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/set-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/boolean-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/integer-enum-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/integer-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/boolean-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/integer-enum-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/set-elements-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/set-operands.html</loc>
+  <loc>http://gecoder.org/documentation/operands/boolean-enum-operands.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/operands/index.html</loc>
+  <loc>http://gecoder.org/documentation/operands/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/searching_for_solutions.html</loc>
+  <loc>http://gecoder.org/documentation/faq.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/formulating_problems.html</loc>
+  <loc>http://gecoder.org/documentation/searching_for_solutions.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/faq.html</loc>
+  <loc>http://gecoder.org/documentation/formulating_problems.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/documentation/index.html</loc>
+  <loc>http://gecoder.org/documentation/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/details/contribute.html</loc>
+  <loc>http://gecoder.org/examples/square-tiling.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/details/development.html</loc>
+  <loc>http://gecoder.org/examples/sudoku-set.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/details/changes.html</loc>
+  <loc>http://gecoder.org/examples/nonogram.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/details/credits.html</loc>
+  <loc>http://gecoder.org/examples/send-more-money.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/details/index.html</loc>
+  <loc>http://gecoder.org/examples/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/nonogram.html</loc>
+  <loc>http://gecoder.org/examples/send-most-money.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/n-queens.html</loc>
+  <loc>http://gecoder.org/examples/magic-sequence.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/survo.html</loc>
+  <loc>http://gecoder.org/examples/sudoku.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/minesweeper.html</loc>
+  <loc>http://gecoder.org/examples/survo.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/send-more-money.html</loc>
+  <loc>http://gecoder.org/examples/minesweeper.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/index.html</loc>
+  <loc>http://gecoder.org/examples/n-queens.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/square-tiling.html</loc>
+  <loc>http://gecoder.org/details/credits.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/sudoku-set.html</loc>
+  <loc>http://gecoder.org/details/development.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/contribute.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/details/changes.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/magic-sequence.html</loc>
+  <loc>http://gecoder.org/details/index.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/404-error.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/sudoku.html</loc>
+  <loc>http://gecoder.org/sitemap.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/examples/send-most-money.html</loc>
+  <loc>http://gecoder.org/installation.html</loc>
+  <lastmod>2015-01-08</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>http://gecoder.org/index.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/features.html</loc>
+  <loc>http://gecoder.org/features.html</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.5</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/404-error.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.rubyforge.org/index.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.rubyforge.org/sitemap.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.rubyforge.org/installation.html</loc>
-  <lastmod>2015-01-07</lastmod>
-  <changefreq>weekly</changefreq>
-  <priority>0.5</priority>
-</url>
-<url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Rust.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Rust.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/js</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/search_index.js.gz</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/js/search_index.js.gz</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/jquery.js</loc>
+  <loc>http://gecoder.org/rdoc/js/jquery.js</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/navigation.js</loc>
+  <loc>http://gecoder.org/rdoc/js/navigation.js</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/searcher.js.gz</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/js/searcher.js.gz</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/darkfish.js</loc>
+  <loc>http://gecoder.org/rdoc/js/darkfish.js</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/navigation.js.gz</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/js/navigation.js.gz</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/search_index.js</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/js/search_index.js</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/search.js</loc>
+  <loc>http://gecoder.org/rdoc/js/search.js</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/js/searcher.js</loc>
+  <loc>http://gecoder.org/rdoc/js/searcher.js</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/README_md.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/README_md.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/CHANGES.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/CHANGES.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/images</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/page_white_text.png</loc>
+  <loc>http://gecoder.org/rdoc/images/page_white_text.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/wrench_orange.png</loc>
+  <loc>http://gecoder.org/rdoc/images/wrench_orange.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/tag_blue.png</loc>
+  <loc>http://gecoder.org/rdoc/images/tag_blue.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/macFFBgHack.png</loc>
+  <loc>http://gecoder.org/rdoc/images/macFFBgHack.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/zoom.png</loc>
+  <loc>http://gecoder.org/rdoc/images/zoom.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/bullet_toggle_plus.png</loc>
+  <loc>http://gecoder.org/rdoc/images/bullet_toggle_plus.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/bullet_toggle_minus.png</loc>
+  <loc>http://gecoder.org/rdoc/images/bullet_toggle_minus.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/find.png</loc>
+  <loc>http://gecoder.org/rdoc/images/find.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/brick_link.png</loc>
+  <loc>http://gecoder.org/rdoc/images/brick_link.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/bug.png</loc>
+  <loc>http://gecoder.org/rdoc/images/bug.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/arrow_up.png</loc>
+  <loc>http://gecoder.org/rdoc/images/arrow_up.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/transparent.png</loc>
+  <loc>http://gecoder.org/rdoc/images/transparent.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/tag_green.png</loc>
+  <loc>http://gecoder.org/rdoc/images/tag_green.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/page_green.png</loc>
+  <loc>http://gecoder.org/rdoc/images/page_green.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/bullet_black.png</loc>
+  <loc>http://gecoder.org/rdoc/images/bullet_black.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/wrench.png</loc>
+  <loc>http://gecoder.org/rdoc/images/wrench.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/delete.png</loc>
+  <loc>http://gecoder.org/rdoc/images/delete.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/loadingAnimation.gif</loc>
+  <loc>http://gecoder.org/rdoc/images/loadingAnimation.gif</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/date.png</loc>
+  <loc>http://gecoder.org/rdoc/images/date.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/package.png</loc>
+  <loc>http://gecoder.org/rdoc/images/package.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/add.png</loc>
+  <loc>http://gecoder.org/rdoc/images/add.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/page_white_width.png</loc>
+  <loc>http://gecoder.org/rdoc/images/page_white_width.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/brick.png</loc>
+  <loc>http://gecoder.org/rdoc/images/brick.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/plugin.png</loc>
+  <loc>http://gecoder.org/rdoc/images/plugin.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/images/ruby.png</loc>
+  <loc>http://gecoder.org/rdoc/images/ruby.png</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Rust</loc>
+  <loc>http://gecoder.org/rdoc/Rust</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Rust/Bindings.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Rust/Bindings.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/GecodeRaw</loc>
+  <loc>http://gecoder.org/rdoc/GecodeRaw</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/GecodeRaw/Space.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/GecodeRaw/Space.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Object.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Object.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode</loc>
+  <loc>http://gecoder.org/rdoc/Gecode</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Model.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Model.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Set</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/Set</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Set/SetConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Set/SetConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Set/SetOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Set/SetOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/NoSolutionError.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/NoSolutionError.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SelectedSet.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SearchAbortedError.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SearchAbortedError.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetVar.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetVar.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Util</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/Util</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Util/Extensional.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Util/Extensional.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/BoolEnum.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/MissingConstraintError.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/MissingConstraintError.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/FixnumEnum</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/FixnumEnum/FixnumEnumOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum/FixnumEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetEnum</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetEnum/SetEnumConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum/SetEnumConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetEnum/SetEnumOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum/SetEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Int</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/Int</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Int/IntConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Int/IntConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Int/IntOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Int/IntOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetElements</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetElements/SetElementsConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements/SetElementsConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetElements/SetElementsOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements/SetElementsOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetElements.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetElements.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Operand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Operand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/ConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/ConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/IntVar.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/IntVar.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/IntEnum.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Bool</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Bool/BoolOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool/BoolOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Bool/BoolConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool/BoolConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Int.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Int.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Set.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Set.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/BoolEnum</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/BoolEnum/BoolEnumConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum/BoolEnumConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/BoolEnum/BoolEnumOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolEnum/BoolEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Bool.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Bool.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SetEnum.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SetEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SelectedSet</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SelectedSet/SelectedSetConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet/SelectedSetConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/SelectedSet/SelectedSetOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/SelectedSet/SelectedSetOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/IntEnum</loc>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/IntEnum/IntEnumOperand.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum/IntEnumOperand.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/IntEnum/IntEnumConstraintReceiver.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/IntEnum/IntEnumConstraintReceiver.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Mixin.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Mixin.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/Util.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/Util.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/FixnumEnum.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/FixnumEnum.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/Gecode/BoolVar.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/Gecode/BoolVar.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/created.rid</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/created.rid</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/table_of_contents.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/table_of_contents.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/fonts</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts/Lato-Light.ttf</loc>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-Light.ttf</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts/SourceCodePro-Bold.ttf</loc>
+  <loc>http://gecoder.org/rdoc/fonts/SourceCodePro-Bold.ttf</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts/Lato-Regular.ttf</loc>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-Regular.ttf</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts/SourceCodePro-Regular.ttf</loc>
+  <loc>http://gecoder.org/rdoc/fonts/SourceCodePro-Regular.ttf</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts/Lato-RegularItalic.ttf</loc>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-RegularItalic.ttf</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/fonts/Lato-LightItalic.ttf</loc>
+  <loc>http://gecoder.org/rdoc/fonts/Lato-LightItalic.ttf</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/GecodeRaw.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/GecodeRaw.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/css</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/css</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/css/rdoc.css</loc>
+  <loc>http://gecoder.org/rdoc/css/rdoc.css</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/css/fonts.css</loc>
+  <loc>http://gecoder.org/rdoc/css/fonts.css</loc>
   <lastmod>2015-01-07</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/THANKS.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/THANKS.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/LGPL-LICENSE.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/LGPL-LICENSE.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rdoc/index.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rdoc/index.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/rspec.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-channel_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-channel_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int-domain_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int-domain_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-relation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-relation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-reifiable_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-reifiable_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-domain_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-domain_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-version_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-version_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-branch_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-branch_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool_enum-relation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool_enum-relation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-mixin_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-mixin_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/screen.css</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/screen.css</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/print.css</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/print.css</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-connection_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-connection_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/jquery-1.3.2.min.js</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/jquery-1.3.2.min.js</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-count_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-count_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int-linear_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int-linear_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_enum-channel_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_enum-channel_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-distinct_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-distinct_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool-boolean_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool-boolean_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool-channel_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool-channel_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-bindings_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-bindings_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-fixnum_enum-operation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-fixnum_enum-operation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-channel_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-channel_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-arithmetic_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-arithmetic_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-element_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-element_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_elements-relation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_elements-relation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int-relation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int-relation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool_enum-channel_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool_enum-channel_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-selected_set_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-selected_set_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-enum_matrix_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-enum_matrix_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool_enum_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool_enum_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool_enum-extensional_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool_enum-extensional_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/rcov.js</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/rcov.js</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-extensional_regexp_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-extensional_regexp_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-variables_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-variables_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-binding_changes_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-binding_changes_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-operation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-operation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool-linear_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool-linear_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_enum-element_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_enum-element_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_enum-operation_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_enum-operation_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-cardinality_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-cardinality_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_elements_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_elements_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_var_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_var_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-equality_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-equality_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-search_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-search_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-bool_var_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-bool_var_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-enum_wrapper_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-enum_wrapper_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-selected_set-select_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-selected_set-select_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_var_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_var_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-extensional_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-extensional_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-convenience_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-convenience_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int-arithmetic_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int-arithmetic_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set-include_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set-include_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_enum_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_enum_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-set_enum-distinct_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-set_enum-distinct_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-fixnum_enum_constraints_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-fixnum_enum_constraints_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-fixnum_enum-element_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-fixnum_enum-element_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/jquery.tablesorter.min.js</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/jquery.tablesorter.min.js</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int-channel_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int-channel_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/lib-gecoder-interface-constraints-int_enum-sort_rb.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/lib-gecoder-interface-constraints-int_enum-sort_rb.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/coverage/index.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>
 <url>
-  <loc>http://gecoder.rubyforge.org/coverage/index.html</loc>
-  <lastmod>2015-01-07</lastmod>
+  <loc>http://gecoder.org/rspec.html</loc>
+  <lastmod>2015-01-08</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.2</priority>
 </url>

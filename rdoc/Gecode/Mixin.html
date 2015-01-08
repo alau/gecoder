@@ -333,6 +333,166 @@ variable.</p>
     
 
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(mod)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 275</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">mod</span>)
+  <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:pre_gecoder_method_missing</span>, <span class="ruby-value">:method_missing</span>
+    <span class="ruby-comment"># Wraps method missing to handle #foo_is_a and #foo_is_an . </span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># &quot;&lt;variable_name&gt;_is_a &lt;variable&gt;&quot; or &quot;&lt;variable_name&gt;_is_an</span>
+    <span class="ruby-comment"># &lt;variable&gt;&quot;, # replacing &quot;&lt;variable_name&gt;&quot; with the variable's</span>
+    <span class="ruby-comment"># name and &quot;&lt;variable&gt;&quot; with the variable, adds an instance</span>
+    <span class="ruby-comment"># variable and accessor with the specified name.</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># The method also returns the variable given.</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># ==== Example</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment">#   # Add an instance variable and accessor named &quot;foo&quot; that return</span>
+    <span class="ruby-comment">#   # the integer variable.</span>
+    <span class="ruby-comment">#   foo_is_an int_var(0..9)</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment">#   # Add an instance variable and accessor named &quot;bar&quot; that return</span>
+    <span class="ruby-comment">#   # the boolean variable array.</span>
+    <span class="ruby-comment">#   bar_is_a bool_var_array(2)</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+      <span class="ruby-identifier">name</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/._is_an?$/</span>
+        <span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">/_is_an?$/</span>, <span class="ruby-string">''</span>)
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
+            <span class="ruby-node">&quot;Wrong number of argmuments (#{args.size} for 1).&quot;</span>
+        <span class="ruby-keyword">end</span> 
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">name</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Method with name #{name} already exists.&quot;</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">instance_variable_defined?</span> <span class="ruby-node">&quot;@#{name}&quot;</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
+            <span class="ruby-node">&quot;Instance variable with name @#{name} already exists.&quot;</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-comment"># We use the meta class to avoid defining the variable in all</span>
+        <span class="ruby-comment"># other instances of the class.</span>
+        <span class="ruby-identifier">eval</span> <span class="ruby-value">&lt;&lt;-&quot;end_eval&quot;
+          @#{name} = args.first
+          class &lt;&lt;self
+            attr :#{name}
+          end
+        end_eval</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">pre_gecoder_method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixin_method_missing</span>, <span class="ruby-value">:method_missing</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:method_missing</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@redefining_method_missing</span>
+        <span class="ruby-comment"># The class that is mixing in the mixin redefined method</span>
+        <span class="ruby-comment"># missing. Redefine method missing again to combine the two</span>
+        <span class="ruby-comment"># definitions.</span>
+        <span class="ruby-ivar">@redefining_method_missing</span> = <span class="ruby-keyword">true</span>
+        <span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span> 
+          <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixee_method_missing</span>, <span class="ruby-value">:method_missing</span>
+          <span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+            <span class="ruby-keyword">begin</span>
+              <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+            <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+              <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+            <span class="ruby-keyword">end</span>
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:method_missing</span>, <span class="ruby-value">:combined_method_missing</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-method_added" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">method_added</span><span
+            class="method-args">(method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="method_added-source">
+            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 327</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:method_missing</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@redefining_method_missing</span>
+    <span class="ruby-comment"># The class that is mixing in the mixin redefined method</span>
+    <span class="ruby-comment"># missing. Redefine method missing again to combine the two</span>
+    <span class="ruby-comment"># definitions.</span>
+    <span class="ruby-ivar">@redefining_method_missing</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span> 
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixee_method_missing</span>, <span class="ruby-value">:method_missing</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword">begin</span>
+          <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+          <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:method_missing</span>, <span class="ruby-value">:combined_method_missing</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
        <header>
          <h3>Public Instance Methods</h3>
@@ -1585,166 +1745,6 @@ The argument is altered and returned.</p>
   
   <span class="ruby-identifier">enum</span>.<span class="ruby-identifier">model</span> = <span class="ruby-keyword">self</span>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">enum</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-    </section>
-  
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
-       <header>
-         <h3>Public Class Methods</h3>
-       </header>
-
-    
-      <div id="method-c-included" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">included</span><span
-            class="method-args">(mod)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="included-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 275</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">mod</span>)
-  <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:pre_gecoder_method_missing</span>, <span class="ruby-value">:method_missing</span>
-    <span class="ruby-comment"># Wraps method missing to handle #foo_is_a and #foo_is_an . </span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># &quot;&lt;variable_name&gt;_is_a &lt;variable&gt;&quot; or &quot;&lt;variable_name&gt;_is_an</span>
-    <span class="ruby-comment"># &lt;variable&gt;&quot;, # replacing &quot;&lt;variable_name&gt;&quot; with the variable's</span>
-    <span class="ruby-comment"># name and &quot;&lt;variable&gt;&quot; with the variable, adds an instance</span>
-    <span class="ruby-comment"># variable and accessor with the specified name.</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># The method also returns the variable given.</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># ==== Example</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment">#   # Add an instance variable and accessor named &quot;foo&quot; that return</span>
-    <span class="ruby-comment">#   # the integer variable.</span>
-    <span class="ruby-comment">#   foo_is_an int_var(0..9)</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment">#   # Add an instance variable and accessor named &quot;bar&quot; that return</span>
-    <span class="ruby-comment">#   # the boolean variable array.</span>
-    <span class="ruby-comment">#   bar_is_a bool_var_array(2)</span>
-    <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-identifier">name</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/._is_an?$/</span>
-        <span class="ruby-identifier">name</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">/_is_an?$/</span>, <span class="ruby-string">''</span>)
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
-            <span class="ruby-node">&quot;Wrong number of argmuments (#{args.size} for 1).&quot;</span>
-        <span class="ruby-keyword">end</span> 
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">name</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Method with name #{name} already exists.&quot;</span>
-        <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">instance_variable_defined?</span> <span class="ruby-node">&quot;@#{name}&quot;</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, 
-            <span class="ruby-node">&quot;Instance variable with name @#{name} already exists.&quot;</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-comment"># We use the meta class to avoid defining the variable in all</span>
-        <span class="ruby-comment"># other instances of the class.</span>
-        <span class="ruby-identifier">eval</span> <span class="ruby-value">&lt;&lt;-&quot;end_eval&quot;
-          @#{name} = args.first
-          class &lt;&lt;self
-            attr :#{name}
-          end
-        end_eval</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">pre_gecoder_method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixin_method_missing</span>, <span class="ruby-value">:method_missing</span>
-
-    <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:method_missing</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@redefining_method_missing</span>
-        <span class="ruby-comment"># The class that is mixing in the mixin redefined method</span>
-        <span class="ruby-comment"># missing. Redefine method missing again to combine the two</span>
-        <span class="ruby-comment"># definitions.</span>
-        <span class="ruby-ivar">@redefining_method_missing</span> = <span class="ruby-keyword">true</span>
-        <span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span> 
-          <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixee_method_missing</span>, <span class="ruby-value">:method_missing</span>
-          <span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-            <span class="ruby-keyword">begin</span>
-              <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-            <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-              <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-            <span class="ruby-keyword">end</span>
-          <span class="ruby-keyword">end</span>
-          <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:method_missing</span>, <span class="ruby-value">:combined_method_missing</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-c-method_added" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">method_added</span><span
-            class="method-args">(method)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="method_added-source">
-            <pre><span class="ruby-comment"># File lib/gecoder/interface/mixin.rb, line 327</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:method_missing</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@redefining_method_missing</span>
-    <span class="ruby-comment"># The class that is mixing in the mixin redefined method</span>
-    <span class="ruby-comment"># missing. Redefine method missing again to combine the two</span>
-    <span class="ruby-comment"># definitions.</span>
-    <span class="ruby-ivar">@redefining_method_missing</span> = <span class="ruby-keyword">true</span>
-    <span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span> 
-      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:mixee_method_missing</span>, <span class="ruby-value">:method_missing</span>
-      <span class="ruby-keyword">def</span> <span class="ruby-identifier">combined_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-        <span class="ruby-keyword">begin</span>
-          <span class="ruby-identifier">mixin_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-          <span class="ruby-identifier">mixee_method_missing</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-      <span class="ruby-identifier">alias_method</span> <span class="ruby-value">:method_missing</span>, <span class="ruby-value">:combined_method_missing</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
