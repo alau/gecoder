@@ -15,10 +15,11 @@ See `Gecode::Mixin` to get started.
 Installation
 ------------
 
+### Dependencies
+
 Gecode/R requires Gecode 2.2.0, which can be downloaded from
-http://www.gecode.org/download.html . See [the installation instructions](
-http://www.gecode.org/doc/2.2.0/reference/PageComp.html)
-for details on how to compile it.
+http://www.gecode.org/download.html. You can either install it yourself, or
+install a gem that installs it for you.
 
 ### Installing from gem
 
