@@ -8,3 +8,4 @@ ext/*.o
 gecoder.log
 lib/gecode.so
 vendor/gecode/gecode-2.2.0
+pkg
